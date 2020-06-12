@@ -12,4 +12,4 @@ Beware that only existing files can be invalidated.<br><br>Instead of removing a
 
 [Official documentation page](https://www.php.net/manual/en/function.opcache-invalidate.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

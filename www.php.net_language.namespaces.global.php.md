@@ -38,4 +38,4 @@ In namespaced context the Exception class needs to be prefixed with global prefi
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.global.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

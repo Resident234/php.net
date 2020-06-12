@@ -28,4 +28,4 @@ readfile() seems not always to take care of the safe_mode setting.<br>When the f
 
 [Official documentation page](https://www.php.net/manual/en/features.safe-mode.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

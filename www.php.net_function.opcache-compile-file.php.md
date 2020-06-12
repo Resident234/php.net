@@ -12,4 +12,4 @@ Be aware that opcache will only compile and cache files older than the script ex
 
 [Official documentation page](https://www.php.net/manual/en/function.opcache-compile-file.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

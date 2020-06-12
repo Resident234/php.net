@@ -46,4 +46,4 @@ The point mentioned in the last comment isn&apos;t always the case.<br><br>If a 
 
 [Official documentation page](https://www.php.net/manual/en/features.connection-handling.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

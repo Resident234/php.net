@@ -28,4 +28,4 @@ A better way to hash would be to use a separate salt for each user. Changing the
 
 [Official documentation page](https://www.php.net/manual/en/security.database.storage.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

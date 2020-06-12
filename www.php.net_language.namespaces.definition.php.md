@@ -68,4 +68,4 @@ You should not try to create namespaces that use PHP keywords. These will cause 
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.definition.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

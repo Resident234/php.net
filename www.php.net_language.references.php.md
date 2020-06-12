@@ -52,4 +52,4 @@ This is discussed before (below) but bears repeating:<br><br>$a = null; ($a =&am
 
 [Official documentation page](https://www.php.net/manual/en/language.references.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

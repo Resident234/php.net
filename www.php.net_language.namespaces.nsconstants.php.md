@@ -42,4 +42,4 @@ Just in case you wonder what the practical use of the namespace keyword is...
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.nsconstants.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

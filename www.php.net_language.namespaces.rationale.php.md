@@ -28,4 +28,4 @@ To people coming here by searching about namespaces, know that a consortium has 
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.rationale.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

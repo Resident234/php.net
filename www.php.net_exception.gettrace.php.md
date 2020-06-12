@@ -12,4 +12,4 @@ Two important points about this function which are not documented:<br><br>1) The
 
 [Official documentation page](https://www.php.net/manual/en/exception.gettrace.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

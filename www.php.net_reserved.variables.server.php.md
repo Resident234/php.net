@@ -188,4 +188,4 @@ It&apos;s worth noting that $_SERVER variables get created for any HTTP request 
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.server.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

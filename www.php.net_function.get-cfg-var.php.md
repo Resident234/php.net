@@ -14,4 +14,4 @@ get_cfg_var returns the value from php.ini directly,while the ini_get returns&#x
 
 [Official documentation page](https://www.php.net/manual/en/function.get-cfg-var.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

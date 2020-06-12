@@ -20,4 +20,4 @@ The session name defaults to PHPSESSID.&#xA0; This is used as the name of the se
 
 [Official documentation page](https://www.php.net/manual/en/security.hiding.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

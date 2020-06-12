@@ -21,4 +21,4 @@ It would be nice to know which SAPIs removed the function. <br><br>Telling me &a
 
 [Official documentation page](https://www.php.net/manual/en/function.dl.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

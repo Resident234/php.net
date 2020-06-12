@@ -21,4 +21,4 @@ I think that this is bad generator example.<br>If user will not consume all line
 
 [Official documentation page](https://www.php.net/manual/en/language.generators.comparison.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

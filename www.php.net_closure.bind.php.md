@@ -13,4 +13,4 @@ With this class and method, it&apos;s possible to do nice things, like add metho
 
 [Official documentation page](https://www.php.net/manual/en/closure.bind.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

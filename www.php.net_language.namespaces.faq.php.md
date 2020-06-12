@@ -13,4 +13,4 @@ There is a way to define a namespaced constant that is a special, built-in const
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.faq.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

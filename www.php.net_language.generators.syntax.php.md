@@ -39,4 +39,4 @@ That is a simple fibonacci generator.<br><br><span class="default">&lt;?php<br><
 
 [Official documentation page](https://www.php.net/manual/en/language.generators.syntax.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

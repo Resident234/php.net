@@ -13,4 +13,4 @@ Don&apos;t forget, because $_REQUEST is a different variable than $_GET and $_PO
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.request.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

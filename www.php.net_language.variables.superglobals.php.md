@@ -12,4 +12,4 @@ Since PHP 5.4, you cannot use a superglobal as the parameter to a function. This
 
 [Official documentation page](https://www.php.net/manual/en/language.variables.superglobals.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

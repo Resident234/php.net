@@ -13,4 +13,4 @@ Note if an invalid number of arguments are passed to a built-in function an Argu
 
 [Official documentation page](https://www.php.net/manual/en/class.argumentcounterror.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

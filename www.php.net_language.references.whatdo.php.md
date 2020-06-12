@@ -30,4 +30,4 @@ It appears that references can have side-effects.&#xA0; Below are two examples.&
 
 [Official documentation page](https://www.php.net/manual/en/language.references.whatdo.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

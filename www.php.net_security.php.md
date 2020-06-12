@@ -20,4 +20,4 @@ If your PHP pages include() or require() files that live within the web server d
 
 [Official documentation page](https://www.php.net/manual/en/security.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

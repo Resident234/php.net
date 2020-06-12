@@ -97,4 +97,4 @@ If $_FILES is empty, even when uploading, try adding enctype=&quot;multipart/for
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.files.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

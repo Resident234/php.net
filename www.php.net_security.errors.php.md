@@ -12,4 +12,4 @@ Note for those of you using OpenBSD and PHP.&#xA0; The default php.ini has displ
 
 [Official documentation page](https://www.php.net/manual/en/security.errors.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

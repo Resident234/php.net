@@ -22,4 +22,4 @@ Tested on PHP 7.0.5, Windows<br>The line &quot;use animate;&quot; equals the lin
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

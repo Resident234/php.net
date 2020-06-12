@@ -28,4 +28,4 @@ A behaviour not documented or discussed enough, yet pretty common is that is tha
 
 [Official documentation page](https://www.php.net/manual/en/function.set-exception-handler.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

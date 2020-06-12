@@ -28,4 +28,4 @@ After testing, breaking up memory intensive code into a separate function allows
 
 [Official documentation page](https://www.php.net/manual/en/features.gc.collecting-cycles.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

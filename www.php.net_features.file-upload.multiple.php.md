@@ -30,4 +30,4 @@ The cleanest way to rearrange the $_FILES<br><br><span class="default">&lt;?php<
 
 [Official documentation page](https://www.php.net/manual/en/features.file-upload.multiple.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

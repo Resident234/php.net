@@ -13,4 +13,4 @@ This is an example of how to allow fopen() to overwrite a file on an FTP site. I
 
 [Official documentation page](https://www.php.net/manual/en/context.ftp.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

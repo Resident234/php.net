@@ -12,4 +12,4 @@ Setting proc title on PHP based daemons is pretty sweet.</span>
 
 [Official documentation page](https://www.php.net/manual/en/function.cli-set-process-title.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

@@ -28,4 +28,4 @@ Some E_STRICT errors seem to be thrown during the page&apos;s compilation proces
 
 [Official documentation page](https://www.php.net/manual/en/function.error-reporting.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

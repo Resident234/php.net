@@ -12,4 +12,4 @@ Hi,<br><br>If you want to check if two variables are referencing each other (i.e
 
 [Official documentation page](https://www.php.net/manual/en/language.references.spot.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

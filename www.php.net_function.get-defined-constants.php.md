@@ -12,4 +12,4 @@ Add this method to your class definition if you want an array of class constants
 
 [Official documentation page](https://www.php.net/manual/en/function.get-defined-constants.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

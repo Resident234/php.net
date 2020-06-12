@@ -12,4 +12,4 @@ Warning: $_SERVER[&apos;PHP_SELF&apos;] can include arbitrary user input. The do
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

@@ -12,4 +12,4 @@ In case anyone is puzzled by the function name, &quot;cas&quot; refers to <a hre
 
 [Official documentation page](https://www.php.net/manual/en/function.apc-cas.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

@@ -20,4 +20,4 @@ Another reason against it: security. You could be lulled in a feeling of false s
 
 [Official documentation page](https://www.php.net/manual/en/security.magicquotes.whynot.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

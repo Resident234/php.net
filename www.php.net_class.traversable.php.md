@@ -37,4 +37,4 @@ Note that all objects can be iterated over with foreach anyway and it&apos;ll go
 
 [Official documentation page](https://www.php.net/manual/en/class.traversable.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

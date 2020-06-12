@@ -20,4 +20,4 @@ Comments for this page seem to indicate getenv() returns environment variables i
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.environment.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

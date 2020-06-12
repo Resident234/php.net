@@ -21,4 +21,4 @@ Comparison using &lt;&gt; operators should be documented.&#xA0; Between two obje
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.object-comparison.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

@@ -29,4 +29,4 @@ If you&apos;re using object-orientated code in PHP you may, like me, want to use
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-start.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

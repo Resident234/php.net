@@ -30,4 +30,4 @@ using of global namespaces and multiple namespaces in one PHP file increase the 
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.definitionmultiple.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

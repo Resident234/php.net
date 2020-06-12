@@ -37,4 +37,4 @@ For a Windows system using IIS, the ResponseBufferLimit takes precedence over PH
 
 [Official documentation page](https://www.php.net/manual/en/function.flush.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

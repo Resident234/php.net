@@ -28,4 +28,4 @@ The manual is a little shy on explaining that output buffers are nested, and tha
 
 [Official documentation page](https://www.php.net/manual/en/book.outcontrol.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

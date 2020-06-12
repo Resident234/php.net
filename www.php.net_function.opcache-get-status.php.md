@@ -92,4 +92,4 @@ Example output from this function:
 
 [Official documentation page](https://www.php.net/manual/en/function.opcache-get-status.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

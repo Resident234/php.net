@@ -13,4 +13,4 @@ This is an example of how the stack works:<br><br><span class="default">&lt;?php
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-get-contents.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

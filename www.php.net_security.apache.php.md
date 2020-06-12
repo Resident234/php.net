@@ -12,4 +12,4 @@ doc_root already limits apache/php script folder locations.<br><br>open_basedir 
 
 [Official documentation page](https://www.php.net/manual/en/security.apache.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

@@ -29,4 +29,4 @@ It might seem obvious, but you can return a compiled generator from your Iterato
 
 [Official documentation page](https://www.php.net/manual/en/class.iteratoraggregate.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

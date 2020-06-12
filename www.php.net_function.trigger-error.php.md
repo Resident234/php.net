@@ -91,4 +91,4 @@ trigger_error always reports the line and file that trigger_error was called on.
 
 [Official documentation page](https://www.php.net/manual/en/function.trigger-error.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

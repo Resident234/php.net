@@ -12,4 +12,4 @@ If Iterator::valid() returns false, the foreach() loop will be terminated.</span
 
 [Official documentation page](https://www.php.net/manual/en/iterator.valid.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

@@ -83,4 +83,4 @@ Hello PHP World After many Hours of worryness :=)
 
 [Official documentation page](https://www.php.net/manual/en/features.file-upload.put-method.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

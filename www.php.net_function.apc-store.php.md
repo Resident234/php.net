@@ -13,4 +13,4 @@ if you want to store array of objects in apc use ArrayObject wrapper (PHP5).<br>
 
 [Official documentation page](https://www.php.net/manual/en/function.apc-store.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

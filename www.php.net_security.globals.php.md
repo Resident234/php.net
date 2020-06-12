@@ -20,4 +20,4 @@ Beware that all the solutions given in the comments below for emulating register
 
 [Official documentation page](https://www.php.net/manual/en/security.globals.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

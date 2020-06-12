@@ -37,4 +37,4 @@ An example of returning references:<br><br>&lt;?<br><br>$var = 1;<br>$num = NULL
 
 [Official documentation page](https://www.php.net/manual/en/language.references.return.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

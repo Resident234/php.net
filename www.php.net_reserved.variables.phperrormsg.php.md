@@ -13,4 +13,4 @@ While $php_errormsg is a global, it is not a superglobal.<br><br>You&apos;ll hav
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.phperrormsg.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

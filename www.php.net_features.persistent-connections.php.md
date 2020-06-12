@@ -12,4 +12,4 @@ One additional not regarding odbc_pconnect&#xA0; and possibly other variations o
 
 [Official documentation page](https://www.php.net/manual/en/features.persistent-connections.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

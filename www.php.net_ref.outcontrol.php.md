@@ -12,4 +12,4 @@ It seems that while using output buffering, an included file which calls die() b
 
 [Official documentation page](https://www.php.net/manual/en/ref.outcontrol.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

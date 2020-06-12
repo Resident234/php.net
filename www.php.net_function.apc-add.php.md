@@ -12,4 +12,4 @@ In order to understand better how APC caching works you can do the following:<br
 
 [Official documentation page](https://www.php.net/manual/en/function.apc-add.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

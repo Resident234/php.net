@@ -12,4 +12,4 @@ Can be very useful for big projects, when you create a lot of objects that shoul
 
 [Official documentation page](https://www.php.net/manual/en/function.gc-disable.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

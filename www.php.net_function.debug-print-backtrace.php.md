@@ -44,4 +44,4 @@ I like the output of debug_print_backtrace() but I sometimes want it as a string
 
 [Official documentation page](https://www.php.net/manual/en/function.debug-print-backtrace.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

@@ -13,4 +13,4 @@ Isolde is kind of wrong. The error handlers are stacked with set_error_handler()
 
 [Official documentation page](https://www.php.net/manual/en/function.restore-error-handler.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

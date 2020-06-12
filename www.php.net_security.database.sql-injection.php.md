@@ -20,4 +20,4 @@ Note that PHP 5 introduced filters that you can use for untrusted user input:<br
 
 [Official documentation page](https://www.php.net/manual/en/security.database.sql-injection.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

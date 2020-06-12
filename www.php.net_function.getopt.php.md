@@ -37,4 +37,4 @@ getopt() only returns the options specified if they were listed in the options.<
 
 [Official documentation page](https://www.php.net/manual/en/function.getopt.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

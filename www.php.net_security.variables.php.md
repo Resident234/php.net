@@ -12,4 +12,4 @@ One thing I would repeat in the docs here is what information actually comes fro
 
 [Official documentation page](https://www.php.net/manual/en/security.variables.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

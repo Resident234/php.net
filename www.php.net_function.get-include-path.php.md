@@ -12,4 +12,4 @@ If you are trying to find a file on your include path, there is a better way: <a
 
 [Official documentation page](https://www.php.net/manual/en/function.get-include-path.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

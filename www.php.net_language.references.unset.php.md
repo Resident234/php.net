@@ -21,4 +21,4 @@ Simple look how PHP Reference works<br><span class="default">&lt;?php<br></span>
 
 [Official documentation page](https://www.php.net/manual/en/language.references.unset.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

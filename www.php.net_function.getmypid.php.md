@@ -13,4 +13,4 @@ The lock-file mechanism in Kevin Trass&apos;s note is incorrect because it is su
 
 [Official documentation page](https://www.php.net/manual/en/function.getmypid.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

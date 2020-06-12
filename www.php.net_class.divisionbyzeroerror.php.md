@@ -12,4 +12,4 @@ Note that on division by zero 1/0 and module by zero 1%0 an E_WARNING is trigger
 
 [Official documentation page](https://www.php.net/manual/en/class.divisionbyzeroerror.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

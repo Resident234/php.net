@@ -12,4 +12,4 @@ I think it is important to mention that some distributions apply bugfixes for ol
 
 [Official documentation page](https://www.php.net/manual/en/info.configuration.php)
 
-**[⬆ to root](/)**
+**[To root](/)**
