@@ -1,0 +1,15 @@
+# str_repeat
+
+
+
+
+<div class="phpcode"><span class="html">
+Here is a simple one liner to repeat a string multiple times with a separator:<br><br><span class="default">&lt;?php<br>implode</span><span class="keyword">(</span><span class="default">$separator</span><span class="keyword">, </span><span class="default">array_fill</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">$multiplier</span><span class="keyword">, </span><span class="default">$input</span><span class="keyword">));<br></span><span class="default">?&gt;<br></span><br>Example script:<br><span class="default">&lt;?php<br><br></span><span class="comment">// How I like to repeat a string using standard PHP functions<br></span><span class="default">$input </span><span class="keyword">= </span><span class="string">&apos;bar&apos;</span><span class="keyword">;<br></span><span class="default">$multiplier </span><span class="keyword">= </span><span class="default">5</span><span class="keyword">;<br></span><span class="default">$separator </span><span class="keyword">= </span><span class="string">&apos;,&apos;</span><span class="keyword">;<br>print </span><span class="default">implode</span><span class="keyword">(</span><span class="default">$separator</span><span class="keyword">, </span><span class="default">array_fill</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">$multiplier</span><span class="keyword">, </span><span class="default">$input</span><span class="keyword">));<br>print </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br><br></span><span class="comment">// Say, this comes in handy with count() on an array that we want to use in an<br>// SQL query such as &apos;WHERE foo IN (...)&apos;<br></span><span class="default">$args </span><span class="keyword">= array(</span><span class="string">&apos;1&apos;</span><span class="keyword">, </span><span class="string">&apos;2&apos;</span><span class="keyword">, </span><span class="string">&apos;3&apos;</span><span class="keyword">);<br>print </span><span class="default">implode</span><span class="keyword">(</span><span class="string">&apos;,&apos;</span><span class="keyword">, </span><span class="default">array_fill</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">count</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">), </span><span class="string">&apos;?&apos;</span><span class="keyword">));<br>print </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br></span><span class="default">?&gt;<br></span><br>Example Output:<br>bar,bar,bar,bar,bar<br>?,?,?</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/function.str-repeat.php)
+
+**[⬆ to root](/)**
