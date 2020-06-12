@@ -13,4 +13,4 @@ Sometimes the programmer needs to access folder content which has arabic name bu
 
 [Official documentation page](https://www.php.net/manual/en/function.opendir.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

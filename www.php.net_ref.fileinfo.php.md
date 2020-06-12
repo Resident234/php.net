@@ -12,4 +12,4 @@ The results of this function seem to be of dubious quality.<br><br>eg<br>1)&#xA0
 
 [Official documentation page](https://www.php.net/manual/en/ref.fileinfo.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

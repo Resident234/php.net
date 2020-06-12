@@ -59,4 +59,4 @@ A function I created to non-recursively get the path of all files and folders in
 
 [Official documentation page](https://www.php.net/manual/en/function.readdir.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

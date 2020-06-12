@@ -13,4 +13,4 @@ I&apos;m surprised this isn&apos;t mentioned in docs here, but to set these valu
 
 [Official documentation page](https://www.php.net/manual/en/filesystem.configuration.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

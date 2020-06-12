@@ -21,4 +21,4 @@ Tempting as it may seem to use finfo_file() to validate uploaded image files (Ch
 
 [Official documentation page](https://www.php.net/manual/en/function.finfo-file.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

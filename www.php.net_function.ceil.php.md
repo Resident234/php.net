@@ -1,0 +1,42 @@
+# ceil
+
+
+
+
+<div class="phpcode"><span class="html">
+I needed this and couldn&apos;t find it so I thought someone else wouldn&apos;t have to look through a bunch of Google results-<br><br><span class="default">&lt;?php<br><br></span><span class="comment">// duplicates m$ excel&apos;s ceiling function<br></span><span class="keyword">if( !</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">&apos;ceiling&apos;</span><span class="keyword">) )<br>{<br>&#xA0; &#xA0; function </span><span class="default">ceiling</span><span class="keyword">(</span><span class="default">$number</span><span class="keyword">, </span><span class="default">$significance </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return ( </span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$number</span><span class="keyword">) &amp;&amp; </span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$significance</span><span class="keyword">) ) ? (</span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$number</span><span class="keyword">/</span><span class="default">$significance</span><span class="keyword">)*</span><span class="default">$significance</span><span class="keyword">) : </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br>echo </span><span class="default">ceiling</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">1000</span><span class="keyword">);&#xA0; &#xA0;&#xA0; </span><span class="comment">// 0<br></span><span class="keyword">echo </span><span class="default">ceiling</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// 1000<br></span><span class="keyword">echo </span><span class="default">ceiling</span><span class="keyword">(</span><span class="default">1001</span><span class="keyword">, </span><span class="default">1000</span><span class="keyword">);&#xA0; </span><span class="comment">// 2000<br></span><span class="keyword">echo </span><span class="default">ceiling</span><span class="keyword">(</span><span class="default">1.27</span><span class="keyword">, </span><span class="default">0.05</span><span class="keyword">);&#xA0; </span><span class="comment">// 1.30<br><br></span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+Caution!<br><span class="default">&lt;?php<br>$value </span><span class="keyword">= </span><span class="default">77.4</span><span class="keyword">;<br>echo </span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$value </span><span class="keyword">* </span><span class="default">100</span><span class="keyword">) / </span><span class="default">100</span><span class="keyword">;&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="comment">// 77.41 - WRONG!<br></span><span class="keyword">echo </span><span class="default">ceil</span><span class="keyword">(</span><span class="default">round</span><span class="keyword">(</span><span class="default">$value </span><span class="keyword">* </span><span class="default">100</span><span class="keyword">)) / </span><span class="default">100</span><span class="keyword">;&#xA0; </span><span class="comment">// 77.4 - OK!</span>
+</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+I couldn&apos;t find any functions to do what ceiling does while still leaving I specified number of decimal places, so I wrote a couple functions myself.&#xA0; round_up is like ceil but allows you to specify a number of decimal places.&#xA0; round_out does the same, but rounds away from zero.<br><br><span class="default">&lt;?php<br> </span><span class="comment">// round_up:<br> // rounds up a float to a specified number of decimal places<br> // (basically acts like ceil() but allows for decimal places)<br> </span><span class="keyword">function </span><span class="default">round_up </span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">, </span><span class="default">$places</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">) {<br>&#xA0; if (</span><span class="default">$places </span><span class="keyword">&lt; </span><span class="default">0</span><span class="keyword">) { </span><span class="default">$places </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; }<br>&#xA0; </span><span class="default">$mult </span><span class="keyword">= </span><span class="default">pow</span><span class="keyword">(</span><span class="default">10</span><span class="keyword">, </span><span class="default">$places</span><span class="keyword">);<br>&#xA0; return </span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$value </span><span class="keyword">* </span><span class="default">$mult</span><span class="keyword">) / </span><span class="default">$mult</span><span class="keyword">;<br> }<br><br> </span><span class="comment">// round_out:<br> // rounds a float away from zero to a specified number of decimal places<br> </span><span class="keyword">function </span><span class="default">round_out </span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">, </span><span class="default">$places</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">) {<br>&#xA0; if (</span><span class="default">$places </span><span class="keyword">&lt; </span><span class="default">0</span><span class="keyword">) { </span><span class="default">$places </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; }<br>&#xA0; </span><span class="default">$mult </span><span class="keyword">= </span><span class="default">pow</span><span class="keyword">(</span><span class="default">10</span><span class="keyword">, </span><span class="default">$places</span><span class="keyword">);<br>&#xA0; return (</span><span class="default">$value </span><span class="keyword">&gt;= </span><span class="default">0 </span><span class="keyword">? </span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$value </span><span class="keyword">* </span><span class="default">$mult</span><span class="keyword">):</span><span class="default">floor</span><span class="keyword">(</span><span class="default">$value </span><span class="keyword">* </span><span class="default">$mult</span><span class="keyword">)) / </span><span class="default">$mult</span><span class="keyword">;<br> }<br><br> echo </span><span class="default">round_up </span><span class="keyword">(</span><span class="default">56.77001</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">); </span><span class="comment">// displays 56.78<br> </span><span class="keyword">echo </span><span class="default">round_up </span><span class="keyword">(-</span><span class="default">0.453001</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">); </span><span class="comment">// displays -0.453<br> </span><span class="keyword">echo </span><span class="default">round_out </span><span class="keyword">(</span><span class="default">56.77001</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">); </span><span class="comment">// displays 56.78<br> </span><span class="keyword">echo </span><span class="default">round_out </span><span class="keyword">(-</span><span class="default">0.453001</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">); </span><span class="comment">// displays -0.4531<br></span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+Actual behaviour:<br>echo ceil(-0.1); //result &quot;-0&quot; but i expect &quot;0&quot;<br><br>Workaround:<br>echo ceil(-0.1)+0; //result &quot;0&quot;</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/function.ceil.php)
+
+**[⬆ to root](/)**

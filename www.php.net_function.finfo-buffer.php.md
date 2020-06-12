@@ -12,4 +12,4 @@ You can easily check mime type of an internet resource using this code :<br><br>
 
 [Official documentation page](https://www.php.net/manual/en/function.finfo-buffer.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

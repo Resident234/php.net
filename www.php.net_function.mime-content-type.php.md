@@ -46,4 +46,4 @@ Lukas V is IMO missing some point. The MIME type of a file may not be correspond
 
 [Official documentation page](https://www.php.net/manual/en/function.mime-content-type.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

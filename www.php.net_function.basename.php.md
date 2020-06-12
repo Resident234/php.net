@@ -38,4 +38,4 @@ There is only one variant that works in my case for my Russian UTF-8 letters:
 
 [Official documentation page](https://www.php.net/manual/en/function.basename.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

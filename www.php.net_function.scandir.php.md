@@ -117,4 +117,4 @@ I needed to find a way to get the full path of all files in the directory and al
 
 [Official documentation page](https://www.php.net/manual/en/function.scandir.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

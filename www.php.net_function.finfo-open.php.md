@@ -21,4 +21,4 @@ For most common image files:<br><span class="default">&lt;?php<br></span><span c
 
 [Official documentation page](https://www.php.net/manual/en/function.finfo-open.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

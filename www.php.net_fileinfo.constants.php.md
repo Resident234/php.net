@@ -12,4 +12,4 @@ proceed with caution<br>as the documentation already says <br>&#xA0; &#xA0; &#xA
 
 [Official documentation page](https://www.php.net/manual/en/fileinfo.constants.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**
