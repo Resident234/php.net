@@ -12,4 +12,4 @@ A brief update: As of OpenBSD 5.7 (2015) the installation process is extremely e
 
 [Official documentation page](https://www.php.net/manual/en/install.unix.openbsd.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

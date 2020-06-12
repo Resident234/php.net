@@ -20,4 +20,4 @@ Compiling PHP on Ubuntu boxes.<br><br>If you would like to compile PHP from sour
 
 [Official documentation page](https://www.php.net/manual/en/install.unix.debian.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

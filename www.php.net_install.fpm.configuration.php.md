@@ -20,4 +20,4 @@ the doc is lacking a lot of things it seems.<br><br>&#xA0; The php fpm exemple c
 
 [Official documentation page](https://www.php.net/manual/en/install.fpm.configuration.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

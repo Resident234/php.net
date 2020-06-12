@@ -12,4 +12,4 @@ You only have to uncomment:<br>#LoadModule php5_module&#xA0; &#xA0; &#xA0; &#xA0
 
 [Official documentation page](https://www.php.net/manual/en/install.macosx.bundled.php)
 
-**[⬆ to root](/)**
+**[To root](/)**
