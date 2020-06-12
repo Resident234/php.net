@@ -1,0 +1,16 @@
+# imageantialias
+
+
+
+
+<div class="phpcode"><span class="html">
+If you can&apos;t be bothered creating (or searching for) a full screen antialias function.<br>You can actually cheat (well a bit of a dirty inefficient hack really!!) <br>and perform a fake antialias on an image by using &apos;imagecopyresampled&apos;...<br><br>first create your source image twice the size of what you really want.<br><br>Then use &apos;imagecopyresampled&apos; to shrink it to half the size, the function <br>automatically interpolates pixels to create an antialias effect!<br><br>I&apos;ve used this in a pie chart function and it works brilliantly,<br>not as slow as I thought it might be!<br><br>the rough code below should give you the idea...<br><br><span class="default">&lt;?php<br>$realWidth </span><span class="keyword">= </span><span class="default">500</span><span class="keyword">;<br></span><span class="default">$realHeight </span><span class="keyword">= </span><span class="default">500</span><span class="keyword">;<br></span><span class="default">$srcWidth </span><span class="keyword">= </span><span class="default">$realWidth </span><span class="keyword">* </span><span class="default">2</span><span class="keyword">;<br></span><span class="default">$srcHeight </span><span class="keyword">= </span><span class="default">$realHeight </span><span class="keyword">* </span><span class="default">2</span><span class="keyword">;<br><br></span><span class="comment">// create the larger source image<br></span><span class="default">$srcImage </span><span class="keyword">= </span><span class="default">imagecreatetruecolor</span><span class="keyword">(</span><span class="default">$srcWidth</span><span class="keyword">,</span><span class="default">$srcHeight</span><span class="keyword">);<br><br></span><span class="comment">// create the real/final image<br></span><span class="default">$destImage </span><span class="keyword">= </span><span class="default">imagecreatetruecolor</span><span class="keyword">(</span><span class="default">$realWidth</span><span class="keyword">,</span><span class="default">$realHeight</span><span class="keyword">);<br><br></span><span class="comment">// now do whatever you want to draw in the source image<br>// blah....<br><br>// now the picture is finished, do the shrink...<br></span><span class="default">imagecopyresampled</span><span class="keyword">(</span><span class="default">$destImage</span><span class="keyword">,</span><span class="default">$srcImage</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,<br></span><span class="default">$realWidth</span><span class="keyword">,</span><span class="default">$realHeight</span><span class="keyword">,</span><span class="default">$srcWidth</span><span class="keyword">,</span><span class="default">$srcHeight</span><span class="keyword">);<br><br></span><span class="comment">// now just do whatever you want with &apos;$destImage&apos; (e.g. display or output to file!)<br></span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/function.imageantialias.php)
+
+**[⬆ to root](/)**

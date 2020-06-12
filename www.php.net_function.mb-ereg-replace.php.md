@@ -1,0 +1,30 @@
+# mb_ereg_replace
+
+
+
+
+<div class="phpcode"><span class="html">
+Unlike preg_replace, mb_ereg_replace doesn&apos;t use separators
+<br>
+<br>Exemple with preg_replace :
+<br><span class="default">&lt;?php $data </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;/[^A-Za-z0-9\.\-]/&quot;</span><span class="keyword">,</span><span class="string">&quot;&quot;</span><span class="keyword">,</span><span class="default">$data</span><span class="keyword">); </span><span class="default">?&gt;
+<br></span>
+<br>Exemple with mb_ereg_replace :
+<br><span class="default">&lt;?php $data </span><span class="keyword">= </span><span class="default">mb_ereg_replace</span><span class="keyword">(</span><span class="string">&quot;[^A-Za-z0-9\.\-]&quot;</span><span class="keyword">,</span><span class="string">&quot;&quot;</span><span class="keyword">,</span><span class="default">$data</span><span class="keyword">); </span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+I got a pretty nasty error while trying to parse table rows(all contents were set to UTF-8) from the database for a dictionary project. The idea was to get all the rows from the first table (that is a table with bulgarian phrase in the first field, and its translation in english, french and german in the next fields). I needed to index all the bulgarian words that are found in the table to make an intelligent search. And that is where my headache started.<br><br>First of all, even with mb_strtolower() a lot of cyrillic characters went corrupted (ex: &apos;&#x442;,&#x44A;,&#x443;,&#x444;,&#x431;,&#x433;,&#x437;,&#x436;,&apos; etc...). After an hour of different attempts I got such a solution:<br><br><span class="default">&lt;?php<br><br>mb_internal_encoding</span><span class="keyword">(</span><span class="string">&quot;UTF-8&quot;</span><span class="keyword">);<br></span><span class="default">mb_regex_encoding</span><span class="keyword">(</span><span class="string">&quot;UTF-8&quot;</span><span class="keyword">);<br><br></span><span class="default">$rows </span><span class="keyword">= </span><span class="default">$db</span><span class="keyword">-&gt;</span><span class="default">getRows</span><span class="keyword">();<br><br></span><span class="default">$contents </span><span class="keyword">= array();<br>foreach (</span><span class="default">$rows </span><span class="keyword">as </span><span class="default">$eachRow</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="default">$cleared </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$commonWords</span><span class="keyword">, </span><span class="string">&apos; &apos;</span><span class="keyword">, </span><span class="default">mb_strtolower</span><span class="keyword">(</span><span class="default">stripslashes</span><span class="keyword">(</span><span class="default">$eachRow</span><span class="keyword">[</span><span class="string">&apos;bulgarian&apos;</span><span class="keyword">]), </span><span class="string">&apos;UTF-8&apos; </span><span class="keyword">));<br>&#xA0; &#xA0; if (</span><span class="default">trim</span><span class="keyword">(</span><span class="default">$cleared</span><span class="keyword">) != </span><span class="string">&apos;&apos;</span><span class="keyword">) </span><span class="default">$contents</span><span class="keyword">[] = </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$cleared</span><span class="keyword">);<br>}&#xA0; &#xA0; <br><br></span><span class="default">$list </span><span class="keyword">= array();<br>foreach (</span><span class="default">$contents </span><span class="keyword">as </span><span class="default">$eachRow</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="default">$exploded </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&apos; &apos;</span><span class="keyword">, </span><span class="default">$eachRow</span><span class="keyword">);<br>&#xA0; &#xA0; foreach (</span><span class="default">$exploded </span><span class="keyword">as </span><span class="default">$eachExpl</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$eachExpl </span><span class="keyword">= </span><span class="default">mb_ereg_replace</span><span class="keyword">(</span><span class="string">&apos;[^&#x430;-&#x44F; ]&apos;</span><span class="keyword">,</span><span class="string">&apos; &apos;</span><span class="keyword">, </span><span class="default">$eachExpl</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">trim</span><span class="keyword">(</span><span class="default">$eachExpl</span><span class="keyword">) != </span><span class="string">&apos;&apos;</span><span class="keyword">) <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (!</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$eachExpl</span><span class="keyword">, </span><span class="default">$list</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">))&#xA0; &#xA0; </span><span class="default">$list</span><span class="keyword">[] = </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$eachExpl</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">?&gt;<br></span><br>To work properly I got to set all the internal encoding settings to UTF-8. Else the default Latin-1 got half my database with missing characters.<br><br>I am posting this solution just in case someone has encountered a similar problem. Hope it helps you in case you need something like that.</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/function.mb-ereg-replace.php)
+
+**[⬆ to root](/)**
