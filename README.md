@@ -2316,3 +2316,93 @@
 
 [syslog](/www.php.net_function.syslog.php.md)
 
+####Sockets
+
+[Predefined Constants](/www.php.net_sockets.constants.php.md)
+
+[Examples](/www.php.net_sockets.examples.php.md)
+
+[Socket Functions](/www.php.net_ref.sockets.php.md)
+
+#####Socket Functions
+
+[socket_accept](/www.php.net_function.socket-accept.php.md)
+
+[socket_bind](/www.php.net_function.socket-bind.php.md)
+
+[socket_create](/www.php.net_function.socket-create.php.md)
+
+[socket_last_error](/www.php.net_function.socket-last-error.php.md)
+
+[socket_read](/www.php.net_function.socket-read.php.md)
+
+[socket_recv](/www.php.net_function.socket-recv.php.md)
+
+[socket_select](/www.php.net_function.socket-select.php.md)
+
+####SSH2
+
+[Installation](/www.php.net_ssh2.installation.php.md)
+
+#####SSH2 Functions
+
+[ssh2_connect](/www.php.net_function.ssh2-connect.php.md)
+
+[ssh2_exec](/www.php.net_function.ssh2-exec.php.md)
+
+[ssh2_scp_send](/www.php.net_function.ssh2-scp-send.php.md)
+
+[ssh2_sftp](/www.php.net_function.ssh2-sftp.php.md)
+
+###Server Specific Extensions
+
+####Apache
+
+#####Apache Functions
+
+[apache_request_headers](/www.php.net_function.apache-request-headers.php.md)
+
+[getallheaders](/www.php.net_function.getallheaders.php.md)
+
+####FastCGI Process Manager
+
+#####FPM Functions
+
+[fastcgi_finish_request](/www.php.net_function.fastcgi-finish-request.php.md)
+
+###Session Extensions
+
+[Session Handling](/www.php.net_book.session.php.md)
+
+####Sessions
+
+[Runtime Configuration](/www.php.net_session.configuration.php.md)
+
+[Predefined Constants](/www.php.net_session.constants.php.md)
+
+[Passing the Session ID](/www.php.net_session.idpassing.php.md)
+
+[Session Upload Progress](/www.php.net_session.upload-progress.php.md)
+
+[Sessions and Security](/www.php.net_session.security.php.md)
+
+[Session Functions](/www.php.net_ref.session.php.md)
+
+#####Session Functions
+
+[session_abort](/www.php.net_function.session-abort.php.md)
+
+[session_cache_expire](/www.php.net_function.session-cache-expire.php.md)
+
+[session_decode](/www.php.net_function.session-decode.php.md)
+
+[session_destroy](/www.php.net_function.session-destroy.php.md)
+
+[session_encode](/www.php.net_function.session-encode.php.md)
+
+[session_get_cookie_params](/www.php.net_function.session-get-cookie-params.php.md)
+
+[session_id](/www.php.net_function.session-id.php.md)
+
+[session_name](/www.php.net_function.session-name.php.md)
+
