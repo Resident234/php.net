@@ -20,4 +20,4 @@ If you have no idea what &quot;PHP_INI_PERDIR&quot; or &quot;PHP_INI_USER&quot; 
 
 [Official documentation page](https://www.php.net/manual/en/configuration.file.per-user.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

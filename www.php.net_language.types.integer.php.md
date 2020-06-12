@@ -53,4 +53,4 @@ Be careful with using the modulo operation on big numbers, it will cast a float 
 
 [Official documentation page](https://www.php.net/manual/en/language.types.integer.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

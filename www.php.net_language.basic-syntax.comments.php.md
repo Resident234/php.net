@@ -71,4 +71,4 @@ Comments do NOT take up processing power.<br><br>So, for all the people who argu
 
 [Official documentation page](https://www.php.net/manual/en/language.basic-syntax.comments.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

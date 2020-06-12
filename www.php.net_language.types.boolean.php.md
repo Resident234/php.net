@@ -86,4 +86,4 @@ Note you can also use the &apos;!&apos; to convert a number to a boolean, as if 
 
 [Official documentation page](https://www.php.net/manual/en/language.types.boolean.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

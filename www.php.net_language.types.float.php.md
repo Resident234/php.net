@@ -48,4 +48,4 @@ I&apos;d like to point out a &quot;feature&quot; of PHP&apos;s floating point su
 
 [Official documentation page](https://www.php.net/manual/en/language.types.float.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

@@ -180,4 +180,4 @@ When creating arrays , if we have an element with the same value as another elem
 
 [Official documentation page](https://www.php.net/manual/en/language.types.array.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

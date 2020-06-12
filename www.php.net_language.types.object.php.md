@@ -59,4 +59,4 @@ CAUTION:<br>&quot;Arrays convert to an object with properties named by keys, and
 
 [Official documentation page](https://www.php.net/manual/en/language.types.object.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

@@ -12,4 +12,4 @@ Do not mis interpret<br><br><span class="default">&lt;?php </span><span class="k
 
 [Official documentation page](https://www.php.net/manual/en/language.basic-syntax.instruction-separation.php)
 
-**[⬆ to root](/)**
+**[To root](/)**

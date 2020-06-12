@@ -1,0 +1,40 @@
+# Returning References
+
+
+
+
+<div class="phpcode"><span class="html">
+a little addition to the example of pixel at minikomp dot com here below<br><span class="default">&lt;?php<br><br>&#xA0; &#xA0; </span><span class="keyword">function &amp;</span><span class="default">func</span><span class="keyword">(){<br>&#xA0; &#xA0; &#xA0; &#xA0; static </span><span class="default">$static </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$static</span><span class="keyword">++;<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$static</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="default">$var1 </span><span class="keyword">=&amp; </span><span class="default">func</span><span class="keyword">();<br>&#xA0; &#xA0; echo </span><span class="string">&quot;var1:&quot;</span><span class="keyword">, </span><span class="default">$var1</span><span class="keyword">; </span><span class="comment">// 1<br>&#xA0; &#xA0; </span><span class="default">func</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="default">func</span><span class="keyword">();<br>&#xA0; &#xA0; echo </span><span class="string">&quot;var1:&quot;</span><span class="keyword">, </span><span class="default">$var1</span><span class="keyword">; </span><span class="comment">// 3<br>&#xA0; &#xA0; </span><span class="default">$var2 </span><span class="keyword">= </span><span class="default">func</span><span class="keyword">(); </span><span class="comment">// assignment without the &amp;<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="string">&quot;var2:&quot;</span><span class="keyword">, </span><span class="default">$var2</span><span class="keyword">; </span><span class="comment">// 4<br>&#xA0; &#xA0; </span><span class="default">func</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="default">func</span><span class="keyword">();<br>&#xA0; &#xA0; echo </span><span class="string">&quot;var1:&quot;</span><span class="keyword">, </span><span class="default">$var1</span><span class="keyword">; </span><span class="comment">// 6<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="string">&quot;var2:&quot;</span><span class="keyword">, </span><span class="default">$var2</span><span class="keyword">; </span><span class="comment">// still 4<br><br></span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+Sometimes, you would like to return NULL with a function returning reference, to indicate the end of chain of elements. However this generates E_NOTICE. Here is little tip, how to prevent that:<br><br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">Foo </span><span class="keyword">{<br>&#xA0;&#xA0; const </span><span class="default">$nullGuard </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">;<br>&#xA0;&#xA0; </span><span class="comment">// ... some declarations and definitions<br>&#xA0;&#xA0; </span><span class="keyword">public function &amp;</span><span class="default">next</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// ...<br>&#xA0; &#xA0; &#xA0; </span><span class="keyword">if (!</span><span class="default">$end</span><span class="keyword">) return </span><span class="default">$bar</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; else return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">nullGuard</span><span class="keyword">;<br>&#xA0;&#xA0; }<br>}<br></span><span class="default">?&gt;<br></span><br>by doing this you can do smth like this without notices:<br><br><span class="default">&lt;?php<br>$f </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br></span><span class="comment">// ...<br></span><span class="keyword">while ((</span><span class="default">$item </span><span class="keyword">= </span><span class="default">$f</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">()) != </span><span class="default">NULL</span><span class="keyword">) {<br></span><span class="comment">// ...<br></span><span class="keyword">}<br></span><span class="default">?&gt;<br></span><br>you may also use global variable:<br>global $nullGuard;<br>return $nullGuard;</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+I haven&apos;t seen anyone note method chaining in PHP5.&#xA0; When an object is returned by a method in PHP5 it is returned by default as a reference, and the new Zend Engine 2 allows you to chain method calls from those returned objects.&#xA0; For example consider this code:<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">Foo </span><span class="keyword">{<br><br>&#xA0; &#xA0; protected </span><span class="default">$bar</span><span class="keyword">;<br><br>&#xA0; &#xA0; public function </span><span class="default">__construct</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">bar </span><span class="keyword">= new </span><span class="default">Bar</span><span class="keyword">();<br><br>&#xA0; &#xA0; &#xA0; &#xA0; print </span><span class="string">&quot;Foo\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }&#xA0; &#xA0; <br>&#xA0; &#xA0; <br>&#xA0; &#xA0; public function </span><span class="default">getBar</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">bar</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br>class </span><span class="default">Bar </span><span class="keyword">{<br><br>&#xA0; &#xA0; public function </span><span class="default">__construct</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; print </span><span class="string">&quot;Bar\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; public function </span><span class="default">helloWorld</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; print </span><span class="string">&quot;Hello World\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br>function </span><span class="default">test</span><span class="keyword">() {<br>&#xA0; &#xA0; return new </span><span class="default">Foo</span><span class="keyword">();<br>}<br><br></span><span class="default">test</span><span class="keyword">()-&gt;</span><span class="default">getBar</span><span class="keyword">()-&gt;</span><span class="default">helloWorld</span><span class="keyword">();<br><br></span><span class="default">?&gt;<br></span><br>Notice how we called test() which was not on an object, but returned an instance of Foo, followed by a method on Foo, getBar() which returned an instance of Bar and finally called one of its methods helloWorld().&#xA0; Those familiar with other interpretive languages (Java to name one) will recognize this functionality.&#xA0; For whatever reason this change doesn&apos;t seem to be documented very well, so hopefully someone will find this helpful.</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+An example of returning references:<br><br>&lt;?<br><br>$var = 1;<br>$num = NULL;<br><br>function &amp;blah()<br>{<br>&#xA0; &#xA0; $var =&amp; $GLOBALS[&quot;var&quot;]; # the same as global $var;<br>&#xA0; &#xA0; $var++;<br>&#xA0; &#xA0; return $var;<br>}<br><br>$num = &amp;blah();<br><br>echo $num; # 2<br><br>blah();<br><br>echo $num; # 3<br><br>?&gt;<br><br>Note: if you take the &amp; off from the function, the second echo will be 2, because without &amp; the var $num contains its returning value and not its returning reference.</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/language.references.return.php)
+
+**[⬆ to root](/)**
