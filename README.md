@@ -2248,9 +2248,71 @@
 
 [Memcached](/www.php.net_book.memcached.php.md)
 
-####Memcached
+#####Memcached
 
 [Installation](/www.php.net_memcached.installation.php.md)
 
 [Predefined Constants](/www.php.net_memcached.constants.php.md)
+
+[Sessions support](/www.php.net_memcached.sessions.php.md)
+
+[Memcached::addServer](/www.php.net_memcached.addserver.php.md)
+
+[Memcached::__construct](/www.php.net_memcached.construct.php.md)
+
+[Memcached::decrement](/www.php.net_memcached.decrement.php.md)
+
+[Memcached::delete](/www.php.net_memcached.delete.php.md)
+
+[Memcached::get](/www.php.net_memcached.get.php.md)
+
+[Memcached::getResultCode](/www.php.net_memcached.getresultcode.php.md)
+
+[Memcached::getVersion](/www.php.net_memcached.getversion.php.md)
+
+[Memcached::increment](/www.php.net_memcached.increment.php.md)
+
+[Memcached::set](/www.php.net_memcached.set.php.md)
+
+####Network
+
+[Network Functions](/www.php.net_ref.network.php.md)
+
+#####Network Functions
+
+[checkdnsrr](/www.php.net_function.checkdnsrr.php.md)
+
+[dns_get_record](/www.php.net_function.dns-get-record.php.md)
+
+[fsockopen](/www.php.net_function.fsockopen.php.md)
+
+[gethostbyaddr](/www.php.net_function.gethostbyaddr.php.md)
+
+[gethostbyname](/www.php.net_function.gethostbyname.php.md)
+
+[getmxrr](/www.php.net_function.getmxrr.php.md)
+
+[header_remove](/www.php.net_function.header-remove.php.md)
+
+[header](/www.php.net_function.header.php.md)
+
+[headers_list](/www.php.net_function.headers-list.php.md)
+
+[headers_sent](/www.php.net_function.headers-sent.php.md)
+
+[http_response_code](/www.php.net_function.http-response-code.php.md)
+
+[inet_ntop](/www.php.net_function.inet-ntop.php.md)
+
+[inet_pton](/www.php.net_function.inet-pton.php.md)
+
+[ip2long](/www.php.net_function.ip2long.php.md)
+
+[pfsockopen](/www.php.net_function.pfsockopen.php.md)
+
+[setcookie](/www.php.net_function.setcookie.php.md)
+
+[setrawcookie](/www.php.net_function.setrawcookie.php.md)
+
+[syslog](/www.php.net_function.syslog.php.md)
 
