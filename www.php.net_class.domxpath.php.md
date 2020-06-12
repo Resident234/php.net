@@ -1,0 +1,16 @@
+# The DOMXPath class
+
+
+
+
+<div class="phpcode"><span class="html">
+<span class="default">&lt;?php<br></span><span class="comment">// to retrieve selected html data, try these DomXPath examples:<br><br></span><span class="default">$file </span><span class="keyword">= </span><span class="default">$DOCUMENT_ROOT</span><span class="keyword">. </span><span class="string">&quot;test.html&quot;</span><span class="keyword">;<br></span><span class="default">$doc </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">();<br></span><span class="default">$doc</span><span class="keyword">-&gt;</span><span class="default">loadHTMLFile</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">);<br><br></span><span class="default">$xpath </span><span class="keyword">= new </span><span class="default">DOMXpath</span><span class="keyword">(</span><span class="default">$doc</span><span class="keyword">);<br><br></span><span class="comment">// example 1: for everything with an id<br>//$elements = $xpath-&gt;query(&quot;//*[@id]&quot;);<br><br>// example 2: for node data in a selected id<br>//$elements = $xpath-&gt;query(&quot;/html/body/div[@id=&apos;yourTagIdHere&apos;]&quot;);<br><br>// example 3: same as above with wildcard<br></span><span class="default">$elements </span><span class="keyword">= </span><span class="default">$xpath</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="string">&quot;*/div[@id=&apos;yourTagIdHere&apos;]&quot;</span><span class="keyword">);<br><br>if (!</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$elements</span><span class="keyword">)) {<br>&#xA0; foreach (</span><span class="default">$elements </span><span class="keyword">as </span><span class="default">$element</span><span class="keyword">) {<br>&#xA0; &#xA0; echo </span><span class="string">&quot;&lt;br/&gt;[&quot;</span><span class="keyword">. </span><span class="default">$element</span><span class="keyword">-&gt;</span><span class="default">nodeName</span><span class="keyword">. </span><span class="string">&quot;]&quot;</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="default">$nodes </span><span class="keyword">= </span><span class="default">$element</span><span class="keyword">-&gt;</span><span class="default">childNodes</span><span class="keyword">;<br>&#xA0; &#xA0; foreach (</span><span class="default">$nodes </span><span class="keyword">as </span><span class="default">$node</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; echo </span><span class="default">$node</span><span class="keyword">-&gt;</span><span class="default">nodeValue</span><span class="keyword">. </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; }<br>}<br></span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/class.domxpath.php)
+
+**[⬆ to root](/)**

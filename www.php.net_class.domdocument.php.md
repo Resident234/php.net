@@ -1,0 +1,91 @@
+# The DOMDocument class
+
+
+
+
+<div class="phpcode"><span class="html">
+Showing a quick example of how to use this class, just so that new users can get a quick start without having to figure it all out by themself. ( At the day of posting, this documentation just got added and is lacking examples. )<br><br><span class="default">&lt;?php<br><br></span><span class="comment">// Set the content type to be XML, so that the browser will&#xA0;&#xA0; recognise it as XML.<br></span><span class="default">header</span><span class="keyword">( </span><span class="string">&quot;content-type: application/xml; charset=ISO-8859-15&quot; </span><span class="keyword">);<br><br></span><span class="comment">// &quot;Create&quot; the document.<br></span><span class="default">$xml </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">( </span><span class="string">&quot;1.0&quot;</span><span class="keyword">, </span><span class="string">&quot;ISO-8859-15&quot; </span><span class="keyword">);<br><br></span><span class="comment">// Create some elements.<br></span><span class="default">$xml_album </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">createElement</span><span class="keyword">( </span><span class="string">&quot;Album&quot; </span><span class="keyword">);<br></span><span class="default">$xml_track </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">createElement</span><span class="keyword">( </span><span class="string">&quot;Track&quot;</span><span class="keyword">, </span><span class="string">&quot;The ninth symphony&quot; </span><span class="keyword">);<br><br></span><span class="comment">// Set the attributes.<br></span><span class="default">$xml_track</span><span class="keyword">-&gt;</span><span class="default">setAttribute</span><span class="keyword">( </span><span class="string">&quot;length&quot;</span><span class="keyword">, </span><span class="string">&quot;0:01:15&quot; </span><span class="keyword">);<br></span><span class="default">$xml_track</span><span class="keyword">-&gt;</span><span class="default">setAttribute</span><span class="keyword">( </span><span class="string">&quot;bitrate&quot;</span><span class="keyword">, </span><span class="string">&quot;64kb/s&quot; </span><span class="keyword">);<br></span><span class="default">$xml_track</span><span class="keyword">-&gt;</span><span class="default">setAttribute</span><span class="keyword">( </span><span class="string">&quot;channels&quot;</span><span class="keyword">, </span><span class="string">&quot;2&quot; </span><span class="keyword">);<br><br></span><span class="comment">// Create another element, just to show you can add any (realistic to computer) number of sublevels.<br></span><span class="default">$xml_note </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">createElement</span><span class="keyword">( </span><span class="string">&quot;Note&quot;</span><span class="keyword">, </span><span class="string">&quot;The last symphony composed by Ludwig van Beethoven.&quot; </span><span class="keyword">);<br><br></span><span class="comment">// Append the whole bunch.<br></span><span class="default">$xml_track</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">( </span><span class="default">$xml_note </span><span class="keyword">);<br></span><span class="default">$xml_album</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">( </span><span class="default">$xml_track </span><span class="keyword">);<br><br></span><span class="comment">// Repeat the above with some different values..<br></span><span class="default">$xml_track </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">createElement</span><span class="keyword">( </span><span class="string">&quot;Track&quot;</span><span class="keyword">, </span><span class="string">&quot;Highway Blues&quot; </span><span class="keyword">);<br><br></span><span class="default">$xml_track</span><span class="keyword">-&gt;</span><span class="default">setAttribute</span><span class="keyword">( </span><span class="string">&quot;length&quot;</span><span class="keyword">, </span><span class="string">&quot;0:01:33&quot; </span><span class="keyword">);<br></span><span class="default">$xml_track</span><span class="keyword">-&gt;</span><span class="default">setAttribute</span><span class="keyword">( </span><span class="string">&quot;bitrate&quot;</span><span class="keyword">, </span><span class="string">&quot;64kb/s&quot; </span><span class="keyword">);<br></span><span class="default">$xml_track</span><span class="keyword">-&gt;</span><span class="default">setAttribute</span><span class="keyword">( </span><span class="string">&quot;channels&quot;</span><span class="keyword">, </span><span class="string">&quot;2&quot; </span><span class="keyword">);<br></span><span class="default">$xml_album</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">( </span><span class="default">$xml_track </span><span class="keyword">);<br><br></span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">( </span><span class="default">$xml_album </span><span class="keyword">);<br><br></span><span class="comment">// Parse the XML.<br></span><span class="keyword">print </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">saveXML</span><span class="keyword">();<br><br></span><span class="default">?&gt;<br></span><br>Output:<br>&lt;Album&gt;<br>&#xA0; &lt;Track length=&quot;0:01:15&quot; bitrate=&quot;64kb/s&quot; channels=&quot;2&quot;&gt;<br>&#xA0; &#xA0; The ninth symphony<br>&#xA0; &#xA0; &lt;Note&gt;<br>&#xA0; &#xA0; &#xA0; The last symphony composed by Ludwig van Beethoven.<br>&#xA0; &#xA0; &lt;/Note&gt;<br>&#xA0; &lt;/Track&gt;<br>&#xA0; &lt;Track length=&quot;0:01:33&quot; bitrate=&quot;64kb/s&quot; channels=&quot;2&quot;&gt;Highway Blues&lt;/Track&gt;<br>&lt;/Album&gt;<br><br>If you want your PHP-&gt;DOM code to run under the .xml extension, you should set your webserver up to run the .xml extension with PHP ( Refer to the installation/configuration configuration for PHP on how to do this ).<br><br>Note that this:<br><span class="default">&lt;?php<br>$xml </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">( </span><span class="string">&quot;1.0&quot;</span><span class="keyword">, </span><span class="string">&quot;ISO-8859-15&quot; </span><span class="keyword">);<br></span><span class="default">$xml_album </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">createElement</span><span class="keyword">( </span><span class="string">&quot;Album&quot; </span><span class="keyword">);<br></span><span class="default">$xml_track </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">createElement</span><span class="keyword">( </span><span class="string">&quot;Track&quot; </span><span class="keyword">);<br></span><span class="default">$xml_album</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">( </span><span class="default">$xml_track </span><span class="keyword">);<br></span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">( </span><span class="default">$xml_album </span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>is NOT the same as this:<br><span class="default">&lt;?php<br></span><span class="comment">// Will NOT work.<br></span><span class="default">$xml </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">( </span><span class="string">&quot;1.0&quot;</span><span class="keyword">, </span><span class="string">&quot;ISO-8859-15&quot; </span><span class="keyword">);<br></span><span class="default">$xml_album </span><span class="keyword">= new </span><span class="default">DOMElement</span><span class="keyword">( </span><span class="string">&quot;Album&quot; </span><span class="keyword">);<br></span><span class="default">$xml_track </span><span class="keyword">= new </span><span class="default">DOMElement</span><span class="keyword">( </span><span class="string">&quot;Track&quot; </span><span class="keyword">);<br></span><span class="default">$xml_album</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">( </span><span class="default">$xml_track </span><span class="keyword">);<br></span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">( </span><span class="default">$xml_album </span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>although this will work:<br><span class="default">&lt;?php<br>$xml </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">( </span><span class="string">&quot;1.0&quot;</span><span class="keyword">, </span><span class="string">&quot;ISO-8859-15&quot; </span><span class="keyword">);<br></span><span class="default">$xml_album </span><span class="keyword">= new </span><span class="default">DOMElement</span><span class="keyword">( </span><span class="string">&quot;Album&quot; </span><span class="keyword">);<br></span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">( </span><span class="default">$xml_album </span><span class="keyword">);<br></span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+For those landing here and checking for encoding issue with utf-8 characteres, it&apos;s pretty easy to correct it, without adding any additional output tag to your html.<br><br>We&apos;ll be utilizing: mb_convert_encoding<br><br>Thanks to the user who shared: SmartDOMDocument in previous comments, I got the idea of solving it. However I truly wish that he shared the method instead of giving a link.<br><br>Anyway coming back to the solution, you can simply use:<br><br><span class="default">&lt;?php<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// checks if the content we&apos;re receiving isn&apos;t empty, to avoid the warning<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if ( empty( </span><span class="default">$content </span><span class="keyword">) ) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// converts all special characters to utf-8<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$content </span><span class="keyword">= </span><span class="default">mb_convert_encoding</span><span class="keyword">(</span><span class="default">$content</span><span class="keyword">, </span><span class="string">&apos;HTML-ENTITIES&apos;</span><span class="keyword">, </span><span class="string">&apos;UTF-8&apos;</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// creating new document<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$doc </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">(</span><span class="string">&apos;1.0&apos;</span><span class="keyword">, </span><span class="string">&apos;utf-8&apos;</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//turning off some errors<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">libxml_use_internal_errors</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// it loads the content without adding enclosing html/body tags and also the doctype declaration<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$doc</span><span class="keyword">-&gt;</span><span class="default">LoadHTML</span><span class="keyword">(</span><span class="default">$content</span><span class="keyword">, </span><span class="default">LIBXML_HTML_NOIMPLIED </span><span class="keyword">| </span><span class="default">LIBXML_HTML_NODEFDTD</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// do whatever you want to do with this code now<br><br></span><span class="default">?&gt;<br></span><br>I hope it solves the issue for someone! If you need my help or service to fix your code, you can reach me on nabtron.com or contact me at the email mentioned with this comment.</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+Here&apos;s a small function I wrote to get all page links using the DOMDocument which will hopefully be of use to others
+<br>
+<br><span class="default">&lt;?php
+<br></span><span class="comment">/**
+<br> * @author Jay Gilford
+<br> */
+<br> 
+<br>/**
+<br> * get_links()
+<br> * 
+<br> * @param string $url
+<br> * @return array
+<br> */
+<br></span><span class="keyword">function </span><span class="default">get_links</span><span class="keyword">(</span><span class="default">$url</span><span class="keyword">) {
+<br> 
+<br>&#xA0; &#xA0; </span><span class="comment">// Create a new DOM Document to hold our webpage structure
+<br>&#xA0; &#xA0; </span><span class="default">$xml </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">();
+<br> 
+<br>&#xA0; &#xA0; </span><span class="comment">// Load the url&apos;s contents into the DOM
+<br>&#xA0; &#xA0; </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">loadHTMLFile</span><span class="keyword">(</span><span class="default">$url</span><span class="keyword">);
+<br> 
+<br>&#xA0; &#xA0; </span><span class="comment">// Empty array to hold all links to return
+<br>&#xA0; &#xA0; </span><span class="default">$links </span><span class="keyword">= array();
+<br> 
+<br>&#xA0; &#xA0; </span><span class="comment">//Loop through each &lt;a&gt; tag in the dom and add it to the link array
+<br>&#xA0; &#xA0; </span><span class="keyword">foreach(</span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">getElementsByTagName</span><span class="keyword">(</span><span class="string">&apos;a&apos;</span><span class="keyword">) as </span><span class="default">$link</span><span class="keyword">) {
+<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$links</span><span class="keyword">[] = array(</span><span class="string">&apos;url&apos; </span><span class="keyword">=&gt; </span><span class="default">$link</span><span class="keyword">-&gt;</span><span class="default">getAttribute</span><span class="keyword">(</span><span class="string">&apos;href&apos;</span><span class="keyword">), </span><span class="string">&apos;text&apos; </span><span class="keyword">=&gt; </span><span class="default">$link</span><span class="keyword">-&gt;</span><span class="default">nodeValue</span><span class="keyword">);
+<br>&#xA0; &#xA0; }
+<br> 
+<br>&#xA0; &#xA0; </span><span class="comment">//Return the links
+<br>&#xA0; &#xA0; </span><span class="keyword">return </span><span class="default">$links</span><span class="keyword">;
+<br>}
+<br></span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+For anyone else who has been having issues with formatOuput not working, here is a work-around:
+<br>
+<br>rather than just doing something like:
+<br>
+<br><span class="default">&lt;?php
+<br>$outXML </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">saveXML</span><span class="keyword">();
+<br></span><span class="default">?&gt;
+<br></span>
+<br>force it to reload the XML from scratch, then it will format correctly:
+<br>
+<br><span class="default">&lt;?php
+<br>$outXML </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">saveXML</span><span class="keyword">();
+<br></span><span class="default">$xml </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">();
+<br></span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">preserveWhiteSpace </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;
+<br></span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">formatOutput </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;
+<br></span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">loadXML</span><span class="keyword">(</span><span class="default">$outXML</span><span class="keyword">);
+<br></span><span class="default">$outXML </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">saveXML</span><span class="keyword">();
+<br></span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/class.domdocument.php)
+
+**[⬆ to root](/)**
