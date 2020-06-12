@@ -20,4 +20,4 @@ Please note under optional third parameter &quot;options&quot;:<br><br>While the
 
 [Official documentation page](https://www.php.net/manual/en/mongocollection.update.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

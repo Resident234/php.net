@@ -20,4 +20,4 @@ mysql_query() also returns a resource for &quot;OPTIMIZE TABLE&quot; statements!
 
 [Official documentation page](https://www.php.net/manual/en/function.mysql-free-result.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

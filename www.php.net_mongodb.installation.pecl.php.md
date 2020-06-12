@@ -20,4 +20,4 @@ Ubuntu 16.04<br><br>sudo apt-get install libcurl4-openssl-dev pkg-config libssl-
 
 [Official documentation page](https://www.php.net/manual/en/mongodb.installation.pecl.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

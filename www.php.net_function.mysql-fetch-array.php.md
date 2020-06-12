@@ -12,4 +12,4 @@ Benchmark on a table with 38567 rows:<br><br>mysql_fetch_array<br>MYSQL_BOTH: 6.
 
 [Official documentation page](https://www.php.net/manual/en/function.mysql-fetch-array.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

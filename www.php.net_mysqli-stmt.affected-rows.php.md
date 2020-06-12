@@ -12,4 +12,4 @@ It appears that an UPDATE prepared statement which contains the same data as tha
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-stmt.affected-rows.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ Note that if you&apos;re using a question mark as a placeholder for a string val
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-stmt.prepare.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

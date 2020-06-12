@@ -20,4 +20,4 @@ If you need to know specifically whether the WHERE condition of an UPDATE operat
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.affected-rows.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

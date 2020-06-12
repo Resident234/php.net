@@ -20,4 +20,4 @@ The mongodb install has been removed from Homebrew. To install the mongodb exten
 
 [Official documentation page](https://www.php.net/manual/en/mongodb.installation.homebrew.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

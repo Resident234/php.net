@@ -13,4 +13,4 @@ I have received many statements that the insert_id property has a bug because it
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.insert-id.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

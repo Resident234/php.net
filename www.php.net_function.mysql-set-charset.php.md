@@ -20,4 +20,4 @@ Here&apos;s an example of how to use this feature :<br><br>I&apos;m using&#xA0; 
 
 [Official documentation page](https://www.php.net/manual/en/function.mysql-set-charset.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

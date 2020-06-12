@@ -12,4 +12,4 @@ When using MongoDB\BSON\UTCDateTime to query be sure for instances of strtotime 
 
 [Official documentation page](https://www.php.net/manual/en/class.mongodb-bson-utcdatetime.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

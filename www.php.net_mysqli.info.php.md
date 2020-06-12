@@ -13,4 +13,4 @@ Might save someone some time...<br><br><span class="default">&lt;?php<br>$protot
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.info.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

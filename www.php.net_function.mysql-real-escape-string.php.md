@@ -42,4 +42,4 @@ For further information:<br><a href="http://dev.mysql.com/doc/refman/5.5/en/mysq
 
 [Official documentation page](https://www.php.net/manual/en/function.mysql-real-escape-string.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

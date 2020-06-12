@@ -20,4 +20,4 @@ you can use $stmt = $mysqli-&gt;prepare(); directly without stmt-init() . i thin
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.stmt-init.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

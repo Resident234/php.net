@@ -12,4 +12,4 @@ If result_metadata() returns false but error/errno/sqlstate tells you no error o
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-stmt.result-metadata.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

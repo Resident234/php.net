@@ -13,4 +13,4 @@ Putting multiple rows into an array:<br><br><span class="default">&lt;?php<br>$m
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.fetch-array.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

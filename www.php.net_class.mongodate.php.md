@@ -17,4 +17,4 @@ For showing a human readable MongoDate, you can use something like this:
 
 [Official documentation page](https://www.php.net/manual/en/class.mongodate.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

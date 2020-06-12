@@ -12,4 +12,4 @@ Just want to add that both procedural mysqli_connect_errno and mysqli_connect_er
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.quickstart.dual-interface.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

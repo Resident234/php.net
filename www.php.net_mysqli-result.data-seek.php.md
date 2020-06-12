@@ -13,4 +13,4 @@ This is useful function when you try to loop through the resultset numerous time
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.data-seek.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

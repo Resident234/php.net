@@ -12,4 +12,4 @@ The comment by Claude (<a href="http://php.net/manual/en/mysqli.set-charset.php#
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.set-charset.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

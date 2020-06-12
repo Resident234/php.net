@@ -12,4 +12,4 @@ In debian, if you need to use mysqld and have already installed php, you can run
 
 [Official documentation page](https://www.php.net/manual/en/mysqlnd.install.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

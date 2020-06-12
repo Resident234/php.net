@@ -13,4 +13,4 @@ In case you&apos;re wondering how to perform a &apos;distinct&apos; query:<br><b
 
 [Official documentation page](https://www.php.net/manual/en/class.mongodb-driver-command.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

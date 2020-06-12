@@ -13,4 +13,4 @@ Here&apos;s a bigger list of data types.&#xA0; I got this by creating every type
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.fetch-field-direct.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -13,4 +13,4 @@ There is no equivalent for this method in the new extension, so instead use&#x20
 
 [Official documentation page](https://www.php.net/manual/en/mongoid.isvalid.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

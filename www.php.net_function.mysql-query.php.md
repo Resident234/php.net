@@ -12,4 +12,4 @@ Simulating an atomic operation for application locks using mysql.<br><br>$link =
 
 [Official documentation page](https://www.php.net/manual/en/function.mysql-query.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

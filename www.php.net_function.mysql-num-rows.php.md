@@ -12,4 +12,4 @@ Some user comments on this page, and some resources including the FAQ at :<br><b
 
 [Official documentation page](https://www.php.net/manual/en/function.mysql-num-rows.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

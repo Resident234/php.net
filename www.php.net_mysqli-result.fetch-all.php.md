@@ -12,4 +12,4 @@ I tested using &quot;fetch all&quot; versus &quot;while / fetch array&quot; and 
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.fetch-all.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

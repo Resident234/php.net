@@ -20,4 +20,4 @@ Note that on all &gt;=Windows 7 Servers, a host name &quot;localhost&quot; will 
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.construct.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

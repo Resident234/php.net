@@ -12,4 +12,4 @@ If you would prefer to have the results returned as an associative array, after 
 
 [Official documentation page](https://www.php.net/manual/en/mongodb-driver-cursor.settypemap.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

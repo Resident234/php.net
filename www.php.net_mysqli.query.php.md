@@ -63,4 +63,4 @@ Here is an example of a clean query into a html table<br><br>&lt;table&gt;<br>&#
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.query.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

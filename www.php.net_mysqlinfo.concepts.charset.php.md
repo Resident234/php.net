@@ -12,4 +12,4 @@ Please note that MySQL&apos;s utf8 encoding has a maximum of 3 bytes and is unab
 
 [Official documentation page](https://www.php.net/manual/en/mysqlinfo.concepts.charset.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

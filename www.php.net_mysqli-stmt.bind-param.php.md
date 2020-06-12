@@ -317,4 +317,4 @@ When dealing with a dynamic number of field values while preparing a statement I
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-stmt.bind-param.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

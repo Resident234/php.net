@@ -13,4 +13,4 @@ If you have problems making work this num_rows, you have to declare -&gt;store_r
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.num-rows.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

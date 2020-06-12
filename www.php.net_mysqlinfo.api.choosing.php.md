@@ -12,4 +12,4 @@ Apart from the feature list, I suggest you try out both MySQLi and PDO and find 
 
 [Official documentation page](https://www.php.net/manual/en/mysqlinfo.api.choosing.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

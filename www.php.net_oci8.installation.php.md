@@ -16,4 +16,4 @@ If you&apos;ve followed the instructions and you can&apos;t even connect to the 
 
 [Official documentation page](https://www.php.net/manual/en/oci8.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

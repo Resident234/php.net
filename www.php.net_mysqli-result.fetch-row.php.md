@@ -12,4 +12,4 @@ It&apos;s worth noting that the MySQLi functions (and, I presume, the MySQL func
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.fetch-row.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

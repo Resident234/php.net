@@ -69,4 +69,4 @@ If you wonder why (besides \, &apos; and &quot;)&#xA0; NUL (ASCII 0), \n, \r, an
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.real-escape-string.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

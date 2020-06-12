@@ -22,4 +22,4 @@ To be able to execute a $mysqli-&gt;query() after a $mysqli-&gt;multi_query() fo
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.multi-query.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

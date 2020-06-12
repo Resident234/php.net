@@ -22,4 +22,4 @@ Please be advised, for people who sometimes miss to read this important Manual e
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-stmt.num-rows.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

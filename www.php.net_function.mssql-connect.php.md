@@ -12,4 +12,4 @@ If someone encounters the interesting problem in which PHP can connect to a MSSQ
 
 [Official documentation page](https://www.php.net/manual/en/function.mssql-connect.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

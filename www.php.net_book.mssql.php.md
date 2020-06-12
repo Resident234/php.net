@@ -43,4 +43,4 @@ Hi, i was need some short and simple script to list all tables and columns of MS
 
 [Official documentation page](https://www.php.net/manual/en/book.mssql.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

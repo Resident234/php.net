@@ -28,4 +28,4 @@ Please note that this method requires the mysqlnd driver. Othervise you will get
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-stmt.get-result.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

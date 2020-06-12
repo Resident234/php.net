@@ -12,4 +12,4 @@ To avoid problems with the display of international characters is necessary to d
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.quickstart.connections.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

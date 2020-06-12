@@ -12,4 +12,4 @@ can there be more documenation with a small (but working) example script on how 
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.debug.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ Since this was removed in PHP7. You can achieve the same output with the followi
 
 [Official documentation page](https://www.php.net/manual/en/function.mssql-guid-string.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

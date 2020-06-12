@@ -12,4 +12,4 @@ The mysqli_sql_exception class is not available to PHP 5.05<br><br>I used this c
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.error.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

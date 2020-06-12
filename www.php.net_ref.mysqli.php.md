@@ -12,4 +12,4 @@ Hints for upgrading PHP code from MySQL to MySQLi:<br><br>Note - MySQLi doesn&ap
 
 [Official documentation page](https://www.php.net/manual/en/ref.mysqli.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

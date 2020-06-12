@@ -12,4 +12,4 @@ This does not work with mysqlnd and is marked as wontfix: <a href="https://bugs.
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.ping.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -48,4 +48,4 @@ Just a note about auto incremental ids and rollback.<br>When using transactions 
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.rollback.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

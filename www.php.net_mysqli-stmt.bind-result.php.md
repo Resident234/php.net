@@ -89,4 +89,4 @@ A note to people to want to return an array of results - that is, an array of al
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-stmt.bind-result.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -29,4 +29,4 @@ This is an example to explain the powerful of the rollback and commit functions.
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.commit.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

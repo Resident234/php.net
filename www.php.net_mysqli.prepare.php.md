@@ -150,4 +150,4 @@ I wrote this function for my personal use and figured I would share it.&#xA0; I 
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.prepare.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

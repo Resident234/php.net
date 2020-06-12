@@ -12,4 +12,4 @@
 
 [Official documentation page](https://www.php.net/manual/en/ibm-db2.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

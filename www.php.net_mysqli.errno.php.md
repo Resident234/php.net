@@ -12,4 +12,4 @@ You can also find the error codes for for example MySQL 5.5 here: <a href="http:
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.errno.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

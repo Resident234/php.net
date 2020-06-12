@@ -12,4 +12,4 @@ As one might notice, this class does not implement a hasNext() or next() method 
 
 [Official documentation page](https://www.php.net/manual/en/class.mongodb-driver-cursor.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

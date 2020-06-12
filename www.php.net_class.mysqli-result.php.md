@@ -24,4 +24,4 @@ Converting an old project from using the mysql extension to the mysqli extension
 
 [Official documentation page](https://www.php.net/manual/en/class.mysqli-result.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

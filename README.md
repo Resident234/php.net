@@ -1,16 +1,16 @@
-#PHP Manual
+# PHP Manual
 
-##Getting Started
+## Getting Started
 
-###A simple tutorial
+### A simple tutorial
 
 [Something Useful](/www.php.net_tutorial.useful.php.md)
 
 [Dealing with Forms](/www.php.net_tutorial.forms.php.md)
 
-##Installation and Configuration
+## Installation and Configuration
 
-###Installation on Unix systems
+### Installation on Unix systems
 
 [Nginx 1.4.x on Unix systems](/www.php.net_install.unix.nginx.php.md)
 
@@ -20,7 +20,7 @@
 
 [Installation on macOS](/www.php.net_install.macosx.php.md)
 
-###Installation on macOS
+### Installation on macOS
 
 [Using the bundled PHP](/www.php.net_install.macosx.bundled.php.md)
 
@@ -28,21 +28,21 @@
 
 [FastCGI Process Manager (FPM)](/www.php.net_install.fpm.php.md)
 
-###FastCGI Process Manager (FPM)
+### FastCGI Process Manager (FPM)
 
 [Configuration](/www.php.net_install.fpm.configuration.php.md)
 
-###Installation of PECL extensions
+### Installation of PECL extensions
 
 [Compiling shared PECL extensions with phpize](/www.php.net_install.pecl.phpize.php.md)
 
-###Runtime Configuration
+### Runtime Configuration
 
 [.user.ini files](/www.php.net_configuration.file.per-user.php.md)
 
-##Language Reference
+## Language Reference
 
-###Basic syntax
+### Basic syntax
 
 [Escaping from HTML](/www.php.net_language.basic-syntax.phpmode.php.md)
 
@@ -50,7 +50,7 @@
 
 [Comments](/www.php.net_language.basic-syntax.comments.php.md)
 
-######Types
+###### Types
 
 [Booleans](/www.php.net_language.types.boolean.php.md)
 
@@ -70,7 +70,7 @@
 
 [Type Juggling](/www.php.net_language.types.type-juggling.php.md)
 
-###Variables
+### Variables
 
 [Basics](/www.php.net_language.variables.basics.php.md)
 
@@ -84,7 +84,7 @@
 
 [Constants](/www.php.net_language.constants.php.md)
 
-###Constants
+### Constants
 
 [Syntax](/www.php.net_language.constants.syntax.php.md)
 
@@ -94,7 +94,7 @@
 
 [Operators](/www.php.net_language.operators.php.md)
 
-###Operators
+### Operators
 
 [Operator Precedence](/www.php.net_language.operators.precedence.php.md)
 
@@ -120,29 +120,29 @@
 
 [Type Operators](/www.php.net_language.operators.type.php.md)
 
-###Control Structures
+### Control Structures
 
-[](/www.php.net_control-structures.if.php.md)
+[if](/www.php.net_control-structures.if.php.md)
 
-[](/www.php.net_control-structures.else.php.md)
+[else](/www.php.net_control-structures.else.php.md)
 
-[](/www.php.net_control-structures.elseif.php.md)
+[elseif](/www.php.net_control-structures.elseif.php.md)
 
 [Alternative syntax for control structures](/www.php.net_control-structures.alternative-syntax.php.md)
 
-[](/www.php.net_control-structures.do.while.php.md)
+[do-while](/www.php.net_control-structures.do.while.php.md)
 
-[](/www.php.net_control-structures.for.php.md)
+[for](/www.php.net_control-structures.for.php.md)
 
-[](/www.php.net_control-structures.foreach.php.md)
+[foreach](/www.php.net_control-structures.foreach.php.md)
 
-[](/www.php.net_control-structures.break.php.md)
+[break](/www.php.net_control-structures.break.php.md)
 
-[](/www.php.net_control-structures.continue.php.md)
+[continue](/www.php.net_control-structures.continue.php.md)
 
-[](/www.php.net_control-structures.switch.php.md)
+[switch](/www.php.net_control-structures.switch.php.md)
 
-[](/www.php.net_control-structures.declare.php.md)
+[declare](/www.php.net_control-structures.declare.php.md)
 
 [return](/www.php.net_function.return.php.md)
 
@@ -154,9 +154,9 @@
 
 [include_once](/www.php.net_function.include-once.php.md)
 
-[](/www.php.net_control-structures.goto.php.md)
+[goto](/www.php.net_control-structures.goto.php.md)
 
-###Functions
+### Functions
 
 [Function arguments](/www.php.net_functions.arguments.php.md)
 
@@ -166,7 +166,7 @@
 
 [Classes and Objects](/www.php.net_language.oop5.php.md)
 
-###Classes and Objects
+### Classes and Objects
 
 [The Basics](/www.php.net_language.oop5.basic.php.md)
 
@@ -218,7 +218,7 @@
 
 [Namespaces](/www.php.net_language.namespaces.php.md)
 
-###Namespaces
+### Namespaces
 
 [Namespaces overview](/www.php.net_language.namespaces.rationale.php.md)
 
@@ -242,17 +242,17 @@
 
 [FAQ: things you need to know about namespaces](/www.php.net_language.namespaces.faq.php.md)
 
-###Errors
+### Errors
 
 [Errors in PHP 7](/www.php.net_language.errors.php7.php.md)
 
 [Exceptions](/www.php.net_language.exceptions.php.md)
 
-###Exceptions
+### Exceptions
 
 [Extending Exceptions](/www.php.net_language.exceptions.extending.php.md)
 
-###Generators
+### Generators
 
 [Generators overview](/www.php.net_language.generators.overview.php.md)
 
@@ -262,7 +262,7 @@
 
 [References Explained](/www.php.net_language.references.php.md)
 
-###References Explained
+### References Explained
 
 [What References Are](/www.php.net_language.references.whatare.php.md)
 
@@ -280,7 +280,7 @@
 
 [Predefined Variables](/www.php.net_reserved.variables.php.md)
 
-###Predefined Variables
+### Predefined Variables
 
 [Superglobals](/www.php.net_language.variables.superglobals.php.md)
 
@@ -312,11 +312,11 @@
 
 [$argv](/www.php.net_reserved.variables.argv.php.md)
 
-###Predefined Exceptions
+### Predefined Exceptions
 
 [Exception](/www.php.net_class.exception.php.md)
 
-####Exception
+#### Exception
 
 [Exception::__construct](/www.php.net_exception.construct.php.md)
 
@@ -336,13 +336,13 @@
 
 [Predefined Interfaces and Classes](/www.php.net_reserved.interfaces.php.md)
 
-###Predefined Interfaces and Classes
+### Predefined Interfaces and Classes
 
 [The ](/www.php.net_class.traversable.php.md)
 
 [The Iterator interface](/www.php.net_class.iterator.php.md)
 
-####Iterator
+#### Iterator
 
 [Iterator::rewind](/www.php.net_iterator.rewind.php.md)
 
@@ -356,13 +356,13 @@
 
 [The Serializable interface](/www.php.net_class.serializable.php.md)
 
-####Serializable
+#### Serializable
 
 [Serializable::serialize](/www.php.net_serializable.serialize.php.md)
 
 [The Closure class](/www.php.net_class.closure.php.md)
 
-####Closure
+#### Closure
 
 [Closure::bind](/www.php.net_closure.bind.php.md)
 
@@ -372,13 +372,13 @@
 
 [The Generator class](/www.php.net_class.generator.php.md)
 
-####Generator
+#### Generator
 
 [Generator::rewind](/www.php.net_generator.rewind.php.md)
 
 [Generator::send](/www.php.net_generator.send.php.md)
 
-###Context options and parameters
+### Context options and parameters
 
 [HTTP context options](/www.php.net_context.http.php.md)
 
@@ -386,7 +386,7 @@
 
 [Supported Protocols and Wrappers](/www.php.net_wrappers.php.md)
 
-###Supported Protocols and Wrappers
+### Supported Protocols and Wrappers
 
 [zlib://](/www.php.net_wrappers.compression.php.md)
 
@@ -394,11 +394,11 @@
 
 [Security](/www.php.net_security.php.md)
 
-##Security
+## Security
 
 [Installed as CGI binary](/www.php.net_security.cgi-bin.php.md)
 
-###Installed as CGI binary
+### Installed as CGI binary
 
 [Case 2: using ](/www.php.net_security.cgi-bin.force-redirect.php.md)
 
@@ -406,7 +406,7 @@
 
 [Filesystem Security](/www.php.net_security.filesystem.php.md)
 
-###Database Security
+### Database Security
 
 [Encrypted Storage Model](/www.php.net_security.database.storage.php.md)
 
@@ -420,7 +420,7 @@
 
 [Magic Quotes](/www.php.net_security.magicquotes.php.md)
 
-###Magic Quotes
+### Magic Quotes
 
 [Why not to use Magic Quotes](/www.php.net_security.magicquotes.whynot.php.md)
 
@@ -428,13 +428,13 @@
 
 [Hiding PHP](/www.php.net_security.hiding.php.md)
 
-##Features
+## Features
 
 [HTTP authentication with PHP](/www.php.net_features.http-auth.php.md)
 
 [Handling file uploads](/www.php.net_features.file-upload.php.md)
 
-###Handling file uploads
+### Handling file uploads
 
 [POST method uploads](/www.php.net_features.file-upload.post-method.php.md)
 
@@ -454,7 +454,7 @@
 
 [Using PHP from the command line](/www.php.net_features.commandline.php.md)
 
-###Command line usage
+### Command line usage
 
 [Executing PHP files](/www.php.net_features.commandline.usage.php.md)
 
@@ -464,7 +464,7 @@
 
 [Built-in web server](/www.php.net_features.commandline.webserver.php.md)
 
-###Garbage Collection
+### Garbage Collection
 
 [Reference Counting Basics](/www.php.net_features.gc.refcounting-basics.php.md)
 
@@ -472,17 +472,17 @@
 
 [Performance Considerations](/www.php.net_features.gc.performance-considerations.php.md)
 
-##Function Reference
+## Function Reference
 
-###Affecting PHP's Behaviour
+### Affecting PHP's Behaviour
 
-####APC
+#### APC
 
-######Installing/Configuring
+##### Installing/Configuring
 
 [Installation](/www.php.net_apc.installation.php.md)
 
-#####APC Functions
+##### APC Functions
 
 [apc_add](/www.php.net_function.apc-add.php.md)
 
@@ -490,19 +490,19 @@
 
 [apc_store](/www.php.net_function.apc-store.php.md)
 
-####APD
+#### APD
 
-#####APD Functions
+##### APD Functions
 
 [override_function](/www.php.net_function.override-function.php.md)
 
-####Error Handling
+#### Error Handling
 
 [Runtime Configuration](/www.php.net_errorfunc.configuration.php.md)
 
 [Predefined Constants](/www.php.net_errorfunc.constants.php.md)
 
-#####Error Handling Functions
+##### Error Handling Functions
 
 [debug_backtrace](/www.php.net_function.debug-backtrace.php.md)
 
@@ -522,13 +522,13 @@
 
 [trigger_error](/www.php.net_function.trigger-error.php.md)
 
-####OPcache
+#### OPcache
 
 [Installation](/www.php.net_opcache.installation.php.md)
 
 [Runtime Configuration](/www.php.net_opcache.configuration.php.md)
 
-#####OPcache Functions
+##### OPcache Functions
 
 [opcache_compile_file](/www.php.net_function.opcache-compile-file.php.md)
 
@@ -540,11 +540,11 @@
 
 [Output Buffering Control](/www.php.net_book.outcontrol.php.md)
 
-####Output Control
+#### Output Control
 
 [Output Control Functions](/www.php.net_ref.outcontrol.php.md)
 
-#####Output Control Functions
+##### Output Control Functions
 
 [flush](/www.php.net_function.flush.php.md)
 
@@ -568,11 +568,11 @@
 
 [ob_start](/www.php.net_function.ob-start.php.md)
 
-####PHP Options/Info
+#### PHP Options/Info
 
 [Runtime Configuration](/www.php.net_info.configuration.php.md)
 
-#####PHP Options/Info Functions
+##### PHP Options/Info Functions
 
 [assert](/www.php.net_function.assert.php.md)
 
@@ -632,33 +632,33 @@
 
 [runkit](/www.php.net_book.runkit.php.md)
 
-####runkit
+#### runkit
 
-#####runkit Functions
+##### runkit Functions
 
 [runkit_function_redefine](/www.php.net_function.runkit-function-redefine.php.md)
 
 [Hierarchical Profiler](/www.php.net_book.xhprof.php.md)
 
-###Compression and Archive Extensions
+### Compression and Archive Extensions
 
-####Bzip2
+#### Bzip2
 
-#####Bzip2 Functions
+##### Bzip2 Functions
 
 [bzdecompress](/www.php.net_function.bzdecompress.php.md)
 
 [Phar](/www.php.net_book.phar.php.md)
 
-#####Phar
+##### Phar
 
-#####Using Phar Archives
+##### Using Phar Archives
 
 [Using Phar Archives: Introduction](/www.php.net_phar.using.intro.php.md)
 
 [Phar::buildFromIterator](/www.php.net_phar.buildfromiterator.php.md)
 
-####Zip
+#### Zip
 
 [Predefined Constants](/www.php.net_zip.constants.php.md)
 
@@ -666,7 +666,7 @@
 
 [The ](/www.php.net_class.ziparchive.php.md)
 
-#####ZipArchive
+##### ZipArchive
 
 [ZipArchive::addFile](/www.php.net_ziparchive.addfile.php.md)
 
@@ -684,13 +684,13 @@
 
 [Zip Functions](/www.php.net_ref.zip.php.md)
 
-#####Zip Functions
+##### Zip Functions
 
 [zip_open](/www.php.net_function.zip-open.php.md)
 
-####Zlib
+#### Zlib
 
-#####Zlib Functions
+##### Zlib Functions
 
 [gzcompress](/www.php.net_function.gzcompress.php.md)
 
@@ -708,19 +708,19 @@
 
 [zlib_decode](/www.php.net_function.zlib-decode.php.md)
 
-###Cryptography Extensions
+### Cryptography Extensions
 
-####CSPRNG
+#### CSPRNG
 
-#####CSPRNG Functions
+##### CSPRNG Functions
 
 [random_bytes](/www.php.net_function.random-bytes.php.md)
 
 [random_int](/www.php.net_function.random-int.php.md)
 
-####Hash
+#### Hash
 
-#####Hash Functions
+##### Hash Functions
 
 [hash_algos](/www.php.net_function.hash-algos.php.md)
 
@@ -732,13 +732,13 @@
 
 [hash](/www.php.net_function.hash.php.md)
 
-####Mcrypt
+#### Mcrypt
 
 [Installing/Configuring](/www.php.net_mcrypt.setup.php.md)
 
 [Installation](/www.php.net_mcrypt.installation.php.md)
 
-#####Mcrypt Functions
+##### Mcrypt Functions
 
 [mcrypt_create_iv](/www.php.net_function.mcrypt-create-iv.php.md)
 
@@ -750,13 +750,13 @@
 
 [OpenSSL](/www.php.net_book.openssl.php.md)
 
-####OpenSSL
+#### OpenSSL
 
 [Installation](/www.php.net_openssl.installation.php.md)
 
 [OpenSSL Functions](/www.php.net_ref.openssl.php.md)
 
-#####OpenSSL Functions
+##### OpenSSL Functions
 
 [openssl_cipher_iv_length](/www.php.net_function.openssl-cipher-iv-length.php.md)
 
@@ -780,9 +780,9 @@
 
 [openssl_random_pseudo_bytes](/www.php.net_function.openssl-random-pseudo-bytes.php.md)
 
-####Password Hashing
+#### Password Hashing
 
-#####Password Hashing Functions
+##### Password Hashing Functions
 
 [password_get_info](/www.php.net_function.password-get-info.php.md)
 
@@ -794,17 +794,17 @@
 
 [Sodium](/www.php.net_book.sodium.php.md)
 
-####Sodium
+#### Sodium
 
 [Introduction](/www.php.net_intro.sodium.php.md)
 
-###Database Extensions
+### Database Extensions
 
-####Abstraction Layers
+#### Abstraction Layers
 
-#####ODBC
+##### ODBC
 
-######ODBC Functions
+###### ODBC Functions
 
 [odbc_columns](/www.php.net_function.odbc-columns.php.md)
 
@@ -814,7 +814,7 @@
 
 [PHP Data Objects](/www.php.net_book.pdo.php.md)
 
-#####PDO
+##### PDO
 
 [Predefined Constants](/www.php.net_pdo.constants.php.md)
 
@@ -852,7 +852,7 @@
 
 [The PDOStatement class](/www.php.net_class.pdostatement.php.md)
 
-######PDOStatement
+###### PDOStatement
 
 [PDOStatement::bindParam](/www.php.net_pdostatement.bindparam.php.md)
 
@@ -882,15 +882,15 @@
 
 [The PDOException class](/www.php.net_class.pdoexception.php.md)
 
-######PDO Drivers
+###### PDO Drivers
 
 [Microsoft SQL Server and Sybase Functions (PDO_DBLIB)](/www.php.net_ref.pdo-dblib.php.md)
 
-#######MS SQL Server (PDO)
+####### MS SQL Server (PDO)
 
 [PDO_DBLIB DSN](/www.php.net_ref.pdo-dblib.connection.php.md)
 
-#######MySQL (PDO)
+####### MySQL (PDO)
 
 [PDO_MYSQL DSN](/www.php.net_ref.pdo-mysql.connection.php.md)
 
@@ -898,41 +898,41 @@
 
 [ODBC and DB2 Functions (PDO_ODBC)](/www.php.net_ref.pdo-odbc.php.md)
 
-#######PostgreSQL (PDO)
+####### PostgreSQL (PDO)
 
 [PDO_PGSQL DSN](/www.php.net_ref.pdo-pgsql.connection.php.md)
 
-#######SQLite (PDO)
+####### SQLite (PDO)
 
 [PDO_SQLITE DSN](/www.php.net_ref.pdo-sqlite.connection.php.md)
 
-####Vendor Specific Database Extensions
+#### Vendor Specific Database Extensions
 
 [dBase](/www.php.net_book.dbase.php.md)
 
-#####IBM DB2
+##### IBM DB2
 
 [Installation](/www.php.net_ibm-db2.installation.php.md)
 
-#####Mongo
+##### Mongo
 
-######Core Classes
+###### Core Classes
 
-#######MongoCollection
+####### MongoCollection
 
 [MongoCollection::remove](/www.php.net_mongocollection.remove.php.md)
 
 [MongoCollection::update](/www.php.net_mongocollection.update.php.md)
 
-#######MongoId
+####### MongoId
 
 [MongoId::isValid](/www.php.net_mongoid.isvalid.php.md)
 
 [The MongoDate class](/www.php.net_class.mongodate.php.md)
 
-#####MongoDB
+##### MongoDB
 
-#######Installation
+####### Installation
 
 [Installing the MongoDB PHP Driver with PECL](/www.php.net_mongodb.installation.pecl.php.md)
 
@@ -940,11 +940,11 @@
 
 [Building the MongoDB PHP Driver from source](/www.php.net_mongodb.installation.manual.php.md)
 
-######Tutorials
+###### Tutorials
 
 [Using the PHP Library for MongoDB (PHPLIB)](/www.php.net_mongodb.tutorial.library.php.md)
 
-######MongoDB\Driver
+###### MongoDB\Driver
 
 [The MongoDB\Driver\Command class](/www.php.net_class.mongodb-driver-command.php.md)
 
@@ -952,11 +952,11 @@
 
 [The MongoDB\Driver\Cursor class](/www.php.net_class.mongodb-driver-cursor.php.md)
 
-#######MongoDB\Driver\Cursor
+####### MongoDB\Driver\Cursor
 
 [MongoDB\Driver\Cursor::setTypeMap](/www.php.net_mongodb-driver-cursor.settypemap.php.md)
 
-######MongoDB\BSON
+###### MongoDB\BSON
 
 [The MongoDB\BSON\ObjectId class](/www.php.net_class.mongodb-bson-objectid.php.md)
 
@@ -964,37 +964,37 @@
 
 [Microsoft SQL Server](/www.php.net_book.mssql.php.md)
 
-#####Mssql
+##### Mssql
 
 [Installing/Configuring](/www.php.net_mssql.setup.php.md)
 
-######Mssql Functions
+###### Mssql Functions
 
 [mssql_connect](/www.php.net_function.mssql-connect.php.md)
 
 [mssql_guid_string](/www.php.net_function.mssql-guid-string.php.md)
 
-#####MySQL
+##### MySQL
 
-######Overview of the MySQL PHP drivers
+###### Overview of the MySQL PHP drivers
 
 [Choosing an API](/www.php.net_mysqlinfo.api.choosing.php.md)
 
-#######Concepts
+####### Concepts
 
 [The character set and character escaping](/www.php.net_mysqlinfo.concepts.charset.php.md)
 
-######MySQLi
+###### MySQLi
 
 [Overview](/www.php.net_mysqli.overview.php.md)
 
-#######Quick start guide
+####### Quick start guide
 
 [Dual procedural and object-oriented interface](/www.php.net_mysqli.quickstart.dual-interface.php.md)
 
 [Connections](/www.php.net_mysqli.quickstart.connections.php.md)
 
-#######mysqli
+####### mysqli
 
 [mysqli::$affected_rows](/www.php.net_mysqli.affected-rows.php.md)
 
@@ -1032,7 +1032,7 @@
 
 [mysqli::stmt_init](/www.php.net_mysqli.stmt-init.php.md)
 
-#######mysqli_stmt
+####### mysqli_stmt
 
 [mysqli_stmt::$affected_rows](/www.php.net_mysqli-stmt.affected-rows.php.md)
 
@@ -1052,7 +1052,7 @@
 
 [The mysqli_result class](/www.php.net_class.mysqli-result.php.md)
 
-#######mysqli_result
+####### mysqli_result
 
 [mysqli_result::data_seek](/www.php.net_mysqli-result.data-seek.php.md)
 
@@ -1076,9 +1076,9 @@
 
 [Aliases and deprecated Mysqli Functions](/www.php.net_ref.mysqli.php.md)
 
-######MySQL (Original)
+###### MySQL (Original)
 
-#######MySQL Functions
+####### MySQL Functions
 
 [mysql_fetch_array](/www.php.net_function.mysql-fetch-array.php.md)
 
@@ -1098,21 +1098,209 @@
 
 [mysql_set_charset](/www.php.net_function.mysql-set-charset.php.md)
 
-######Mysqlnd
+###### Mysqlnd
 
 [Installation](/www.php.net_mysqlnd.install.php.md)
 
-#####OCI8
+##### OCI8
 
 [Installation](/www.php.net_oci8.installation.php.md)
 
-#####PostgreSQL
+##### PostgreSQL
 
 [Installing/Configuring](/www.php.net_pgsql.setup.php.md)
 
 [PostgreSQL Functions](/www.php.net_ref.pgsql.php.md)
 
-######PostgreSQL Functions
+###### PostgreSQL Functions
 
 [pg_fetch_assoc](/www.php.net_function.pg-fetch-assoc.php.md)
+
+[SQLite3](/www.php.net_book.sqlite3.php.md)
+
+##### SQLite3
+
+[SQLite3::busyTimeout](/www.php.net_sqlite3.busytimeout.php.md)
+
+[SQLite3::exec](/www.php.net_sqlite3.exec.php.md)
+
+[SQLite3::lastInsertRowID](/www.php.net_sqlite3.lastinsertrowid.php.md)
+
+[SQLite3::query](/www.php.net_sqlite3.query.php.md)
+
+###### SQLite3Stmt
+
+[SQLite3Stmt::bindValue](/www.php.net_sqlite3stmt.bindvalue.php.md)
+
+[The SQLite3Result class](/www.php.net_class.sqlite3result.php.md)
+
+###### SQLite3Result
+
+[SQLite3Result::fetchArray](/www.php.net_sqlite3result.fetcharray.php.md)
+
+##### SQLSRV
+
+###### SQLSRV Functions
+
+[sqlsrv_query](/www.php.net_function.sqlsrv-query.php.md)
+
+### Date and Time Related Extensions
+
+#### Calendar
+
+[Calendar Functions](/www.php.net_ref.calendar.php.md)
+
+##### Calendar Functions
+
+[cal_days_in_month](/www.php.net_function.cal-days-in-month.php.md)
+
+[easter_date](/www.php.net_function.easter-date.php.md)
+
+[jdtojewish](/www.php.net_function.jdtojewish.php.md)
+
+[Date and Time](/www.php.net_book.datetime.php.md)
+
+#### Date/Time
+
+[The DateTime class](/www.php.net_class.datetime.php.md)
+
+##### DateTime
+
+[DateTime::add](/www.php.net_datetime.add.php.md)
+
+[DateTime::__construct](/www.php.net_datetime.construct.php.md)
+
+[DateTime::createFromFormat](/www.php.net_datetime.createfromformat.php.md)
+
+[DateTime::getLastErrors](/www.php.net_datetime.getlasterrors.php.md)
+
+[DateTime::modify](/www.php.net_datetime.modify.php.md)
+
+[DateTime::setTimestamp](/www.php.net_datetime.settimestamp.php.md)
+
+[DateTime::setTimezone](/www.php.net_datetime.settimezone.php.md)
+
+[DateTime::sub](/www.php.net_datetime.sub.php.md)
+
+[The DateTimeImmutable class](/www.php.net_class.datetimeimmutable.php.md)
+
+##### DateTimeInterface
+
+[DateTime::diff](/www.php.net_datetime.diff.php.md)
+
+[DateTime::format](/www.php.net_datetime.format.php.md)
+
+[DateTime::getTimestamp](/www.php.net_datetime.gettimestamp.php.md)
+
+[DateTime::__wakeup](/www.php.net_datetime.wakeup.php.md)
+
+##### DateTimeZone
+
+[DateTimeZone::listAbbreviations](/www.php.net_datetimezone.listabbreviations.php.md)
+
+[DateTimeZone::listIdentifiers](/www.php.net_datetimezone.listidentifiers.php.md)
+
+[The DateInterval class](/www.php.net_class.dateinterval.php.md)
+
+##### DateInterval
+
+[DateInterval::__construct](/www.php.net_dateinterval.construct.php.md)
+
+[DateInterval::format](/www.php.net_dateinterval.format.php.md)
+
+[The DatePeriod class](/www.php.net_class.dateperiod.php.md)
+
+##### DatePeriod
+
+[DatePeriod::__construct](/www.php.net_dateperiod.construct.php.md)
+
+##### Date/Time Functions
+
+[checkdate](/www.php.net_function.checkdate.php.md)
+
+[date_create](/www.php.net_function.date-create.php.md)
+
+[date_default_timezone_get](/www.php.net_function.date-default-timezone-get.php.md)
+
+[date_default_timezone_set](/www.php.net_function.date-default-timezone-set.php.md)
+
+[date_diff](/www.php.net_function.date-diff.php.md)
+
+[date_format](/www.php.net_function.date-format.php.md)
+
+[date_parse_from_format](/www.php.net_function.date-parse-from-format.php.md)
+
+[date_parse](/www.php.net_function.date-parse.php.md)
+
+[date](/www.php.net_function.date.php.md)
+
+[getdate](/www.php.net_function.getdate.php.md)
+
+[gmdate](/www.php.net_function.gmdate.php.md)
+
+[gmmktime](/www.php.net_function.gmmktime.php.md)
+
+[microtime](/www.php.net_function.microtime.php.md)
+
+[mktime](/www.php.net_function.mktime.php.md)
+
+[strftime](/www.php.net_function.strftime.php.md)
+
+[strtotime](/www.php.net_function.strtotime.php.md)
+
+[time](/www.php.net_function.time.php.md)
+
+[timezone_abbreviations_list](/www.php.net_function.timezone-abbreviations-list.php.md)
+
+[timezone_offset_get](/www.php.net_function.timezone-offset-get.php.md)
+
+[Supported Date and Time Formats](/www.php.net_datetime.formats.php.md)
+
+##### Supported Date and Time Formats
+
+[Relative Formats](/www.php.net_datetime.formats.relative.php.md)
+
+##### List of Supported Timezones
+
+[America](/www.php.net_timezones.america.php.md)
+
+### File System Related Extensions
+
+#### Directories
+
+[Predefined Constants](/www.php.net_dir.constants.php.md)
+
+##### Directory Functions
+
+[dir](/www.php.net_function.dir.php.md)
+
+[getcwd](/www.php.net_function.getcwd.php.md)
+
+[opendir](/www.php.net_function.opendir.php.md)
+
+[readdir](/www.php.net_function.readdir.php.md)
+
+[scandir](/www.php.net_function.scandir.php.md)
+
+#### Fileinfo
+
+[Predefined Constants](/www.php.net_fileinfo.constants.php.md)
+
+[Fileinfo Functions](/www.php.net_ref.fileinfo.php.md)
+
+##### Fileinfo Functions
+
+[finfo_buffer](/www.php.net_function.finfo-buffer.php.md)
+
+[finfo_file](/www.php.net_function.finfo-file.php.md)
+
+[finfo_open](/www.php.net_function.finfo-open.php.md)
+
+[mime_content_type](/www.php.net_function.mime-content-type.php.md)
+
+#### Filesystem
+
+[Runtime Configuration](/www.php.net_filesystem.configuration.php.md)
+
+[Filesystem Functions](/www.php.net_ref.filesystem.php.md)
 

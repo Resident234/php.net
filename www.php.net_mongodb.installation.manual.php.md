@@ -12,4 +12,4 @@ You think this is to complicated? You use Ubuntu 14 or 16? use this:<br><br>sudo
 
 [Official documentation page](https://www.php.net/manual/en/mongodb.installation.manual.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

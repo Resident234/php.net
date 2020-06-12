@@ -12,4 +12,4 @@ Be carefull if you are using two databases on the same server at the same time.&
 
 [Official documentation page](https://www.php.net/manual/en/function.mysql-select-db.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

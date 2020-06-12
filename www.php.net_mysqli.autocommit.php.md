@@ -20,4 +20,4 @@ It&apos;s worth noting that you can perform transactions without disabling autoc
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.autocommit.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

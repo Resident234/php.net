@@ -21,4 +21,4 @@ The flags used by MySql are:&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#x
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.fetch-field.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -20,4 +20,4 @@ mysqli can be great in some circumstances but much work has been put into PHP Po
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.overview.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

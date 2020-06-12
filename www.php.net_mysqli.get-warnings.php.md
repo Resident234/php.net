@@ -37,4 +37,4 @@ With a bit of rooting about with reflection, I spotted that the mysqli_warning c
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.get-warnings.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

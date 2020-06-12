@@ -12,4 +12,4 @@ This happened to me also with PHP 5.4.1<br>Copying the offending DLL everywhere 
 
 [Official documentation page](https://www.php.net/manual/en/pgsql.setup.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

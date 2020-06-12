@@ -13,4 +13,4 @@ To remove a document based on its ID, you need to ensure that you pass the ID as
 
 [Official documentation page](https://www.php.net/manual/en/mongocollection.remove.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

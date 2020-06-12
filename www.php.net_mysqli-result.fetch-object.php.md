@@ -28,4 +28,4 @@ As indicated in the user comments of the mysql_fetch_object, it is important to 
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.fetch-object.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ here&apos;s a rough replacement using mysqli:<br><br>if (!function_exists(&apos;
 
 [Official documentation page](https://www.php.net/manual/en/function.mysql-result.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**
