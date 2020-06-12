@@ -36,4 +36,4 @@ There is no way to implement a backwards compatible __DIR__ in versions prior to
 
 [Official documentation page](https://www.php.net/manual/en/language.constants.predefined.php)
 
-**[To root](/)**
+**[To root](/README.md)**

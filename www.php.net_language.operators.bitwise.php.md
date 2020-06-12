@@ -30,4 +30,4 @@ A bitwise operators practical case :<br><br><span class="default">&lt;?php<br>&#
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.bitwise.php)
 
-**[To root](/)**
+**[To root](/README.md)**

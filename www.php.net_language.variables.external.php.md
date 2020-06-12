@@ -72,4 +72,4 @@ This post is with regards to handling forms that have more than one submit butto
 
 [Official documentation page](https://www.php.net/manual/en/language.variables.external.php)
 
-**[To root](/)**
+**[To root](/README.md)**

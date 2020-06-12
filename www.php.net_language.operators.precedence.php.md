@@ -28,4 +28,4 @@ If you&apos;ve come here looking for a full list of PHP operators, take note tha
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.precedence.php)
 
-**[To root](/)**
+**[To root](/README.md)**

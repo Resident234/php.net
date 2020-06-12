@@ -147,4 +147,4 @@ To save Your mind don&apos;t read previous comments about dates&#xA0; ;)<br><br>
 
 [Official documentation page](https://www.php.net/manual/en/language.types.string.php)
 
-**[To root](/)**
+**[To root](/README.md)**

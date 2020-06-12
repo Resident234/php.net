@@ -12,4 +12,4 @@ This page should include a note on variable lifecycle:<br><br>Before a variable 
 
 [Official documentation page](https://www.php.net/manual/en/language.variables.basics.php)
 
-**[To root](/)**
+**[To root](/README.md)**

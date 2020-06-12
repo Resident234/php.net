@@ -28,4 +28,4 @@ Note: Non Strict Comparison &apos;==&apos; returns bool(true) for <br><br>null =
 
 [Official documentation page](https://www.php.net/manual/en/language.types.null.php)
 
-**[To root](/)**
+**[To root](/README.md)**

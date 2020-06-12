@@ -12,4 +12,4 @@ Just a quick note:<br>From PHP7 on you can even define a multidimensional Array 
 
 [Official documentation page](https://www.php.net/manual/en/language.constants.syntax.php)
 
-**[To root](/)**
+**[To root](/README.md)**

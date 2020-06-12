@@ -419,4 +419,4 @@ With Nested ternary Operators you have to set the logical&#xA0; parentheses to g
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.comparison.php)
 
-**[To root](/)**
+**[To root](/README.md)**

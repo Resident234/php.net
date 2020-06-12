@@ -28,4 +28,4 @@ worth clarifying: <br><br>POST is not more secure than GET. <br><br>The reasons 
 
 [Official documentation page](https://www.php.net/manual/en/tutorial.forms.php)
 
-**[To root](/)**
+**[To root](/README.md)**

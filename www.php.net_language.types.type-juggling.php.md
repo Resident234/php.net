@@ -62,4 +62,4 @@ There are some shorter and faster (at least on my machine) ways to perform a typ
 
 [Official documentation page](https://www.php.net/manual/en/language.types.type-juggling.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -31,4 +31,4 @@ Other Language books&apos; operator precedence section usually include &quot;(&q
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.php)
 
-**[To root](/)**
+**[To root](/README.md)**

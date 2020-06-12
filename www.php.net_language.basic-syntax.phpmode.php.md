@@ -37,4 +37,4 @@ Playing around with different open and close tags I discovered you can actually 
 
 [Official documentation page](https://www.php.net/manual/en/language.basic-syntax.phpmode.php)
 
-**[To root](/)**
+**[To root](/README.md)**

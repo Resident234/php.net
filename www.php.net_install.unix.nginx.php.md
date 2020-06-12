@@ -12,4 +12,4 @@ Building from source is not easy if something is a bit different, and I had a ha
 
 [Official documentation page](https://www.php.net/manual/en/install.unix.nginx.php)
 
-**[To root](/)**
+**[To root](/README.md)**

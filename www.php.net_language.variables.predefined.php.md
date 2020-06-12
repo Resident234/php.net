@@ -28,4 +28,4 @@ If you&apos;re running PHP as a shell script, and you want to use the argv and a
 
 [Official documentation page](https://www.php.net/manual/en/language.variables.predefined.php)
 
-**[To root](/)**
+**[To root](/README.md)**

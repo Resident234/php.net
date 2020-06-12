@@ -40,4 +40,4 @@ You can have multiple versions of PHP running on the same Apache server. I have 
 
 [Official documentation page](https://www.php.net/manual/en/install.windows.php)
 
-**[To root](/)**
+**[To root](/README.md)**

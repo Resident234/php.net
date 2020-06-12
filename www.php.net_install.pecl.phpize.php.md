@@ -12,4 +12,4 @@ If you have multiple PHP versions installed, you may be able to specify for whic
 
 [Official documentation page](https://www.php.net/manual/en/install.pecl.phpize.php)
 
-**[To root](/)**
+**[To root](/README.md)**

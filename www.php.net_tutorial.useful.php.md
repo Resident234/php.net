@@ -13,4 +13,4 @@ Please note that Internet Explorer 11 no longer contains MSIE in its user agent 
 
 [Official documentation page](https://www.php.net/manual/en/tutorial.useful.php)
 
-**[To root](/)**
+**[To root](/README.md)**

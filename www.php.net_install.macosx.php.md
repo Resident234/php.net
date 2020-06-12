@@ -12,4 +12,4 @@ There is a &quot;One Line Installation&quot; tool to use PHP 5.6/5.5/5.4/5.3 for
 
 [Official documentation page](https://www.php.net/manual/en/install.macosx.php)
 
-**[To root](/)**
+**[To root](/README.md)**

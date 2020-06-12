@@ -120,4 +120,4 @@ Sometimes a variable available in global scope is not accessible via the &apos;g
 
 [Official documentation page](https://www.php.net/manual/en/language.variables.scope.php)
 
-**[To root](/)**
+**[To root](/README.md)**

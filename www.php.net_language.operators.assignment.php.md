@@ -38,4 +38,4 @@ bradlis7 at bradlis7 dot com&apos;s description is a bit confusing. Here it is r
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.assignment.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -125,4 +125,4 @@ When trying to make a callable from a function name located in a namespace, you 
 
 [Official documentation page](https://www.php.net/manual/en/language.types.callable.php)
 
-**[To root](/)**
+**[To root](/README.md)**
