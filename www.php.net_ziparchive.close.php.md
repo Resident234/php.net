@@ -28,4 +28,4 @@ ZipArchive.close() changes its behaviour in PHP7. The function ignores directori
 
 [Official documentation page](https://www.php.net/manual/en/ziparchive.close.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

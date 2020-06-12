@@ -12,4 +12,4 @@ Lists of Throwable and Exception tree as of 7.2.0<br><br>&#xA0; &#xA0; Error<br>
 
 [Official documentation page](https://www.php.net/manual/en/class.error.php)
 
-**[To root](/)**
+**[To root](/README.md)**

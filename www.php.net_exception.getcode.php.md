@@ -32,4 +32,4 @@ when raising an Exception with no error code explicitly defined, getCode() retur
 
 [Official documentation page](https://www.php.net/manual/en/exception.getcode.php)
 
-**[To root](/)**
+**[To root](/README.md)**

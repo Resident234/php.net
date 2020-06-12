@@ -28,4 +28,4 @@ In some (most?) systems PHP&apos;s CLI has a separate opcode cache to the one us
 
 [Official documentation page](https://www.php.net/manual/en/function.opcache-reset.php)
 
-**[To root](/)**
+**[To root](/README.md)**

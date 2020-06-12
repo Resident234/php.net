@@ -12,4 +12,4 @@ I found that Mr. Dmitry Zenovich (<a href="http://ru.linkedin.com/in/zenovich" r
 
 [Official documentation page](https://www.php.net/manual/en/book.runkit.php)
 
-**[To root](/)**
+**[To root](/README.md)**

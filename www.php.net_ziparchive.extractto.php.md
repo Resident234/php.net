@@ -12,4 +12,4 @@ If you want to copy one file at a time and remove the folder name that is stored
 
 [Official documentation page](https://www.php.net/manual/en/ziparchive.extractto.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

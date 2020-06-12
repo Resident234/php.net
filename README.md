@@ -50,7 +50,7 @@
 
 [Comments](/www.php.net_language.basic-syntax.comments.php.md)
 
-###Types
+######Types
 
 [Booleans](/www.php.net_language.types.boolean.php.md)
 
@@ -478,7 +478,7 @@
 
 ####APC
 
-#####Installing/Configuring
+######Installing/Configuring
 
 [Installation](/www.php.net_apc.installation.php.md)
 
@@ -763,4 +763,356 @@
 [openssl_csr_new](/www.php.net_function.openssl-csr-new.php.md)
 
 [openssl_decrypt](/www.php.net_function.openssl-decrypt.php.md)
+
+[openssl_encrypt](/www.php.net_function.openssl-encrypt.php.md)
+
+[openssl_pkey_get_details](/www.php.net_function.openssl-pkey-get-details.php.md)
+
+[openssl_pkey_get_private](/www.php.net_function.openssl-pkey-get-private.php.md)
+
+[openssl_pkey_new](/www.php.net_function.openssl-pkey-new.php.md)
+
+[openssl_private_decrypt](/www.php.net_function.openssl-private-decrypt.php.md)
+
+[openssl_private_encrypt](/www.php.net_function.openssl-private-encrypt.php.md)
+
+[openssl_public_encrypt](/www.php.net_function.openssl-public-encrypt.php.md)
+
+[openssl_random_pseudo_bytes](/www.php.net_function.openssl-random-pseudo-bytes.php.md)
+
+####Password Hashing
+
+#####Password Hashing Functions
+
+[password_get_info](/www.php.net_function.password-get-info.php.md)
+
+[password_hash](/www.php.net_function.password-hash.php.md)
+
+[password_needs_rehash](/www.php.net_function.password-needs-rehash.php.md)
+
+[password_verify](/www.php.net_function.password-verify.php.md)
+
+[Sodium](/www.php.net_book.sodium.php.md)
+
+####Sodium
+
+[Introduction](/www.php.net_intro.sodium.php.md)
+
+###Database Extensions
+
+####Abstraction Layers
+
+#####ODBC
+
+######ODBC Functions
+
+[odbc_columns](/www.php.net_function.odbc-columns.php.md)
+
+[odbc_fetch_array](/www.php.net_function.odbc-fetch-array.php.md)
+
+[odbc_prepare](/www.php.net_function.odbc-prepare.php.md)
+
+[PHP Data Objects](/www.php.net_book.pdo.php.md)
+
+#####PDO
+
+[Predefined Constants](/www.php.net_pdo.constants.php.md)
+
+[Connections and Connection management](/www.php.net_pdo.connections.php.md)
+
+[Prepared statements and stored procedures](/www.php.net_pdo.prepared-statements.php.md)
+
+[The PDO class](/www.php.net_class.pdo.php.md)
+
+[PDO::beginTransaction](/www.php.net_pdo.begintransaction.php.md)
+
+[PDO::commit](/www.php.net_pdo.commit.php.md)
+
+[PDO::__construct](/www.php.net_pdo.construct.php.md)
+
+[PDO::errorCode](/www.php.net_pdo.errorcode.php.md)
+
+[PDO::errorInfo](/www.php.net_pdo.errorinfo.php.md)
+
+[PDO::exec](/www.php.net_pdo.exec.php.md)
+
+[PDO::inTransaction](/www.php.net_pdo.intransaction.php.md)
+
+[PDO::lastInsertId](/www.php.net_pdo.lastinsertid.php.md)
+
+[PDO::prepare](/www.php.net_pdo.prepare.php.md)
+
+[PDO::query](/www.php.net_pdo.query.php.md)
+
+[PDO::quote](/www.php.net_pdo.quote.php.md)
+
+[PDO::rollBack](/www.php.net_pdo.rollback.php.md)
+
+[PDO::setAttribute](/www.php.net_pdo.setattribute.php.md)
+
+[The PDOStatement class](/www.php.net_class.pdostatement.php.md)
+
+######PDOStatement
+
+[PDOStatement::bindParam](/www.php.net_pdostatement.bindparam.php.md)
+
+[PDOStatement::bindValue](/www.php.net_pdostatement.bindvalue.php.md)
+
+[PDOStatement::debugDumpParams](/www.php.net_pdostatement.debugdumpparams.php.md)
+
+[PDOStatement::errorCode](/www.php.net_pdostatement.errorcode.php.md)
+
+[PDOStatement::errorInfo](/www.php.net_pdostatement.errorinfo.php.md)
+
+[PDOStatement::execute](/www.php.net_pdostatement.execute.php.md)
+
+[PDOStatement::fetch](/www.php.net_pdostatement.fetch.php.md)
+
+[PDOStatement::fetchAll](/www.php.net_pdostatement.fetchall.php.md)
+
+[PDOStatement::fetchColumn](/www.php.net_pdostatement.fetchcolumn.php.md)
+
+[PDOStatement::fetchObject](/www.php.net_pdostatement.fetchobject.php.md)
+
+[PDOStatement::getColumnMeta](/www.php.net_pdostatement.getcolumnmeta.php.md)
+
+[PDOStatement::rowCount](/www.php.net_pdostatement.rowcount.php.md)
+
+[PDOStatement::setFetchMode](/www.php.net_pdostatement.setfetchmode.php.md)
+
+[The PDOException class](/www.php.net_class.pdoexception.php.md)
+
+######PDO Drivers
+
+[Microsoft SQL Server and Sybase Functions (PDO_DBLIB)](/www.php.net_ref.pdo-dblib.php.md)
+
+#######MS SQL Server (PDO)
+
+[PDO_DBLIB DSN](/www.php.net_ref.pdo-dblib.connection.php.md)
+
+#######MySQL (PDO)
+
+[PDO_MYSQL DSN](/www.php.net_ref.pdo-mysql.connection.php.md)
+
+[Microsoft SQL Server Functions (PDO_SQLSRV)](/www.php.net_ref.pdo-sqlsrv.php.md)
+
+[ODBC and DB2 Functions (PDO_ODBC)](/www.php.net_ref.pdo-odbc.php.md)
+
+#######PostgreSQL (PDO)
+
+[PDO_PGSQL DSN](/www.php.net_ref.pdo-pgsql.connection.php.md)
+
+#######SQLite (PDO)
+
+[PDO_SQLITE DSN](/www.php.net_ref.pdo-sqlite.connection.php.md)
+
+####Vendor Specific Database Extensions
+
+[dBase](/www.php.net_book.dbase.php.md)
+
+#####IBM DB2
+
+[Installation](/www.php.net_ibm-db2.installation.php.md)
+
+#####Mongo
+
+######Core Classes
+
+#######MongoCollection
+
+[MongoCollection::remove](/www.php.net_mongocollection.remove.php.md)
+
+[MongoCollection::update](/www.php.net_mongocollection.update.php.md)
+
+#######MongoId
+
+[MongoId::isValid](/www.php.net_mongoid.isvalid.php.md)
+
+[The MongoDate class](/www.php.net_class.mongodate.php.md)
+
+#####MongoDB
+
+#######Installation
+
+[Installing the MongoDB PHP Driver with PECL](/www.php.net_mongodb.installation.pecl.php.md)
+
+[Installing the MongoDB PHP Driver on macOS with Homebrew](/www.php.net_mongodb.installation.homebrew.php.md)
+
+[Building the MongoDB PHP Driver from source](/www.php.net_mongodb.installation.manual.php.md)
+
+######Tutorials
+
+[Using the PHP Library for MongoDB (PHPLIB)](/www.php.net_mongodb.tutorial.library.php.md)
+
+######MongoDB\Driver
+
+[The MongoDB\Driver\Command class](/www.php.net_class.mongodb-driver-command.php.md)
+
+[The MongoDB\Driver\Query class](/www.php.net_class.mongodb-driver-query.php.md)
+
+[The MongoDB\Driver\Cursor class](/www.php.net_class.mongodb-driver-cursor.php.md)
+
+#######MongoDB\Driver\Cursor
+
+[MongoDB\Driver\Cursor::setTypeMap](/www.php.net_mongodb-driver-cursor.settypemap.php.md)
+
+######MongoDB\BSON
+
+[The MongoDB\BSON\ObjectId class](/www.php.net_class.mongodb-bson-objectid.php.md)
+
+[The MongoDB\BSON\UTCDateTime class](/www.php.net_class.mongodb-bson-utcdatetime.php.md)
+
+[Microsoft SQL Server](/www.php.net_book.mssql.php.md)
+
+#####Mssql
+
+[Installing/Configuring](/www.php.net_mssql.setup.php.md)
+
+######Mssql Functions
+
+[mssql_connect](/www.php.net_function.mssql-connect.php.md)
+
+[mssql_guid_string](/www.php.net_function.mssql-guid-string.php.md)
+
+#####MySQL
+
+######Overview of the MySQL PHP drivers
+
+[Choosing an API](/www.php.net_mysqlinfo.api.choosing.php.md)
+
+#######Concepts
+
+[The character set and character escaping](/www.php.net_mysqlinfo.concepts.charset.php.md)
+
+######MySQLi
+
+[Overview](/www.php.net_mysqli.overview.php.md)
+
+#######Quick start guide
+
+[Dual procedural and object-oriented interface](/www.php.net_mysqli.quickstart.dual-interface.php.md)
+
+[Connections](/www.php.net_mysqli.quickstart.connections.php.md)
+
+#######mysqli
+
+[mysqli::$affected_rows](/www.php.net_mysqli.affected-rows.php.md)
+
+[mysqli::autocommit](/www.php.net_mysqli.autocommit.php.md)
+
+[mysqli::commit](/www.php.net_mysqli.commit.php.md)
+
+[mysqli::__construct](/www.php.net_mysqli.construct.php.md)
+
+[mysqli::debug](/www.php.net_mysqli.debug.php.md)
+
+[mysqli::$errno](/www.php.net_mysqli.errno.php.md)
+
+[mysqli::$error](/www.php.net_mysqli.error.php.md)
+
+[mysqli::get_warnings](/www.php.net_mysqli.get-warnings.php.md)
+
+[mysqli::$info](/www.php.net_mysqli.info.php.md)
+
+[mysqli::$insert_id](/www.php.net_mysqli.insert-id.php.md)
+
+[mysqli::multi_query](/www.php.net_mysqli.multi-query.php.md)
+
+[mysqli::ping](/www.php.net_mysqli.ping.php.md)
+
+[mysqli::prepare](/www.php.net_mysqli.prepare.php.md)
+
+[mysqli::query](/www.php.net_mysqli.query.php.md)
+
+[mysqli::real_escape_string](/www.php.net_mysqli.real-escape-string.php.md)
+
+[mysqli::rollback](/www.php.net_mysqli.rollback.php.md)
+
+[mysqli::set_charset](/www.php.net_mysqli.set-charset.php.md)
+
+[mysqli::stmt_init](/www.php.net_mysqli.stmt-init.php.md)
+
+#######mysqli_stmt
+
+[mysqli_stmt::$affected_rows](/www.php.net_mysqli-stmt.affected-rows.php.md)
+
+[mysqli_stmt::bind_param](/www.php.net_mysqli-stmt.bind-param.php.md)
+
+[mysqli_stmt::bind_result](/www.php.net_mysqli-stmt.bind-result.php.md)
+
+[mysqli_stmt::fetch](/www.php.net_mysqli-stmt.fetch.php.md)
+
+[mysqli_stmt::get_result](/www.php.net_mysqli-stmt.get-result.php.md)
+
+[mysqli_stmt::$num_rows](/www.php.net_mysqli-stmt.num-rows.php.md)
+
+[mysqli_stmt::prepare](/www.php.net_mysqli-stmt.prepare.php.md)
+
+[mysqli_stmt::result_metadata](/www.php.net_mysqli-stmt.result-metadata.php.md)
+
+[The mysqli_result class](/www.php.net_class.mysqli-result.php.md)
+
+#######mysqli_result
+
+[mysqli_result::data_seek](/www.php.net_mysqli-result.data-seek.php.md)
+
+[mysqli_result::fetch_all](/www.php.net_mysqli-result.fetch-all.php.md)
+
+[mysqli_result::fetch_array](/www.php.net_mysqli-result.fetch-array.php.md)
+
+[mysqli_result::fetch_assoc](/www.php.net_mysqli-result.fetch-assoc.php.md)
+
+[mysqli_result::fetch_field_direct](/www.php.net_mysqli-result.fetch-field-direct.php.md)
+
+[mysqli_result::fetch_field](/www.php.net_mysqli-result.fetch-field.php.md)
+
+[mysqli_result::fetch_fields](/www.php.net_mysqli-result.fetch-fields.php.md)
+
+[mysqli_result::fetch_object](/www.php.net_mysqli-result.fetch-object.php.md)
+
+[mysqli_result::fetch_row](/www.php.net_mysqli-result.fetch-row.php.md)
+
+[mysqli_result::$num_rows](/www.php.net_mysqli-result.num-rows.php.md)
+
+[Aliases and deprecated Mysqli Functions](/www.php.net_ref.mysqli.php.md)
+
+######MySQL (Original)
+
+#######MySQL Functions
+
+[mysql_fetch_array](/www.php.net_function.mysql-fetch-array.php.md)
+
+[mysql_field_name](/www.php.net_function.mysql-field-name.php.md)
+
+[mysql_free_result](/www.php.net_function.mysql-free-result.php.md)
+
+[mysql_num_rows](/www.php.net_function.mysql-num-rows.php.md)
+
+[mysql_query](/www.php.net_function.mysql-query.php.md)
+
+[mysql_real_escape_string](/www.php.net_function.mysql-real-escape-string.php.md)
+
+[mysql_result](/www.php.net_function.mysql-result.php.md)
+
+[mysql_select_db](/www.php.net_function.mysql-select-db.php.md)
+
+[mysql_set_charset](/www.php.net_function.mysql-set-charset.php.md)
+
+######Mysqlnd
+
+[Installation](/www.php.net_mysqlnd.install.php.md)
+
+#####OCI8
+
+[Installation](/www.php.net_oci8.installation.php.md)
+
+#####PostgreSQL
+
+[Installing/Configuring](/www.php.net_pgsql.setup.php.md)
+
+[PostgreSQL Functions](/www.php.net_ref.pgsql.php.md)
+
+######PostgreSQL Functions
+
+[pg_fetch_assoc](/www.php.net_function.pg-fetch-assoc.php.md)
 

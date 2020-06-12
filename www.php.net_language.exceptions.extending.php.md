@@ -12,4 +12,4 @@ As previously noted exception linking was recently added (and what a god-send it
 
 [Official documentation page](https://www.php.net/manual/en/language.exceptions.extending.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -13,4 +13,4 @@ It seems that this function supports only decryption of password protected archi
 
 [Official documentation page](https://www.php.net/manual/en/ziparchive.setpassword.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

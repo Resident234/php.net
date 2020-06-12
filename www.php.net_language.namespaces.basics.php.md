@@ -88,4 +88,4 @@ It seems the file system analogy only goes so far. One thing that&apos;s missing
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.basics.php)
 
-**[To root](/)**
+**[To root](/README.md)**

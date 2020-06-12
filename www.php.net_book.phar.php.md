@@ -20,4 +20,4 @@ If you get blank pages when trying to access a phar web-page, then you probably 
 
 [Official documentation page](https://www.php.net/manual/en/book.phar.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

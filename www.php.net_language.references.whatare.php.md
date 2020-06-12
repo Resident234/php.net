@@ -20,4 +20,4 @@ Unlike in C, PHP references are not treated as pre-dereferenced pointers, but as
 
 [Official documentation page](https://www.php.net/manual/en/language.references.whatare.php)
 
-**[To root](/)**
+**[To root](/README.md)**

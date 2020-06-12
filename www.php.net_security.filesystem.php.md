@@ -31,4 +31,4 @@ All of the fixes here assume that it is necessary to allow the user to enter sys
 
 [Official documentation page](https://www.php.net/manual/en/security.filesystem.php)
 
-**[To root](/)**
+**[To root](/README.md)**

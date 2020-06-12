@@ -53,4 +53,4 @@ If you want to create a gd-image directly out of a sql-database-field you might 
 
 [Official documentation page](https://www.php.net/manual/en/wrappers.data.php)
 
-**[To root](/)**
+**[To root](/README.md)**

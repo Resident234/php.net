@@ -21,4 +21,4 @@ This is a light-weight drop-in replacement for PHP&apos;s hash_pbkdf2(); written
 
 [Official documentation page](https://www.php.net/manual/en/function.hash-pbkdf2.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

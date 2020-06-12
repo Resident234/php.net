@@ -46,4 +46,4 @@ I was having trouble with script timeouts in applications where the user prompte
 
 [Official documentation page](https://www.php.net/manual/en/function.set-time-limit.php)
 
-**[To root](/)**
+**[To root](/README.md)**

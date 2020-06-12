@@ -36,4 +36,4 @@ Also, don&apos;t forget that you will need to ob_start() again for any successiv
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-get-clean.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -37,4 +37,4 @@ To know, what are the {php} extensions loaded &amp; version of extensions :
 
 [Official documentation page](https://www.php.net/manual/en/function.phpversion.php)
 
-**[To root](/)**
+**[To root](/README.md)**

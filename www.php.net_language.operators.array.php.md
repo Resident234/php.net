@@ -37,4 +37,4 @@ Note that + will not renumber numeric array keys.&#xA0; If you have two numeric 
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.array.php)
 
-**[To root](/)**
+**[To root](/README.md)**

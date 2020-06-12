@@ -13,4 +13,4 @@ You have to set a flag on the RecursiveDirectoryIterator because by default, the
 
 [Official documentation page](https://www.php.net/manual/en/phar.buildfromiterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

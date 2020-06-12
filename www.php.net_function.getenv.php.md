@@ -30,4 +30,4 @@ All of the notes and examples so far have been strictly CGI.<br>It should not be
 
 [Official documentation page](https://www.php.net/manual/en/function.getenv.php)
 
-**[To root](/)**
+**[To root](/README.md)**

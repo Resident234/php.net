@@ -61,4 +61,4 @@ You can use &quot;self&quot; to reference to the current class:
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.type.php)
 
-**[To root](/)**
+**[To root](/README.md)**

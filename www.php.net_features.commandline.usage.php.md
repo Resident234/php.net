@@ -12,4 +12,4 @@ On Linux, the shebang (#!) line is parsed by the kernel into at most two parts. 
 
 [Official documentation page](https://www.php.net/manual/en/features.commandline.usage.php)
 
-**[To root](/)**
+**[To root](/README.md)**

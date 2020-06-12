@@ -12,4 +12,4 @@ sudo apt-get install php-apc<br>sudo /etc/init.d/apache2 restart<br><br>Was enou
 
 [Official documentation page](https://www.php.net/manual/en/apc.installation.php)
 
-**[To root](/)**
+**[To root](/README.md)**

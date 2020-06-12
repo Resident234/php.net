@@ -50,4 +50,4 @@ The error_get_last() function will give you the most recent error even when that
 
 [Official documentation page](https://www.php.net/manual/en/function.error-get-last.php)
 
-**[To root](/)**
+**[To root](/README.md)**

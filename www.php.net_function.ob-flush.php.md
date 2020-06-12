@@ -29,4 +29,4 @@ Although browsers now have an all or none buffering strategy, the arguments are 
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-flush.php)
 
-**[To root](/)**
+**[To root](/README.md)**

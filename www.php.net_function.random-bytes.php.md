@@ -13,4 +13,4 @@ I used below function to create random token, and also a salt from the token. I 
 
 [Official documentation page](https://www.php.net/manual/en/function.random-bytes.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

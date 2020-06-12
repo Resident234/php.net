@@ -13,4 +13,4 @@ Reading the example, it is a bit difficult to understand what exactly to do with
 
 [Official documentation page](https://www.php.net/manual/en/generator.send.php)
 
-**[To root](/)**
+**[To root](/README.md)**

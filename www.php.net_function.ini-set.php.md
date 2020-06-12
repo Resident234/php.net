@@ -51,4 +51,4 @@ set PHP_INI_PERDIR settings in a .htaccess file with &apos;php_flag&apos; like t
 
 [Official documentation page](https://www.php.net/manual/en/function.ini-set.php)
 
-**[To root](/)**
+**[To root](/README.md)**

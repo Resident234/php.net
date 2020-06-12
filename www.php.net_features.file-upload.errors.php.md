@@ -174,4 +174,4 @@ One thing that is annoying is that the way these constant values are handled req
 
 [Official documentation page](https://www.php.net/manual/en/features.file-upload.errors.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -61,4 +61,4 @@ Please be aware of FQCN (Full Qualified Class Name) point.
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.dynamic.php)
 
-**[To root](/)**
+**[To root](/README.md)**

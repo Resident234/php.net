@@ -12,4 +12,4 @@ The very reason magic quotes are deprecated is that a one-size-fits-all approach
 
 [Official documentation page](https://www.php.net/manual/en/security.magicquotes.php)
 
-**[To root](/)**
+**[To root](/README.md)**

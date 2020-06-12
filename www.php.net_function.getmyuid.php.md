@@ -12,4 +12,4 @@ Note that this function really does what the description says, it returns the nu
 
 [Official documentation page](https://www.php.net/manual/en/function.getmyuid.php)
 
-**[To root](/)**
+**[To root](/README.md)**

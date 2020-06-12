@@ -37,4 +37,4 @@ Using /var/www/uploads in the example code is just criminal, imnsho.<br><br>One 
 
 [Official documentation page](https://www.php.net/manual/en/features.file-upload.php)
 
-**[To root](/)**
+**[To root](/README.md)**

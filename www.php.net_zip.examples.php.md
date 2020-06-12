@@ -27,4 +27,4 @@ All these examples will not work if the php script has no write access within th
 
 [Official documentation page](https://www.php.net/manual/en/zip.examples.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

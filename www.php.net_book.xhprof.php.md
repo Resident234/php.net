@@ -12,4 +12,4 @@ A profiler based on XHProf but for PHP7+ can be found at <a href="https://github
 
 [Official documentation page](https://www.php.net/manual/en/book.xhprof.php)
 
-**[To root](/)**
+**[To root](/README.md)**

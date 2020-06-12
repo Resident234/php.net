@@ -12,4 +12,4 @@ You can use the fallback policy to provide mocks for built-in functions like tim
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.fallback.php)
 
-**[To root](/)**
+**[To root](/README.md)**

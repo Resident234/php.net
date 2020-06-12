@@ -93,4 +93,4 @@ A way of zipping files and downloading them thereafter:<br><span class="default"
 
 [Official documentation page](https://www.php.net/manual/en/class.ziparchive.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

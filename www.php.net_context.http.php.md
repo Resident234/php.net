@@ -13,4 +13,4 @@ Note that if you set the protocol_version option to 1.1 and the server you are r
 
 [Official documentation page](https://www.php.net/manual/en/context.http.php)
 
-**[To root](/)**
+**[To root](/README.md)**

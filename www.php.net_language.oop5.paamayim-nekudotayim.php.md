@@ -37,4 +37,4 @@ Just found out that using the class name may also work to call similar function 
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php)
 
-**[To root](/)**
+**[To root](/README.md)**

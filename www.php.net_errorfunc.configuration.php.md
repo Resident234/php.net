@@ -39,4 +39,4 @@ If you set the error_log directive to a relative path, it is a path relative to 
 
 [Official documentation page](https://www.php.net/manual/en/errorfunc.configuration.php)
 
-**[To root](/)**
+**[To root](/README.md)**

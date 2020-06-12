@@ -20,4 +20,4 @@ Reading this page you&apos;d be left with the impression that a class&apos;s `se
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.serialization.php)
 
-**[To root](/)**
+**[To root](/README.md)**

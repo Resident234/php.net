@@ -12,4 +12,4 @@ Remember, when using require that it is a statement, not a function. It&apos;s n
 
 [Official documentation page](https://www.php.net/manual/en/function.require.php)
 
-**[To root](/)**
+**[To root](/README.md)**

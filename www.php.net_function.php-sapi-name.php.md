@@ -20,4 +20,4 @@ some not yet mentioned sapi names:<br><br>cli-server -&gt; php built-in webserve
 
 [Official documentation page](https://www.php.net/manual/en/function.php-sapi-name.php)
 
-**[To root](/)**
+**[To root](/README.md)**

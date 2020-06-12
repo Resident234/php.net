@@ -12,4 +12,4 @@ After reading and trying various functions, I couldn&apos;t find one that correc
 
 [Official documentation page](https://www.php.net/manual/en/function.phpinfo.php)
 
-**[To root](/)**
+**[To root](/README.md)**

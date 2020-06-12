@@ -28,4 +28,4 @@ In the following example:<br><br><span class="default">&lt;?php<br></span><span 
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.declare.php)
 
-**[To root](/)**
+**[To root](/README.md)**

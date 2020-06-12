@@ -20,4 +20,4 @@ Overriden function name becomes __overridden__(). That&apos;s why you can&apos;t
 
 [Official documentation page](https://www.php.net/manual/en/function.override-function.php)
 
-**[To root](/)**
+**[To root](/README.md)**

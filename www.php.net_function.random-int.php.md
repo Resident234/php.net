@@ -13,4 +13,4 @@ Here is a simple backporting function, it works for PHP &gt;= 5.1<br><br><span c
 
 [Official documentation page](https://www.php.net/manual/en/function.random-int.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

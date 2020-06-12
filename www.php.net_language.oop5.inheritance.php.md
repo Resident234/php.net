@@ -49,4 +49,4 @@ You can force a class to be strictly an inheritable class by using the &quot;abs
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.inheritance.php)
 
-**[To root](/)**
+**[To root](/README.md)**

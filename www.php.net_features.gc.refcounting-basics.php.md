@@ -20,4 +20,4 @@ There seems to be no way to inspect the reference count of a specific class vari
 
 [Official documentation page](https://www.php.net/manual/en/features.gc.refcounting-basics.php)
 
-**[To root](/)**
+**[To root](/README.md)**

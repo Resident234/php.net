@@ -36,4 +36,4 @@ worth reading for people learning about php and programming: (adding extras <spa
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.logical.php)
 
-**[To root](/)**
+**[To root](/README.md)**

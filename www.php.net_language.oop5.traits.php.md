@@ -179,4 +179,4 @@ Traits are useful for strategies, when you want the same data to be handled (fil
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.traits.php)
 
-**[To root](/)**
+**[To root](/README.md)**

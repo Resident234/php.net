@@ -30,4 +30,4 @@ The following code shows how to test for input on STDIN.&#xA0; In this case, we 
 
 [Official documentation page](https://www.php.net/manual/en/features.commandline.io-streams.php)
 
-**[To root](/)**
+**[To root](/README.md)**

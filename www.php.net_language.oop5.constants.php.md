@@ -150,4 +150,4 @@ Use CONST to set UPPER and LOWER LIMITS<br><br>If you have code that accepts use
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.constants.php)
 
-**[To root](/)**
+**[To root](/README.md)**

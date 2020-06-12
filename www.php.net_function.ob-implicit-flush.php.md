@@ -12,4 +12,4 @@ Note that the name ob_implicit_flush is misleading. Despite its name, this funct
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-implicit-flush.php)
 
-**[To root](/)**
+**[To root](/README.md)**

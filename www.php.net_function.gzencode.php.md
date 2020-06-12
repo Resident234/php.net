@@ -13,4 +13,4 @@ Had some trouble finding the correct way to send a Content-Length header with HT
 
 [Official documentation page](https://www.php.net/manual/en/function.gzencode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

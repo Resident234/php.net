@@ -30,4 +30,4 @@ The documentation doesn&apos;t have any details about how the HTML array feature
 
 [Official documentation page](https://www.php.net/manual/en/features.file-upload.post-method.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ There is one major difference you should be aware of when using the do--while lo
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.do.while.php)
 
-**[To root](/)**
+**[To root](/README.md)**

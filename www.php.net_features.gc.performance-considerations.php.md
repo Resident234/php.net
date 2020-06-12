@@ -12,4 +12,4 @@ The GC, unfortunately, as expounded in the examples above, has the tendency to p
 
 [Official documentation page](https://www.php.net/manual/en/features.gc.performance-considerations.php)
 
-**[To root](/)**
+**[To root](/README.md)**

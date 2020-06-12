@@ -13,4 +13,4 @@ For those that haven&apos;t done exception chaining. Here&apos;s an example. <br
 
 [Official documentation page](https://www.php.net/manual/en/exception.construct.php)
 
-**[To root](/)**
+**[To root](/README.md)**

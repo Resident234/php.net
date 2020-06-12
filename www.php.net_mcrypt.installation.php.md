@@ -28,4 +28,4 @@ I needed to install mcrypt on Mac OS X Mavericks 10.9 for installing the Laravel
 
 [Official documentation page](https://www.php.net/manual/en/mcrypt.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

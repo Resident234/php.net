@@ -31,4 +31,4 @@ I couldn&apos;t find any how-to example for getting the filenames, so I made an 
 
 [Official documentation page](https://www.php.net/manual/en/ziparchive.getnameindex.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

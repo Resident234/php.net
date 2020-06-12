@@ -29,4 +29,4 @@ Be careful about using &quot;do this thing or die()&quot; logic in your return l
 
 [Official documentation page](https://www.php.net/manual/en/functions.returning-values.php)
 
-**[To root](/)**
+**[To root](/README.md)**

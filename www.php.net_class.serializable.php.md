@@ -12,4 +12,4 @@ Here&apos;s an example how to un-, serialize more than one property:<br><br>clas
 
 [Official documentation page](https://www.php.net/manual/en/class.serializable.php)
 
-**[To root](/)**
+**[To root](/README.md)**

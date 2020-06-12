@@ -12,4 +12,4 @@ I&apos;ve just spent 5 hours fighting a bug in my application and outcome is:<br
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-gzhandler.php)
 
-**[To root](/)**
+**[To root](/README.md)**

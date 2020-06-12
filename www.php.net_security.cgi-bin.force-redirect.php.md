@@ -12,4 +12,4 @@ Note that force-redirect doesn&apos;t work with IIS at all; it&apos;ll tell you 
 
 [Official documentation page](https://www.php.net/manual/en/security.cgi-bin.force-redirect.php)
 
-**[To root](/)**
+**[To root](/README.md)**

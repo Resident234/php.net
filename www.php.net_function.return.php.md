@@ -40,4 +40,4 @@ Note that because PHP processes the file before running it, any functions define
 
 [Official documentation page](https://www.php.net/manual/en/function.return.php)
 
-**[To root](/)**
+**[To root](/README.md)**

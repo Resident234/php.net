@@ -20,4 +20,4 @@ The example given in the text:<br><br><span class="default">&lt;?php<br></span><
 
 [Official documentation page](https://www.php.net/manual/en/language.references.arent.php)
 
-**[To root](/)**
+**[To root](/README.md)**

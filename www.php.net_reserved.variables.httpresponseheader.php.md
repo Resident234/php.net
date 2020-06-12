@@ -21,4 +21,4 @@ parser function to get formatted headers (with response code)<br><br><span class
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.httpresponseheader.php)
 
-**[To root](/)**
+**[To root](/README.md)**

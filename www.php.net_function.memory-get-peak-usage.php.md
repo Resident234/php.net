@@ -12,4 +12,4 @@ memory_get_peak_usage() is used to retrieve the highest memory usage of PHP (or 
 
 [Official documentation page](https://www.php.net/manual/en/function.memory-get-peak-usage.php)
 
-**[To root](/)**
+**[To root](/README.md)**

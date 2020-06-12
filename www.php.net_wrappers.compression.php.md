@@ -34,4 +34,4 @@ Example on how to read an entry from a ZIP archive (file &quot;bar.txt&quot; ins
 
 [Official documentation page](https://www.php.net/manual/en/wrappers.compression.php)
 
-**[To root](/)**
+**[To root](/README.md)**

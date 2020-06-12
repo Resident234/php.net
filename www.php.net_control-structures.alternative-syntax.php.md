@@ -44,4 +44,4 @@ If you wan&apos;t to use the alternative syntax for switch statements this won&a
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.alternative-syntax.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -89,4 +89,4 @@ So, playing around with iterators in PHP (coming from languages where I&apos;m s
 
 [Official documentation page](https://www.php.net/manual/en/class.iterator.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -62,4 +62,4 @@ On PHP 5.2.x or previous you might run into problems initializing static variabl
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.static.php)
 
-**[To root](/)**
+**[To root](/README.md)**

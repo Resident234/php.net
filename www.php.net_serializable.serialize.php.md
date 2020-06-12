@@ -12,4 +12,4 @@ The documentation here is somewhat misleading. Where it says &quot;This method a
 
 [Official documentation page](https://www.php.net/manual/en/serializable.serialize.php)
 
-**[To root](/)**
+**[To root](/README.md)**

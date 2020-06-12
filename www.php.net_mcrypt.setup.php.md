@@ -20,4 +20,4 @@ Same Problem on Linux Mint - Call to undefined function mcrypt_create_iv...<br><
 
 [Official documentation page](https://www.php.net/manual/en/mcrypt.setup.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

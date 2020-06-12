@@ -30,4 +30,4 @@ Private/protected members are accessible if you set the &quot;newscope&quot; arg
 
 [Official documentation page](https://www.php.net/manual/en/closure.bindto.php)
 
-**[To root](/)**
+**[To root](/README.md)**

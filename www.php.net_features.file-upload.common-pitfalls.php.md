@@ -12,4 +12,4 @@ Note that, when you want to upload VERY large files (or you want to set the limi
 
 [Official documentation page](https://www.php.net/manual/en/features.file-upload.common-pitfalls.php)
 
-**[To root](/)**
+**[To root](/README.md)**

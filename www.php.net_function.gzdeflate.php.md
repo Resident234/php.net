@@ -12,4 +12,4 @@ Take care that that &quot;PHP deflate&quot; != &quot;HTTP deflate&quot;.<br><br>
 
 [Official documentation page](https://www.php.net/manual/en/function.gzdeflate.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

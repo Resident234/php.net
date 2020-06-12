@@ -20,4 +20,4 @@ Throwable does not work on PHP 5.x.<br><br>To catch both exceptions and errors i
 
 [Official documentation page](https://www.php.net/manual/en/language.errors.php7.php)
 
-**[To root](/)**
+**[To root](/README.md)**

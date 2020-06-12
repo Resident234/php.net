@@ -13,4 +13,4 @@ Note that the Zip functions return an integer error number in the event of error
 
 [Official documentation page](https://www.php.net/manual/en/function.zip-open.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

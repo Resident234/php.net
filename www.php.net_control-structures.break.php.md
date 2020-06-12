@@ -20,4 +20,4 @@ vlad at vlad dot neosurge dot net wrote on 04-Jan-2003 04:21<br><br>&gt; Just an
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.break.php)
 
-**[To root](/)**
+**[To root](/README.md)**

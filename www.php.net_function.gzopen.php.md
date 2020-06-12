@@ -13,4 +13,4 @@ gzopen(&quot;php://output&quot;,&quot;wb&quot;) doesn&apos;t work on a web serve
 
 [Official documentation page](https://www.php.net/manual/en/function.gzopen.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

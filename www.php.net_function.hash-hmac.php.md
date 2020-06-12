@@ -72,4 +72,4 @@ For signing an Amazon AWS query, base64-encode the binary value:<br><br><span cl
 
 [Official documentation page](https://www.php.net/manual/en/function.hash-hmac.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

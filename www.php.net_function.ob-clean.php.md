@@ -28,4 +28,4 @@ I find this function incredibly useful when manipulating or creating images in p
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-clean.php)
 
-**[To root](/)**
+**[To root](/README.md)**

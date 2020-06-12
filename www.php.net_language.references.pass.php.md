@@ -29,4 +29,4 @@ beware unset()&#xA0; destroys references<br><br>$x = &apos;x&apos;;<br>change( $
 
 [Official documentation page](https://www.php.net/manual/en/language.references.pass.php)
 
-**[To root](/)**
+**[To root](/README.md)**

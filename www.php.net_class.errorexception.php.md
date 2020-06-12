@@ -21,4 +21,4 @@ E_USER_WARNING, E_USER_NOTICE, and any other non-terminating error codes, are us
 
 [Official documentation page](https://www.php.net/manual/en/class.errorexception.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -75,4 +75,4 @@ In addition to the traditional syntax for if (condition) action;<br>I am fond of
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.if.php)
 
-**[To root](/)**
+**[To root](/README.md)**

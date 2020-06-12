@@ -12,4 +12,4 @@ Did some simple benchmarking of gzcompress() this morning on a lightly-loaded Fe
 
 [Official documentation page](https://www.php.net/manual/en/function.gzcompress.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

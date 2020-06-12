@@ -20,4 +20,4 @@ To use $_GET so you dont need to support both if it could be used from command l
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.argv.php)
 
-**[To root](/)**
+**[To root](/README.md)**

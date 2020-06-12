@@ -12,4 +12,4 @@ While the &quot;suggested&quot; opcache settings for php.ini might be appropriat
 
 [Official documentation page](https://www.php.net/manual/en/opcache.installation.php)
 
-**[To root](/)**
+**[To root](/README.md)**

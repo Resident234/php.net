@@ -20,4 +20,4 @@ beware, dots (.) in cookie names are replaces by underscores (_)</span>
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.cookies.php)
 
-**[To root](/)**
+**[To root](/README.md)**

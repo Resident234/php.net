@@ -21,4 +21,4 @@ Watch out when you are trying to set $GLOBALS to the local variable.<br><br>Even
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.globals.php)
 
-**[To root](/)**
+**[To root](/README.md)**

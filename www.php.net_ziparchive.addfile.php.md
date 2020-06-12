@@ -35,4 +35,4 @@ When adding a file to your zip, the file is opened and stays open.<br>When addin
 
 [Official documentation page](https://www.php.net/manual/en/ziparchive.addfile.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

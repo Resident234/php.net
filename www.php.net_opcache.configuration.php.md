@@ -12,4 +12,4 @@ When using PHP on a windows platform and enabling opcache, you might run into oc
 
 [Official documentation page](https://www.php.net/manual/en/opcache.configuration.php)
 
-**[To root](/)**
+**[To root](/README.md)**

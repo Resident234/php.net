@@ -79,4 +79,4 @@ You are allowed to &quot;use&quot; the same resource multiple times as long as i
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.importing.php)
 
-**[To root](/)**
+**[To root](/README.md)**

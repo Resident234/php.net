@@ -12,4 +12,4 @@ It seems that the result of the &quot;fromCallable&quot; behaves a little bit di
 
 [Official documentation page](https://www.php.net/manual/en/closure.fromcallable.php)
 
-**[To root](/)**
+**[To root](/README.md)**

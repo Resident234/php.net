@@ -20,4 +20,4 @@ Note that an exception&apos;s properties are populated when the exception is *cr
 
 [Official documentation page](https://www.php.net/manual/en/class.exception.php)
 
-**[To root](/)**
+**[To root](/README.md)**

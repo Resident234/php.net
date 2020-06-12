@@ -21,4 +21,4 @@ best way to compress a css code:<br><br><span class="default">&lt;?php<br>&#xA0;
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-end-flush.php)
 
-**[To root](/)**
+**[To root](/README.md)**

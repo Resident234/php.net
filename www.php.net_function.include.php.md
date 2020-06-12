@@ -44,4 +44,4 @@ As a rule of thumb, never include files using relative paths. To do this efficie
 
 [Official documentation page](https://www.php.net/manual/en/function.include.php)
 
-**[To root](/)**
+**[To root](/README.md)**

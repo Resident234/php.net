@@ -116,4 +116,4 @@ This has already been noted here, but there was no clear example. Methods define
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.visibility.php)
 
-**[To root](/)**
+**[To root](/README.md)**

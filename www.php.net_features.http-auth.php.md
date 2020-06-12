@@ -21,4 +21,4 @@ This is the simplest form I found to do a Basic authorization with retries.<br><
 
 [Official documentation page](https://www.php.net/manual/en/features.http-auth.php)
 
-**[To root](/)**
+**[To root](/README.md)**

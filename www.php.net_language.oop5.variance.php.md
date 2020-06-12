@@ -12,4 +12,4 @@ I would like to explain why covariance and contravariance are important, and why
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.variance.php)
 
-**[To root](/)**
+**[To root](/README.md)**

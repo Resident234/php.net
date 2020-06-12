@@ -46,4 +46,4 @@ If you have archives that you want to overwrite just use:<br><br>ZIPARCHIVE::CRE
 
 [Official documentation page](https://www.php.net/manual/en/ziparchive.open.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -46,4 +46,4 @@ Abstract test.<br><span class="default">&lt;?php<br><br>$start_time</span><span 
 
 [Official documentation page](https://www.php.net/manual/en/language.generators.overview.php)
 
-**[To root](/)**
+**[To root](/README.md)**

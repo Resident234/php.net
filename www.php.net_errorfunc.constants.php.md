@@ -68,4 +68,4 @@
 
 [Official documentation page](https://www.php.net/manual/en/errorfunc.constants.php)
 
-**[To root](/)**
+**[To root](/README.md)**

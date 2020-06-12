@@ -12,4 +12,4 @@ Builtin PHP function is &#xBB;reset&#xAB;.<br><br>Don&apos;t mix this with built
 
 [Official documentation page](https://www.php.net/manual/en/iterator.rewind.php)
 
-**[To root](/)**
+**[To root](/README.md)**

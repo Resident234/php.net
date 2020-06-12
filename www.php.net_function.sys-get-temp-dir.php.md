@@ -28,4 +28,4 @@ This function does not always add trailing slash. This behaviour is inconsistent
 
 [Official documentation page](https://www.php.net/manual/en/function.sys-get-temp-dir.php)
 
-**[To root](/)**
+**[To root](/README.md)**

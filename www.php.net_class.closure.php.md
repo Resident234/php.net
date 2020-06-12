@@ -29,4 +29,4 @@ Scope<br>A closure encapsulates its scope, meaning that it has no access to the 
 
 [Official documentation page](https://www.php.net/manual/en/class.closure.php)
 
-**[To root](/)**
+**[To root](/README.md)**

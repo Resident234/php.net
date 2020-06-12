@@ -21,4 +21,4 @@ Please note that if you have register_globals to On, global variables associated
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.session.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ IMPORTANT INFORMATION<br><br>There was a serious vulnerability in certain CGI-ba
 
 [Official documentation page](https://www.php.net/manual/en/security.cgi-bin.php)
 
-**[To root](/)**
+**[To root](/README.md)**

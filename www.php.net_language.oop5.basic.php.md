@@ -79,4 +79,4 @@ Here&apos;s another simple example.<br><br><span class="default">&lt;?php<br></s
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.basic.php)
 
-**[To root](/)**
+**[To root](/README.md)**

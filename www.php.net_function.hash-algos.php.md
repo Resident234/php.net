@@ -12,4 +12,4 @@ Ansewring to holdoffhunger avoid crc32, the are different results because the cr
 
 [Official documentation page](https://www.php.net/manual/en/function.hash-algos.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

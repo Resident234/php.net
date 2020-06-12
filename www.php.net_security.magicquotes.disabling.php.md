@@ -29,4 +29,4 @@ A php5 way:<br><br><span class="default">&lt;?php<br></span><span class="keyword
 
 [Official documentation page](https://www.php.net/manual/en/security.magicquotes.disabling.php)
 
-**[To root](/)**
+**[To root](/README.md)**

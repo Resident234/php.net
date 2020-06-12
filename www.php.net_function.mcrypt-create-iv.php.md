@@ -20,4 +20,4 @@ In relation to all of the crypto &quot;advice&quot; seen here, my suggestion is 
 
 [Official documentation page](https://www.php.net/manual/en/function.mcrypt-create-iv.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

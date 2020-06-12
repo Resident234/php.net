@@ -13,4 +13,4 @@ Honestly, Exception::getTraceAsString() simply sucks, listing only the called me
 
 [Official documentation page](https://www.php.net/manual/en/exception.gettraceasstring.php)
 
-**[To root](/)**
+**[To root](/README.md)**

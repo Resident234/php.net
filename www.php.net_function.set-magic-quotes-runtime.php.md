@@ -12,4 +12,4 @@ Be aware that even using ini_set to set &apos;magic_quotes_runtime&apos; will st
 
 [Official documentation page](https://www.php.net/manual/en/function.set-magic-quotes-runtime.php)
 
-**[To root](/)**
+**[To root](/README.md)**

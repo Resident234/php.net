@@ -20,4 +20,4 @@ The term &quot;autoload&quot; mentioned here shall not be confused with __autolo
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.rules.php)
 
-**[To root](/)**
+**[To root](/README.md)**

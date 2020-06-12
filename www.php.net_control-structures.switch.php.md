@@ -118,4 +118,4 @@ Something not mentioned in the documentation itself, and only touched on momenta
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.switch.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ If you are trying to use Phar for a web application and just getting a blank scr
 
 [Official documentation page](https://www.php.net/manual/en/phar.using.intro.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

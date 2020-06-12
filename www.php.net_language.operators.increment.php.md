@@ -12,4 +12,4 @@ Note that <br><br>$a=&quot;9D9&quot;; var_dump(++$a);&#xA0;&#xA0; =&gt; string(3
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.increment.php)
 
-**[To root](/)**
+**[To root](/README.md)**

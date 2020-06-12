@@ -44,4 +44,4 @@ when using error_log to send email, not all elements of an extra_headers string 
 
 [Official documentation page](https://www.php.net/manual/en/function.error-log.php)
 
-**[To root](/)**
+**[To root](/README.md)**

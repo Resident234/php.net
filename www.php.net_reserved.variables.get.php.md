@@ -20,4 +20,4 @@ Note that named anchors are not part of the query string and are never submitted
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.get.php)
 
-**[To root](/)**
+**[To root](/README.md)**

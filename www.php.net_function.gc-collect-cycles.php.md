@@ -12,4 +12,4 @@
 
 [Official documentation page](https://www.php.net/manual/en/function.gc-collect-cycles.php)
 
-**[To root](/)**
+**[To root](/README.md)**

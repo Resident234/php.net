@@ -13,4 +13,4 @@ To find out are you in CLI or not, this is much better in my opinion:<br><span c
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.argc.php)
 
-**[To root](/)**
+**[To root](/README.md)**

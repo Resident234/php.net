@@ -12,4 +12,4 @@ I spent a while to sort out some integer results of the bzdecompress, so maybe i
 
 [Official documentation page](https://www.php.net/manual/en/function.bzdecompress.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

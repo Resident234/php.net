@@ -31,4 +31,4 @@ Can be useful to check the value of the constant PATH_SEPARATOR.
 
 [Official documentation page](https://www.php.net/manual/en/function.set-include-path.php)
 
-**[To root](/)**
+**[To root](/README.md)**

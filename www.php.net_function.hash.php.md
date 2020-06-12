@@ -94,4 +94,4 @@ Just a quick note about these benchmarks and how you should apply them.<br><br>I
 
 [Official documentation page](https://www.php.net/manual/en/function.hash.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

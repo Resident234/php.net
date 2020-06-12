@@ -12,4 +12,4 @@ The parser doesn&apos;t handle mixing alternative if syntaxes as reasonably as p
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.elseif.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ Note that PHP extensions also provide interfaces you can implement, for example 
 
 [Official documentation page](https://www.php.net/manual/en/reserved.interfaces.php)
 
-**[To root](/)**
+**[To root](/README.md)**

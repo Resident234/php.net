@@ -46,4 +46,4 @@ Daniel&apos;s typehint implementation was just what I was looking for but perfor
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.typehinting.php)
 
-**[To root](/)**
+**[To root](/README.md)**

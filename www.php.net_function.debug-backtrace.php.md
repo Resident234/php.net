@@ -20,4 +20,4 @@ If you are using the backtrace function in an error handler, avoid using var_exp
 
 [Official documentation page](https://www.php.net/manual/en/function.debug-backtrace.php)
 
-**[To root](/)**
+**[To root](/README.md)**

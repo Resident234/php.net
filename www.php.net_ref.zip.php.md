@@ -13,4 +13,4 @@ This is the function I use to unzip a file. <br>It includes the following option
 
 [Official documentation page](https://www.php.net/manual/en/ref.zip.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

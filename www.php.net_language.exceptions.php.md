@@ -106,4 +106,4 @@ The &quot;finally&quot; block can change the exception that has been throw by th
 
 [Official documentation page](https://www.php.net/manual/en/language.exceptions.php)
 
-**[To root](/)**
+**[To root](/README.md)**

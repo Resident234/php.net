@@ -79,4 +79,4 @@ Do not confuse php&apos;s version of properties with properties in other languag
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.properties.php)
 
-**[To root](/)**
+**[To root](/README.md)**

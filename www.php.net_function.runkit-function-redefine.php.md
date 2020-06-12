@@ -12,4 +12,4 @@ Note to users: language constructs (eval, die, exit, isset, unset, echo etc.) wh
 
 [Official documentation page](https://www.php.net/manual/en/function.runkit-function-redefine.php)
 
-**[To root](/)**
+**[To root](/README.md)**

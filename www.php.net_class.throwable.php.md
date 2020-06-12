@@ -12,4 +12,4 @@ I wrote a simple script that prints out the Throwable and Exception tree for eve
 
 [Official documentation page](https://www.php.net/manual/en/class.throwable.php)
 
-**[To root](/)**
+**[To root](/README.md)**

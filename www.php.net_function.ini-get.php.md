@@ -13,4 +13,4 @@ another version of return_bytes which returns faster and does not use multiple m
 
 [Official documentation page](https://www.php.net/manual/en/function.ini-get.php)
 
-**[To root](/)**
+**[To root](/README.md)**

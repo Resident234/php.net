@@ -89,4 +89,4 @@ Conclusion: Type hints \ArrayAccess and array are not compatible.
 
 [Official documentation page](https://www.php.net/manual/en/class.arrayaccess.php)
 
-**[To root](/)**
+**[To root](/README.md)**

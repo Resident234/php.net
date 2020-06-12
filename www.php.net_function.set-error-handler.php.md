@@ -31,4 +31,4 @@ By this function alone you can not catch fatal errors, there is a simple work ar
 
 [Official documentation page](https://www.php.net/manual/en/function.set-error-handler.php)
 
-**[To root](/)**
+**[To root](/README.md)**

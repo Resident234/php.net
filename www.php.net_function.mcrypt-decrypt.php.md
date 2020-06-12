@@ -24,4 +24,4 @@ It appears that mcrypt_decrypt pads the *RETURN STRING* with nulls (&apos;\0&apo
 
 [Official documentation page](https://www.php.net/manual/en/function.mcrypt-decrypt.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

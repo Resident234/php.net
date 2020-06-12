@@ -98,4 +98,4 @@ Be aware that using @ is dog-slow, as PHP incurs overhead to suppressing errors 
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.errorcontrol.php)
 
-**[To root](/)**
+**[To root](/README.md)**

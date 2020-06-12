@@ -103,4 +103,4 @@ What is not mentioned in the manual is that you can use &quot;self&quot; to forc
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.interfaces.php)
 
-**[To root](/)**
+**[To root](/README.md)**

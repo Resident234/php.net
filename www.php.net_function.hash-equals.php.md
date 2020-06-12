@@ -22,4 +22,4 @@ I don&apos;t know why asphp at dsgml dot com got that many downvotes, the functi
 
 [Official documentation page](https://www.php.net/manual/en/function.hash-equals.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ Actually, this method can be useful to test a generator before iterating, as it 
 
 [Official documentation page](https://www.php.net/manual/en/generator.rewind.php)
 
-**[To root](/)**
+**[To root](/README.md)**

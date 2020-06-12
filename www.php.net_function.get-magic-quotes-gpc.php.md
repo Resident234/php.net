@@ -39,4 +39,4 @@
 
 [Official documentation page](https://www.php.net/manual/en/function.get-magic-quotes-gpc.php)
 
-**[To root](/)**
+**[To root](/README.md)**

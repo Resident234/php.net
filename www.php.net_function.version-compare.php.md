@@ -62,4 +62,4 @@ Since this function considers 1 &lt; 1.0 &lt; 1.0.0, others might find this func
 
 [Official documentation page](https://www.php.net/manual/en/function.version-compare.php)
 
-**[To root](/)**
+**[To root](/README.md)**

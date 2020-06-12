@@ -95,4 +95,4 @@ You are also allowed to jump backwards with a goto statement. To run a block of 
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.goto.php)
 
-**[To root](/)**
+**[To root](/README.md)**

@@ -49,4 +49,4 @@ require_once may not work correctly inside repetitive function when storing vari
 
 [Official documentation page](https://www.php.net/manual/en/function.require-once.php)
 
-**[To root](/)**
+**[To root](/README.md)**

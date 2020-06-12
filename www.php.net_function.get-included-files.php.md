@@ -12,4 +12,4 @@ As of PHP5, this function seems to return an array with the first index being th
 
 [Official documentation page](https://www.php.net/manual/en/function.get-included-files.php)
 
-**[To root](/)**
+**[To root](/README.md)**

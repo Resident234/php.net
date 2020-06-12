@@ -12,4 +12,4 @@ An alternative and very useful syntax is the following one:<br><br>statement ? e
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.else.php)
 
-**[To root](/)**
+**[To root](/README.md)**

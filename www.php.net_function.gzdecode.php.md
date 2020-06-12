@@ -29,4 +29,4 @@ I don&apos;t have any deep knowledge in compression algorithms and formats, so I
 
 [Official documentation page](https://www.php.net/manual/en/function.gzdecode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

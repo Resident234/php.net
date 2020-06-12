@@ -46,4 +46,4 @@ Be careful so that you don&apos;t type &quot;.&quot; instead of &quot;;&quot; at
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.string.php)
 
-**[To root](/)**
+**[To root](/README.md)**

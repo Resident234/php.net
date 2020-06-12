@@ -113,4 +113,4 @@ Anonymous functions are great for events!<br><br><span class="default">&lt;?php<
 
 [Official documentation page](https://www.php.net/manual/en/functions.anonymous.php)
 
-**[To root](/)**
+**[To root](/README.md)**
