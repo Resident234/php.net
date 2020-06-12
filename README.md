@@ -3182,3 +3182,85 @@
 
 [Examples](/www.php.net_xsl.examples.php.md)
 
+##PHP at the Core: A Hacker's Guide
+
+###Zend Engine 2 Opcodes
+
+####Opcode Descriptions and Examples
+
+[INSTANCEOF](/www.php.net_internals2.opcodes.instanceof.php.md)
+
+##FAQ
+
+[Safe Password Hashing](/www.php.net_faq.passwords.php.md)
+
+##Appendices
+
+###Migrating from PHP 7.3.x to PHP 7.4.x
+
+[New Features](/www.php.net_migration74.new-features.php.md)
+
+###Migrating from PHP 7.1.x to PHP 7.2.x
+
+[Deprecated features in PHP 7.2.x](/www.php.net_migration72.deprecated.php.md)
+
+###Migrating from PHP 7.0.x to PHP 7.1.x
+
+[New features](/www.php.net_migration71.new-features.php.md)
+
+[Backward incompatible changes](/www.php.net_migration71.incompatible.php.md)
+
+[Other changes](/www.php.net_migration71.other-changes.php.md)
+
+###Migrating from PHP 5.6.x to PHP 7.0.x
+
+[Backward incompatible changes](/www.php.net_migration70.incompatible.php.md)
+
+[New features](/www.php.net_migration70.new-features.php.md)
+
+###Migrating from PHP 5.5.x to PHP 5.6.x
+
+[New features](/www.php.net_migration56.new-features.php.md)
+
+[OpenSSL changes in PHP 5.6.x](/www.php.net_migration56.openssl.php.md)
+
+###Migrating from PHP 5.4.x to PHP 5.5.x
+
+[New features](/www.php.net_migration55.new-features.php.md)
+
+###Migrating from PHP 5.3.x to PHP 5.4.x
+
+[Backward Incompatible Changes](/www.php.net_migration54.incompatible.php.md)
+
+[New features](/www.php.net_migration54.new-features.php.md)
+
+###Migrating from PHP 4 to PHP 5.0.x
+
+[Error Reporting](/www.php.net_migrating5.errorrep.php.md)
+
+[Debugging in PHP](/www.php.net_debugger.php.md)
+
+###php.ini directives
+
+[Description of core ](/www.php.net_ini.core.php.md)
+
+###List of Reserved Words
+
+[List of Keywords](/www.php.net_reserved.keywords.php.md)
+
+[Predefined Classes](/www.php.net_reserved.classes.php.md)
+
+[Predefined Constants](/www.php.net_reserved.constants.php.md)
+
+###List of Supported Socket Transports
+
+[Internet Domain: TCP, UDP, SSL, and TLS](/www.php.net_transports.inet.php.md)
+
+[Unix Domain: Unix and UDG](/www.php.net_transports.unix.php.md)
+
+[PHP type comparison tables](/www.php.net_types.comparisons.php.md)
+
+###Index listing
+
+[Function and Method listing](/www.php.net_indexes.functions.php.md)
+
