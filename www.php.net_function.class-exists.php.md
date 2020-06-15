@@ -36,4 +36,4 @@ Hi guys!<br>Be careful&#xA0; and don&apos;t forget about second boolean argument
 
 [Official documentation page](https://www.php.net/manual/en/function.class-exists.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

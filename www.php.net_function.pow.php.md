@@ -20,4 +20,4 @@ Note that pow(0, 0) equals to 1 although mathematically this is undefined.</span
 
 [Official documentation page](https://www.php.net/manual/en/function.pow.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

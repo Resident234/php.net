@@ -12,4 +12,4 @@ You don&apos;t have to write a new function, <span class="default">&lt;?php call
 
 [Official documentation page](https://www.php.net/manual/en/function.call-user-method-array.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

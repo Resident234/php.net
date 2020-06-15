@@ -13,4 +13,4 @@ In my opinion this exception is invaluable for validating arguments- for example
 
 [Official documentation page](https://www.php.net/manual/en/class.invalidargumentexception.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

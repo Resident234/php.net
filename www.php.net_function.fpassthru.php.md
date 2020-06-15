@@ -12,4 +12,4 @@ Passthru didn&apos;t work for me for files greater than about 5Mb. Just adding &
 
 [Official documentation page](https://www.php.net/manual/en/function.fpassthru.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

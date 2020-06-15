@@ -64,4 +64,4 @@ if you want to check for a method &quot;inside&quot; of a class use:<br><br>meth
 
 [Official documentation page](https://www.php.net/manual/en/function.method-exists.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

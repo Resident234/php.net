@@ -96,4 +96,4 @@ Memory footprint of splFixedArray is about 37% of a regular &quot;array&quot; of
 
 [Official documentation page](https://www.php.net/manual/en/class.splfixedarray.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

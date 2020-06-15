@@ -49,4 +49,4 @@ I&apos;m sure there are a lot of people like me who have been wondering, &quot;H
 
 [Official documentation page](https://www.php.net/manual/en/imagick.getimagepixelcolor.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

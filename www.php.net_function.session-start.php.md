@@ -73,4 +73,4 @@ When you have an import script that takes long to execute, the browser seem to l
 
 [Official documentation page](https://www.php.net/manual/en/function.session-start.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

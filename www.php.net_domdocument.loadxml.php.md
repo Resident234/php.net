@@ -20,4 +20,4 @@ loadXml reports an error instead of throwing an exception when the xml is not we
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.loadxml.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

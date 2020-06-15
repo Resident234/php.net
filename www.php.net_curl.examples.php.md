@@ -30,4 +30,4 @@ Following code returns the curl output as a string.
 
 [Official documentation page](https://www.php.net/manual/en/curl.examples.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

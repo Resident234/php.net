@@ -40,4 +40,4 @@ For those who dont want to deal with handling the connection once created, here 
 
 [Official documentation page](https://www.php.net/manual/en/book.ftp.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

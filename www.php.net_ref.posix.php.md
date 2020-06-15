@@ -1,4 +1,4 @@
-# POSIX Functions
+# POSIX FunctionsSee Also
 
 
 
@@ -12,4 +12,4 @@ That is not part of POSIX, those are only present as you listed on linux systems
 
 [Official documentation page](https://www.php.net/manual/en/ref.posix.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

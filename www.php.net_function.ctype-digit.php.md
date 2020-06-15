@@ -56,4 +56,4 @@ Note that an empty string is also false:<br>ctype_digit(&quot;&quot;) // false</
 
 [Official documentation page](https://www.php.net/manual/en/function.ctype-digit.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -42,4 +42,4 @@ This is another way to get value from a multidimensional array, but for versions
 
 [Official documentation page](https://www.php.net/manual/en/function.array-values.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ With this function You can compress Your PHP source code.<br><br><span class="de
 
 [Official documentation page](https://www.php.net/manual/en/function.php-strip-whitespace.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

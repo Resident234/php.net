@@ -21,4 +21,4 @@ If you curious of the numeric values of the constants, as of JSON 1.2.1, the con
 
 [Official documentation page](https://www.php.net/manual/en/json.constants.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

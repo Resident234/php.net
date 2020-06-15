@@ -1,4 +1,4 @@
-# mysqli_result::fetch_assoc
+# mysqli_result::fetch_assocmysqli_fetch_assoc
 
 
 

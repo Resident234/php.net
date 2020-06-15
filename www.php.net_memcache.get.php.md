@@ -13,4 +13,4 @@ $flags stays untouched if $key was not found on the server, it&apos;s helpfull t
 
 [Official documentation page](https://www.php.net/manual/en/memcache.get.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

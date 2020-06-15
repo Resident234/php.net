@@ -12,4 +12,4 @@ This page mentions that replace should be used rather than set, but gives no rea
 
 [Official documentation page](https://www.php.net/manual/en/memcache.replace.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ For those who stumble on notice about ReflectionType::__toString() beeing deprec
 
 [Official documentation page](https://www.php.net/manual/en/class.reflectiontype.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

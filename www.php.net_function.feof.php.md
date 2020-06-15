@@ -20,4 +20,4 @@ When using feof() on a TCP stream, i found the following to work (after many hou
 
 [Official documentation page](https://www.php.net/manual/en/function.feof.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

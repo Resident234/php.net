@@ -123,4 +123,4 @@ Here is a function to sort an array by the key of his sub-array.<br><br><span cl
 
 [Official documentation page](https://www.php.net/manual/en/function.ksort.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

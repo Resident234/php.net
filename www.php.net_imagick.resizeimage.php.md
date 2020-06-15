@@ -37,4 +37,4 @@ In our linux environment, using resizeImage with any filter produced extremely h
 
 [Official documentation page](https://www.php.net/manual/en/imagick.resizeimage.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

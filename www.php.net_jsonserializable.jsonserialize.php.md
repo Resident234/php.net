@@ -22,4 +22,4 @@ Nested json serializable objects will be serialized recursively. No need to call
 
 [Official documentation page](https://www.php.net/manual/en/jsonserializable.jsonserialize.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

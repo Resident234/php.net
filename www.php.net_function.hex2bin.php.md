@@ -12,4 +12,4 @@ The function hex2bin does not exist in PHP5.<br>You can use &apos;pack&apos; ins
 
 [Official documentation page](https://www.php.net/manual/en/function.hex2bin.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

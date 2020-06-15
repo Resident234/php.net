@@ -12,4 +12,4 @@ Note some inconsistent/surprising behavior in SplObjectStorage to preserve backw
 
 [Official documentation page](https://www.php.net/manual/en/class.splobjectstorage.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

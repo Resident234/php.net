@@ -13,4 +13,4 @@ Here is an example, since I cannot find one through out php.net&quot;<br><br><sp
 
 [Official documentation page](https://www.php.net/manual/en/filter.filters.misc.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

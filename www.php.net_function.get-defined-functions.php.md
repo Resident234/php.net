@@ -12,4 +12,4 @@ You can list all arguments using ReflectionFunction class. It&apos;s not necessa
 
 [Official documentation page](https://www.php.net/manual/en/function.get-defined-functions.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

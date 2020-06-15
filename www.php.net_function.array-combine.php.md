@@ -21,4 +21,4 @@ Further to loreiorg&apos;s script <br>in order to preserve duplicate keys when c
 
 [Official documentation page](https://www.php.net/manual/en/function.array-combine.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -156,4 +156,4 @@ recursive array unique for multiarrays<br><br><span class="default">&lt;?php<br>
 
 [Official documentation page](https://www.php.net/manual/en/function.array-unique.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

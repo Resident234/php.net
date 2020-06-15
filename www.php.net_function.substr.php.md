@@ -31,4 +31,4 @@ may be by following functions will be easier to extract the needed sub parts fro
 
 [Official documentation page](https://www.php.net/manual/en/function.substr.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

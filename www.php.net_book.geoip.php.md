@@ -21,4 +21,4 @@ It should be noted that this extension has now been superseded by the GeoIP2 API
 
 [Official documentation page](https://www.php.net/manual/en/book.geoip.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

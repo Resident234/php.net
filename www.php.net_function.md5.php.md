@@ -12,4 +12,4 @@ If you want to hash a large amount of data you can use the hash_init/hash_update
 
 [Official documentation page](https://www.php.net/manual/en/function.md5.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

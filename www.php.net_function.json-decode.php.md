@@ -259,4 +259,4 @@ json_decode()&apos;s handling of invalid JSON is very flaky, and it is very hard
 
 [Official documentation page](https://www.php.net/manual/en/function.json-decode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

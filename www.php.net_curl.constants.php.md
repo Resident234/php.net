@@ -21,4 +21,4 @@ Beware of CURLE_* constants!<br><br>On the official site:<br><br><a href="http:/
 
 [Official documentation page](https://www.php.net/manual/en/curl.constants.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

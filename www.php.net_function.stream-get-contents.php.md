@@ -12,4 +12,4 @@ It is important to know that stream_get_contents behaves differently with differ
 
 [Official documentation page](https://www.php.net/manual/en/function.stream-get-contents.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

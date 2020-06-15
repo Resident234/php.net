@@ -12,4 +12,4 @@ The behaviour of mb_ereg_match to imply a ^ at the beginning of the pattern stan
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-ereg-match.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

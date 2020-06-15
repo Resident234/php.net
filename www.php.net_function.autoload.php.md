@@ -21,4 +21,4 @@ Even I have never been using this function, just a simple example in order to ex
 
 [Official documentation page](https://www.php.net/manual/en/function.autoload.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

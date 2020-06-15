@@ -19,4 +19,4 @@ That fixed the all caps issue:
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-utf8.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

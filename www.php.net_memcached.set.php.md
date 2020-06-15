@@ -12,4 +12,4 @@ In the example it shows:<br><br>/* expire &apos;object&apos; key in 5 minutes */
 
 [Official documentation page](https://www.php.net/manual/en/memcached.set.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

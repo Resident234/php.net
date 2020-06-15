@@ -12,4 +12,4 @@ Here is an explanation for the input file for training, as it might be obvious t
 
 [Official documentation page](https://www.php.net/manual/en/fann.examples-1.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

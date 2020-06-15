@@ -63,4 +63,4 @@ Hey be sure the string you are comparing has not special characters like &apos;\
 
 [Official documentation page](https://www.php.net/manual/en/function.strcmp.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

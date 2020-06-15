@@ -28,4 +28,4 @@ Just a useful version which returns a simple array with the first key and value.
 
 [Official documentation page](https://www.php.net/manual/en/function.array-shift.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

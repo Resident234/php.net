@@ -12,4 +12,4 @@ It is very important to note when reading the information supplied by others on 
 
 [Official documentation page](https://www.php.net/manual/en/memcache.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

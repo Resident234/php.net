@@ -13,4 +13,4 @@ If you&apos;re trying to load a translucent png-24 image but are finding an abse
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecreatefrompng.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

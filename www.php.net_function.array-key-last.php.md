@@ -12,4 +12,4 @@ For PHP &lt;= 7.3.0 :<br><br>if (! function_exists(&quot;array_key_last&quot;)) 
 
 [Official documentation page](https://www.php.net/manual/en/function.array-key-last.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

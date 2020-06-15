@@ -13,4 +13,4 @@ To add leading zeros I prefer the following:<br><span class="default">&lt;?php<b
 
 [Official documentation page](https://www.php.net/manual/en/function.decbin.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

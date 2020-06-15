@@ -20,4 +20,4 @@ Speed of mb_strlen varies a lot according to specified character set.<br><br>If 
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-strlen.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

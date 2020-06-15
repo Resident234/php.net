@@ -103,4 +103,4 @@ if you want to take a number from a string, no matter what it may contain, here 
 
 [Official documentation page](https://www.php.net/manual/en/function.intval.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

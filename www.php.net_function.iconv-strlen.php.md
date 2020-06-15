@@ -12,4 +12,4 @@ If iconv_strlen is passed a UTF-8 string containing badly formed sequences, it w
 
 [Official documentation page](https://www.php.net/manual/en/function.iconv-strlen.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

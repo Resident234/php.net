@@ -12,4 +12,4 @@ What&apos;s not mentioned here is that DOMNode::appendChild() can also be used t
 
 [Official documentation page](https://www.php.net/manual/en/domnode.appendchild.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

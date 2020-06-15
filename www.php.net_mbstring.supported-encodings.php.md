@@ -12,4 +12,4 @@ Use mb_list_encodings() to check if an encoding is supported by mbstring before 
 
 [Official documentation page](https://www.php.net/manual/en/mbstring.supported-encodings.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

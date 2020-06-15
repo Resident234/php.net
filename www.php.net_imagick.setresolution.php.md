@@ -13,4 +13,4 @@ This method uses the &quot;convert -density {$x_resolution}x{$y_resolution}&quot
 
 [Official documentation page](https://www.php.net/manual/en/imagick.setresolution.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

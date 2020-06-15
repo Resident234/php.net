@@ -29,4 +29,4 @@ Note this function will LOWERCASE the class names its looking for, dont be confu
 
 [Official documentation page](https://www.php.net/manual/en/function.spl-autoload.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -13,4 +13,4 @@ as the previouly posted version of this function doesn&apos;t handle UTF-8 chara
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-convert-case.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

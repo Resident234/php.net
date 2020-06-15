@@ -12,4 +12,4 @@ This is for WINDOWS users. I am running apache and I have been trying for hours 
 
 [Official documentation page](https://www.php.net/manual/en/function.system.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -55,4 +55,4 @@ If you don&apos;t have PHP 5.4 and want to change the returned status code, you 
 
 [Official documentation page](https://www.php.net/manual/en/function.http-response-code.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

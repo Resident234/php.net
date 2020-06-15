@@ -12,4 +12,4 @@ Noting that when the tmp file exceeds memory limitations and is written to the s
 
 [Official documentation page](https://www.php.net/manual/en/spltempfileobject.construct.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

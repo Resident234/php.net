@@ -36,4 +36,4 @@ Important note: You should avoid its use in production.<br><br>DNS Resolution ma
 
 [Official documentation page](https://www.php.net/manual/en/function.gethostbyname.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

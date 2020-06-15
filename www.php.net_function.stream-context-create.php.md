@@ -108,4 +108,4 @@ I found the following code worked for me for POSTing some binary data to a remot
 
 [Official documentation page](https://www.php.net/manual/en/function.stream-context-create.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

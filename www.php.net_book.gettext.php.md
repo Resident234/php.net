@@ -36,4 +36,4 @@ And what about pgettext and npgettext? They are there in the gettext documentati
 
 [Official documentation page](https://www.php.net/manual/en/book.gettext.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

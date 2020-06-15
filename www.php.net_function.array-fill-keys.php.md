@@ -72,4 +72,4 @@ If an associative array is used as the second parameter of array_fill_keys, then
 
 [Official documentation page](https://www.php.net/manual/en/function.array-fill-keys.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

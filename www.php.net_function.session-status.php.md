@@ -21,4 +21,4 @@ Universal function for checking session status.<br><br><span class="default">&lt
 
 [Official documentation page](https://www.php.net/manual/en/function.session-status.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

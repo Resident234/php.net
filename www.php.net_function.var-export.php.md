@@ -47,4 +47,4 @@ I found that my complex type was exporting with <br>&#xA0; stdClass::__set_state
 
 [Official documentation page](https://www.php.net/manual/en/function.var-export.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

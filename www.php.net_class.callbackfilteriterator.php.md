@@ -13,4 +13,4 @@ Implementation for PHP &lt; 5.4:<br><br><span class="default">&lt;?php <br></spa
 
 [Official documentation page](https://www.php.net/manual/en/class.callbackfilteriterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ According to the notes in the php.ini file, E_ALL *does* include E_STRICT; to ex
 
 [Official documentation page](https://www.php.net/manual/en/migrating5.errorrep.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

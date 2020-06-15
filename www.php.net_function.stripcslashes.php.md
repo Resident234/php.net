@@ -13,4 +13,4 @@ stripcslashes does not simply skip the C-style escape sequences \a, \b, \f, \n, 
 
 [Official documentation page](https://www.php.net/manual/en/function.stripcslashes.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ It is mentioned in a few places on the web, but it wasn&apos;t mentioned here. Y
 
 [Official documentation page](https://www.php.net/manual/en/domxpath.registernamespace.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

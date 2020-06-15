@@ -22,4 +22,4 @@ Run a match on the array&apos;s keys rather than the values:<br><br><span class=
 
 [Official documentation page](https://www.php.net/manual/en/function.preg-grep.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

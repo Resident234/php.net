@@ -20,4 +20,4 @@ Practical use to get the dimensions of the image:
 
 [Official documentation page](https://www.php.net/manual/en/imagick.getimagesize.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

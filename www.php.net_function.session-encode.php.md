@@ -12,4 +12,4 @@ session_encode() just return the session dataset in a formatted form<br><br>sess
 
 [Official documentation page](https://www.php.net/manual/en/function.session-encode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

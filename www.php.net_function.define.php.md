@@ -21,4 +21,4 @@ define() will define constants exactly as specified.&#xA0; So, if you want to de
 
 [Official documentation page](https://www.php.net/manual/en/function.define.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

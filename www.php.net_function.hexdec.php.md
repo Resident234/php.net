@@ -12,4 +12,4 @@ Use this function to convert a hexa decimal color code to its RGB equivalent. Un
 
 [Official documentation page](https://www.php.net/manual/en/function.hexdec.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

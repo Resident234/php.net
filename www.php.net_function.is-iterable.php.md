@@ -12,4 +12,4 @@ A slight correction to brcontainer&apos;s polyfill, which prevents errors on a n
 
 [Official documentation page](https://www.php.net/manual/en/function.is-iterable.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

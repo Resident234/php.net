@@ -29,4 +29,4 @@ Windows users: If you get the fatal error &quot;Fatal error:&#xA0; Call to undef
 
 [Official documentation page](https://www.php.net/manual/en/function.exif-imagetype.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

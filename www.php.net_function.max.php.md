@@ -39,4 +39,4 @@ Notice that whenever there is a Number in front of the String, it will be used f
 
 [Official documentation page](https://www.php.net/manual/en/function.max.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

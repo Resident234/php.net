@@ -12,4 +12,4 @@ If you are having trouble accessing CDATA in your simplexml document, you don&ap
 
 [Official documentation page](https://www.php.net/manual/en/ref.simplexml.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

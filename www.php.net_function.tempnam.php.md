@@ -60,4 +60,4 @@ If you go to the linux man page for the C function tempnam(3), you will see at t
 
 [Official documentation page](https://www.php.net/manual/en/function.tempnam.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

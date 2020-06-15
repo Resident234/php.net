@@ -28,4 +28,4 @@ Keep in mind that ftp_get will overwrite the file on your local machine if it ha
 
 [Official documentation page](https://www.php.net/manual/en/function.ftp-get.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -136,4 +136,4 @@ Only problem with fgetcsv(), at least in PHP 4.x -- any stray slash in the data 
 
 [Official documentation page](https://www.php.net/manual/en/function.fgetcsv.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

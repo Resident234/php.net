@@ -29,4 +29,4 @@ I&apos;ve created a PHP5 image resize class, using ImageCopyResampled, that some
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecopyresampled.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -22,4 +22,4 @@ Choose your weapon:<br><span class="default">&lt;?php<br></span><span class="key
 
 [Official documentation page](https://www.php.net/manual/en/function.lcg-value.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

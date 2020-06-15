@@ -20,4 +20,4 @@ My country, Vietnam, have our own alphabet table:<br><a href="http://en.wikipedi
 
 [Official documentation page](https://www.php.net/manual/en/regexp.reference.unicode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

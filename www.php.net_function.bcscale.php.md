@@ -21,4 +21,4 @@ These functions DO NOT round off your values. No arbitrary precision libraries d
 
 [Official documentation page](https://www.php.net/manual/en/function.bcscale.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -1,4 +1,4 @@
-# Comparing generators with 
+# Comparing generators with Iterator objects
 
 
 

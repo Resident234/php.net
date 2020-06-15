@@ -12,4 +12,4 @@ It is a GOOD_THING to check the return value from fclose(), as some operating sy
 
 [Official documentation page](https://www.php.net/manual/en/function.fclose.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

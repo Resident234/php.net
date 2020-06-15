@@ -169,4 +169,4 @@ This script checks specific ports so you need to have the correct port open on t
 
 [Official documentation page](https://www.php.net/manual/en/function.fsockopen.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

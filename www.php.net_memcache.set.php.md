@@ -51,4 +51,4 @@ This is just two minor things about memcache that might not be perfectly clear, 
 
 [Official documentation page](https://www.php.net/manual/en/memcache.set.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

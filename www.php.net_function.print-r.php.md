@@ -71,4 +71,4 @@ Here is another version that parses the print_r() output. I tried the one posted
 
 [Official documentation page](https://www.php.net/manual/en/function.print-r.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

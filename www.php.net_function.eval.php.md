@@ -37,4 +37,4 @@ If you want to allow math input and make sure that the input is proper mathemati
 
 [Official documentation page](https://www.php.net/manual/en/function.eval.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

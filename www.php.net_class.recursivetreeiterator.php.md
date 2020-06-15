@@ -12,4 +12,4 @@ $it = new RecursiveArrayIterator(array(1, 2, array(3, 4, array(5, 6, 7), 8), 9, 
 
 [Official documentation page](https://www.php.net/manual/en/class.recursivetreeiterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

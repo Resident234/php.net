@@ -13,4 +13,4 @@ Here&apos;s an implementation that adheres to the PECL source quite strictly. Th
 
 [Official documentation page](https://www.php.net/manual/en/function.stats-standard-deviation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

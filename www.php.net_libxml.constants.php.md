@@ -12,4 +12,4 @@ When inserting XML DOM Elements inside existing XML DOM Elements that I loaded f
 
 [Official documentation page](https://www.php.net/manual/en/libxml.constants.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

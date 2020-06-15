@@ -22,4 +22,4 @@ Here are some useful functions to convert large hex numbers from and to large de
 
 [Official documentation page](https://www.php.net/manual/en/ref.bc.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

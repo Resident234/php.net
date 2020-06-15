@@ -42,4 +42,4 @@ Do not lose your time to install it on Ubuntu just trying &quot;sudo apt-get ins
 
 [Official documentation page](https://www.php.net/manual/en/memcached.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

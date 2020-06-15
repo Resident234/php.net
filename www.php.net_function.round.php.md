@@ -65,4 +65,4 @@ Here is function that rounds to a specified increment, but always up. I had to u
 
 [Official documentation page](https://www.php.net/manual/en/function.round.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

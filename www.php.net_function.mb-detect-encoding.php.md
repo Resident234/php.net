@@ -39,4 +39,4 @@ A simple way to detect UTF-8/16/32 of file by its BOM (not work with string or f
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-detect-encoding.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

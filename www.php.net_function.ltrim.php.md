@@ -20,4 +20,4 @@ For those who use right-to-left languages such as Arabic, Hebrew, etc., it&apos;
 
 [Official documentation page](https://www.php.net/manual/en/function.ltrim.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

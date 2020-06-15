@@ -47,4 +47,4 @@ Beware that RFC2616 (HTTP/1.1) defines header fields as case-insensitive entitie
 
 [Official documentation page](https://www.php.net/manual/en/function.getallheaders.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

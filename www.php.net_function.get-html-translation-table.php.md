@@ -48,4 +48,4 @@ Be careful using get_html_translation_table() in a loop, as it&apos;s very slow.
 
 [Official documentation page](https://www.php.net/manual/en/function.get-html-translation-table.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

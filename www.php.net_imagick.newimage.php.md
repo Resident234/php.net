@@ -12,4 +12,4 @@ The color value (3rd argument) for transparency is &quot;none&quot;.</span>
 
 [Official documentation page](https://www.php.net/manual/en/imagick.newimage.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -45,4 +45,4 @@ It seems that starting of PHP 5.4 you can not override class method with differe
 
 [Official documentation page](https://www.php.net/manual/en/migration54.incompatible.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

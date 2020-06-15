@@ -28,4 +28,4 @@ Steps for installing the extension package on Debian systems:<br><br>&gt; sudo a
 
 [Official documentation page](https://www.php.net/manual/en/ssh2.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

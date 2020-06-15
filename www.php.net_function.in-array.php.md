@@ -110,4 +110,4 @@ If you found yourself in need of a multidimensional array in_array like function
 
 [Official documentation page](https://www.php.net/manual/en/function.in-array.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

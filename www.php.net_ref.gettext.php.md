@@ -12,4 +12,4 @@ As some of you have mentioned, you must have the locales compiled on your system
 
 [Official documentation page](https://www.php.net/manual/en/ref.gettext.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

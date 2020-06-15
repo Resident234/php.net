@@ -12,4 +12,4 @@ Just a side note that this is not how you&apos;d ever AUTHENTICATE someone, just
 
 [Official documentation page](https://www.php.net/manual/en/function.ldap-compare.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

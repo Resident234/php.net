@@ -12,4 +12,4 @@ Instead of __autoload(), you can use spl_autoload_register() very easily, as per
 
 [Official documentation page](https://www.php.net/manual/en/migration72.deprecated.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

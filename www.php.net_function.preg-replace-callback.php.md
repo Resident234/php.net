@@ -39,4 +39,4 @@ If you want to call non-static function inside your class, you can do something 
 
 [Official documentation page](https://www.php.net/manual/en/function.preg-replace-callback.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

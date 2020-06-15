@@ -12,4 +12,4 @@ The suggestion below to double-hash your password is not a good idea.&#xA0; You 
 
 [Official documentation page](https://www.php.net/manual/en/function.sha1.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ For some reason folks downvoted the previous entry for this, BUT... indeed, as o
 
 [Official documentation page](https://www.php.net/manual/en/ftp.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

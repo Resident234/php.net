@@ -36,4 +36,4 @@ When converting from CMYK to RGB using this function, the image can become inver
 
 [Official documentation page](https://www.php.net/manual/en/imagick.setimagecolorspace.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

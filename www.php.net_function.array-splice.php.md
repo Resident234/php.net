@@ -136,4 +136,4 @@ When trying to splice an associative array into another, array_splice is missing
 
 [Official documentation page](https://www.php.net/manual/en/function.array-splice.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

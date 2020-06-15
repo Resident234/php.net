@@ -12,4 +12,4 @@ Disregard my other comment.<br><br>readInnerXml does not advance the cursor, so 
 
 [Official documentation page](https://www.php.net/manual/en/xmlreader.readinnerxml.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

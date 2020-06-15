@@ -49,4 +49,4 @@ If you need to unpack a signed short from big-endian or little-endian specifical
 
 [Official documentation page](https://www.php.net/manual/en/function.pack.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

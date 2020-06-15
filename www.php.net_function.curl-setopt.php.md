@@ -420,4 +420,4 @@ Passing in PHP&apos;s $_SESSION into your cURL call:
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-setopt.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

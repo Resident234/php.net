@@ -53,4 +53,4 @@ If you are going to serialie an object which contains references to other object
 
 [Official documentation page](https://www.php.net/manual/en/function.serialize.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

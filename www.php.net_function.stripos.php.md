@@ -13,4 +13,4 @@ I found myself needing to find the first position of multiple needles in one hay
 
 [Official documentation page](https://www.php.net/manual/en/function.stripos.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

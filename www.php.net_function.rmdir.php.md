@@ -90,4 +90,4 @@ It is rather dangerous to recurse into symbolically linked directories. The delT
 
 [Official documentation page](https://www.php.net/manual/en/function.rmdir.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

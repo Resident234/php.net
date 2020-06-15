@@ -12,4 +12,4 @@ SplQueue inherits from SplDoublyLinkedList. So, objects of SplQueue support meth
 
 [Official documentation page](https://www.php.net/manual/en/class.splqueue.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

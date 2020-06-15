@@ -30,4 +30,4 @@ In short, only use mbstring.func_overload if you are 100% certain that nothing o
 
 [Official documentation page](https://www.php.net/manual/en/mbstring.overload.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

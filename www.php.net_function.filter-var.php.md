@@ -54,4 +54,4 @@ please note FILTER_VALIDATE_URL passes following url
 
 [Official documentation page](https://www.php.net/manual/en/function.filter-var.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

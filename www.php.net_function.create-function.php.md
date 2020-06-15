@@ -20,4 +20,4 @@ Beware when using anonymous functions in PHP as you would in languages like Pyth
 
 [Official documentation page](https://www.php.net/manual/en/function.create-function.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -30,4 +30,4 @@ If you are in a namespaced file, and you want to pass the class name as a string
 
 [Official documentation page](https://www.php.net/manual/en/function.property-exists.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

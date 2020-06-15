@@ -13,4 +13,4 @@ After some INet searches and personal try-and-failures I succeed to rotate PNG i
 
 [Official documentation page](https://www.php.net/manual/en/function.imagerotate.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

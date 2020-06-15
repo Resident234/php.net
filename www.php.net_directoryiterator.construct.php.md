@@ -12,4 +12,4 @@ Here&apos;s all-in-one DirectoryIterator:<br><br><span class="default">&lt;?php<
 
 [Official documentation page](https://www.php.net/manual/en/directoryiterator.construct.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

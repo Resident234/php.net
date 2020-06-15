@@ -88,4 +88,4 @@ I made this to add an unlimited size of numbers together..
 
 [Official documentation page](https://www.php.net/manual/en/function.bcadd.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

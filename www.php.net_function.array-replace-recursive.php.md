@@ -13,4 +13,4 @@ Nice that this function finally found its was to the PHP core! If you want to us
 
 [Official documentation page](https://www.php.net/manual/en/function.array-replace-recursive.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

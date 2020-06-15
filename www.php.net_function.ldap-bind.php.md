@@ -28,4 +28,4 @@ A number of examples and implementations of authentication schemes which use LDA
 
 [Official documentation page](https://www.php.net/manual/en/function.ldap-bind.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

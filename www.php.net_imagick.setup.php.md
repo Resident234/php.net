@@ -36,4 +36,4 @@ After 2 hours of looking for help from different documentation &amp; sites, I fo
 
 [Official documentation page](https://www.php.net/manual/en/imagick.setup.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

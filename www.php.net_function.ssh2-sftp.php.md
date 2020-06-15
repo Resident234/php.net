@@ -13,4 +13,4 @@ Here is an example of how to send a file with SFTP:<br><br><span class="default"
 
 [Official documentation page](https://www.php.net/manual/en/function.ssh2-sftp.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

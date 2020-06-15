@@ -20,4 +20,4 @@ To install geoip on debian lenny:<br><br>wget <a href="http://geolite.maxmind.co
 
 [Official documentation page](https://www.php.net/manual/en/geoip.setup.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

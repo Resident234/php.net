@@ -63,4 +63,4 @@ If you want to replace only the n-th occurrence of $pattern, you can use this fu
 
 [Official documentation page](https://www.php.net/manual/en/function.preg-replace.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

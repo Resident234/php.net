@@ -20,4 +20,4 @@ Through this example i think you can better understand<br><br>&#xA0; &#xA0; if (
 
 [Official documentation page](https://www.php.net/manual/en/function.filter-has-var.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ It helps to know that for this extension to work, you need a server with &apos;M
 
 [Official documentation page](https://www.php.net/manual/en/class.memcache.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

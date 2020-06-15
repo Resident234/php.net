@@ -86,4 +86,4 @@ Easiest way I find out to sort an entire multidimensional array by one element o
 
 [Official documentation page](https://www.php.net/manual/en/function.array-multisort.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

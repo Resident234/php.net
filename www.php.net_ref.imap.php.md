@@ -1,4 +1,4 @@
-# IMAP Functions
+# IMAP FunctionsSee Also
 
 
 
@@ -102,4 +102,4 @@ Since this library at a whole is fairly poorly documented, and it doesn&apos;t h
 
 [Official documentation page](https://www.php.net/manual/en/ref.imap.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

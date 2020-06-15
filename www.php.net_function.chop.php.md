@@ -20,4 +20,4 @@ If you are searching for a function that does the same trick as chop in PERL, th
 
 [Official documentation page](https://www.php.net/manual/en/function.chop.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

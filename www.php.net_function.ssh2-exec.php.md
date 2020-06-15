@@ -12,4 +12,4 @@ There doesn&apos;t appear to be a way to get data from BOTH stderr and stdout st
 
 [Official documentation page](https://www.php.net/manual/en/function.ssh2-exec.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

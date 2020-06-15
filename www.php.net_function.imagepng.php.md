@@ -37,4 +37,4 @@ Be careful when using a variable for the file name.<br>PHP behavior with $filena
 
 [Official documentation page](https://www.php.net/manual/en/function.imagepng.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -28,4 +28,4 @@ Just hope this note helps someone (I killed the whole day on issue).
 
 [Official documentation page](https://www.php.net/manual/en/function.call-user-func-array.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

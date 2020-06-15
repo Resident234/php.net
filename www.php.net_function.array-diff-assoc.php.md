@@ -101,4 +101,4 @@ The following will recursively do an array_diff_assoc, which will calculate diff
 
 [Official documentation page](https://www.php.net/manual/en/function.array-diff-assoc.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

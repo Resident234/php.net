@@ -22,4 +22,4 @@ unless you specify the second argument, &quot;regular&quot; comparisons will be 
 
 [Official documentation page](https://www.php.net/manual/en/function.sort.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

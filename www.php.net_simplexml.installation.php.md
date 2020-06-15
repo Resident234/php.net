@@ -12,4 +12,4 @@ This XML module is not provided on a default php (v7) install on Debian GNU/Linu
 
 [Official documentation page](https://www.php.net/manual/en/simplexml.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

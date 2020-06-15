@@ -53,4 +53,4 @@ Here is an example how to work with the options-parameter. Notice the &apos;opti
 
 [Official documentation page](https://www.php.net/manual/en/function.filter-input.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

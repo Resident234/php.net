@@ -12,4 +12,4 @@ criffoh at gmail dot com is right. Before you check domain, you must convert to 
 
 [Official documentation page](https://www.php.net/manual/en/function.checkdnsrr.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

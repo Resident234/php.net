@@ -125,4 +125,4 @@ Don&apos;t forget about the array_map() function, it may be easier to use!<br><b
 
 [Official documentation page](https://www.php.net/manual/en/function.array-walk.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

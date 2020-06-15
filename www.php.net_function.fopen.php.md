@@ -26,4 +26,4 @@ With php 5.2.5 on Apache 2.2.4, accessing files on an ftp server with fopen() or
 
 [Official documentation page](https://www.php.net/manual/en/function.fopen.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

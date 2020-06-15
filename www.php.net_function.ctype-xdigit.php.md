@@ -12,4 +12,4 @@ This function shows its usefulness on a web site where a user is asked to entere
 
 [Official documentation page](https://www.php.net/manual/en/function.ctype-xdigit.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

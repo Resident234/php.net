@@ -61,4 +61,4 @@ Good news! The latest version of PHP has a performance fix for this function. It
 
 [Official documentation page](https://www.php.net/manual/en/function.get-browser.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

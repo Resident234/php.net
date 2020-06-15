@@ -21,4 +21,4 @@ You MUST use rewind() after ftruncate() to replace file content</span>
 
 [Official documentation page](https://www.php.net/manual/en/function.ftruncate.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

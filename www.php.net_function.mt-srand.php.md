@@ -12,4 +12,4 @@ Looks like mt_rand() gives same result for different seeds when the lowest bits 
 
 [Official documentation page](https://www.php.net/manual/en/function.mt-srand.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

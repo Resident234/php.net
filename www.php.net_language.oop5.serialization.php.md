@@ -1,4 +1,4 @@
-# Object Serialization
+# Object SerializationSerializing objects - objects in sessions
 
 
 

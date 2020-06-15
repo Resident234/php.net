@@ -21,4 +21,4 @@ It took me some time to understand the way this function works&#x2026;<br>I&#x20
 
 [Official documentation page](https://www.php.net/manual/en/function.strspn.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

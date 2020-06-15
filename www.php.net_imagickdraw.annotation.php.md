@@ -61,4 +61,4 @@ may help someone...
 
 [Official documentation page](https://www.php.net/manual/en/imagickdraw.annotation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

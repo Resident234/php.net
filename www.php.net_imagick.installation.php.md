@@ -20,4 +20,4 @@ If you&apos;re on a Ubuntu or debian machine, please don&apos;t dive into all th
 
 [Official documentation page](https://www.php.net/manual/en/imagick.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

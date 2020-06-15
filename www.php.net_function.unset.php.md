@@ -143,4 +143,4 @@ dh at argosign dot de - <br>it is possible to unset globals from within function
 
 [Official documentation page](https://www.php.net/manual/en/function.unset.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

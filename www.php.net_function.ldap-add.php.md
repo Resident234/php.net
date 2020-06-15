@@ -12,4 +12,4 @@ Try this script if you don&apos;t know how to add an user in the AD Win2K.<br>To
 
 [Official documentation page](https://www.php.net/manual/en/function.ldap-add.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

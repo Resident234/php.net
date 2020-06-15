@@ -20,4 +20,4 @@ It is important to realise that rewind() must be called on any iterator before u
 
 [Official documentation page](https://www.php.net/manual/en/class.infiniteiterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ Samlpe code for using most of the functions here:<br><br>&#xA0; &#xA0; $MEMSIZE&
 
 [Official documentation page](https://www.php.net/manual/en/ref.sem.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

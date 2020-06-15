@@ -37,4 +37,4 @@ Shuffle associative and non-associative array while preserving key, value pairs.
 
 [Official documentation page](https://www.php.net/manual/en/function.shuffle.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

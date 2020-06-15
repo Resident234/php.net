@@ -13,4 +13,4 @@ You can easily extend the first example to handle any number of connections inst
 
 [Official documentation page](https://www.php.net/manual/en/sockets.examples.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

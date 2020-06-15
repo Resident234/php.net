@@ -20,4 +20,4 @@ I had the most trouble with figureing out what the message list was supposed to 
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-mail-move.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

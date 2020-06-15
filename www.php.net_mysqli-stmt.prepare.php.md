@@ -1,4 +1,4 @@
-# mysqli_stmt::prepare
+# mysqli_stmt::preparemysqli_stmt_prepare
 
 
 

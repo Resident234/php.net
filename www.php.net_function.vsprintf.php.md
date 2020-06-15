@@ -48,4 +48,4 @@ Instead of inventing own functions in case you&apos;d like to use array keys as 
 
 [Official documentation page](https://www.php.net/manual/en/function.vsprintf.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

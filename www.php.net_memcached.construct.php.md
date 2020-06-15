@@ -13,4 +13,4 @@ When using persistent connections, it is important to not re-add servers.<br><br
 
 [Official documentation page](https://www.php.net/manual/en/memcached.construct.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

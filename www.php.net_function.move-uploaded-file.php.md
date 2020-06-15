@@ -28,4 +28,4 @@ For those using PHP on Windows and IIS, you SHOULD set the &quot;upload_tmp_dir&
 
 [Official documentation page](https://www.php.net/manual/en/function.move-uploaded-file.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

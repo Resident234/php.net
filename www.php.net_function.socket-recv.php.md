@@ -21,4 +21,4 @@ Workaround for the missing MSG_DONTWAIT flag according to the bug report page:<b
 
 [Official documentation page](https://www.php.net/manual/en/function.socket-recv.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

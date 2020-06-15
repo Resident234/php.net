@@ -12,4 +12,4 @@ Even though thumbnailImage is meant to produce the smallest file size image poss
 
 [Official documentation page](https://www.php.net/manual/en/imagick.thumbnailimage.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

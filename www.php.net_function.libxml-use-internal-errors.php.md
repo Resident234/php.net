@@ -12,4 +12,4 @@ When using this funtion, be sure to clear your internal error buffer. If you dn&
 
 [Official documentation page](https://www.php.net/manual/en/function.libxml-use-internal-errors.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

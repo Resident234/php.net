@@ -46,4 +46,4 @@ To anyone that&apos;s had problems with Readfile() reading large files into memo
 
 [Official documentation page](https://www.php.net/manual/en/function.readfile.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

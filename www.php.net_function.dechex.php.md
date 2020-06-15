@@ -20,4 +20,4 @@ Here are two functions that will convert large dec numbers to hex and vice versa
 
 [Official documentation page](https://www.php.net/manual/en/function.dechex.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

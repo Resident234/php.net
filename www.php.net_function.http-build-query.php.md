@@ -61,4 +61,4 @@ Is it worth noting that if query_data is an associative array and a value is its
 
 [Official documentation page](https://www.php.net/manual/en/function.http-build-query.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

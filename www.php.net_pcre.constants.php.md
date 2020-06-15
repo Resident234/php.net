@@ -20,4 +20,4 @@ The new PREG_JIT_STACKLIMIT_ERROR constant introduced with PHP 7.0.0 has got a v
 
 [Official documentation page](https://www.php.net/manual/en/pcre.constants.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

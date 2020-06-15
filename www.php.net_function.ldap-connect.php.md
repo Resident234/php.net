@@ -20,4 +20,4 @@ To be able to make modifications to Active Directory via the LDAP connector you 
 
 [Official documentation page](https://www.php.net/manual/en/function.ldap-connect.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

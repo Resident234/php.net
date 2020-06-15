@@ -29,4 +29,4 @@ Be careful of the new behaviour in 5.2.10 version.<br>See the following sample:<
 
 [Official documentation page](https://www.php.net/manual/en/function.natsort.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

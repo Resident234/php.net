@@ -12,4 +12,4 @@ When cropping gif-images (I had no problems with jpg and png images), the canvas
 
 [Official documentation page](https://www.php.net/manual/en/imagick.cropimage.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

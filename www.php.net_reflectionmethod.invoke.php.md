@@ -12,4 +12,4 @@ Note: If you want to invoke protected or private methods, you&apos;ll first have
 
 [Official documentation page](https://www.php.net/manual/en/reflectionmethod.invoke.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

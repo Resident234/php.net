@@ -21,4 +21,4 @@ Beware of the behavior when using FilesystemIterator::UNIX_PATHS, it&apos;s not 
 
 [Official documentation page](https://www.php.net/manual/en/class.directoryiterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

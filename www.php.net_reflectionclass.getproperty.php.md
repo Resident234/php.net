@@ -12,4 +12,4 @@ If the class doesn&apos;t have a property with the given name, a ReflectionExcep
 
 [Official documentation page](https://www.php.net/manual/en/reflectionclass.getproperty.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

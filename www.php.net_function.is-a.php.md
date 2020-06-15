@@ -28,4 +28,4 @@ At least in PHP 5.1.6 this works as well with Interfaces.<br><br><span class="de
 
 [Official documentation page](https://www.php.net/manual/en/function.is-a.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

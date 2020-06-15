@@ -12,4 +12,4 @@ If you want to get only filename and dont want to use weird:<br><br><span class=
 
 [Official documentation page](https://www.php.net/manual/en/splfileinfo.getbasename.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

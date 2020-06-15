@@ -46,4 +46,4 @@ Here&apos;s my function to recursively merge two arrays with overwrites. Nice fo
 
 [Official documentation page](https://www.php.net/manual/en/function.array-merge-recursive.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

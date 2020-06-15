@@ -22,4 +22,4 @@ Here is another one that also works on windows. Note that this method is not fas
 
 [Official documentation page](https://www.php.net/manual/en/function.sys-getloadavg.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

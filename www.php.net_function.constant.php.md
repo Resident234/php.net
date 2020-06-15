@@ -28,4 +28,4 @@ As of PHP 5.4.6 constant() pays no attention to any namespace aliases that might
 
 [Official documentation page](https://www.php.net/manual/en/function.constant.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

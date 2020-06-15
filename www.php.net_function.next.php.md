@@ -13,4 +13,4 @@ Now from PHP 7.2, the function &quot;each&quot; is deprecated, so the has_next I
 
 [Official documentation page](https://www.php.net/manual/en/function.next.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -28,4 +28,4 @@ Using objects with array_fill may cause unexpected results. Consider the followi
 
 [Official documentation page](https://www.php.net/manual/en/function.array-fill.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

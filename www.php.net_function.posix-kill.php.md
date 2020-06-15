@@ -12,4 +12,4 @@ Detecting if another copy of a program is running (*NIX specific)<br><br>One cut
 
 [Official documentation page](https://www.php.net/manual/en/function.posix-kill.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

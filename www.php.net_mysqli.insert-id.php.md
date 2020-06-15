@@ -1,4 +1,4 @@
-# mysqli::$insert_id
+# mysqli::$insert_idmysqli_insert_id
 
 
 

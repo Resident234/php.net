@@ -12,4 +12,4 @@ GOTCHA: If your first element is false, you don&apos;t know whether it was empty
 
 [Official documentation page](https://www.php.net/manual/en/function.reset.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

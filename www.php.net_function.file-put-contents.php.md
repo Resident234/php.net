@@ -74,4 +74,4 @@ It&apos;s important to understand that LOCK_EX will not prevent reading the file
 
 [Official documentation page](https://www.php.net/manual/en/function.file-put-contents.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

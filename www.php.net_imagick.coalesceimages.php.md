@@ -28,4 +28,4 @@ resize and/or crop an animated GIF
 
 [Official documentation page](https://www.php.net/manual/en/imagick.coalesceimages.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

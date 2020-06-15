@@ -12,4 +12,4 @@ because I confused in step 2 I write this comment:<br>for installing following t
 
 [Official documentation page](https://www.php.net/manual/en/pdf.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

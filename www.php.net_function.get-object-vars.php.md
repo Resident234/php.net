@@ -29,4 +29,4 @@ Hi all, I just wrote a function which dumps all the object propreties and its as
 
 [Official documentation page](https://www.php.net/manual/en/function.get-object-vars.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -33,4 +33,4 @@ Here&apos;s a simple function that&apos;ll parse the data returned by ftp_rawlis
 
 [Official documentation page](https://www.php.net/manual/en/function.ftp-rawlist.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

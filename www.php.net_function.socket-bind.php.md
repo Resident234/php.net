@@ -22,4 +22,4 @@ If you want to reuse address and port, and get rid of error: unable to bind, add
 
 [Official documentation page](https://www.php.net/manual/en/function.socket-bind.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ As of today (end of january 2019), WebP is now supported across all the major br
 
 [Official documentation page](https://www.php.net/manual/en/function.imagewebp.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

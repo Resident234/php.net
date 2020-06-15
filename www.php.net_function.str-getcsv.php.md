@@ -77,4 +77,4 @@ I wanted the best of the 2 solutions by james at moss dot io and Jay Williams (c
 
 [Official documentation page](https://www.php.net/manual/en/function.str-getcsv.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

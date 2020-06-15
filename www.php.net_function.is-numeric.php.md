@@ -61,4 +61,4 @@ The documentation is not completely precise here. is_numeric will also return tr
 
 [Official documentation page](https://www.php.net/manual/en/function.is-numeric.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

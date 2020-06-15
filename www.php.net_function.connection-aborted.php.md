@@ -13,4 +13,4 @@ A trick to detecting if a connection is closed without having to send data that 
 
 [Official documentation page](https://www.php.net/manual/en/function.connection-aborted.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

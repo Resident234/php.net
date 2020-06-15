@@ -28,4 +28,4 @@ The description says that compact is the opposite of extract() but it is importa
 
 [Official documentation page](https://www.php.net/manual/en/function.compact.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

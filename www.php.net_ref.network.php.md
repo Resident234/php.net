@@ -13,4 +13,4 @@ A simple and very fast function to check against CIDR.<br><br>Your previous exam
 
 [Official documentation page](https://www.php.net/manual/en/ref.network.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

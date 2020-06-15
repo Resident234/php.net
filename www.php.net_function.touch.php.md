@@ -21,4 +21,4 @@ I&apos;ve been trying to set a filemtime into the future with touch() on PHP5.<b
 
 [Official documentation page](https://www.php.net/manual/en/function.touch.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

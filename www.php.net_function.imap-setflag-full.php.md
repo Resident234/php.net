@@ -12,4 +12,4 @@ Spent ages trying to get this to work, then eventually remembered I had opened t
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-setflag-full.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

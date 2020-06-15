@@ -28,4 +28,4 @@ Please note that what clochix says is valid for *any* document which has a defau
 
 [Official documentation page](https://www.php.net/manual/en/domxpath.query.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

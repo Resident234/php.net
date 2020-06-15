@@ -12,4 +12,4 @@ Note that stream_socket_recvfrom() bypasses stream wrappers including TLS/SSL. W
 
 [Official documentation page](https://www.php.net/manual/en/function.stream-socket-recvfrom.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -70,4 +70,4 @@ For those Spanish (and not only) folks, that want their national letters back af
 
 [Official documentation page](https://www.php.net/manual/en/function.htmlentities.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

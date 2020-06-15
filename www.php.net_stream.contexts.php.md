@@ -12,4 +12,4 @@ Two important terms: <br><br>- An *option* is a protocol-specific setting, e.g. 
 
 [Official documentation page](https://www.php.net/manual/en/stream.contexts.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

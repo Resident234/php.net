@@ -12,4 +12,4 @@ ldap_unbind kills the link descriptor.&#xA0; So, if you want to rebind as anothe
 
 [Official documentation page](https://www.php.net/manual/en/function.ldap-unbind.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

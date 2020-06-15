@@ -12,4 +12,4 @@ Having spent quite a bit of time looking at these values for various fonts, this
 
 [Official documentation page](https://www.php.net/manual/en/imagick.queryfontmetrics.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

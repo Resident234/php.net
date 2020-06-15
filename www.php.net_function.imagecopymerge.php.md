@@ -53,4 +53,4 @@ imagecopymerge PHP function helped me to create a fast method that replaces one 
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecopymerge.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

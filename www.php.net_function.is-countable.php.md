@@ -13,4 +13,4 @@ If you are unable to upgrade to PHP 7.3 (not released at the time of writing), y
 
 [Official documentation page](https://www.php.net/manual/en/function.is-countable.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

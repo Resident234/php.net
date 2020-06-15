@@ -75,4 +75,4 @@ To extract your portion of a string without the actual character you searched fo
 
 [Official documentation page](https://www.php.net/manual/en/function.strrchr.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

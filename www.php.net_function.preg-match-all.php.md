@@ -20,4 +20,4 @@ The code that john at mccarthy dot net posted is not necessary. If you want your
 
 [Official documentation page](https://www.php.net/manual/en/function.preg-match-all.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

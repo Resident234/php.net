@@ -52,4 +52,4 @@ If you push an array onto the stack, PHP will add the whole array to the next el
 
 [Official documentation page](https://www.php.net/manual/en/function.array-push.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

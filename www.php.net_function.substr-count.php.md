@@ -20,4 +20,4 @@ Making this case insensitive is easy for anyone who needs this.&#xA0; Simply con
 
 [Official documentation page](https://www.php.net/manual/en/function.substr-count.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

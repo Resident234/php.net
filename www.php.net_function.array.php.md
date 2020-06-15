@@ -12,4 +12,4 @@ As of PHP 5.4.x you can now use &apos;short syntax arrays&apos; which eliminates
 
 [Official documentation page](https://www.php.net/manual/en/function.array.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

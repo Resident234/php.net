@@ -1,4 +1,4 @@
-# IntlDateFormatter::format
+# IntlDateFormatter::formatdatefmt_format
 
 
 
@@ -12,4 +12,4 @@ You should know that PHPs IntlDateFormatter class uses ISO date format codes ins
 
 [Official documentation page](https://www.php.net/manual/en/intldateformatter.format.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

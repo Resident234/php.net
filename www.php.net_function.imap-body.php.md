@@ -32,4 +32,4 @@ Simple example on how to read body message of the recent mail.
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-body.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

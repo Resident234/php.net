@@ -12,4 +12,4 @@ This function is particularly necessary on VMs running on KVM, XEN (openstack, A
 
 [Official documentation page](https://www.php.net/manual/en/function.hrtime.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

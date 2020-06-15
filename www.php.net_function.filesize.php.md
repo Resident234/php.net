@@ -57,4 +57,4 @@ The simplest and most efficient implemention for getting remote filesize:<br><br
 
 [Official documentation page](https://www.php.net/manual/en/function.filesize.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

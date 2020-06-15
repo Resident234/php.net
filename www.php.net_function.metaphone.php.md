@@ -28,4 +28,4 @@ metaphone<br>=======================<br>The metaphone() function can be used for
 
 [Official documentation page](https://www.php.net/manual/en/function.metaphone.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

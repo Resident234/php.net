@@ -12,4 +12,4 @@ DOMDocumentFragment only appears useful if created from a parent DOMDocument eg.
 
 [Official documentation page](https://www.php.net/manual/en/class.domdocumentfragment.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -30,4 +30,4 @@ A note for people who just couldn&apos;t get this working..
 
 [Official documentation page](https://www.php.net/manual/en/imagick.setcompressionquality.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

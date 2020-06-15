@@ -13,4 +13,4 @@ Example for tailing a file (like tail -f) using inotify.<br><span class="default
 
 [Official documentation page](https://www.php.net/manual/en/function.inotify-init.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

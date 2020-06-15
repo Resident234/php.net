@@ -12,4 +12,4 @@ If anyone finds &quot;The other parameter will be calculated if 0 is passed as e
 
 [Official documentation page](https://www.php.net/manual/en/imagick.scaleimage.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

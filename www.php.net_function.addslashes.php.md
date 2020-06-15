@@ -28,4 +28,4 @@ I was stumped for a long time by the fact that even when using addslashes and st
 
 [Official documentation page](https://www.php.net/manual/en/function.addslashes.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

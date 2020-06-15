@@ -29,4 +29,4 @@ CURLINFO_HTTP_CODE does not return a string, as the docs say, but rather an inte
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-getinfo.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

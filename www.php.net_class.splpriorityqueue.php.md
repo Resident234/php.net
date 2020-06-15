@@ -54,4 +54,4 @@ quick implementation of SPL Priority Queue:
 
 [Official documentation page](https://www.php.net/manual/en/class.splpriorityqueue.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

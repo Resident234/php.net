@@ -29,4 +29,4 @@ An exemple :
 
 [Official documentation page](https://www.php.net/manual/en/class.regexiterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

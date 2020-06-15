@@ -41,4 +41,4 @@ If you need to output valid xml in your response, don&apos;t forget to set your 
 
 [Official documentation page](https://www.php.net/manual/en/simplexml.examples-basic.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

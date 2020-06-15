@@ -45,4 +45,4 @@ I created this function a while back to save on having to combine mysql_real_esc
 
 [Official documentation page](https://www.php.net/manual/en/function.sprintf.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

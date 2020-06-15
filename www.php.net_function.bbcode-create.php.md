@@ -45,4 +45,4 @@ For those without the BBCode extension, here&apos;s a relatively elegant functio
 
 [Official documentation page](https://www.php.net/manual/en/function.bbcode-create.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

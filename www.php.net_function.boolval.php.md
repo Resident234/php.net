@@ -36,4 +36,4 @@ function is_true($val, $return_null=false){<br>&#xA0; &#xA0; $boolval = ( is_str
 
 [Official documentation page](https://www.php.net/manual/en/function.boolval.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

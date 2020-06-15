@@ -28,4 +28,4 @@ die doesn&apos;t prevent destructors from being run, so the script doesn&apos;t 
 
 [Official documentation page](https://www.php.net/manual/en/function.die.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

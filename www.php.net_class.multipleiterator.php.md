@@ -12,4 +12,4 @@ This iterator has a misleading name and description - it actually acts as a para
 
 [Official documentation page](https://www.php.net/manual/en/class.multipleiterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

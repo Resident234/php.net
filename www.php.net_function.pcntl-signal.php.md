@@ -44,4 +44,4 @@ You cannot assign a signal handler for SIGKILL (kill -9).</span>
 
 [Official documentation page](https://www.php.net/manual/en/function.pcntl-signal.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

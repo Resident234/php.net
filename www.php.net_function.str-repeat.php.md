@@ -12,4 +12,4 @@ Here is a simple one liner to repeat a string multiple times with a separator:<b
 
 [Official documentation page](https://www.php.net/manual/en/function.str-repeat.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

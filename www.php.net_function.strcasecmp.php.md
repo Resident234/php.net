@@ -20,4 +20,4 @@ The sample above is only true on some platforms that only use a simple &apos;C&a
 
 [Official documentation page](https://www.php.net/manual/en/function.strcasecmp.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -47,4 +47,4 @@ This is a bit long, but personally I prefer to use the standard C defines in my 
 
 [Official documentation page](https://www.php.net/manual/en/function.socket-last-error.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

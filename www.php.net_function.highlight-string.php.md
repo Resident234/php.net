@@ -13,4 +13,4 @@ You can change the colors of the highlighting, like this: <br><br><span class="d
 
 [Official documentation page](https://www.php.net/manual/en/function.highlight-string.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

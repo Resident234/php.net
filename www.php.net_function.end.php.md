@@ -63,4 +63,4 @@ If all you want is the last item of the array without affecting the internal arr
 
 [Official documentation page](https://www.php.net/manual/en/function.end.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ Passing multiple parameters to echo using commas (&apos;,&apos;)is not exactly i
 
 [Official documentation page](https://www.php.net/manual/en/function.echo.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -194,4 +194,4 @@ You can access the current key of array by passing a reference to array into cal
 
 [Official documentation page](https://www.php.net/manual/en/function.array-filter.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

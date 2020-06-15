@@ -53,4 +53,4 @@ Got this cryptic error
 
 [Official documentation page](https://www.php.net/manual/en/function.ftp-put.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

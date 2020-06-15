@@ -22,4 +22,4 @@ I made some improvements to the &quot;Cologne Phonetic&quot; function of niclas 
 
 [Official documentation page](https://www.php.net/manual/en/function.soundex.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

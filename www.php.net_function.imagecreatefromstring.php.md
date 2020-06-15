@@ -22,4 +22,4 @@ My site allows anonymous uploads to a web-accessible location (that will execute
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecreatefromstring.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

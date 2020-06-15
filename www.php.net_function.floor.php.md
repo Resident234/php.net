@@ -51,4 +51,4 @@ Have solved a &quot;price problem&quot;:
 
 [Official documentation page](https://www.php.net/manual/en/function.floor.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

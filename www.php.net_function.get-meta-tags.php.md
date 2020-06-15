@@ -13,4 +13,4 @@ This regex gets meta tags independent of sequence by capturing inside a lookahea
 
 [Official documentation page](https://www.php.net/manual/en/function.get-meta-tags.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -72,4 +72,4 @@ Quick example for using array_udiff to do a multi-dimensional diff
 
 [Official documentation page](https://www.php.net/manual/en/function.array-udiff.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

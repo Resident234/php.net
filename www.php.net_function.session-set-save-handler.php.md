@@ -22,4 +22,4 @@ After spend so many time to understand how PHP session works with database and u
 
 [Official documentation page](https://www.php.net/manual/en/function.session-set-save-handler.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

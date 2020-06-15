@@ -12,4 +12,4 @@ It is unlikely this example works quite as advertised.<br><br>The foreground job
 
 [Official documentation page](https://www.php.net/manual/en/gearmanclient.addtaskbackground.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

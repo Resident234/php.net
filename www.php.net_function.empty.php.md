@@ -106,4 +106,4 @@ test if all multiarray&apos;s are empty
 
 [Official documentation page](https://www.php.net/manual/en/function.empty.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -86,4 +86,4 @@ Here&apos;s a simple, recursive, function to transform XML data into pseudo E4X 
 
 [Official documentation page](https://www.php.net/manual/en/simplexmlelement.children.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -57,4 +57,4 @@ When using simplexml to access a element the returned object may be a SimpleXMLE
 
 [Official documentation page](https://www.php.net/manual/en/simplexml.examples.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

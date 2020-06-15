@@ -12,4 +12,4 @@ Seems like there are some people who are looking for only the 3-digit HTTP respo
 
 [Official documentation page](https://www.php.net/manual/en/function.get-headers.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

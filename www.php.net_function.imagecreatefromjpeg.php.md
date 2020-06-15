@@ -52,4 +52,4 @@ This little function allows you to create an image based on the popular image ty
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecreatefromjpeg.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

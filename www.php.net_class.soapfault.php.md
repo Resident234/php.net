@@ -35,4 +35,4 @@ A bit more digging in ext/soap/soap.c and the set_soap_fault function reveals th
 
 [Official documentation page](https://www.php.net/manual/en/class.soapfault.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

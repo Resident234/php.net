@@ -29,4 +29,4 @@ Use more cryptographically strong algorithm to generate pseudo-random bytes and 
 
 [Official documentation page](https://www.php.net/manual/en/function.com-create-guid.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

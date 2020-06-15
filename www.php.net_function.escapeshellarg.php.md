@@ -29,4 +29,4 @@ Most of the comments above have misunderstood this function. It does not need to
 
 [Official documentation page](https://www.php.net/manual/en/function.escapeshellarg.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

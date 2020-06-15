@@ -13,4 +13,4 @@ For those wanting to use stream_socket_client() to connect to a local UNIX socke
 
 [Official documentation page](https://www.php.net/manual/en/function.stream-socket-client.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

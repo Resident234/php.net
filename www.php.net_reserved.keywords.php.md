@@ -28,4 +28,4 @@ Here they are as arrays:<br><br><span class="default">&lt;?php<br>$keywords </sp
 
 [Official documentation page](https://www.php.net/manual/en/reserved.keywords.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -29,4 +29,4 @@ Note that $length is calculated (php5.3.2).<br>Iterating over a large NodeList m
 
 [Official documentation page](https://www.php.net/manual/en/class.domnodelist.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

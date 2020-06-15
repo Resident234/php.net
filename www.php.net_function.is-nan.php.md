@@ -12,4 +12,4 @@ nan/&quot;not a number&quot; is not meant to see if the data type is numeric/tex
 
 [Official documentation page](https://www.php.net/manual/en/function.is-nan.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

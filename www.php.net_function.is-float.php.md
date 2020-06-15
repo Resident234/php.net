@@ -20,4 +20,4 @@ If you want to test whether a string is containing a float, rather than if a var
 
 [Official documentation page](https://www.php.net/manual/en/function.is-float.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

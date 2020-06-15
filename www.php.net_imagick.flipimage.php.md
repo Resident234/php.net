@@ -12,4 +12,4 @@ To avoid the x-axis and y-axis discussion, flipping emulates a mirror at the bot
 
 [Official documentation page](https://www.php.net/manual/en/imagick.flipimage.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

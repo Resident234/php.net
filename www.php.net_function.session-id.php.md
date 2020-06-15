@@ -12,4 +12,4 @@ It may be good to note that PHP does not allow arbitrary session ids. The sessio
 
 [Official documentation page](https://www.php.net/manual/en/function.session-id.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

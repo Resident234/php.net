@@ -51,4 +51,4 @@ To correctly extract a value from a CDATA just make sure you cast the SimpleXML 
 
 [Official documentation page](https://www.php.net/manual/en/function.simplexml-load-file.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

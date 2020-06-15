@@ -79,4 +79,4 @@ Simple key white-list filter:
 
 [Official documentation page](https://www.php.net/manual/en/function.array-intersect-key.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ Hack for php &lt; 5.5 : <br><br>function curl_reset(&amp;$ch){<br>&#xA0; $ch = c
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-reset.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

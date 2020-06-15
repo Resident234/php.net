@@ -22,4 +22,4 @@ I found this to be the simplest solution:<br><br><span class="default">&lt;?php<
 
 [Official documentation page](https://www.php.net/manual/en/function.session-decode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

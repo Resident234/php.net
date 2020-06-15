@@ -13,4 +13,4 @@ If you can&apos;t be bothered creating (or searching for) a full screen antialia
 
 [Official documentation page](https://www.php.net/manual/en/function.imageantialias.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

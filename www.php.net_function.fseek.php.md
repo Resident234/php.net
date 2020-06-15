@@ -37,4 +37,4 @@ Write Dummy File 4GB in Php 32bits (X86)<br>if you want write more GB File (&gt;
 
 [Official documentation page](https://www.php.net/manual/en/function.fseek.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

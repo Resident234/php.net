@@ -12,4 +12,4 @@ Some solution for using national chars and have problem with UTF-8 for example i
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-encode-mimeheader.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

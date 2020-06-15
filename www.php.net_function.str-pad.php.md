@@ -30,4 +30,4 @@ multibyte version:<br><br><span class="default">&lt;?php<br></span><span class="
 
 [Official documentation page](https://www.php.net/manual/en/function.str-pad.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

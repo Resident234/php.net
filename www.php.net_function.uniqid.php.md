@@ -63,4 +63,4 @@ I use this function to generate microsoft-compatible GUID&apos;s.<br><br><span c
 
 [Official documentation page](https://www.php.net/manual/en/function.uniqid.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

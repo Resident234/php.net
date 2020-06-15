@@ -68,4 +68,4 @@ Hi,<br><br>As we have been struggling with this for some time I wanted to share 
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-append.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

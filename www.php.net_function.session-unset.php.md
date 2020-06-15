@@ -21,4 +21,4 @@ The difference between both session_unset and session_destroy is as follows:<br>
 
 [Official documentation page](https://www.php.net/manual/en/function.session-unset.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

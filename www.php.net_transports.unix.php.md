@@ -12,4 +12,4 @@ It appears that fsockopen prior to php5 did not need the unix:// qualifier when 
 
 [Official documentation page](https://www.php.net/manual/en/transports.unix.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

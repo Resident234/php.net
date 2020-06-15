@@ -91,4 +91,4 @@ I just spent some time (again) to understand why a reading with file_get_content
 
 [Official documentation page](https://www.php.net/manual/en/function.flock.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

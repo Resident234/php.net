@@ -20,4 +20,4 @@ Unicode example;<br><br><span class="default">&lt;?php<br></span><span class="ke
 
 [Official documentation page](https://www.php.net/manual/en/function.array-change-key-case.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

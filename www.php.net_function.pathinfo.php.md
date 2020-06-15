@@ -21,4 +21,4 @@ Note:<br><br>pathinfo() is locale aware, so for it to parse a path containing mu
 
 [Official documentation page](https://www.php.net/manual/en/function.pathinfo.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

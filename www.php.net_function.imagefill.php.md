@@ -12,4 +12,4 @@ Creating a new true-color image, filling it with a transparent color, and saving
 
 [Official documentation page](https://www.php.net/manual/en/function.imagefill.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

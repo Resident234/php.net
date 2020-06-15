@@ -12,4 +12,4 @@ I created a function, which combines xml_paresr_create and all functions around.
 
 [Official documentation page](https://www.php.net/manual/en/function.xml-parser-create.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

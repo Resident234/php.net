@@ -139,4 +139,4 @@ In case of you need to recursively bypass a function over the itens of an array,
 
 [Official documentation page](https://www.php.net/manual/en/function.array-map.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

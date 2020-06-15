@@ -12,4 +12,4 @@ A word of warning; if you use openlog() to ready syslog() and your Apache thread
 
 [Official documentation page](https://www.php.net/manual/en/function.syslog.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

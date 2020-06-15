@@ -74,4 +74,4 @@ Be careful when providing a specific hostkey order. <br><br><span class="default
 
 [Official documentation page](https://www.php.net/manual/en/function.ssh2-connect.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

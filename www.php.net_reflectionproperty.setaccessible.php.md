@@ -13,4 +13,4 @@ Note that the property will only become accessible using the ReflectionProperty 
 
 [Official documentation page](https://www.php.net/manual/en/reflectionproperty.setaccessible.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

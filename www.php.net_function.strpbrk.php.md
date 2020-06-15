@@ -12,4 +12,4 @@ If you&apos;re not looking to duplicate the rest of the string, but instead just
 
 [Official documentation page](https://www.php.net/manual/en/function.strpbrk.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

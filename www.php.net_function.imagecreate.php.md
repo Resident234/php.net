@@ -13,4 +13,4 @@ to create an image from a BMP file, I made this function, that return a resource
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecreate.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

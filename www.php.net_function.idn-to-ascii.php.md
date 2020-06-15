@@ -40,4 +40,4 @@ The notes on this function are not very clear and a little misleading.
 
 [Official documentation page](https://www.php.net/manual/en/function.idn-to-ascii.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

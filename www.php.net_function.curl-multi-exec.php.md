@@ -29,4 +29,4 @@ Probably you also want to be able to download the HTML content into buffers/vari
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-multi-exec.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

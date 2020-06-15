@@ -1,4 +1,4 @@
-# NumberFormatter::formatCurrency
+# NumberFormatter::formatCurrencynumfmt_format_currency
 
 
 
@@ -21,4 +21,4 @@ When you want to format currency&apos;s without sub units and the currency is no
 
 [Official documentation page](https://www.php.net/manual/en/numberformatter.formatcurrency.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

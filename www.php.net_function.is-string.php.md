@@ -13,4 +13,4 @@ Using is_string() on an object will always return false (even with __toString())
 
 [Official documentation page](https://www.php.net/manual/en/function.is-string.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

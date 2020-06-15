@@ -20,4 +20,4 @@ Another warning in response to the previous note:<br>&gt; just a warning as it a
 
 [Official documentation page](https://www.php.net/manual/en/function.is-scalar.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

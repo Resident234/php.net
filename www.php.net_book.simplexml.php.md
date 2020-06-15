@@ -77,4 +77,4 @@ In reply to&#xA0; soloman at textgrid dot com,<br><br>2 line XML2Array:<br><br>$
 
 [Official documentation page](https://www.php.net/manual/en/book.simplexml.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

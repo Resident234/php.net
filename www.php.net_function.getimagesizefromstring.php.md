@@ -13,4 +13,4 @@ getimagesizefromstring function for &lt; 5.4<br><br><span class="default">&lt;?p
 
 [Official documentation page](https://www.php.net/manual/en/function.getimagesizefromstring.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -28,4 +28,4 @@ I have made some tests to compare the speed of next constructions:<br><span clas
 
 [Official documentation page](https://www.php.net/manual/en/function.extract.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

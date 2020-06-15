@@ -13,4 +13,4 @@ Note that using Incrementing/Decrementing operators on string is legal <br><span
 
 [Official documentation page](https://www.php.net/manual/en/migration71.other-changes.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

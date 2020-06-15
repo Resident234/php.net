@@ -12,4 +12,4 @@ The XML parser converts the text of an XML document into UTF-8, even if you have
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.save.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

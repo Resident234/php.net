@@ -12,4 +12,4 @@ It should be noted that this gets the session cookie ini file parameters, not th
 
 [Official documentation page](https://www.php.net/manual/en/function.session-get-cookie-params.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

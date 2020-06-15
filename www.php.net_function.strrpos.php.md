@@ -12,4 +12,4 @@ The documentation for &apos;offset&apos; is misleading.<br><br>It says, &quot;of
 
 [Official documentation page](https://www.php.net/manual/en/function.strrpos.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ Check whether session started using Predefined Constants<br><br>if (session_stat
 
 [Official documentation page](https://www.php.net/manual/en/session.constants.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

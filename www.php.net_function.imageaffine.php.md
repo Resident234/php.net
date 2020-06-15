@@ -12,4 +12,4 @@ AFFINE is a geometric transformation operation involving MATRICES, covering both
 
 [Official documentation page](https://www.php.net/manual/en/function.imageaffine.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

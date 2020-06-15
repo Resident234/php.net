@@ -12,4 +12,4 @@ Contrary to the current description, it should hold y == tan(atan(y)) for ALL&#x
 
 [Official documentation page](https://www.php.net/manual/en/function.atan.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

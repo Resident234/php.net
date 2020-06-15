@@ -62,4 +62,4 @@ Be careful using this function on case sensitive file systems.<br><br><span clas
 
 [Official documentation page](https://www.php.net/manual/en/function.spl-autoload-register.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

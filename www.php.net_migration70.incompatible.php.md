@@ -55,4 +55,4 @@ split() was also removed in 7.0, so be sure to check your old code for it as wel
 
 [Official documentation page](https://www.php.net/manual/en/migration70.incompatible.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

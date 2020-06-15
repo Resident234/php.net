@@ -12,4 +12,4 @@ The upper-bound of this value is platform-independent.&#xA0; PHP implements the 
 
 [Official documentation page](https://www.php.net/manual/en/function.mt-getrandmax.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

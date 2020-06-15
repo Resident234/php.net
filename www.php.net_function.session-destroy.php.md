@@ -28,4 +28,4 @@ It took me a while to figure out how to destroy a particular session in php. Not
 
 [Official documentation page](https://www.php.net/manual/en/function.session-destroy.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

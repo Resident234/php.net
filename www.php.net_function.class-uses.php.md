@@ -35,4 +35,4 @@ A slighly modified version from Stealz that also checks all the &quot;parent&quo
 
 [Official documentation page](https://www.php.net/manual/en/function.class-uses.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

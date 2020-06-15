@@ -12,4 +12,4 @@ Just to add to the above response, he missed a couple of IPTC tags:<br><br>Keywo
 
 [Official documentation page](https://www.php.net/manual/en/function.iptcparse.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

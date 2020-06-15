@@ -21,4 +21,4 @@ If text has been encoded as quoted-printable (most body text is encoded as this)
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-fetchbody.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

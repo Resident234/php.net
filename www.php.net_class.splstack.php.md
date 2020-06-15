@@ -12,4 +12,4 @@ the SplStack is&#xA0; simply a SplDoublyLinkedList with&#xA0; an iteration mode 
 
 [Official documentation page](https://www.php.net/manual/en/class.splstack.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

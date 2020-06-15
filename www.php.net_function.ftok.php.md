@@ -12,4 +12,4 @@ Thanks to&#xA0; daniele_dll@yahoo.it who got this in turn from linux glibc 2.3.2
 
 [Official documentation page](https://www.php.net/manual/en/function.ftok.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

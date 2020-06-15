@@ -62,4 +62,4 @@ it is a bad idea to use sleep() for delayed output effects as
 
 [Official documentation page](https://www.php.net/manual/en/function.sleep.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

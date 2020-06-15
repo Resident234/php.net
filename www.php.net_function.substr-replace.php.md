@@ -64,4 +64,4 @@ Forget all of the mb_substr_replace() implementations mentioned in this page, th
 
 [Official documentation page](https://www.php.net/manual/en/function.substr-replace.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

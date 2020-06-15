@@ -48,4 +48,4 @@ I&apos;ve made a very simple script that will retain transparency of images espe
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecolortransparent.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

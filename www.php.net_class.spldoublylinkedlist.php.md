@@ -20,4 +20,4 @@ FIFO and LIFO in SplDoublyLinkedList<br><br>$list = new SplDoublyLinkedList();<b
 
 [Official documentation page](https://www.php.net/manual/en/class.spldoublylinkedlist.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

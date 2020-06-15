@@ -28,4 +28,4 @@ This is the &quot;is_dir&quot; function I use to solve the problems :<br><br>fun
 
 [Official documentation page](https://www.php.net/manual/en/function.is-dir.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

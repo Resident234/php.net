@@ -30,4 +30,4 @@ Needed to compute some permutations and found the BC extension great but poor on
 
 [Official documentation page](https://www.php.net/manual/en/book.bc.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

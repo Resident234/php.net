@@ -84,4 +84,4 @@ It&apos;s also useful if you want to make some sort of registration page and you
 
 [Official documentation page](https://www.php.net/manual/en/function.levenshtein.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

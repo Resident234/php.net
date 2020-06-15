@@ -12,4 +12,4 @@ Clarification of the ldap_read command syntax:&#xA0; <br><br>If you just want to
 
 [Official documentation page](https://www.php.net/manual/en/function.ldap-read.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

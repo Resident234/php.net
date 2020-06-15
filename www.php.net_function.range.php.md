@@ -45,4 +45,4 @@ So, I needed a quick and dirty way to create a dropdown select for hours, minute
 
 [Official documentation page](https://www.php.net/manual/en/function.range.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

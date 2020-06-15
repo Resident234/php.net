@@ -1,4 +1,4 @@
-# str_replace
+# str_replaceReplacement order gotcha
 
 
 
@@ -131,4 +131,4 @@ Be aware that if you use this for filtering &amp; sanitizing some form of user i
 
 [Official documentation page](https://www.php.net/manual/en/function.str-replace.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

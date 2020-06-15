@@ -20,4 +20,4 @@ if you want a Dynamic class you can extend from, add atributes AND methods on th
 
 [Official documentation page](https://www.php.net/manual/en/reserved.classes.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

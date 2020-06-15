@@ -1,4 +1,4 @@
-# PDO::quote
+# PDO::quoteSecurity: the default character set
 
 
 

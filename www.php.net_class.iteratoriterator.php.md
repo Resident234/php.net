@@ -12,4 +12,4 @@ This iterator basically is only a wrapper around another iterator. It does nothi
 
 [Official documentation page](https://www.php.net/manual/en/class.iteratoriterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -20,4 +20,4 @@ filetype() does not work for files &gt;=2GB on x86 Linux. You can use stat as a 
 
 [Official documentation page](https://www.php.net/manual/en/function.filetype.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

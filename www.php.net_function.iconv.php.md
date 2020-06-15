@@ -105,4 +105,4 @@ I have used iconv to convert from cp1251 into UTF-8. I spent a day to investigat
 
 [Official documentation page](https://www.php.net/manual/en/function.iconv.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

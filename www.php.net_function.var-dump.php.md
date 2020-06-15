@@ -29,4 +29,4 @@ I post a new var_dump function with colors and collapse features. It can also ad
 
 [Official documentation page](https://www.php.net/manual/en/function.var-dump.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

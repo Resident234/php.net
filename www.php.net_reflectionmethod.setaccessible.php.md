@@ -12,4 +12,4 @@ This is handy for accessing private methods but remember that things are normall
 
 [Official documentation page](https://www.php.net/manual/en/reflectionmethod.setaccessible.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

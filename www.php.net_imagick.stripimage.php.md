@@ -21,4 +21,4 @@ Please note that striping off the exif information without handling the orientat
 
 [Official documentation page](https://www.php.net/manual/en/imagick.stripimage.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

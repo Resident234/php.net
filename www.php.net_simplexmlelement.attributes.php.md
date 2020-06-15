@@ -31,4 +31,4 @@ Note that you must provide the namespace if you want to access an attribute of a
 
 [Official documentation page](https://www.php.net/manual/en/simplexmlelement.attributes.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -24,4 +24,4 @@ The category argument allows a specific category of the locale settings to be us
 
 [Official documentation page](https://www.php.net/manual/en/function.dcgettext.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

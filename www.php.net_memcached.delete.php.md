@@ -12,4 +12,4 @@
 
 [Official documentation page](https://www.php.net/manual/en/memcached.delete.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

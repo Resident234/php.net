@@ -28,4 +28,4 @@ Note that when using getElementsByTagName that it is a dynamic list. Thus if you
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.getelementsbytagname.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

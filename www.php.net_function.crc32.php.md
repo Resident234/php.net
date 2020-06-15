@@ -31,4 +31,4 @@ This function returns an unsigned integer from a 64-bit Linux platform.&#xA0; It
 
 [Official documentation page](https://www.php.net/manual/en/function.crc32.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

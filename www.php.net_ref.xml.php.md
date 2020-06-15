@@ -173,4 +173,4 @@
 
 [Official documentation page](https://www.php.net/manual/en/ref.xml.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

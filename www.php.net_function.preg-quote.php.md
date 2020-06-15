@@ -20,4 +20,4 @@ To escape characters with special meaning, like: .-[]() and so on, use \Q and \E
 
 [Official documentation page](https://www.php.net/manual/en/function.preg-quote.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -65,4 +65,4 @@ This is what I use for converting strings to sentence case:
 
 [Official documentation page](https://www.php.net/manual/en/function.ucfirst.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -64,4 +64,4 @@ Using the RecursiveArrayIterator to traverse an unknown amount of sub arrays wit
 
 [Official documentation page](https://www.php.net/manual/en/class.recursivearrayiterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

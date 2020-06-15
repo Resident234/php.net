@@ -28,4 +28,4 @@ Please note that since PHP 7.2 there&apos;s new function available spl_object_id
 
 [Official documentation page](https://www.php.net/manual/en/function.spl-object-hash.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

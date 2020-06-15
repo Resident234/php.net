@@ -29,4 +29,4 @@ array_slice can be used to remove elements from an array but it&apos;s pretty si
 
 [Official documentation page](https://www.php.net/manual/en/function.array-slice.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

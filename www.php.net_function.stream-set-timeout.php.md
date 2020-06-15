@@ -13,4 +13,4 @@ In case anyone is puzzled, stream_set_timeout DOES NOT work for sockets created 
 
 [Official documentation page](https://www.php.net/manual/en/function.stream-set-timeout.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

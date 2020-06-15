@@ -13,4 +13,4 @@ The best and simplest way to get input from a user in the CLI with only PHP is t
 
 [Official documentation page](https://www.php.net/manual/en/function.fgetc.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

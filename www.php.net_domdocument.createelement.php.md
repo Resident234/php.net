@@ -12,4 +12,4 @@ With regard to the note below about needing htmlentities to avoid warnings about
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.createelement.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

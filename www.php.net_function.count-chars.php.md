@@ -13,4 +13,4 @@ If you have problems using count_chars with a multibyte string, you can change t
 
 [Official documentation page](https://www.php.net/manual/en/function.count-chars.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

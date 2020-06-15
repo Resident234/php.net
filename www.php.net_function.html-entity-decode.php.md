@@ -31,4 +31,4 @@ Use the following to decode all entities:<br><span class="default">&lt;?php html
 
 [Official documentation page](https://www.php.net/manual/en/function.html-entity-decode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

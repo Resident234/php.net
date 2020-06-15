@@ -116,4 +116,4 @@ For all the people coming here praying for:
 
 [Official documentation page](https://www.php.net/manual/en/book.imap.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

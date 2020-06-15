@@ -100,4 +100,4 @@ As mentioned earlier, for Windows users there is a fake sendmail option. A bit m
 
 [Official documentation page](https://www.php.net/manual/en/ref.mail.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

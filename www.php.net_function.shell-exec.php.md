@@ -20,4 +20,4 @@ To run a command in background, the output must be redirected to /dev/null. This
 
 [Official documentation page](https://www.php.net/manual/en/function.shell-exec.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

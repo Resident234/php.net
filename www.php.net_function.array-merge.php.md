@@ -99,4 +99,4 @@ I keep seeing posts for people looking for a function to replace numeric keys.
 
 [Official documentation page](https://www.php.net/manual/en/function.array-merge.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -79,4 +79,4 @@ It is possible to write a completely self-contained Singleton base class in PHP 
 
 [Official documentation page](https://www.php.net/manual/en/function.get-called-class.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

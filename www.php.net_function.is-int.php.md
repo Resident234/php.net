@@ -59,4 +59,4 @@ Just a shorter way to check if your variable is an int or a string containing a 
 
 [Official documentation page](https://www.php.net/manual/en/function.is-int.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

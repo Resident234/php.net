@@ -53,4 +53,4 @@ My function returns the number of elements in array for multidimensional arrays 
 
 [Official documentation page](https://www.php.net/manual/en/function.count.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

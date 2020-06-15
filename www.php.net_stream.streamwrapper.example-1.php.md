@@ -12,4 +12,4 @@ Example of stream used with databases :<br><br>Requirement :<br>A MySQL database
 
 [Official documentation page](https://www.php.net/manual/en/stream.streamwrapper.example-1.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

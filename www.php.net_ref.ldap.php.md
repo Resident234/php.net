@@ -21,4 +21,4 @@ There is a lot of confusion about accountExpires, pwdLastSet, lastLogon and badP
 
 [Official documentation page](https://www.php.net/manual/en/ref.ldap.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

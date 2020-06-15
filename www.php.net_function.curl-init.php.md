@@ -20,4 +20,4 @@ Just to clarify:<br><br>Spaces in the URL need to be replaced with a %20.<br><br
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-init.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

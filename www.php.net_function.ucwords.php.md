@@ -115,4 +115,4 @@ Features:
 
 [Official documentation page](https://www.php.net/manual/en/function.ucwords.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

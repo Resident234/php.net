@@ -20,4 +20,4 @@ sudo apt-get install php5-gd &amp;&amp; sudo service apache2 restart<br><br>To i
 
 [Official documentation page](https://www.php.net/manual/en/image.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

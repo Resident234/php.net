@@ -46,4 +46,4 @@ this class seems to be painful: it is not, formatting and parsing are highly cus
 
 [Official documentation page](https://www.php.net/manual/en/class.numberformatter.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

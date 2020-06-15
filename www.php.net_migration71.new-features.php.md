@@ -21,4 +21,4 @@ Note that declaring nullable return type does not mean that you can skip return 
 
 [Official documentation page](https://www.php.net/manual/en/migration71.new-features.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

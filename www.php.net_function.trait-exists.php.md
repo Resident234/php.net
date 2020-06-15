@@ -13,4 +13,4 @@
 
 [Official documentation page](https://www.php.net/manual/en/function.trait-exists.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

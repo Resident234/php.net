@@ -12,4 +12,4 @@ I was recently trying to loop through some objects and convert them to arrays so
 
 [Official documentation page](https://www.php.net/manual/en/function.is-resource.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

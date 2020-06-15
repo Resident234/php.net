@@ -55,4 +55,4 @@ Changes file mode recursive in $pathname to $filemode<br><br><span class="defaul
 
 [Official documentation page](https://www.php.net/manual/en/function.chmod.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

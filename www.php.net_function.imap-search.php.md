@@ -31,4 +31,4 @@ To set your own CHARSET, which is useful if you are dealing with Chinese Japanes
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-search.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ A tiny benefit of using is_writeable() instead of is_writable() is that is_writa
 
 [Official documentation page](https://www.php.net/manual/en/function.is-writeable.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

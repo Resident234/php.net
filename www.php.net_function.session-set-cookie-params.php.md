@@ -70,4 +70,4 @@ REMEMBER, that if you have a multi-subdomain site, you must put the following to
 
 [Official documentation page](https://www.php.net/manual/en/function.session-set-cookie-params.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

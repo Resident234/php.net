@@ -12,4 +12,4 @@ If you want to retrieve the class vars from within the class itself, use $this.<
 
 [Official documentation page](https://www.php.net/manual/en/function.get-class-vars.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

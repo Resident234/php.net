@@ -12,4 +12,4 @@
 
 [Official documentation page](https://www.php.net/manual/en/function.trader-linearreg-slope.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

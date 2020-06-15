@@ -20,4 +20,4 @@ Another way to do a case case-insensitive sort by key would simply be:<br><br><s
 
 [Official documentation page](https://www.php.net/manual/en/array.sorting.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ On Ubuntu 13.04, not sure of the other Distros. <br><br>If you simply uncomment 
 
 [Official documentation page](https://www.php.net/manual/en/mail.configuration.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

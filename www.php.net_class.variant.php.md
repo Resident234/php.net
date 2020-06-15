@@ -12,4 +12,4 @@ If you are frustrated that print_r($obj) (where $obj is something returned from 
 
 [Official documentation page](https://www.php.net/manual/en/class.variant.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

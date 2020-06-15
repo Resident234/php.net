@@ -12,4 +12,4 @@ When the new update came out from Apple for iOS6 it provided the ability for iPa
 
 [Official documentation page](https://www.php.net/manual/en/function.exif-read-data.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

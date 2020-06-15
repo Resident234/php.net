@@ -12,4 +12,4 @@ Your \SplFileObject will not throw an exception when trying to write to a non-wr
 
 [Official documentation page](https://www.php.net/manual/en/splfileobject.fwrite.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

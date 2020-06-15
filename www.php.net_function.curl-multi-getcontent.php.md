@@ -12,4 +12,4 @@ This seems to work as expected for me - allowing me to get the content from a cu
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-multi-getcontent.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

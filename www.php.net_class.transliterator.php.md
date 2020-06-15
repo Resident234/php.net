@@ -12,4 +12,4 @@ For more documentation see here: <a href="http://userguide.icu-project.org/trans
 
 [Official documentation page](https://www.php.net/manual/en/class.transliterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

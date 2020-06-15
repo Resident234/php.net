@@ -38,4 +38,4 @@ In a previous note, php at 5mm de describes how to prevent session hijacking by<
 
 [Official documentation page](https://www.php.net/manual/en/function.session-regenerate-id.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

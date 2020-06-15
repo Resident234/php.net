@@ -22,4 +22,4 @@ See also: $this pseudo-variable, <a href="http://php.net/manual/en/language.oop5
 
 [Official documentation page](https://www.php.net/manual/en/sdo.sample.getset.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

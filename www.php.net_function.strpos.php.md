@@ -55,4 +55,4 @@ My version of strpos with needles as an array. Also allows for a string, or an a
 
 [Official documentation page](https://www.php.net/manual/en/function.strpos.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

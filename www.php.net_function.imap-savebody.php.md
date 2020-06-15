@@ -27,4 +27,4 @@ By using imap_fetchbody() you may run in trouble by using too much memory. Using
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-savebody.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

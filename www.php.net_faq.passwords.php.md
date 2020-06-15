@@ -20,4 +20,4 @@ A great read..<br><br><a href="https://nakedsecurity.sophos.com/2013/11/20/serio
 
 [Official documentation page](https://www.php.net/manual/en/faq.passwords.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

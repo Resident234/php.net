@@ -12,4 +12,4 @@ As of gnupg version 2, it is not possible to pass a plain password any more. The
 
 [Official documentation page](https://www.php.net/manual/en/function.gnupg-decrypt.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

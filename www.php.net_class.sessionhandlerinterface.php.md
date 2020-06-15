@@ -13,4 +13,4 @@ As of PHP 7.0, you can implement SessionUpdateTimestampHandlerInterface to <br>d
 
 [Official documentation page](https://www.php.net/manual/en/class.sessionhandlerinterface.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

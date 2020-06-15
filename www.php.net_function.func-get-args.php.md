@@ -22,4 +22,4 @@ How to create a polymorphic/&quot;overloaded&quot; function<br><br><span class="
 
 [Official documentation page](https://www.php.net/manual/en/function.func-get-args.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

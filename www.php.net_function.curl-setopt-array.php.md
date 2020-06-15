@@ -57,4 +57,4 @@ In case that you need to read SSL page content from https with curl, this functi
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-setopt-array.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

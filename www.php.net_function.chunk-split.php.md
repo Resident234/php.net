@@ -20,4 +20,4 @@ As an alternative for&#xA0; qeremy [atta] gmail [dotta] com<br>There is much sho
 
 [Official documentation page](https://www.php.net/manual/en/function.chunk-split.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

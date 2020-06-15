@@ -36,4 +36,4 @@ For those wondering, this function is expensive!<br><br>On a script that was exe
 
 [Official documentation page](https://www.php.net/manual/en/function.session-name.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

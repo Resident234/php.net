@@ -12,4 +12,4 @@ This function can be used to test if all values in an array of booleans are TRUE
 
 [Official documentation page](https://www.php.net/manual/en/function.array-product.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

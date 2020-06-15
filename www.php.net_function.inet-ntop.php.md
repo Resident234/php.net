@@ -12,4 +12,4 @@ For people who wondering what the meaning of this function name:<br>pton: a pres
 
 [Official documentation page](https://www.php.net/manual/en/function.inet-ntop.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

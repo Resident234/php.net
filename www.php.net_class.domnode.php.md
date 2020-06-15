@@ -29,4 +29,4 @@ For clarification:<br>The assumingly &apos;discoverd&apos; by previous posters a
 
 [Official documentation page](https://www.php.net/manual/en/class.domnode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -20,4 +20,4 @@ To delete an individual array element use the unset function<br><br>For example:
 
 [Official documentation page](https://www.php.net/manual/en/book.array.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

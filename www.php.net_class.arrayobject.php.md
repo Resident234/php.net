@@ -38,4 +38,4 @@ I don&apos;t believe the same performance is true since PHP 5.3. Using the same 
 
 [Official documentation page](https://www.php.net/manual/en/class.arrayobject.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

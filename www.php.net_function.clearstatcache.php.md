@@ -25,4 +25,4 @@ unlink() does not clear the cache if you are performing file_exists() on a remot
 
 [Official documentation page](https://www.php.net/manual/en/function.clearstatcache.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

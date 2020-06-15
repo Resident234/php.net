@@ -21,4 +21,4 @@ I found this function useful when uploading a file through FTP. One of the files
 
 [Official documentation page](https://www.php.net/manual/en/function.tmpfile.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

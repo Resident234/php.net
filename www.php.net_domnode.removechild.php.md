@@ -59,4 +59,4 @@ These two functions might be helpful to anyone trying to delete a node and all o
 
 [Official documentation page](https://www.php.net/manual/en/domnode.removechild.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -66,4 +66,4 @@ Another way to trim all the elements of an array<br><span class="default">&lt;?p
 
 [Official documentation page](https://www.php.net/manual/en/function.trim.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

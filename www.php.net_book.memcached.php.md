@@ -21,4 +21,4 @@ GOTCHA: Recently I was tasked with moving from PECL memcache to PECL memcached a
 
 [Official documentation page](https://www.php.net/manual/en/book.memcached.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

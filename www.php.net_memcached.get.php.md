@@ -21,4 +21,4 @@ This method also returns false in case you set the value to false, so in order t
 
 [Official documentation page](https://www.php.net/manual/en/memcached.get.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

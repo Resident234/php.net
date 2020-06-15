@@ -36,4 +36,4 @@ You may be confused, as I was, by the instructions for installing cURL in php.&#
 
 [Official documentation page](https://www.php.net/manual/en/curl.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -49,4 +49,4 @@ if you remove session_register() calls and replace with $_SESSION assignments, m
 
 [Official documentation page](https://www.php.net/manual/en/function.session-register.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

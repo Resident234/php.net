@@ -169,4 +169,4 @@ Don&apos;t use glob() if you try to list files in a directory where very much fi
 
 [Official documentation page](https://www.php.net/manual/en/function.glob.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -39,4 +39,4 @@ Since the paths in the examples given only have two parts (e.g. &quot;/etc/passw
 
 [Official documentation page](https://www.php.net/manual/en/function.dirname.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

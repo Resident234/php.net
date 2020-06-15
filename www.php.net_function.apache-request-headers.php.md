@@ -21,4 +21,4 @@ There is a simple way to get request headers from Apache even on PHP running as 
 
 [Official documentation page](https://www.php.net/manual/en/function.apache-request-headers.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

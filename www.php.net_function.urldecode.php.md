@@ -71,4 +71,4 @@ If you are escaping strings in javascript and want to decode them in PHP with ur
 
 [Official documentation page](https://www.php.net/manual/en/function.urldecode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -60,4 +60,4 @@ After much trial and error and gnashing of teeth I finally figured out how to co
 
 [Official documentation page](https://www.php.net/manual/en/function.imagesavealpha.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

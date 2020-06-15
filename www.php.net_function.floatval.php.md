@@ -55,4 +55,4 @@ Easier-to-grasp-function for the &apos;,&apos; problem.
 
 [Official documentation page](https://www.php.net/manual/en/function.floatval.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

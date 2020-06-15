@@ -22,4 +22,4 @@ It took some time to understand how one PHP process can communicate with another
 
 [Official documentation page](https://www.php.net/manual/en/function.socket-create.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

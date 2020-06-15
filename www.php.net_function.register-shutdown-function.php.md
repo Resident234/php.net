@@ -85,4 +85,4 @@ register_shutdown_function seems to be immune to whatever value was set with set
 
 [Official documentation page](https://www.php.net/manual/en/function.register-shutdown-function.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -43,4 +43,4 @@ Need a callback on an iterated value, but don&apos;t have PHP 5.4+?&#xA0; This m
 
 [Official documentation page](https://www.php.net/manual/en/class.arrayiterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -20,4 +20,4 @@ Security advice: Although it is not documented, for the parameters $to and $subj
 
 [Official documentation page](https://www.php.net/manual/en/function.mail.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

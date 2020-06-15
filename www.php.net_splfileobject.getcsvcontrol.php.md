@@ -12,4 +12,4 @@ Note that this function does not magically guess the CSV control from a given fi
 
 [Official documentation page](https://www.php.net/manual/en/splfileobject.getcsvcontrol.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

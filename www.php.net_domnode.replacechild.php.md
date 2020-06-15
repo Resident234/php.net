@@ -40,4 +40,4 @@ Here is a simple example for replacing a node:<br><br>Let&apos;s define our XML 
 
 [Official documentation page](https://www.php.net/manual/en/domnode.replacechild.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

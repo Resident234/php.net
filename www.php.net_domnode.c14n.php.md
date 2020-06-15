@@ -20,4 +20,4 @@ When working with (malformed) HTML, you&apos;re probably better off using DOMDoc
 
 [Official documentation page](https://www.php.net/manual/en/domnode.c14n.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

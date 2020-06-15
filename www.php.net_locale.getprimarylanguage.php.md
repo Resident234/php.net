@@ -1,4 +1,4 @@
-# Locale::getPrimaryLanguage
+# Locale::getPrimaryLanguagelocale_get_primary_language
 
 
 
@@ -12,4 +12,4 @@ The behaviour when a falsy value is passed as the $locale is undocumented, but i
 
 [Official documentation page](https://www.php.net/manual/en/locale.getprimarylanguage.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

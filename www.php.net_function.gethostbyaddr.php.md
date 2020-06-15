@@ -20,4 +20,4 @@ The problem of broken DNS servers was causing me a problem because i had a page 
 
 [Official documentation page](https://www.php.net/manual/en/function.gethostbyaddr.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -141,4 +141,4 @@ imap_thread() returns threads, but are confined to the current open mailbox you 
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-thread.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

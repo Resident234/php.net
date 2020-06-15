@@ -39,4 +39,4 @@ Actual behaviour:<br>echo ceil(-0.1); //result &quot;-0&quot; but i expect &quot
 
 [Official documentation page](https://www.php.net/manual/en/function.ceil.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

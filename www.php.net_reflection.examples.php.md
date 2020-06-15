@@ -59,4 +59,4 @@ If you want to use method closures and don&apos;t have PHP 5.3, perhaps you find
 
 [Official documentation page](https://www.php.net/manual/en/reflection.examples.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

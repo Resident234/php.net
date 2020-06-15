@@ -103,4 +103,4 @@ People seem to mix up what __METHOD__, get_class($obj) and get_class() do, relat
 
 [Official documentation page](https://www.php.net/manual/en/function.get-class.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

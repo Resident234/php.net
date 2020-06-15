@@ -29,4 +29,4 @@ Using settype is not the best way to convert a string into an integer, since it 
 
 [Official documentation page](https://www.php.net/manual/en/function.settype.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

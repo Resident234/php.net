@@ -12,4 +12,4 @@ Ok, this page is driving me crazy. Parsing the lines returned in the array is si
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-headers.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

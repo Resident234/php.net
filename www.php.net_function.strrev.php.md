@@ -13,4 +13,4 @@ This function support utf-8 encoding, Human Language and Character Encoding Supp
 
 [Official documentation page](https://www.php.net/manual/en/function.strrev.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

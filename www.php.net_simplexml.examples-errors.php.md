@@ -1,4 +1,4 @@
-# Dealing with XML errors
+# Dealing with XML errorsSee Also
 
 
 
@@ -12,4 +12,4 @@ Note that &quot;if (! $sxe) {&quot; may give you a false-negative if the XML doc
 
 [Official documentation page](https://www.php.net/manual/en/simplexml.examples-errors.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

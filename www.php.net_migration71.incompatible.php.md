@@ -30,4 +30,4 @@ The backwards incompatible change &apos;The empty index operator is not supporte
 
 [Official documentation page](https://www.php.net/manual/en/migration71.incompatible.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

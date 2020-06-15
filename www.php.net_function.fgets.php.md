@@ -12,4 +12,4 @@ A better example, to illustrate the differences in speed for large files, betwee
 
 [Official documentation page](https://www.php.net/manual/en/function.fgets.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

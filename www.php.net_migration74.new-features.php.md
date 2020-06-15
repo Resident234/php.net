@@ -12,4 +12,4 @@ It should be noted that typed properties internally are never initialized to a d
 
 [Official documentation page](https://www.php.net/manual/en/migration74.new-features.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

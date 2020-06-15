@@ -12,4 +12,4 @@ Was going mad, I figured getStatus() would return false on servers not respondin
 
 [Official documentation page](https://www.php.net/manual/en/memcached.getversion.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

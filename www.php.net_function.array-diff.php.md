@@ -172,4 +172,4 @@ There is more fast implementation of array_diff, but with some limitations. If y
 
 [Official documentation page](https://www.php.net/manual/en/function.array-diff.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

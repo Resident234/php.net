@@ -12,4 +12,4 @@ FYI, it returns the parameter name without the dollars($) sign at the start.</sp
 
 [Official documentation page](https://www.php.net/manual/en/reflectionparameter.getname.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

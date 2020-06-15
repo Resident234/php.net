@@ -13,4 +13,4 @@ Volker&apos;s getOS() function needs to have the order of cases changed in the s
 
 [Official documentation page](https://www.php.net/manual/en/reserved.constants.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

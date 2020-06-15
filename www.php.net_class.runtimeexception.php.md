@@ -12,4 +12,4 @@ Whole exception-class hierarchy is shown at <a href="http://php.net/manual/en/sp
 
 [Official documentation page](https://www.php.net/manual/en/class.runtimeexception.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -13,4 +13,4 @@ Note that you can only assign 255 colors to any image palette.&#xA0; If you try 
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecolorallocate.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

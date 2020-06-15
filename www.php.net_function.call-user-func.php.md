@@ -45,4 +45,4 @@ You don&apos;t need to use this function to call a variable class function. Inst
 
 [Official documentation page](https://www.php.net/manual/en/function.call-user-func.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

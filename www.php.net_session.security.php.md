@@ -12,4 +12,4 @@ Websites which have sensitive information need to be patched to ensure its not e
 
 [Official documentation page](https://www.php.net/manual/en/session.security.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

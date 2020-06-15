@@ -13,4 +13,4 @@ The code example as stated has a missing &apos;.&apos;, causing a syntax error i
 
 [Official documentation page](https://www.php.net/manual/en/function.geoip-asnum-by-name.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

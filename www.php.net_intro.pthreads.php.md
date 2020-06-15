@@ -12,4 +12,4 @@ Joe Watkins the creator of pthreads and parallel announced in February this year
 
 [Official documentation page](https://www.php.net/manual/en/intro.pthreads.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

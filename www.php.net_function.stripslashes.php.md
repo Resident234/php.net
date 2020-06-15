@@ -12,4 +12,4 @@ Sometimes for some reason is happens that PHP or Javascript or some naughty inse
 
 [Official documentation page](https://www.php.net/manual/en/function.stripslashes.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

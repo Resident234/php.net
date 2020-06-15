@@ -20,4 +20,4 @@ After one week of trying to understand what was wrong with my PHP communication 
 
 [Official documentation page](https://www.php.net/manual/en/class.com.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

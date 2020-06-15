@@ -20,4 +20,4 @@ It is important to note that get_class_methods($class) returns not only methods 
 
 [Official documentation page](https://www.php.net/manual/en/function.get-class-methods.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

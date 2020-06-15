@@ -54,4 +54,4 @@ Note that php comparison is not transitive:<br><br>&quot;php&quot; == 0 =&gt; tr
 
 [Official documentation page](https://www.php.net/manual/en/types.comparisons.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ Actually it looks like the semaphore is automatically released not on request sh
 
 [Official documentation page](https://www.php.net/manual/en/function.sem-get.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

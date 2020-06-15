@@ -12,4 +12,4 @@ Here is code to parse and decode all types of messages, including attachments. I
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-fetchstructure.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

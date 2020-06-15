@@ -78,4 +78,4 @@ I needed a way to trim all white space and then a few chosen strings from the en
 
 [Official documentation page](https://www.php.net/manual/en/function.rtrim.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

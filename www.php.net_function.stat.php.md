@@ -20,4 +20,4 @@ This is a souped up &apos;stat&apos; function based on <br>many user-submitted c
 
 [Official documentation page](https://www.php.net/manual/en/function.stat.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

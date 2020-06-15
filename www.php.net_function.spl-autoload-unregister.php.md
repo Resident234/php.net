@@ -12,4 +12,4 @@ $functions = spl_autoload_functions();<br>&#xA0; &#xA0; foreach($functions as $f
 
 [Official documentation page](https://www.php.net/manual/en/function.spl-autoload-unregister.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

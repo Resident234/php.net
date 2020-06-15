@@ -12,4 +12,4 @@ When I was testing imap_headerinfo() with an e-mail that had multiple recipients
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-headerinfo.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

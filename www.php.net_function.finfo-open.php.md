@@ -1,4 +1,4 @@
-# finfo_open
+# finfo_openfinfo::__construct
 
 
 

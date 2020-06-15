@@ -117,4 +117,4 @@ Features:<br>* allowable tags (as in strip_tags),<br>* optional stripping attrib
 
 [Official documentation page](https://www.php.net/manual/en/function.strip-tags.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

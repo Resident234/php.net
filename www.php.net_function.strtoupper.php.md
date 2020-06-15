@@ -13,4 +13,4 @@ One might think that setting the correct locale would do the trick with for exam
 
 [Official documentation page](https://www.php.net/manual/en/function.strtoupper.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

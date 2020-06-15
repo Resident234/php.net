@@ -12,4 +12,4 @@ It appears that imagecrop() will output a black line along the bottom the result
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecrop.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

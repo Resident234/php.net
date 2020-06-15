@@ -12,4 +12,4 @@ quote:<br>&quot;Note:<br>socket_read() returns a zero length string (&quot;&quot
 
 [Official documentation page](https://www.php.net/manual/en/function.socket-read.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -13,4 +13,4 @@ If you want to save data that is derived from a Javascript canvas.toDataURL() fu
 
 [Official documentation page](https://www.php.net/manual/en/function.base64-decode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

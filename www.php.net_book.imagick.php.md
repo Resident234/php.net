@@ -12,4 +12,4 @@ Here is an example on how to take an image that is already in a string (say, fro
 
 [Official documentation page](https://www.php.net/manual/en/book.imagick.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

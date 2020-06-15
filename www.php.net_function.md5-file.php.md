@@ -21,4 +21,4 @@ It&apos;s faster to use md5sum than openssl md5:<br><br><span class="default">&l
 
 [Official documentation page](https://www.php.net/manual/en/function.md5-file.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

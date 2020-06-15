@@ -104,4 +104,4 @@ If you have reserved names in a database that you don&apos;t want others to use,
 
 [Official documentation page](https://www.php.net/manual/en/function.similar-text.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

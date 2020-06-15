@@ -21,4 +21,4 @@ Get more than one type at once like this:<br><span class="default">&lt;?php<br>$
 
 [Official documentation page](https://www.php.net/manual/en/function.dns-get-record.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

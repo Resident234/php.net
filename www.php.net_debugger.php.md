@@ -20,4 +20,4 @@ I would like to add <a href="http://phpdebugbar.com/" rel="nofollow" target="_bl
 
 [Official documentation page](https://www.php.net/manual/en/debugger.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

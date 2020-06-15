@@ -30,4 +30,4 @@ After much headache and looking through PHP source code, I finally found out why
 
 [Official documentation page](https://www.php.net/manual/en/soapserver.handle.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

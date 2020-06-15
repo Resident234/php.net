@@ -12,4 +12,4 @@ It&apos;s worth noting that the interface defined by yannick at gmail should not
 
 [Official documentation page](https://www.php.net/manual/en/class.streamwrapper.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

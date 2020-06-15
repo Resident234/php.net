@@ -21,4 +21,4 @@ The description of the &quot;u&quot; flag is a bit misleading. It suggests that 
 
 [Official documentation page](https://www.php.net/manual/en/reference.pcre.pattern.modifiers.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

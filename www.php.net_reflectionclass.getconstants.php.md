@@ -22,4 +22,4 @@ You can pass $this as class for the ReflectionClass. __CLASS__ won&apos;t help i
 
 [Official documentation page](https://www.php.net/manual/en/reflectionclass.getconstants.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

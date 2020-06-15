@@ -12,4 +12,4 @@ RES_SUCCESS = 0<br>RES_FAILURE = 1<br>RES_HOST_LOOKUP_FAILURE = 2<br>RES_UNKNOWN
 
 [Official documentation page](https://www.php.net/manual/en/memcached.constants.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

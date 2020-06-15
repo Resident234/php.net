@@ -13,4 +13,4 @@ Here&apos;s an updated version of the function:<br><br><span class="default">&lt
 
 [Official documentation page](https://www.php.net/manual/en/function.json-last-error-msg.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

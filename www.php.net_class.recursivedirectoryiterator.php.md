@@ -54,4 +54,4 @@ If you need to convert a nested directory tree into a multidimensional array, us
 
 [Official documentation page](https://www.php.net/manual/en/class.recursivedirectoryiterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -38,4 +38,4 @@ Vladimir: the function is OK in how it deals with &amp;amp;.<br>&amp;amp; must o
 
 [Official documentation page](https://www.php.net/manual/en/function.parse-str.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

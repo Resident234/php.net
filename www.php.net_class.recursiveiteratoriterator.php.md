@@ -95,4 +95,4 @@ You can use this to quickly find all the files (recursively) in a certain direct
 
 [Official documentation page](https://www.php.net/manual/en/class.recursiveiteratoriterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

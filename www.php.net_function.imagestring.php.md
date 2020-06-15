@@ -12,4 +12,4 @@ Some fun with imagestring:<br><br>This function is a product of too much time..<
 
 [Official documentation page](https://www.php.net/manual/en/function.imagestring.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

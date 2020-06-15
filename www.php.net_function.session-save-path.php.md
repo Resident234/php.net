@@ -29,4 +29,4 @@ Session on clustered web servers !<br><br>We had problem in PHP session handling
 
 [Official documentation page](https://www.php.net/manual/en/function.session-save-path.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

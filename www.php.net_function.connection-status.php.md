@@ -12,4 +12,4 @@ Notice !<br><br>if you running a loop (while, foeach etc..)&#xA0; you have to se
 
 [Official documentation page](https://www.php.net/manual/en/function.connection-status.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

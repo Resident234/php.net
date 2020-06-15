@@ -67,4 +67,4 @@ If you do not provide $initial, the first value used in the iteration is NULL. T
 
 [Official documentation page](https://www.php.net/manual/en/function.array-reduce.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

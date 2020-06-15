@@ -51,4 +51,4 @@ Here is an alternative to IMG_FILTER_COLORIZE filter, but taking the alpha param
 
 [Official documentation page](https://www.php.net/manual/en/function.imagefilter.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

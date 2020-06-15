@@ -12,4 +12,4 @@ The documentation is a bit sparse for SimpleXmlIterator.&#xA0; Here is an exampl
 
 [Official documentation page](https://www.php.net/manual/en/class.simplexmliterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

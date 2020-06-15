@@ -21,4 +21,4 @@ Another quick and short function to get unicode char by its code.<br><br><span c
 
 [Official documentation page](https://www.php.net/manual/en/function.chr.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

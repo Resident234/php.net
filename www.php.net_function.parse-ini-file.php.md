@@ -54,4 +54,4 @@ To those who were like me looking if this could be used to create an array out o
 
 [Official documentation page](https://www.php.net/manual/en/function.parse-ini-file.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

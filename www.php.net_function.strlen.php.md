@@ -59,4 +59,4 @@ Attention with utf8:<br>$foo = &quot;b&#xE4;r&quot;;<br>strlen($foo) will return
 
 [Official documentation page](https://www.php.net/manual/en/function.strlen.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

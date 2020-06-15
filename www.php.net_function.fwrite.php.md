@@ -40,4 +40,4 @@ Some people say that when writing to a socket not all of the bytes requested to 
 
 [Official documentation page](https://www.php.net/manual/en/function.fwrite.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

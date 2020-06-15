@@ -12,4 +12,4 @@ If you are using a WSDL, the library will strip out anything from your parameter
 
 [Official documentation page](https://www.php.net/manual/en/soapclient.call.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

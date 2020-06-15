@@ -12,4 +12,4 @@ Most of the examples below don&apos;t keep the proportions properly. They keep u
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecopyresized.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

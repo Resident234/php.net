@@ -12,4 +12,4 @@ if you want to remove header information about php version (x-powered-by), you c
 
 [Official documentation page](https://www.php.net/manual/en/function.header-remove.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

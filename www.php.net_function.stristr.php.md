@@ -12,4 +12,4 @@ There was a change in PHP 4.2.3 that can cause a warning message<br>to be genera
 
 [Official documentation page](https://www.php.net/manual/en/function.stristr.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

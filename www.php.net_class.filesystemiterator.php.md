@@ -12,4 +12,4 @@ You may be wondering, like I did, what is the difference between this class and 
 
 [Official documentation page](https://www.php.net/manual/en/class.filesystemiterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

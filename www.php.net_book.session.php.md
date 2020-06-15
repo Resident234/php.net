@@ -23,4 +23,4 @@ There is a nuance we found with session timing out although the user is still ac
 
 [Official documentation page](https://www.php.net/manual/en/book.session.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

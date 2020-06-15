@@ -38,4 +38,4 @@ If you need to sort a multi-demension array, for example, an array such as
 
 [Official documentation page](https://www.php.net/manual/en/function.arsort.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -94,4 +94,4 @@ About the delete part, I found that Firefox only remove the cookie when you subm
 
 [Official documentation page](https://www.php.net/manual/en/function.setcookie.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

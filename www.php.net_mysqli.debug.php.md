@@ -1,4 +1,4 @@
-# mysqli::debug
+# mysqli::debugmysqli_debug
 
 
 

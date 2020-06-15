@@ -13,4 +13,4 @@ if someone need more information about curl errors<br><span class="default">&lt;
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-errno.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

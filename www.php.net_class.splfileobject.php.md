@@ -12,4 +12,4 @@ Note that this class has a private (and thus, not documented) property that hold
 
 [Official documentation page](https://www.php.net/manual/en/class.splfileobject.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

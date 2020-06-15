@@ -21,4 +21,4 @@ Been using this for years:<br><br><span class="default">&lt;?php<br></span><span
 
 [Official documentation page](https://www.php.net/manual/en/function.strstr.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -32,4 +32,4 @@ We can also specify a range of values for charlist.
 
 [Official documentation page](https://www.php.net/manual/en/function.str-word-count.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

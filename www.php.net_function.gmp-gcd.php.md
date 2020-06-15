@@ -13,4 +13,4 @@ here is an elegant recursive solution<br><span class="default">&lt;?php&#xA0; &#
 
 [Official documentation page](https://www.php.net/manual/en/function.gmp-gcd.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

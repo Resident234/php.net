@@ -19,4 +19,4 @@ Needed to just reverse keys. Don&apos;t flog me if there is a better way. This w
 
 [Official documentation page](https://www.php.net/manual/en/function.array-reverse.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

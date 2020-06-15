@@ -20,4 +20,4 @@ I tried using getmxrr() to validate the domain portion of email addresses in enq
 
 [Official documentation page](https://www.php.net/manual/en/function.getmxrr.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

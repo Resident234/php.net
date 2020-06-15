@@ -13,4 +13,4 @@ When working on a project, I found a need to switch live sessions between two di
 
 [Official documentation page](https://www.php.net/manual/en/ref.session.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

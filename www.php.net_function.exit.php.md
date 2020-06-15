@@ -38,4 +38,4 @@ To rich dot lovely at klikzltd dot co dot uk:<br><br>Using a &quot;@&quot; befor
 
 [Official documentation page](https://www.php.net/manual/en/function.exit.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

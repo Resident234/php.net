@@ -29,4 +29,4 @@ You can also get the docblock definitions for the defined methods of a class as 
 
 [Official documentation page](https://www.php.net/manual/en/reflectionclass.getdoccomment.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ Try this to know behavior:<br><br><span class="default">&lt;?php<br></span><span
 
 [Official documentation page](https://www.php.net/manual/en/function.get-resource-type.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

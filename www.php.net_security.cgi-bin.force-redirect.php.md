@@ -1,4 +1,4 @@
-# Case 2: using 
+# Case 2: using cgi.force_redirect
 
 
 

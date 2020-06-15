@@ -51,4 +51,4 @@ Just to clarify, since this may be unknown for a lot of people:
 
 [Official documentation page](https://www.php.net/manual/en/filter.filters.sanitize.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -31,4 +31,4 @@ Needed to get the index of the max/highest value in an assoc array.<br>max() onl
 
 [Official documentation page](https://www.php.net/manual/en/function.key.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

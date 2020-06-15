@@ -89,4 +89,4 @@ Be careful when using curl_exec() and the CURLOPT_RETURNTRANSFER option. Accordi
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-exec.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

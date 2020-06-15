@@ -20,4 +20,4 @@ on Example #3 Creating a reflection of an image<br>-----------------------------
 
 [Official documentation page](https://www.php.net/manual/en/imagick.examples-1.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

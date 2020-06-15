@@ -1,4 +1,4 @@
-# mysqli_result::fetch_fields
+# mysqli_result::fetch_fieldsmysqli_fetch_fields
 
 
 

@@ -29,4 +29,4 @@ In the Classes and Objects docs, there is this: In order to be able to unseriali
 
 [Official documentation page](https://www.php.net/manual/en/function.unserialize.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

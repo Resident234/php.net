@@ -20,4 +20,4 @@ FYI - if you are trying to scan from a string which contains a filename with ext
 
 [Official documentation page](https://www.php.net/manual/en/function.sscanf.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

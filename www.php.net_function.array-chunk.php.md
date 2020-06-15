@@ -37,4 +37,4 @@ Response to azspot at gmail dot com function partition.<br><br>$columns = 3;<br>
 
 [Official documentation page](https://www.php.net/manual/en/function.array-chunk.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -34,4 +34,4 @@ Quicktip: If ctype is not enabled by default on your server, replace ctype_alnum
 
 [Official documentation page](https://www.php.net/manual/en/function.ctype-alnum.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

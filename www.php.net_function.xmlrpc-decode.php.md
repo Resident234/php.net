@@ -12,4 +12,4 @@ Note that from libxml 2.7.9+ there is a limit of 10MB for the XML-RPC response.<
 
 [Official documentation page](https://www.php.net/manual/en/function.xmlrpc-decode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

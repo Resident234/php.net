@@ -21,4 +21,4 @@ As I understand it, blowfish is generally seen a secure hashing algorithm, even 
 
 [Official documentation page](https://www.php.net/manual/en/function.crypt.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

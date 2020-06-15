@@ -21,4 +21,4 @@ According to <a href="https://bugs.php.net/bug.php?id=61141:" rel="nofollow" tar
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-multi-init.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -51,4 +51,4 @@ To quickly build a human-readable random string for a captcha per example :<br><
 
 [Official documentation page](https://www.php.net/manual/en/function.mt-rand.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

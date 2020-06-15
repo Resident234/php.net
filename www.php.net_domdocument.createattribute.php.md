@@ -12,4 +12,4 @@ Just in case it isn&apos;t clear (like I had), an example:<br><br><span class="d
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.createattribute.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

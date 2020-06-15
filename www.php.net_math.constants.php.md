@@ -20,4 +20,4 @@ There are also the predefined PHP_INT_MAX and PHP_INT_SIZE constants, that descr
 
 [Official documentation page](https://www.php.net/manual/en/math.constants.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

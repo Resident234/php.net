@@ -21,4 +21,4 @@ __halt_compiler is also useful for debugging. If you need to temporarily make a 
 
 [Official documentation page](https://www.php.net/manual/en/function.halt-compiler.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

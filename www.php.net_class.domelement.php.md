@@ -51,4 +51,4 @@ Hi!
 
 [Official documentation page](https://www.php.net/manual/en/class.domelement.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ Some complain that ftp_nlist, always return FALSE. I did experience this behavio
 
 [Official documentation page](https://www.php.net/manual/en/function.ftp-nlist.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ I made a function that calculates the average color of a given image resource an
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecolorat.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

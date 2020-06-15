@@ -13,4 +13,4 @@ It seems the interface names are actually listed in a defined order:<br>- &quot;
 
 [Official documentation page](https://www.php.net/manual/en/reflectionclass.getinterfacenames.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

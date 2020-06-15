@@ -12,4 +12,4 @@ is_subclass_of() works also with classes between the class of obj and the superc
 
 [Official documentation page](https://www.php.net/manual/en/function.is-subclass-of.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

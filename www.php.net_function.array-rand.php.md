@@ -73,4 +73,4 @@ It doesn&apos;t explicitly say it in the documentation, but PHP won&apos;t pick 
 
 [Official documentation page](https://www.php.net/manual/en/function.array-rand.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

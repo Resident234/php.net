@@ -68,4 +68,4 @@ Seeing all these suggestions on a br2nl function, I can also see that neither wo
 
 [Official documentation page](https://www.php.net/manual/en/function.nl2br.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

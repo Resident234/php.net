@@ -1,4 +1,4 @@
-# Transliterator::transliterate
+# Transliterator::transliteratetransliterator_transliterate
 
 
 
@@ -12,4 +12,4 @@ I pretty much like the idea of hdogan, but there&apos;s at least one group of ch
 
 [Official documentation page](https://www.php.net/manual/en/transliterator.transliterate.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -20,4 +20,4 @@
 
 [Official documentation page](https://www.php.net/manual/en/function.strtok.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

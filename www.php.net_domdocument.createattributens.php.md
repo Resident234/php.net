@@ -13,4 +13,4 @@ If a new namespace is introduced while creating and inserting an attribute, crea
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.createattributens.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

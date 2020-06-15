@@ -12,4 +12,4 @@ Today 07-01-2019 [dd.mm.yyyy]<br><br>10934 functions in this list &#x1F37A;</spa
 
 [Official documentation page](https://www.php.net/manual/en/indexes.functions.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

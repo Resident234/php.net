@@ -13,4 +13,4 @@ An updated is_ani based on issues reported here and elsewhere<br><br><span class
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecreatefromgif.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

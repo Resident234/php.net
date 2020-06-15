@@ -21,4 +21,4 @@ Here are a couple of resources for proper construction of filters. <br><br><a hr
 
 [Official documentation page](https://www.php.net/manual/en/function.ldap-search.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

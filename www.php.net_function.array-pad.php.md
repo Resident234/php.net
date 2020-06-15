@@ -54,4 +54,4 @@ Beware, if you try to pad an associative array using numeric keys, your keys wil
 
 [Official documentation page](https://www.php.net/manual/en/function.array-pad.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

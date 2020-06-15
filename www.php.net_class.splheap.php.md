@@ -20,4 +20,4 @@ While Michelangelo Van Dam example (<a href="http://br2.php.net/manual/en/class.
 
 [Official documentation page](https://www.php.net/manual/en/class.splheap.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

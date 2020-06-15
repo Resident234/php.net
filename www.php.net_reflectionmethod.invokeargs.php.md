@@ -47,4 +47,4 @@ We can do black magic, which is useful in templating block calls:
 
 [Official documentation page](https://www.php.net/manual/en/reflectionmethod.invokeargs.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

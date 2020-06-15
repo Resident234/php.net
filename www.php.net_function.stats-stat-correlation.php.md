@@ -12,4 +12,4 @@ undefined for me, thus I&apos;ve implemented my own correlation which is much fa
 
 [Official documentation page](https://www.php.net/manual/en/function.stats-stat-correlation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

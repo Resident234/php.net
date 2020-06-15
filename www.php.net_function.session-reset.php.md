@@ -12,4 +12,4 @@ First of all you should execute this code :<br><span class="default">&lt;?php<br
 
 [Official documentation page](https://www.php.net/manual/en/function.session-reset.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

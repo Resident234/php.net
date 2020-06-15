@@ -29,4 +29,4 @@ rawurlencode() MUST not be used on unparsed URLs.<br><br>rawurlencode() should n
 
 [Official documentation page](https://www.php.net/manual/en/function.rawurlencode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

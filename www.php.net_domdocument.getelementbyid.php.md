@@ -12,4 +12,4 @@ Please note that if your HTML does not contain a doctype declaration, then getEl
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.getelementbyid.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

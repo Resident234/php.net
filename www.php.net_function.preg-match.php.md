@@ -245,4 +245,4 @@ for those coming over from ereg, preg_match can be quite intimidating. to get st
 
 [Official documentation page](https://www.php.net/manual/en/function.preg-match.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

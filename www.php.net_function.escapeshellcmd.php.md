@@ -48,4 +48,4 @@ There is a quirk to be aware of regarding use of echo. If you have a command whi
 
 [Official documentation page](https://www.php.net/manual/en/function.escapeshellcmd.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

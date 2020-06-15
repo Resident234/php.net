@@ -12,4 +12,4 @@ From OpenWDDX.Org:<br><br>&quot;The Web Distributed Data Exchange, or WDDX, is a
 
 [Official documentation page](https://www.php.net/manual/en/intro.wddx.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

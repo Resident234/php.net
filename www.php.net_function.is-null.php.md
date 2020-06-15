@@ -28,4 +28,4 @@ In PHP 7 (phpng), is_null is actually marginally faster than ===, although the p
 
 [Official documentation page](https://www.php.net/manual/en/function.is-null.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

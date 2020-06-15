@@ -32,4 +32,4 @@ This is an annotation from Stig Bakken:
 
 [Official documentation page](https://www.php.net/manual/en/function.mkdir.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

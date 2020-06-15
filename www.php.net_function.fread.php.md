@@ -96,4 +96,4 @@ For anyone still trying to write an effective file downloader function/script, t
 
 [Official documentation page](https://www.php.net/manual/en/function.fread.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

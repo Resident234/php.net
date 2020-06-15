@@ -68,4 +68,4 @@ Please note that as imageTTFBbox and imageTTFText functions return an array of c
 
 [Official documentation page](https://www.php.net/manual/en/function.imagettfbbox.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

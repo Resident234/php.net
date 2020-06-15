@@ -12,4 +12,4 @@ The allowsNull method look if arguments have a type. <br>If a type is defined, n
 
 [Official documentation page](https://www.php.net/manual/en/reflectionparameter.allowsnull.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

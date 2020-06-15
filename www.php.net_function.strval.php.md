@@ -21,4 +21,4 @@ If you want to convert an integer into an English word string, eg. 29 -&gt; twen
 
 [Official documentation page](https://www.php.net/manual/en/function.strval.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ You can call private methods with getClosure():<br><br><span class="default">&lt
 
 [Official documentation page](https://www.php.net/manual/en/reflectionmethod.getclosure.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

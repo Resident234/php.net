@@ -28,4 +28,4 @@ array_flip() does not retain the data type of values, when converting them into 
 
 [Official documentation page](https://www.php.net/manual/en/function.array-flip.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

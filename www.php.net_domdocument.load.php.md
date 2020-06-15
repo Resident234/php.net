@@ -13,4 +13,4 @@ I had a problem with loading documents over HTTP. I would get errors looking lik
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.load.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

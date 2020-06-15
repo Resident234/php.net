@@ -1,4 +1,4 @@
-# DateTime::createFromFormat
+# DateTime::createFromFormatdate_create_from_format
 
 
 

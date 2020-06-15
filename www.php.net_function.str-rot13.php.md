@@ -13,4 +13,4 @@ I was reminded again of the desire for a generic str_rot function. Character man
 
 [Official documentation page](https://www.php.net/manual/en/function.str-rot13.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

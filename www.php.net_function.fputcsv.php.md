@@ -183,4 +183,4 @@ Alright, after playing a while, I&apos;m confident the following replacement fun
 
 [Official documentation page](https://www.php.net/manual/en/function.fputcsv.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

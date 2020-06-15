@@ -35,4 +35,4 @@ Just a small example how to use this function and also stream_select() to make a
 
 [Official documentation page](https://www.php.net/manual/en/function.stream-socket-server.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

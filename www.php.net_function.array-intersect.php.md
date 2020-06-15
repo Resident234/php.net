@@ -37,4 +37,4 @@ Note that array_intersect and array_unique doesnt work well with multidimensiona
 
 [Official documentation page](https://www.php.net/manual/en/function.array-intersect.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

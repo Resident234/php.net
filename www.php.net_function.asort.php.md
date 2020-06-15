@@ -37,4 +37,4 @@ This is a function to sort an indexed 2D array by a specified sub array key, eit
 
 [Official documentation page](https://www.php.net/manual/en/function.asort.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

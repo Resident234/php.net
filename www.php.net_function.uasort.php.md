@@ -42,4 +42,4 @@ An Example using anonymous function.<br>Anonymous functions make some time the c
 
 [Official documentation page](https://www.php.net/manual/en/function.uasort.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

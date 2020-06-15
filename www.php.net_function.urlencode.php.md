@@ -13,4 +13,4 @@ urlencode function and rawurlencode are mostly based on RFC 1738.<br><br>However
 
 [Official documentation page](https://www.php.net/manual/en/function.urlencode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

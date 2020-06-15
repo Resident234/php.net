@@ -12,4 +12,4 @@ WARNING!! <br><br>the snippet below by &apos;Marius (mm at co-operation dot de)&
 
 [Official documentation page](https://www.php.net/manual/en/function.usleep.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

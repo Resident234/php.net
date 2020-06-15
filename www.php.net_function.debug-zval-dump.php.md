@@ -20,4 +20,4 @@ The add of &quot;Call-time pass-by-reference&quot; as E_DEPRECATED makes it impo
 
 [Official documentation page](https://www.php.net/manual/en/function.debug-zval-dump.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

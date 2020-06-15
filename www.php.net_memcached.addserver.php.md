@@ -46,4 +46,4 @@ As of version 2.0.0b1 you can use Unix socket.<br><br><span class="default">&lt;
 
 [Official documentation page](https://www.php.net/manual/en/memcached.addserver.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

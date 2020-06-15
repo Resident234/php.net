@@ -28,4 +28,4 @@ Version of str_split by rlpvandenberg at hotmail dot com is god-damn inefficient
 
 [Official documentation page](https://www.php.net/manual/en/function.str-split.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

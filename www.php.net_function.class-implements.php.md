@@ -21,4 +21,4 @@ Hint:<br><span class="default">&lt;?php<br>in_array</span><span class="keyword">
 
 [Official documentation page](https://www.php.net/manual/en/function.class-implements.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

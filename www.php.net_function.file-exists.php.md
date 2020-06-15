@@ -28,4 +28,4 @@ In response to seejohnrun&apos;s version to check if a URL exists. Even if the f
 
 [Official documentation page](https://www.php.net/manual/en/function.file-exists.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

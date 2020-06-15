@@ -12,4 +12,4 @@ To prevent asXML from encoding vowels unwantedly, simply use an approriate XML h
 
 [Official documentation page](https://www.php.net/manual/en/simplexmlelement.asxml.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

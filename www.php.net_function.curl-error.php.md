@@ -20,4 +20,4 @@ For a 404 response to actually trigger an error as the example seems to be tryin
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-error.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

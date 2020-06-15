@@ -38,4 +38,4 @@ Note the order of operations in that exponentiation operator, as it was opposite
 
 [Official documentation page](https://www.php.net/manual/en/migration56.new-features.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

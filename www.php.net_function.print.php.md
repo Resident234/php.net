@@ -21,4 +21,4 @@ I wrote a println function that determines whether a \n or a &lt;br /&gt; should
 
 [Official documentation page](https://www.php.net/manual/en/function.print.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

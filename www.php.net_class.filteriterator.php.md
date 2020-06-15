@@ -12,4 +12,4 @@ The code below is a simple example of usage . Note that the method which does th
 
 [Official documentation page](https://www.php.net/manual/en/class.filteriterator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

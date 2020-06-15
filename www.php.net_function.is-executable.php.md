@@ -12,4 +12,4 @@ For windows users, <br><br>It will return TRUE for EXE extensions. I have checke
 
 [Official documentation page](https://www.php.net/manual/en/function.is-executable.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

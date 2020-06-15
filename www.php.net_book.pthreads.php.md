@@ -12,4 +12,4 @@ Here are some notes regarding PHP pThreads v3 that I have gathered:<br>-namespac
 
 [Official documentation page](https://www.php.net/manual/en/book.pthreads.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

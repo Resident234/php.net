@@ -30,4 +30,4 @@ I think this kind of exception is perfect to throw when expected the&#xA0; type 
 
 [Official documentation page](https://www.php.net/manual/en/class.domainexception.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

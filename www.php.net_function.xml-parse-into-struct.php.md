@@ -12,4 +12,4 @@ Perhaps the one true parser:? I modified xademax&apos;s fine code to tidy it up,
 
 [Official documentation page](https://www.php.net/manual/en/function.xml-parse-into-struct.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

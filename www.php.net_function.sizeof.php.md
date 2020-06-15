@@ -36,4 +36,4 @@ If your array is &quot;huge&quot;<br><br>It is reccomended to set a variable fir
 
 [Official documentation page](https://www.php.net/manual/en/function.sizeof.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -28,4 +28,4 @@ We found a session.save_path depth of 3 led to excessive wastage of inodes and i
 
 [Official documentation page](https://www.php.net/manual/en/session.configuration.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

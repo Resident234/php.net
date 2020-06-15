@@ -12,4 +12,4 @@ Something similar opportunity is DEFINE.<br><br>Example:<br>&#xA0; &#xA0; (?(DEF
 
 [Official documentation page](https://www.php.net/manual/en/regexp.reference.back-references.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

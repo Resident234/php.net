@@ -75,4 +75,4 @@ There&apos;s a deeply-seated problem with filemtime() under Windows due to the f
 
 [Official documentation page](https://www.php.net/manual/en/function.filemtime.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

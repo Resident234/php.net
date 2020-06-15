@@ -12,4 +12,4 @@ The first time a page is accessed, PHP doesn&apos;t yet know if the browser is a
 
 [Official documentation page](https://www.php.net/manual/en/session.idpassing.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

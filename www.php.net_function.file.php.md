@@ -28,4 +28,4 @@ If the file you are reading is in CSV format do not use file(), use fgetcsv().&#
 
 [Official documentation page](https://www.php.net/manual/en/function.file.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

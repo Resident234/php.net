@@ -126,4 +126,4 @@ Please, note that when using with UTF-8 mb_strtolower will only convert upper ca
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-strtolower.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -77,4 +77,4 @@ There seems to be a lot of talk about SimpleXML having a &quot;problem&quot; wit
 
 [Official documentation page](https://www.php.net/manual/en/function.simplexml-load-string.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

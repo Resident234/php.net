@@ -1,4 +1,4 @@
-# Installation
+# InstallationConfiguring PHP with OCI8Installing OCI8 as a Shared ExtensionInstalling OCI8 as a Statically Compiled ExtensionInstalling OCI8 from PECLInstalling OCI8 on WindowsSetting the Oracle EnvironmentTroubleshooting
 
 
 

@@ -13,4 +13,4 @@ I want to stress that in the user function, you do need to return either a 1 or 
 
 [Official documentation page](https://www.php.net/manual/en/function.array-uintersect.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

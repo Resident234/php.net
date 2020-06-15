@@ -12,4 +12,4 @@ Please note that utf8_decode simply converts a string encoded in UTF-8 to ISO-88
 
 [Official documentation page](https://www.php.net/manual/en/function.utf8-decode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

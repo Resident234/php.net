@@ -1,4 +1,4 @@
-# Multibyte String Functions
+# Multibyte String FunctionsReferences
 
 
 
@@ -28,4 +28,4 @@ Note that some of the multi-byte functions run in O(n) time, rather than constan
 
 [Official documentation page](https://www.php.net/manual/en/ref.mbstring.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

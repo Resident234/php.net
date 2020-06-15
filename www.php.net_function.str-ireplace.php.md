@@ -1,4 +1,4 @@
-# str_ireplace
+# str_ireplaceReplacement order gotcha
 
 
 
@@ -95,4 +95,4 @@ here&apos;s a neat little function I whipped up to do HTML color coding of SQL s
 
 [Official documentation page](https://www.php.net/manual/en/function.str-ireplace.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

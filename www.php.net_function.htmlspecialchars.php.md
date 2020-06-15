@@ -36,4 +36,4 @@ if your goal is just to protect your page from Cross Site Scripting (XSS) attack
 
 [Official documentation page](https://www.php.net/manual/en/function.htmlspecialchars.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -43,4 +43,4 @@ Ever needed to create an FTP connection resource defaulted to a particular dir f
 
 [Official documentation page](https://www.php.net/manual/en/function.ftp-connect.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -27,4 +27,4 @@ I got a pretty nasty error while trying to parse table rows(all contents were se
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-ereg-replace.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

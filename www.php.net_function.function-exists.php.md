@@ -60,4 +60,4 @@ It should be noted that the function_exists check is not relative to the root na
 
 [Official documentation page](https://www.php.net/manual/en/function.function-exists.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

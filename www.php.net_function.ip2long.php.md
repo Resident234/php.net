@@ -30,4 +30,4 @@ To nate, who advises that there is no reason to use an unsigned version of the I
 
 [Official documentation page](https://www.php.net/manual/en/function.ip2long.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

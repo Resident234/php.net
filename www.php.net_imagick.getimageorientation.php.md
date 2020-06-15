@@ -46,4 +46,4 @@ Here&apos;s how you can use the getImageOrientation() information to auto-rotate
 
 [Official documentation page](https://www.php.net/manual/en/imagick.getimageorientation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

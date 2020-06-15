@@ -105,4 +105,4 @@ If you&apos;re having problems with binary and hex data:<br><br>I had a problem 
 
 [Official documentation page](https://www.php.net/manual/en/function.file-get-contents.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

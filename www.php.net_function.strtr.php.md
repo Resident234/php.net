@@ -38,4 +38,4 @@ OK, I debugged the function (had some errors)<br>Here it is:<br><br>if(!function
 
 [Official documentation page](https://www.php.net/manual/en/function.strtr.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

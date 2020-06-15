@@ -140,4 +140,4 @@ function urlsafe_b64encode($string) {<br>&#xA0; &#xA0; $data = base64_encode($st
 
 [Official documentation page](https://www.php.net/manual/en/function.base64-encode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

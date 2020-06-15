@@ -100,4 +100,4 @@ Explode does not parse a string by delimiters, in the sense that we expect to fi
 
 [Official documentation page](https://www.php.net/manual/en/function.explode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

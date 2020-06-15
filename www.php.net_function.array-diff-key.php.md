@@ -12,4 +12,4 @@ To return the unique elements (those with a key that exists only once in either 
 
 [Official documentation page](https://www.php.net/manual/en/function.array-diff-key.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

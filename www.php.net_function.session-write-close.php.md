@@ -28,4 +28,4 @@ Workaround if session_write_close() still doesn&apos;t write sessions fast enoug
 
 [Official documentation page](https://www.php.net/manual/en/function.session-write-close.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

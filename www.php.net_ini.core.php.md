@@ -1,4 +1,4 @@
-# Description of core 
+# Description of core php.ini directivesLanguage OptionsResource LimitsPerformance TuningData HandlingPaths and DirectoriesFile UploadsGeneral SQLWindows Specific
 
 
 
@@ -12,4 +12,4 @@ Starting with PHP 4.4.0 (at least PHP version 4.3.10 did have old, documented be
 
 [Official documentation page](https://www.php.net/manual/en/ini.core.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

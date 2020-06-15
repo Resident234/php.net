@@ -12,4 +12,4 @@ The DOMXPath object doesn&apos;t create a reference to the document. If you load
 
 [Official documentation page](https://www.php.net/manual/en/domxpath.construct.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -20,4 +20,4 @@ As of PHP 4.2.0, rather than automatically assuming a failed file uploaded is a 
 
 [Official documentation page](https://www.php.net/manual/en/function.is-uploaded-file.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

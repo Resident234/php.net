@@ -20,4 +20,4 @@ If you want to create a *transparent* PNG image, where the background is fully t
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecreatetruecolor.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

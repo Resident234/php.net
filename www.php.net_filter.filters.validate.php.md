@@ -82,4 +82,4 @@ FILTER_VALIDATE_EMAIL does NOT allow incomplete e-mail addresses to be validated
 
 [Official documentation page](https://www.php.net/manual/en/filter.filters.validate.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

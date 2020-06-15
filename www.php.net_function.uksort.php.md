@@ -30,4 +30,4 @@
 
 [Official documentation page](https://www.php.net/manual/en/function.uksort.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

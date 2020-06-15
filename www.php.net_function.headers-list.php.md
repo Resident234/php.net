@@ -21,4 +21,4 @@ note that it does not return the status header<br><br><span class="default">&lt;
 
 [Official documentation page](https://www.php.net/manual/en/function.headers-list.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

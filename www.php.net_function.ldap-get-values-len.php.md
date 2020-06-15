@@ -12,4 +12,4 @@ Revisiting the question of converting a binary objectGUID to a string, there&apo
 
 [Official documentation page](https://www.php.net/manual/en/function.ldap-get-values-len.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

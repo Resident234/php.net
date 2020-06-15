@@ -20,4 +20,4 @@ When you use fwrite() on a non-blocking stream, data isn&apos;t discarded silent
 
 [Official documentation page](https://www.php.net/manual/en/function.stream-set-blocking.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

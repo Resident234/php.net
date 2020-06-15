@@ -12,4 +12,4 @@ For more detailed feedback from DOMDocument::schemaValidate, disable libxml erro
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.schemavalidate.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

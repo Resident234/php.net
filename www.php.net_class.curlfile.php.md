@@ -22,4 +22,4 @@ i&apos;ve seen some downvotes , here is a small example of using curl to upload 
 
 [Official documentation page](https://www.php.net/manual/en/class.curlfile.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -38,4 +38,4 @@ I did not found a unicode/multibyte capable &apos;ord&apos; function, so...
 
 [Official documentation page](https://www.php.net/manual/en/function.ord.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

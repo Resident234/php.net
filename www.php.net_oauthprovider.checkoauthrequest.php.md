@@ -13,4 +13,4 @@ This function checks if OAuth request is valid and signed correctly.<br><br>$pro
 
 [Official documentation page](https://www.php.net/manual/en/oauthprovider.checkoauthrequest.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

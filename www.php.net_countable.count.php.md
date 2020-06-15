@@ -12,4 +12,4 @@ Even though Countable::count method is called when the object implementing Count
 
 [Official documentation page](https://www.php.net/manual/en/countable.count.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

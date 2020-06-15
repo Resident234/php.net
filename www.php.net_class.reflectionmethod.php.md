@@ -13,4 +13,4 @@ Note that the public member $class contains the name of the class in which the m
 
 [Official documentation page](https://www.php.net/manual/en/class.reflectionmethod.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

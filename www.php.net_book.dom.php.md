@@ -12,4 +12,4 @@ If you need simple interface to DOM check out phpQuery - jQuery port to PHP:<br>
 
 [Official documentation page](https://www.php.net/manual/en/book.dom.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

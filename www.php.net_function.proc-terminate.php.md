@@ -21,4 +21,4 @@ As explained in <a href="http://bugs.php.net/bug.php?id=39992," rel="nofollow" t
 
 [Official documentation page](https://www.php.net/manual/en/function.proc-terminate.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

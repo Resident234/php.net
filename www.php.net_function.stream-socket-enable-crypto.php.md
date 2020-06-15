@@ -13,4 +13,4 @@ Constants added in PHP 5.6 :<br><br>STREAM_CRYPTO_METHOD_ANY_CLIENT<br>STREAM_CR
 
 [Official documentation page](https://www.php.net/manual/en/function.stream-socket-enable-crypto.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ If you are running PHP as CLI and as a &quot;daemon&quot; (i.e. in a loop), this
 
 [Official documentation page](https://www.php.net/manual/en/function.pcntl-signal-dispatch.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

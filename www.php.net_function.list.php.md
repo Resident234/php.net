@@ -82,4 +82,4 @@ The list construct seems to look for a sequential list of indexes rather taking 
 
 [Official documentation page](https://www.php.net/manual/en/function.list.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

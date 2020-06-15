@@ -67,4 +67,4 @@ To anyone who&apos;s had a problem with the permissions denied error, it&apos;s 
 
 [Official documentation page](https://www.php.net/manual/en/function.unlink.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

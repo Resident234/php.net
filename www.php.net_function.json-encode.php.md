@@ -55,4 +55,4 @@ Solution for UTF-8 Special Chars.<br><br>&lt;?<br><br>$array = array(&apos;nome&
 
 [Official documentation page](https://www.php.net/manual/en/function.json-encode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

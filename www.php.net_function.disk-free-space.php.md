@@ -29,4 +29,4 @@ $si_prefix = array( &apos;B&apos;, &apos;KB&apos;, &apos;MB&apos;, &apos;GB&apos
 
 [Official documentation page](https://www.php.net/manual/en/function.disk-free-space.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

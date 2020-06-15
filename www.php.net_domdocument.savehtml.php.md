@@ -37,4 +37,4 @@ This method, as of 5.2.6, will automatically add &lt;html&gt;&lt;body&gt; and &l
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.savehtml.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

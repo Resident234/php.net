@@ -22,4 +22,4 @@ Note that although you can provide a default filter for the entire input array t
 
 [Official documentation page](https://www.php.net/manual/en/function.filter-input-array.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

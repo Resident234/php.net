@@ -46,4 +46,4 @@ It seems that stream_get_contents() on STDOUT blocks infinitly under Windows whe
 
 [Official documentation page](https://www.php.net/manual/en/function.proc-open.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

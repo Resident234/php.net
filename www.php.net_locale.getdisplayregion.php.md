@@ -1,4 +1,4 @@
-# Locale::getDisplayRegion
+# Locale::getDisplayRegionlocale_get_display_region
 
 
 
@@ -13,4 +13,4 @@ You don&apos;t have to have a fully-formed locale for the first parameter. This 
 
 [Official documentation page](https://www.php.net/manual/en/locale.getdisplayregion.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

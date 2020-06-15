@@ -58,4 +58,4 @@ Some remarks not included in the official documentation.<br><br>1) array_column 
 
 [Official documentation page](https://www.php.net/manual/en/function.array-column.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

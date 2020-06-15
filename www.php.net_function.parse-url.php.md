@@ -75,4 +75,4 @@ Here&apos;s a good way to using parse_url () gets the youtube link.<br>This func
 
 [Official documentation page](https://www.php.net/manual/en/function.parse-url.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

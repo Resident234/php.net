@@ -21,4 +21,4 @@ Walk through nested arrays/objects and utf8 encode all strings.<br><br><span cla
 
 [Official documentation page](https://www.php.net/manual/en/function.utf8-encode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

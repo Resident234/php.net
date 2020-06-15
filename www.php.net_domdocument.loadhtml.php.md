@@ -44,4 +44,4 @@ Pay attention when loading html that has a different charset than iso-8859-1. Si
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.loadhtml.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

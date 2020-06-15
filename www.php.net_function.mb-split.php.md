@@ -73,4 +73,4 @@ In addition to Sezer Yalcin&apos;s tip.
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-split.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

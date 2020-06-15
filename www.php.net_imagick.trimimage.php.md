@@ -18,4 +18,4 @@ After operations that change the crop of the image, like trimImage does, IM pres
 
 [Official documentation page](https://www.php.net/manual/en/imagick.trimimage.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -13,4 +13,4 @@
 
 [Official documentation page](https://www.php.net/manual/en/function.idn-to-utf8.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

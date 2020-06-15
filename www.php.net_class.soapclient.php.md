@@ -1,4 +1,4 @@
-# The 
+# The SoapClient class
 
 
 
@@ -56,4 +56,4 @@ When you need to connect to services requiring to send extra header use this met
 
 [Official documentation page](https://www.php.net/manual/en/class.soapclient.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

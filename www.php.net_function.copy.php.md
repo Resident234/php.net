@@ -74,4 +74,4 @@ Here&apos;s a simple recursive function to copy entire directories
 
 [Official documentation page](https://www.php.net/manual/en/function.copy.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ The manual probably doesn&apos;t stress this enough:<br><br>** This has nothing 
 
 [Official documentation page](https://www.php.net/manual/en/function.session-cache-expire.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

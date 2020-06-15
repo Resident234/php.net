@@ -12,4 +12,4 @@
 
 [Official documentation page](https://www.php.net/manual/en/regexp.reference.escape.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

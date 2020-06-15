@@ -51,4 +51,4 @@ If you are using the memcache class for session handling your key is the PHP ses
 
 [Official documentation page](https://www.php.net/manual/en/memcached.sessions.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

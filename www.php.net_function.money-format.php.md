@@ -141,4 +141,4 @@ If money_format doesn&apos;t seem to be working properly, make sure you are defi
 
 [Official documentation page](https://www.php.net/manual/en/function.money-format.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

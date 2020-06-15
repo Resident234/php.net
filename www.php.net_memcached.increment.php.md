@@ -20,4 +20,4 @@ increment does not alter the time to live of the object.</span>
 
 [Official documentation page](https://www.php.net/manual/en/memcached.increment.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

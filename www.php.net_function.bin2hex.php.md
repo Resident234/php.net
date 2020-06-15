@@ -12,4 +12,4 @@ This function is for converting binary data into a hexadecimal string representa
 
 [Official documentation page](https://www.php.net/manual/en/function.bin2hex.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

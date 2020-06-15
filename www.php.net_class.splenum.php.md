@@ -102,4 +102,4 @@ SplEnum is a nice start for enumerated type support as an extension (making enum
 
 [Official documentation page](https://www.php.net/manual/en/class.splenum.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

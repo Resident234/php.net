@@ -81,4 +81,4 @@ Even handier if you use the following:
 
 [Official documentation page](https://www.php.net/manual/en/function.implode.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

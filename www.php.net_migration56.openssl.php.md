@@ -13,4 +13,4 @@ To get back to the &quot;old behavior&quot; with self-signed (&quot;snakeoil&quo
 
 [Official documentation page](https://www.php.net/manual/en/migration56.openssl.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

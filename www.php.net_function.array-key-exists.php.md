@@ -44,4 +44,4 @@ The argument of array_key_exists() vs. isset() came up in the workplace today, s
 
 [Official documentation page](https://www.php.net/manual/en/function.array-key-exists.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -13,4 +13,4 @@ This method gets all the files in a directory, and echoes them in the order of t
 
 [Official documentation page](https://www.php.net/manual/en/function.filectime.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

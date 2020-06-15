@@ -13,4 +13,4 @@ One should understand that even though it says &quot;create mailbox&quot;, you a
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-createmailbox.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

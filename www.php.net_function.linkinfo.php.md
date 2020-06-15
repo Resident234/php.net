@@ -12,4 +12,4 @@ I expected this function to return FALSE or 0 if a symbolic link did not exist (
 
 [Official documentation page](https://www.php.net/manual/en/function.linkinfo.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

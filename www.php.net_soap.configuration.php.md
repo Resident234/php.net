@@ -12,4 +12,4 @@ Please note that these three ini settings will also affect the behaviour of your
 
 [Official documentation page](https://www.php.net/manual/en/soap.configuration.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

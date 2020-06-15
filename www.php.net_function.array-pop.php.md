@@ -12,4 +12,4 @@ Notice:<br>the complexity of array_pop() is O(1). <br>the complexity of array_sh
 
 [Official documentation page](https://www.php.net/manual/en/function.array-pop.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -13,4 +13,4 @@ Easiest work-around I&apos;ve found for &lt;5.3:<br><span class="default">&lt;?p
 
 [Official documentation page](https://www.php.net/manual/en/function.lcfirst.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

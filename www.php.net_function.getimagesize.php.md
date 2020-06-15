@@ -29,4 +29,4 @@ Note that, if you&apos;re going to be a good programmer and use named constatnts
 
 [Official documentation page](https://www.php.net/manual/en/function.getimagesize.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

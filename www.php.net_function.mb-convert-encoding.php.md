@@ -75,4 +75,4 @@ aaron, to discard unsupported characters instead of printing a ?, you might as w
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-convert-encoding.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

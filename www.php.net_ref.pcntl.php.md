@@ -1,4 +1,4 @@
-# PCNTL Functions
+# PCNTL FunctionsSee Also
 
 
 
@@ -20,4 +20,4 @@ If you want to create a daemon in PHP, consider using System_Daemon <a href="htt
 
 [Official documentation page](https://www.php.net/manual/en/ref.pcntl.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

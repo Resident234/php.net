@@ -327,4 +327,4 @@ If you want to sort an array according to another array acting as a priority lis
 
 [Official documentation page](https://www.php.net/manual/en/function.usort.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

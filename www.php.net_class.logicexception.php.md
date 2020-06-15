@@ -12,4 +12,4 @@ Direct known subclasses:<br>BadFunctionCallException, DomainException, InvalidAr
 
 [Official documentation page](https://www.php.net/manual/en/class.logicexception.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

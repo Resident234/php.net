@@ -36,4 +36,4 @@ If you&apos;re seeing<br>&quot;PHP Warning:&#xA0; Unknown: The session id is too
 
 [Official documentation page](https://www.php.net/manual/en/session.upload-progress.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

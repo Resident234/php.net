@@ -87,4 +87,4 @@ I wrote the following to see if a submitted URL has a valid http response code a
 
 [Official documentation page](https://www.php.net/manual/en/book.curl.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

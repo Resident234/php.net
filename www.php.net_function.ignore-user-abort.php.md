@@ -40,4 +40,4 @@ use the spiritual-coder&apos;s code below with exreme caution and do not use it 
 
 [Official documentation page](https://www.php.net/manual/en/function.ignore-user-abort.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

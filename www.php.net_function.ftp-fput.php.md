@@ -13,4 +13,4 @@ For directly inserting content into a file on an FTP host, you could also create
 
 [Official documentation page](https://www.php.net/manual/en/function.ftp-fput.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

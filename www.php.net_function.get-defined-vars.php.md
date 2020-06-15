@@ -20,4 +20,4 @@ A little gotcha to watch out for:<br><br>If you turn off RegisterGlobals and rel
 
 [Official documentation page](https://www.php.net/manual/en/function.get-defined-vars.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

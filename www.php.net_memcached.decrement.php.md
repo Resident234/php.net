@@ -20,4 +20,4 @@ Found possible bug :<br>decrement fails and returns -1&#xA0; when memcached::OPT
 
 [Official documentation page](https://www.php.net/manual/en/memcached.decrement.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

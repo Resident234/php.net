@@ -54,4 +54,4 @@ This function blocks the calling process until there is activity on any of the c
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-multi-select.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

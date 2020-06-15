@@ -1,4 +1,4 @@
-# GearmanClient::jobStatus
+# GearmanClient::jobStatusgearman_job_status
 
 
 
@@ -12,4 +12,4 @@ The example above reads: <br>if (!$stat[0]) // the job is known so it is not don
 
 [Official documentation page](https://www.php.net/manual/en/gearmanclient.jobstatus.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

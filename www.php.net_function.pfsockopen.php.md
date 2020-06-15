@@ -20,4 +20,4 @@ To see if it&apos;s really a new connection, or a reused one, you can use ftell(
 
 [Official documentation page](https://www.php.net/manual/en/function.pfsockopen.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

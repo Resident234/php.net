@@ -12,4 +12,4 @@ Regarding swbrown&apos;s comment...you need to use an output buffer if you don&a
 
 [Official documentation page](https://www.php.net/manual/en/function.passthru.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

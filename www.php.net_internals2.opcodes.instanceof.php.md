@@ -1,4 +1,4 @@
-# INSTANCEOF
+# INSTANCEOFPHP codePHP opcodes
 
 
 
@@ -37,4 +37,4 @@ When checking instanceof against a class that implements the class in question, 
 
 [Official documentation page](https://www.php.net/manual/en/internals2.opcodes.instanceof.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

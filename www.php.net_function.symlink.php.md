@@ -56,4 +56,4 @@ Symlinks on windows&#xA0; are created by Symlink() which accept only absolute pa
 
 [Official documentation page](https://www.php.net/manual/en/function.symlink.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -60,4 +60,4 @@ rename() is working on Linux/UNIX but not working on Windows on a directory cont
 
 [Official documentation page](https://www.php.net/manual/en/function.rename.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -12,4 +12,4 @@ To suppress the PHP warning, just prepend the function with the error suppressio
 
 [Official documentation page](https://www.php.net/manual/en/function.ftp-login.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -27,4 +27,4 @@ setrawcookie() isn&apos;t entirely &apos;raw&apos;. It will check the value for 
 
 [Official documentation page](https://www.php.net/manual/en/function.setrawcookie.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

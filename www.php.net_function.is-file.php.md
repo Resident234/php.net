@@ -12,4 +12,4 @@ Note that is_file() returns false if the parent directory doesn&apos;t have +x s
 
 [Official documentation page](https://www.php.net/manual/en/function.is-file.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

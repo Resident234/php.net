@@ -13,4 +13,4 @@ At this time, the documentation sais &quot;Note: Multiple elements with the same
 
 [Official documentation page](https://www.php.net/manual/en/splpriorityqueue.compare.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

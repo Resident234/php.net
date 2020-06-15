@@ -12,4 +12,4 @@ If you are working with Images only and you need mime type (e.g. for headers), t
 
 [Official documentation page](https://www.php.net/manual/en/function.image-type-to-mime-type.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

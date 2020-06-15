@@ -29,4 +29,4 @@ Guys, I hope this example will help<br>you can erase prints showing the process-
 
 [Official documentation page](https://www.php.net/manual/en/class.xmlreader.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

@@ -46,4 +46,4 @@ Here&apos;s a function to canonicalize a URL containing relative paths. Ran into
 
 [Official documentation page](https://www.php.net/manual/en/function.realpath.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

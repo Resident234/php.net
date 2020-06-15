@@ -12,4 +12,4 @@ In addition to my previous post, I figured out that sftp-&gt;fopen-&gt;file_get_
 
 [Official documentation page](https://www.php.net/manual/en/function.ssh2-scp-send.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

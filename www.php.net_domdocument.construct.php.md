@@ -12,4 +12,4 @@ The constuctor arguments are useful if you want to build a new document using cr
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.construct.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

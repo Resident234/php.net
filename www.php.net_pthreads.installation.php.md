@@ -36,4 +36,4 @@ I haven&apos;t found any proper instructions on how to install pthreads in linux
 
 [Official documentation page](https://www.php.net/manual/en/pthreads.installation.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

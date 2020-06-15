@@ -1,4 +1,4 @@
-# DateTime::add
+# DateTime::adddate_add
 
 
 

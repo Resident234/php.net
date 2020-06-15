@@ -20,4 +20,4 @@ The actual replacement now that flattenImages() has been deprecated is:<br><br><
 
 [Official documentation page](https://www.php.net/manual/en/imagick.flattenimages.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

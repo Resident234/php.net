@@ -12,4 +12,4 @@ Note that AppendIterator will segfault when iterating over an empty generator. D
 
 [Official documentation page](https://www.php.net/manual/en/class.appenditerator.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

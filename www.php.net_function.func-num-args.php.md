@@ -25,4 +25,4 @@ Just a note for anyone wondering. This function doesn&apos;t include params that
 
 [Official documentation page](https://www.php.net/manual/en/function.func-num-args.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

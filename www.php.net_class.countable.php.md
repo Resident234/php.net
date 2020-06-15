@@ -49,4 +49,4 @@ I just want to point out that your class has to actually implement the Countable
 
 [Official documentation page](https://www.php.net/manual/en/class.countable.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

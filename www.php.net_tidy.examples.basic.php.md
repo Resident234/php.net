@@ -12,4 +12,4 @@ If you are looking for HTML beautifier (a tool to indent HTML output produced by
 
 [Official documentation page](https://www.php.net/manual/en/tidy.examples.basic.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

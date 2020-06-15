@@ -12,4 +12,4 @@ See <a href="http://www.imagemagick.org/script/formats.php" rel="nofollow" targe
 
 [Official documentation page](https://www.php.net/manual/en/imagick.newpseudoimage.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

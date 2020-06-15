@@ -13,4 +13,4 @@ Passing null as length will not make mb_substr use it&apos;s default, instead it
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-substr.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

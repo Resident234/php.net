@@ -12,4 +12,4 @@ As the life-cycle of a session handler is fairly complex, I found it difficult t
 
 [Official documentation page](https://www.php.net/manual/en/class.sessionhandler.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

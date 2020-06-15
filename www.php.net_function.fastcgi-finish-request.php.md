@@ -12,4 +12,4 @@ There are some pitfalls&#xA0; you should be aware of when using this function.<b
 
 [Official documentation page](https://www.php.net/manual/en/function.fastcgi-finish-request.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

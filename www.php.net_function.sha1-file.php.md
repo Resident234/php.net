@@ -12,4 +12,4 @@ Just for the record - <br><br>As some have pointed out, you have two ways to gen
 
 [Official documentation page](https://www.php.net/manual/en/function.sha1-file.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

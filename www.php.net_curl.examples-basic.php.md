@@ -20,4 +20,4 @@ It is important to notice that when using curl to post form data and you use an 
 
 [Official documentation page](https://www.php.net/manual/en/curl.examples-basic.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

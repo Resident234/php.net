@@ -13,4 +13,4 @@ Here is a code snippet for some of us who are just beginning with reflection. I 
 
 [Official documentation page](https://www.php.net/manual/en/class.reflection.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

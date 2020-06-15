@@ -206,4 +206,4 @@ Using empty() in the previous example posted by Anonymous will result in a &quot
 
 [Official documentation page](https://www.php.net/manual/en/function.is-array.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

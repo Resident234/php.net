@@ -29,4 +29,4 @@ I use RecursiveIteratorIterator with parameter CATCH_GET_CHILD to iterate on lea
 
 [Official documentation page](https://www.php.net/manual/en/function.array-walk-recursive.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

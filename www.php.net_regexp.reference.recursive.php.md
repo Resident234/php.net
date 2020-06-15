@@ -22,4 +22,4 @@ The recursion in regular expressions is the only way to allow the parsing of HTM
 
 [Official documentation page](https://www.php.net/manual/en/regexp.reference.recursive.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

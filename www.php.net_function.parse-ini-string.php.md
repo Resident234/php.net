@@ -12,4 +12,4 @@ parse_ini_string_m is analog for a parse_ini_string function.<br><br>had to code
 
 [Official documentation page](https://www.php.net/manual/en/function.parse-ini-string.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

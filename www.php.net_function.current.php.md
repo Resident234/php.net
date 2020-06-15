@@ -19,4 +19,4 @@ current() also works on objects:
 
 [Official documentation page](https://www.php.net/manual/en/function.current.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

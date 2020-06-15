@@ -31,4 +31,4 @@ if you are storing multi-byte characters in XML, then saving the XML using saveX
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.savexml.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**

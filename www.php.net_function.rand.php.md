@@ -20,4 +20,4 @@ Here&apos;s an interesting note about the inferiority of the rand() function. Tr
 
 [Official documentation page](https://www.php.net/manual/en/function.rand.php)
 
-**[⬆ to root](/)**
+**[To root](/README.md)**
