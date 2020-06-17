@@ -1,4 +1,4 @@
-# $_GET$HTTP_GET_VARS [deprecated]
+# $_GET
 
 
 

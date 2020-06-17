@@ -1,4 +1,4 @@
-# IntlDateFormatter::formatdatefmt_format
+# IntlDateFormatter::format
 
 
 

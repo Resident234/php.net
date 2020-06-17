@@ -1,4 +1,4 @@
-# mysqli_stmt::$num_rowsmysqli_stmt::num_rowsmysqli_stmt_num_rows
+# mysqli_stmt::$num_rows
 
 
 

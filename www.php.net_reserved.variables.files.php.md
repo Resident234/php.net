@@ -1,4 +1,4 @@
-# $_FILES$HTTP_POST_FILES [deprecated]
+# $_FILES
 
 
 

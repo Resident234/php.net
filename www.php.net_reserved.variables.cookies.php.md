@@ -1,4 +1,4 @@
-# $_COOKIE$HTTP_COOKIE_VARS [deprecated]
+# $_COOKIE
 
 
 

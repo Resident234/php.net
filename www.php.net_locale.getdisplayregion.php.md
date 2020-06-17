@@ -1,4 +1,4 @@
-# Locale::getDisplayRegionlocale_get_display_region
+# Locale::getDisplayRegion
 
 
 

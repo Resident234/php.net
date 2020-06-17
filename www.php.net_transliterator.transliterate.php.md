@@ -1,4 +1,4 @@
-# Transliterator::transliteratetransliterator_transliterate
+# Transliterator::transliterate
 
 
 

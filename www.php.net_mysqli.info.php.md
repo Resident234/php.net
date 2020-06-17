@@ -1,4 +1,4 @@
-# mysqli::$infomysqli_info
+# mysqli::$info
 
 
 

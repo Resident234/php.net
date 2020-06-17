@@ -1,4 +1,4 @@
-# mysqli_result::$num_rowsmysqli_num_rows
+# mysqli_result::$num_rows
 
 
 

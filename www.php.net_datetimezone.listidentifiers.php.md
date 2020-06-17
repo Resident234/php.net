@@ -1,4 +1,4 @@
-# DateTimeZone::listIdentifierstimezone_identifiers_list
+# DateTimeZone::listIdentifiers
 
 
 

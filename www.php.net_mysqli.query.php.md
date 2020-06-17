@@ -1,4 +1,4 @@
-# mysqli::querymysqli_query
+# mysqli::query
 
 
 

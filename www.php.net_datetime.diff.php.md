@@ -1,4 +1,4 @@
-# DateTime::diffDateTimeImmutable::diffDateTimeInterface::diffdate_diff
+# DateTime::diff
 
 
 

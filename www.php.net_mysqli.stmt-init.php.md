@@ -1,4 +1,4 @@
-# mysqli::stmt_initmysqli_stmt_init
+# mysqli::stmt_init
 
 
 

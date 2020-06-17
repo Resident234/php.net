@@ -1,4 +1,4 @@
-# php_sapi_nameA potential gotcha
+# php_sapi_name
 
 
 

@@ -1,4 +1,4 @@
-# DateTime::getTimestampDateTimeImmutable::getTimestampDateTimeInterface::getTimestampdate_timestamp_get
+# DateTime::getTimestamp
 
 
 

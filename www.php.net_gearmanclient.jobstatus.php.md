@@ -1,4 +1,4 @@
-# GearmanClient::jobStatusgearman_job_status
+# GearmanClient::jobStatus
 
 
 

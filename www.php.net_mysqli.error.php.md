@@ -1,4 +1,4 @@
-# mysqli::$errormysqli_error
+# mysqli::$error
 
 
 

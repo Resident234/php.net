@@ -1,4 +1,4 @@
-# zlib://bzip2://zip://
+# zlib://
 
 
 

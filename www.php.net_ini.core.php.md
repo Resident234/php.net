@@ -1,4 +1,4 @@
-# Description of core php.ini directivesLanguage OptionsResource LimitsPerformance TuningData HandlingPaths and DirectoriesFile UploadsGeneral SQLWindows Specific
+# Description of core php.ini directives
 
 
 

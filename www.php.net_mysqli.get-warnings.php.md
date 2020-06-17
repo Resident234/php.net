@@ -1,4 +1,4 @@
-# mysqli::get_warningsmysqli_get_warnings
+# mysqli::get_warnings
 
 
 

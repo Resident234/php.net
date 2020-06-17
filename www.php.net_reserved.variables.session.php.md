@@ -1,4 +1,4 @@
-# $_SESSION$HTTP_SESSION_VARS [deprecated]
+# $_SESSION
 
 
 

@@ -1,4 +1,4 @@
-# $_SERVER$HTTP_SERVER_VARS [removed]
+# $_SERVER
 
 
 

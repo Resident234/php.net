@@ -1,4 +1,4 @@
-# DateTime::setTimezonedate_timezone_set
+# DateTime::setTimezone
 
 
 

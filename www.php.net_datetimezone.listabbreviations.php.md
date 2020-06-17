@@ -1,4 +1,4 @@
-# DateTimeZone::listAbbreviationstimezone_abbreviations_list
+# DateTimeZone::listAbbreviations
 
 
 

@@ -1,4 +1,4 @@
-# $_ENV$HTTP_ENV_VARS [deprecated]
+# $_ENV
 
 
 

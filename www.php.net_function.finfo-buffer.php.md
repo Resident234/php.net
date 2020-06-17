@@ -1,4 +1,4 @@
-# finfo_bufferfinfo::buffer
+# finfo_buffer
 
 
 

@@ -1,4 +1,4 @@
-# $_POST$HTTP_POST_VARS [deprecated]
+# $_POST
 
 
 

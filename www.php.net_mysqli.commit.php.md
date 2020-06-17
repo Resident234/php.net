@@ -1,4 +1,4 @@
-# mysqli::commitmysqli_commit
+# mysqli::commit
 
 
 

@@ -1,4 +1,4 @@
-# mysqli::__constructmysqli::connectmysqli_connect
+# mysqli::__construct
 
 
 

@@ -1,4 +1,4 @@
-# DateTime::setTimestampdate_timestamp_set
+# DateTime::setTimestamp
 
 
 

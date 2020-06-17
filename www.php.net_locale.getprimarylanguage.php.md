@@ -1,4 +1,4 @@
-# Locale::getPrimaryLanguagelocale_get_primary_language
+# Locale::getPrimaryLanguage
 
 
 

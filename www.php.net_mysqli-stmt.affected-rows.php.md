@@ -1,4 +1,4 @@
-# mysqli_stmt::$affected_rowsmysqli_stmt_affected_rows
+# mysqli_stmt::$affected_rows
 
 
 

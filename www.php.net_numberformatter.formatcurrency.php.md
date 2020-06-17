@@ -1,4 +1,4 @@
-# NumberFormatter::formatCurrencynumfmt_format_currency
+# NumberFormatter::formatCurrency
 
 
 

@@ -1,4 +1,4 @@
-# DateTime::__wakeupDateTimeImmutable::__wakeupDateTimeInterface::__wakeup
+# DateTime::__wakeup
 
 
 

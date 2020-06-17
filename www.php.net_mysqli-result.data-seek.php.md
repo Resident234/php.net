@@ -1,4 +1,4 @@
-# mysqli_result::data_seekmysqli_data_seek
+# mysqli_result::data_seek
 
 
 

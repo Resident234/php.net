@@ -1,4 +1,4 @@
-# mysql_real_escape_stringSecurity: the default character set
+# mysql_real_escape_string
 
 
 

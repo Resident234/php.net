@@ -1,4 +1,4 @@
-# mysqli::rollbackmysqli_rollback
+# mysqli::rollback
 
 
 

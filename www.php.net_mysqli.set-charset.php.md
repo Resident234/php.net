@@ -1,4 +1,4 @@
-# mysqli::set_charsetmysqli_set_charset
+# mysqli::set_charset
 
 
 

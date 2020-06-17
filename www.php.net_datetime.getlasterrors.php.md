@@ -1,4 +1,4 @@
-# DateTime::getLastErrorsdate_get_last_errors
+# DateTime::getLastErrors
 
 
 

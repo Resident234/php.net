@@ -1,4 +1,4 @@
-# str_ireplaceReplacement order gotcha
+# str_ireplace
 
 
 

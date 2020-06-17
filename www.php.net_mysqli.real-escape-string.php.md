@@ -1,4 +1,4 @@
-# mysqli::real_escape_stringmysqli::escape_stringmysqli_real_escape_stringSecurity: the default character set
+# mysqli::real_escape_string
 
 
 

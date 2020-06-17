@@ -1,4 +1,4 @@
-# mysqli::pingmysqli_ping
+# mysqli::ping
 
 
 

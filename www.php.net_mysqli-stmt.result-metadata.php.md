@@ -1,4 +1,4 @@
-# mysqli_stmt::result_metadatamysqli_stmt_result_metadata
+# mysqli_stmt::result_metadata
 
 
 

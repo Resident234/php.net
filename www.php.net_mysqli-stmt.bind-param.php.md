@@ -1,4 +1,4 @@
-# mysqli_stmt::bind_parammysqli_stmt_bind_param
+# mysqli_stmt::bind_param
 
 
 

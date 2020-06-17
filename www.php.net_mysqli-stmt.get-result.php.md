@@ -1,4 +1,4 @@
-# mysqli_stmt::get_resultmysqli_stmt_get_result
+# mysqli_stmt::get_result
 
 
 

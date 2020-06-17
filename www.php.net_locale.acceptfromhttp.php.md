@@ -1,4 +1,4 @@
-# Locale::acceptFromHttplocale_accept_from_http
+# Locale::acceptFromHttp
 
 
 

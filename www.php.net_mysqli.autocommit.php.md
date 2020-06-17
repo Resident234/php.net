@@ -1,4 +1,4 @@
-# mysqli::autocommitmysqli_autocommit
+# mysqli::autocommit
 
 
 

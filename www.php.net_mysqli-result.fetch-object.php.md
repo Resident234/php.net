@@ -1,4 +1,4 @@
-# mysqli_result::fetch_objectmysqli_fetch_object
+# mysqli_result::fetch_object
 
 
 

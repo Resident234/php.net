@@ -1,4 +1,4 @@
-# DateTime::modifydate_modify
+# DateTime::modify
 
 
 
