@@ -1,0 +1,16 @@
+# mysql_field_name
+
+
+
+
+<div class="phpcode"><span class="html">
+This function is slightly stupid to be honest, why not just make an array of field names... You could consolidate the two of these functions that way and it makes it a lot easier to list them when your script is dynamic.<br><br><span class="default">&lt;?php<br><br>&#xA0; &#xA0; </span><span class="keyword">function </span><span class="default">mysql_field_array</span><span class="keyword">( </span><span class="default">$query </span><span class="keyword">) {<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$field </span><span class="keyword">= </span><span class="default">mysql_num_fields</span><span class="keyword">( </span><span class="default">$query </span><span class="keyword">);<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; for ( </span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$field</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++ ) {<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$names</span><span class="keyword">[] = </span><span class="default">mysql_field_name</span><span class="keyword">( </span><span class="default">$query</span><span class="keyword">, </span><span class="default">$i </span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$names</span><span class="keyword">;<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">// Examples of use<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="default">$fields </span><span class="keyword">= </span><span class="default">mysql_field_array</span><span class="keyword">( </span><span class="default">$query </span><span class="keyword">);<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">// Show name of column 3<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">$fields</span><span class="keyword">[</span><span class="default">3</span><span class="keyword">];<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">// Show them all<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">implode</span><span class="keyword">( </span><span class="string">&apos;, &apos;</span><span class="keyword">, </span><span class="default">$fields</span><span class="keyword">[</span><span class="default">3</span><span class="keyword">] );<br>&#xA0; &#xA0; <br>&#xA0; &#xA0;&#xA0; </span><span class="comment">// Count them - easy equivelant to &apos;mysql_num_fields&apos;<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">count</span><span class="keyword">( </span><span class="default">$fields </span><span class="keyword">);<br><br></span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/function.mysql-field-name.php)
+
+**[To root](/README.md)**

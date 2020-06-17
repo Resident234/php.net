@@ -1,0 +1,24 @@
+# Comparing Objects
+
+
+
+
+<div class="phpcode"><span class="html">
+Note that when comparing object attributes, the comparison is recursive (at least, it is with PHP 5.2). That is, if $a-&gt;x contains an object then that will be compared with $b-&gt;x in the same manner. Be aware that this can lead to recursion errors:<br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">Foo </span><span class="keyword">{<br>&#xA0; &#xA0; public </span><span class="default">$x</span><span class="keyword">;<br>}<br></span><span class="default">$a </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br></span><span class="default">$b </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br></span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">x </span><span class="keyword">= </span><span class="default">$b</span><span class="keyword">;<br></span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">x </span><span class="keyword">= </span><span class="default">$a</span><span class="keyword">;<br><br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$a </span><span class="keyword">== </span><span class="default">$b</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span>Results in:<br>PHP Fatal error:&#xA0; Nesting level too deep - recursive dependency? in test.php on line 11</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+Comparison using &lt;&gt; operators should be documented.&#xA0; Between two objects, at least in PHP5.3, the comparison operation stops and returns at the first unequal property found.<br><br><span class="default">&lt;?php<br><br>$o1 </span><span class="keyword">= new </span><span class="default">stdClass</span><span class="keyword">();<br></span><span class="default">$o1</span><span class="keyword">-&gt;</span><span class="default">prop1 </span><span class="keyword">= </span><span class="string">&apos;c&apos;</span><span class="keyword">;<br></span><span class="default">$o1</span><span class="keyword">-&gt;</span><span class="default">prop2 </span><span class="keyword">= </span><span class="default">25</span><span class="keyword">;<br></span><span class="default">$o1</span><span class="keyword">-&gt;</span><span class="default">prop3 </span><span class="keyword">= </span><span class="default">201</span><span class="keyword">;<br></span><span class="default">$o1</span><span class="keyword">-&gt;</span><span class="default">prop4 </span><span class="keyword">= </span><span class="default">1000</span><span class="keyword">;<br><br></span><span class="default">$o2 </span><span class="keyword">= new </span><span class="default">stdClass</span><span class="keyword">();<br></span><span class="default">$o2</span><span class="keyword">-&gt;</span><span class="default">prop1 </span><span class="keyword">= </span><span class="string">&apos;c&apos;</span><span class="keyword">;<br></span><span class="default">$o2</span><span class="keyword">-&gt;</span><span class="default">prop2 </span><span class="keyword">= </span><span class="default">25</span><span class="keyword">;<br></span><span class="default">$o2</span><span class="keyword">-&gt;</span><span class="default">prop3 </span><span class="keyword">= </span><span class="default">200</span><span class="keyword">;<br></span><span class="default">$o2</span><span class="keyword">-&gt;</span><span class="default">prop4 </span><span class="keyword">= </span><span class="default">9999</span><span class="keyword">;<br><br>echo (int)(</span><span class="default">$o1 </span><span class="keyword">&lt; </span><span class="default">$o2</span><span class="keyword">); </span><span class="comment">// 0<br></span><span class="keyword">echo (int)(</span><span class="default">$o1 </span><span class="keyword">&gt; </span><span class="default">$o2</span><span class="keyword">); </span><span class="comment">// 1<br><br></span><span class="default">$o1</span><span class="keyword">-&gt;</span><span class="default">prop3 </span><span class="keyword">= </span><span class="default">200</span><span class="keyword">;<br><br>echo (int)(</span><span class="default">$o1 </span><span class="keyword">&lt; </span><span class="default">$o2</span><span class="keyword">); </span><span class="comment">// 1<br></span><span class="keyword">echo (int)(</span><span class="default">$o1 </span><span class="keyword">&gt; </span><span class="default">$o2</span><span class="keyword">); </span><span class="comment">// 0<br><br></span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/language.oop5.object-comparison.php)
+
+**[To root](/README.md)**

@@ -1,0 +1,25 @@
+# BC Math Functions
+
+
+
+
+<div class="phpcode"><span class="html">
+Please be aware not to use/have spaces in your strings. It took me a while to find the error in some advanced calculations!<br><br><span class="default">&lt;?php<br></span><span class="keyword">echo </span><span class="default">bcadd</span><span class="keyword">(</span><span class="string">&quot;1&quot;</span><span class="keyword">, </span><span class="string">&quot;2&quot;</span><span class="keyword">); </span><span class="comment">// 3<br></span><span class="keyword">echo </span><span class="default">bcadd</span><span class="keyword">(</span><span class="string">&quot;1&quot;</span><span class="keyword">, </span><span class="string">&quot;2 &quot;</span><span class="keyword">); </span><span class="comment">// 1<br></span><span class="keyword">echo </span><span class="default">bcadd</span><span class="keyword">(</span><span class="string">&quot;1&quot;</span><span class="keyword">, </span><span class="string">&quot; 2&quot;</span><span class="keyword">); </span><span class="comment">// 1<br></span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+Here are some useful functions to convert large hex numbers from and to large decimal ones :<br><br><span class="default">&lt;?php<br>&#xA0; &#xA0; </span><span class="keyword">public static function </span><span class="default">bchexdec</span><span class="keyword">(</span><span class="default">$hex</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$hex</span><span class="keyword">) == </span><span class="default">1</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">$hex</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$remain </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hex</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, -</span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$last </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hex</span><span class="keyword">, -</span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">bcadd</span><span class="keyword">(</span><span class="default">bcmul</span><span class="keyword">(</span><span class="default">16</span><span class="keyword">, </span><span class="default">bchexdec</span><span class="keyword">(</span><span class="default">$remain</span><span class="keyword">)), </span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">$last</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; public static function </span><span class="default">bcdechex</span><span class="keyword">(</span><span class="default">$dec</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$last </span><span class="keyword">= </span><span class="default">bcmod</span><span class="keyword">(</span><span class="default">$dec</span><span class="keyword">, </span><span class="default">16</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$remain </span><span class="keyword">= </span><span class="default">bcdiv</span><span class="keyword">(</span><span class="default">bcsub</span><span class="keyword">(</span><span class="default">$dec</span><span class="keyword">, </span><span class="default">$last</span><span class="keyword">), </span><span class="default">16</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">$remain </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">dechex</span><span class="keyword">(</span><span class="default">$last</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">bcdechex</span><span class="keyword">(</span><span class="default">$remain</span><span class="keyword">).</span><span class="default">dechex</span><span class="keyword">(</span><span class="default">$last</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }</span>
+</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/ref.bc.php)
+
+**[To root](/README.md)**

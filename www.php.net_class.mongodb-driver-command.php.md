@@ -1,0 +1,16 @@
+# The MongoDB\Driver\Command class
+
+
+
+
+<div class="phpcode"><span class="html">
+In case you&apos;re wondering how to perform a &apos;distinct&apos; query:<br><br><span class="default">&lt;?php<br><br></span><span class="comment">// Sample MongoDB command:<br>// db.product.distinct(&quot;scent&quot;, {&quot;prodCat&quot;: &quot;10 oz can&quot;})<br><br></span><span class="default">$manager </span><span class="keyword">= new </span><span class="default">MongoDB</span><span class="keyword">\</span><span class="default">Driver</span><span class="keyword">\</span><span class="default">Manager</span><span class="keyword">(</span><span class="string">&quot;mongodb://localhost:27017&quot;</span><span class="keyword">);<br><br></span><span class="default">$query </span><span class="keyword">= [</span><span class="string">&apos;prodCat&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;10 oz can&apos;</span><span class="keyword">]; </span><span class="comment">// your typical MongoDB query<br></span><span class="default">$cmd </span><span class="keyword">= new </span><span class="default">MongoDB</span><span class="keyword">\</span><span class="default">Driver</span><span class="keyword">\</span><span class="default">Command</span><span class="keyword">([<br>&#xA0; &#xA0; </span><span class="comment">// build the &apos;distinct&apos; command<br>&#xA0; &#xA0; </span><span class="string">&apos;distinct&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;product&apos;</span><span class="keyword">, </span><span class="comment">// specify the collection name<br>&#xA0; &#xA0; </span><span class="string">&apos;key&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;scent&apos;</span><span class="keyword">, </span><span class="comment">// specify the field for which we want to get the distinct values<br>&#xA0; &#xA0; </span><span class="string">&apos;query&apos; </span><span class="keyword">=&gt; </span><span class="default">$query </span><span class="comment">// criteria to filter documents<br></span><span class="keyword">]);<br></span><span class="default">$cursor </span><span class="keyword">= </span><span class="default">$manager</span><span class="keyword">-&gt;</span><span class="default">executeCommand</span><span class="keyword">(</span><span class="string">&apos;catalog&apos;</span><span class="keyword">, </span><span class="default">$cmd</span><span class="keyword">); </span><span class="comment">// retrieve the results<br></span><span class="default">$scents </span><span class="keyword">= </span><span class="default">current</span><span class="keyword">(</span><span class="default">$cursor</span><span class="keyword">-&gt;</span><span class="default">toArray</span><span class="keyword">())-&gt;</span><span class="default">values</span><span class="keyword">; </span><span class="comment">// get the distinct values as an array<br><br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$scents</span><span class="keyword">);<br><br></span><span class="default">?&gt;</span>
+</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/class.mongodb-driver-command.php)
+
+**[To root](/README.md)**
