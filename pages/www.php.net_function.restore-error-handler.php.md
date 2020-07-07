@@ -28,7 +28,7 @@ Isolde is kind of wrong. The error handlers are stacked with set_error_handler()
 &#xA0; &#xA0; restore_error_handler();&#xA0; &#xA0; &#xA0; &#xA0; //now current error handler: default handler
 &#xA0; &#xA0; mysql_connect(&quot;inexistent&quot;);
 &#xA0; &#xA0; restore_error_handler();&#xA0; &#xA0; &#xA0; &#xA0; //now current error handler: default handler (The stack can&apos;t pop more)
-?>
+php?>
 ```
 
 

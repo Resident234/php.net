@@ -118,7 +118,7 @@ memory_get_peak_usage() is used to retrieve the highest memory usage of PHP (or 
 &#xA0; &#xA0; &#xA0; &#xA0; getServerMemoryUsage(true)
 &#xA0; &#xA0; );
 
-?>
+php?>
 ```
 
 

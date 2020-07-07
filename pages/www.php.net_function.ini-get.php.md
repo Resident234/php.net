@@ -27,7 +27,7 @@ function return_bytes ($size_str)
 &#xA0; &#xA0; &#xA0; &#xA0; default: return $size_str;
 &#xA0; &#xA0; }
 }
-?>
+php?>
 ```
 
 

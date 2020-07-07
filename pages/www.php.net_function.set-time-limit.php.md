@@ -20,7 +20,7 @@ while ($i&lt;=10)
 &#xA0; &#xA0; &#xA0; &#xA0; $i++;
 }
 
-?>
+php?>
 ```
 
 
@@ -93,7 +93,7 @@ function my_timeout_exec($cmd, $stdin=&apos;&apos;, $timeout)
 &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; usleep(100000); 
 &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
 &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }
-?>
+php?>
 ```
 
 
@@ -110,7 +110,7 @@ class A
 &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; sleep(15);
 &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }
 }
-?>
+php?>
 ```
 
 
@@ -122,7 +122,7 @@ test.php:
 require &apos;my_exec.php&apos;;
 
 my_background_exec(&apos;A::jack&apos;, array(&apos;hello&apos;, &apos;jack&apos;), &apos;require &quot;my_exec.php&quot;;require &quot;a_class.php&quot;;&apos;, 8);
-?>
+php?>
 ```
 
 
@@ -210,7 +210,7 @@ I was having trouble with script timeouts in applications where the user prompte
 &#xA0; &#xA0; &#xA0; curl_close($c);
 &#xA0; &#xA0; &#xA0; ob_end_clean(); // discard output buffer
 &#xA0;&#xA0; }
-?>
+php?>
 ```
 
 

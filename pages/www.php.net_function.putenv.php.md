@@ -22,7 +22,7 @@ $_ENV[&quot;USER&quot;]=&quot;barney&quot;;
 print &quot;getenv is: &quot;.getenv(&quot;USER&quot;).&quot;\n&quot;;
 print &quot;env is: &quot;.$_ENV[&quot;USER&quot;].&quot;\n&quot;;
 phpinfo(INFO_ENVIRONMENT);
-?>
+php?>
 ```
 
 
@@ -58,7 +58,7 @@ the behaviour is as per the comments here, not there:
 <?php
 putenv(&apos;MYVAR=&apos;); // set MYVAR to an empty value.&#xA0; It is in the environment
 putenv(&apos;MYVAR&apos;); // unset MYVAR.&#xA0; It is removed from the environment
-?>
+php?>
 ```
 
 

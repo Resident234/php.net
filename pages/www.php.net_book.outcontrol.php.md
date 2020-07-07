@@ -27,7 +27,7 @@ The manual is a little shy on explaining that output buffers are nested, and tha
 
 &#xA0; &#xA0; exit;
 
-?>
+php?>
 ```
 
 

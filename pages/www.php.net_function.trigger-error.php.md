@@ -51,7 +51,7 @@ $x = &apos;test&apos;;
 
 doFunction($x);
 
-?>
+php?>
 ```
 
 
@@ -78,7 +78,7 @@ if(is_numeric($var)) {
 
 }
 
-?>
+php?>
 ```
 
 
@@ -109,7 +109,7 @@ trigger_error($message.&apos; in &lt;strong&gt;&apos;.$caller[&apos;function&apo
 
 }
 
-?>
+php?>
 ```
 
 
@@ -132,7 +132,7 @@ $x = &apos;test&apos;;
 
 doFunction($x);
 
-?>
+php?>
 ```
 
 
@@ -169,7 +169,7 @@ function error($message, $level=E_USER_NOTICE) {
 
 }
 
-?>
+php?>
 ```
 
 

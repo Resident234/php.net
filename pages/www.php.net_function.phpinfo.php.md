@@ -32,18 +32,18 @@ function phpinfo2array() {
 &#xA0; &#xA0; $matches = array();
 
 &#xA0; &#xA0; if(preg_match_all(
-&#xA0; &#xA0; &#xA0; &#xA0; &apos;#(?:&lt;h2.*?>
+&#xA0; &#xA0; &#xA0; &#xA0; &apos;#(?:&lt;h2.*php?>
 ```
-(?:&lt;a.*?>
+(?:&lt;a.*php?>
 ```
 )?(.*?)(?:&lt;\/a&gt;)?&lt;\/h2&gt;)|&apos;.
-&#xA0; &#xA0; &#xA0; &#xA0; &apos;(?:&lt;tr.*?>
+&#xA0; &#xA0; &#xA0; &#xA0; &apos;(?:&lt;tr.*php?>
 ```
-&lt;t[hd].*?>
+&lt;t[hd].*php?>
 ```
-(.*?)\s*&lt;/t[hd]&gt;(?:&lt;t[hd].*?>
+(.*?)\s*&lt;/t[hd]&gt;(?:&lt;t[hd].*php?>
 ```
-(.*?)\s*&lt;/t[hd]&gt;(?:&lt;t[hd].*?>
+(.*?)\s*&lt;/t[hd]&gt;(?:&lt;t[hd].*php?>
 ```
 (.*?)\s*&lt;/t[hd]&gt;)?)?&lt;/tr&gt;)#s&apos;,
 &#xA0; &#xA0; &#xA0; &#xA0; $input, 
@@ -72,7 +72,10 @@ The output looks something like this (note the headers are also included but are
 
 Array
 (
-&#xA0; &#xA0; <?phpinfo] =&gt; Array
+&#xA0; &#xA0; 
+
+```
+<?phpinfo] =&gt; Array
 &#xA0; &#xA0; &#xA0; &#xA0; (
 &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [0] =&gt; PHP Version 5.6.5
 &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [System] =&gt; Darwin Calins-MBP 15.0.0 Darwin Kernel Version 15.0.0: Wed Aug 26 19:41:34 PDT 2015; root:xnu-3247.1.106~5/RELEASE_X86_64 x86_64

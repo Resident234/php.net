@@ -17,7 +17,7 @@ function convert($size)
  }
 
 echo convert(memory_get_usage(true)); // 123 kb
-?>
+php?>
 ```
 
 
@@ -158,7 +158,7 @@ So if you need the overall memory usage, following function might be helpful. If
 &#xA0; &#xA0; &#xA0; &#xA0; getServerMemoryUsage(true)
 &#xA0; &#xA0; );
 
-?>
+php?>
 ```
 
 
@@ -205,7 +205,7 @@ To get the memory usage in KB or MB
 
 &#xA0; &#xA0; }
 
-?>
+php?>
 ```
 
 

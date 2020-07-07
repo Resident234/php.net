@@ -14,7 +14,7 @@ It seems that while using output buffering, an included file which calls die() b
 ob_start();
 include(&apos;b.php&apos;);
 ob_end_clean();
-?>
+php?>
 ```
 
 
@@ -25,7 +25,7 @@ ob_end_clean();
 // b.php
 print &quot;b&quot;;
 die();
-?>
+php?>
 ```
 
 

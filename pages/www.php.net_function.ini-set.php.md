@@ -28,7 +28,7 @@ if ( !ini_set( &apos;display_errors&apos;, &apos;1&apos; ) )
 if ( ini_set( &apos;display_errors&apos;, &apos;1&apos; ) === false ) 
 &#xA0; &#xA0; throw new \Exception( &apos;Unable to set display_errors.&apos; );&#xA0; &#xA0; 
 
-?>
+php?>
 ```
 
 
@@ -77,7 +77,7 @@ But this causes my command line scripts to not show output until the very end.
 <?php
 ini_set(&apos;output_handler&apos;, &apos;mb_output_handler&apos;);
 echo &quot;\noutput_handler =&gt; &quot; . ini_get(&apos;output_handler&apos;) . &quot;\n&quot;;
-?>
+php?>
 ```
 
 

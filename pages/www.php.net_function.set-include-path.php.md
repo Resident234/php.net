@@ -33,7 +33,7 @@ if ( ! defined( &quot;PATH_SEPARATOR&quot; ) ) {
 
 }
 
-?>
+php?>
 ```
 
 

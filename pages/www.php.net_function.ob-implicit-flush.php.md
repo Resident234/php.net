@@ -18,7 +18,7 @@ For example, the following script:
 &#xA0; &#xA0; echo &quot;$i\n&quot;;
 &#xA0; &#xA0; sleep(1);
 &#xA0; }
-?>
+php?>
 ```
 
 
@@ -34,7 +34,7 @@ will be equivalent to this one:
 &#xA0; &#xA0; flush();
 &#xA0; &#xA0; sleep(1);
 &#xA0; }
-?>
+php?>
 ```
 
 
@@ -53,7 +53,7 @@ If you want the output to come out as it is generated, one solution is to *also*
 &#xA0; &#xA0; echo &quot;$i\n&quot;;
 &#xA0; &#xA0; sleep(1);
 &#xA0; }
-?>
+php?>
 ```
 
 
@@ -75,7 +75,7 @@ This will output as it goes. This is only a problem if you only want one part of
 &#xA0; &#xA0; ob_flush();
 &#xA0; &#xA0; sleep(1);
 &#xA0; }
-?>
+php?>
 ```
 
 

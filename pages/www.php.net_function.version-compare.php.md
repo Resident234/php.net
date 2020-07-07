@@ -35,7 +35,7 @@ if (version_compare(phpversion(), &quot;4.3.0&quot;, &quot;&gt;=&quot;)) {
 
 }
 
-?>
+php?>
 ```
 
 
@@ -101,7 +101,7 @@ function version_compare2($a, $b)
 
 }
 
-?>
+php?>
 ```
 
 

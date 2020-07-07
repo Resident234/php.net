@@ -15,7 +15,7 @@ function load_lib($n, $f = null) {
 &#xA0; &#xA0; return extension_loaded($n) or dl(((PHP_SHLIB_SUFFIX === &apos;dll&apos;) ? &apos;php_&apos; : &apos;&apos;) . ($f ? $f : $n) . &apos;.&apos; . PHP_SHLIB_SUFFIX);
 }
 
-?>
+php?>
 ```
 
 
@@ -33,7 +33,7 @@ load_lib(&apos;mysql&apos;);
 // a rare few extensions have a different filename to their extension name, such as the image (gd) library, so we specify them like this:
 load_lib(&apos;gd&apos;, &apos;gd2&apos;);
 
-?>
+php?>
 ```
 
 

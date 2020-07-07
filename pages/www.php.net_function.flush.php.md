@@ -28,7 +28,7 @@ echo &quot;Done.&quot;;
 
 ob_end_flush();
 
-?>
+php?>
 ```
 
 
@@ -64,7 +64,7 @@ This is what I use to turn off pretty much anything that could cause unwanted ou
 &#xA0; &#xA0; for ($i = 0; $i &lt; ob_get_level(); $i++) { ob_end_flush(); }
 &#xA0; &#xA0; ob_implicit_flush(1);
 
-?>
+php?>
 ```
 
 

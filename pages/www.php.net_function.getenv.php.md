@@ -26,7 +26,7 @@ For example on Windows $_SERVER[&apos;Path&apos;] is like you see Capitalized, n
 So just: 
 
 ```
-<?php getenv(&apos;path&apos;) ?>
+<?php getenv(&apos;path&apos;) php?>
 ```
 
 

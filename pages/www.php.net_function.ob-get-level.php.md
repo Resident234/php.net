@@ -12,7 +12,7 @@ If your scripts may end up on any server and you don&apos;t want end-users to ha
 ```
 <?php
 if (ob_get_level()) ob_end_clean();
-?>
+php?>
 ```
 
 
@@ -22,7 +22,7 @@ Alternatively, you can use the opposite if you always want to have an output buf
 ```
 <?php
 if (!ob_get_level()) ob_start();
-?>
+php?>
 ```
 
 

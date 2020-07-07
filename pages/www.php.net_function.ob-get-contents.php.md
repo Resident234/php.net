@@ -27,7 +27,7 @@ ob_end_clean();
 
 //Just output
 var_dump($out1, $out2);
-?>
+php?>
 ```
 
 

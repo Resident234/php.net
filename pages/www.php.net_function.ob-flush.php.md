@@ -22,7 +22,7 @@ for( $i = 0 ; $i &lt; 10 ; $i++ )
 &#xA0; &#xA0; sleep(1);
 }
 echo &apos;End ...&lt;br /&gt;&apos;;
-?>
+php?>
 ```
 
 

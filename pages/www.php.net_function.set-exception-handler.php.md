@@ -45,7 +45,7 @@ class example {
 
 $example = new example;
 
-?>
+php?>
 ```
 
 
@@ -75,7 +75,7 @@ set_exception_handler(&quot;myExceptionHandler&quot;);
 
 throw new Exception(&quot;This should cause a fatal error and this message will be lost&quot;);
 
-?>
+php?>
 ```
 
 

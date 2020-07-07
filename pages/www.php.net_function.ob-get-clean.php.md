@@ -39,7 +39,7 @@ $content .= ob_get_clean();
 
 echo $content;
 
-?>
+php?>
 ```
 
 

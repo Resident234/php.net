@@ -15,7 +15,7 @@ public function get_class_constants()
 &#xA0; &#xA0; $reflect = new ReflectionClass(get_class($this));
 &#xA0; &#xA0; return $reflect-&gt;getConstants());
 }
-?>
+php?>
 ```
 
 

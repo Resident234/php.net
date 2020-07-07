@@ -234,7 +234,7 @@ set_error_handler(&quot;handleError&quot;);
 print_r($arra); //undefined variable
 print_r($dssdfdfgg); //undefined variable
 include_once &apos;file.php&apos;; //No such file or directory
-?>
+php?>
 ```
 
 

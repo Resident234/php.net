@@ -17,7 +17,7 @@ header(&apos;HTTP/1.1 304 Not Modified&apos;);
 
 // or in the end use
 ob_end_clean();
-?>
+php?>
 ```
 
 

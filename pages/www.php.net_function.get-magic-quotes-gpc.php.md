@@ -39,7 +39,7 @@ function stripslashes_deep($value)
 
 }
 
-?>
+php?>
 ```
 
 
@@ -64,7 +64,7 @@ if((function_exists(&quot;get_magic_quotes_gpc&quot;) &amp;&amp; get_magic_quote
 
 }
 
-?>
+php?>
 ```
 
 

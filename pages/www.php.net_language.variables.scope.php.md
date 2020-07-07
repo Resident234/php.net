@@ -468,6 +468,8 @@ class MyTestClass extends PHPUnit_Framework_TestCase {
 If you run this script via &quot;phpunit GlobalScope.php&quot;, you will get:
 
 Global scope FILENAME [/home/ktyler/GlobalScope.?>
+```
+
 PHPUnit 3.4.5 by Sebastian Bergmann.
 
 Method scope global FILENAME []

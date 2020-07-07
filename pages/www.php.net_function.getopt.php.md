@@ -16,7 +16,7 @@ $ cat opt.php
 <?php
 $options = getopt(&quot;f:&quot;);
 print_r($options);
-?>
+php?>
 ```
 
 $ opt.php -f a b c
@@ -103,7 +103,7 @@ function getoptreq ($options, $longopts)
 
 &#xA0;&#xA0; return false;
 }
-?>
+php?>
 ```
 
 
@@ -131,7 +131,7 @@ array(7) {
 &#xA0; &apos;five&apos; =&gt; string(1) &quot;5&quot;
 }
 */
-?>
+php?>
 ```
 
 

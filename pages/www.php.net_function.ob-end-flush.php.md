@@ -17,7 +17,7 @@ while (ob_get_level() &gt; 0) {
 &#xA0; &#xA0; ob_end_flush();
 }
 
-?>
+php?>
 ```
 
 
@@ -50,7 +50,7 @@ best way to compress a css code:
 
 &lt;?php
 &#xA0; ob_end_flush();
-?>
+php?>
 ```
 
 

@@ -19,7 +19,7 @@ Luckily the contents of the $_SERVER and the $_ENV superglobal arrays depends on
 ```
 <?php
 var_dump($_SERVER);
-?>
+php?>
 ```
 
 

@@ -13,7 +13,7 @@ If you&apos;re trying to check whether the version of PHP you&apos;re running on
 if (version_compare(phpversion(), &apos;5.3.10&apos;, &apos;&lt;&apos;)) {
 &#xA0; &#xA0; // php version isn&apos;t high enough
 }
-?>
+php?>
 ```
 
 
@@ -49,7 +49,7 @@ foreach (get_loaded_extensions() as $i =&gt; $ext)
 
 }
 
-?>
+php?>
 ```
 
 

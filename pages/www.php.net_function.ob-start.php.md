@@ -29,7 +29,7 @@ You can use PHP to generate a static HTML page.&#xA0; Useful if you have a compl
 &#xA0;&#xA0; fputs($fw,$page, strlen($page));
 &#xA0;&#xA0; fclose($fw);
 &#xA0;&#xA0; die();
-?>
+php?>
 ```
 
 
@@ -43,7 +43,7 @@ You can use PHP to generate a static HTML page.&#xA0; Useful if you have a compl
 If you&apos;re using object-orientated code in PHP you may, like me, want to use a call-back function that is inside an object (i.e. a class function). In this case you send ob_start a two-element array as its single argument. The first element is the name of the object (without the $ at the start), and the second is the function to call. So to use a function &apos;indent&apos; in an object called &apos;$template&apos; you would use 
 
 ```
-<?php ob_start(array(&apos;template&apos;, &apos;indent&apos;)); ?>
+<?php ob_start(array(&apos;template&apos;, &apos;indent&apos;)); php?>
 ```
 .
 
