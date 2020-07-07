@@ -1,0 +1,41 @@
+# Imagick::queryFontMetrics
+
+
+
+
+
+Having spent quite a bit of time looking at these values for various fonts, this is my understanding of the values given by the fontMetrics function. I am using php 5.3 and ImageMagick 6.5.4-7 on Centos 6.5.
+
+characterWidth and characterHeight
+- These seem to be related to the size you have specified for the font and don&apos;t seem to differ from font to font (at the same size). As such, they are not especially useful (to me, at least). They are not a reliable indicator of how much space the font will use.
+
+ascender
+- The ascender is the part of the font that is above the baseline. It is not character related - the ascender value is the same for every character in the font.
+
+descender
+- The descender is the part of the font that is below the baseline. It is represented as a negative figure. Adding the absolute values of the ascender and the descender gives you the...
+
+textHeight
+- This is the total height available to the font.&#xA0; It is the same for every character in the font irrespective of its case or how much space the character seems to occupy. This can be used to determined the line height when outputting paragraphs, etc.
+
+textWidth
+- This value varies from character to character and is the width of the character. This is useful if the boundingBox does not provide usable values (see boundingBox below). When positioning characters one by one - don&apos;t use textWidth, use originX (see below).
+
+maxHorizontalAdvance
+- I&apos;m afraid I haven&apos;t quite figured out the purpose of this. It is the same for every character in the font. For the font Arial Italic at size 67, the value is 89 which is much wider than the advance reported for the M or the W at the same size.
+
+boundingBox
+- This returns an associative array describing the four points (x1, y1, x2, y2) of a rectangle that contain the character. These values are relative to the origin (i.e. the coordinates of where you are drawing the character within an image). The returned rectangle is very accurate and encloses all parts of the printed character completely - but the boundingBox only works on single characters. It will not give accurate figures for multiple characters (in my experience anyway). When drawing a box you need to ADD &quot;x&quot; values to the origin and SUBTRACT &quot;y&quot; values from the origin. You cannot rely on the boundingBox for the SPACE character. It returns a boundingBox of (0,0,0,0).&#xA0; textWidth (see above) comes in handy here.
+
+originX and originY
+- these are inaccurately titled. The values returned in originX and originY are actually advanceX and advanceY. These values give you the position of the next character relative to the current one. 
+
+I hope this is useful.
+
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/imagick.queryfontmetrics.php)
+
+**[To root](/README.md)**

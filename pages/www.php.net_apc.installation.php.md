@@ -1,0 +1,18 @@
+# Installation
+
+
+
+
+
+sudo apt-get install php-apc
+sudo /etc/init.d/apache2 restart
+
+Was enough for me. I use Ubuntu Server 8.10.
+
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/apc.installation.php)
+
+**[To root](/README.md)**
