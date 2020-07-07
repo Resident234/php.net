@@ -1,0 +1,15 @@
+# posix_kill
+
+
+
+
+<div class="phpcode"><span class="html">
+Detecting if another copy of a program is running (*NIX specific)<br><br>One cute trick, to see if another process is running, is to send it signal 0.&#xA0; Signal 0 does not actually get sent, but kill will check to see if it is possible to send the signal.&#xA0; Note that this only works if you have permission to send a signal to that process.<br><br>A practical use for this technique is to avoid running multiple copies of the same program.&#xA0; You save the PID to a file in the usual way...&#xA0;&#xA0; Then during start-up you check the value of the PID file and see if that process currently exists.<br><br>This is not totally fool-proof.&#xA0; In rare circumstances it is possible for an unrelated program to have the same recycled PID.&#xA0; But that other program would most likely not accept signals from your program anyway (unless your program is root).&#xA0; <br><br>To make it as reliable as possible, you would want your program to remove it&apos;s PID file during shutdown (see register_shutdown_function).&#xA0; That way, only if your program crashed AND another program happened to use the same PID AND the other program was willing to accept signals from your program, would you get a wrong result.&#xA0; This would be an exceedingly rare occurrence.&#xA0; This also assumes that the PID file has not been tampered with (as do all programs that rely on PID files...).&#xA0; <br><br>It&apos;s also possible to use &apos;ps x&apos; to detect this, but using kill is much more efficient.<br><br>Here is the core routine:<br><br>&#xA0; &#xA0; $PrevPid = file_get_contents($PathToPidFile);<br><br>&#xA0; &#xA0; if(($PrevPid !== FALSE) &amp;&amp; posix_kill(rtrim($PrevPid),0)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;Error: Server is already running with PID: $PrevPid\n&quot;;<br>&#xA0; &#xA0; &#xA0; &#xA0; exit(-99);<br>&#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;Starting Server...&quot;;<br>&#xA0; &#xA0; }<br><br>Hmmm...&#xA0; if you want total 100% reliability, plus efficiency.&#xA0; What you could do is to make the initial check using kill.&#xA0; If it says not running, then you are ready to zoom.&#xA0; But if kill says already running, then you could use: <br><br>//You can get the $ProgramName from $argv[0]<br>$Result = shell_exec(&apos;ps x | grep &quot;&apos; . $PrevPid . &apos;&quot; | grep &quot;&apos; . $ProgramName . &apos;&quot; | grep -v &quot;grep&quot;&apos;);<br><br>Assuming that your program has permissions to do this.&#xA0; If you execute that and get back an empty string, then the other program is an imposter using a recycled PID and you are clear to go.&#xA0; <br><br>-- Erik</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/function.posix-kill.php)
+
+**[To root](/README.md)**

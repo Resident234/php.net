@@ -1,0 +1,43 @@
+# DOMNode::replaceChild
+
+
+
+
+<div class="phpcode"><span class="html">
+If you are trying to replace more than one node at once, you have to be careful about iterating over the DOMNodeList.&#xA0; If the old node has a different name from the new node, it will be removed from the list once it has been replaced.&#xA0; Use a regressive loop:
+<br>
+<br><span class="default">&lt;?php
+<br>
+<br>$xml </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">;
+<br></span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">load</span><span class="keyword">(</span><span class="string">&apos;docfile.xml&apos;</span><span class="keyword">);
+<br>
+<br></span><span class="default">$elements </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">getElementsByTagNameNS</span><span class="keyword">(</span><span class="string">&apos;<a href="http://www.example.com/NS/" rel="nofollow" target="_blank">http://www.example.com/NS/</a>&apos;</span><span class="keyword">, </span><span class="string">&apos;*&apos;</span><span class="keyword">);
+<br></span><span class="default">$i </span><span class="keyword">= </span><span class="default">$elements</span><span class="keyword">-&gt;</span><span class="default">length </span><span class="keyword">- </span><span class="default">1</span><span class="keyword">;
+<br>while (</span><span class="default">$i </span><span class="keyword">&gt; -</span><span class="default">1</span><span class="keyword">) {
+<br>&#xA0; &#xA0; </span><span class="default">$element </span><span class="keyword">= </span><span class="default">$elements</span><span class="keyword">-&gt;</span><span class="default">item</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">);
+<br>&#xA0; &#xA0; </span><span class="default">$ignore </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;
+<br>
+<br>&#xA0; &#xA0; </span><span class="default">$newelement </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">&gt;</span><span class="default">createTextNode</span><span class="keyword">(</span><span class="string">&apos;Some new node!&apos;</span><span class="keyword">);
+<br>&#xA0; &#xA0; </span><span class="default">$element</span><span class="keyword">-&gt;</span><span class="default">parentNode</span><span class="keyword">-&gt;</span><span class="default">replaceChild</span><span class="keyword">(</span><span class="default">$newelement</span><span class="keyword">, </span><span class="default">$element</span><span class="keyword">);
+<br>&#xA0; &#xA0; </span><span class="default">$i</span><span class="keyword">--;
+<br>}
+<br>
+<br></span><span class="default">?&gt;
+<br></span>
+<br>The loop counter ($i) will always be in the list&apos;s interval as removed elements indexes are above the counter.</span>
+</div>
+  
+
+#
+
+
+<div class="phpcode"><span class="html">
+Here is a simple example for replacing a node:<br><br>Let&apos;s define our XML like so:<br><br><span class="default">&lt;?php<br>$xml </span><span class="keyword">= &lt;&lt;&lt;XML<br></span><span class="string">&lt;?xml version=&quot;1.0&quot;?&gt;<br>&lt;root&gt;<br>&#xA0; &lt;parent&gt;<br>&#xA0; &#xA0;&#xA0; &lt;child&gt;bar&lt;/child&gt;<br>&#xA0; &#xA0;&#xA0; &lt;child&gt;foo&lt;/child&gt;<br>&#xA0; &lt;/parent&gt;<br>&lt;/root&gt;<br></span><span class="keyword">XML;<br></span><span class="default">?&gt;<br></span><br>If we wanted to replace the entire &lt;parent&gt; node, we could do something like this:<br><br><span class="default">&lt;?php<br></span><span class="comment">// Create a new document fragment to hold the new &lt;parent&gt; node<br></span><span class="default">$parent </span><span class="keyword">= new </span><span class="default">DomDocument</span><span class="keyword">;<br></span><span class="default">$parent_node </span><span class="keyword">= </span><span class="default">$parent </span><span class="keyword">-&gt;</span><span class="default">createElement</span><span class="keyword">(</span><span class="string">&apos;parent&apos;</span><span class="keyword">);<br><br></span><span class="comment">// Add some children<br></span><span class="default">$parent_node</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">(</span><span class="default">$parent</span><span class="keyword">-&gt;</span><span class="default">createElement</span><span class="keyword">(</span><span class="string">&apos;child&apos;</span><span class="keyword">, </span><span class="string">&apos;somevalue&apos;</span><span class="keyword">));<br></span><span class="default">$parent_node</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">(</span><span class="default">$parent</span><span class="keyword">-&gt;</span><span class="default">createElement</span><span class="keyword">(</span><span class="string">&apos;child&apos;</span><span class="keyword">, </span><span class="string">&apos;anothervalue&apos;</span><span class="keyword">));<br><br></span><span class="comment">// Add the keywordset into the new document<br>// The $parent variable now holds the new node as a document fragment<br></span><span class="default">$parent</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">(</span><span class="default">$parent_node</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>Next, we need to locate the old node:<br><br><span class="default">&lt;?php<br></span><span class="comment">// Load the XML<br></span><span class="default">$dom </span><span class="keyword">= new </span><span class="default">DomDocument</span><span class="keyword">;<br></span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">loadXML</span><span class="keyword">(</span><span class="default">$xml</span><span class="keyword">);<br><br></span><span class="comment">// Locate the old parent node<br></span><span class="default">$xpath </span><span class="keyword">= new </span><span class="default">DOMXpath</span><span class="keyword">(</span><span class="default">$dom</span><span class="keyword">);<br></span><span class="default">$nodelist </span><span class="keyword">= </span><span class="default">$xpath</span><span class="keyword">-&gt;</span><span class="default">query</span><span class="keyword">(</span><span class="string">&apos;/root/parent&apos;</span><span class="keyword">);<br></span><span class="default">$oldnode </span><span class="keyword">= </span><span class="default">$nodelist</span><span class="keyword">-&gt;</span><span class="default">item</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>We then import and replace the new node:<br><br><span class="default">&lt;?php<br></span><span class="comment">// Load the $parent document fragment into the current document<br></span><span class="default">$newnode </span><span class="keyword">= </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">importNode</span><span class="keyword">(</span><span class="default">$parent</span><span class="keyword">-&gt;</span><span class="default">documentElement</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br><br></span><span class="comment">// Replace<br></span><span class="default">$oldnode</span><span class="keyword">-&gt;</span><span class="default">parentNode</span><span class="keyword">-&gt;</span><span class="default">replaceChild</span><span class="keyword">(</span><span class="default">$newnode</span><span class="keyword">, </span><span class="default">$oldnode</span><span class="keyword">);<br><br></span><span class="comment">// Display<br></span><span class="keyword">echo </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">saveXML</span><span class="keyword">();<br></span><span class="default">?&gt;<br></span><br>Our new node is successfully imported:<br><br>&lt;?xml version=&quot;1.0&quot;?&gt;<br>&lt;root&gt;<br>&lt;parent&gt;&lt;child&gt;somevalue&lt;/child&gt;&lt;child&gt;anothervalue&lt;/child&gt;&lt;/parent&gt;<br>&lt;/root&gt;</span>
+</div>
+  
+
+#
+
+[Official documentation page](https://www.php.net/manual/en/domnode.replacechild.php)
+
+**[To root](/README.md)**
