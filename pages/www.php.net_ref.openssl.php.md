@@ -2,11 +2,7 @@
 
 
 
-
-
-Currently, all OpenSSL Functions defined in PHP only utilize the PEM format.&#xA0; Use the following code to convert from DER to PEM and PEM to DER.
-
-
+Currently, all OpenSSL Functions defined in PHP only utilize the PEM format.  Use the following code to convert from DER to PEM and PEM to DER.<br><br>
 
 ```
 <?php
@@ -17,24 +13,21 @@ $der_data = file_get_contents($cert_path.$der_file);
 $der2pem = der2pem($der_data);
 
 function pem2der($pem_data) {
-&#xA0;&#xA0; $begin = &quot;CERTIFICATE-----&quot;;
-&#xA0;&#xA0; $end&#xA0;&#xA0; = &quot;-----END&quot;;
-&#xA0;&#xA0; $pem_data = substr($pem_data, strpos($pem_data, $begin)+strlen($begin));&#xA0; &#xA0; 
-&#xA0;&#xA0; $pem_data = substr($pem_data, 0, strpos($pem_data, $end));
-&#xA0;&#xA0; $der = base64_decode($pem_data);
-&#xA0;&#xA0; return $der;
+   $begin = "CERTIFICATE-----";
+   $end   = "-----END";
+   $pem_data = substr($pem_data, strpos($pem_data, $begin)+strlen($begin));    
+   $pem_data = substr($pem_data, 0, strpos($pem_data, $end));
+   $der = base64_decode($pem_data);
+   return $der;
 }
 
 function der2pem($der_data) {
-&#xA0;&#xA0; $pem = chunk_split(base64_encode($der_data), 64, &quot;\n&quot;);
-&#xA0;&#xA0; $pem = &quot;-----BEGIN CERTIFICATE-----\n&quot;.$pem.&quot;-----END CERTIFICATE-----\n&quot;;
-&#xA0;&#xA0; return $pem;
+   $pem = chunk_split(base64_encode($der_data), 64, "\n");
+   $pem = "-----BEGIN CERTIFICATE-----\n".$pem."-----END CERTIFICATE-----\n";
+   return $pem;
 }
 ?>
 ```
-
-
-
   
 
 #

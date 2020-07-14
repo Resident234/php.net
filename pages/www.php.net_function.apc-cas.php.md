@@ -2,11 +2,7 @@
 
 
 
-
-
-In case anyone is puzzled by the function name, &quot;cas&quot; refers to http://en.wikipedia.org/wiki/Compare-and-swap
-
-  
+In case anyone is puzzled by the function name, "cas" refers to http://en.wikipedia.org/wiki/Compare-and-swap  
 
 #
 

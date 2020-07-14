@@ -2,26 +2,17 @@
 
 
 
-
-
-Note that you should read &quot;Variables/Variable scope&quot; if you are looking for static keyword use for declaring static variables inside functions (or methods). I myself had this gap in my PHP knowledge until recently and had to google to find this out. I think this page should have a &quot;See also&quot; link to static function variables.
-http://www.php.net/manual/en/language.variables.scope.php
-
-  
+Note that you should read "Variables/Variable scope" if you are looking for static keyword use for declaring static variables inside functions (or methods). I myself had this gap in my PHP knowledge until recently and had to google to find this out. I think this page should have a "See also" link to static function variables.<br>http://www.php.net/manual/en/language.variables.scope.php  
 
 #
 
-
-
-Here statically accessed property prefer property of the class for which it is called. Where as self keyword enforces use of current class only. Refer the below example:
-
-
+Here statically accessed property prefer property of the class for which it is called. Where as self keyword enforces use of current class only. Refer the below example:<br><br>
 
 ```
 <?php
 class a{
 
-static protected $test=&quot;class a&quot;;
+static protected $test="class a";
 
 public function static_test(){
 
@@ -34,7 +25,7 @@ echo self::$test; // Results class a
 
 class b extends a{
 
-static protected $test=&quot;class b&quot;;
+static protected $test="class b";
 
 }
 
@@ -42,100 +33,75 @@ $obj = new b();
 $obj-&gt;static_test();
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-It is worth mentioning that there is only one value for each static variable that is the same for all instances
-
-  
+It is worth mentioning that there is only one value for each static variable that is the same for all instances  
 
 #
 
-
-
-It is important to understand the behavior of static properties in the context of class inheritance:
-
-- Static properties defined in both parent and child classes will hold DISTINCT values for each class. Proper use of self:: vs. static:: are crucial inside of child methods to reference the intended static property.
-
-- Static properties defined ONLY in the parent class will share a COMMON value.
-
-
+It is important to understand the behavior of static properties in the context of class inheritance:<br><br>- Static properties defined in both parent and child classes will hold DISTINCT values for each class. Proper use of self:: vs. static:: are crucial inside of child methods to reference the intended static property.<br><br>- Static properties defined ONLY in the parent class will share a COMMON value.<br><br>
 
 ```
 <?php
 declare(strict_types=1);
 
 class staticparent {
-&#xA0; &#xA0; static&#xA0; &#xA0; $parent_only;
-&#xA0; &#xA0; static&#xA0; &#xA0; $both_distinct;
-&#xA0; &#xA0; 
-&#xA0; &#xA0; function __construct() {
-&#xA0; &#xA0; &#xA0; &#xA0; static::$parent_only = &apos;fromparent&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; static::$both_distinct = &apos;fromparent&apos;;
-&#xA0; &#xA0; }
+    static    $parent_only;
+    static    $both_distinct;
+    
+    function __construct() {
+        static::$parent_only = &apos;fromparent&apos;;
+        static::$both_distinct = &apos;fromparent&apos;;
+    }
 }
 
 class staticchild extends staticparent {
-&#xA0; &#xA0; static&#xA0; &#xA0; $child_only;
-&#xA0; &#xA0; static&#xA0; &#xA0; $both_distinct;
-&#xA0; &#xA0; 
-&#xA0; &#xA0; function __construct() {
-&#xA0; &#xA0; &#xA0; &#xA0; static::$parent_only = &apos;fromchild&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; static::$both_distinct = &apos;fromchild&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; static::$child_only = &apos;fromchild&apos;;
-&#xA0; &#xA0; }
+    static    $child_only;
+    static    $both_distinct;
+    
+    function __construct() {
+        static::$parent_only = &apos;fromchild&apos;;
+        static::$both_distinct = &apos;fromchild&apos;;
+        static::$child_only = &apos;fromchild&apos;;
+    }
 }
 
 $a = new staticparent;
 $a = new staticchild;
 
-echo &apos;Parent: parent_only=&apos;, staticparent::$parent_only, &apos;, both_distinct=&apos;, staticparent::$both_distinct, &quot;&lt;br/&gt;\r\n&quot;;
-echo &apos;Child:&#xA0; parent_only=&apos;, staticchild::$parent_only, &apos;, both_distinct=&apos;, staticchild::$both_distinct, &apos;, child_only=&apos;, staticchild::$child_only, &quot;&lt;br/&gt;\r\n&quot;;
+echo &apos;Parent: parent_only=&apos;, staticparent::$parent_only, &apos;, both_distinct=&apos;, staticparent::$both_distinct, "&lt;br/&gt;\r\n";
+echo &apos;Child:  parent_only=&apos;, staticchild::$parent_only, &apos;, both_distinct=&apos;, staticchild::$both_distinct, &apos;, child_only=&apos;, staticchild::$child_only, "&lt;br/&gt;\r\n";
 ?>
 ```
-
-
-will output:
-Parent: parent_only=fromchild, both_distinct=fromparent
-Child: parent_only=fromchild, both_distinct=fromchild, child_only=fromchild
-
-  
+<br><br>will output:<br>Parent: parent_only=fromchild, both_distinct=fromparent<br>Child: parent_only=fromchild, both_distinct=fromchild, child_only=fromchild  
 
 #
 
-
-
-Static variables are shared between sub classes
-
-
+Static variables are shared between sub classes<br><br>
 
 ```
 <?php
 class MyParent {
-&#xA0; &#xA0; 
-&#xA0; &#xA0; protected static $variable;
+    
+    protected static $variable;
 }
 
 class Child1 extends MyParent {
-&#xA0; &#xA0; 
-&#xA0; &#xA0; function set() {
-&#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; self::$variable = 2;
-&#xA0; &#xA0; }
+    
+    function set() {
+        
+        self::$variable = 2;
+    }
 }
 
 class Child2 extends MyParent {
-&#xA0; &#xA0; 
-&#xA0; &#xA0; function show() {
-&#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; echo(self::$variable);
-&#xA0; &#xA0; }
+    
+    function show() {
+        
+        echo(self::$variable);
+    }
 }
 
 $c1 = new Child1();
@@ -144,56 +110,39 @@ $c2 = new Child2();
 $c2-&gt;show(); // prints 2
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-To check if a function was called statically or not, you&apos;ll need to do:
-
-
+To check if a function was called statically or not, you&apos;ll need to do:<br><br>
 
 ```
 <?php
 function foo () {
-&#xA0; &#xA0; $isStatic = !(isset($this) &amp;&amp; get_class($this) == __CLASS__);
+    $isStatic = !(isset($this) &amp;&amp; get_class($this) == __CLASS__);
 }
 ?>
 ```
-
-
-More at (http://blog.phpdoc.info/archives/4-Schizophrenic-Methods.html). 
-
-(I&apos;ll add this to the manual soon).
-
-  
+<br><br>More at (http://blog.phpdoc.info/archives/4-Schizophrenic-Methods.html). <br><br>(I&apos;ll add this to the manual soon).  
 
 #
 
-
-
-On PHP 5.2.x or previous you might run into problems initializing static variables in subclasses due to the lack of late static binding:
-
-
+On PHP 5.2.x or previous you might run into problems initializing static variables in subclasses due to the lack of late static binding:<br><br>
 
 ```
 <?php
 class A {
-&#xA0; &#xA0; protected static $a;
-&#xA0; &#xA0; 
-&#xA0; &#xA0; public static function init($value) { self::$a = $value; }
-&#xA0; &#xA0; public static function getA() { return self::$a; }
+    protected static $a;
+    
+    public static function init($value) { self::$a = $value; }
+    public static function getA() { return self::$a; }
 }
 
 class B extends A {
-&#xA0; &#xA0; protected static $a; // redefine $a for own use
-&#xA0; &#xA0; 
-&#xA0; &#xA0; // inherit the init() method
-&#xA0; &#xA0; public static function getA() { return self::$a; }
+    protected static $a; // redefine $a for own use
+    
+    // inherit the init() method
+    public static function getA() { return self::$a; }
 }
 
 B::init(&apos;lala&apos;);
@@ -220,25 +169,25 @@ Short example on a DataRecord class without error checking:
 ```
 <?php
 abstract class DataRecord {
-&#xA0; &#xA0; private static $db; // MySQLi-Connection, same for all subclasses
-&#xA0; &#xA0; private static $table = array(); // Array of tables for subclasses
-&#xA0; &#xA0; 
-&#xA0; &#xA0; public static function init($classname, $table, $db = false) {
-&#xA0; &#xA0; &#xA0; &#xA0; if (!($db === false)) self::$db = $db;
-&#xA0; &#xA0; &#xA0; &#xA0; self::$table[$classname] = $table;
-&#xA0; &#xA0; }
-&#xA0; &#xA0; 
-&#xA0; &#xA0; public static function getDB() { return self::$db; }
-&#xA0; &#xA0; public static function getTable($classname) { return self::$table[$classname]; }
+    private static $db; // MySQLi-Connection, same for all subclasses
+    private static $table = array(); // Array of tables for subclasses
+    
+    public static function init($classname, $table, $db = false) {
+        if (!($db === false)) self::$db = $db;
+        self::$table[$classname] = $table;
+    }
+    
+    public static function getDB() { return self::$db; }
+    public static function getTable($classname) { return self::$table[$classname]; }
 }
 
 class UserDataRecord extends DataRecord {
-&#xA0; &#xA0; public static function fetchFromDB() {
-&#xA0; &#xA0; &#xA0; &#xA0; $result = parent::getDB()-&gt;query(&apos;select * from &apos;.parent::getTable(&apos;UserDataRecord&apos;).&apos;;&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; // and so on ...
-&#xA0; &#xA0; &#xA0; &#xA0; return $result; // An array of UserDataRecord objects
-&#xA0; &#xA0; }
+    public static function fetchFromDB() {
+        $result = parent::getDB()-&gt;query(&apos;select * from &apos;.parent::getTable(&apos;UserDataRecord&apos;).&apos;;&apos;);
+        
+        // and so on ...
+        return $result; // An array of UserDataRecord objects
+    }
 }
 
 $db = new MySQLi(...);
@@ -246,11 +195,7 @@ UserDataRecord::init(&apos;UserDataRecord&apos;, &apos;users&apos;, $db);
 $users = UserDataRecord::fetchFromDB();
 ?>
 ```
-
-
-I hope this helps some people who need to operate on PHP 5.2.x servers for some reason. Late static binding, of course, makes this workaround obsolete.
-
-  
+<br><br>I hope this helps some people who need to operate on PHP 5.2.x servers for some reason. Late static binding, of course, makes this workaround obsolete.  
 
 #
 

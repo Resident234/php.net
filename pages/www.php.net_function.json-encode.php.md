@@ -2,53 +2,154 @@
 
 
 
+This isn&apos;t mentioned in the documentation for either PHP or jQuery, but if you&apos;re passing JSON data to a javascript program, make sure your program begins with:<br><br>
 
-<div class="phpcode"><span class="html">
-This isn&apos;t mentioned in the documentation for either PHP or jQuery, but if you&apos;re passing JSON data to a javascript program, make sure your program begins with:<br><br><span class="default">&lt;?php<br>header</span><span class="keyword">(</span><span class="string">&apos;Content-Type: application/json&apos;</span><span class="keyword">);<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+header(&apos;Content-Type: application/json&apos;);
+?>
+```
   
 
 #
 
+Are you sure you want to use JSON_NUMERIC_CHECK, really really sure?<br><br>Just watch this usecase:<br><br>
 
-<div class="phpcode"><span class="html">
-Are you sure you want to use JSON_NUMERIC_CHECK, really really sure?<br><br>Just watch this usecase:<br><br><span class="default">&lt;?php<br></span><span class="comment">// International phone number<br></span><span class="default">json_encode</span><span class="keyword">(array(</span><span class="string">&apos;phone_number&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;+33123456789&apos;</span><span class="keyword">), </span><span class="default">JSON_NUMERIC_CHECK</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>And then you get this JSON:<br><br>{&quot;phone_number&quot;:33123456789}<br><br>Maybe it makes sense for PHP (as is_numeric(&apos;+33123456789&apos;) returns true), but really, casting it as an int?!<br><br>So be careful when using JSON_NUMERIC_CHECK, it may mess up with your data!</span>
-</div>
+```
+<?php
+// International phone number
+json_encode(array(&apos;phone_number&apos; =&gt; &apos;+33123456789&apos;), JSON_NUMERIC_CHECK);
+?>
+```
+<br><br>And then you get this JSON:<br><br>{"phone_number":33123456789}<br><br>Maybe it makes sense for PHP (as is_numeric(&apos;+33123456789&apos;) returns true), but really, casting it as an int?!<br><br>So be careful when using JSON_NUMERIC_CHECK, it may mess up with your data!  
+
+#
+
+A note of caution: If you are wondering why json_encode() encodes your PHP array as a JSON object instead of a JSON array, you might want to double check your array keys because json_encode() assumes that you array is an object if your keys are not sequential.<br><br>e.g.:<br><br>
+
+```
+<?php
+$myarray = Array(&apos;isa&apos;, &apos;dalawa&apos;, &apos;tatlo&apos;);
+var_dump($myarray);
+/* output
+array(3) {
+  [0]=&gt;
+  string(3) "isa"
+  [1]=&gt;
+  string(6) "dalawa"
+  [2]=&gt;
+  string(5) "tatlo"
+}
+*/
+?>
+```
+
+
+As you can see, the keys are sequential; $myarray will be correctly encoded as a JSON array.
+
+
+
+```
+<?php
+$myarray = Array(&apos;isa&apos;, &apos;dalawa&apos;, &apos;tatlo&apos;);
+
+unset($myarray[1]);
+var_dump($myarray);
+/* output
+array(2) {
+  [0]=&gt;
+  string(3) "isa"
+  [2]=&gt;
+  string(5) "tatlo"
+}
+*/
+?>
+```
+<br><br>Unsetting an element will also remove the keys. json_encode() will now assume that this is an object, and will encode it as such.<br><br>SOLUTION: Use array_values() to re-index the array.  
+
+#
+
+This is intended to be a simple readable json encode function for PHP 5.3+ (and licensed under GNU/AGPLv3 or GPLv3 like you prefer):<br><br>
+
+```
+<?php
+
+function json_readable_encode($in, $indent = 0, $from_array = false)
+{
+    $_myself = __FUNCTION__;
+    $_escape = function ($str)
+    {
+        return preg_replace("!([\b\t\n\r\f\"\\&apos;])!", "\\\\\\1", $str);
+    };
+
+    $out = &apos;&apos;;
+
+    foreach ($in as $key=&gt;$value)
+    {
+        $out .= str_repeat("\t", $indent + 1);
+        $out .= "\"".$_escape((string)$key)."\": ";
+
+        if (is_object($value) || is_array($value))
+        {
+            $out .= "\n";
+            $out .= $_myself($value, $indent + 1);
+        }
+        elseif (is_bool($value))
+        {
+            $out .= $value ? &apos;true&apos; : &apos;false&apos;;
+        }
+        elseif (is_null($value))
+        {
+            $out .= &apos;null&apos;;
+        }
+        elseif (is_string($value))
+        {
+            $out .= "\"" . $_escape($value) ."\"";
+        }
+        else
+        {
+            $out .= $value;
+        }
+
+        $out .= ",\n";
+    }
+
+    if (!empty($out))
+    {
+        $out = substr($out, 0, -2);
+    }
+
+    $out = str_repeat("\t", $indent) . "{\n" . $out;
+    $out .= "\n" . str_repeat("\t", $indent) . "}";
+
+    return $out;
+}
+
+?>
+```
   
 
 #
 
+For PHP5.3 users who want to emulate JSON_UNESCAPED_UNICODE, there is simple way to do it:<br>
 
-<div class="phpcode"><span class="html">
-A note of caution: If you are wondering why json_encode() encodes your PHP array as a JSON object instead of a JSON array, you might want to double check your array keys because json_encode() assumes that you array is an object if your keys are not sequential.<br><br>e.g.:<br><br><span class="default">&lt;?php<br>$myarray </span><span class="keyword">= Array(</span><span class="string">&apos;isa&apos;</span><span class="keyword">, </span><span class="string">&apos;dalawa&apos;</span><span class="keyword">, </span><span class="string">&apos;tatlo&apos;</span><span class="keyword">);<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$myarray</span><span class="keyword">);<br></span><span class="comment">/* output<br>array(3) {<br>&#xA0; [0]=&gt;<br>&#xA0; string(3) &quot;isa&quot;<br>&#xA0; [1]=&gt;<br>&#xA0; string(6) &quot;dalawa&quot;<br>&#xA0; [2]=&gt;<br>&#xA0; string(5) &quot;tatlo&quot;<br>}<br>*/<br></span><span class="default">?&gt;<br></span><br>As you can see, the keys are sequential; $myarray will be correctly encoded as a JSON array.<br><br><span class="default">&lt;?php<br>$myarray </span><span class="keyword">= Array(</span><span class="string">&apos;isa&apos;</span><span class="keyword">, </span><span class="string">&apos;dalawa&apos;</span><span class="keyword">, </span><span class="string">&apos;tatlo&apos;</span><span class="keyword">);<br><br>unset(</span><span class="default">$myarray</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]);<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$myarray</span><span class="keyword">);<br></span><span class="comment">/* output<br>array(2) {<br>&#xA0; [0]=&gt;<br>&#xA0; string(3) &quot;isa&quot;<br>&#xA0; [2]=&gt;<br>&#xA0; string(5) &quot;tatlo&quot;<br>}<br>*/<br></span><span class="default">?&gt;<br></span><br>Unsetting an element will also remove the keys. json_encode() will now assume that this is an object, and will encode it as such.<br><br>SOLUTION: Use array_values() to re-index the array.</span>
-</div>
+```
+<?php
+function my_json_encode($arr)
+{
+        //convmap since 0x80 char codes so it takes all multibyte codes (above ASCII 127). So such characters are being "hidden" from normal json_encoding
+        array_walk_recursive($arr, function (&amp;$item, $key) { if (is_string($item)) $item = mb_encode_numericentity($item, array (0x80, 0xffff, 0, 0xffff), &apos;UTF-8&apos;); });
+        return mb_decode_numericentity(json_encode($arr), array (0x80, 0xffff, 0, 0xffff), &apos;UTF-8&apos;);
+
+}
+?>
+```
   
 
 #
 
-
-<div class="phpcode"><span class="html">
-This is intended to be a simple readable json encode function for PHP 5.3+ (and licensed under GNU/AGPLv3 or GPLv3 like you prefer):<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">function </span><span class="default">json_readable_encode</span><span class="keyword">(</span><span class="default">$in</span><span class="keyword">, </span><span class="default">$indent </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, </span><span class="default">$from_array </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="default">$_myself </span><span class="keyword">= </span><span class="default">__FUNCTION__</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$_escape </span><span class="keyword">= function (</span><span class="default">$str</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;!([\b\t\n\r\f\&quot;\\&apos;])!&quot;</span><span class="keyword">, </span><span class="string">&quot;\\\\\\1&quot;</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">);<br>&#xA0; &#xA0; };<br><br>&#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br><br>&#xA0; &#xA0; foreach (</span><span class="default">$in </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">=&gt;</span><span class="default">$value</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">.= </span><span class="default">str_repeat</span><span class="keyword">(</span><span class="string">&quot;\t&quot;</span><span class="keyword">, </span><span class="default">$indent </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">.= </span><span class="string">&quot;\&quot;&quot;</span><span class="keyword">.</span><span class="default">$_escape</span><span class="keyword">((string)</span><span class="default">$key</span><span class="keyword">).</span><span class="string">&quot;\&quot;: &quot;</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_object</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">) || </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">.= </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">.= </span><span class="default">$_myself</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">, </span><span class="default">$indent </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; elseif (</span><span class="default">is_bool</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">.= </span><span class="default">$value </span><span class="keyword">? </span><span class="string">&apos;true&apos; </span><span class="keyword">: </span><span class="string">&apos;false&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; elseif (</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">.= </span><span class="string">&apos;null&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; elseif (</span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">.= </span><span class="string">&quot;\&quot;&quot; </span><span class="keyword">. </span><span class="default">$_escape</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">) .</span><span class="string">&quot;\&quot;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; else<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">.= </span><span class="default">$value</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">.= </span><span class="string">&quot;,\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; if (!empty(</span><span class="default">$out</span><span class="keyword">))<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$out</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, -</span><span class="default">2</span><span class="keyword">);<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">= </span><span class="default">str_repeat</span><span class="keyword">(</span><span class="string">&quot;\t&quot;</span><span class="keyword">, </span><span class="default">$indent</span><span class="keyword">) . </span><span class="string">&quot;{\n&quot; </span><span class="keyword">. </span><span class="default">$out</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$out </span><span class="keyword">.= </span><span class="string">&quot;\n&quot; </span><span class="keyword">. </span><span class="default">str_repeat</span><span class="keyword">(</span><span class="string">&quot;\t&quot;</span><span class="keyword">, </span><span class="default">$indent</span><span class="keyword">) . </span><span class="string">&quot;}&quot;</span><span class="keyword">;<br><br>&#xA0; &#xA0; return </span><span class="default">$out</span><span class="keyword">;<br>}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-For PHP5.3 users who want to emulate JSON_UNESCAPED_UNICODE, there is simple way to do it:<br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">my_json_encode</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//convmap since 0x80 char codes so it takes all multibyte codes (above ASCII 127). So such characters are being &quot;hidden&quot; from normal json_encoding<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">array_walk_recursive</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">, function (&amp;</span><span class="default">$item</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">) { if (</span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$item</span><span class="keyword">)) </span><span class="default">$item </span><span class="keyword">= </span><span class="default">mb_encode_numericentity</span><span class="keyword">(</span><span class="default">$item</span><span class="keyword">, array (</span><span class="default">0x80</span><span class="keyword">, </span><span class="default">0xffff</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0xffff</span><span class="keyword">), </span><span class="string">&apos;UTF-8&apos;</span><span class="keyword">); });<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">mb_decode_numericentity</span><span class="keyword">(</span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">), array (</span><span class="default">0x80</span><span class="keyword">, </span><span class="default">0xffff</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">0xffff</span><span class="keyword">), </span><span class="string">&apos;UTF-8&apos;</span><span class="keyword">);<br><br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-Solution for UTF-8 Special Chars.<br><br>&lt;?<br><br>$array = array(&apos;nome&apos;=&gt;&apos;Pai&#xE7;&#xE3;o&apos;,&apos;cidade&apos;=&gt;&apos;S&#xE3;o Paulo&apos;);<br><br>$array = array_map(&apos;htmlentities&apos;,$array);<br><br>//encode<br>$json = html_entity_decode(json_encode($array));<br><br>//Output: {&quot;nome&quot;:&quot;Pai&#xE7;&#xE3;o&quot;,&quot;cidade&quot;:&quot;S&#xE3;o Paulo&quot;}<br>echo $json;<br><br>?&gt;</span>
-</div>
+Solution for UTF-8 Special Chars.<br><br>&lt;?<br><br>$array = array(&apos;nome&apos;=&gt;&apos;Pai&#xE7;&#xE3;o&apos;,&apos;cidade&apos;=&gt;&apos;S&#xE3;o Paulo&apos;);<br><br>$array = array_map(&apos;htmlentities&apos;,$array);<br><br>//encode<br>$json = html_entity_decode(json_encode($array));<br><br>//Output: {"nome":"Pai&#xE7;&#xE3;o","cidade":"S&#xE3;o Paulo"}<br>echo $json;<br><br>?>
+```
   
 
 #

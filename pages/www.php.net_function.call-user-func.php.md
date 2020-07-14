@@ -2,44 +2,97 @@
 
 
 
+I benchmarked the comparison in speed between variable functions, call_user_func, and eval.  My results are below:<br><br>Variable functions took 0.125958204269 seconds.<br>call_user_func took 0.485446929932 seconds.<br>eval took 2.78526711464 seconds.<br><br>This was run on a Compaq Proliant server, 180MHz Pentium Pro 256MB RAM.  Code is as follows:<br><br>
 
-<div class="phpcode"><span class="html">
-I benchmarked the comparison in speed between variable functions, call_user_func, and eval.&#xA0; My results are below:<br><br>Variable functions took 0.125958204269 seconds.<br>call_user_func took 0.485446929932 seconds.<br>eval took 2.78526711464 seconds.<br><br>This was run on a Compaq Proliant server, 180MHz Pentium Pro 256MB RAM.&#xA0; Code is as follows:<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">function </span><span class="default">fa </span><span class="keyword">() { return </span><span class="default">1</span><span class="keyword">; }<br>function </span><span class="default">fb </span><span class="keyword">() { return </span><span class="default">1</span><span class="keyword">; }<br>function </span><span class="default">fc </span><span class="keyword">() { return </span><span class="default">1</span><span class="keyword">; }<br><br></span><span class="default">$calla </span><span class="keyword">= </span><span class="string">&apos;fa&apos;</span><span class="keyword">;<br></span><span class="default">$callb </span><span class="keyword">= </span><span class="string">&apos;fb&apos;</span><span class="keyword">;<br></span><span class="default">$callc </span><span class="keyword">= </span><span class="string">&apos;fc&apos;</span><span class="keyword">;<br><br></span><span class="default">$time </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">( </span><span class="default">true </span><span class="keyword">);<br>for( </span><span class="default">$i </span><span class="keyword">= </span><span class="default">5000</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">--; ) {<br>&#xA0; &#xA0; </span><span class="default">$x </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$x </span><span class="keyword">+= </span><span class="default">$calla</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="default">$x </span><span class="keyword">+= </span><span class="default">$callb</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="default">$x </span><span class="keyword">+= </span><span class="default">$callc</span><span class="keyword">();<br>&#xA0; &#xA0; if( </span><span class="default">$x </span><span class="keyword">!= </span><span class="default">3 </span><span class="keyword">) die( </span><span class="string">&apos;Bad numbers&apos; </span><span class="keyword">);<br>}<br>echo( </span><span class="string">&quot;Variable functions took &quot; </span><span class="keyword">. (</span><span class="default">microtime</span><span class="keyword">( </span><span class="default">true </span><span class="keyword">) - </span><span class="default">$time</span><span class="keyword">) . </span><span class="string">&quot; seconds.&lt;br /&gt;&quot; </span><span class="keyword">);<br><br></span><span class="default">$time </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">( </span><span class="default">true </span><span class="keyword">);<br>for( </span><span class="default">$i </span><span class="keyword">= </span><span class="default">5000</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">--; ) {<br>&#xA0; &#xA0; </span><span class="default">$x </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$x </span><span class="keyword">+= </span><span class="default">call_user_func</span><span class="keyword">(</span><span class="string">&apos;fa&apos;</span><span class="keyword">, </span><span class="string">&apos;&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$x </span><span class="keyword">+= </span><span class="default">call_user_func</span><span class="keyword">(</span><span class="string">&apos;fb&apos;</span><span class="keyword">, </span><span class="string">&apos;&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$x </span><span class="keyword">+= </span><span class="default">call_user_func</span><span class="keyword">(</span><span class="string">&apos;fc&apos;</span><span class="keyword">, </span><span class="string">&apos;&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; if( </span><span class="default">$x </span><span class="keyword">!= </span><span class="default">3 </span><span class="keyword">) die( </span><span class="string">&apos;Bad numbers&apos; </span><span class="keyword">);<br>}<br>echo( </span><span class="string">&quot;call_user_func took &quot; </span><span class="keyword">. (</span><span class="default">microtime</span><span class="keyword">( </span><span class="default">true </span><span class="keyword">) - </span><span class="default">$time</span><span class="keyword">) . </span><span class="string">&quot; seconds.&lt;br /&gt;&quot; </span><span class="keyword">);<br><br></span><span class="default">$time </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">( </span><span class="default">true </span><span class="keyword">);<br>for( </span><span class="default">$i </span><span class="keyword">= </span><span class="default">5000</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">--; ) {<br>&#xA0; &#xA0; </span><span class="default">$x </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; eval( </span><span class="string">&apos;$x += &apos; </span><span class="keyword">. </span><span class="default">$calla </span><span class="keyword">. </span><span class="string">&apos;();&apos; </span><span class="keyword">);<br>&#xA0; &#xA0; eval( </span><span class="string">&apos;$x += &apos; </span><span class="keyword">. </span><span class="default">$callb </span><span class="keyword">. </span><span class="string">&apos;();&apos; </span><span class="keyword">);<br>&#xA0; &#xA0; eval( </span><span class="string">&apos;$x += &apos; </span><span class="keyword">. </span><span class="default">$callc </span><span class="keyword">. </span><span class="string">&apos;();&apos; </span><span class="keyword">);<br>&#xA0; &#xA0; if( </span><span class="default">$x </span><span class="keyword">!= </span><span class="default">3 </span><span class="keyword">) die( </span><span class="string">&apos;Bad numbers&apos; </span><span class="keyword">);<br>}<br>echo( </span><span class="string">&quot;eval took &quot; </span><span class="keyword">. (</span><span class="default">microtime</span><span class="keyword">( </span><span class="default">true </span><span class="keyword">) - </span><span class="default">$time</span><span class="keyword">) . </span><span class="string">&quot; seconds.&lt;br /&gt;&quot; </span><span class="keyword">);<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+function fa () { return 1; }
+function fb () { return 1; }
+function fc () { return 1; }
+
+$calla = &apos;fa&apos;;
+$callb = &apos;fb&apos;;
+$callc = &apos;fc&apos;;
+
+$time = microtime( true );
+for( $i = 5000; $i--; ) {
+    $x = 0;
+    $x += $calla();
+    $x += $callb();
+    $x += $callc();
+    if( $x != 3 ) die( &apos;Bad numbers&apos; );
+}
+echo( "Variable functions took " . (microtime( true ) - $time) . " seconds.&lt;br /&gt;" );
+
+$time = microtime( true );
+for( $i = 5000; $i--; ) {
+    $x = 0;
+    $x += call_user_func(&apos;fa&apos;, &apos;&apos;);
+    $x += call_user_func(&apos;fb&apos;, &apos;&apos;);
+    $x += call_user_func(&apos;fc&apos;, &apos;&apos;);
+    if( $x != 3 ) die( &apos;Bad numbers&apos; );
+}
+echo( "call_user_func took " . (microtime( true ) - $time) . " seconds.&lt;br /&gt;" );
+
+$time = microtime( true );
+for( $i = 5000; $i--; ) {
+    $x = 0;
+    eval( &apos;$x += &apos; . $calla . &apos;();&apos; );
+    eval( &apos;$x += &apos; . $callb . &apos;();&apos; );
+    eval( &apos;$x += &apos; . $callc . &apos;();&apos; );
+    if( $x != 3 ) die( &apos;Bad numbers&apos; );
+}
+echo( "eval took " . (microtime( true ) - $time) . " seconds.&lt;br /&gt;" );
+
+?>
+```
   
 
 #
 
+if you simply want to dynamically call a method on an object it is not necessary to use call_user_function but instead you can do the following:<br><br>
 
-<div class="phpcode"><span class="html">
-if you simply want to dynamically call a method on an object it is not necessary to use call_user_function but instead you can do the following:<br><br><span class="default">&lt;?php<br><br>$method_name </span><span class="keyword">= </span><span class="string">&quot;AMethodName&quot;</span><span class="keyword">;<br><br></span><span class="default">$obj </span><span class="keyword">= new </span><span class="default">ClassName</span><span class="keyword">();<br><br></span><span class="default">$obj</span><span class="keyword">-&gt;{</span><span class="default">$method_name</span><span class="keyword">}();<br><br></span><span class="default">?&gt;<br></span><br>I&apos;ve used the above so I know it works.<br><br>Regards,<br>-- Greg</span>
-</div>
-  
+```
+<?php
 
-#
+$method_name = "AMethodName";
 
+$obj = new ClassName();
 
-<div class="phpcode"><span class="html">
-@insta at citiesunlimited dot com &amp; @Maresa<br><br>call_user_func() alleged slowness is quite over estimated when it comes to real use cases. we are talking about loosing fraction of a second every million calls, which by the way would take less than half a sec to execute in the worst case.<br><br>I don&apos;t know of many processes that would actually suffer from this kind of overhead.<br><br>Iterations: 100 000<br>Averaged over: 10<br>PHP 5.6.30 (cli) (built: Jan 18 2017 19:47:28)<br>Overall Average<br>+------------------------+----------+-----------+--------+<br>| Invocation&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | Time (s) | Delta (s) | %&#xA0; &#xA0; &#xA0; |<br>+------------------------+----------+-----------+--------+<br>| directFunction&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0089&#xA0;&#xA0; | -0.0211&#xA0;&#xA0; | -70.19 |<br>| directStatic&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0098&#xA0;&#xA0; | -0.0202&#xA0;&#xA0; | -67.39 |<br>| directLambda&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0109&#xA0;&#xA0; | -0.0191&#xA0;&#xA0; | -63.52 |<br>| directInstance&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0116&#xA0;&#xA0; | -0.0184&#xA0;&#xA0; | -61.31 |<br>| directClosure&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; | 0.0150&#xA0;&#xA0; | -0.0150&#xA0;&#xA0; | -50.15 |<br>| Invoke&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0282&#xA0;&#xA0; | -0.0018&#xA0;&#xA0; | -6.13&#xA0; |<br>| call_user_func&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0300&#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; &#xA0; |<br>| ClosureFactory&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0316&#xA0;&#xA0; | +0.0016&#xA0;&#xA0; | +5.20&#xA0; |<br>| assignedClosureFactory | 0.0328&#xA0;&#xA0; | +0.0028&#xA0;&#xA0; | +9.28&#xA0; |<br>| call_user_func_array&#xA0;&#xA0; | 0.0399&#xA0;&#xA0; | +0.0099&#xA0;&#xA0; | +33.02 |<br>| InvokeCallUserFunc&#xA0; &#xA0;&#xA0; | 0.0418&#xA0;&#xA0; | +0.0118&#xA0;&#xA0; | +39.17 |<br>| directImplementation&#xA0;&#xA0; | 0.0475&#xA0;&#xA0; | +0.0175&#xA0;&#xA0; | +58.28 |<br>+------------------------+----------+-----------+--------+<br><br>Iterations: 100 000<br>Averaged over: 10<br>PHP 7.1.2 (cli) (built: Feb 14 2017 21:24:45) <br>Overall Average<br>+------------------------+----------+-----------+--------+<br>| Invocation&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | Time (s) | Delta (s) | %&#xA0; &#xA0; &#xA0; |<br>+------------------------+----------+-----------+--------+<br>| directFunction&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0043&#xA0;&#xA0; | -0.0096&#xA0;&#xA0; | -68.92 |<br>| directStatic&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0050&#xA0;&#xA0; | -0.0089&#xA0;&#xA0; | -64.04 |<br>| directInstance&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0058&#xA0;&#xA0; | -0.0081&#xA0;&#xA0; | -58.22 |<br>| directLambda&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0063&#xA0;&#xA0; | -0.0075&#xA0;&#xA0; | -54.44 |<br>| directClosure&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; | 0.0081&#xA0;&#xA0; | -0.0058&#xA0;&#xA0; | -41.57 |<br>| call_user_func&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0139&#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; &#xA0; |<br>| call_user_func_array&#xA0;&#xA0; | 0.0147&#xA0;&#xA0; | +0.0008&#xA0;&#xA0; | +5.84&#xA0; |<br>| Invoke&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0187&#xA0;&#xA0; | +0.0048&#xA0;&#xA0; | +34.61 |<br>| ClosureFactory&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; | 0.0207&#xA0;&#xA0; | +0.0069&#xA0;&#xA0; | +49.43 |<br>| assignedClosureFactory | 0.0219&#xA0;&#xA0; | +0.0080&#xA0;&#xA0; | +57.75 |<br>| directImplementation&#xA0;&#xA0; | 0.0232&#xA0;&#xA0; | +0.0094&#xA0;&#xA0; | +67.53 |<br>| InvokeCallUserFunc&#xA0; &#xA0;&#xA0; | 0.0264&#xA0;&#xA0; | +0.0126&#xA0;&#xA0; | +90.67 |<br>+------------------------+----------+-----------+--------+<br><br>If you want more details : <a href="https://github.com/fab2s/call_user_func" rel="nofollow" target="_blank">https://github.com/fab2s/call_user_func</a></span>
-</div>
-  
+$obj-&gt;{$method_name}();
 
-#
-
-
-<div class="phpcode"><span class="html">
-A good use for call_user_func(); is for recursive functions.<br>If you&apos;re distributing code, you will often come across users who will rename functions and break the code..<br>Use this: call_user_func(__FUNCTION__, ... ); inside a function to call itself with whatever parameters you want.<br><br><span class="default">&lt;?php<br></span><span class="comment">// example, an extremely simplified factorial calculator..<br>// it&apos;s quite obvious when someone renames the function, it&apos;ll spit out an error because it wants to call itself.<br></span><span class="keyword">function </span><span class="default">Factorial</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">) {<br>&#xA0; return(</span><span class="default">$i</span><span class="keyword">==</span><span class="default">1</span><span class="keyword">?</span><span class="default">1</span><span class="keyword">:</span><span class="default">$i</span><span class="keyword">*</span><span class="default">Factorial</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">));<br>}<br><br></span><span class="comment">// you can give this function whatever name you want, it&apos;ll always work, of course if you initially call it using the name you gave it.<br></span><span class="keyword">function </span><span class="default">qwertyuiop</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">) {<br>&#xA0; return(</span><span class="default">$i</span><span class="keyword">==</span><span class="default">1</span><span class="keyword">?</span><span class="default">1</span><span class="keyword">:</span><span class="default">$i</span><span class="keyword">*</span><span class="default">call_user_func</span><span class="keyword">(</span><span class="default">__FUNCTION__</span><span class="keyword">,</span><span class="default">$i</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">));<br>}<br></span><span class="default">?&gt;<br></span><br>Just that I didn&apos;t see any reference to recursive functions when user_call_func(); really helps.</span>
-</div>
-  
+?>
+```
+<br><br>I&apos;ve used the above so I know it works.<br><br>Regards,<br>-- Greg  
 
 #
 
+@insta at citiesunlimited dot com &amp; @Maresa<br><br>call_user_func() alleged slowness is quite over estimated when it comes to real use cases. we are talking about loosing fraction of a second every million calls, which by the way would take less than half a sec to execute in the worst case.<br><br>I don&apos;t know of many processes that would actually suffer from this kind of overhead.<br><br>Iterations: 100 000<br>Averaged over: 10<br>PHP 5.6.30 (cli) (built: Jan 18 2017 19:47:28)<br>Overall Average<br>+------------------------+----------+-----------+--------+<br>| Invocation             | Time (s) | Delta (s) | %      |<br>+------------------------+----------+-----------+--------+<br>| directFunction         | 0.0089   | -0.0211   | -70.19 |<br>| directStatic           | 0.0098   | -0.0202   | -67.39 |<br>| directLambda           | 0.0109   | -0.0191   | -63.52 |<br>| directInstance         | 0.0116   | -0.0184   | -61.31 |<br>| directClosure          | 0.0150   | -0.0150   | -50.15 |<br>| Invoke                 | 0.0282   | -0.0018   | -6.13  |<br>| call_user_func         | 0.0300   |           |        |<br>| ClosureFactory         | 0.0316   | +0.0016   | +5.20  |<br>| assignedClosureFactory | 0.0328   | +0.0028   | +9.28  |<br>| call_user_func_array   | 0.0399   | +0.0099   | +33.02 |<br>| InvokeCallUserFunc     | 0.0418   | +0.0118   | +39.17 |<br>| directImplementation   | 0.0475   | +0.0175   | +58.28 |<br>+------------------------+----------+-----------+--------+<br><br>Iterations: 100 000<br>Averaged over: 10<br>PHP 7.1.2 (cli) (built: Feb 14 2017 21:24:45) <br>Overall Average<br>+------------------------+----------+-----------+--------+<br>| Invocation             | Time (s) | Delta (s) | %      |<br>+------------------------+----------+-----------+--------+<br>| directFunction         | 0.0043   | -0.0096   | -68.92 |<br>| directStatic           | 0.0050   | -0.0089   | -64.04 |<br>| directInstance         | 0.0058   | -0.0081   | -58.22 |<br>| directLambda           | 0.0063   | -0.0075   | -54.44 |<br>| directClosure          | 0.0081   | -0.0058   | -41.57 |<br>| call_user_func         | 0.0139   |           |        |<br>| call_user_func_array   | 0.0147   | +0.0008   | +5.84  |<br>| Invoke                 | 0.0187   | +0.0048   | +34.61 |<br>| ClosureFactory         | 0.0207   | +0.0069   | +49.43 |<br>| assignedClosureFactory | 0.0219   | +0.0080   | +57.75 |<br>| directImplementation   | 0.0232   | +0.0094   | +67.53 |<br>| InvokeCallUserFunc     | 0.0264   | +0.0126   | +90.67 |<br>+------------------------+----------+-----------+--------+<br><br>If you want more details : https://github.com/fab2s/call_user_func  
 
-<div class="phpcode"><span class="html">
-You don&apos;t need to use this function to call a variable class function. Instead you can do the following:<br><br>$this-&gt;{$fnname}();<br><br>The example works in PHP 5 from within the class. It is the {} that do the trick.<br><br>Regards,<br>Julian.</span>
-</div>
-  
+#
+
+A good use for call_user_func(); is for recursive functions.<br>If you&apos;re distributing code, you will often come across users who will rename functions and break the code..<br>Use this: call_user_func(__FUNCTION__, ... ); inside a function to call itself with whatever parameters you want.<br><br>
+
+```
+<?php
+// example, an extremely simplified factorial calculator..
+// it&apos;s quite obvious when someone renames the function, it&apos;ll spit out an error because it wants to call itself.
+function Factorial($i=1) {
+  return($i==1?1:$i*Factorial($i-1));
+}
+
+// you can give this function whatever name you want, it&apos;ll always work, of course if you initially call it using the name you gave it.
+function qwertyuiop($i=1) {
+  return($i==1?1:$i*call_user_func(__FUNCTION__,$i-1));
+}
+?>
+```
+<br><br>Just that I didn&apos;t see any reference to recursive functions when user_call_func(); really helps.  
+
+#
+
+You don&apos;t need to use this function to call a variable class function. Instead you can do the following:<br><br>$this-&gt;{$fnname}();<br><br>The example works in PHP 5 from within the class. It is the {} that do the trick.<br><br>Regards,<br>Julian.  
 
 #
 

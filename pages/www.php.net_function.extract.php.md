@@ -2,27 +2,73 @@
 
 
 
+[New Version]<br><br>Example Usage:<br>
 
-<div class="phpcode"><span class="html">
-[New Version]<br><br>Example Usage:<br><span class="default">&lt;?php<br>$_GET</span><span class="keyword">[</span><span class="string">&apos;A&apos;</span><span class="keyword">][</span><span class="string">&apos;a&apos;</span><span class="keyword">] = </span><span class="string">&apos;&#xA0; CORRECT(including some spaces)&#xA0; &#xA0; &apos;</span><span class="keyword">;<br></span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;A&apos;</span><span class="keyword">][</span><span class="string">&apos;b&apos;</span><span class="keyword">] = </span><span class="string">&apos;&#xA0; CORRECT(including some spaces)&#xA0; &#xA0; &apos;</span><span class="keyword">;<br></span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;A&apos;</span><span class="keyword">][</span><span class="string">&apos;c&apos;</span><span class="keyword">] = </span><span class="string">&quot;Invalid UTF-8 sequence: \xe3\xe3\xe3&quot;</span><span class="keyword">;<br></span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;A&apos;</span><span class="keyword">][</span><span class="string">&apos;d&apos;</span><span class="keyword">][</span><span class="string">&apos;invalid_structure&apos;</span><span class="keyword">] = </span><span class="string">&apos;INVALID&apos;</span><span class="keyword">;<br><br></span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;B&apos;</span><span class="keyword">][</span><span class="string">&apos;a&apos;</span><span class="keyword">] = </span><span class="string">&apos;&#xA0; CORRECT(including some spaces)&#xA0; &#xA0; &apos;</span><span class="keyword">;<br></span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;B&apos;</span><span class="keyword">][</span><span class="string">&apos;b&apos;</span><span class="keyword">] = </span><span class="string">&quot;Invalid UTF-8 sequence: \xe3\xe3\xe3&quot;</span><span class="keyword">;<br></span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;B&apos;</span><span class="keyword">][</span><span class="string">&apos;c&apos;</span><span class="keyword">][</span><span class="string">&apos;invalid_structure&apos;</span><span class="keyword">] = </span><span class="string">&apos;INVALID&apos;</span><span class="keyword">;<br></span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;B&apos;</span><span class="keyword">][</span><span class="string">&quot;Invalid UTF-8 sequence: \xe3\xe3\xe3&quot;</span><span class="keyword">] = </span><span class="string">&apos;INVALID&apos;</span><span class="keyword">;<br><br></span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;C&apos;</span><span class="keyword">][</span><span class="string">&apos;a&apos;</span><span class="keyword">] = </span><span class="string">&apos;&#xA0; CORRECT(including some spaces)&#xA0; &#xA0; &apos;</span><span class="keyword">;<br></span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;C&apos;</span><span class="keyword">][</span><span class="string">&apos;b&apos;</span><span class="keyword">] = </span><span class="string">&quot;Invalid UTF-8 sequence: \xe3\xe3\xe3&quot;</span><span class="keyword">;<br></span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;C&apos;</span><span class="keyword">][</span><span class="string">&apos;c&apos;</span><span class="keyword">][</span><span class="string">&apos;invalid_structure&apos;</span><span class="keyword">] = </span><span class="string">&apos;INVALID&apos;</span><span class="keyword">;<br></span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;C&apos;</span><span class="keyword">][</span><span class="string">&quot;Invalid UTF-8 sequence: \xe3\xe3\xe3&quot;</span><span class="keyword">] = </span><span class="string">&apos;INVALID&apos;</span><span class="keyword">;<br><br></span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;unneeded_item&apos;</span><span class="keyword">] = </span><span class="string">&apos;UNNEEDED&apos;</span><span class="keyword">;<br><br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">filter_struct_utf8</span><span class="keyword">(</span><span class="default">INPUT_GET</span><span class="keyword">, array(<br>&#xA0; &#xA0; </span><span class="string">&apos;A&apos; </span><span class="keyword">=&gt; array(<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;a&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;b&apos; </span><span class="keyword">=&gt; </span><span class="default">FILTER_STRUCT_TRIM</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;c&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;d&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; ),<br>&#xA0; &#xA0; </span><span class="string">&apos;B&apos; </span><span class="keyword">=&gt; </span><span class="default">FILTER_STRUCT_FORCE_ARRAY</span><span class="keyword">,<br>&#xA0; &#xA0; </span><span class="string">&apos;C&apos; </span><span class="keyword">=&gt; </span><span class="default">FILTER_STRUCT_FORCE_ARRAY </span><span class="keyword">| </span><span class="default">FILTER_STRUCT_TRIM</span><span class="keyword">,<br>)));<br></span><span class="default">?&gt;<br></span><br>Example Result:<br>array(3) {<br>&#xA0; [&quot;A&quot;]=&gt;<br>&#xA0; array(4) {<br>&#xA0; &#xA0; [&quot;a&quot;]=&gt;<br>&#xA0; &#xA0; string(36) &quot;&#xA0; CORRECT(including some spaces)&#xA0; &#xA0; &quot;<br>&#xA0; &#xA0; [&quot;b&quot;]=&gt;<br>&#xA0; &#xA0; string(30) &quot;CORRECT(including some spaces)&quot;<br>&#xA0; &#xA0; [&quot;c&quot;]=&gt;<br>&#xA0; &#xA0; string(0) &quot;&quot;<br>&#xA0; &#xA0; [&quot;d&quot;]=&gt;<br>&#xA0; &#xA0; string(0) &quot;&quot;<br>&#xA0; }<br>&#xA0; [&quot;B&quot;]=&gt;<br>&#xA0; array(3) {<br>&#xA0; &#xA0; [&quot;a&quot;]=&gt;<br>&#xA0; &#xA0; string(36) &quot;&#xA0; CORRECT(including some spaces)&#xA0; &#xA0; &quot;<br>&#xA0; &#xA0; [&quot;b&quot;]=&gt;<br>&#xA0; &#xA0; string(0) &quot;&quot;<br>&#xA0; &#xA0; [&quot;c&quot;]=&gt;<br>&#xA0; &#xA0; string(0) &quot;&quot;<br>&#xA0; }<br>&#xA0; [&quot;C&quot;]=&gt;<br>&#xA0; array(3) {<br>&#xA0; &#xA0; [&quot;a&quot;]=&gt;<br>&#xA0; &#xA0; string(30) &quot;CORRECT(including some spaces)&quot;<br>&#xA0; &#xA0; [&quot;b&quot;]=&gt;<br>&#xA0; &#xA0; string(0) &quot;&quot;<br>&#xA0; &#xA0; [&quot;c&quot;]=&gt;<br>&#xA0; &#xA0; string(0) &quot;&quot;<br>&#xA0; }<br>}</span>
-</div>
-  
+```
+<?php
+$_GET[&apos;A&apos;][&apos;a&apos;] = &apos;  CORRECT(including some spaces)    &apos;;
+$_GET[&apos;A&apos;][&apos;b&apos;] = &apos;  CORRECT(including some spaces)    &apos;;
+$_GET[&apos;A&apos;][&apos;c&apos;] = "Invalid UTF-8 sequence: \xe3\xe3\xe3";
+$_GET[&apos;A&apos;][&apos;d&apos;][&apos;invalid_structure&apos;] = &apos;INVALID&apos;;
+
+$_GET[&apos;B&apos;][&apos;a&apos;] = &apos;  CORRECT(including some spaces)    &apos;;
+$_GET[&apos;B&apos;][&apos;b&apos;] = "Invalid UTF-8 sequence: \xe3\xe3\xe3";
+$_GET[&apos;B&apos;][&apos;c&apos;][&apos;invalid_structure&apos;] = &apos;INVALID&apos;;
+$_GET[&apos;B&apos;]["Invalid UTF-8 sequence: \xe3\xe3\xe3"] = &apos;INVALID&apos;;
+
+$_GET[&apos;C&apos;][&apos;a&apos;] = &apos;  CORRECT(including some spaces)    &apos;;
+$_GET[&apos;C&apos;][&apos;b&apos;] = "Invalid UTF-8 sequence: \xe3\xe3\xe3";
+$_GET[&apos;C&apos;][&apos;c&apos;][&apos;invalid_structure&apos;] = &apos;INVALID&apos;;
+$_GET[&apos;C&apos;]["Invalid UTF-8 sequence: \xe3\xe3\xe3"] = &apos;INVALID&apos;;
+
+$_GET[&apos;unneeded_item&apos;] = &apos;UNNEEDED&apos;;
+
+var_dump(filter_struct_utf8(INPUT_GET, array(
+    &apos;A&apos; =&gt; array(
+        &apos;a&apos; =&gt; &apos;&apos;,
+        &apos;b&apos; =&gt; FILTER_STRUCT_TRIM,
+        &apos;c&apos; =&gt; &apos;&apos;,
+        &apos;d&apos; =&gt; &apos;&apos;,
+    ),
+    &apos;B&apos; =&gt; FILTER_STRUCT_FORCE_ARRAY,
+    &apos;C&apos; =&gt; FILTER_STRUCT_FORCE_ARRAY | FILTER_STRUCT_TRIM,
+)));
+?>
+```
+<br><br>Example Result:<br>array(3) {<br>  ["A"]=&gt;<br>  array(4) {<br>    ["a"]=&gt;<br>    string(36) "  CORRECT(including some spaces)    "<br>    ["b"]=&gt;<br>    string(30) "CORRECT(including some spaces)"<br>    ["c"]=&gt;<br>    string(0) ""<br>    ["d"]=&gt;<br>    string(0) ""<br>  }<br>  ["B"]=&gt;<br>  array(3) {<br>    ["a"]=&gt;<br>    string(36) "  CORRECT(including some spaces)    "<br>    ["b"]=&gt;<br>    string(0) ""<br>    ["c"]=&gt;<br>    string(0) ""<br>  }<br>  ["C"]=&gt;<br>  array(3) {<br>    ["a"]=&gt;<br>    string(30) "CORRECT(including some spaces)"<br>    ["b"]=&gt;<br>    string(0) ""<br>    ["c"]=&gt;<br>    string(0) ""<br>  }<br>}  
 
 #
 
+You can&apos;t extract a numeric indexed array(e.g. non-assoc array).<br>
 
-<div class="phpcode"><span class="html">
-You can&apos;t extract a numeric indexed array(e.g. non-assoc array).<br><span class="default">&lt;?php<br>$a </span><span class="keyword">= array(<br>&#xA0; </span><span class="default">1</span><span class="keyword">,<br>&#xA0; </span><span class="default">2<br></span><span class="keyword">);<br></span><span class="default">extract</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">);<br></span><span class="default">var_dump</span><span class="keyword">(${</span><span class="default">1</span><span class="keyword">});<br></span><span class="default">?&gt;<br></span><br>result:<br>PHP Notice:&#xA0; Undefined variable: 1 in /Users/Lutashi/t.php on line 7<br><br>Notice: Undefined variable: 1 in /Users/Lutashi/t.php on line 7<br>NULL</span>
-</div>
-  
+```
+<?php
+$a = array(
+  1,
+  2
+);
+extract($a);
+var_dump(${1});
+?>
+```
+<br><br>result:<br>PHP Notice:  Undefined variable: 1 in /Users/Lutashi/t.php on line 7<br><br>Notice: Undefined variable: 1 in /Users/Lutashi/t.php on line 7<br>NULL  
 
 #
 
+I have made some tests to compare the speed of next constructions:<br>
 
-<div class="phpcode"><span class="html">
-I have made some tests to compare the speed of next constructions:<br><span class="default">&lt;?php<br><br>extract</span><span class="keyword">(</span><span class="default">$ARRAY</span><span class="keyword">);<br><br></span><span class="comment">// vs. <br><br></span><span class="keyword">foreach(</span><span class="default">$ARRAY </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">=&gt;</span><span class="default">$value</span><span class="keyword">) <br>&#xA0; &#xA0; $</span><span class="default">$key </span><span class="keyword">= </span><span class="default">$value</span><span class="keyword">; <br></span><span class="default">?&gt;<br></span><br>Surprisingly for me extract is 20%-80% slower then foreach construction. I don&apos;t really understand why, but it&apos;s so.</span>
-</div>
-  
+```
+<?php
+
+extract($ARRAY);
+
+// vs. 
+
+foreach($ARRAY as $key=&gt;$value) 
+    $key = $value; 
+?>
+```
+<br><br>Surprisingly for me extract is 20%-80% slower then foreach construction. I don&apos;t really understand why, but it&apos;s so.  
 
 #
 

@@ -2,23 +2,15 @@
 
 
 
-
-
-This method uses the &quot;convert -density {$x_resolution}x{$y_resolution}&quot; parameter. However be aware, that Imagick::setResolution() is much more alike the &quot;convert -density&quot; option than Imagick::setImageResolution()
-
-It&apos;s very irritating that both Imagick::setResolution() and Imagick::setImageResolution() are introduced with &quot;Sets the image resolution.&quot;
-
-Use Imagick::setResolution() prior to reading a raster image. This method does not affect an image. However this method tells the image to which size it has to be sized in relation to images inherent resolution! With this method you are able to affect the real pixel-size of an image after reading. E.g. your image has a size of 100x100 pixels and an inherent resolution of 72. Setting the Resolution to 144 and reading this image results in a new image size of 200x200 pixels.
-
-
+This method uses the "convert -density {$x_resolution}x{$y_resolution}" parameter. However be aware, that Imagick::setResolution() is much more alike the "convert -density" option than Imagick::setImageResolution()<br><br>It&apos;s very irritating that both Imagick::setResolution() and Imagick::setImageResolution() are introduced with "Sets the image resolution."<br><br>Use Imagick::setResolution() prior to reading a raster image. This method does not affect an image. However this method tells the image to which size it has to be sized in relation to images inherent resolution! With this method you are able to affect the real pixel-size of an image after reading. E.g. your image has a size of 100x100 pixels and an inherent resolution of 72. Setting the Resolution to 144 and reading this image results in a new image size of 200x200 pixels.<br><br>
 
 ```
 <?php
 $im = new Imagick();
 $im-&gt;setResolution(144,144);
-$im-&gt;readImage(&quot;test.eps&quot;);
-$im-&gt;setImageFormat(&quot;png&quot;);
-header(&quot;Content-Type: image/png&quot;);
+$im-&gt;readImage("test.eps");
+$im-&gt;setImageFormat("png");
+header("Content-Type: image/png");
 echo $im;
 ?>
 ```
@@ -31,11 +23,11 @@ Use Imagick::setImageResolution() to alter the resolution of an already read ima
 ```
 <?php
 $im = new Imagick();
-$im-&gt;readImage(&quot;test.eps&quot;);
+$im-&gt;readImage("test.eps");
 $im-&gt;setImageResolution(144,144);
-$im-&gt;resampleImage&#xA0; (288,288,imagick::FILTER_UNDEFINED,1);
-$im-&gt;setImageFormat(&quot;png&quot;);
-header(&quot;Content-Type: image/png&quot;);
+$im-&gt;resampleImage  (288,288,imagick::FILTER_UNDEFINED,1);
+$im-&gt;setImageFormat("png");
+header("Content-Type: image/png");
 echo $im;
 ?>
 ```
@@ -48,17 +40,14 @@ which actually does the same like
 ```
 <?php
 $im = new Imagick();
-$im-&gt;readImage(&quot;test.eps&quot;);
+$im-&gt;readImage("test.eps");
 $im-&gt;setImageResolution(72,72);
-$im-&gt;resampleImage&#xA0; (144,144,imagick::FILTER_UNDEFINED,1);
-$im-&gt;setImageFormat(&quot;png&quot;);
-header(&quot;Content-Type: image/png&quot;);
+$im-&gt;resampleImage  (144,144,imagick::FILTER_UNDEFINED,1);
+$im-&gt;setImageFormat("png");
+header("Content-Type: image/png");
 echo $im;
 ?>
 ```
-
-
-
   
 
 #

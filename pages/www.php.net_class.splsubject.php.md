@@ -3,10 +3,79 @@
 
 
 
-<div class="phpcode"><span class="html">
-<span class="default">&lt;?php <br><br></span><span class="comment">// Example implementation of Observer design pattern:<br><br></span><span class="keyword">class </span><span class="default">MyObserver1 </span><span class="keyword">implements </span><span class="default">SplObserver </span><span class="keyword">{<br>&#xA0; &#xA0; public function </span><span class="default">update</span><span class="keyword">(</span><span class="default">SplSubject $subject</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="default">__CLASS__ </span><span class="keyword">. </span><span class="string">&apos; - &apos; </span><span class="keyword">. </span><span class="default">$subject</span><span class="keyword">-&gt;</span><span class="default">getName</span><span class="keyword">();<br>&#xA0; &#xA0; }<br>}<br><br>class </span><span class="default">MyObserver2 </span><span class="keyword">implements </span><span class="default">SplObserver </span><span class="keyword">{<br>&#xA0; &#xA0; public function </span><span class="default">update</span><span class="keyword">(</span><span class="default">SplSubject $subject</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="default">__CLASS__ </span><span class="keyword">. </span><span class="string">&apos; - &apos; </span><span class="keyword">. </span><span class="default">$subject</span><span class="keyword">-&gt;</span><span class="default">getName</span><span class="keyword">();<br>&#xA0; &#xA0; }<br>}<br><br>class </span><span class="default">MySubject </span><span class="keyword">implements </span><span class="default">SplSubject </span><span class="keyword">{<br>&#xA0; &#xA0; private </span><span class="default">$_observers</span><span class="keyword">;<br>&#xA0; &#xA0; private </span><span class="default">$_name</span><span class="keyword">;<br><br>&#xA0; &#xA0; public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_observers </span><span class="keyword">= new </span><span class="default">SplObjectStorage</span><span class="keyword">();<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_name </span><span class="keyword">= </span><span class="default">$name</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; public function </span><span class="default">attach</span><span class="keyword">(</span><span class="default">SplObserver $observer</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_observers</span><span class="keyword">-&gt;</span><span class="default">attach</span><span class="keyword">(</span><span class="default">$observer</span><span class="keyword">);<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; public function </span><span class="default">detach</span><span class="keyword">(</span><span class="default">SplObserver $observer</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_observers</span><span class="keyword">-&gt;</span><span class="default">detach</span><span class="keyword">(</span><span class="default">$observer</span><span class="keyword">);<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; public function </span><span class="default">notify</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_observers </span><span class="keyword">as </span><span class="default">$observer</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$observer</span><span class="keyword">-&gt;</span><span class="default">update</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; public function </span><span class="default">getName</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_name</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">$observer1 </span><span class="keyword">= new </span><span class="default">MyObserver1</span><span class="keyword">();<br></span><span class="default">$observer2 </span><span class="keyword">= new </span><span class="default">MyObserver2</span><span class="keyword">();<br><br></span><span class="default">$subject </span><span class="keyword">= new </span><span class="default">MySubject</span><span class="keyword">(</span><span class="string">&quot;test&quot;</span><span class="keyword">);<br><br></span><span class="default">$subject</span><span class="keyword">-&gt;</span><span class="default">attach</span><span class="keyword">(</span><span class="default">$observer1</span><span class="keyword">);<br></span><span class="default">$subject</span><span class="keyword">-&gt;</span><span class="default">attach</span><span class="keyword">(</span><span class="default">$observer2</span><span class="keyword">);<br></span><span class="default">$subject</span><span class="keyword">-&gt;</span><span class="default">notify</span><span class="keyword">();<br><br></span><span class="comment">/* <br>will output:<br><br>MyObserver1 - test<br>MyObserver2 - test<br>*/<br><br></span><span class="default">$subject</span><span class="keyword">-&gt;</span><span class="default">detach</span><span class="keyword">(</span><span class="default">$observer2</span><span class="keyword">);<br></span><span class="default">$subject</span><span class="keyword">-&gt;</span><span class="default">notify</span><span class="keyword">();<br><br></span><span class="comment">/* <br>will output:<br><br>MyObserver1 - test<br>*/<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+
+```
+<?php 
+
+// Example implementation of Observer design pattern:
+
+class MyObserver1 implements SplObserver {
+    public function update(SplSubject $subject) {
+        echo __CLASS__ . &apos; - &apos; . $subject-&gt;getName();
+    }
+}
+
+class MyObserver2 implements SplObserver {
+    public function update(SplSubject $subject) {
+        echo __CLASS__ . &apos; - &apos; . $subject-&gt;getName();
+    }
+}
+
+class MySubject implements SplSubject {
+    private $_observers;
+    private $_name;
+
+    public function __construct($name) {
+        $this-&gt;_observers = new SplObjectStorage();
+        $this-&gt;_name = $name;
+    }
+
+    public function attach(SplObserver $observer) {
+        $this-&gt;_observers-&gt;attach($observer);
+    }
+
+    public function detach(SplObserver $observer) {
+        $this-&gt;_observers-&gt;detach($observer);
+    }
+
+    public function notify() {
+        foreach ($this-&gt;_observers as $observer) {
+            $observer-&gt;update($this);
+        }
+    }
+
+    public function getName() {
+        return $this-&gt;_name;
+    }
+}
+
+$observer1 = new MyObserver1();
+$observer2 = new MyObserver2();
+
+$subject = new MySubject("test");
+
+$subject-&gt;attach($observer1);
+$subject-&gt;attach($observer2);
+$subject-&gt;notify();
+
+/* 
+will output:
+
+MyObserver1 - test
+MyObserver2 - test
+*/
+
+$subject-&gt;detach($observer2);
+$subject-&gt;notify();
+
+/* 
+will output:
+
+MyObserver1 - test
+*/
+
+?>
+```
   
 
 #

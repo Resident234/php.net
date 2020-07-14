@@ -2,79 +2,47 @@
 
 
 
-
-
-Finally we can implement some ActiveRecord methods:
-
-
-
-
+Finally we can implement some ActiveRecord methods:<br><br>
 
 ```
 <?php
 
-
-
 class Model
-
 {
-
-&#xA0; &#xA0; public static function find()
-
-&#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; echo static::$name;
-
-&#xA0; &#xA0; }
-
+    public static function find()
+    {
+        echo static::$name;
+    }
 }
-
-
 
 class Product extends Model
-
 {
-
-&#xA0; &#xA0; protected static $name = &apos;Product&apos;;
-
+    protected static $name = &apos;Product&apos;;
 }
-
-
 
 Product::find();
 
-
-
 ?>
 ```
-
-
-
-
-Output: &apos;Product&apos;
-
-  
+<br><br>Output: &apos;Product&apos;  
 
 #
 
-
-
-For abstract classes with static factory method, you can use the static keyword instead of self like the following:
-
+For abstract classes with static factory method, you can use the static keyword instead of self like the following:<br>
 
 ```
 <?php
 
 abstract class A{
-&#xA0; &#xA0; 
-&#xA0; &#xA0; static function create(){
+    
+    static function create(){
 
-&#xA0; &#xA0; &#xA0; &#xA0; //return new self();&#xA0; //Fatal error: Cannot instantiate abstract class A
+        //return new self();  //Fatal error: Cannot instantiate abstract class A
 
-&#xA0; &#xA0; &#xA0; &#xA0; return new static(); //this is the correct way
+        return new static(); //this is the correct way
 
-&#xA0; &#xA0; }
-&#xA0; &#xA0; 
+    }
+    
 }
 
 class B extends A{
@@ -85,9 +53,6 @@ var_dump($obj);
 
 ?>
 ```
-
-
-
   
 
 #

@@ -2,11 +2,7 @@
 
 
 
-
-
-For more documentation see here: http://userguide.icu-project.org/transforms/general
-
-  
+For more documentation see here: http://userguide.icu-project.org/transforms/general  
 
 #
 

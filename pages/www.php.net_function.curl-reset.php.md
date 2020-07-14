@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-Hack for php &lt; 5.5 : <br><br>function curl_reset(&amp;$ch){<br>&#xA0; $ch = curl_init();<br>}</span>
-</div>
-  
+Hack for php &lt; 5.5 : <br><br>function curl_reset(&amp;$ch){<br>  $ch = curl_init();<br>}  
 
 #
 

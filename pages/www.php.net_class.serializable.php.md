@@ -2,44 +2,7 @@
 
 
 
-
-
-Here&apos;s an example how to un-, serialize more than one property:
-
-class Example implements \Serializable
-{
-&#xA0; &#xA0; protected $property1;
-&#xA0; &#xA0; protected $property2;
-&#xA0; &#xA0; protected $property3;
-
-&#xA0; &#xA0; public function __construct($property1, $property2, $property3)
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;property1 = $property1;
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;property2 = $property2;
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;property3 = $property3;
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; public function serialize()
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; return serialize([
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;property1,
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;property2,
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;property3,
-&#xA0; &#xA0; &#xA0; &#xA0; ]);
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; public function unserialize($data)
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; list(
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;property1,
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;property2,
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;property3
-&#xA0; &#xA0; &#xA0; &#xA0; ) = unserialize($data);
-&#xA0; &#xA0; }
-
-}
-
-  
+Here&apos;s an example how to un-, serialize more than one property:<br><br>class Example implements \Serializable<br>{<br>    protected $property1;<br>    protected $property2;<br>    protected $property3;<br><br>    public function __construct($property1, $property2, $property3)<br>    {<br>        $this-&gt;property1 = $property1;<br>        $this-&gt;property2 = $property2;<br>        $this-&gt;property3 = $property3;<br>    }<br><br>    public function serialize()<br>    {<br>        return serialize([<br>            $this-&gt;property1,<br>            $this-&gt;property2,<br>            $this-&gt;property3,<br>        ]);<br>    }<br><br>    public function unserialize($data)<br>    {<br>        list(<br>            $this-&gt;property1,<br>            $this-&gt;property2,<br>            $this-&gt;property3<br>        ) = unserialize($data);<br>    }<br><br>}  
 
 #
 

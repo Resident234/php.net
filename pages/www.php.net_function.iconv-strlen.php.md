@@ -2,20 +2,16 @@
 
 
 
-
-
-If iconv_strlen is passed a UTF-8 string containing badly formed sequences, it will return FALSE. This is in contrast to mb_strlen of the behaviour of utf8_decode, which strip out any bad sequences;
-
-
+If iconv_strlen is passed a UTF-8 string containing badly formed sequences, it will return FALSE. This is in contrast to mb_strlen of the behaviour of utf8_decode, which strip out any bad sequences;<br><br>
 
 ```
 <?php
 # UTF-8 string containing bad sequence: \xe9
-$str = &quot;I&#xFFFD;t&#xFFFD;rn&#xFFFD;ti&#xFFFD;n\xe9&#xFFFD;liz&#xFFFD;ti&#xFFFD;n&quot;;
+$str = "I&#xFFFD;t&#xFFFD;rn&#xFFFD;ti&#xFFFD;n\xe9&#xFFFD;liz&#xFFFD;ti&#xFFFD;n";
 
-print &quot;mb_strlen: &quot;.mb_strlen($str,&apos;UTF-8&apos;).&quot;\n&quot;;
-print &quot;strlen/utf8_decode: &quot;.strlen(utf8_decode($str)).&quot;\n&quot;;
-print &quot;iconv_strlen: &quot;.iconv_strlen($str,&apos;UTF-8&apos;).&quot;\n&quot;;
+print "mb_strlen: ".mb_strlen($str,&apos;UTF-8&apos;)."\n";
+print "strlen/utf8_decode: ".strlen(utf8_decode($str))."\n";
+print "iconv_strlen: ".iconv_strlen($str,&apos;UTF-8&apos;)."\n";
 ?>
 ```
 
@@ -28,24 +24,18 @@ iconv_strlen:
 
 (PHP 5.0.5)
 
-As such it is being &quot;stricter&quot; than mb_strlen and it may mean you need to check for invalid sequences first. A quick way to check is to exploit the behaviour of the PCRE extension (see notes on pattern modifiers);
+As such it is being "stricter" than mb_strlen and it may mean you need to check for invalid sequences first. A quick way to check is to exploit the behaviour of the PCRE extension (see notes on pattern modifiers);
 
 
 
 ```
 <?php
 if (preg_match(&apos;/^.{1}/us&apos;,$str,$ar) != 1) {
-&#xA0; &#xA0; die(&quot;string contains invalid UTF-8&quot;);
+    die("string contains invalid UTF-8");
 }
 ?>
 ```
-
-
-A slower but stricter check (regex) can be found at: http://www.w3.org/International/questions/qa-forms-utf-8
-
-Similiar applies to iconv_substr, iconv_strpos and iconv_strrpos
-
-  
+<br><br>A slower but stricter check (regex) can be found at: http://www.w3.org/International/questions/qa-forms-utf-8<br><br>Similiar applies to iconv_substr, iconv_strpos and iconv_strrpos  
 
 #
 

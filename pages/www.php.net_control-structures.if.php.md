@@ -2,11 +2,7 @@
 
 
 
-
-
-easy way to execute conditional html / javascript / css / other language code with php if else:
-
-
+easy way to execute conditional html / javascript / css / other language code with php if else:<br><br>
 
 ```
 <?php if (condition): ?>
@@ -29,22 +25,11 @@ html code to run if condition is false
 ```
 <?php endif ?>
 ```
-
-
-
   
 
 #
 
-
-
-re: #80305
-
-Again useful for newbies:
-
-if you need to compare a variable with a value, instead of doing
-
-
+re: #80305<br><br>Again useful for newbies:<br><br>if you need to compare a variable with a value, instead of doing<br><br>
 
 ```
 <?php
@@ -73,25 +58,17 @@ this way, if you forget a =, it will become
 if (3 = $foo) bar();
 ?>
 ```
-
-
-and PHP will report an error.
-
-  
+<br><br>and PHP will report an error.  
 
 #
 
-
-
-Any variables defined inside the if block will be available outside the block. Remember that the if doesn&apos;t have its own scope.
-
-
+Any variables defined inside the if block will be available outside the block. Remember that the if doesn&apos;t have its own scope.<br><br>
 
 ```
 <?php
 $bool = true;
 if ($bool) {
-&#xA0; &#xA0; $hi = &apos;Hello to all people!&apos;;
+    $hi = &apos;Hello to all people!&apos;;
 }
 echo $hi;
 ?>
@@ -107,23 +84,16 @@ On the other hand, this will have no output:
 ```
 <?php
 if (false) {
-&#xA0; &#xA0; $hi = &apos;Hello to all people!&apos;;
+    $hi = &apos;Hello to all people!&apos;;
 }
 echo $hi;
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-An other way for controls is the ternary operator (see Comparison Operators) that can be used as follows:
-
-
+An other way for controls is the ternary operator (see Comparison Operators) that can be used as follows:<br><br>
 
 ```
 <?php
@@ -142,86 +112,41 @@ $v = &apos;&apos;;
 echo ($v) ?: &apos;No Value&apos;; // &apos;No Value&apos; will be printed because $v is evaluated to FALSE
 ?>
 ```
-
-
-Parentheses can be left out in all examples above.
-
-  
+<br><br>Parentheses can be left out in all examples above.  
 
 #
 
-
-
-You can have &apos;nested&apos; if statements withing a single if statement, using additional parenthesis.
-
-For example, instead of having:
-
-
-
-
+You can have &apos;nested&apos; if statements withing a single if statement, using additional parenthesis.<br>For example, instead of having:<br><br>
 
 ```
 <?php
-
 if( $a == 1 || $a == 2 ) {
-
-&#xA0; &#xA0; if( $b == 3 || $b == 4 ) {
-
-&#xA0; &#xA0; &#xA0; &#xA0; if( $c == 5 || $ d == 6 ) {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; //Do something here.
-
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; }
-
+    if( $b == 3 || $b == 4 ) {
+        if( $c == 5 || $ d == 6 ) {
+             //Do something here.
+        }
+    }
 }
-
 ?>
 ```
-
-
 
 
 You could just simply do this:
 
 
 
-
-
 ```
 <?php
-
 if( ($a==1 || $a==2) &amp;&amp; ($b==3 || $b==4) &amp;&amp; ($c==5 || $c==6) ) {
-
-&#xA0; &#xA0; //do that something here.
-
+    //do that something here.
 }
-
 ?>
 ```
-
-
-
-
-Hope this helps!
-
-  
+<br><br>Hope this helps!  
 
 #
 
-
-
-In addition to the traditional syntax for if (condition) action;
-I am fond of the ternary operator that does the same thing, but with fewer words and code to type:
-
-(condition ? action_if_true: action_if_false;)
-
-example
-
-(x &gt; y? &apos;Passed the test&apos; : &apos;Failed the test&apos;)
-
-  
+In addition to the traditional syntax for if (condition) action;<br>I am fond of the ternary operator that does the same thing, but with fewer words and code to type:<br><br>(condition ? action_if_true: action_if_false;)<br><br>example<br><br>(x &gt; y? &apos;Passed the test&apos; : &apos;Failed the test&apos;)  
 
 #
 

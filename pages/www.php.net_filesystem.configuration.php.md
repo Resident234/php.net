@@ -2,22 +2,15 @@
 
 
 
-
-
-I&apos;m surprised this isn&apos;t mentioned in docs here, but to set these values at runtime use &quot;ini_set()&quot;. For example:
-
-
+I&apos;m surprised this isn&apos;t mentioned in docs here, but to set these values at runtime use "ini_set()". For example:<br><br>
 
 ```
 <?php
-ini_set(&quot;auto_detect_line_endings&quot;, true);
+ini_set("auto_detect_line_endings", true);
 
 // Now I can invoke fgets() on files that contain silly \r line endings. 
 ?>
 ```
-
-
-
   
 
 #

@@ -2,21 +2,11 @@
 
 
 
-
-
-To clarify the previously posted note:
-
-Dots (.) and spaces ( ) in cookie names are being replaced with underscores (_).
-
-  
+To clarify the previously posted note:<br><br>Dots (.) and spaces ( ) in cookie names are being replaced with underscores (_).  
 
 #
 
-
-
-beware, dots (.) in cookie names are replaces by underscores (_)
-
-  
+beware, dots (.) in cookie names are replaces by underscores (_)  
 
 #
 

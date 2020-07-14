@@ -3,10 +3,49 @@
 
 
 
-<div class="phpcode"><span class="html">
-<span class="default">&lt;?php<br></span><span class="comment">// we wanted the output of only selected array_keys from a big array from a csv-table<br>// with different order of keys, with optional suppressing of empty or unused values<br><br></span><span class="default">$values </span><span class="keyword">= array<br>(<br>&#xA0; &#xA0; </span><span class="string">&apos;Article&apos;</span><span class="keyword">=&gt;</span><span class="string">&apos;24497&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; </span><span class="string">&apos;Type&apos;</span><span class="keyword">=&gt;</span><span class="string">&apos;LED&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; </span><span class="string">&apos;Socket&apos;</span><span class="keyword">=&gt;</span><span class="string">&apos;E27&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; </span><span class="string">&apos;Dimmable&apos;</span><span class="keyword">=&gt;</span><span class="string">&apos;&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; </span><span class="string">&apos;Wattage&apos;</span><span class="keyword">=&gt;</span><span class="string">&apos;10W&apos;<br></span><span class="keyword">);<br><br></span><span class="default">$keys </span><span class="keyword">= </span><span class="default">array_fill_keys</span><span class="keyword">(array(</span><span class="string">&apos;Article&apos;</span><span class="keyword">,</span><span class="string">&apos;Wattage&apos;</span><span class="keyword">,</span><span class="string">&apos;Dimmable&apos;</span><span class="keyword">,</span><span class="string">&apos;Type&apos;</span><span class="keyword">,</span><span class="string">&apos;Foobar&apos;</span><span class="keyword">), </span><span class="string">&apos;&apos;</span><span class="keyword">); </span><span class="comment">// wanted array with empty value<br><br></span><span class="default">$allkeys </span><span class="keyword">= </span><span class="default">array_replace</span><span class="keyword">(</span><span class="default">$keys</span><span class="keyword">, </span><span class="default">array_intersect_key</span><span class="keyword">(</span><span class="default">$values</span><span class="keyword">, </span><span class="default">$keys</span><span class="keyword">));&#xA0; &#xA0; </span><span class="comment">// replace only the wanted keys<br><br></span><span class="default">$notempty </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">$allkeys</span><span class="keyword">, </span><span class="string">&apos;strlen&apos;</span><span class="keyword">); </span><span class="comment">// strlen used as the callback-function with 0==false<br><br></span><span class="keyword">print </span><span class="string">&apos;&lt;pre&gt;&apos;</span><span class="keyword">;<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$allkeys</span><span class="keyword">);<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$notempty</span><span class="keyword">);<br><br></span><span class="comment">/*<br>Array<br>(<br>&#xA0; &#xA0; [Article] =&gt; 24497<br>&#xA0; &#xA0; [Wattage] =&gt; 10W<br>&#xA0; &#xA0; [Dimmable] =&gt; <br>&#xA0; &#xA0; [Type] =&gt; LED<br>&#xA0; &#xA0; [Foobar] =&gt; <br>)<br>Array<br>(<br>&#xA0; &#xA0; [Article] =&gt; 24497<br>&#xA0; &#xA0; [Wattage] =&gt; 10W<br>&#xA0; &#xA0; [Type] =&gt; LED<br>)<br>*/<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+
+```
+<?php
+// we wanted the output of only selected array_keys from a big array from a csv-table
+// with different order of keys, with optional suppressing of empty or unused values
+
+$values = array
+(
+    &apos;Article&apos;=&gt;&apos;24497&apos;,
+    &apos;Type&apos;=&gt;&apos;LED&apos;,
+    &apos;Socket&apos;=&gt;&apos;E27&apos;,
+    &apos;Dimmable&apos;=&gt;&apos;&apos;,
+    &apos;Wattage&apos;=&gt;&apos;10W&apos;
+);
+
+$keys = array_fill_keys(array(&apos;Article&apos;,&apos;Wattage&apos;,&apos;Dimmable&apos;,&apos;Type&apos;,&apos;Foobar&apos;), &apos;&apos;); // wanted array with empty value
+
+$allkeys = array_replace($keys, array_intersect_key($values, $keys));    // replace only the wanted keys
+
+$notempty = array_filter($allkeys, &apos;strlen&apos;); // strlen used as the callback-function with 0==false
+
+print &apos;&lt;pre&gt;&apos;;
+print_r($allkeys);
+print_r($notempty);
+
+/*
+Array
+(
+    [Article] =&gt; 24497
+    [Wattage] =&gt; 10W
+    [Dimmable] =&gt; 
+    [Type] =&gt; LED
+    [Foobar] =&gt; 
+)
+Array
+(
+    [Article] =&gt; 24497
+    [Wattage] =&gt; 10W
+    [Type] =&gt; LED
+)
+*/
+?>
+```
   
 
 #

@@ -2,20 +2,76 @@
 
 
 
+If you just need to find out if two files are identical, comparing file hashes can be inefficient, especially on large files.  There&apos;s no reason to read two whole files and do all the math if the second byte of each file is different.  If you don&apos;t need to store the hash value for later use, there may not be a need to calculate the hash value just to compare files.  This can be much faster:<br><br>
 
-<div class="phpcode"><span class="html">
-If you just need to find out if two files are identical, comparing file hashes can be inefficient, especially on large files.&#xA0; There&apos;s no reason to read two whole files and do all the math if the second byte of each file is different.&#xA0; If you don&apos;t need to store the hash value for later use, there may not be a need to calculate the hash value just to compare files.&#xA0; This can be much faster:<br><br><span class="default">&lt;?php<br>define</span><span class="keyword">(</span><span class="string">&apos;READ_LEN&apos;</span><span class="keyword">, </span><span class="default">4096</span><span class="keyword">);<br><br>if(</span><span class="default">files_identical</span><span class="keyword">(</span><span class="string">&apos;file1.txt&apos;</span><span class="keyword">, </span><span class="string">&apos;file2.txt&apos;</span><span class="keyword">))<br>&#xA0; &#xA0; echo </span><span class="string">&apos;files identical&apos;</span><span class="keyword">;<br>else<br>&#xA0; &#xA0; echo </span><span class="string">&apos;files not identical&apos;</span><span class="keyword">;<br><br></span><span class="comment">//&#xA0;&#xA0; pass two file names<br>//&#xA0;&#xA0; returns TRUE if files are the same, FALSE otherwise<br></span><span class="keyword">function </span><span class="default">files_identical</span><span class="keyword">(</span><span class="default">$fn1</span><span class="keyword">, </span><span class="default">$fn2</span><span class="keyword">) {<br>&#xA0; &#xA0; if(</span><span class="default">filetype</span><span class="keyword">(</span><span class="default">$fn1</span><span class="keyword">) !== </span><span class="default">filetype</span><span class="keyword">(</span><span class="default">$fn2</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">FALSE</span><span class="keyword">;<br><br>&#xA0; &#xA0; if(</span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$fn1</span><span class="keyword">) !== </span><span class="default">filesize</span><span class="keyword">(</span><span class="default">$fn2</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">FALSE</span><span class="keyword">;<br><br>&#xA0; &#xA0; if(!</span><span class="default">$fp1 </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$fn1</span><span class="keyword">, </span><span class="string">&apos;rb&apos;</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">FALSE</span><span class="keyword">;<br><br>&#xA0; &#xA0; if(!</span><span class="default">$fp2 </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$fn2</span><span class="keyword">, </span><span class="string">&apos;rb&apos;</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp1</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">FALSE</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="default">$same </span><span class="keyword">= </span><span class="default">TRUE</span><span class="keyword">;<br>&#xA0; &#xA0; while (!</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp1</span><span class="keyword">) and !</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp2</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fp1</span><span class="keyword">, </span><span class="default">READ_LEN</span><span class="keyword">) !== </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fp2</span><span class="keyword">, </span><span class="default">READ_LEN</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$same </span><span class="keyword">= </span><span class="default">FALSE</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; if(</span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp1</span><span class="keyword">) !== </span><span class="default">feof</span><span class="keyword">(</span><span class="default">$fp2</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$same </span><span class="keyword">= </span><span class="default">FALSE</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp1</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$fp2</span><span class="keyword">);<br><br>&#xA0; &#xA0; return </span><span class="default">$same</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+define(&apos;READ_LEN&apos;, 4096);
+
+if(files_identical(&apos;file1.txt&apos;, &apos;file2.txt&apos;))
+    echo &apos;files identical&apos;;
+else
+    echo &apos;files not identical&apos;;
+
+//   pass two file names
+//   returns TRUE if files are the same, FALSE otherwise
+function files_identical($fn1, $fn2) {
+    if(filetype($fn1) !== filetype($fn2))
+        return FALSE;
+
+    if(filesize($fn1) !== filesize($fn2))
+        return FALSE;
+
+    if(!$fp1 = fopen($fn1, &apos;rb&apos;))
+        return FALSE;
+
+    if(!$fp2 = fopen($fn2, &apos;rb&apos;)) {
+        fclose($fp1);
+        return FALSE;
+    }
+
+    $same = TRUE;
+    while (!feof($fp1) and !feof($fp2))
+        if(fread($fp1, READ_LEN) !== fread($fp2, READ_LEN)) {
+            $same = FALSE;
+            break;
+        }
+
+    if(feof($fp1) !== feof($fp2))
+        $same = FALSE;
+
+    fclose($fp1);
+    fclose($fp2);
+
+    return $same;
+}
+?>
+```
   
 
 #
 
+It&apos;s faster to use md5sum than openssl md5:<br><br>
 
-<div class="phpcode"><span class="html">
-It&apos;s faster to use md5sum than openssl md5:<br><br><span class="default">&lt;?php<br>$begin </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br><br></span><span class="default">$file_path </span><span class="keyword">= </span><span class="string">&apos;../backup_file1.tar.gz&apos;</span><span class="keyword">;<br></span><span class="default">$result </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&quot;&#xA0; &quot;</span><span class="keyword">, </span><span class="default">exec</span><span class="keyword">(</span><span class="string">&quot;md5sum </span><span class="default">$file_path</span><span class="string">&quot;</span><span class="keyword">));<br>echo </span><span class="string">&quot;Hash = &quot;</span><span class="keyword">.</span><span class="default">$result</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">].</span><span class="string">&quot;&lt;br /&gt;&quot;</span><span class="keyword">;<br><br></span><span class="comment"># Here 7 other big files (20-300 MB)<br><br></span><span class="default">$end </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">) - </span><span class="default">$begin</span><span class="keyword">;<br>echo </span><span class="string">&quot;Time = </span><span class="default">$end</span><span class="string">&quot;</span><span class="keyword">;<br></span><span class="comment"># Time = 4.4475841522217 <br><br>#Method with openssl<br># Time = 12.1463856900543<br></span><span class="default">?&gt;<br></span><br>About 3x faster</span>
-</div>
-  
+```
+<?php
+$begin = microtime(true);
+
+$file_path = &apos;../backup_file1.tar.gz&apos;;
+$result = explode("  ", exec("md5sum $file_path"));
+echo "Hash = ".$result[0]."&lt;br /&gt;";
+
+# Here 7 other big files (20-300 MB)
+
+$end = microtime(true) - $begin;
+echo "Time = $end";
+# Time = 4.4475841522217 
+
+#Method with openssl
+# Time = 12.1463856900543
+?>
+```
+<br><br>About 3x faster  
 
 #
 

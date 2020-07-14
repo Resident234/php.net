@@ -2,11 +2,36 @@
 
 
 
+When using persistent connections, it is important to not re-add servers.<br><br>This is what you do not want to do:<br>
 
-<div class="phpcode"><span class="html">
-When using persistent connections, it is important to not re-add servers.<br><br>This is what you do not want to do:<br><span class="default">&lt;?php<br>$mc </span><span class="keyword">= new </span><span class="default">Memcached</span><span class="keyword">(</span><span class="string">&apos;mc&apos;</span><span class="keyword">);<br></span><span class="default">$mc</span><span class="keyword">-&gt;</span><span class="default">setOption</span><span class="keyword">(</span><span class="default">Memcached</span><span class="keyword">::</span><span class="default">OPT_LIBKETAMA_COMPATIBLE</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br></span><span class="default">$mc</span><span class="keyword">-&gt;</span><span class="default">addServers</span><span class="keyword">(array(<br>&#xA0; &#xA0; array(</span><span class="string">&apos;mc1.example.com&apos;</span><span class="keyword">,</span><span class="default">11211</span><span class="keyword">),<br>&#xA0; &#xA0; array(</span><span class="string">&apos;mc2.example.com&apos;</span><span class="keyword">,</span><span class="default">11211</span><span class="keyword">),<br>));<br></span><span class="default">?&gt;<br></span>Every time the page is loaded those servers will be appended to the list resulting in many simultaneous open connections to the same server. The addServer/addServers functions to not check for existing references to the specified servers.<br><br>A better approach is something like:<br><span class="default">&lt;?php<br>$mc </span><span class="keyword">= new </span><span class="default">Memcached</span><span class="keyword">(</span><span class="string">&apos;mc&apos;</span><span class="keyword">);<br></span><span class="default">$mc</span><span class="keyword">-&gt;</span><span class="default">setOption</span><span class="keyword">(</span><span class="default">Memcached</span><span class="keyword">::</span><span class="default">OPT_LIBKETAMA_COMPATIBLE</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br>if (!</span><span class="default">count</span><span class="keyword">(</span><span class="default">$mc</span><span class="keyword">-&gt;</span><span class="default">getServerList</span><span class="keyword">())) {<br>&#xA0; &#xA0; </span><span class="default">$mc</span><span class="keyword">-&gt;</span><span class="default">addServers</span><span class="keyword">(array(<br>&#xA0; &#xA0; &#xA0; &#xA0; array(</span><span class="string">&apos;mc1.example.com&apos;</span><span class="keyword">,</span><span class="default">11211</span><span class="keyword">),<br>&#xA0; &#xA0; &#xA0; &#xA0; array(</span><span class="string">&apos;mc2.example.com&apos;</span><span class="keyword">,</span><span class="default">11211</span><span class="keyword">),<br>&#xA0; &#xA0; ));<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+$mc = new Memcached(&apos;mc&apos;);
+$mc-&gt;setOption(Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
+$mc-&gt;addServers(array(
+    array(&apos;mc1.example.com&apos;,11211),
+    array(&apos;mc2.example.com&apos;,11211),
+));
+?>
+```
+
+Every time the page is loaded those servers will be appended to the list resulting in many simultaneous open connections to the same server. The addServer/addServers functions to not check for existing references to the specified servers.
+
+A better approach is something like:
+
+
+```
+<?php
+$mc = new Memcached(&apos;mc&apos;);
+$mc-&gt;setOption(Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
+if (!count($mc-&gt;getServerList())) {
+    $mc-&gt;addServers(array(
+        array(&apos;mc1.example.com&apos;,11211),
+        array(&apos;mc2.example.com&apos;,11211),
+    ));
+}
+?>
+```
   
 
 #

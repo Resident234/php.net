@@ -2,13 +2,7 @@
 
 
 
-
-
-Here my solution how to do effective recursiv directory listing.
-
-Have fun.
-
-
+Here my solution how to do effective recursiv directory listing.<br><br>Have fun.<br><br>
 
 ```
 <?php
@@ -16,126 +10,123 @@ Have fun.
 /**
  * example of use: 
  */
-$d = new RecDir(&quot;/etc/&quot;,false);
-echo &quot;Path: &quot; . $d-&gt;getRootPath() . &quot;\n&quot;;
+$d = new RecDir("/etc/",false);
+echo "Path: " . $d-&gt;getRootPath() . "\n";
 while (false !== ($entry = $d-&gt;read())) {
-&#xA0;&#xA0; echo $entry.&quot;\n&quot;;
+   echo $entry."\n";
 }
 $d-&gt;close();
 
 class RecDir
 {
-&#xA0;&#xA0; protected $currentPath;
-&#xA0;&#xA0; protected $slash;
-&#xA0;&#xA0; protected $rootPath;
-&#xA0;&#xA0; protected $recursiveTree;&#xA0;&#xA0; 
+   protected $currentPath;
+   protected $slash;
+   protected $rootPath;
+   protected $recursiveTree;   
 
-&#xA0;&#xA0; function __construct($rootPath,$win=false)
-&#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; switch($win)
-&#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; case true:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;slash = &apos;\\&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; default:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;slash = &apos;/&apos;;
-&#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; $this-&gt;rootPath = $rootPath;
-&#xA0; &#xA0; &#xA0; $this-&gt;currentPath = $rootPath;
-&#xA0; &#xA0; &#xA0; $this-&gt;recursiveTree = array(dir($this-&gt;rootPath));
-&#xA0; &#xA0; &#xA0; $this-&gt;rewind();
-&#xA0;&#xA0; }
+   function __construct($rootPath,$win=false)
+   {
+      switch($win)
+      {
+         case true:
+            $this-&gt;slash = &apos;\\&apos;;
+            break;
+         default:
+            $this-&gt;slash = &apos;/&apos;;
+      }
+      $this-&gt;rootPath = $rootPath;
+      $this-&gt;currentPath = $rootPath;
+      $this-&gt;recursiveTree = array(dir($this-&gt;rootPath));
+      $this-&gt;rewind();
+   }
 
-&#xA0;&#xA0; function __destruct()
-&#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; $this-&gt;close();
-&#xA0;&#xA0; }
+   function __destruct()
+   {
+      $this-&gt;close();
+   }
 
-&#xA0;&#xA0; public function close()
-&#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; while(true === ($d = array_pop($this-&gt;recursiveTree)))
-&#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $d-&gt;close();
-&#xA0; &#xA0; &#xA0; }
-&#xA0;&#xA0; }
+   public function close()
+   {
+      while(true === ($d = array_pop($this-&gt;recursiveTree)))
+      {
+         $d-&gt;close();
+      }
+   }
 
-&#xA0;&#xA0; public function closeChildren()
-&#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; while(count($this-&gt;recursiveTree)&gt;1 &amp;&amp; false !== ($d = array_pop($this-&gt;recursiveTree)))
-&#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $d-&gt;close();
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; return true;
-&#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; return false;
-&#xA0;&#xA0; }
+   public function closeChildren()
+   {
+      while(count($this-&gt;recursiveTree)&gt;1 &amp;&amp; false !== ($d = array_pop($this-&gt;recursiveTree)))
+      {
+         $d-&gt;close();
+         return true;
+      }
+      return false;
+   }
 
-&#xA0;&#xA0; public function getRootPath()
-&#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; if(isset($this-&gt;rootPath))
-&#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; return $this-&gt;rootPath;
-&#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; return false;
-&#xA0;&#xA0; }
+   public function getRootPath()
+   {
+      if(isset($this-&gt;rootPath))
+      {
+         return $this-&gt;rootPath;
+      }
+      return false;
+   }
 
-&#xA0;&#xA0; public function getCurrentPath()
-&#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; if(isset($this-&gt;currentPath))
-&#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; return $this-&gt;currentPath;
-&#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; return false;
-&#xA0;&#xA0; }
-&#xA0;&#xA0; 
-&#xA0;&#xA0; public function read()
-&#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; while(count($this-&gt;recursiveTree)&gt;0)
-&#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $d = end($this-&gt;recursiveTree);
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; if((false !== ($entry = $d-&gt;read())))
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if($entry!=&apos;.&apos; &amp;&amp; $entry!=&apos;..&apos;)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $path = $d-&gt;path.$entry;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; if(is_file($path))
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return $path;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; elseif(is_dir($path.$this-&gt;slash))
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;currentPath = $path.$this-&gt;slash;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if($child = @dir($path.$this-&gt;slash))
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $this-&gt;recursiveTree[] = $child;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; else
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; array_pop($this-&gt;recursiveTree)-&gt;close();
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }
-&#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; return false;
-&#xA0;&#xA0; }
+   public function getCurrentPath()
+   {
+      if(isset($this-&gt;currentPath))
+      {
+         return $this-&gt;currentPath;
+      }
+      return false;
+   }
+   
+   public function read()
+   {
+      while(count($this-&gt;recursiveTree)&gt;0)
+      {
+         $d = end($this-&gt;recursiveTree);
+         if((false !== ($entry = $d-&gt;read())))
+         {
+            if($entry!=&apos;.&apos; &amp;&amp; $entry!=&apos;..&apos;)
+            {
+               $path = $d-&gt;path.$entry;
+               
+               if(is_file($path))
+               {
+                  return $path;
+               }
+               elseif(is_dir($path.$this-&gt;slash))
+               {
+                  $this-&gt;currentPath = $path.$this-&gt;slash;
+                  if($child = @dir($path.$this-&gt;slash))
+                  {
+                     $this-&gt;recursiveTree[] = $child;
+                  }
+               }
+            }
+         }
+         else
+         {
+            array_pop($this-&gt;recursiveTree)-&gt;close();
+         }
+      }
+      return false;
+   }
 
-&#xA0;&#xA0; public function rewind()
-&#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; $this-&gt;closeChildren();
-&#xA0; &#xA0; &#xA0; $this-&gt;rewindCurrent();
-&#xA0;&#xA0; }
+   public function rewind()
+   {
+      $this-&gt;closeChildren();
+      $this-&gt;rewindCurrent();
+   }
 
-&#xA0;&#xA0; public function rewindCurrent()
-&#xA0;&#xA0; {
-&#xA0; &#xA0; &#xA0; return end($this-&gt;recursiveTree)-&gt;rewind();
-&#xA0;&#xA0; }
+   public function rewindCurrent()
+   {
+      return end($this-&gt;recursiveTree)-&gt;rewind();
+   }
 }
 ?>
 ```
-
-
-
   
 
 #

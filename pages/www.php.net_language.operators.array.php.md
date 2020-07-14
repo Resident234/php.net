@@ -2,12 +2,7 @@
 
 
 
-
-
-The union operator did not behave as I thought it would on first glance. It implements a union (of sorts) based on the keys of the array, not on the values.
-
-For instance:
-
+The union operator did not behave as I thought it would on first glance. It implements a union (of sorts) based on the keys of the array, not on the values.<br><br>For instance:<br>
 
 ```
 <?php
@@ -19,87 +14,38 @@ echo &apos;$a + $b : &apos;;
 print_r ($a + $b);
 
 //a union of arrays&apos; values
-echo &quot;array_unique(array_merge($a,$b)):&quot;;
+echo "array_unique(array_merge($a,$b)):";
 // cribbed from http://oreilly.com/catalog/progphp/chapter/ch05.html
 print_r (array_unique(array_merge($a,$b)));
 ?>
 ```
-
-
-//output
-
-$a + $b : Array
-(
-&#xA0; &#xA0; [0] =&gt; one
-&#xA0; &#xA0; [1] =&gt; two
-&#xA0; &#xA0; [2] =&gt; five
-)
-array_unique(array_merge(Array,Array)):Array
-(
-&#xA0; &#xA0; [0] =&gt; one
-&#xA0; &#xA0; [1] =&gt; two
-&#xA0; &#xA0; [2] =&gt; three
-&#xA0; &#xA0; [3] =&gt; four
-&#xA0; &#xA0; [4] =&gt; five
-)
-
-  
+<br><br>//output<br><br>$a + $b : Array<br>(<br>    [0] =&gt; one<br>    [1] =&gt; two<br>    [2] =&gt; five<br>)<br>array_unique(array_merge(Array,Array)):Array<br>(<br>    [0] =&gt; one<br>    [1] =&gt; two<br>    [2] =&gt; three<br>    [3] =&gt; four<br>    [4] =&gt; five<br>)  
 
 #
 
-
-
-The example may get u into thinking that the identical operator returns true because the key of apple is a string but that is not the case, cause if a string array key is the standart representation of a integer it&apos;s gets a numeral key automaticly. 
-
-The identical operator just requires that the keys are in the same order in both arrays:
-
-
+The example may get u into thinking that the identical operator returns true because the key of apple is a string but that is not the case, cause if a string array key is the standart representation of a integer it&apos;s gets a numeral key automaticly. <br><br>The identical operator just requires that the keys are in the same order in both arrays:<br><br>
 
 ```
 <?php
-$a = array (0 =&gt; &quot;apple&quot;, 1 =&gt; &quot;banana&quot;);
-$b = array (1 =&gt; &quot;banana&quot;, 0 =&gt; &quot;apple&quot;);
+$a = array (0 =&gt; "apple", 1 =&gt; "banana");
+$b = array (1 =&gt; "banana", 0 =&gt; "apple");
 
 var_dump($a === $b); // prints bool(false) as well
 
-$b = array (&quot;0&quot; =&gt; &quot;apple&quot;, &quot;1&quot; =&gt; &quot;banana&quot;);
+$b = array ("0" =&gt; "apple", "1" =&gt; "banana");
 
 var_dump($a === $b); // prints bool(true)
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-It should be mentioned that the array union operator functions almost identically to array_replace with the exception that precedence of arguments is reversed.
-
-  
+It should be mentioned that the array union operator functions almost identically to array_replace with the exception that precedence of arguments is reversed.  
 
 #
 
-
-
-Note that + will not renumber numeric array keys.&#xA0; If you have two numeric arrays, and their indices overlap, + will use the first array&apos;s values for each numeric key, adding the 2nd array&apos;s values only where the first doesn&apos;t already have a value for that index.&#xA0; Example:
-
-$a = array(&apos;red&apos;, &apos;orange&apos;);
-$b = array(&apos;yellow&apos;, &apos;green&apos;, &apos;blue&apos;);
-$both = $a + $b;
-var_dump($both);
-
-Produces the output:
-
-array(3) { [0]=&gt;&#xA0; string(3) &quot;red&quot; [1]=&gt;&#xA0; string(6) &quot;orange&quot; [2]=&gt;&#xA0; string(4) &quot;blue&quot; }
-
-To get a 5-element array, use array_merge.
-
-&#xA0; &#xA0; Dan
-
-  
+Note that + will not renumber numeric array keys.  If you have two numeric arrays, and their indices overlap, + will use the first array&apos;s values for each numeric key, adding the 2nd array&apos;s values only where the first doesn&apos;t already have a value for that index.  Example:<br><br>$a = array(&apos;red&apos;, &apos;orange&apos;);<br>$b = array(&apos;yellow&apos;, &apos;green&apos;, &apos;blue&apos;);<br>$both = $a + $b;<br>var_dump($both);<br><br>Produces the output:<br><br>array(3) { [0]=&gt;  string(3) "red" [1]=&gt;  string(6) "orange" [2]=&gt;  string(4) "blue" }<br><br>To get a 5-element array, use array_merge.<br><br>    Dan  
 
 #
 

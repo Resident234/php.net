@@ -2,12 +2,8 @@
 
 
 
-
-
-Note that force-redirect doesn&apos;t work with IIS at all; it&apos;ll tell you to go away, as IIS doesn&apos;t supply the right variables to PHP.
-
-php.ini tells you to turn it off, so make sure you do.
-
+Note that force-redirect doesn&apos;t work with IIS at all; it&apos;ll tell you to go away, as IIS doesn&apos;t supply the right variables to PHP.<br><br>php.ini tells you to turn it off, so make sure you do.?>
+```
   
 
 #

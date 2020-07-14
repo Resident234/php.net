@@ -2,11 +2,32 @@
 
 
 
+This iterator basically is only a wrapper around another iterator. It does nothing fancy, it simply forwards any calls of rewind(), next(), valid(), current() and key() to the inner iterator. This inner iterator can be fetched with getInnerIterator().<br><br>One special case: When passing an IteratorAggregate object, the getIterator() method of that object will be called and THAT iterator will be iterated over, and this will also be returned when calling getInnerIterator().<br><br>This class can be extended, so it&apos;s an ideal building block for your own classes that only want to modify one or two of the iterator methods, but not all.<br><br>Want to trim the strings returned by the current() method?<br><br>
 
-<div class="phpcode"><span class="html">
-This iterator basically is only a wrapper around another iterator. It does nothing fancy, it simply forwards any calls of rewind(), next(), valid(), current() and key() to the inner iterator. This inner iterator can be fetched with getInnerIterator().<br><br>One special case: When passing an IteratorAggregate object, the getIterator() method of that object will be called and THAT iterator will be iterated over, and this will also be returned when calling getInnerIterator().<br><br>This class can be extended, so it&apos;s an ideal building block for your own classes that only want to modify one or two of the iterator methods, but not all.<br><br>Want to trim the strings returned by the current() method?<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">TrimIterator </span><span class="keyword">extends </span><span class="default">IteratorIterator<br></span><span class="keyword">{<br>&#xA0; &#xA0; public function </span><span class="default">current</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">trim</span><span class="keyword">(</span><span class="default">parent</span><span class="keyword">::</span><span class="default">current</span><span class="keyword">());<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">$innerIterator </span><span class="keyword">= new </span><span class="default">ArrayIterator</span><span class="keyword">(array(</span><span class="string">&apos;normal&apos;</span><span class="keyword">, </span><span class="string">&apos; trimmable &apos;</span><span class="keyword">));<br><br></span><span class="default">$trim </span><span class="keyword">= new </span><span class="default">TrimIterator</span><span class="keyword">(</span><span class="default">$innerIterator</span><span class="keyword">);<br><br>foreach (</span><span class="default">$trim </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br>&#xA0; &#xA0; echo </span><span class="string">&quot;Key:\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">);<br>&#xA0; &#xA0; echo </span><span class="string">&quot;Value:\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">);<br>&#xA0; &#xA0; echo </span><span class="string">&quot;---next---&quot;</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>Output:<br><br>Key:<br>int(0)<br>Value:<br>string(6) &quot;normal&quot;<br>---next---Key:<br>int(1)<br>Value:<br>string(9) &quot;trimmable&quot;<br>---next---</span>
-</div>
-  
+```
+<?php
+
+class TrimIterator extends IteratorIterator
+{
+    public function current() {
+        return trim(parent::current());
+    }
+}
+
+$innerIterator = new ArrayIterator(array(&apos;normal&apos;, &apos; trimmable &apos;));
+
+$trim = new TrimIterator($innerIterator);
+
+foreach ($trim as $key =&gt; $value) {
+    echo "Key:\n";
+    var_dump($key);
+    echo "Value:\n";
+    var_dump($value);
+    echo "---next---";
+}
+?>
+```
+<br><br>Output:<br><br>Key:<br>int(0)<br>Value:<br>string(6) "normal"<br>---next---Key:<br>int(1)<br>Value:<br>string(9) "trimmable"<br>---next---  
 
 #
 

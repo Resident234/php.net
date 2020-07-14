@@ -2,19 +2,145 @@
 
 
 
+An other way to do mx-lookup on a windows platform.<br>Rewrote this from an other class i wrote for DNS lookup - so it might be a bit messy - but hope you get the idea.<br><br>Big thanks to the rfc community.<br><br>
 
-<div class="phpcode"><span class="html">
-An other way to do mx-lookup on a windows platform.<br>Rewrote this from an other class i wrote for DNS lookup - so it might be a bit messy - but hope you get the idea.<br><br>Big thanks to the rfc community.<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">mxlookup<br></span><span class="keyword">{<br>&#xA0; &#xA0; &#xA0; var </span><span class="default">$dns_socket </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; var </span><span class="default">$QNAME </span><span class="keyword">= </span><span class="string">&quot;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; var </span><span class="default">$dns_packet</span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; var </span><span class="default">$ANCOUNT </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; var </span><span class="default">$cIx </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; var </span><span class="default">$dns_repl_domain</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; var </span><span class="default">$arrMX </span><span class="keyword">= array();<br><br>&#xA0; &#xA0; &#xA0; function </span><span class="default">mxlookup</span><span class="keyword">(</span><span class="default">$domain</span><span class="keyword">, </span><span class="default">$dns</span><span class="keyword">=</span><span class="string">&quot;192.168.2.1&quot;</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">QNAME</span><span class="keyword">(</span><span class="default">$domain</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">pack_dns_packet</span><span class="keyword">();<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$dns_socket </span><span class="keyword">= </span><span class="default">fsockopen</span><span class="keyword">(</span><span class="string">&quot;udp://</span><span class="default">$dns</span><span class="string">&quot;</span><span class="keyword">, </span><span class="default">53</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$dns_socket</span><span class="keyword">,</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dns_packet</span><span class="keyword">,</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dns_packet</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dns_reply&#xA0; </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$dns_socket</span><span class="keyword">,</span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$bytes </span><span class="keyword">= </span><span class="default">stream_get_meta_data</span><span class="keyword">(</span><span class="default">$dns_socket</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dns_reply </span><span class="keyword">.= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$dns_socket</span><span class="keyword">,</span><span class="default">$bytes</span><span class="keyword">[</span><span class="string">&apos;unread_bytes&apos;</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$dns_socket</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">=</span><span class="default">6</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">ANCOUNT&#xA0;&#xA0; </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">gord</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">+=</span><span class="default">4</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">parse_data</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dns_repl_domain</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">+=</span><span class="default">7</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; for(</span><span class="default">$ic</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">;</span><span class="default">$ic</span><span class="keyword">&lt;=</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">ANCOUNT</span><span class="keyword">;</span><span class="default">$ic</span><span class="keyword">++)<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$QTYPE </span><span class="keyword">= </span><span class="default">ord</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">gdi</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; if(</span><span class="default">$QTYPE</span><span class="keyword">!==</span><span class="default">15</span><span class="keyword">){print(</span><span class="string">&quot;[MX Record not returned]&quot;</span><span class="keyword">); die();}<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">+=</span><span class="default">9</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$mxPref </span><span class="keyword">= </span><span class="default">ord</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">gdi</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">parse_data</span><span class="keyword">(</span><span class="default">$curmx</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">arrMX</span><span class="keyword">[] = array(</span><span class="string">&quot;MX_Pref&quot; </span><span class="keyword">=&gt; </span><span class="default">$mxPref</span><span class="keyword">, </span><span class="string">&quot;MX&quot; </span><span class="keyword">=&gt; </span><span class="default">$curmx</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">+=</span><span class="default">3</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }<br>&#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; function </span><span class="default">parse_data</span><span class="keyword">(&amp;</span><span class="default">$retval</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$arName </span><span class="keyword">= array();<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$byte </span><span class="keyword">= </span><span class="default">ord</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">gdi</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; while(</span><span class="default">$byte</span><span class="keyword">!==</span><span class="default">0</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">$byte</span><span class="keyword">==</span><span class="default">192</span><span class="keyword">) </span><span class="comment">//compressed<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">{<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$tmpIx </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx </span><span class="keyword">= </span><span class="default">ord</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">gdi</span><span class="keyword">(</span><span class="default">$cIx</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$tmpName </span><span class="keyword">= </span><span class="default">$retval</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">parse_data</span><span class="keyword">(</span><span class="default">$tmpName</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$retval</span><span class="keyword">=</span><span class="default">$retval</span><span class="keyword">.</span><span class="string">&quot;.&quot;</span><span class="keyword">.</span><span class="default">$tmpName</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx </span><span class="keyword">= </span><span class="default">$tmpIx</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$retval</span><span class="keyword">=</span><span class="string">&quot;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$bCount </span><span class="keyword">= </span><span class="default">$byte</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; for(</span><span class="default">$b</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$b</span><span class="keyword">&lt;</span><span class="default">$bCount</span><span class="keyword">;</span><span class="default">$b</span><span class="keyword">++)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$retval </span><span class="keyword">.= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">gdi</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$arName</span><span class="keyword">[]=</span><span class="default">$retval</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$byte </span><span class="keyword">= </span><span class="default">ord</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">gdi</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0;&#xA0; }<br>&#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$retval</span><span class="keyword">=</span><span class="default">join</span><span class="keyword">(</span><span class="string">&quot;.&quot;</span><span class="keyword">,</span><span class="default">$arName</span><span class="keyword">);<br>&#xA0; &#xA0;&#xA0; }<br><br>&#xA0; &#xA0;&#xA0; function </span><span class="default">gdi</span><span class="keyword">(&amp;</span><span class="default">$cIx</span><span class="keyword">,</span><span class="default">$bytes</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">)<br>&#xA0; &#xA0;&#xA0; {<br>&#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">++;<br>&#xA0; &#xA0; &#xA0;&#xA0; return(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dns_reply</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">, </span><span class="default">$bytes</span><span class="keyword">));<br>&#xA0; &#xA0;&#xA0; }<br><br>&#xA0; &#xA0; &#xA0; function </span><span class="default">QNAME</span><span class="keyword">(</span><span class="default">$domain</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$dot_pos </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$temp </span><span class="keyword">= </span><span class="string">&quot;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; while(</span><span class="default">$dot_pos</span><span class="keyword">=</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$domain</span><span class="keyword">,</span><span class="string">&quot;.&quot;</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$temp&#xA0;&#xA0; </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$domain</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">$dot_pos</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$domain </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$domain</span><span class="keyword">,</span><span class="default">$dot_pos</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">QNAME </span><span class="keyword">.= </span><span class="default">chr</span><span class="keyword">(</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$temp</span><span class="keyword">)).</span><span class="default">$temp</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">QNAME </span><span class="keyword">.= </span><span class="default">chr</span><span class="keyword">(</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$domain</span><span class="keyword">)).</span><span class="default">$domain</span><span class="keyword">.</span><span class="default">chr</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; function </span><span class="default">gord</span><span class="keyword">(</span><span class="default">$ln</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$reply</span><span class="keyword">=</span><span class="string">&quot;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">$ln</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">++){<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$reply</span><span class="keyword">.=</span><span class="default">ord</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dns_reply</span><span class="keyword">,</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">,</span><span class="default">1</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">cIx</span><span class="keyword">++;<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$reply</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; function </span><span class="default">pack_dns_packet</span><span class="keyword">()<br>&#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dns_packet </span><span class="keyword">= </span><span class="default">chr</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">).</span><span class="default">chr</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">).<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">chr</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">).</span><span class="default">chr</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">).<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">chr</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">).</span><span class="default">chr</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">).<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">chr</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">).</span><span class="default">chr</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">).<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">chr</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">).</span><span class="default">chr</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">).<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">chr</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">).</span><span class="default">chr</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">).<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">QNAME</span><span class="keyword">.<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">chr</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">).</span><span class="default">chr</span><span class="keyword">(</span><span class="default">15</span><span class="keyword">).<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">chr</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">).</span><span class="default">chr</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; }<br><br>}<br><br></span><span class="default">?&gt;<br></span><br><span class="default">&lt;?php<br><br></span><span class="comment">/* Exampe of use: */<br></span><span class="default">$mx </span><span class="keyword">= new </span><span class="default">mxlookup</span><span class="keyword">(</span><span class="string">&quot;php.net&quot;</span><span class="keyword">);<br><br>print </span><span class="default">$mx</span><span class="keyword">-&gt;</span><span class="default">ANCOUNT</span><span class="keyword">.</span><span class="string">&quot; MX Records\n&quot;</span><span class="keyword">;<br>print </span><span class="string">&quot;Records returned for &quot;</span><span class="keyword">.</span><span class="default">$mx</span><span class="keyword">-&gt;</span><span class="default">dns_repl_domain</span><span class="keyword">.</span><span class="string">&quot;:\n&lt;pre&gt;&quot;</span><span class="keyword">;<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$mx</span><span class="keyword">-&gt;</span><span class="default">arrMX</span><span class="keyword">);<br><br></span><span class="default">?&gt;<br></span><br>Return:<br><br>02 MX Records Records returned for php.net:<br><br>Array<br>(<br>&#xA0; &#xA0; [0] =&gt; Array<br>&#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [MX_Pref] =&gt; 15<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [MX] =&gt; smtp.osuosl.org<br>&#xA0; &#xA0; &#xA0; &#xA0; )<br><br>&#xA0; &#xA0; [1] =&gt; Array<br>&#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [MX_Pref] =&gt; 5<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [MX] =&gt; osu1.php.net<br>&#xA0; &#xA0; &#xA0; &#xA0; )<br><br>)</span>
-</div>
-  
+```
+<?php
+
+class mxlookup
+{
+      var $dns_socket = NULL;
+      var $QNAME = "";
+      var $dns_packet= NULL;
+      var $ANCOUNT = 0;
+      var $cIx = 0;
+      var $dns_repl_domain;
+      var $arrMX = array();
+
+      function mxlookup($domain, $dns="192.168.2.1")
+      {
+         $this-&gt;QNAME($domain);
+         $this-&gt;pack_dns_packet();
+         $dns_socket = fsockopen("udp://$dns", 53);
+
+         fwrite($dns_socket,$this-&gt;dns_packet,strlen($this-&gt;dns_packet));
+         $this-&gt;dns_reply  = fread($dns_socket,1);
+         $bytes = stream_get_meta_data($dns_socket);
+         $this-&gt;dns_reply .= fread($dns_socket,$bytes[&apos;unread_bytes&apos;]);
+         fclose($dns_socket);
+         $this-&gt;cIx=6;
+         $this-&gt;ANCOUNT   = $this-&gt;gord(2);
+         $this-&gt;cIx+=4;
+         $this-&gt;parse_data($this-&gt;dns_repl_domain);
+         $this-&gt;cIx+=7;
+
+         for($ic=1;$ic&lt;=$this-&gt;ANCOUNT;$ic++)
+         {
+           $QTYPE = ord($this-&gt;gdi($this-&gt;cIx));
+           if($QTYPE!==15){print("[MX Record not returned]"); die();}
+           $this-&gt;cIx+=9;
+           $mxPref = ord($this-&gt;gdi($this-&gt;cIx));
+           $this-&gt;parse_data($curmx);
+           $this-&gt;arrMX[] = array("MX_Pref" =&gt; $mxPref, "MX" =&gt; $curmx);
+           $this-&gt;cIx+=3;
+         }
+      }
+
+      function parse_data(&amp;$retval)
+      {
+        $arName = array();
+        $byte = ord($this-&gt;gdi($this-&gt;cIx));
+        while($byte!==0)
+        {
+          if($byte==192) //compressed
+          {
+            $tmpIx = $this-&gt;cIx;
+            $this-&gt;cIx = ord($this-&gt;gdi($cIx));
+            $tmpName = $retval;
+            $this-&gt;parse_data($tmpName);
+            $retval=$retval.".".$tmpName;
+            $this-&gt;cIx = $tmpIx+1;
+            return;
+          }
+          $retval="";
+          $bCount = $byte;
+          for($b=0;$b&lt;$bCount;$b++)
+          {
+            $retval .= $this-&gt;gdi($this-&gt;cIx);
+          }
+          $arName[]=$retval;
+         $byte = ord($this-&gt;gdi($this-&gt;cIx));
+       }
+       $retval=join(".",$arName);
+     }
+
+     function gdi(&amp;$cIx,$bytes=1)
+     {
+       $this-&gt;cIx++;
+       return(substr($this-&gt;dns_reply, $this-&gt;cIx-1, $bytes));
+     }
+
+      function QNAME($domain)
+      {
+        $dot_pos = 0; $temp = "";
+        while($dot_pos=strpos($domain,"."))
+        {
+          $temp   = substr($domain,0,$dot_pos);
+          $domain = substr($domain,$dot_pos+1);
+          $this-&gt;QNAME .= chr(strlen($temp)).$temp;
+        }
+        $this-&gt;QNAME .= chr(strlen($domain)).$domain.chr(0);
+      }
+
+      function gord($ln=1)
+      {
+        $reply="";
+        for($i=0;$i&lt;$ln;$i++){
+         $reply.=ord(substr($this-&gt;dns_reply,$this-&gt;cIx,1));
+         $this-&gt;cIx++;
+         }
+
+        return $reply;
+      }
+
+      function pack_dns_packet()
+      {
+        $this-&gt;dns_packet = chr(0).chr(1).
+                            chr(1).chr(0).
+                            chr(0).chr(1).
+                            chr(0).chr(0).
+                            chr(0).chr(0).
+                            chr(0).chr(0).
+                            $this-&gt;QNAME.
+                            chr(0).chr(15).
+                            chr(0).chr(1);
+      }
+
+}
+
+?>
+```
+
+
+
+
+```
+<?php
+
+/* Exampe of use: */
+$mx = new mxlookup("php.net");
+
+print $mx-&gt;ANCOUNT." MX Records\n";
+print "Records returned for ".$mx-&gt;dns_repl_domain.":\n&lt;pre&gt;";
+print_r($mx-&gt;arrMX);
+
+?>
+```
+<br><br>Return:<br><br>02 MX Records Records returned for php.net:<br><br>Array<br>(<br>    [0] =&gt; Array<br>        (<br>            [MX_Pref] =&gt; 15<br>            [MX] =&gt; smtp.osuosl.org<br>        )<br><br>    [1] =&gt; Array<br>        (<br>            [MX_Pref] =&gt; 5<br>            [MX] =&gt; osu1.php.net<br>        )<br><br>)  
 
 #
 
-
-<div class="phpcode"><span class="html">
-I tried using getmxrr() to validate the domain portion of email addresses in enquiry submission forms, and there is a curious effect with some top-level domains when checking non-existant domains.<br><br>With sdlkfjsdl.com, since the domain does not exist, getmxrr() returns false, as expected, and the returned mxhosts array is empty.<br><br>But with sdlkfjsdl.gov, getmxrr() returns true,&#xA0; and the returned mxhosts array contains one element: NULL<br><br>With sdlkfjsdl.org, getmxrr() returns true,&#xA0; and the returned mxhosts array contains one element: &apos;0.0.0.0&apos;<br><br>With sdlkfjsdl.co.uk, getmxrr()&#xA0; returns true and supplies one MX record: uk-net-wildcard-null-mx.centralnic.net<br><br>So to validate the email domain, it would seem one has to check the returned mxhosts array to exclude the possibility of mxhosts being returned as NULL, 0.0.0.0 and wildcard ...</span>
-</div>
-  
+I tried using getmxrr() to validate the domain portion of email addresses in enquiry submission forms, and there is a curious effect with some top-level domains when checking non-existant domains.<br><br>With sdlkfjsdl.com, since the domain does not exist, getmxrr() returns false, as expected, and the returned mxhosts array is empty.<br><br>But with sdlkfjsdl.gov, getmxrr() returns true,  and the returned mxhosts array contains one element: NULL<br><br>With sdlkfjsdl.org, getmxrr() returns true,  and the returned mxhosts array contains one element: &apos;0.0.0.0&apos;<br><br>With sdlkfjsdl.co.uk, getmxrr()  returns true and supplies one MX record: uk-net-wildcard-null-mx.centralnic.net<br><br>So to validate the email domain, it would seem one has to check the returned mxhosts array to exclude the possibility of mxhosts being returned as NULL, 0.0.0.0 and wildcard ...  
 
 #
 

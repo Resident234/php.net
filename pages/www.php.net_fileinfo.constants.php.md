@@ -2,20 +2,7 @@
 
 
 
-
-
-proceed with caution
-as the documentation already says 
-&#xA0; &#xA0; &#xA0; &#xA0; 
-FILEINFO_MIME will output something like &quot;image/jpeg; charset=binary&quot;
-&#xA0; &#xA0; &#xA0; &#xA0; 
-while
-&#xA0; &#xA0; &#xA0; &#xA0; 
-FILEINFO_MIME_TYPE outputs&#xA0; &quot;image/jpeg&quot;
-and
-FILEINFO_MIME_ENCODING outputs&#xA0; &quot;binary&quot;
-
-  
+proceed with caution<br>as the documentation already says <br>        <br>FILEINFO_MIME will output something like "image/jpeg; charset=binary"<br>        <br>while<br>        <br>FILEINFO_MIME_TYPE outputs  "image/jpeg"<br>and<br>FILEINFO_MIME_ENCODING outputs  "binary"  
 
 #
 

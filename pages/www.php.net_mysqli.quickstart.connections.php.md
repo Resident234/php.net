@@ -2,12 +2,7 @@
 
 
 
-
-
-To avoid problems with the display of international characters is necessary to determine the encoding:
-$mysqli-&gt;set_charset(&apos;utf8&apos;);
-
-  
+To avoid problems with the display of international characters is necessary to determine the encoding:<br>$mysqli-&gt;set_charset(&apos;utf8&apos;);  
 
 #
 

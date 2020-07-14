@@ -2,61 +2,344 @@
 
 
 
+For the record, the underlying function to uniqid() appears to be roughly as follows:<br><br>$m=microtime(true);<br>sprintf("%8x%05x\n",floor($m),($m-floor($m))*1000000);<br><br>In other words, first 8 hex chars = Unixtime, last 5 hex chars = microseconds. This is why it has microsecond precision. Also, it provides a means by which to reverse-engineer the time when a uniqid was generated: <br><br>date("r",hexdec(substr(uniqid(),0,8)));<br><br>Increasingly as you go further down the string, the number becomes "more unique" over time, with the exception of digit 9, where numeral prevalence is 0..3&gt;4&gt;5..f, because of the difference between 10^6 and 16^5 (this is presumably true for the remaining digits as well but much less noticeable).  
 
-<div class="phpcode"><span class="html">
-For the record, the underlying function to uniqid() appears to be roughly as follows:<br><br>$m=microtime(true);<br>sprintf(&quot;%8x%05x\n&quot;,floor($m),($m-floor($m))*1000000);<br><br>In other words, first 8 hex chars = Unixtime, last 5 hex chars = microseconds. This is why it has microsecond precision. Also, it provides a means by which to reverse-engineer the time when a uniqid was generated: <br><br>date(&quot;r&quot;,hexdec(substr(uniqid(),0,8)));<br><br>Increasingly as you go further down the string, the number becomes &quot;more unique&quot; over time, with the exception of digit 9, where numeral prevalence is 0..3&gt;4&gt;5..f, because of the difference between 10^6 and 16^5 (this is presumably true for the remaining digits as well but much less noticeable).</span>
-</div>
+#
+
+The following class generates VALID RFC 4211 COMPLIANT Universally Unique IDentifiers (UUID) version 3, 4 and 5.<br><br>Version 3 and 5 UUIDs are named based. They require a namespace (another valid UUID) and a value (the name). Given the same namespace and name, the output is always the same.<br><br>Version 4 UUIDs are pseudo-random.<br><br>UUIDs generated below validates using OSSP UUID Tool, and output for named-based UUIDs are exactly the same. This is a pure PHP implementation.<br><br>
+
+```
+<?php
+class UUID {
+  public static function v3($namespace, $name) {
+    if(!self::is_valid($namespace)) return false;
+
+    // Get hexadecimal components of namespace
+    $nhex = str_replace(array(&apos;-&apos;,&apos;{&apos;,&apos;}&apos;), &apos;&apos;, $namespace);
+
+    // Binary Value
+    $nstr = &apos;&apos;;
+
+    // Convert Namespace UUID to bits
+    for($i = 0; $i &lt; strlen($nhex); $i+=2) {
+      $nstr .= chr(hexdec($nhex[$i].$nhex[$i+1]));
+    }
+
+    // Calculate hash value
+    $hash = md5($nstr . $name);
+
+    return sprintf(&apos;%08s-%04s-%04x-%04x-%12s&apos;,
+
+      // 32 bits for "time_low"
+      substr($hash, 0, 8),
+
+      // 16 bits for "time_mid"
+      substr($hash, 8, 4),
+
+      // 16 bits for "time_hi_and_version",
+      // four most significant bits holds version number 3
+      (hexdec(substr($hash, 12, 4)) &amp; 0x0fff) | 0x3000,
+
+      // 16 bits, 8 bits for "clk_seq_hi_res",
+      // 8 bits for "clk_seq_low",
+      // two most significant bits holds zero and one for variant DCE1.1
+      (hexdec(substr($hash, 16, 4)) &amp; 0x3fff) | 0x8000,
+
+      // 48 bits for "node"
+      substr($hash, 20, 12)
+    );
+  }
+
+  public static function v4() {
+    return sprintf(&apos;%04x%04x-%04x-%04x-%04x-%04x%04x%04x&apos;,
+
+      // 32 bits for "time_low"
+      mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+
+      // 16 bits for "time_mid"
+      mt_rand(0, 0xffff),
+
+      // 16 bits for "time_hi_and_version",
+      // four most significant bits holds version number 4
+      mt_rand(0, 0x0fff) | 0x4000,
+
+      // 16 bits, 8 bits for "clk_seq_hi_res",
+      // 8 bits for "clk_seq_low",
+      // two most significant bits holds zero and one for variant DCE1.1
+      mt_rand(0, 0x3fff) | 0x8000,
+
+      // 48 bits for "node"
+      mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+    );
+  }
+
+  public static function v5($namespace, $name) {
+    if(!self::is_valid($namespace)) return false;
+
+    // Get hexadecimal components of namespace
+    $nhex = str_replace(array(&apos;-&apos;,&apos;{&apos;,&apos;}&apos;), &apos;&apos;, $namespace);
+
+    // Binary Value
+    $nstr = &apos;&apos;;
+
+    // Convert Namespace UUID to bits
+    for($i = 0; $i &lt; strlen($nhex); $i+=2) {
+      $nstr .= chr(hexdec($nhex[$i].$nhex[$i+1]));
+    }
+
+    // Calculate hash value
+    $hash = sha1($nstr . $name);
+
+    return sprintf(&apos;%08s-%04s-%04x-%04x-%12s&apos;,
+
+      // 32 bits for "time_low"
+      substr($hash, 0, 8),
+
+      // 16 bits for "time_mid"
+      substr($hash, 8, 4),
+
+      // 16 bits for "time_hi_and_version",
+      // four most significant bits holds version number 5
+      (hexdec(substr($hash, 12, 4)) &amp; 0x0fff) | 0x5000,
+
+      // 16 bits, 8 bits for "clk_seq_hi_res",
+      // 8 bits for "clk_seq_low",
+      // two most significant bits holds zero and one for variant DCE1.1
+      (hexdec(substr($hash, 16, 4)) &amp; 0x3fff) | 0x8000,
+
+      // 48 bits for "node"
+      substr($hash, 20, 12)
+    );
+  }
+
+  public static function is_valid($uuid) {
+    return preg_match(&apos;/^\{?[0-9a-f]{8}\-?[0-9a-f]{4}\-?[0-9a-f]{4}\-?&apos;.
+                      &apos;[0-9a-f]{4}\-?[0-9a-f]{12}\}?$/i&apos;, $uuid) === 1;
+  }
+}
+
+// Usage
+// Named-based UUID.
+
+$v3uuid = UUID::v3(&apos;1546058f-5a25-4334-85ae-e68f2a44bbaf&apos;, &apos;SomeRandomString&apos;);
+$v5uuid = UUID::v5(&apos;1546058f-5a25-4334-85ae-e68f2a44bbaf&apos;, &apos;SomeRandomString&apos;);
+
+// Pseudo-random UUID
+
+$v4uuid = UUID::v4();
+?>
+```
   
 
 #
 
+Seriously, avoid using this function. Here&apos;s an example of why:<br><br>
 
-<div class="phpcode"><span class="html">
-The following class generates VALID RFC 4211 COMPLIANT Universally Unique IDentifiers (UUID) version 3, 4 and 5.<br><br>Version 3 and 5 UUIDs are named based. They require a namespace (another valid UUID) and a value (the name). Given the same namespace and name, the output is always the same.<br><br>Version 4 UUIDs are pseudo-random.<br><br>UUIDs generated below validates using OSSP UUID Tool, and output for named-based UUIDs are exactly the same. This is a pure PHP implementation.<br><br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">UUID </span><span class="keyword">{<br>&#xA0; public static function </span><span class="default">v3</span><span class="keyword">(</span><span class="default">$namespace</span><span class="keyword">, </span><span class="default">$name</span><span class="keyword">) {<br>&#xA0; &#xA0; if(!</span><span class="default">self</span><span class="keyword">::</span><span class="default">is_valid</span><span class="keyword">(</span><span class="default">$namespace</span><span class="keyword">)) return </span><span class="default">false</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="comment">// Get hexadecimal components of namespace<br>&#xA0; &#xA0; </span><span class="default">$nhex </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(array(</span><span class="string">&apos;-&apos;</span><span class="keyword">,</span><span class="string">&apos;{&apos;</span><span class="keyword">,</span><span class="string">&apos;}&apos;</span><span class="keyword">), </span><span class="string">&apos;&apos;</span><span class="keyword">, </span><span class="default">$namespace</span><span class="keyword">);<br><br>&#xA0; &#xA0; </span><span class="comment">// Binary Value<br>&#xA0; &#xA0; </span><span class="default">$nstr </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="comment">// Convert Namespace UUID to bits<br>&#xA0; &#xA0; </span><span class="keyword">for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$nhex</span><span class="keyword">); </span><span class="default">$i</span><span class="keyword">+=</span><span class="default">2</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$nstr </span><span class="keyword">.= </span><span class="default">chr</span><span class="keyword">(</span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">$nhex</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">].</span><span class="default">$nhex</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">]));<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="comment">// Calculate hash value<br>&#xA0; &#xA0; </span><span class="default">$hash </span><span class="keyword">= </span><span class="default">md5</span><span class="keyword">(</span><span class="default">$nstr </span><span class="keyword">. </span><span class="default">$name</span><span class="keyword">);<br><br>&#xA0; &#xA0; return </span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">&apos;%08s-%04s-%04x-%04x-%12s&apos;</span><span class="keyword">,<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 32 bits for &quot;time_low&quot;<br>&#xA0; &#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">8</span><span class="keyword">),<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 16 bits for &quot;time_mid&quot;<br>&#xA0; &#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">8</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">),<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 16 bits for &quot;time_hi_and_version&quot;,<br>&#xA0; &#xA0; &#xA0; // four most significant bits holds version number 3<br>&#xA0; &#xA0; &#xA0; </span><span class="keyword">(</span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">12</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">)) &amp; </span><span class="default">0x0fff</span><span class="keyword">) | </span><span class="default">0x3000</span><span class="keyword">,<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 16 bits, 8 bits for &quot;clk_seq_hi_res&quot;,<br>&#xA0; &#xA0; &#xA0; // 8 bits for &quot;clk_seq_low&quot;,<br>&#xA0; &#xA0; &#xA0; // two most significant bits holds zero and one for variant DCE1.1<br>&#xA0; &#xA0; &#xA0; </span><span class="keyword">(</span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">16</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">)) &amp; </span><span class="default">0x3fff</span><span class="keyword">) | </span><span class="default">0x8000</span><span class="keyword">,<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 48 bits for &quot;node&quot;<br>&#xA0; &#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">20</span><span class="keyword">, </span><span class="default">12</span><span class="keyword">)<br>&#xA0; &#xA0; );<br>&#xA0; }<br><br>&#xA0; public static function </span><span class="default">v4</span><span class="keyword">() {<br>&#xA0; &#xA0; return </span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">&apos;%04x%04x-%04x-%04x-%04x-%04x%04x%04x&apos;</span><span class="keyword">,<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 32 bits for &quot;time_low&quot;<br>&#xA0; &#xA0; &#xA0; </span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">0xffff</span><span class="keyword">), </span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">0xffff</span><span class="keyword">),<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 16 bits for &quot;time_mid&quot;<br>&#xA0; &#xA0; &#xA0; </span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">0xffff</span><span class="keyword">),<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 16 bits for &quot;time_hi_and_version&quot;,<br>&#xA0; &#xA0; &#xA0; // four most significant bits holds version number 4<br>&#xA0; &#xA0; &#xA0; </span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">0x0fff</span><span class="keyword">) | </span><span class="default">0x4000</span><span class="keyword">,<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 16 bits, 8 bits for &quot;clk_seq_hi_res&quot;,<br>&#xA0; &#xA0; &#xA0; // 8 bits for &quot;clk_seq_low&quot;,<br>&#xA0; &#xA0; &#xA0; // two most significant bits holds zero and one for variant DCE1.1<br>&#xA0; &#xA0; &#xA0; </span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">0x3fff</span><span class="keyword">) | </span><span class="default">0x8000</span><span class="keyword">,<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 48 bits for &quot;node&quot;<br>&#xA0; &#xA0; &#xA0; </span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">0xffff</span><span class="keyword">), </span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">0xffff</span><span class="keyword">), </span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">0xffff</span><span class="keyword">)<br>&#xA0; &#xA0; );<br>&#xA0; }<br><br>&#xA0; public static function </span><span class="default">v5</span><span class="keyword">(</span><span class="default">$namespace</span><span class="keyword">, </span><span class="default">$name</span><span class="keyword">) {<br>&#xA0; &#xA0; if(!</span><span class="default">self</span><span class="keyword">::</span><span class="default">is_valid</span><span class="keyword">(</span><span class="default">$namespace</span><span class="keyword">)) return </span><span class="default">false</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="comment">// Get hexadecimal components of namespace<br>&#xA0; &#xA0; </span><span class="default">$nhex </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(array(</span><span class="string">&apos;-&apos;</span><span class="keyword">,</span><span class="string">&apos;{&apos;</span><span class="keyword">,</span><span class="string">&apos;}&apos;</span><span class="keyword">), </span><span class="string">&apos;&apos;</span><span class="keyword">, </span><span class="default">$namespace</span><span class="keyword">);<br><br>&#xA0; &#xA0; </span><span class="comment">// Binary Value<br>&#xA0; &#xA0; </span><span class="default">$nstr </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="comment">// Convert Namespace UUID to bits<br>&#xA0; &#xA0; </span><span class="keyword">for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$nhex</span><span class="keyword">); </span><span class="default">$i</span><span class="keyword">+=</span><span class="default">2</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$nstr </span><span class="keyword">.= </span><span class="default">chr</span><span class="keyword">(</span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">$nhex</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">].</span><span class="default">$nhex</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">]));<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="comment">// Calculate hash value<br>&#xA0; &#xA0; </span><span class="default">$hash </span><span class="keyword">= </span><span class="default">sha1</span><span class="keyword">(</span><span class="default">$nstr </span><span class="keyword">. </span><span class="default">$name</span><span class="keyword">);<br><br>&#xA0; &#xA0; return </span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">&apos;%08s-%04s-%04x-%04x-%12s&apos;</span><span class="keyword">,<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 32 bits for &quot;time_low&quot;<br>&#xA0; &#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">8</span><span class="keyword">),<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 16 bits for &quot;time_mid&quot;<br>&#xA0; &#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">8</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">),<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 16 bits for &quot;time_hi_and_version&quot;,<br>&#xA0; &#xA0; &#xA0; // four most significant bits holds version number 5<br>&#xA0; &#xA0; &#xA0; </span><span class="keyword">(</span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">12</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">)) &amp; </span><span class="default">0x0fff</span><span class="keyword">) | </span><span class="default">0x5000</span><span class="keyword">,<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 16 bits, 8 bits for &quot;clk_seq_hi_res&quot;,<br>&#xA0; &#xA0; &#xA0; // 8 bits for &quot;clk_seq_low&quot;,<br>&#xA0; &#xA0; &#xA0; // two most significant bits holds zero and one for variant DCE1.1<br>&#xA0; &#xA0; &#xA0; </span><span class="keyword">(</span><span class="default">hexdec</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">16</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">)) &amp; </span><span class="default">0x3fff</span><span class="keyword">) | </span><span class="default">0x8000</span><span class="keyword">,<br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// 48 bits for &quot;node&quot;<br>&#xA0; &#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">20</span><span class="keyword">, </span><span class="default">12</span><span class="keyword">)<br>&#xA0; &#xA0; );<br>&#xA0; }<br><br>&#xA0; public static function </span><span class="default">is_valid</span><span class="keyword">(</span><span class="default">$uuid</span><span class="keyword">) {<br>&#xA0; &#xA0; return </span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">&apos;/^\{?[0-9a-f]{8}\-?[0-9a-f]{4}\-?[0-9a-f]{4}\-?&apos;</span><span class="keyword">.<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;[0-9a-f]{4}\-?[0-9a-f]{12}\}?$/i&apos;</span><span class="keyword">, </span><span class="default">$uuid</span><span class="keyword">) === </span><span class="default">1</span><span class="keyword">;<br>&#xA0; }<br>}<br><br></span><span class="comment">// Usage<br>// Named-based UUID.<br><br></span><span class="default">$v3uuid </span><span class="keyword">= </span><span class="default">UUID</span><span class="keyword">::</span><span class="default">v3</span><span class="keyword">(</span><span class="string">&apos;1546058f-5a25-4334-85ae-e68f2a44bbaf&apos;</span><span class="keyword">, </span><span class="string">&apos;SomeRandomString&apos;</span><span class="keyword">);<br></span><span class="default">$v5uuid </span><span class="keyword">= </span><span class="default">UUID</span><span class="keyword">::</span><span class="default">v5</span><span class="keyword">(</span><span class="string">&apos;1546058f-5a25-4334-85ae-e68f2a44bbaf&apos;</span><span class="keyword">, </span><span class="string">&apos;SomeRandomString&apos;</span><span class="keyword">);<br><br></span><span class="comment">// Pseudo-random UUID<br><br></span><span class="default">$v4uuid </span><span class="keyword">= </span><span class="default">UUID</span><span class="keyword">::</span><span class="default">v4</span><span class="keyword">();<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+for($i=0;$i&lt;20;$i++) {
+    echo uniqid(), PHP_EOL;
+}
+?>
+```
+
+
+Output:
+
+5819f3ad1c0ce
+5819f3ad1c0ce
+5819f3ad1c0ce
+5819f3ad1c0ce
+5819f3ad1c0ce
+5819f3ad1c0ce
+5819f3ad1c0ce
+5819f3ad1c0ce
+5819f3ad1c4b6
+5819f3ad1c4b6
+5819f3ad1c4b6
+5819f3ad1c4b6
+5819f3ad1c4b6
+5819f3ad1c4b6
+5819f3ad1c4b6
+5819f3ad1c4b6
+5819f3ad1c4b6
+5819f3ad1c4b6
+5819f3ad1c4b6
+5819f3ad1c4b6
+
+As you can see, using it w/ a DB can cause the creation of documents with repeated ID&apos;s. You should instead opt for:
+
+
+
+```
+<?php
+function uniqidReal($lenght = 13) {
+    // uniqid gives 13 chars, but you could adjust it to your needs.
+    if (function_exists("random_bytes")) {
+        $bytes = random_bytes(ceil($lenght / 2));
+    } elseif (function_exists("openssl_random_pseudo_bytes")) {
+        $bytes = openssl_random_pseudo_bytes(ceil($lenght / 2));
+    } else {
+        throw new Exception("no cryptographically secure random function available");
+    }
+    return substr(bin2hex($bytes), 0, $lenght);
+}
+?>
+```
+
+
+Test:
+
+
+```
+<?php
+for($i=0;$i&lt;20;$i++) {
+    echo uniqid(), "\t", uniqidReal(), PHP_EOL;
+}
+?>
+```
+<br><br>Output:<br><br>5819fa0b63be3   9f39aa0ecd89d<br>5819fa0b70ed3   2c0735cabfcce<br>5819fa0b712bb   15e45d1ca1e90<br>5819fa0b712bb   89593dc230eb3<br>5819fa0b712bb   449795704aeef<br>5819fa0b712bb   b046877b80ac9<br>5819fa0b712bb   0a6fa0ae3ec7b<br>5819fa0b712bb   ba2f3f4d6afe0<br>5819fa0b712bb   af03cfac83fd6<br>5819fa0b712bb   eb9c3c6d475c0<br>5819fa0b712bb   edfbbf59d5e1b<br>5819fa0b712bb   500dca18888d4<br>5819fa0b716a3   4f5a40ef715f1<br>5819fa0b716a3   154e42b616825<br>5819fa0b716a3   a879a22663c9b<br>5819fa0b716a3   ea7c044ddda8a<br>5819fa0b716a3   2c81a44dc674e<br>5819fa0b716a3   bb32f37304fd9<br>5819fa0b716a3   30cdf6c0317d7<br>5819fa0b716a3   d25f529d126ae  
+
+#
+
+Generating an MD5 from a unique ID is naive and reduces much of the value of unique IDs, as well as providing significant (attackable) stricture on the MD5 domain.  That&apos;s a deeply broken thing to do.  The correct approach is to use the unique ID on its own; it&apos;s already geared for non-collision.<br><br>IDs should never be obfuscated for security, so if you&apos;re worried about someone guessing your ID, fix the system, don&apos;t just make it harder to guess (because it&apos;s nowhere near as difficult to guess as you imagine: you can just brute force the 60,000 MD5s that are generatable from millisecond IDs over the course of a given minute, which the typical computer can do in less than 0.1s).<br><br>If you absolutely need to involve a hash somehow - maybe to placate a boss who thinks they understand security much better than they actually do - append it instead.<br><br>function BadIdeaID() { return uniqid() . &apos;_&apos; . md5(mt_rand()); }  
+
+#
+
+The php5-uuid functions could definitely use some documentation to clarify how they should be used, but here&apos;s what I&apos;ve gleaned by examining the OSSP source code (found here: http://ossp-uuid.sourcearchive.com/documentation/1.5.1-1ubuntu1/php_2uuid_8c-source.html).<br><br>The uuid_make() function takes two arguments when generating v1 or v4, but four arguments are required when generating v3 or v5. The first two arguments have been demonstrated below and are straightforward, so I&apos;ll skip to the as-yet non-described arguments.<br><br>The third argument to uuid_make() is: $namespace<br>  - this is a secondary resource created with uuid_create(); it is apparently used to generate an internal UUID, which is used as the namespace of the output UUID<br><br>The fourth argument to uuid_make() is: $url<br>  - this is the value that is to be hashed (MD5 for v3, SHA-1 for v5); it may be any string or even null<br><br>Here&apos;s a simple class illustrating the proper usage (note that if php5-uuid is not installed on your system, each function call will just return false):<br><br>
+
+```
+<?php
+class UUID {
+  /**
+   * Generates version 1: MAC address
+   */
+  public static function v1() {
+    if (!function_exists(&apos;uuid_create&apos;))
+      return false;
+
+    uuid_create(&amp;$context);
+    uuid_make($context, UUID_MAKE_V1);
+    uuid_export($context, UUID_FMT_STR, &amp;$uuid);
+    return trim($uuid);
+  }
+
+  /**
+   * Generates version 3 UUID: MD5 hash of URL
+   */
+  public static function v3($i_url) {
+    if (!function_exists(&apos;uuid_create&apos;))
+      return false;
+
+    if (!strlen($i_url))
+      $i_url = self::v1();
+
+    uuid_create(&amp;$context);
+    uuid_create(&amp;$namespace);
+
+    uuid_make($context, UUID_MAKE_V3, $namespace, $i_url);
+    uuid_export($context, UUID_FMT_STR, &amp;$uuid);
+    return trim($uuid);
+  }
+
+  /**
+   * Generates version 4 UUID: random
+   */
+  public static function v4() {
+    if (!function_exists(&apos;uuid_create&apos;))
+      return false;
+
+    uuid_create(&amp;$context);
+
+    uuid_make($context, UUID_MAKE_V4);
+    uuid_export($context, UUID_FMT_STR, &amp;$uuid);
+    return trim($uuid);
+  }
+
+  /**
+   * Generates version 5 UUID: SHA-1 hash of URL
+   */
+  public static function v5($i_url) {
+    if (!function_exists(&apos;uuid_create&apos;))
+      return false;
+
+    if (!strlen($i_url))
+      $i_url = self::v1();
+
+    uuid_create(&amp;$context);
+    uuid_create(&amp;$namespace);
+
+    uuid_make($context, UUID_MAKE_V5, $namespace, $i_url);
+    uuid_export($context, UUID_FMT_STR, &amp;$uuid);
+    return trim($uuid);
+  }
+}
+?>
+```
+
+
+And here&apos;s a demonstration:
+
+
+
+```
+<?php
+for ($i = 1; $i &lt;= 3; ++$i) {
+  echo &apos;microtime = &apos; . microtime(true) . &apos;&lt;br/&gt;&apos;;
+  echo "V1 UUID: " . UUID::v1() . &apos;&lt;br/&gt;&apos;;
+  echo "V3 UUID of URL=&apos;abc&apos;: " . UUID::v3(&apos;abc&apos;) . &apos;&lt;br/&gt;&apos;;
+  echo "V4 UUID: " . UUID::v4() . &apos;&lt;br/&gt;&apos;;
+  echo "V5 UUID of URL=null: " . UUID::v5(null) . &apos;&lt;br/&gt;&apos;;
+  echo &apos;&lt;hr/&gt;&apos;;
+}
+?>
+```
+<br><br>And the output:<br><br>microtime = 1306620716.0457<br>V1 UUID: 7fddae8e-8977-11e0-bc11-003048c3b1f2<br>V3 UUID of URL=&apos;abc&apos;: 522ec739-ca63-3ec5-b082-08ce08ad65e2<br>V4 UUID: b3851ec7-4871-4527-92b5-ef5616bae1e6<br>V5 UUID of URL=null: e129f27c-5103-5c5c-844b-cdf0a15e160d<br>-------------------<br>microtime = 1306620716.0465<br>V1 UUID: 7fddb83e-8977-11e0-9e6e-003048c3b1f2<br>V3 UUID of URL=&apos;abc&apos;: 522ec739-ca63-3ec5-b082-08ce08ad65e2<br>V4 UUID: 7e78fe0d-59b8-4637-af7f-e88d221a7d1e<br>V5 UUID of URL=null: e129f27c-5103-5c5c-844b-cdf0a15e160d<br>-------------------<br>microtime = 1306620716.0467<br>V1 UUID: 7fddbfb4-8977-11e0-a2bc-003048c3b1f2<br>V3 UUID of URL=&apos;abc&apos;: 522ec739-ca63-3ec5-b082-08ce08ad65e2<br>V4 UUID: 12a940c7-0f3f-46a1-bb5f-bdd602e10654<br>V5 UUID of URL=null: e129f27c-5103-5c5c-844b-cdf0a15e160d<br><br>As you can see, the calls to v3() always return the same UUID because the same URL parameter, "abc", is always supplied. The same goes for the v5() function which is always supplied a null URL.<br><br>The v4() UUIDs are always entirely different because they are (pseudo)random. And the v1() calls are very similar but just slightly different because it&apos;s based on the computer&apos;s MAC address and the current time.  
+
+#
+
+Prefix can be useful, for instance, if you generate identifiers simultaneously on several hosts that might happen to generate the identifier at the same microsecond.<br>So we can include the hostname / servername in the id.<br>
+
+```
+<?php
+echo uniqid(php_uname(&apos;n&apos;), true);
+// Output: darkstar4dfa8c27aea106.40781203
+?>
+```
   
 
 #
 
+I use this function to generate microsoft-compatible GUID&apos;s.<br><br>
 
-<div class="phpcode"><span class="html">
-Seriously, avoid using this function. Here&apos;s an example of why:<br><br><span class="default">&lt;?php<br></span><span class="keyword">for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">20</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">++) {<br>&#xA0; &#xA0; echo </span><span class="default">uniqid</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>Output:<br><br>5819f3ad1c0ce<br>5819f3ad1c0ce<br>5819f3ad1c0ce<br>5819f3ad1c0ce<br>5819f3ad1c0ce<br>5819f3ad1c0ce<br>5819f3ad1c0ce<br>5819f3ad1c0ce<br>5819f3ad1c4b6<br>5819f3ad1c4b6<br>5819f3ad1c4b6<br>5819f3ad1c4b6<br>5819f3ad1c4b6<br>5819f3ad1c4b6<br>5819f3ad1c4b6<br>5819f3ad1c4b6<br>5819f3ad1c4b6<br>5819f3ad1c4b6<br>5819f3ad1c4b6<br>5819f3ad1c4b6<br><br>As you can see, using it w/ a DB can cause the creation of documents with repeated ID&apos;s. You should instead opt for:<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">uniqidReal</span><span class="keyword">(</span><span class="default">$lenght </span><span class="keyword">= </span><span class="default">13</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="comment">// uniqid gives 13 chars, but you could adjust it to your needs.<br>&#xA0; &#xA0; </span><span class="keyword">if (</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">&quot;random_bytes&quot;</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$bytes </span><span class="keyword">= </span><span class="default">random_bytes</span><span class="keyword">(</span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$lenght </span><span class="keyword">/ </span><span class="default">2</span><span class="keyword">));<br>&#xA0; &#xA0; } elseif (</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">&quot;openssl_random_pseudo_bytes&quot;</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$bytes </span><span class="keyword">= </span><span class="default">openssl_random_pseudo_bytes</span><span class="keyword">(</span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$lenght </span><span class="keyword">/ </span><span class="default">2</span><span class="keyword">));<br>&#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">&quot;no cryptographically secure random function available&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">substr</span><span class="keyword">(</span><span class="default">bin2hex</span><span class="keyword">(</span><span class="default">$bytes</span><span class="keyword">), </span><span class="default">0</span><span class="keyword">, </span><span class="default">$lenght</span><span class="keyword">);<br>}<br></span><span class="default">?&gt;<br></span><br>Test:<br><span class="default">&lt;?php<br></span><span class="keyword">for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">20</span><span class="keyword">;</span><span class="default">$i</span><span class="keyword">++) {<br>&#xA0; &#xA0; echo </span><span class="default">uniqid</span><span class="keyword">(), </span><span class="string">&quot;\t&quot;</span><span class="keyword">, </span><span class="default">uniqidReal</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>Output:<br><br>5819fa0b63be3&#xA0;&#xA0; 9f39aa0ecd89d<br>5819fa0b70ed3&#xA0;&#xA0; 2c0735cabfcce<br>5819fa0b712bb&#xA0;&#xA0; 15e45d1ca1e90<br>5819fa0b712bb&#xA0;&#xA0; 89593dc230eb3<br>5819fa0b712bb&#xA0;&#xA0; 449795704aeef<br>5819fa0b712bb&#xA0;&#xA0; b046877b80ac9<br>5819fa0b712bb&#xA0;&#xA0; 0a6fa0ae3ec7b<br>5819fa0b712bb&#xA0;&#xA0; ba2f3f4d6afe0<br>5819fa0b712bb&#xA0;&#xA0; af03cfac83fd6<br>5819fa0b712bb&#xA0;&#xA0; eb9c3c6d475c0<br>5819fa0b712bb&#xA0;&#xA0; edfbbf59d5e1b<br>5819fa0b712bb&#xA0;&#xA0; 500dca18888d4<br>5819fa0b716a3&#xA0;&#xA0; 4f5a40ef715f1<br>5819fa0b716a3&#xA0;&#xA0; 154e42b616825<br>5819fa0b716a3&#xA0;&#xA0; a879a22663c9b<br>5819fa0b716a3&#xA0;&#xA0; ea7c044ddda8a<br>5819fa0b716a3&#xA0;&#xA0; 2c81a44dc674e<br>5819fa0b716a3&#xA0;&#xA0; bb32f37304fd9<br>5819fa0b716a3&#xA0;&#xA0; 30cdf6c0317d7<br>5819fa0b716a3&#xA0;&#xA0; d25f529d126ae</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-Generating an MD5 from a unique ID is naive and reduces much of the value of unique IDs, as well as providing significant (attackable) stricture on the MD5 domain.&#xA0; That&apos;s a deeply broken thing to do.&#xA0; The correct approach is to use the unique ID on its own; it&apos;s already geared for non-collision.<br><br>IDs should never be obfuscated for security, so if you&apos;re worried about someone guessing your ID, fix the system, don&apos;t just make it harder to guess (because it&apos;s nowhere near as difficult to guess as you imagine: you can just brute force the 60,000 MD5s that are generatable from millisecond IDs over the course of a given minute, which the typical computer can do in less than 0.1s).<br><br>If you absolutely need to involve a hash somehow - maybe to placate a boss who thinks they understand security much better than they actually do - append it instead.<br><br>function BadIdeaID() { return uniqid() . &apos;_&apos; . md5(mt_rand()); }</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-The php5-uuid functions could definitely use some documentation to clarify how they should be used, but here&apos;s what I&apos;ve gleaned by examining the OSSP source code (found here: <a href="http://ossp-uuid.sourcearchive.com/documentation/1.5.1-1ubuntu1/php_2uuid_8c-source.html" rel="nofollow" target="_blank">http://ossp-uuid.sourcearchive.com/documentation/1.5.1-1ubuntu1/php_2uuid_8c-source.html</a>).<br><br>The uuid_make() function takes two arguments when generating v1 or v4, but four arguments are required when generating v3 or v5. The first two arguments have been demonstrated below and are straightforward, so I&apos;ll skip to the as-yet non-described arguments.<br><br>The third argument to uuid_make() is: $namespace<br>&#xA0; - this is a secondary resource created with uuid_create(); it is apparently used to generate an internal UUID, which is used as the namespace of the output UUID<br><br>The fourth argument to uuid_make() is: $url<br>&#xA0; - this is the value that is to be hashed (MD5 for v3, SHA-1 for v5); it may be any string or even null<br><br>Here&apos;s a simple class illustrating the proper usage (note that if php5-uuid is not installed on your system, each function call will just return false):<br><br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">UUID </span><span class="keyword">{<br>&#xA0; </span><span class="comment">/**<br>&#xA0;&#xA0; * Generates version 1: MAC address<br>&#xA0;&#xA0; */<br>&#xA0; </span><span class="keyword">public static function </span><span class="default">v1</span><span class="keyword">() {<br>&#xA0; &#xA0; if (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">&apos;uuid_create&apos;</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; return </span><span class="default">false</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="default">uuid_create</span><span class="keyword">(&amp;</span><span class="default">$context</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">uuid_make</span><span class="keyword">(</span><span class="default">$context</span><span class="keyword">, </span><span class="default">UUID_MAKE_V1</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">uuid_export</span><span class="keyword">(</span><span class="default">$context</span><span class="keyword">, </span><span class="default">UUID_FMT_STR</span><span class="keyword">, &amp;</span><span class="default">$uuid</span><span class="keyword">);<br>&#xA0; &#xA0; return </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$uuid</span><span class="keyword">);<br>&#xA0; }<br><br>&#xA0; </span><span class="comment">/**<br>&#xA0;&#xA0; * Generates version 3 UUID: MD5 hash of URL<br>&#xA0;&#xA0; */<br>&#xA0; </span><span class="keyword">public static function </span><span class="default">v3</span><span class="keyword">(</span><span class="default">$i_url</span><span class="keyword">) {<br>&#xA0; &#xA0; if (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">&apos;uuid_create&apos;</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; return </span><span class="default">false</span><span class="keyword">;<br><br>&#xA0; &#xA0; if (!</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$i_url</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$i_url </span><span class="keyword">= </span><span class="default">self</span><span class="keyword">::</span><span class="default">v1</span><span class="keyword">();<br><br>&#xA0; &#xA0; </span><span class="default">uuid_create</span><span class="keyword">(&amp;</span><span class="default">$context</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">uuid_create</span><span class="keyword">(&amp;</span><span class="default">$namespace</span><span class="keyword">);<br><br>&#xA0; &#xA0; </span><span class="default">uuid_make</span><span class="keyword">(</span><span class="default">$context</span><span class="keyword">, </span><span class="default">UUID_MAKE_V3</span><span class="keyword">, </span><span class="default">$namespace</span><span class="keyword">, </span><span class="default">$i_url</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">uuid_export</span><span class="keyword">(</span><span class="default">$context</span><span class="keyword">, </span><span class="default">UUID_FMT_STR</span><span class="keyword">, &amp;</span><span class="default">$uuid</span><span class="keyword">);<br>&#xA0; &#xA0; return </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$uuid</span><span class="keyword">);<br>&#xA0; }<br><br>&#xA0; </span><span class="comment">/**<br>&#xA0;&#xA0; * Generates version 4 UUID: random<br>&#xA0;&#xA0; */<br>&#xA0; </span><span class="keyword">public static function </span><span class="default">v4</span><span class="keyword">() {<br>&#xA0; &#xA0; if (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">&apos;uuid_create&apos;</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; return </span><span class="default">false</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="default">uuid_create</span><span class="keyword">(&amp;</span><span class="default">$context</span><span class="keyword">);<br><br>&#xA0; &#xA0; </span><span class="default">uuid_make</span><span class="keyword">(</span><span class="default">$context</span><span class="keyword">, </span><span class="default">UUID_MAKE_V4</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">uuid_export</span><span class="keyword">(</span><span class="default">$context</span><span class="keyword">, </span><span class="default">UUID_FMT_STR</span><span class="keyword">, &amp;</span><span class="default">$uuid</span><span class="keyword">);<br>&#xA0; &#xA0; return </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$uuid</span><span class="keyword">);<br>&#xA0; }<br><br>&#xA0; </span><span class="comment">/**<br>&#xA0;&#xA0; * Generates version 5 UUID: SHA-1 hash of URL<br>&#xA0;&#xA0; */<br>&#xA0; </span><span class="keyword">public static function </span><span class="default">v5</span><span class="keyword">(</span><span class="default">$i_url</span><span class="keyword">) {<br>&#xA0; &#xA0; if (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">&apos;uuid_create&apos;</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; return </span><span class="default">false</span><span class="keyword">;<br><br>&#xA0; &#xA0; if (!</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$i_url</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$i_url </span><span class="keyword">= </span><span class="default">self</span><span class="keyword">::</span><span class="default">v1</span><span class="keyword">();<br><br>&#xA0; &#xA0; </span><span class="default">uuid_create</span><span class="keyword">(&amp;</span><span class="default">$context</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">uuid_create</span><span class="keyword">(&amp;</span><span class="default">$namespace</span><span class="keyword">);<br><br>&#xA0; &#xA0; </span><span class="default">uuid_make</span><span class="keyword">(</span><span class="default">$context</span><span class="keyword">, </span><span class="default">UUID_MAKE_V5</span><span class="keyword">, </span><span class="default">$namespace</span><span class="keyword">, </span><span class="default">$i_url</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">uuid_export</span><span class="keyword">(</span><span class="default">$context</span><span class="keyword">, </span><span class="default">UUID_FMT_STR</span><span class="keyword">, &amp;</span><span class="default">$uuid</span><span class="keyword">);<br>&#xA0; &#xA0; return </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$uuid</span><span class="keyword">);<br>&#xA0; }<br>}<br></span><span class="default">?&gt;<br></span><br>And here&apos;s a demonstration:<br><br><span class="default">&lt;?php<br></span><span class="keyword">for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt;= </span><span class="default">3</span><span class="keyword">; ++</span><span class="default">$i</span><span class="keyword">) {<br>&#xA0; echo </span><span class="string">&apos;microtime = &apos; </span><span class="keyword">. </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">) . </span><span class="string">&apos;&lt;br/&gt;&apos;</span><span class="keyword">;<br>&#xA0; echo </span><span class="string">&quot;V1 UUID: &quot; </span><span class="keyword">. </span><span class="default">UUID</span><span class="keyword">::</span><span class="default">v1</span><span class="keyword">() . </span><span class="string">&apos;&lt;br/&gt;&apos;</span><span class="keyword">;<br>&#xA0; echo </span><span class="string">&quot;V3 UUID of URL=&apos;abc&apos;: &quot; </span><span class="keyword">. </span><span class="default">UUID</span><span class="keyword">::</span><span class="default">v3</span><span class="keyword">(</span><span class="string">&apos;abc&apos;</span><span class="keyword">) . </span><span class="string">&apos;&lt;br/&gt;&apos;</span><span class="keyword">;<br>&#xA0; echo </span><span class="string">&quot;V4 UUID: &quot; </span><span class="keyword">. </span><span class="default">UUID</span><span class="keyword">::</span><span class="default">v4</span><span class="keyword">() . </span><span class="string">&apos;&lt;br/&gt;&apos;</span><span class="keyword">;<br>&#xA0; echo </span><span class="string">&quot;V5 UUID of URL=null: &quot; </span><span class="keyword">. </span><span class="default">UUID</span><span class="keyword">::</span><span class="default">v5</span><span class="keyword">(</span><span class="default">null</span><span class="keyword">) . </span><span class="string">&apos;&lt;br/&gt;&apos;</span><span class="keyword">;<br>&#xA0; echo </span><span class="string">&apos;&lt;hr/&gt;&apos;</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>And the output:<br><br>microtime = 1306620716.0457<br>V1 UUID: 7fddae8e-8977-11e0-bc11-003048c3b1f2<br>V3 UUID of URL=&apos;abc&apos;: 522ec739-ca63-3ec5-b082-08ce08ad65e2<br>V4 UUID: b3851ec7-4871-4527-92b5-ef5616bae1e6<br>V5 UUID of URL=null: e129f27c-5103-5c5c-844b-cdf0a15e160d<br>-------------------<br>microtime = 1306620716.0465<br>V1 UUID: 7fddb83e-8977-11e0-9e6e-003048c3b1f2<br>V3 UUID of URL=&apos;abc&apos;: 522ec739-ca63-3ec5-b082-08ce08ad65e2<br>V4 UUID: 7e78fe0d-59b8-4637-af7f-e88d221a7d1e<br>V5 UUID of URL=null: e129f27c-5103-5c5c-844b-cdf0a15e160d<br>-------------------<br>microtime = 1306620716.0467<br>V1 UUID: 7fddbfb4-8977-11e0-a2bc-003048c3b1f2<br>V3 UUID of URL=&apos;abc&apos;: 522ec739-ca63-3ec5-b082-08ce08ad65e2<br>V4 UUID: 12a940c7-0f3f-46a1-bb5f-bdd602e10654<br>V5 UUID of URL=null: e129f27c-5103-5c5c-844b-cdf0a15e160d<br><br>As you can see, the calls to v3() always return the same UUID because the same URL parameter, &quot;abc&quot;, is always supplied. The same goes for the v5() function which is always supplied a null URL.<br><br>The v4() UUIDs are always entirely different because they are (pseudo)random. And the v1() calls are very similar but just slightly different because it&apos;s based on the computer&apos;s MAC address and the current time.</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-Prefix can be useful, for instance, if you generate identifiers simultaneously on several hosts that might happen to generate the identifier at the same microsecond.<br>So we can include the hostname / servername in the id.<br><span class="default">&lt;?php<br></span><span class="keyword">echo </span><span class="default">uniqid</span><span class="keyword">(</span><span class="default">php_uname</span><span class="keyword">(</span><span class="string">&apos;n&apos;</span><span class="keyword">), </span><span class="default">true</span><span class="keyword">);<br></span><span class="comment">// Output: darkstar4dfa8c27aea106.40781203<br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-I use this function to generate microsoft-compatible GUID&apos;s.<br><br><span class="default">&lt;?php<br> </span><span class="keyword">public function </span><span class="default">create_guid</span><span class="keyword">(</span><span class="default">$namespace </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">) {&#xA0; &#xA0;&#xA0; <br>&#xA0; &#xA0; static </span><span class="default">$guid </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$uid </span><span class="keyword">= </span><span class="default">uniqid</span><span class="keyword">(</span><span class="string">&quot;&quot;</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">= </span><span class="default">$namespace</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">.= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">&apos;REQUEST_TIME&apos;</span><span class="keyword">];<br>&#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">.= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">&apos;HTTP_USER_AGENT&apos;</span><span class="keyword">];<br>&#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">.= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">&apos;LOCAL_ADDR&apos;</span><span class="keyword">];<br>&#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">.= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">&apos;LOCAL_PORT&apos;</span><span class="keyword">];<br>&#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">.= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">&apos;REMOTE_ADDR&apos;</span><span class="keyword">];<br>&#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">.= </span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">&apos;REMOTE_PORT&apos;</span><span class="keyword">];<br>&#xA0; &#xA0; </span><span class="default">$hash </span><span class="keyword">= </span><span class="default">strtoupper</span><span class="keyword">(</span><span class="default">hash</span><span class="keyword">(</span><span class="string">&apos;ripemd128&apos;</span><span class="keyword">, </span><span class="default">$uid </span><span class="keyword">. </span><span class="default">$guid </span><span class="keyword">. </span><span class="default">md5</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">)));<br>&#xA0; &#xA0; </span><span class="default">$guid </span><span class="keyword">= </span><span class="string">&apos;{&apos; </span><span class="keyword">.&#xA0;&#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">,&#xA0; </span><span class="default">0</span><span class="keyword">,&#xA0; </span><span class="default">8</span><span class="keyword">) . <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;-&apos; </span><span class="keyword">.<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">,&#xA0; </span><span class="default">8</span><span class="keyword">,&#xA0; </span><span class="default">4</span><span class="keyword">) .<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;-&apos; </span><span class="keyword">.<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">12</span><span class="keyword">,&#xA0; </span><span class="default">4</span><span class="keyword">) .<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;-&apos; </span><span class="keyword">.<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">16</span><span class="keyword">,&#xA0; </span><span class="default">4</span><span class="keyword">) .<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;-&apos; </span><span class="keyword">.<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$hash</span><span class="keyword">, </span><span class="default">20</span><span class="keyword">, </span><span class="default">12</span><span class="keyword">) .<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;}&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; return </span><span class="default">$guid</span><span class="keyword">;<br>&#xA0; }<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+ public function create_guid($namespace = &apos;&apos;) {     
+    static $guid = &apos;&apos;;
+    $uid = uniqid("", true);
+    $data = $namespace;
+    $data .= $_SERVER[&apos;REQUEST_TIME&apos;];
+    $data .= $_SERVER[&apos;HTTP_USER_AGENT&apos;];
+    $data .= $_SERVER[&apos;LOCAL_ADDR&apos;];
+    $data .= $_SERVER[&apos;LOCAL_PORT&apos;];
+    $data .= $_SERVER[&apos;REMOTE_ADDR&apos;];
+    $data .= $_SERVER[&apos;REMOTE_PORT&apos;];
+    $hash = strtoupper(hash(&apos;ripemd128&apos;, $uid . $guid . md5($data)));
+    $guid = &apos;{&apos; .   
+            substr($hash,  0,  8) . 
+            &apos;-&apos; .
+            substr($hash,  8,  4) .
+            &apos;-&apos; .
+            substr($hash, 12,  4) .
+            &apos;-&apos; .
+            substr($hash, 16,  4) .
+            &apos;-&apos; .
+            substr($hash, 20, 12) .
+            &apos;}&apos;;
+    return $guid;
+  }
+?>
+```
   
 
 #

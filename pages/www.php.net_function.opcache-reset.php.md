@@ -2,43 +2,22 @@
 
 
 
-
-
-My workaround to clear cache via CLI is create a bash script like this:
-
-#!/bin/bash
-WEBDIR=/var/www/html/
-RANDOM_NAME=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13)
-echo &quot;
+My workaround to clear cache via CLI is create a bash script like this:<br><br>#!/bin/bash<br>WEBDIR=/var/www/html/<br>RANDOM_NAME=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13)<br>echo "
 
 ```
-<?php opcache_reset(); php?>
+<?php opcache_reset(); ?>
 ```
-&quot; &gt; ${WEBDIR}${RANDOM_NAME}.php
+" &gt; ${WEBDIR}${RANDOM_NAME}.php
 curl http://localhost/${RANDOM_NAME}.php
-rm ${WEBDIR}${RANDOM_NAME}.php
-
-put it in /usr/local/bin/opcache-clear and make it executable. 
-When I want to clear cache I simply run &quot;opcache-clear&quot; inside terminal.
-
-  
+rm ${WEBDIR}${RANDOM_NAME}.php<br><br>put it in /usr/local/bin/opcache-clear and make it executable. <br>When I want to clear cache I simply run "opcache-clear" inside terminal.  
 
 #
 
-
-
-It should be mentioned that opcache_reset() does not reset cache when executed via cli. 
-So `php -r &quot;var_dump(opcache_reset());&quot;` outputs &quot;true&quot; but doesn&apos;t clean cache. Make file, access it via http - and cache is clean.
-
-  
+It should be mentioned that opcache_reset() does not reset cache when executed via cli. <br>So `php -r "var_dump(opcache_reset());"` outputs "true" but doesn&apos;t clean cache. Make file, access it via http - and cache is clean.  
 
 #
 
-
-
-In some (most?) systems PHP&apos;s CLI has a separate opcode cache to the one used by the web server or PHP-FPM process, which means running opcache_reset() in the CLI won&apos;t reset the webserver/fpm opcode cache, and vice-versa.
-
-  
+In some (most?) systems PHP&apos;s CLI has a separate opcode cache to the one used by the web server or PHP-FPM process, which means running opcache_reset() in the CLI won&apos;t reset the webserver/fpm opcode cache, and vice-versa.  
 
 #
 

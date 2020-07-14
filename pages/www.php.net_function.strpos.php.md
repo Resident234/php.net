@@ -2,53 +2,91 @@
 
 
 
+WARNING<br><br>As strpos may return either FALSE (substring absent) or 0 (substring at start of string), strict versus loose equivalency operators must be used very carefully.<br><br>To know that a substring is absent, you must use:  <br><br>=== FALSE<br><br>To know that a substring is present (in any position including 0), you can use either of:<br><br>!== FALSE  (recommended)<br> &gt; -1  (note: or greater than any negative number)<br><br>To know that a substring is at the start of the string, you must use:  <br><br>=== 0<br><br>To know that a substring is in any position other than the start, you can use any of: <br><br> &gt; 0  (recommended)<br>!= 0  (note: but not !== 0 which also equates to FALSE)<br>!= FALSE  (disrecommended as highly confusing)<br><br>Also note that you cannot compare a value of "" to the returned value of strpos. With a loose equivalence operator (== or !=) it will return results which don&apos;t distinguish between the substring&apos;s presence versus position. With a strict equivalence operator (=== or !==) it will always return false.  
 
-<div class="phpcode"><span class="html">
-WARNING<br><br>As strpos may return either FALSE (substring absent) or 0 (substring at start of string), strict versus loose equivalency operators must be used very carefully.<br><br>To know that a substring is absent, you must use:&#xA0; <br><br>=== FALSE<br><br>To know that a substring is present (in any position including 0), you can use either of:<br><br>!== FALSE&#xA0; (recommended)<br> &gt; -1&#xA0; (note: or greater than any negative number)<br><br>To know that a substring is at the start of the string, you must use:&#xA0; <br><br>=== 0<br><br>To know that a substring is in any position other than the start, you can use any of: <br><br> &gt; 0&#xA0; (recommended)<br>!= 0&#xA0; (note: but not !== 0 which also equates to FALSE)<br>!= FALSE&#xA0; (disrecommended as highly confusing)<br><br>Also note that you cannot compare a value of &quot;&quot; to the returned value of strpos. With a loose equivalence operator (== or !=) it will return results which don&apos;t distinguish between the substring&apos;s presence versus position. With a strict equivalence operator (=== or !==) it will always return false.</span>
-</div>
+#
+
+This is a function I wrote to find all occurrences of a string, using strpos recursively.<br><br>
+
+```
+<?php
+function strpos_recursive($haystack, $needle, $offset = 0, &amp;$results = array()) {                
+    $offset = strpos($haystack, $needle, $offset);
+    if($offset === false) {
+        return $results;            
+    } else {
+        $results[] = $offset;
+        return strpos_recursive($haystack, $needle, ($offset + 1), $results);
+    }
+}
+?>
+```
+
+
+This is how you use it:
+
+
+
+```
+<?php
+$string = &apos;This is some string&apos;;
+$search = &apos;a&apos;;
+$found = strpos_recursive($string, $search);
+
+if($found) {
+    foreach($found as $pos) {
+        echo &apos;Found "&apos;.$search.&apos;" in string "&apos;.$string.&apos;" at position &lt;b&gt;&apos;.$pos.&apos;&lt;/b&gt;&lt;br /&gt;&apos;;
+    }    
+} else {
+    echo &apos;"&apos;.$search.&apos;" not found in "&apos;.$string.&apos;"&apos;;
+}
+?>
+```
   
 
 #
 
+It is interesting to be aware of the behavior when the treatment of strings with characters using different encodings.<br><br>
 
-<div class="phpcode"><span class="html">
-This is a function I wrote to find all occurrences of a string, using strpos recursively.<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">strpos_recursive</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$needle</span><span class="keyword">, </span><span class="default">$offset </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, &amp;</span><span class="default">$results </span><span class="keyword">= array()) {&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="default">$offset </span><span class="keyword">= </span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$needle</span><span class="keyword">, </span><span class="default">$offset</span><span class="keyword">);<br>&#xA0; &#xA0; if(</span><span class="default">$offset </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$results</span><span class="keyword">;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$results</span><span class="keyword">[] = </span><span class="default">$offset</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">strpos_recursive</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$needle</span><span class="keyword">, (</span><span class="default">$offset </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">), </span><span class="default">$results</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>}<br></span><span class="default">?&gt;<br></span><br>This is how you use it:<br><br><span class="default">&lt;?php<br>$string </span><span class="keyword">= </span><span class="string">&apos;This is some string&apos;</span><span class="keyword">;<br></span><span class="default">$search </span><span class="keyword">= </span><span class="string">&apos;a&apos;</span><span class="keyword">;<br></span><span class="default">$found </span><span class="keyword">= </span><span class="default">strpos_recursive</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$search</span><span class="keyword">);<br><br>if(</span><span class="default">$found</span><span class="keyword">) {<br>&#xA0; &#xA0; foreach(</span><span class="default">$found </span><span class="keyword">as </span><span class="default">$pos</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&apos;Found &quot;&apos;</span><span class="keyword">.</span><span class="default">$search</span><span class="keyword">.</span><span class="string">&apos;&quot; in string &quot;&apos;</span><span class="keyword">.</span><span class="default">$string</span><span class="keyword">.</span><span class="string">&apos;&quot; at position &lt;b&gt;&apos;</span><span class="keyword">.</span><span class="default">$pos</span><span class="keyword">.</span><span class="string">&apos;&lt;/b&gt;&lt;br /&gt;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; }&#xA0; &#xA0; <br>} else {<br>&#xA0; &#xA0; echo </span><span class="string">&apos;&quot;&apos;</span><span class="keyword">.</span><span class="default">$search</span><span class="keyword">.</span><span class="string">&apos;&quot; not found in &quot;&apos;</span><span class="keyword">.</span><span class="default">$string</span><span class="keyword">.</span><span class="string">&apos;&quot;&apos;</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
+```
+<?php<br># Works like expected. There is no accent<br>var_dump(strpos("Fabio", &apos;b&apos;));<br>#int(2)<br><br># The "&#xE1;" letter is occupying two positions<br>var_dump(strpos("F&#xE1;bio", &apos;b&apos;)) ;<br>#int(3)<br><br># Now, encoding the string "F&#xE1;bio" to utf8, we get some "unexpected" outputs. Every letter that is no in regular ASCII table, will use 4 positions(bytes). The starting point remains like before.<br># We cant find the characted, because the haystack string is now encoded.<br>var_dump(strpos(utf8_encode("F&#xE1;bio"), &apos;&#xE1;&apos;));<br>#bool(false)<br><br># To get the expected result, we need to encode the needle too<br>var_dump(strpos(utf8_encode("F&#xE1;bio"), utf8_encode(&apos;&#xE1;&apos;)));<br>#int(1) <br><br># And, like said before, "&#xE1;" occupies 4 positions(bytes)<br>var_dump(strpos(utf8_encode("F&#xE1;bio"), &apos;b&apos;));<br>#int(5)  
 
 #
 
-
-<div class="phpcode"><span class="html">
-It is interesting to be aware of the behavior when the treatment of strings with characters using different encodings.<br><br><span class="default">&lt;?php<br></span><span class="comment"># Works like expected. There is no accent<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">strpos</span><span class="keyword">(</span><span class="string">&quot;Fabio&quot;</span><span class="keyword">, </span><span class="string">&apos;b&apos;</span><span class="keyword">));<br></span><span class="comment">#int(2)<br><br># The &quot;&#xE1;&quot; letter is occupying two positions<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">strpos</span><span class="keyword">(</span><span class="string">&quot;F&#xE1;bio&quot;</span><span class="keyword">, </span><span class="string">&apos;b&apos;</span><span class="keyword">)) ;<br></span><span class="comment">#int(3)<br><br># Now, encoding the string &quot;F&#xE1;bio&quot; to utf8, we get some &quot;unexpected&quot; outputs. Every letter that is no in regular ASCII table, will use 4 positions(bytes). The starting point remains like before.<br># We cant find the characted, because the haystack string is now encoded.<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">utf8_encode</span><span class="keyword">(</span><span class="string">&quot;F&#xE1;bio&quot;</span><span class="keyword">), </span><span class="string">&apos;&#xE1;&apos;</span><span class="keyword">));<br></span><span class="comment">#bool(false)<br><br># To get the expected result, we need to encode the needle too<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">utf8_encode</span><span class="keyword">(</span><span class="string">&quot;F&#xE1;bio&quot;</span><span class="keyword">), </span><span class="default">utf8_encode</span><span class="keyword">(</span><span class="string">&apos;&#xE1;&apos;</span><span class="keyword">)));<br></span><span class="comment">#int(1) <br><br># And, like said before, &quot;&#xE1;&quot; occupies 4 positions(bytes)<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">utf8_encode</span><span class="keyword">(</span><span class="string">&quot;F&#xE1;bio&quot;</span><span class="keyword">), </span><span class="string">&apos;b&apos;</span><span class="keyword">));<br></span><span class="comment">#int(5)</span>
-</span>
-</div>
-  
+I lost an hour before I noticed that strpos only returns FALSE as a boolean, never TRUE.. This means that<br><br>strpos() !== false <br><br>is a different beast then:<br><br>strpos() === true<br><br>since the latter will never be true. After I found out, The warning in the documentation made a lot more sense.  
 
 #
 
-
-<div class="phpcode"><span class="html">
-I lost an hour before I noticed that strpos only returns FALSE as a boolean, never TRUE.. This means that<br><br>strpos() !== false <br><br>is a different beast then:<br><br>strpos() === true<br><br>since the latter will never be true. After I found out, The warning in the documentation made a lot more sense.</span>
-</div>
-  
+when you want to know how much of substring occurrences, you&apos;ll use "substr_count".<br>But, retrieve their positions, will be harder.<br>So, you can do it by starting with the last occurrence :<br><br>function strpos_r($haystack, $needle)<br>{<br>    if(strlen($needle) &gt; strlen($haystack))<br>        trigger_error(sprintf("%s: length of argument 2 must be &lt;= argument 1", __FUNCTION__), E_USER_WARNING);<br><br>    $seeks = array();<br>    while($seek = strrpos($haystack, $needle))<br>    {<br>        array_push($seeks, $seek);<br>        $haystack = substr($haystack, 0, $seek);<br>    }<br>    return $seeks;<br>}<br><br>it will return an array of all occurrences a the substring in the string<br><br>Example : <br><br>$test = "this is a test for testing a test function... blah blah";<br>var_dump(strpos_r($test, "test"));<br><br>// output <br><br>array(3) {<br>  [0]=&gt;<br>  int(29)<br>  [1]=&gt;<br>  int(19)<br>  [2]=&gt;<br>  int(10)<br>}<br><br>Paul-antoine<br>Mal&#xE9;zieux.  
 
 #
 
+My version of strpos with needles as an array. Also allows for a string, or an array inside an array.<br><br>
 
-<div class="phpcode"><span class="html">
-when you want to know how much of substring occurrences, you&apos;ll use &quot;substr_count&quot;.<br>But, retrieve their positions, will be harder.<br>So, you can do it by starting with the last occurrence :<br><br>function strpos_r($haystack, $needle)<br>{<br>&#xA0; &#xA0; if(strlen($needle) &gt; strlen($haystack))<br>&#xA0; &#xA0; &#xA0; &#xA0; trigger_error(sprintf(&quot;%s: length of argument 2 must be &lt;= argument 1&quot;, __FUNCTION__), E_USER_WARNING);<br><br>&#xA0; &#xA0; $seeks = array();<br>&#xA0; &#xA0; while($seek = strrpos($haystack, $needle))<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; array_push($seeks, $seek);<br>&#xA0; &#xA0; &#xA0; &#xA0; $haystack = substr($haystack, 0, $seek);<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return $seeks;<br>}<br><br>it will return an array of all occurrences a the substring in the string<br><br>Example : <br><br>$test = &quot;this is a test for testing a test function... blah blah&quot;;<br>var_dump(strpos_r($test, &quot;test&quot;));<br><br>// output <br><br>array(3) {<br>&#xA0; [0]=&gt;<br>&#xA0; int(29)<br>&#xA0; [1]=&gt;<br>&#xA0; int(19)<br>&#xA0; [2]=&gt;<br>&#xA0; int(10)<br>}<br><br>Paul-antoine<br>Mal&#xE9;zieux.</span>
-</div>
-  
+```
+<?php
+function strpos_array($haystack, $needles) {
+    if ( is_array($needles) ) {
+        foreach ($needles as $str) {
+            if ( is_array($str) ) {
+                $pos = strpos_array($haystack, $str);
+            } else {
+                $pos = strpos($haystack, $str);
+            }
+            if ($pos !== FALSE) {
+                return $pos;
+            }
+        }
+    } else {
+        return strpos($haystack, $needles);
+    }
+}
 
-#
+// Test
+echo strpos_array(&apos;This is a test&apos;, array(&apos;test&apos;, &apos;drive&apos;)); // Output is 10
 
-
-<div class="phpcode"><span class="html">
-My version of strpos with needles as an array. Also allows for a string, or an array inside an array.<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">strpos_array</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$needles</span><span class="keyword">) {<br>&#xA0; &#xA0; if ( </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$needles</span><span class="keyword">) ) {<br>&#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$needles </span><span class="keyword">as </span><span class="default">$str</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if ( </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">) ) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$pos </span><span class="keyword">= </span><span class="default">strpos_array</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$pos </span><span class="keyword">= </span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$pos </span><span class="keyword">!== </span><span class="default">FALSE</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$pos</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$haystack</span><span class="keyword">, </span><span class="default">$needles</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="comment">// Test<br></span><span class="keyword">echo </span><span class="default">strpos_array</span><span class="keyword">(</span><span class="string">&apos;This is a test&apos;</span><span class="keyword">, array(</span><span class="string">&apos;test&apos;</span><span class="keyword">, </span><span class="string">&apos;drive&apos;</span><span class="keyword">)); </span><span class="comment">// Output is 10<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+?>
+```
   
 
 #

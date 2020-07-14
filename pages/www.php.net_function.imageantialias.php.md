@@ -2,23 +2,7 @@
 
 
 
-
-
-If you can&apos;t be bothered creating (or searching for) a full screen antialias function.
-You can actually cheat (well a bit of a dirty inefficient hack really!!) 
-and perform a fake antialias on an image by using &apos;imagecopyresampled&apos;...
-
-first create your source image twice the size of what you really want.
-
-Then use &apos;imagecopyresampled&apos; to shrink it to half the size, the function 
-automatically interpolates pixels to create an antialias effect!
-
-I&apos;ve used this in a pie chart function and it works brilliantly,
-not as slow as I thought it might be!
-
-the rough code below should give you the idea...
-
-
+If you can&apos;t be bothered creating (or searching for) a full screen antialias function.<br>You can actually cheat (well a bit of a dirty inefficient hack really!!) <br>and perform a fake antialias on an image by using &apos;imagecopyresampled&apos;...<br><br>first create your source image twice the size of what you really want.<br><br>Then use &apos;imagecopyresampled&apos; to shrink it to half the size, the function <br>automatically interpolates pixels to create an antialias effect!<br><br>I&apos;ve used this in a pie chart function and it works brilliantly,<br>not as slow as I thought it might be!<br><br>the rough code below should give you the idea...<br><br>
 
 ```
 <?php
@@ -43,9 +27,6 @@ $realWidth,$realHeight,$srcWidth,$srcHeight);
 // now just do whatever you want with &apos;$destImage&apos; (e.g. display or output to file!)
 ?>
 ```
-
-
-
   
 
 #

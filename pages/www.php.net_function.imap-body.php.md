@@ -2,54 +2,28 @@
 
 
 
-
-
-Simple example on how to read body message of the recent mail.
-
-
-
-
+Simple example on how to read body message of the recent mail.<br><br>
 
 ```
 <?php
-
-$imap = imap_open(&quot;{pop.example.com:995/pop3/ssl/novalidate-cert}&quot;, &quot;username&quot;, &quot;password&quot;);
-
-
+$imap = imap_open("{pop.example.com:995/pop3/ssl/novalidate-cert}", "username", "password");
 
 if( $imap ) {
+    
+     //Check no.of.msgs
+     $num = imap_num_msg($imap);
 
-&#xA0; &#xA0; 
+     //if there is a message in your inbox
+     if( $num &gt;0 ) {
+          //read that mail recently arrived
+          echo imap_qprint(imap_body($imap, $num));
+     }
 
-&#xA0; &#xA0;&#xA0; //Check no.of.msgs
-
-&#xA0; &#xA0;&#xA0; $num = imap_num_msg($imap);
-
-
-
-&#xA0; &#xA0;&#xA0; //if there is a message in your inbox
-
-&#xA0; &#xA0;&#xA0; if( $num &gt;0 ) {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; //read that mail recently arrived
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo imap_qprint(imap_body($imap, $num));
-
-&#xA0; &#xA0;&#xA0; }
-
-
-
-&#xA0; &#xA0;&#xA0; //close the stream
-
-&#xA0; &#xA0;&#xA0; imap_close($imap);
-
+     //close the stream
+     imap_close($imap);
 }
-
 ?>
 ```
-
-
-
   
 
 #

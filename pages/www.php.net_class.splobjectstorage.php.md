@@ -2,11 +2,31 @@
 
 
 
+Note some inconsistent/surprising behavior in SplObjectStorage to preserve backwards compatibility. You can&apos;t properly use foreach with key/value syntax.<br><br>
 
-<div class="phpcode"><span class="html">
-Note some inconsistent/surprising behavior in SplObjectStorage to preserve backwards compatibility. You can&apos;t properly use foreach with key/value syntax.<br><br><span class="default">&lt;?php<br>$spl </span><span class="keyword">= new </span><span class="default">SplObjectStorage </span><span class="keyword">();<br></span><span class="default">$keyForA </span><span class="keyword">= new </span><span class="default">StdClass</span><span class="keyword">();<br></span><span class="default">$keyForB </span><span class="keyword">= new </span><span class="default">StdClass</span><span class="keyword">();<br></span><span class="default">$spl</span><span class="keyword">[</span><span class="default">$keyForA</span><span class="keyword">] = </span><span class="string">&apos;value a&apos;</span><span class="keyword">;<br></span><span class="default">$spl</span><span class="keyword">[</span><span class="default">$keyForB</span><span class="keyword">] = </span><span class="string">&apos;value b&apos;</span><span class="keyword">;<br>foreach (</span><span class="default">$spl </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="comment">// $key is NOT an object, $value is!<br>&#xA0; &#xA0; // Must use standard array access to get strings.<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">$spl</span><span class="keyword">[</span><span class="default">$value</span><span class="keyword">] . </span><span class="string">&quot;\n&quot;</span><span class="keyword">; </span><span class="comment">// prints &quot;value a&quot;, then &quot;value b&quot;<br></span><span class="keyword">}<br></span><span class="comment">// it may be clearer to use this form of foreach:<br></span><span class="keyword">foreach (</span><span class="default">$spl </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="comment">// $key is an object.<br>&#xA0; &#xA0; // Use standard array access to get values.<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">$spl</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] . </span><span class="string">&quot;\n&quot;</span><span class="keyword">; </span><span class="comment">// prints &quot;value a&quot;, then &quot;value b&quot;<br></span><span class="keyword">}<br></span><span class="default">?&gt;<br></span><br>See <a href="https://bugs.php.net/bug.php?id=49967" rel="nofollow" target="_blank">https://bugs.php.net/bug.php?id=49967</a></span>
-</div>
-  
+```
+<?php
+$spl = new SplObjectStorage ();
+$keyForA = new StdClass();
+$keyForB = new StdClass();
+$spl[$keyForA] = &apos;value a&apos;;
+$spl[$keyForB] = &apos;value b&apos;;
+foreach ($spl as $key =&gt; $value)
+{
+    // $key is NOT an object, $value is!
+    // Must use standard array access to get strings.
+    echo $spl[$value] . "\n"; // prints "value a", then "value b"
+}
+// it may be clearer to use this form of foreach:
+foreach ($spl as $key)
+{
+    // $key is an object.
+    // Use standard array access to get values.
+    echo $spl[$key] . "\n"; // prints "value a", then "value b"
+}
+?>
+```
+<br><br>See https://bugs.php.net/bug.php?id=49967  
 
 #
 

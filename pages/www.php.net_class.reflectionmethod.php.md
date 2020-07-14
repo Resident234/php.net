@@ -2,11 +2,17 @@
 
 
 
+Note that the public member $class contains the name of the class in which the method has been defined:<br><br>
 
-<div class="phpcode"><span class="html">
-Note that the public member $class contains the name of the class in which the method has been defined:<br><br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">A </span><span class="keyword">{public function </span><span class="default">__construct</span><span class="keyword">() {}}<br>class </span><span class="default">B </span><span class="keyword">extends </span><span class="default">A </span><span class="keyword">{}<br><br></span><span class="default">$method </span><span class="keyword">= new </span><span class="default">ReflectionMethod</span><span class="keyword">(</span><span class="string">&apos;B&apos;</span><span class="keyword">, </span><span class="string">&apos;__construct&apos;</span><span class="keyword">);<br>echo </span><span class="default">$method</span><span class="keyword">-&gt;</span><span class="default">class</span><span class="keyword">; </span><span class="comment">// prints &apos;A&apos;<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+class A {public function __construct() {}}
+class B extends A {}
+
+$method = new ReflectionMethod(&apos;B&apos;, &apos;__construct&apos;);
+echo $method-&gt;class; // prints &apos;A&apos;
+?>
+```
   
 
 #

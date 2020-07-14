@@ -2,14 +2,7 @@
 
 
 
-
-
-sudo apt-get install php-apc
-sudo /etc/init.d/apache2 restart
-
-Was enough for me. I use Ubuntu Server 8.10.
-
-  
+sudo apt-get install php-apc<br>sudo /etc/init.d/apache2 restart<br><br>Was enough for me. I use Ubuntu Server 8.10.  
 
 #
 

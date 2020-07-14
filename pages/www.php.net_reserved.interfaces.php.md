@@ -2,12 +2,7 @@
 
 
 
-
-
-Note that PHP extensions also provide interfaces you can implement, for example JsonSerializable.
-Here is the full list http://php.net/manual/en/refs.basic.other.php
-
-  
+Note that PHP extensions also provide interfaces you can implement, for example JsonSerializable.<br>Here is the full list http://php.net/manual/en/refs.basic.other.php  
 
 #
 

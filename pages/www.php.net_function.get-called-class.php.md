@@ -2,77 +2,111 @@
 
 
 
+As of PHP 5.5 you can also use "static::class" to get the name of the called class.<br><br>
 
-<div class="phpcode"><span class="html">
-As of PHP 5.5 you can also use &quot;static::class&quot; to get the name of the called class.<br><br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">Bar </span><span class="keyword">{<br>&#xA0; &#xA0; public static function </span><span class="default">test</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(static::class);<br>&#xA0; &#xA0; }<br>}<br><br>class </span><span class="default">Foo </span><span class="keyword">extends </span><span class="default">Bar </span><span class="keyword">{<br><br>}<br><br></span><span class="default">Foo</span><span class="keyword">::</span><span class="default">test</span><span class="keyword">();<br></span><span class="default">Bar</span><span class="keyword">::</span><span class="default">test</span><span class="keyword">();<br></span><span class="default">?&gt;<br></span><br>Output:<br><br>string(3) &quot;Foo&quot;<br>string(3) &quot;Bar&quot;</span>
-</div>
+```
+<?php
+class Bar {
+    public static function test() {
+        var_dump(static::class);
+    }
+}
+
+class Foo extends Bar {
+
+}
+
+Foo::test();
+Bar::test();
+?>
+```
+<br><br>Output:<br><br>string(3) "Foo"<br>string(3) "Bar"  
+
+#
+
+SEE: http://php.net/manual/en/language.oop5.late-static-bindings.php<br><br>I think it is worth mentioning on this page, that many uses of the value returned by get_called_function() could be handled with the new use of the old keyword static, as in<br>
+
+```
+<?php 
+static::$foo;
+?>
+```
+
+
+versus
+
+
+```
+<?php
+$that=get_called_class();
+$that::$foo;
+?>
+```
+
+
+I had been using $that:: as my conventional replacement for self:: until my googling landed me the url above.  I have replaced all uses of $that with static with success both as 
+
+
+```
+<?php 
+static::$foo; //and...
+new static();
+?>
+```
+<br><br>Since static:: is listed with the limitation: "Another difference is that static:: can only refer to static properties." one may still need to use a $that:: to call static functions; though I have not yet needed this semantic.  
+
+#
+
+get_called_class() in closure-scopes:<br><br>&lt;?PHP<br>    ABSTRACT CLASS Base<br>    {<br>        protected static $stub = [&apos;baz&apos;];<br>        <br>        //final public function boot()<br>        static public function boot()<br>        {<br>            print __METHOD__.&apos;-&gt; &apos;.get_called_class().PHP_EOL;<br>            <br>            array_walk(static::$stub, function()<br>            {<br>                print __METHOD__.&apos;-&gt; &apos;.get_called_class().PHP_EOL;<br>            });<br>        }<br>        <br>        public function __construct()<br>        {<br>            self::boot();<br>            print __METHOD__.&apos;-&gt; &apos;.get_called_class().PHP_EOL;<br>            <br>            array_walk(static::$stub, function()<br>            {<br>                print __METHOD__.&apos;-&gt; &apos;.get_called_class().PHP_EOL;<br>            });<br>        }<br>    }<br>    <br>    CLASS Sub EXTENDS Base<br>    {<br>    }<br>    <br>    // static boot<br>        Base::boot(); print PHP_EOL;<br>            // Base::boot        -&gt; Base<br>            // Base::{closure}    -&gt; Base<br>            <br>        Sub::boot(); print PHP_EOL;<br>            // Base::boot        -&gt; Sub<br>            // Base::{closure}    -&gt; Base<br>            <br>        new sub;<br>            // Base::boot        -&gt; Sub<br>            // Base::{closure}    -&gt; Base<br>            // Base-&gt;__construct    -&gt; Sub<br>            // Base-&gt;{closure}    -&gt; Sub<br>    <br>    // instance boot<br>        new sub;<br>            // Base-&gt;boot        -&gt; Sub<br>            // Base-&gt;{closure}    -&gt; Sub<br>            // Base-&gt;__construct    -&gt; Sub<br>            // Base-&gt;{closure}    -&gt; Sub<br>?>
+```
   
 
 #
 
+It is possible to write a completely self-contained Singleton base class in PHP 5.3 using get_called_class.<br><br>
 
-<div class="phpcode"><span class="html">
-SEE: <a href="http://php.net/manual/en/language.oop5.late-static-bindings.php" rel="nofollow" target="_blank">http://php.net/manual/en/language.oop5.late-static-bindings.php</a><br><br>I think it is worth mentioning on this page, that many uses of the value returned by get_called_function() could be handled with the new use of the old keyword static, as in<br><span class="default">&lt;?php <br></span><span class="keyword">static::</span><span class="default">$foo</span><span class="keyword">;<br></span><span class="default">?&gt;<br></span><br>versus<br><span class="default">&lt;?php<br>$that</span><span class="keyword">=</span><span class="default">get_called_class</span><span class="keyword">();<br></span><span class="default">$that</span><span class="keyword">::</span><span class="default">$foo</span><span class="keyword">;<br></span><span class="default">?&gt;<br></span><br>I had been using $that:: as my conventional replacement for self:: until my googling landed me the url above.&#xA0; I have replaced all uses of $that with static with success both as <br><span class="default">&lt;?php <br></span><span class="keyword">static::</span><span class="default">$foo</span><span class="keyword">; </span><span class="comment">//and...<br></span><span class="keyword">new static();<br></span><span class="default">?&gt;<br></span><br>Since static:: is listed with the limitation: &quot;Another difference is that static:: can only refer to static properties.&quot; one may still need to use a $that:: to call static functions; though I have not yet needed this semantic.</span>
-</div>
-  
+```
+<?php
 
-#
+abstract class Singleton {
 
+    protected function __construct() {
+    }
 
-<div class="phpcode"><span class="html">
-get_called_class() in closure-scopes:<br><br><span class="default">&lt;?PHP<br>&#xA0; &#xA0; </span><span class="keyword">ABSTRACT CLASS </span><span class="default">Base<br>&#xA0; &#xA0; </span><span class="keyword">{<br>&#xA0; &#xA0; &#xA0; &#xA0; protected static </span><span class="default">$stub </span><span class="keyword">= [</span><span class="string">&apos;baz&apos;</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//final public function boot()<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">static public function </span><span class="default">boot</span><span class="keyword">()<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; print </span><span class="default">__METHOD__</span><span class="keyword">.</span><span class="string">&apos;-&gt; &apos;</span><span class="keyword">.</span><span class="default">get_called_class</span><span class="keyword">().</span><span class="default">PHP_EOL</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">array_walk</span><span class="keyword">(static::</span><span class="default">$stub</span><span class="keyword">, function()<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; print </span><span class="default">__METHOD__</span><span class="keyword">.</span><span class="string">&apos;-&gt; &apos;</span><span class="keyword">.</span><span class="default">get_called_class</span><span class="keyword">().</span><span class="default">PHP_EOL</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; });<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; public function </span><span class="default">__construct</span><span class="keyword">()<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">self</span><span class="keyword">::</span><span class="default">boot</span><span class="keyword">();<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; print </span><span class="default">__METHOD__</span><span class="keyword">.</span><span class="string">&apos;-&gt; &apos;</span><span class="keyword">.</span><span class="default">get_called_class</span><span class="keyword">().</span><span class="default">PHP_EOL</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">array_walk</span><span class="keyword">(static::</span><span class="default">$stub</span><span class="keyword">, function()<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; print </span><span class="default">__METHOD__</span><span class="keyword">.</span><span class="string">&apos;-&gt; &apos;</span><span class="keyword">.</span><span class="default">get_called_class</span><span class="keyword">().</span><span class="default">PHP_EOL</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; });<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; CLASS </span><span class="default">Sub </span><span class="keyword">EXTENDS </span><span class="default">Base<br>&#xA0; &#xA0; </span><span class="keyword">{<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">// static boot<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">Base</span><span class="keyword">::</span><span class="default">boot</span><span class="keyword">(); print </span><span class="default">PHP_EOL</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// Base::boot&#xA0; &#xA0; &#xA0; &#xA0; -&gt; Base<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // Base::{closure}&#xA0; &#xA0; -&gt; Base<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">Sub</span><span class="keyword">::</span><span class="default">boot</span><span class="keyword">(); print </span><span class="default">PHP_EOL</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// Base::boot&#xA0; &#xA0; &#xA0; &#xA0; -&gt; Sub<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // Base::{closure}&#xA0; &#xA0; -&gt; Base<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">new </span><span class="default">sub</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// Base::boot&#xA0; &#xA0; &#xA0; &#xA0; -&gt; Sub<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // Base::{closure}&#xA0; &#xA0; -&gt; Base<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // Base-&gt;__construct&#xA0; &#xA0; -&gt; Sub<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // Base-&gt;{closure}&#xA0; &#xA0; -&gt; Sub<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; // instance boot<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">new </span><span class="default">sub</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// Base-&gt;boot&#xA0; &#xA0; &#xA0; &#xA0; -&gt; Sub<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // Base-&gt;{closure}&#xA0; &#xA0; -&gt; Sub<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // Base-&gt;__construct&#xA0; &#xA0; -&gt; Sub<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // Base-&gt;{closure}&#xA0; &#xA0; -&gt; Sub<br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
+    final public static function getInstance() {
+        static $aoInstance = array();
 
-#
+        $calledClassName = get_called_class();
 
+        if (! isset ($aoInstance[$calledClassName])) {
+            $aoInstance[$calledClassName] = new $calledClassName();
+        }
 
-<div class="phpcode"><span class="html">
-It is possible to write a completely self-contained Singleton base class in PHP 5.3 using get_called_class.
-<br>
-<br><span class="default">&lt;?php
-<br>
-<br></span><span class="keyword">abstract class </span><span class="default">Singleton </span><span class="keyword">{
-<br>
-<br>&#xA0; &#xA0; protected function </span><span class="default">__construct</span><span class="keyword">() {
-<br>&#xA0; &#xA0; }
-<br>
-<br>&#xA0; &#xA0; final public static function </span><span class="default">getInstance</span><span class="keyword">() {
-<br>&#xA0; &#xA0; &#xA0; &#xA0; static </span><span class="default">$aoInstance </span><span class="keyword">= array();
-<br>
-<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$calledClassName </span><span class="keyword">= </span><span class="default">get_called_class</span><span class="keyword">();
-<br>
-<br>&#xA0; &#xA0; &#xA0; &#xA0; if (! isset (</span><span class="default">$aoInstance</span><span class="keyword">[</span><span class="default">$calledClassName</span><span class="keyword">])) {
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$aoInstance</span><span class="keyword">[</span><span class="default">$calledClassName</span><span class="keyword">] = new </span><span class="default">$calledClassName</span><span class="keyword">();
-<br>&#xA0; &#xA0; &#xA0; &#xA0; }
-<br>
-<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$aoInstance</span><span class="keyword">[</span><span class="default">$calledClassName</span><span class="keyword">];
-<br>&#xA0; &#xA0; }
-<br>
-<br>&#xA0; &#xA0; final private function </span><span class="default">__clone</span><span class="keyword">() {
-<br>&#xA0; &#xA0; }
-<br>}
-<br>
-<br>class </span><span class="default">DatabaseConnection </span><span class="keyword">extends </span><span class="default">Singleton </span><span class="keyword">{
-<br>
-<br>&#xA0; &#xA0; protected </span><span class="default">$connection</span><span class="keyword">;
-<br>
-<br>&#xA0; &#xA0; protected function </span><span class="default">__construct</span><span class="keyword">() {
-<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// @todo Connect to the database
-<br>&#xA0; &#xA0; </span><span class="keyword">}
-<br>
-<br>&#xA0; &#xA0; public function </span><span class="default">__destruct</span><span class="keyword">() {
-<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// @todo Drop the connection to the database
-<br>&#xA0; &#xA0; </span><span class="keyword">}
-<br>}
-<br>
-<br></span><span class="default">$oDbConn </span><span class="keyword">= new </span><span class="default">DatabaseConnection</span><span class="keyword">();&#xA0; </span><span class="comment">// Fatal error
-<br>
-<br></span><span class="default">$oDbConn </span><span class="keyword">= </span><span class="default">DatabaseConnection</span><span class="keyword">::</span><span class="default">getInstance</span><span class="keyword">();&#xA0; </span><span class="comment">// Returns single instance
-<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+        return $aoInstance[$calledClassName];
+    }
+
+    final private function __clone() {
+    }
+}
+
+class DatabaseConnection extends Singleton {
+
+    protected $connection;
+
+    protected function __construct() {
+        // @todo Connect to the database
+    }
+
+    public function __destruct() {
+        // @todo Drop the connection to the database
+    }
+}
+
+$oDbConn = new DatabaseConnection();  // Fatal error
+
+$oDbConn = DatabaseConnection::getInstance();  // Returns single instance
+?>
+```
   
 
 #

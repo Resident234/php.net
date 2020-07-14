@@ -2,13 +2,7 @@
 
 
 
-
-
-For windows users, 
-
-It will return TRUE for EXE extensions. I have checked for MSI, but it returns FALSE.
-
-  
+For windows users, <br><br>It will return TRUE for EXE extensions. I have checked for MSI, but it returns FALSE.  
 
 #
 

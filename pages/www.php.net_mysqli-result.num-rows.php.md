@@ -2,17 +2,13 @@
 
 
 
-
-
-If you have problems making work this num_rows, you have to declare -&gt;store_result() first.
-
-
+If you have problems making work this num_rows, you have to declare -&gt;store_result() first.<br><br>
 
 ```
 <?php
-$mysqli = new mysqli(&quot;localhost&quot;,&quot;root&quot;, &quot;&quot;, &quot;tables&quot;);
+$mysqli = new mysqli("localhost","root", "", "tables");
 
-$query = $mysqli-&gt;prepare(&quot;SELECT * FROM table1&quot;);
+$query = $mysqli-&gt;prepare("SELECT * FROM table1");
 $query-&gt;execute();
 $query-&gt;store_result();
 
@@ -23,9 +19,6 @@ echo $rows;
 // Return 4 for example
 ?>
 ```
-
-
-
   
 
 #

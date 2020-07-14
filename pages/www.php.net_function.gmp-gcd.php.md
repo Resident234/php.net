@@ -2,23 +2,17 @@
 
 
 
-
-
-here is an elegant recursive solution
-
+here is an elegant recursive solution<br>
 
 ```
-<?php&#xA0; &#xA0; 
+<?php    
 
 function gcd($a,$b) {
-&#xA0; &#xA0; return ($a % $b) ? gcd($b,$a % $b) : $b;
+    return ($a % $b) ? gcd($b,$a % $b) : $b;
 }
 
 ?>
 ```
-
-
-
   
 
 #

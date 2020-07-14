@@ -2,20 +2,7 @@
 
 
 
-
-
-These are the missing descriptions for RSA elements:
-
-n - modulus
-e - publicExponent
-d - privateExponent
-p - prime1
-q - prime2
-dmp1 - exponent1, d mod (p-1)
-dmq1 - exponent2, d mod (q-1)
-iqmp - coefficient, (inverse of q) mod p
-
-  
+These are the missing descriptions for RSA elements:<br><br>n - modulus<br>e - publicExponent<br>d - privateExponent<br>p - prime1<br>q - prime2<br>dmp1 - exponent1, d mod (p-1)<br>dmq1 - exponent2, d mod (q-1)<br>iqmp - coefficient, (inverse of q) mod p  
 
 #
 

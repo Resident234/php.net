@@ -2,28 +2,11 @@
 
 
 
-
-
-Just a note for those who face problems on names containing spaces (e.g. &quot;test test.pdf&quot;).
-
-In the examples (99% of the time) you can find
-header(&apos;Content-Disposition: attachment; filename=&apos;.basename($file));
-
-but the correct way to set the filename is quoting it (double quote):
-header(&apos;Content-Disposition: attachment; filename=&quot;&apos;.basename($file).&apos;&quot;&apos; );
-
-Some browsers may work without quotation, but for sure not Firefox and as Mozilla explains, the quotation of the filename in the content-disposition is according to the RFC
-http://kb.mozillazine.org/Filenames_with_spaces_are_truncated_upon_download
-
-  
+Just a note for those who face problems on names containing spaces (e.g. "test test.pdf").<br><br>In the examples (99% of the time) you can find<br>header(&apos;Content-Disposition: attachment; filename=&apos;.basename($file));<br><br>but the correct way to set the filename is quoting it (double quote):<br>header(&apos;Content-Disposition: attachment; filename="&apos;.basename($file).&apos;"&apos; );<br><br>Some browsers may work without quotation, but for sure not Firefox and as Mozilla explains, the quotation of the filename in the content-disposition is according to the RFC<br>http://kb.mozillazine.org/Filenames_with_spaces_are_truncated_upon_download  
 
 #
 
-
-
-if you need to limit download rate, use this code 
-
-
+if you need to limit download rate, use this code <br><br>
 
 ```
 <?php
@@ -34,111 +17,71 @@ $download_file = &apos;name.zip&apos;;
 $download_rate = 20.5;
 if(file_exists($local_file) &amp;&amp; is_file($local_file))
 {
-&#xA0; &#xA0; header(&apos;Cache-control: private&apos;);
-&#xA0; &#xA0; header(&apos;Content-Type: application/octet-stream&apos;);
-&#xA0; &#xA0; header(&apos;Content-Length: &apos;.filesize($local_file));
-&#xA0; &#xA0; header(&apos;Content-Disposition: filename=&apos;.$download_file);
+    header(&apos;Cache-control: private&apos;);
+    header(&apos;Content-Type: application/octet-stream&apos;);
+    header(&apos;Content-Length: &apos;.filesize($local_file));
+    header(&apos;Content-Disposition: filename=&apos;.$download_file);
 
-&#xA0; &#xA0; flush();
-&#xA0; &#xA0; $file = fopen($local_file, &quot;r&quot;);
-&#xA0; &#xA0; while(!feof($file))
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; // send the current file part to the browser
-&#xA0; &#xA0; &#xA0; &#xA0; print fread($file, round($download_rate * 1024));
-&#xA0; &#xA0; &#xA0; &#xA0; // flush the content to the browser
-&#xA0; &#xA0; &#xA0; &#xA0; flush();
-&#xA0; &#xA0; &#xA0; &#xA0; // sleep one second
-&#xA0; &#xA0; &#xA0; &#xA0; sleep(1);
-&#xA0; &#xA0; }
-&#xA0; &#xA0; fclose($file);}
+    flush();
+    $file = fopen($local_file, "r");
+    while(!feof($file))
+    {
+        // send the current file part to the browser
+        print fread($file, round($download_rate * 1024));
+        // flush the content to the browser
+        flush();
+        // sleep one second
+        sleep(1);
+    }
+    fclose($file);}
 else {
-&#xA0; &#xA0; die(&apos;Error: The file &apos;.$local_file.&apos; does not exist!&apos;);
+    die(&apos;Error: The file &apos;.$local_file.&apos; does not exist!&apos;);
 }
 
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-regarding php5:
-i found out that there is already a disscussion @php-dev&#xA0; about readfile() and fpassthru() where only exactly 2 MB will be delivered.
-
-so you may use this on php5 to get lager files
-
+regarding php5:<br>i found out that there is already a disscussion @php-dev  about readfile() and fpassthru() where only exactly 2 MB will be delivered.<br><br>so you may use this on php5 to get lager files<br>
 
 ```
 <?php
 function readfile_chunked($filename,$retbytes=true) {
-&#xA0; &#xA0; $chunksize = 1*(1024*1024); // how many bytes per chunk
-&#xA0; &#xA0; $buffer = &apos;&apos;;
-&#xA0; &#xA0; $cnt =0;
-&#xA0; &#xA0; // $handle = fopen($filename, &apos;rb&apos;);
-&#xA0; &#xA0; $handle = fopen($filename, &apos;rb&apos;);
-&#xA0; &#xA0; if ($handle === false) {
-&#xA0; &#xA0; &#xA0; &#xA0; return false;
-&#xA0; &#xA0; }
-&#xA0; &#xA0; while (!feof($handle)) {
-&#xA0; &#xA0; &#xA0; &#xA0; $buffer = fread($handle, $chunksize);
-&#xA0; &#xA0; &#xA0; &#xA0; echo $buffer;
-&#xA0; &#xA0; &#xA0; &#xA0; if ($retbytes) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $cnt += strlen($buffer);
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; $status = fclose($handle);
-&#xA0; &#xA0; if ($retbytes &amp;&amp; $status) {
-&#xA0; &#xA0; &#xA0; &#xA0; return $cnt; // return num. bytes delivered like readfile() does.
-&#xA0; &#xA0; } 
-&#xA0; &#xA0; return $status;
+    $chunksize = 1*(1024*1024); // how many bytes per chunk
+    $buffer = &apos;&apos;;
+    $cnt =0;
+    // $handle = fopen($filename, &apos;rb&apos;);
+    $handle = fopen($filename, &apos;rb&apos;);
+    if ($handle === false) {
+        return false;
+    }
+    while (!feof($handle)) {
+        $buffer = fread($handle, $chunksize);
+        echo $buffer;
+        if ($retbytes) {
+            $cnt += strlen($buffer);
+        }
+    }
+        $status = fclose($handle);
+    if ($retbytes &amp;&amp; $status) {
+        return $cnt; // return num. bytes delivered like readfile() does.
+    } 
+    return $status;
 
 } 
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-My script working correctly on IE6 and Firefox 2 with any typ e of files (I hope :))
-
-function DownloadFile($file) { // $file = include path 
-&#xA0; &#xA0; &#xA0; &#xA0; if(file_exists($file)) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; header(&apos;Content-Description: File Transfer&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; header(&apos;Content-Type: application/octet-stream&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; header(&apos;Content-Disposition: attachment; filename=&apos;.basename($file));
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; header(&apos;Content-Transfer-Encoding: binary&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; header(&apos;Expires: 0&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; header(&apos;Cache-Control: must-revalidate, post-check=0, pre-check=0&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; header(&apos;Pragma: public&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; header(&apos;Content-Length: &apos; . filesize($file));
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; ob_clean();
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; flush();
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; readfile($file);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; exit;
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; }
-
-Run on Apache 2 (WIN32) PHP5
-
-  
+My script working correctly on IE6 and Firefox 2 with any typ e of files (I hope :))<br><br>function DownloadFile($file) { // $file = include path <br>        if(file_exists($file)) {<br>            header(&apos;Content-Description: File Transfer&apos;);<br>            header(&apos;Content-Type: application/octet-stream&apos;);<br>            header(&apos;Content-Disposition: attachment; filename=&apos;.basename($file));<br>            header(&apos;Content-Transfer-Encoding: binary&apos;);<br>            header(&apos;Expires: 0&apos;);<br>            header(&apos;Cache-Control: must-revalidate, post-check=0, pre-check=0&apos;);<br>            header(&apos;Pragma: public&apos;);<br>            header(&apos;Content-Length: &apos; . filesize($file));<br>            ob_clean();<br>            flush();<br>            readfile($file);<br>            exit;<br>        }<br><br>    }<br><br>Run on Apache 2 (WIN32) PHP5  
 
 #
 
-
-
-To anyone that&apos;s had problems with Readfile() reading large files into memory the problem is not Readfile() itself, it&apos;s because you have output buffering on. Just turn off output buffering immediately before the call to Readfile(). Use something like ob_end_flush().
-
-  
+To anyone that&apos;s had problems with Readfile() reading large files into memory the problem is not Readfile() itself, it&apos;s because you have output buffering on. Just turn off output buffering immediately before the call to Readfile(). Use something like ob_end_flush().  
 
 #
 

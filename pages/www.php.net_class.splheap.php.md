@@ -2,19 +2,64 @@
 
 
 
+To have a good idea what you can do with SplHeap, I created a little example script that will show the rankings of Belgian soccer teams in the Jupiler League.<br><br>
 
-<div class="phpcode"><span class="html">
-To have a good idea what you can do with SplHeap, I created a little example script that will show the rankings of Belgian soccer teams in the Jupiler League.<br><br><span class="default">&lt;?php<br></span><span class="comment">/**<br> * A class that extends SplHeap for showing rankings in the Belgian<br> * soccer tournament JupilerLeague<br> */<br></span><span class="keyword">class </span><span class="default">JupilerLeague </span><span class="keyword">extends </span><span class="default">SplHeap <br></span><span class="keyword">{<br>&#xA0; &#xA0; </span><span class="comment">/**<br>&#xA0; &#xA0;&#xA0; * We modify the abstract method compare so we can sort our<br>&#xA0; &#xA0;&#xA0; * rankings using the values of a given array<br>&#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">compare</span><span class="keyword">(</span><span class="default">$array1</span><span class="keyword">, </span><span class="default">$array2</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$values1 </span><span class="keyword">= </span><span class="default">array_values</span><span class="keyword">(</span><span class="default">$array1</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$values2 </span><span class="keyword">= </span><span class="default">array_values</span><span class="keyword">(</span><span class="default">$array2</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$values1</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] === </span><span class="default">$values2</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]) return </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$values1</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] &lt; </span><span class="default">$values2</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] ? -</span><span class="default">1 </span><span class="keyword">: </span><span class="default">1</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="comment">// Let&apos;s populate our heap here (data of 2009)<br></span><span class="default">$heap </span><span class="keyword">= new </span><span class="default">JupilerLeague</span><span class="keyword">();<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;AA Gent&apos; </span><span class="keyword">=&gt; </span><span class="default">15</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;Anderlecht&apos; </span><span class="keyword">=&gt; </span><span class="default">20</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;Cercle Brugge&apos; </span><span class="keyword">=&gt; </span><span class="default">11</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;Charleroi&apos; </span><span class="keyword">=&gt; </span><span class="default">12</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;Club Brugge&apos; </span><span class="keyword">=&gt; </span><span class="default">21</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;G. Beerschot&apos; </span><span class="keyword">=&gt; </span><span class="default">15</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;Kortrijk&apos; </span><span class="keyword">=&gt; </span><span class="default">10</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;KV Mechelen&apos; </span><span class="keyword">=&gt; </span><span class="default">18</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;Lokeren&apos; </span><span class="keyword">=&gt; </span><span class="default">10</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;Moeskroen&apos; </span><span class="keyword">=&gt; </span><span class="default">7</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;Racing Genk&apos; </span><span class="keyword">=&gt; </span><span class="default">11</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;Roeselare&apos; </span><span class="keyword">=&gt; </span><span class="default">6</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;Standard&apos; </span><span class="keyword">=&gt; </span><span class="default">20</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;STVV&apos; </span><span class="keyword">=&gt; </span><span class="default">17</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;Westerlo&apos; </span><span class="keyword">=&gt; </span><span class="default">10</span><span class="keyword">));<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(array (</span><span class="string">&apos;Zulte Waregem&apos; </span><span class="keyword">=&gt; </span><span class="default">15</span><span class="keyword">));<br><br></span><span class="comment">// For displaying the ranking we move up to the first node<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">top</span><span class="keyword">();<br><br></span><span class="comment">// Then we iterate through each node for displaying the result<br></span><span class="keyword">while (</span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">()) {<br>&#xA0; list (</span><span class="default">$team</span><span class="keyword">, </span><span class="default">$score</span><span class="keyword">) = </span><span class="default">each </span><span class="keyword">(</span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">());<br>&#xA0; echo </span><span class="default">$team </span><span class="keyword">. </span><span class="string">&apos;: &apos; </span><span class="keyword">. </span><span class="default">$score </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;<br>&#xA0; </span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">();<br>}<br></span><span class="default">?&gt;<br></span><br>This results in the following output:<br>Club Brugge: 21<br>Anderlecht: 20<br>Standard: 20<br>KV Mechelen: 18<br>STVV: 17<br>Zulte Waregem: 15<br>AA Gent: 15<br>G. Beerschot: 15<br>Charleroi: 12<br>Racing Genk: 11<br>Cercle Brugge: 11<br>Kortrijk: 10<br>Lokeren: 10<br>Westerlo: 10<br>Moeskroen: 7<br>Roeselare: 6<br><br>Hope this example paved the way for more complex implementations of SplHeap.</span>
-</div>
-  
+```
+<?php
+/**
+ * A class that extends SplHeap for showing rankings in the Belgian
+ * soccer tournament JupilerLeague
+ */
+class JupilerLeague extends SplHeap 
+{
+    /**
+     * We modify the abstract method compare so we can sort our
+     * rankings using the values of a given array
+     */
+    public function compare($array1, $array2)
+    {
+        $values1 = array_values($array1);
+        $values2 = array_values($array2);
+        if ($values1[0] === $values2[0]) return 0;
+        return $values1[0] &lt; $values2[0] ? -1 : 1;
+    }
+}
+
+// Let&apos;s populate our heap here (data of 2009)
+$heap = new JupilerLeague();
+$heap-&gt;insert(array (&apos;AA Gent&apos; =&gt; 15));
+$heap-&gt;insert(array (&apos;Anderlecht&apos; =&gt; 20));
+$heap-&gt;insert(array (&apos;Cercle Brugge&apos; =&gt; 11));
+$heap-&gt;insert(array (&apos;Charleroi&apos; =&gt; 12));
+$heap-&gt;insert(array (&apos;Club Brugge&apos; =&gt; 21));
+$heap-&gt;insert(array (&apos;G. Beerschot&apos; =&gt; 15));
+$heap-&gt;insert(array (&apos;Kortrijk&apos; =&gt; 10));
+$heap-&gt;insert(array (&apos;KV Mechelen&apos; =&gt; 18));
+$heap-&gt;insert(array (&apos;Lokeren&apos; =&gt; 10));
+$heap-&gt;insert(array (&apos;Moeskroen&apos; =&gt; 7));
+$heap-&gt;insert(array (&apos;Racing Genk&apos; =&gt; 11));
+$heap-&gt;insert(array (&apos;Roeselare&apos; =&gt; 6));
+$heap-&gt;insert(array (&apos;Standard&apos; =&gt; 20));
+$heap-&gt;insert(array (&apos;STVV&apos; =&gt; 17));
+$heap-&gt;insert(array (&apos;Westerlo&apos; =&gt; 10));
+$heap-&gt;insert(array (&apos;Zulte Waregem&apos; =&gt; 15));
+
+// For displaying the ranking we move up to the first node
+$heap-&gt;top();
+
+// Then we iterate through each node for displaying the result
+while ($heap-&gt;valid()) {
+  list ($team, $score) = each ($heap-&gt;current());
+  echo $team . &apos;: &apos; . $score . PHP_EOL;
+  $heap-&gt;next();
+}
+?>
+```
+<br><br>This results in the following output:<br>Club Brugge: 21<br>Anderlecht: 20<br>Standard: 20<br>KV Mechelen: 18<br>STVV: 17<br>Zulte Waregem: 15<br>AA Gent: 15<br>G. Beerschot: 15<br>Charleroi: 12<br>Racing Genk: 11<br>Cercle Brugge: 11<br>Kortrijk: 10<br>Lokeren: 10<br>Westerlo: 10<br>Moeskroen: 7<br>Roeselare: 6<br><br>Hope this example paved the way for more complex implementations of SplHeap.  
 
 #
 
-
-<div class="phpcode"><span class="html">
-While Michelangelo Van Dam example (<a href="http://br2.php.net/manual/en/class.splheap.php#93930" rel="nofollow" target="_blank">http://br2.php.net/manual/en/class.splheap.php#93930</a>) is a great demonstration of what can be done with SplHeap, this implementation is exactly what SplPriorityQueue does - based on SplMaxHeap. If you&apos;re planning to copy that snippet, go no further! There&apos;s a SPL class that does exactly what you want :)</span>
-</div>
-  
+While Michelangelo Van Dam example (http://br2.php.net/manual/en/class.splheap.php#93930) is a great demonstration of what can be done with SplHeap, this implementation is exactly what SplPriorityQueue does - based on SplMaxHeap. If you&apos;re planning to copy that snippet, go no further! There&apos;s a SPL class that does exactly what you want :)  
 
 #
 

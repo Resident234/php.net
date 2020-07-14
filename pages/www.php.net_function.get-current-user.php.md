@@ -2,21 +2,14 @@
 
 
 
-
-
-to get the username of the process owner (rather than the file owner), you can use:
-
-
+to get the username of the process owner (rather than the file owner), you can use:<br><br>
 
 ```
 <?php
 $processUser = posix_getpwuid(posix_geteuid());
 print $processUser[&apos;name&apos;];
-php?>
+?>
 ```
-
-
-
   
 
 #

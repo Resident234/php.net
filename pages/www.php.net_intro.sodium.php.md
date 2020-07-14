@@ -4,8 +4,6 @@
 
 
 
-
-
 ```
 <?php 
 //Simple Usage
@@ -19,21 +17,21 @@
  */
 function safeEncrypt($message, $key)
 {
-&#xA0; &#xA0; $nonce = random_bytes(
-&#xA0; &#xA0; &#xA0; &#xA0; SODIUM_CRYPTO_SECRETBOX_NONCEBYTES
-&#xA0; &#xA0; );
+    $nonce = random_bytes(
+        SODIUM_CRYPTO_SECRETBOX_NONCEBYTES
+    );
 
-&#xA0; &#xA0; $cipher = base64_encode(
-&#xA0; &#xA0; &#xA0; &#xA0; $nonce.
-&#xA0; &#xA0; &#xA0; &#xA0; sodium_crypto_secretbox(
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $message,
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $nonce,
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $key
-&#xA0; &#xA0; &#xA0; &#xA0; )
-&#xA0; &#xA0; );
-&#xA0; &#xA0; sodium_memzero($message);
-&#xA0; &#xA0; sodium_memzero($key);
-&#xA0; &#xA0; return $cipher;
+    $cipher = base64_encode(
+        $nonce.
+        sodium_crypto_secretbox(
+            $message,
+            $nonce,
+            $key
+        )
+    );
+    sodium_memzero($message);
+    sodium_memzero($key);
+    return $cipher;
 }
 
 /**
@@ -44,45 +42,39 @@ function safeEncrypt($message, $key)
  * @return string
  */
 function safeDecrypt($encrypted, $key)
-{&#xA0;&#xA0; 
-&#xA0; &#xA0; $decoded = base64_decode($encrypted);
-&#xA0; &#xA0; if ($decoded === false) {
-&#xA0; &#xA0; &#xA0; &#xA0; throw new Exception(&apos;Scream bloody murder, the encoding failed&apos;);
-&#xA0; &#xA0; }
-&#xA0; &#xA0; if (mb_strlen($decoded, &apos;8bit&apos;) &lt; (SODIUM_CRYPTO_SECRETBOX_NONCEBYTES + SODIUM_CRYPTO_SECRETBOX_MACBYTES)) {
-&#xA0; &#xA0; &#xA0; &#xA0; throw new Exception(&apos;Scream bloody murder, the message was truncated&apos;);
-&#xA0; &#xA0; }
-&#xA0; &#xA0; $nonce = mb_substr($decoded, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, &apos;8bit&apos;);
-&#xA0; &#xA0; $ciphertext = mb_substr($decoded, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, &apos;8bit&apos;);
+{   
+    $decoded = base64_decode($encrypted);
+    if ($decoded === false) {
+        throw new Exception(&apos;Scream bloody murder, the encoding failed&apos;);
+    }
+    if (mb_strlen($decoded, &apos;8bit&apos;) &lt; (SODIUM_CRYPTO_SECRETBOX_NONCEBYTES + SODIUM_CRYPTO_SECRETBOX_MACBYTES)) {
+        throw new Exception(&apos;Scream bloody murder, the message was truncated&apos;);
+    }
+    $nonce = mb_substr($decoded, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, &apos;8bit&apos;);
+    $ciphertext = mb_substr($decoded, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, &apos;8bit&apos;);
 
-&#xA0; &#xA0; $plain = sodium_crypto_secretbox_open(
-&#xA0; &#xA0; &#xA0; &#xA0; $ciphertext,
-&#xA0; &#xA0; &#xA0; &#xA0; $nonce,
-&#xA0; &#xA0; &#xA0; &#xA0; $key
-&#xA0; &#xA0; );
-&#xA0; &#xA0; if ($plain === false) {
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; throw new Exception(&apos;the message was tampered with in transit&apos;);
-&#xA0; &#xA0; }
-&#xA0; &#xA0; sodium_memzero($ciphertext);
-&#xA0; &#xA0; sodium_memzero($key);
-&#xA0; &#xA0; return $plain;
+    $plain = sodium_crypto_secretbox_open(
+        $ciphertext,
+        $nonce,
+        $key
+    );
+    if ($plain === false) {
+         throw new Exception(&apos;the message was tampered with in transit&apos;);
+    }
+    sodium_memzero($ciphertext);
+    sodium_memzero($key);
+    return $plain;
 }
 //Encrypt &amp; Decrypt your message
 $key = sodium_crypto_secretbox_keygen();
-$enc = safeEncrypt(&apos;Abdul Rafay Hingoro&apos;, $key); //generates random&#xA0; encrypted string (Base64 related)
+$enc = safeEncrypt(&apos;Abdul Rafay Hingoro&apos;, $key); //generates random  encrypted string (Base64 related)
 echo $enc;
 echo &apos;&lt;br&gt;&apos;;
 $dec = safeDecrypt($enc, $key); //decrypts encoded string generated via safeEncrypt function 
 echo $dec;
 ?>
 ```
-
-
-//Output
-DEx9ATXEg/eRq8GWD3NT5BatB3m31WEDEYLK2V4L0Am5GZGoa2rvYWUpoUeCrm7W/pdgLJrNoE6AA8U=
-Abdul Rafay Hingoro
-
-  
+<br><br>//Output<br>DEx9ATXEg/eRq8GWD3NT5BatB3m31WEDEYLK2V4L0Am5GZGoa2rvYWUpoUeCrm7W/pdgLJrNoE6AA8U=<br>Abdul Rafay Hingoro  
 
 #
 

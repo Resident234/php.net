@@ -2,13 +2,7 @@
 
 
 
-
-
-It is a GOOD_THING to check the return value from fclose(), as some operating systems only flush file output on close, and can, therefore, return an error from fclose(). You can catch severe data-eating errors by doing this. 
-
-I learned this the hard way.
-
-  
+It is a GOOD_THING to check the return value from fclose(), as some operating systems only flush file output on close, and can, therefore, return an error from fclose(). You can catch severe data-eating errors by doing this. <br><br>I learned this the hard way.  
 
 #
 

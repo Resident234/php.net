@@ -2,11 +2,84 @@
 
 
 
+Example of stream used with databases :<br><br>Requirement :<br>A MySQL database with a table named data structured as follow :<br>CREATE TABLE IF NOT EXISTS `data` (<br>  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,<br>  `data` varchar(255) NOT NULL,<br>  `when_inserted` datetime NOT NULL,<br>  PRIMARY KEY (`id`)<br>) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;<br><br>Now with the stream implementation :<br><br>
 
-<div class="phpcode"><span class="html">
-Example of stream used with databases :<br><br>Requirement :<br>A MySQL database with a table named data structured as follow :<br>CREATE TABLE IF NOT EXISTS `data` (<br>&#xA0; `id` int(10) unsigned NOT NULL AUTO_INCREMENT,<br>&#xA0; `data` varchar(255) NOT NULL,<br>&#xA0; `when_inserted` datetime NOT NULL,<br>&#xA0; PRIMARY KEY (`id`)<br>) ENGINE=MyISAM&#xA0; DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;<br><br>Now with the stream implementation :<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">DBStream </span><span class="keyword">{<br>&#xA0; &#xA0; private </span><span class="default">$_pdo</span><span class="keyword">;<br>&#xA0; &#xA0; private </span><span class="default">$_ps</span><span class="keyword">;<br>&#xA0; &#xA0; private </span><span class="default">$_rowId </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br><br>&#xA0; &#xA0; function </span><span class="default">stream_open</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, </span><span class="default">$mode</span><span class="keyword">, </span><span class="default">$options</span><span class="keyword">, &amp;</span><span class="default">$opath</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$url </span><span class="keyword">= </span><span class="default">parse_url</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$url</span><span class="keyword">[</span><span class="string">&apos;path&apos;</span><span class="keyword">] = </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$url</span><span class="keyword">[</span><span class="string">&apos;path&apos;</span><span class="keyword">], </span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; try{<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_pdo </span><span class="keyword">= new </span><span class="default">PDO</span><span class="keyword">(</span><span class="string">&quot;mysql:host=</span><span class="keyword">{</span><span class="default">$url</span><span class="keyword">[</span><span class="string">&apos;host&apos;</span><span class="keyword">]}</span><span class="string">;dbname=</span><span class="keyword">{</span><span class="default">$url</span><span class="keyword">[</span><span class="string">&apos;path&apos;</span><span class="keyword">]}</span><span class="string">&quot;</span><span class="keyword">, </span><span class="default">$url</span><span class="keyword">[</span><span class="string">&apos;user&apos;</span><span class="keyword">], isset(</span><span class="default">$url</span><span class="keyword">[</span><span class="string">&apos;pass&apos;</span><span class="keyword">])? </span><span class="default">$url</span><span class="keyword">[</span><span class="string">&apos;pass&apos;</span><span class="keyword">] : </span><span class="string">&apos;&apos;</span><span class="keyword">, array());<br>&#xA0; &#xA0; &#xA0; &#xA0; } catch(</span><span class="default">PDOException $e</span><span class="keyword">){ return </span><span class="default">false</span><span class="keyword">; }<br>&#xA0; &#xA0; &#xA0; &#xA0; switch (</span><span class="default">$mode</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;w&apos; </span><span class="keyword">: <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_ps </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_pdo</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">&apos;INSERT INTO data VALUES(null, ?, NOW())&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;r&apos; </span><span class="keyword">: <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_ps </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_pdo</span><span class="keyword">-&gt;</span><span class="default">prepare</span><span class="keyword">(</span><span class="string">&apos;SELECT id, data FROM data WHERE id &gt; ? LIMIT 1&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; default&#xA0; : return </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">true</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; function </span><span class="default">stream_read</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_ps</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">(array(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_rowId</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; if(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_ps</span><span class="keyword">-&gt;</span><span class="default">rowCount</span><span class="keyword">() == </span><span class="default">0</span><span class="keyword">) return </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_ps</span><span class="keyword">-&gt;</span><span class="default">bindcolumn</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_rowId</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_ps</span><span class="keyword">-&gt;</span><span class="default">bindcolumn</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">, </span><span class="default">$ret</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_ps</span><span class="keyword">-&gt;</span><span class="default">fetch</span><span class="keyword">();<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; return </span><span class="default">$ret</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; function </span><span class="default">stream_write</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_ps</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">(array(</span><span class="default">$data</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; function </span><span class="default">stream_tell</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_rowId</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; function </span><span class="default">stream_eof</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_ps</span><span class="keyword">-&gt;</span><span class="default">execute</span><span class="keyword">(array(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_rowId</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; return (bool) </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_ps</span><span class="keyword">-&gt;</span><span class="default">rowCount</span><span class="keyword">();<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; function </span><span class="default">stream_seek</span><span class="keyword">(</span><span class="default">$offset</span><span class="keyword">, </span><span class="default">$step</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//No need to be implemented<br>&#xA0; &#xA0; </span><span class="keyword">}<br>}<br><br></span><span class="default">stream_register_wrapper</span><span class="keyword">(</span><span class="string">&apos;db&apos;</span><span class="keyword">, </span><span class="string">&apos;DBStream&apos;</span><span class="keyword">);<br><br></span><span class="default">$fr </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">&apos;db://testuser@localhost/testdb&apos;</span><span class="keyword">, </span><span class="string">&apos;r&apos;</span><span class="keyword">);<br></span><span class="default">$fw </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="string">&apos;db://testuser:testpassword@localhost/testdb&apos;</span><span class="keyword">, </span><span class="string">&apos;w&apos;</span><span class="keyword">);<br></span><span class="comment">//The two forms above are accepted : for the former, the default password &quot;&quot; will be used<br><br></span><span class="default">$alg </span><span class="keyword">= </span><span class="default">hash_algos</span><span class="keyword">();<br></span><span class="default">$al </span><span class="keyword">= </span><span class="default">$alg</span><span class="keyword">[</span><span class="default">array_rand</span><span class="keyword">(</span><span class="default">$alg</span><span class="keyword">)];<br></span><span class="default">$data </span><span class="keyword">= </span><span class="default">hash</span><span class="keyword">(</span><span class="default">$al</span><span class="keyword">, </span><span class="default">rand</span><span class="keyword">(</span><span class="default">rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">9</span><span class="keyword">), </span><span class="default">rand</span><span class="keyword">(</span><span class="default">10</span><span class="keyword">, </span><span class="default">999</span><span class="keyword">))); </span><span class="comment">// Some random data to be written<br></span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$fw</span><span class="keyword">, </span><span class="default">$data</span><span class="keyword">); </span><span class="comment">// Writing the data to the wrapper<br></span><span class="keyword">while(</span><span class="default">$a </span><span class="keyword">= </span><span class="default">fread</span><span class="keyword">(</span><span class="default">$fr</span><span class="keyword">, </span><span class="default">256</span><span class="keyword">)){ </span><span class="comment">//A loop for reading from the wrapper<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">$a </span><span class="keyword">. </span><span class="string">&apos;&lt;br /&gt;&apos;</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>Hope it helps, cheers ;)</span>
-</div>
-  
+```
+<?php
+
+class DBStream {
+    private $_pdo;
+    private $_ps;
+    private $_rowId = 0;
+
+    function stream_open($path, $mode, $options, &amp;$opath)
+    {
+        $url = parse_url($path);
+        $url[&apos;path&apos;] = substr($url[&apos;path&apos;], 1);
+        try{
+            $this-&gt;_pdo = new PDO("mysql:host={$url[&apos;host&apos;]};dbname={$url[&apos;path&apos;]}", $url[&apos;user&apos;], isset($url[&apos;pass&apos;])? $url[&apos;pass&apos;] : &apos;&apos;, array());
+        } catch(PDOException $e){ return false; }
+        switch ($mode){
+            case &apos;w&apos; : 
+                $this-&gt;_ps = $this-&gt;_pdo-&gt;prepare(&apos;INSERT INTO data VALUES(null, ?, NOW())&apos;);
+                break;
+            case &apos;r&apos; : 
+                $this-&gt;_ps = $this-&gt;_pdo-&gt;prepare(&apos;SELECT id, data FROM data WHERE id &gt; ? LIMIT 1&apos;);
+                break;
+            default  : return false;
+        }
+        return true;
+    }
+
+    function stream_read()
+    {
+         $this-&gt;_ps-&gt;execute(array($this-&gt;_rowId));
+         if($this-&gt;_ps-&gt;rowCount() == 0) return false;
+         $this-&gt;_ps-&gt;bindcolumn(1, $this-&gt;_rowId);
+         $this-&gt;_ps-&gt;bindcolumn(2, $ret);
+         $this-&gt;_ps-&gt;fetch();
+         return $ret;
+    }
+
+    function stream_write($data)
+    {
+        $this-&gt;_ps-&gt;execute(array($data));
+        return strlen($data);
+    }
+
+    function stream_tell()
+    {
+        return $this-&gt;_rowId;
+    }
+
+    function stream_eof()
+    {
+        $this-&gt;_ps-&gt;execute(array($this-&gt;_rowId));
+        return (bool) $this-&gt;_ps-&gt;rowCount();
+    }
+
+    function stream_seek($offset, $step)
+    {
+        //No need to be implemented
+    }
+}
+
+stream_register_wrapper(&apos;db&apos;, &apos;DBStream&apos;);
+
+$fr = fopen(&apos;db://testuser@localhost/testdb&apos;, &apos;r&apos;);
+$fw = fopen(&apos;db://testuser:testpassword@localhost/testdb&apos;, &apos;w&apos;);
+//The two forms above are accepted : for the former, the default password "" will be used
+
+$alg = hash_algos();
+$al = $alg[array_rand($alg)];
+$data = hash($al, rand(rand(0, 9), rand(10, 999))); // Some random data to be written
+fwrite($fw, $data); // Writing the data to the wrapper
+while($a = fread($fr, 256)){ //A loop for reading from the wrapper
+    echo $a . &apos;&lt;br /&gt;&apos;;
+}
+?>
+```
+<br><br>Hope it helps, cheers ;)  
 
 #
 

@@ -2,24 +2,7 @@
 
 
 
-
-
-Passthru didn&apos;t work for me for files greater than about 5Mb. Just adding &quot;ob_end_clean()&quot;, all works fine now, including &gt; 50Mb files.
-
-$ToProtectedFile=$pathUnder.$filename
-$handle = @fopen($ToProtectedFile, &quot;rb&quot;);
-
-@header(&quot;Cache-Control: no-cache, must-revalidate&quot;); 
-@header(&quot;Pragma: no-cache&quot;); //keeps ie happy
-@header(&quot;Content-Disposition: attachment; filename= &quot;.$NomFichier);
-@header(&quot;Content-type: application/octet-stream&quot;);
-@header(&quot;Content-Length: &quot;.$SizeOfFile);
-@header(&apos;Content-Transfer-Encoding: binary&apos;);
-
-ob_end_clean();//required here or large files will not work
-@fpassthru($handle);//works fine now
-
-  
+Passthru didn&apos;t work for me for files greater than about 5Mb. Just adding "ob_end_clean()", all works fine now, including &gt; 50Mb files.<br><br>$ToProtectedFile=$pathUnder.$filename<br>$handle = @fopen($ToProtectedFile, "rb");<br><br>@header("Cache-Control: no-cache, must-revalidate"); <br>@header("Pragma: no-cache"); //keeps ie happy<br>@header("Content-Disposition: attachment; filename= ".$NomFichier);<br>@header("Content-type: application/octet-stream");<br>@header("Content-Length: ".$SizeOfFile);<br>@header(&apos;Content-Transfer-Encoding: binary&apos;);<br><br>ob_end_clean();//required here or large files will not work<br>@fpassthru($handle);//works fine now  
 
 #
 

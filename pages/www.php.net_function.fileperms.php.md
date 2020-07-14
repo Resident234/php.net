@@ -2,14 +2,11 @@
 
 
 
-
-
-Don&apos;t use substr, use bit operator
-
+Don&apos;t use substr, use bit operator<br>
 
 ```
 <?php
-decoct(fileperms($file) &amp; 0777); // return &quot;755&quot; for example
+decoct(fileperms($file) &amp; 0777); // return "755" for example
 ?>
 ```
 
@@ -22,9 +19,6 @@ If you want to compare permission
 0755 === (fileperms($file) &amp; 0777);
 ?>
 ```
-
-
-
   
 
 #

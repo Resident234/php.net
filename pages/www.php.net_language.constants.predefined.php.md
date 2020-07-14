@@ -2,118 +2,61 @@
 
 
 
-
-
-the difference between 
-__FUNCTION__ and __METHOD__ as in PHP 5.0.4 is that
-
-__FUNCTION__ returns only the name of the function
-
-while as __METHOD__ returns the name of the class alongwith the name of the function
-
-class trick
-{
-&#xA0; &#xA0; &#xA0; function doit()
-&#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo __FUNCTION__;
-&#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; function doitagain()
-&#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo __METHOD__;
-&#xA0; &#xA0; &#xA0; }
-}
-$obj=new trick();
-$obj-&gt;doit();
-output will be ----&#xA0; doit
-$obj-&gt;doitagain();
-output will be ----- trick::doitagain
-
-  
+the difference between <br>__FUNCTION__ and __METHOD__ as in PHP 5.0.4 is that<br><br>__FUNCTION__ returns only the name of the function<br><br>while as __METHOD__ returns the name of the class alongwith the name of the function<br><br>class trick<br>{<br>      function doit()<br>      {<br>                echo __FUNCTION__;<br>      }<br>      function doitagain()<br>      {<br>                echo __METHOD__;<br>      }<br>}<br>$obj=new trick();<br>$obj-&gt;doit();<br>output will be ----  doit<br>$obj-&gt;doitagain();<br>output will be ----- trick::doitagain  
 
 #
 
-
-
-The __CLASS__ magic constant nicely complements the get_class() function.
-
-Sometimes you need to know both:
-- name of the inherited class
-- name of the class actually executed
-
-Here&apos;s an example that shows the possible solution:
-
-
+The __CLASS__ magic constant nicely complements the get_class() function.<br><br>Sometimes you need to know both:<br>- name of the inherited class<br>- name of the class actually executed<br><br>Here&apos;s an example that shows the possible solution:<br><br>
 
 ```
 <?php
 
 class base_class
 {
-&#xA0; &#xA0; function say_a()
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;&apos;a&apos; - said the &quot; . __CLASS__ . &quot;&lt;br/&gt;&quot;;
-&#xA0; &#xA0; }
+    function say_a()
+    {
+        echo "&apos;a&apos; - said the " . __CLASS__ . "&lt;br/&gt;";
+    }
 
-&#xA0; &#xA0; function say_b()
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;&apos;b&apos; - said the &quot; . get_class($this) . &quot;&lt;br/&gt;&quot;;
-&#xA0; &#xA0; }
+    function say_b()
+    {
+        echo "&apos;b&apos; - said the " . get_class($this) . "&lt;br/&gt;";
+    }
 
 }
 
 class derived_class extends base_class
 {
-&#xA0; &#xA0; function say_a()
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; parent::say_a();
-&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;&apos;a&apos; - said the &quot; . __CLASS__ . &quot;&lt;br/&gt;&quot;;
-&#xA0; &#xA0; }
+    function say_a()
+    {
+        parent::say_a();
+        echo "&apos;a&apos; - said the " . __CLASS__ . "&lt;br/&gt;";
+    }
 
-&#xA0; &#xA0; function say_b()
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; parent::say_b();
-&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;&apos;b&apos; - said the &quot; . get_class($this) . &quot;&lt;br/&gt;&quot;;
-&#xA0; &#xA0; }
+    function say_b()
+    {
+        parent::say_b();
+        echo "&apos;b&apos; - said the " . get_class($this) . "&lt;br/&gt;";
+    }
 }
 
 $obj_b = new derived_class();
 
 $obj_b-&gt;say_a();
-echo &quot;&lt;br/&gt;&quot;;
+echo "&lt;br/&gt;";
 $obj_b-&gt;say_b();
 
 ?>
 ```
-
-
-The output should look roughly like this:
-
-&apos;a&apos; - said the base_class
-&apos;a&apos; - said the derived_class
-
-&apos;b&apos; - said the derived_class
-&apos;b&apos; - said the derived_class
-
-  
+<br><br>The output should look roughly like this:<br><br>&apos;a&apos; - said the base_class<br>&apos;a&apos; - said the derived_class<br><br>&apos;b&apos; - said the derived_class<br>&apos;b&apos; - said the derived_class  
 
 #
 
-
-
-There is no way to implement a backwards compatible __DIR__ in versions prior to 5.3.0.
-
-The only thing that you can do is to perform a recursive search and replace to dirname(__FILE__):
-find . -type f -print0 | xargs -0 sed -i &apos;s/__DIR__/dirname(__FILE__)/&apos;
-
-  
+There is no way to implement a backwards compatible __DIR__ in versions prior to 5.3.0.<br><br>The only thing that you can do is to perform a recursive search and replace to dirname(__FILE__):<br>find . -type f -print0 | xargs -0 sed -i &apos;s/__DIR__/dirname(__FILE__)/&apos;  
 
 #
 
-
-
-Note a small inconsistency when using __CLASS__ and __METHOD__ in traits (stand php 7.0.4): While __CLASS__ is working as advertized and returns dynamically the name of the class the trait is being used in, __METHOD__ will actually prepend the trait name instead of the class name!
-
-  
+Note a small inconsistency when using __CLASS__ and __METHOD__ in traits (stand php 7.0.4): While __CLASS__ is working as advertized and returns dynamically the name of the class the trait is being used in, __METHOD__ will actually prepend the trait name instead of the class name!  
 
 #
 

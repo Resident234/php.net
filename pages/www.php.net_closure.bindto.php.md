@@ -2,40 +2,36 @@
 
 
 
-
-
-You can do pretty Javascript-like things with objects using closure binding:
-
-
+You can do pretty Javascript-like things with objects using closure binding:<br><br>
 
 ```
 <?php
 trait DynamicDefinition {
-&#xA0; &#xA0; 
-&#xA0; &#xA0; public function __call($name, $args) {
-&#xA0; &#xA0; &#xA0; &#xA0; if (is_callable($this-&gt;$name)) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return call_user_func($this-&gt;$name, $args);
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; else {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new \RuntimeException(&quot;Method {$name} does not exist&quot;);
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
-&#xA0; &#xA0; 
-&#xA0; &#xA0; public function __set($name, $value) {
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;$name = is_callable($value)? 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $value-&gt;bindTo($this, $this): 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $value;
-&#xA0; &#xA0; }
+    
+    public function __call($name, $args) {
+        if (is_callable($this-&gt;$name)) {
+            return call_user_func($this-&gt;$name, $args);
+        }
+        else {
+            throw new \RuntimeException("Method {$name} does not exist");
+        }
+    }
+    
+    public function __set($name, $value) {
+        $this-&gt;$name = is_callable($value)? 
+            $value-&gt;bindTo($this, $this): 
+            $value;
+    }
 }
 
 class Foo {
-&#xA0; &#xA0; use DynamicDefinition;
-&#xA0; &#xA0; private $privateValue = &apos;I am private&apos;;
+    use DynamicDefinition;
+    private $privateValue = &apos;I am private&apos;;
 }
 
 $foo = new Foo;
 $foo-&gt;bar = function() {
-&#xA0; &#xA0; return $this-&gt;privateValue;
+    return $this-&gt;privateValue;
 };
 
 // prints &apos;I am private&apos;
@@ -43,48 +39,37 @@ print $foo-&gt;bar();
 
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-We can use the concept of bindTo to write a very small Template Engine:
-
-#############
-index.php
-############
-
-
+We can use the concept of bindTo to write a very small Template Engine:<br><br>#############<br>index.php<br>############<br><br>
 
 ```
 <?php
 
 class Article{
-&#xA0; &#xA0; private $title = &quot;This is an article&quot;;
+    private $title = "This is an article";
 }
 
 class Post{
-&#xA0; &#xA0; private $title = &quot;This is a post&quot;;
+    private $title = "This is a post";
 }
 
 class Template{
 
-&#xA0; &#xA0; function render($context, $tpl){
+    function render($context, $tpl){
 
-&#xA0; &#xA0; &#xA0; &#xA0; $closure = function($tpl){
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; ob_start();
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; include $tpl;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return ob_end_flush();
-&#xA0; &#xA0; &#xA0; &#xA0; };
+        $closure = function($tpl){
+            ob_start();
+            include $tpl;
+            return ob_end_flush();
+        };
 
-&#xA0; &#xA0; &#xA0; &#xA0; $closure = $closure-&gt;bindTo($context, $context);
-&#xA0; &#xA0; &#xA0; &#xA0; $closure($tpl);
+        $closure = $closure-&gt;bindTo($context, $context);
+        $closure($tpl);
 
-&#xA0; &#xA0; }
+    }
 
 }
 
@@ -106,38 +91,14 @@ tpl.php
 ```
 <?php echo $this-&gt;title;?>
 ```
-&lt;/h1&gt;
-
-  
+&lt;/h1&gt;  
 
 #
 
-
-
-Private/protected members are accessible if you set the &quot;newscope&quot; argument (as the manual says).
-
-
+Private/protected members are accessible if you set the "newscope" argument (as the manual says).<br><br>
 
 ```
-<?php
-$fn = function(){
-&#xA0; &#xA0; return ++$this-&gt;foo; // increase the value
-};
-
-class Bar{
-&#xA0; &#xA0; private $foo = 1; // initial value
-}
-
-$bar = new Bar();
-
-$fn1 = $fn-&gt;bindTo($bar, &apos;Bar&apos;); // specify class name
-$fn2 = $fn-&gt;bindTo($bar,&#xA0; $bar); // or object
-
-echo $fn1(); // 2
-echo $fn2(); // 3
-
-
-  
+<?php<br>$fn = function(){<br>    return ++$this-&gt;foo; // increase the value<br>};<br><br>class Bar{<br>    private $foo = 1; // initial value<br>}<br><br>$bar = new Bar();<br><br>$fn1 = $fn-&gt;bindTo($bar, &apos;Bar&apos;); // specify class name<br>$fn2 = $fn-&gt;bindTo($bar,  $bar); // or object<br><br>echo $fn1(); // 2<br>echo $fn2(); // 3  
 
 #
 

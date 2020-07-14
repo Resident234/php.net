@@ -2,19 +2,7 @@
 
 
 
-
-
-Please note this:
-
-Won&apos;t work:
-$sth = $dbh-&gt;prepare(&apos;SELECT name, colour, calories FROM ?&#xA0; WHERE calories &lt; ?&apos;);
-
-THIS WORKS!
-$sth = $dbh-&gt;prepare(&apos;SELECT name, colour, calories FROM fruit WHERE calories &lt; ?&apos;);
-
-The parameter cannot be applied on table names!!
-
-  
+Please note this:<br><br>Won&apos;t work:<br>$sth = $dbh-&gt;prepare(&apos;SELECT name, colour, calories FROM ?  WHERE calories &lt; ?&apos;);<br><br>THIS WORKS!<br>$sth = $dbh-&gt;prepare(&apos;SELECT name, colour, calories FROM fruit WHERE calories &lt; ?&apos;);<br><br>The parameter cannot be applied on table names!!  
 
 #
 

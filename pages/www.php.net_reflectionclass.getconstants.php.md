@@ -2,21 +2,32 @@
 
 
 
+If you want to return the constants defined inside a class then you can also define an internal method as follows:<br><br>
 
-<div class="phpcode"><span class="html">
-If you want to return the constants defined inside a class then you can also define an internal method as follows:<br><br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">myClass </span><span class="keyword">{<br>&#xA0; &#xA0; const </span><span class="default">NONE </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; const </span><span class="default">REQUEST </span><span class="keyword">= </span><span class="default">100</span><span class="keyword">;<br>&#xA0; &#xA0; const </span><span class="default">AUTH </span><span class="keyword">= </span><span class="default">101</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="comment">// others...<br><br>&#xA0; &#xA0; </span><span class="keyword">static function </span><span class="default">getConstants</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$oClass </span><span class="keyword">= new </span><span class="default">ReflectionClass</span><span class="keyword">(</span><span class="default">__CLASS__</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$oClass</span><span class="keyword">-&gt;</span><span class="default">getConstants</span><span class="keyword">();<br>&#xA0; &#xA0; }<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+class myClass {
+    const NONE = 0;
+    const REQUEST = 100;
+    const AUTH = 101;
+
+    // others...
+
+    static function getConstants() {
+        $oClass = new ReflectionClass(__CLASS__);
+        return $oClass-&gt;getConstants();
+    }
+}
+?>
+```
   
 
 #
 
+You can pass $this as class for the ReflectionClass. __CLASS__ won&apos;t help if you extend the original class, because it is a magic constant based on the file itself.<br><br>
 
-<div class="phpcode"><span class="html">
-You can pass $this as class for the ReflectionClass. __CLASS__ won&apos;t help if you extend the original class, because it is a magic constant based on the file itself.<br><br><span class="default">&lt;?php <br><br></span><span class="keyword">class </span><span class="default">Example </span><span class="keyword">{<br>&#xA0; const </span><span class="default">TYPE_A </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br>&#xA0; const </span><span class="default">TYPE_B </span><span class="keyword">= </span><span class="string">&apos;hello&apos;</span><span class="keyword">;<br><br>&#xA0; public function </span><span class="default">getConstants</span><span class="keyword">()<br>&#xA0; {<br>&#xA0; &#xA0; </span><span class="default">$reflectionClass </span><span class="keyword">= new </span><span class="default">ReflectionClass</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">);<br>&#xA0; &#xA0; return </span><span class="default">$reflectionClass</span><span class="keyword">-&gt;</span><span class="default">getConstants</span><span class="keyword">();<br>&#xA0; }<br>}<br><br></span><span class="default">$example </span><span class="keyword">= new </span><span class="default">Example</span><span class="keyword">();<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$example</span><span class="keyword">-&gt;</span><span class="default">getConstants</span><span class="keyword">());<br><br></span><span class="comment">// Result:<br></span><span class="keyword">array ( </span><span class="default">size </span><span class="keyword">= </span><span class="default">2</span><span class="keyword">)<br>&#xA0; </span><span class="string">&apos;TYPE_A&apos; </span><span class="keyword">=&gt; </span><span class="default">int 1<br>&#xA0; </span><span class="string">&apos;TYPE_B&apos; </span><span class="keyword">=&gt; (string) </span><span class="string">&apos;hello&apos;</span>
-</span>
-</div>
-  
+```
+<?php <br><br>class Example {<br>  const TYPE_A = 1;<br>  const TYPE_B = &apos;hello&apos;;<br><br>  public function getConstants()<br>  {<br>    $reflectionClass = new ReflectionClass($this);<br>    return $reflectionClass-&gt;getConstants();<br>  }<br>}<br><br>$example = new Example();<br>var_dump($example-&gt;getConstants());<br><br>// Result:<br>array ( size = 2)<br>  &apos;TYPE_A&apos; =&gt; int 1<br>  &apos;TYPE_B&apos; =&gt; (string) &apos;hello&apos;  
 
 #
 

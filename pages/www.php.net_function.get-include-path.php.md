@@ -2,11 +2,7 @@
 
 
 
-
-
-If you are trying to find a file on your include path, there is a better way: http://php.net/manual/en/function.stream-resolve-include-path.php
-
-  
+If you are trying to find a file on your include path, there is a better way: http://php.net/manual/en/function.stream-resolve-include-path.php  
 
 #
 

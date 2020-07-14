@@ -2,13 +2,7 @@
 
 
 
-
-
-Builtin PHP function is &#xBB;reset&#xAB;.
-
-Don&apos;t mix this with builtin function &#xBB;rewind&#xAB; which operates on file handle.
-
-  
+Builtin PHP function is &#xBB;reset&#xAB;.<br><br>Don&apos;t mix this with builtin function &#xBB;rewind&#xAB; which operates on file handle.  
 
 #
 

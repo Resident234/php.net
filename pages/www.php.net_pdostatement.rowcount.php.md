@@ -2,96 +2,52 @@
 
 
 
-
-
-When updating a Mysql table with identical values nothing&apos;s really affected so rowCount will return 0. As Mr. Perl below noted this is not always preferred behaviour and you can change it yourself since PHP 5.3.
-
-Just create your PDO object with 
-&lt;? php
-$p = new PDO($dsn, $u, $p, array(PDO::MYSQL_ATTR_FOUND_ROWS =&gt; true));
-?>
+When updating a Mysql table with identical values nothing&apos;s really affected so rowCount will return 0. As Mr. Perl below noted this is not always preferred behaviour and you can change it yourself since PHP 5.3.<br><br>Just create your PDO object with <br>&lt;? php<br>$p = new PDO($dsn, $u, $p, array(PDO::MYSQL_ATTR_FOUND_ROWS =&gt; true));<br>?>
 ```
-
-and rowCount() will tell you how many rows your update-query actually found/matched.
-
-  
+<br>and rowCount() will tell you how many rows your update-query actually found/matched.  
 
 #
 
-
-
-Great, while using MySQL5, the only way to get the number of rows after doing a PDO SELECT query is to either execute a separate SELECT COUNT(*) query (or to do count($stmt-&gt;fetchAll()), which seems like a ridiculous waste of overhead and programming time.
-
-Another gripe I have about PDO is its inability to get the value of output parameters from stored procedures in some DBMSs, such as SQL Server.
-
-I&apos;m not so sure I&apos;m diggin&apos; PDO yet.
-
-  
+Great, while using MySQL5, the only way to get the number of rows after doing a PDO SELECT query is to either execute a separate SELECT COUNT(*) query (or to do count($stmt-&gt;fetchAll()), which seems like a ridiculous waste of overhead and programming time.<br><br>Another gripe I have about PDO is its inability to get the value of output parameters from stored procedures in some DBMSs, such as SQL Server.<br><br>I&apos;m not so sure I&apos;m diggin&apos; PDO yet.  
 
 #
 
-
-
-Note that an INSERT ... ON DUPLICATE KEY UPDATE statement is not an INSERT statement, rowCount won&apos;t return the number or rows inserted or updated for such a statement.&#xA0; For MySQL, it will return 1 if the row is inserted, and 2 if it is updated, but that may not apply to other databases.
-
-  
+Note that an INSERT ... ON DUPLICATE KEY UPDATE statement is not an INSERT statement, rowCount won&apos;t return the number or rows inserted or updated for such a statement.  For MySQL, it will return 1 if the row is inserted, and 2 if it is updated, but that may not apply to other databases.  
 
 #
 
-
-
-To display information only when the query is not empty, I do something like this:
-
-
+To display information only when the query is not empty, I do something like this:<br><br>
 
 ```
 <?php
-&#xA0; &#xA0; $sql = &apos;SELECT model FROM cars&apos;;
-&#xA0; &#xA0; $stmt = $db-&gt;prepare($sql);
-&#xA0; &#xA0; $stmt-&gt;execute();
-&#xA0; &#xA0; 
-&#xA0; &#xA0; if ($data = $stmt-&gt;fetch()) {
-&#xA0; &#xA0; &#xA0; &#xA0; do {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo $data[&apos;model&apos;] . &apos;&lt;br&gt;&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; } while ($data = $stmt-&gt;fetch());
-&#xA0; &#xA0; } else {
-&#xA0; &#xA0; &#xA0; &#xA0; echo &apos;Empty Query&apos;;
-&#xA0; &#xA0; }
+    $sql = &apos;SELECT model FROM cars&apos;;
+    $stmt = $db-&gt;prepare($sql);
+    $stmt-&gt;execute();
+    
+    if ($data = $stmt-&gt;fetch()) {
+        do {
+            echo $data[&apos;model&apos;] . &apos;&lt;br&gt;&apos;;
+        } while ($data = $stmt-&gt;fetch());
+    } else {
+        echo &apos;Empty Query&apos;;
+    }
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-It&apos;d better to use SQL_CALC_FOUND_ROWS, if you only use MySQL. It has many advantages as you could retrieve only part of result set (via LIMIT) but still get the total row count.
-
-code:
-
-
+It&apos;d better to use SQL_CALC_FOUND_ROWS, if you only use MySQL. It has many advantages as you could retrieve only part of result set (via LIMIT) but still get the total row count.<br>code:<br>
 
 ```
 <?php
-
 $db = new PDO(DSN...);
-
 $db-&gt;setAttribute(array(PDO::MYSQL_USE_BUFFERED_QUERY=&gt;TRUE));
-
-$rs&#xA0; = $db-&gt;query(&apos;SELECT SQL_CALC_FOUND_ROWS * FROM table LIMIT 5,15&apos;);
-
+$rs  = $db-&gt;query(&apos;SELECT SQL_CALC_FOUND_ROWS * FROM table LIMIT 5,15&apos;);
 $rs1 = $db-&gt;query(&apos;SELECT FOUND_ROWS()&apos;);
-
 $rowCount = (int) $rs1-&gt;fetchColumn();
-
 ?>
 ```
-
-
-
   
 
 #

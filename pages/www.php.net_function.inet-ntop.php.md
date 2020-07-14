@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-For people who wondering what the meaning of this function name:<br>pton: a presentation(printable) format address to network address<br>ntop: a network address to presentation(printable) format address</span>
-</div>
-  
+For people who wondering what the meaning of this function name:<br>pton: a presentation(printable) format address to network address<br>ntop: a network address to presentation(printable) format address  
 
 #
 

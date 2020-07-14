@@ -2,11 +2,72 @@
 
 
 
+This function checks if OAuth request is valid and signed correctly.<br><br>$provider-&gt;checkOAuthRequest(); <br><br>It does this by first calling timestampNonceHandler and expects result OAUHT_OK from it. If the result is different, an exception is thrown. It&apos;s up to you to write the code that checks timestamp/nonce combinations.<br><br>Secondly, it calls consumerHandler and expects your code in the consumerHandler function to set $provider-&gt;consumer_secret to the correct value (you should take it from your consumer storage location where it&apos;s saved with consumer key). If $provider-&gt;consumer_secret is not set, or is not set with the proper value an exception is thrown. Proper value means that it should be the same consumer key that was used to sign the request by the consumer before sending it to here (the provider). Again expected result from this function is OAUTH_OK or some OAUTH error code if you want to throw exception.<br><br>Third, it calls tokenHandler, but only WHEN you are requesting ACCESS token or requesting protected data with authorized ACCESS TOKEN. In order for the provider to call tokenHandler, before a call to the checkOAuthRequest function is made, the provider should call the method that says that this is not a request token endpoint (this is access token endpoint):<br><br>$provider-&gt;isRequestTokenEndpoint (false);<br>$provider-&gt;checkOAuthRequest();<br><br>Again here OAuthProvider is expecting your code in the tokenHandler to set $provider-&gt;token_secret to the correct value (you should take it from your token storage place) because during the signing process it uses CONSUMER SECRET (for request token) and CONSUMER SECRET AND TOKEN SECRET (for access token and fetch of protected data) to sign the request.<br><br>After these 3 handler functions are called and return good results (OAUTH_OK) and set the values of the required fields $provider-&gt;consumer_secret and $provider-&gt;token_secret, then the checkOAuthRequest function signs the request. If something goes wrong, it throws exception, otherwise there comes the place for your code to proceed and handle the request:<br><br>- you can create request token (if it&apos;s a first request for request token)<br>- you can create access token (if it&apos;s a request for access token)<br>- you can return protected data to the consumer (if it&apos;s a request to fetch protected data)<br><br>This is how the functions in my code look like, however please have in mind that I&apos;ve just implemented it and it&apos;s possible that I have something missed or forgotten, but generally I think the idea should be clear:<br><br>$this-&gt;dbModel is the object for working with database and save/retrieve token and consumer data<br><br>
 
-<div class="phpcode"><span class="html">
-This function checks if OAuth request is valid and signed correctly.<br><br>$provider-&gt;checkOAuthRequest(); <br><br>It does this by first calling timestampNonceHandler and expects result OAUHT_OK from it. If the result is different, an exception is thrown. It&apos;s up to you to write the code that checks timestamp/nonce combinations.<br><br>Secondly, it calls consumerHandler and expects your code in the consumerHandler function to set $provider-&gt;consumer_secret to the correct value (you should take it from your consumer storage location where it&apos;s saved with consumer key). If $provider-&gt;consumer_secret is not set, or is not set with the proper value an exception is thrown. Proper value means that it should be the same consumer key that was used to sign the request by the consumer before sending it to here (the provider). Again expected result from this function is OAUTH_OK or some OAUTH error code if you want to throw exception.<br><br>Third, it calls tokenHandler, but only WHEN you are requesting ACCESS token or requesting protected data with authorized ACCESS TOKEN. In order for the provider to call tokenHandler, before a call to the checkOAuthRequest function is made, the provider should call the method that says that this is not a request token endpoint (this is access token endpoint):<br><br>$provider-&gt;isRequestTokenEndpoint (false);<br>$provider-&gt;checkOAuthRequest();<br><br>Again here OAuthProvider is expecting your code in the tokenHandler to set $provider-&gt;token_secret to the correct value (you should take it from your token storage place) because during the signing process it uses CONSUMER SECRET (for request token) and CONSUMER SECRET AND TOKEN SECRET (for access token and fetch of protected data) to sign the request.<br><br>After these 3 handler functions are called and return good results (OAUTH_OK) and set the values of the required fields $provider-&gt;consumer_secret and $provider-&gt;token_secret, then the checkOAuthRequest function signs the request. If something goes wrong, it throws exception, otherwise there comes the place for your code to proceed and handle the request:<br><br>- you can create request token (if it&apos;s a first request for request token)<br>- you can create access token (if it&apos;s a request for access token)<br>- you can return protected data to the consumer (if it&apos;s a request to fetch protected data)<br><br>This is how the functions in my code look like, however please have in mind that I&apos;ve just implemented it and it&apos;s possible that I have something missed or forgotten, but generally I think the idea should be clear:<br><br>$this-&gt;dbModel is the object for working with database and save/retrieve token and consumer data<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">public function </span><span class="default">timestampNonceHandler </span><span class="keyword">( </span><span class="default">$provider </span><span class="keyword">)<br>{<br>&#xA0; &#xA0; return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dbModel</span><span class="keyword">-&gt;</span><span class="default">checkTimestampNonce </span><span class="keyword">( </span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">consumer_key</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">token</span><span class="keyword">, <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">timestamp</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">nonce </span><span class="keyword">);<br>}<br><br>public function </span><span class="default">consumerHandler </span><span class="keyword">( </span><span class="default">$provider </span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="default">$consumer </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dbModel</span><span class="keyword">-&gt;</span><span class="default">getConsumerSecrets </span><span class="keyword">(</span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">consumer_key</span><span class="keyword">);<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; if(</span><span class="default">$consumer</span><span class="keyword">[</span><span class="string">&apos;consumer_key&apos;</span><span class="keyword">] != </span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">consumer_key</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">OAUTH_CONSUMER_KEY_UNKNOWN</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; if( (int)</span><span class="default">$consumer</span><span class="keyword">[</span><span class="string">&apos;disabled&apos;</span><span class="keyword">] != </span><span class="default">0 </span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">OAUTH_CONSUMER_KEY_REFUSED</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">consumer_id </span><span class="keyword">= </span><span class="default">$consumer</span><span class="keyword">[</span><span class="string">&apos;consumer_id&apos;</span><span class="keyword">]; </span><span class="comment"># this is not required by OAuthProvider but I use it later in tokenHandler<br>&#xA0; &#xA0; </span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">consumer_secret </span><span class="keyword">= </span><span class="default">$consumer</span><span class="keyword">[</span><span class="string">&apos;consumer_secret&apos;</span><span class="keyword">]; </span><span class="comment"># this is REQUIRED<br><br>&#xA0; &#xA0; </span><span class="keyword">return </span><span class="default">OAUTH_OK</span><span class="keyword">;<br>}<br><br>public function </span><span class="default">tokenHandler </span><span class="keyword">( </span><span class="default">$provider </span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="default">$token </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">dbModel</span><span class="keyword">-&gt;</span><span class="default">getToken</span><span class="keyword">( </span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">token </span><span class="keyword">);<br><br>&#xA0; &#xA0; if( </span><span class="default">time</span><span class="keyword">() &gt; </span><span class="default">$token</span><span class="keyword">[</span><span class="string">&apos;expire&apos;</span><span class="keyword">] )<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">OAUTH_TOKEN_EXPIRED</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; if(</span><span class="default">$token</span><span class="keyword">[</span><span class="string">&apos;consumer_id&apos;</span><span class="keyword">] != </span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">consumer_id</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">OAUTH_TOKEN_REJECTED</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; if( (int)</span><span class="default">$token</span><span class="keyword">[</span><span class="string">&apos;authorized&apos;</span><span class="keyword">] == </span><span class="default">0 </span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">OAUTH_TOKEN_REJECTED</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; if(</span><span class="default">$token</span><span class="keyword">[</span><span class="string">&apos;token_type&apos;</span><span class="keyword">] != </span><span class="string">&apos;access&apos;</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">$token</span><span class="keyword">[</span><span class="string">&apos;verifier&apos;</span><span class="keyword">] != </span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">verifier</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">OAUTH_VERIFIER_INVALID</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">token_id </span><span class="keyword">= </span><span class="default">$token</span><span class="keyword">[</span><span class="string">&apos;token_id&apos;</span><span class="keyword">]; </span><span class="comment"># not required to be set by OAuthProvider<br>&#xA0; &#xA0; </span><span class="default">$provider</span><span class="keyword">-&gt;</span><span class="default">token_secret </span><span class="keyword">= </span><span class="default">$token</span><span class="keyword">[</span><span class="string">&apos;token_secret&apos;</span><span class="keyword">]; </span><span class="comment"># this is REQUIRED<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="keyword">return </span><span class="default">OAUTH_OK</span><span class="keyword">;<br>}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+public function timestampNonceHandler ( $provider )
+{
+    return $this-&gt;dbModel-&gt;checkTimestampNonce ( $provider-&gt;consumer_key,
+                                                 $provider-&gt;token, 
+                                                 $provider-&gt;timestamp,
+                                                 $provider-&gt;nonce );
+}
+
+public function consumerHandler ( $provider )
+{
+    $consumer = $this-&gt;dbModel-&gt;getConsumerSecrets ($provider-&gt;consumer_key);
+    
+    if($consumer[&apos;consumer_key&apos;] != $provider-&gt;consumer_key)
+    {
+        return OAUTH_CONSUMER_KEY_UNKNOWN;
+    }
+    
+    if( (int)$consumer[&apos;disabled&apos;] != 0 )
+    {
+        return OAUTH_CONSUMER_KEY_REFUSED;
+    }
+    
+    $provider-&gt;consumer_id = $consumer[&apos;consumer_id&apos;]; # this is not required by OAuthProvider but I use it later in tokenHandler
+    $provider-&gt;consumer_secret = $consumer[&apos;consumer_secret&apos;]; # this is REQUIRED
+
+    return OAUTH_OK;
+}
+
+public function tokenHandler ( $provider )
+{
+    $token = $this-&gt;dbModel-&gt;getToken( $provider-&gt;token );
+
+    if( time() &gt; $token[&apos;expire&apos;] )
+    {
+        return OAUTH_TOKEN_EXPIRED;
+    }
+    
+    if($token[&apos;consumer_id&apos;] != $provider-&gt;consumer_id)
+    {
+        return OAUTH_TOKEN_REJECTED;
+    }
+
+    if( (int)$token[&apos;authorized&apos;] == 0 )
+    {
+        return OAUTH_TOKEN_REJECTED;
+    }
+
+    if($token[&apos;token_type&apos;] != &apos;access&apos;)
+    {
+        if($token[&apos;verifier&apos;] != $provider-&gt;verifier)
+            return OAUTH_VERIFIER_INVALID;
+    }
+
+    $provider-&gt;token_id = $token[&apos;token_id&apos;]; # not required to be set by OAuthProvider
+    $provider-&gt;token_secret = $token[&apos;token_secret&apos;]; # this is REQUIRED
+    
+    return OAUTH_OK;
+}
+
+?>
+```
   
 
 #

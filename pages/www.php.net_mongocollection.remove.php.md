@@ -2,11 +2,7 @@
 
 
 
-
-
-To remove a document based on its ID, you need to ensure that you pass the ID as a MongoID object rather than just a string:
-
-
+To remove a document based on its ID, you need to ensure that you pass the ID as a MongoID object rather than just a string:<br><br>
 
 ```
 <?php
@@ -19,9 +15,6 @@ $collection-&gt;remove(array(&apos;_id&apos; =&gt; $id), true);
 $collection-&gt;remove(array(&apos;_id&apos; =&gt; new MongoId($id)), true);
 ?>
 ```
-
-
-
   
 
 #

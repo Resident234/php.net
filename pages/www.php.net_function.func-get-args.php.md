@@ -2,20 +2,65 @@
 
 
 
+Simple function to calculate average value using dynamic arguments:<br>
 
-<div class="phpcode"><span class="html">
-Simple function to calculate average value using dynamic arguments:<br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">average</span><span class="keyword">(){<br>&#xA0; &#xA0; return </span><span class="default">array_sum</span><span class="keyword">(</span><span class="default">func_get_args</span><span class="keyword">())/</span><span class="default">func_num_args</span><span class="keyword">();<br>}<br>print </span><span class="default">average</span><span class="keyword">(</span><span class="default">10</span><span class="keyword">, </span><span class="default">15</span><span class="keyword">, </span><span class="default">20</span><span class="keyword">, </span><span class="default">25</span><span class="keyword">); </span><span class="comment">// 17.5<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+function average(){
+    return array_sum(func_get_args())/func_num_args();
+}
+print average(10, 15, 20, 25); // 17.5
+?>
+```
   
 
 #
 
+How to create a polymorphic/"overloaded" function<br><br>
 
-<div class="phpcode"><span class="html">
-How to create a polymorphic/&quot;overloaded&quot; function<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">select</span><span class="keyword">()<br>{<br>&#xA0; &#xA0; </span><span class="default">$t </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$args </span><span class="keyword">= </span><span class="default">func_get_args</span><span class="keyword">();<br>&#xA0; &#xA0; foreach (</span><span class="default">$args </span><span class="keyword">as &amp;</span><span class="default">$a</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$t </span><span class="keyword">.= </span><span class="default">gettype</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">) . </span><span class="string">&apos;|&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$a </span><span class="keyword">= </span><span class="default">mysql_real_escape_string</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; if (</span><span class="default">$t </span><span class="keyword">!= </span><span class="string">&apos;&apos;</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$t </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$t</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, - </span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; </span><span class="default">$sql </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; switch (</span><span class="default">$t</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;integer&apos;</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// search by ID<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$sql </span><span class="keyword">= </span><span class="string">&quot;id = </span><span class="keyword">{</span><span class="default">$args</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]}</span><span class="string">&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;string&apos;</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// search by name<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$sql </span><span class="keyword">= </span><span class="string">&quot;name LIKE &apos;%</span><span class="keyword">{</span><span class="default">$args</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]}</span><span class="string">%&apos;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;string|integer&apos;</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// search by name AND status<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$sql </span><span class="keyword">= </span><span class="string">&quot;name LIKE &apos;%</span><span class="keyword">{</span><span class="default">$args</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]}</span><span class="string">%&apos; AND status = </span><span class="keyword">{</span><span class="default">$args</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]}</span><span class="string">&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;string|integer|integer&apos;</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// search by name with limit<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$sql </span><span class="keyword">= </span><span class="string">&quot;name LIKE &apos;%</span><span class="keyword">{</span><span class="default">$args</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]}</span><span class="string">%&apos; LIMIT </span><span class="keyword">{</span><span class="default">$args</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]}</span><span class="string">,</span><span class="keyword">{</span><span class="default">$args</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">]}</span><span class="string">&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; default:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// :P<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$sql </span><span class="keyword">= </span><span class="string">&apos;1 = 2&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">mysql_query</span><span class="keyword">(</span><span class="string">&apos;SELECT * FROM table WHERE &apos; </span><span class="keyword">. </span><span class="default">$sql</span><span class="keyword">);<br>}<br></span><span class="default">$res </span><span class="keyword">= </span><span class="default">select</span><span class="keyword">(</span><span class="default">29</span><span class="keyword">); </span><span class="comment">// by ID<br></span><span class="default">$res </span><span class="keyword">= </span><span class="default">select</span><span class="keyword">(</span><span class="string">&apos;Anderson&apos;</span><span class="keyword">); </span><span class="comment">// by name<br></span><span class="default">$res </span><span class="keyword">= </span><span class="default">select</span><span class="keyword">(</span><span class="string">&apos;Anderson&apos;</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">); </span><span class="comment">// by name and status<br></span><span class="default">$res </span><span class="keyword">= </span><span class="default">select</span><span class="keyword">(</span><span class="string">&apos;Anderson&apos;</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">5</span><span class="keyword">); </span><span class="comment">// by name with limit<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+function select()
+{
+    $t = &apos;&apos;;
+    $args = func_get_args();
+    foreach ($args as &amp;$a) {
+        $t .= gettype($a) . &apos;|&apos;;
+        $a = mysql_real_escape_string($a);
+    }
+    if ($t != &apos;&apos;) {
+        $t = substr($t, 0, - 1);
+    }
+    $sql = &apos;&apos;;
+    switch ($t) {
+        case &apos;integer&apos;:
+            // search by ID
+            $sql = "id = {$args[0]}";
+            break;
+        case &apos;string&apos;:
+            // search by name
+            $sql = "name LIKE &apos;%{$args[0]}%&apos;";
+            break;
+        case &apos;string|integer&apos;:
+            // search by name AND status
+            $sql = "name LIKE &apos;%{$args[0]}%&apos; AND status = {$args[1]}";
+            break;
+        case &apos;string|integer|integer&apos;:
+            // search by name with limit
+            $sql = "name LIKE &apos;%{$args[0]}%&apos; LIMIT {$args[1]},{$args[2]}";
+            break;
+        default:
+            // :P
+            $sql = &apos;1 = 2&apos;;
+    }
+    return mysql_query(&apos;SELECT * FROM table WHERE &apos; . $sql);
+}
+$res = select(29); // by ID
+$res = select(&apos;Anderson&apos;); // by name
+$res = select(&apos;Anderson&apos;, 1); // by name and status
+$res = select(&apos;Anderson&apos;, 0, 5); // by name with limit
+?>
+```
   
 
 #

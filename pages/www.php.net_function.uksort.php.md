@@ -2,29 +2,88 @@
 
 
 
+[Editor&apos;s note: the following comment may be factually incorrect]<br><br>uksort is only usable in the UK<br>
 
-<div class="phpcode"><span class="html">
-[Editor&apos;s note: the following comment may be factually incorrect]
-<br>
-<br>uksort is only usable in the UK
-<br><span class="default">&lt;?php
-<br></span><span class="keyword">if(</span><span class="default">$country</span><span class="keyword">==</span><span class="string">&quot;UK&quot;</span><span class="keyword">){
-<br>&#xA0; </span><span class="default">uksort</span><span class="keyword">();
-<br>}else{
-<br>&#xA0; echo </span><span class="string">&quot;You have to live in UK to use uksort().&quot;</span><span class="keyword">;
-<br>}
-<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+if($country=="UK"){
+  uksort();
+}else{
+  echo "You have to live in UK to use uksort().";
+}
+?>
+```
   
 
 #
 
+(about sorting an array of objects by their properties in a class - inspired by webmaster at zeroweb dot org at usort function)<br>I&apos;m using classes as an abstraction for querying records in a database and use arrays of objects to store records that have an 1 to n relationship. E.g. a class "family" has family members stored as an array of objects. Each of those objects prepresents a record in a database related to the family (by it&apos;s familyId).<br><br>To identify members, I&apos;m using their memberId as the key of the array e.g. $family-&gt;members[$memberId].<br>To sort the family members AFTER fetching them with the database query, you can use the functions _objSort and sortMembers which will sort the "members" array by key using it&apos;s properties (for space reasons I didn&apos;t include the methods used to open the records):<br>
 
-<div class="phpcode"><span class="html">
-(about sorting an array of objects by their properties in a class - inspired by webmaster at zeroweb dot org at usort function)<br>I&apos;m using classes as an abstraction for querying records in a database and use arrays of objects to store records that have an 1 to n relationship. E.g. a class &quot;family&quot; has family members stored as an array of objects. Each of those objects prepresents a record in a database related to the family (by it&apos;s familyId).<br><br>To identify members, I&apos;m using their memberId as the key of the array e.g. $family-&gt;members[$memberId].<br>To sort the family members AFTER fetching them with the database query, you can use the functions _objSort and sortMembers which will sort the &quot;members&quot; array by key using it&apos;s properties (for space reasons I didn&apos;t include the methods used to open the records):<br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">familyMember<br></span><span class="keyword">{<br>&#xA0; &#xA0; var </span><span class="default">$memberId</span><span class="keyword">;<br>&#xA0; &#xA0; var </span><span class="default">$familyId</span><span class="keyword">;<br>&#xA0; &#xA0; var </span><span class="default">$firstName</span><span class="keyword">;<br>&#xA0; &#xA0; var </span><span class="default">$age</span><span class="keyword">;<br>&#xA0; &#xA0; var </span><span class="default">$hairColor</span><span class="keyword">;<br></span><span class="comment">// ...<br></span><span class="keyword">}<br><br>class </span><span class="default">family<br></span><span class="keyword">{<br>&#xA0; &#xA0; var </span><span class="default">$familyId</span><span class="keyword">;<br>&#xA0; &#xA0; var </span><span class="default">$name</span><span class="keyword">;<br>&#xA0; &#xA0; var </span><span class="default">$members </span><span class="keyword">= array(); </span><span class="comment">// array of familyMember objects<br>&#xA0; &#xA0; </span><span class="keyword">var </span><span class="default">$sortFields </span><span class="keyword">= array();<br>&#xA0; &#xA0; var </span><span class="default">$sortDirections </span><span class="keyword">= array();<br>&#xA0; &#xA0; </span><span class="comment">// ...<br>&#xA0; &#xA0; </span><span class="keyword">function </span><span class="default">_objSort</span><span class="keyword">(&amp;</span><span class="default">$a</span><span class="keyword">, &amp;</span><span class="default">$b</span><span class="keyword">, </span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$field&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sortFields</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$direction&#xA0; &#xA0; </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sortDirections</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$diff </span><span class="keyword">= </span><span class="default">strnatcmp</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">details</span><span class="keyword">[</span><span class="default">$a</span><span class="keyword">]-&gt;</span><span class="default">$field</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">details</span><span class="keyword">[</span><span class="default">$b</span><span class="keyword">]-&gt;</span><span class="default">$field</span><span class="keyword">) * </span><span class="default">$direction</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$diff </span><span class="keyword">== </span><span class="default">0 </span><span class="keyword">&amp;&amp; isset(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sortFields</span><span class="keyword">[++</span><span class="default">$i</span><span class="keyword">]))<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$diff </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">_objSort</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">$b</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$diff</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; function </span><span class="default">sortMembers</span><span class="keyword">(</span><span class="default">$sortFields</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$sortFields </span><span class="keyword">as </span><span class="default">$field </span><span class="keyword">=&gt; </span><span class="default">$direction</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sortFields</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">$field</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$direction </span><span class="keyword">== </span><span class="string">&quot;DESC&quot; </span><span class="keyword">? </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sortDirections</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = -</span><span class="default">1 </span><span class="keyword">: </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sortDirections</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">1</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$i</span><span class="keyword">++;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">uksort</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">details</span><span class="keyword">, array(</span><span class="default">$this</span><span class="keyword">, </span><span class="string">&quot;_objSort&quot;</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sortFields </span><span class="keyword">= array();<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">sortDirections </span><span class="keyword">= array();<br>&#xA0; &#xA0; }<br>}<br></span><span class="comment">// open a family<br></span><span class="default">$familyId </span><span class="keyword">= </span><span class="default">5</span><span class="keyword">;<br></span><span class="default">$family </span><span class="keyword">= new </span><span class="default">family</span><span class="keyword">(</span><span class="default">$familyId</span><span class="keyword">);<br></span><span class="default">$family</span><span class="keyword">-&gt;</span><span class="default">open</span><span class="keyword">(); </span><span class="comment">// this will also fetch all members<br><br>// sort members by 3 fields<br></span><span class="default">$family</span><span class="keyword">-&gt;</span><span class="default">sortMembers</span><span class="keyword">(array(</span><span class="string">&quot;firstName&quot; </span><span class="keyword">=&gt; </span><span class="string">&quot;ASC&quot;</span><span class="keyword">, </span><span class="string">&quot;age&quot; </span><span class="keyword">=&gt; </span><span class="string">&quot;DESC&quot;</span><span class="keyword">, </span><span class="string">&quot;hairColor&quot; </span><span class="keyword">=&gt; </span><span class="string">&quot;ASC&quot;</span><span class="keyword">));<br></span><span class="comment">// output all family members<br></span><span class="keyword">foreach (</span><span class="default">$family</span><span class="keyword">-&gt;</span><span class="default">members </span><span class="keyword">as </span><span class="default">$member</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; echo </span><span class="default">$member</span><span class="keyword">-&gt;</span><span class="default">firstName</span><span class="keyword">.</span><span class="string">&quot; - &quot;</span><span class="keyword">.</span><span class="default">$member</span><span class="keyword">-&gt;</span><span class="default">age</span><span class="keyword">.</span><span class="string">&quot; - &quot;</span><span class="keyword">.</span><span class="default">$member</span><span class="keyword">-&gt;</span><span class="default">hairColor</span><span class="keyword">.</span><span class="string">&quot;&lt;br /&gt;&quot;</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>Note that this might not be the fastest thing on earth and it hasn&apos;t been tested very much yet but I hope it&apos;s useful for someone.</span>
-</div>
-  
+```
+<?php
+class familyMember
+{
+    var $memberId;
+    var $familyId;
+    var $firstName;
+    var $age;
+    var $hairColor;
+// ...
+}
+
+class family
+{
+    var $familyId;
+    var $name;
+    var $members = array(); // array of familyMember objects
+    var $sortFields = array();
+    var $sortDirections = array();
+    // ...
+    function _objSort(&amp;$a, &amp;$b, $i = 0)
+    {
+        $field        = $this-&gt;sortFields[$i];
+        $direction    = $this-&gt;sortDirections[$i];
+        
+        $diff = strnatcmp($this-&gt;details[$a]-&gt;$field, $this-&gt;details[$b]-&gt;$field) * $direction;
+        if ($diff == 0 &amp;&amp; isset($this-&gt;sortFields[++$i]))
+        {
+            $diff = $this-&gt;_objSort($a, $b, $i);
+        }
+        
+        return $diff;
+    }
+    
+    function sortMembers($sortFields)
+    {
+        $i = 0;
+        foreach ($sortFields as $field =&gt; $direction)
+        {
+            $this-&gt;sortFields[$i] = $field;
+            $direction == "DESC" ? $this-&gt;sortDirections[$i] = -1 : $this-&gt;sortDirections[$i] = 1;
+            $i++;
+        }
+        
+        uksort($this-&gt;details, array($this, "_objSort"));
+        
+        $this-&gt;sortFields = array();
+        $this-&gt;sortDirections = array();
+    }
+}
+// open a family
+$familyId = 5;
+$family = new family($familyId);
+$family-&gt;open(); // this will also fetch all members
+
+// sort members by 3 fields
+$family-&gt;sortMembers(array("firstName" =&gt; "ASC", "age" =&gt; "DESC", "hairColor" =&gt; "ASC"));
+// output all family members
+foreach ($family-&gt;members as $member)
+{
+    echo $member-&gt;firstName." - ".$member-&gt;age." - ".$member-&gt;hairColor."&lt;br /&gt;";
+}
+?>
+```
+<br><br>Note that this might not be the fastest thing on earth and it hasn&apos;t been tested very much yet but I hope it&apos;s useful for someone.  
 
 #
 

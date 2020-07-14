@@ -2,192 +2,53 @@
 
 
 
-
-
-The nested transaction example here is great, but it&apos;s missing a key piece of the puzzle.&#xA0; Commits will commit everything, I only wanted commits to actually commit when the outermost commit has been completed.&#xA0; This can be done in InnoDB with savepoints.
-
-
+The nested transaction example here is great, but it&apos;s missing a key piece of the puzzle.  Commits will commit everything, I only wanted commits to actually commit when the outermost commit has been completed.  This can be done in InnoDB with savepoints.<br><br>
 
 ```
-<?php
-
-class Database extends PDO
-{
-
-&#xA0; &#xA0; protected $transactionCount = 0;
-
-&#xA0; &#xA0; public function beginTransaction()
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; if (!$this-&gt;transactionCounter++) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return parent::beginTransaction();
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;exec(&apos;SAVEPOINT trans&apos;.$this-&gt;transactionCounter);
-&#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;transactionCounter &gt;= 0;
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; public function commit()
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; if (!--$this-&gt;transactionCounter) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return parent::commit();
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;transactionCounter &gt;= 0;
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; public function rollback()
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; if (--$this-&gt;transactionCounter) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;exec(&apos;ROLLBACK TO trans&apos;.$this-&gt;transactionCounter + 1);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return true;
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; return parent::rollback();
-&#xA0; &#xA0; }
-&#xA0; &#xA0; 
-}
-
-
-  
+<?php<br><br>class Database extends PDO<br>{<br><br>    protected $transactionCount = 0;<br><br>    public function beginTransaction()<br>    {<br>        if (!$this-&gt;transactionCounter++) {<br>            return parent::beginTransaction();<br>        }<br>        $this-&gt;exec(&apos;SAVEPOINT trans&apos;.$this-&gt;transactionCounter);<br>        return $this-&gt;transactionCounter &gt;= 0;<br>    }<br><br>    public function commit()<br>    {<br>        if (!--$this-&gt;transactionCounter) {<br>            return parent::commit();<br>        }<br>        return $this-&gt;transactionCounter &gt;= 0;<br>    }<br><br>    public function rollback()<br>    {<br>        if (--$this-&gt;transactionCounter) {<br>            $this-&gt;exec(&apos;ROLLBACK TO trans&apos;.$this-&gt;transactionCounter + 1);<br>            return true;<br>        }<br>        return parent::rollback();<br>    }<br>    <br>}  
 
 #
 
-
-
-You can generate problems with nested beginTransaction and commit calls.
-
-example:
-
-
-
-beginTransaction()
-
-do imprortant stuff
-
-call method
-
-&#xA0; &#xA0; beginTransaction()
-
-&#xA0; &#xA0; basic stuff 1
-
-&#xA0; &#xA0; basic stuff 2
-
-&#xA0; &#xA0; commit()
-
-do most important stuff
-
-commit()
-
-
-
-Won&apos;t work and is dangerous since you could close your transaction too early with the nested commit().
-
-
-
-There is no need to mess you code and pass like a bool which indicate if transaction is already running. You could just overload the beginTransaction() and commit() in your PDO wrapper like this:
-
-
-
-
+You can generate problems with nested beginTransaction and commit calls.<br>example:<br><br>beginTransaction()<br>do imprortant stuff<br>call method<br>    beginTransaction()<br>    basic stuff 1<br>    basic stuff 2<br>    commit()<br>do most important stuff<br>commit()<br><br>Won&apos;t work and is dangerous since you could close your transaction too early with the nested commit().<br><br>There is no need to mess you code and pass like a bool which indicate if transaction is already running. You could just overload the beginTransaction() and commit() in your PDO wrapper like this:<br><br>
 
 ```
 <?php
-
 class Database extends \\PDO
-
 {
+    protected $transactionCounter = 0;
+    function beginTransaction()
+    {
+        if(!$this-&gt;transactionCounter++)
+            return parent::beginTransaction();
+       return $this-&gt;transactionCounter &gt;= 0;
+    }
 
-&#xA0; &#xA0; protected $transactionCounter = 0;
+    function commit()
+    {
+       if(!--$this-&gt;transactionCounter)
+           return parent::commit();
+       return $this-&gt;transactionCounter &gt;= 0;
+    }
 
-&#xA0; &#xA0; function beginTransaction()
-
-&#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; if(!$this-&gt;transactionCounter++)
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return parent::beginTransaction();
-
-&#xA0; &#xA0; &#xA0;&#xA0; return $this-&gt;transactionCounter &gt;= 0;
-
-&#xA0; &#xA0; }
-
-
-
-&#xA0; &#xA0; function commit()
-
-&#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0;&#xA0; if(!--$this-&gt;transactionCounter)
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; return parent::commit();
-
-&#xA0; &#xA0; &#xA0;&#xA0; return $this-&gt;transactionCounter &gt;= 0;
-
-&#xA0; &#xA0; }
-
-
-
-&#xA0; &#xA0; function rollback()
-
-&#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; if($this-&gt;transactionCounter &gt;= 0)
-
-&#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;transactionCounter = 0;
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return parent::rollback();
-
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;transactionCounter = 0;
-
-&#xA0; &#xA0; &#xA0; &#xA0; return false;
-
-&#xA0; &#xA0; }
-
+    function rollback()
+    {
+        if($this-&gt;transactionCounter &gt;= 0)
+        {
+            $this-&gt;transactionCounter = 0;
+            return parent::rollback();
+        }
+        $this-&gt;transactionCounter = 0;
+        return false;
+    }
 //...
-
 }
-
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-In response to &quot;Anonymous / 20-Dec-2007 03:04&quot;
-
-You could also extend the PDO class and hold a private flag to check if a transaction is already started.
-
-class MyPDO extends PDO {
-&#xA0;&#xA0; protected $hasActiveTransaction = false;
-
-&#xA0;&#xA0; function beginTransaction () {
-&#xA0; &#xA0; &#xA0; if ( $this-&gt;hasActiveTransaction ) {
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; return false;
-&#xA0; &#xA0; &#xA0; } else {
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $this-&gt;hasActiveTransaction = parent::beginTransaction ();
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; return $this-&gt;hasActiveTransaction;
-&#xA0; &#xA0; &#xA0; }
-&#xA0;&#xA0; }
-
-&#xA0;&#xA0; function commit () {
-&#xA0; &#xA0; &#xA0; parent::commit ();
-&#xA0; &#xA0; &#xA0; $this-&gt;hasActiveTransaction = false;
-&#xA0;&#xA0; }
-
-&#xA0;&#xA0; function rollback () {
-&#xA0; &#xA0; &#xA0; parent::rollback ();
-&#xA0; &#xA0; &#xA0; $this-&gt;hasActiveTransaction = false;
-&#xA0;&#xA0; }
-
-}
-
-  
+In response to "Anonymous / 20-Dec-2007 03:04"<br><br>You could also extend the PDO class and hold a private flag to check if a transaction is already started.<br><br>class MyPDO extends PDO {<br>   protected $hasActiveTransaction = false;<br><br>   function beginTransaction () {<br>      if ( $this-&gt;hasActiveTransaction ) {<br>         return false;<br>      } else {<br>         $this-&gt;hasActiveTransaction = parent::beginTransaction ();<br>         return $this-&gt;hasActiveTransaction;<br>      }<br>   }<br><br>   function commit () {<br>      parent::commit ();<br>      $this-&gt;hasActiveTransaction = false;<br>   }<br><br>   function rollback () {<br>      parent::rollback ();<br>      $this-&gt;hasActiveTransaction = false;<br>   }<br><br>}  
 
 #
 

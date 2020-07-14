@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-Note that stream_socket_recvfrom() bypasses stream wrappers including TLS/SSL. While reading from an encrypted stream with fread() will return decrypted data, using stream_socket_recvfrom() will give you the original encrypted bytes.</span>
-</div>
-  
+Note that stream_socket_recvfrom() bypasses stream wrappers including TLS/SSL. While reading from an encrypted stream with fread() will return decrypted data, using stream_socket_recvfrom() will give you the original encrypted bytes.  
 
 #
 

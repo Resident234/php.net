@@ -2,20 +2,14 @@
 
 
 
-
-
-To add leading zeros I prefer the following:
-
+To add leading zeros I prefer the following:<br>
 
 ```
 <?php
 // Add leading zeros
-$bin = sprintf( &quot;%08d&quot;, decbin( 26 )); // &quot;00011010&quot;
+$bin = sprintf( "%08d", decbin( 26 )); // "00011010"
 ?>
 ```
-
-
-
   
 
 #

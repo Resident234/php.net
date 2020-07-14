@@ -2,11 +2,7 @@
 
 
 
-
-
-Note that this also works with positional placeholders using the &apos;?&apos; token:
-
-
+Note that this also works with positional placeholders using the &apos;?&apos; token:<br><br>
 
 ```
 <?php
@@ -17,11 +13,7 @@ $stmt-&gt;bindValue(2, 42, SQLITE3_INTEGER);
 
 ?>
 ```
-
-
-Positional numbering starts at 1.
-
-  
+<br><br>Positional numbering starts at 1.  
 
 #
 

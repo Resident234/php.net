@@ -2,11 +2,102 @@
 
 
 
+You can change the colors of the highlighting, like this: <br><br>
 
-<div class="phpcode"><span class="html">
-You can change the colors of the highlighting, like this: <br><br><span class="default">&lt;?php<br>ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.comment&quot;</span><span class="keyword">, </span><span class="string">&quot;#008000&quot;</span><span class="keyword">);<br></span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.default&quot;</span><span class="keyword">, </span><span class="string">&quot;#000000&quot;</span><span class="keyword">);<br></span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.html&quot;</span><span class="keyword">, </span><span class="string">&quot;#808080&quot;</span><span class="keyword">);<br></span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.keyword&quot;</span><span class="keyword">, </span><span class="string">&quot;#0000BB; font-weight: bold&quot;</span><span class="keyword">);<br></span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.string&quot;</span><span class="keyword">, </span><span class="string">&quot;#DD0000&quot;</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>Like you see in the example above, you can even add additional styles like bold text, since the values are set directly to the DOM attribute &quot;style&quot;.<br><br>Also, this function highlights only text, if it begins with the prefix &quot;&lt;?php&quot;. But this function can highlight other similar formats too (not perfectly, but better than nothing), like HTML, XML, C++, JavaScript, etc. I use following function to highlight different file types and it works quite good:<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">highlightText</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">highlight_string</span><span class="keyword">(</span><span class="string">&quot;&lt;?php &quot; </span><span class="keyword">. </span><span class="default">$text</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);&#xA0; </span><span class="comment">// highlight_string() requires opening PHP tag or otherwise it will not colorize the text<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;|^\\&lt;code\\&gt;\\&lt;span style\\=\&quot;color\\: #[a-fA-F0-9]{0,6}\&quot;\\&gt;|&quot;</span><span class="keyword">, </span><span class="string">&quot;&quot;</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);&#xA0; </span><span class="comment">// remove prefix<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;|\\&lt;/code\\&gt;\$|&quot;</span><span class="keyword">, </span><span class="string">&quot;&quot;</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);&#xA0; </span><span class="comment">// remove suffix 1<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);&#xA0; </span><span class="comment">// remove line breaks<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;|\\&lt;/span\\&gt;\$|&quot;</span><span class="keyword">, </span><span class="string">&quot;&quot;</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);&#xA0; </span><span class="comment">// remove suffix 2<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);&#xA0; </span><span class="comment">// remove line breaks<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;|^(\\&lt;span style\\=\&quot;color\\: #[a-fA-F0-9]{0,6}\&quot;\\&gt;)(&amp;lt;\\?php&amp;nbsp;)(.*?)(\\&lt;/span\\&gt;)|&quot;</span><span class="keyword">, </span><span class="string">&quot;\$1\$3\$4&quot;</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">);&#xA0; </span><span class="comment">// remove custom added &quot;&lt;?php &quot;<br><br>&#xA0; &#xA0; </span><span class="keyword">return </span><span class="default">$text</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>Note, that it will remove the &lt;code&gt; tag too, so you get the formatted text directly, which gives you more freedom to work with the result.<br><br>I personally suggest to combine both things to have a nice highlighting function for different file types with different highlight coloring sets:<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">highlightText</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">, </span><span class="default">$fileExt</span><span class="keyword">=</span><span class="string">&quot;&quot;</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; if (</span><span class="default">$fileExt </span><span class="keyword">== </span><span class="string">&quot;php&quot;</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.comment&quot;</span><span class="keyword">, </span><span class="string">&quot;#008000&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.default&quot;</span><span class="keyword">, </span><span class="string">&quot;#000000&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.html&quot;</span><span class="keyword">, </span><span class="string">&quot;#808080&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.keyword&quot;</span><span class="keyword">, </span><span class="string">&quot;#0000BB; font-weight: bold&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.string&quot;</span><span class="keyword">, </span><span class="string">&quot;#DD0000&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; else if (</span><span class="default">$fileExt </span><span class="keyword">== </span><span class="string">&quot;html&quot;</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.comment&quot;</span><span class="keyword">, </span><span class="string">&quot;green&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.default&quot;</span><span class="keyword">, </span><span class="string">&quot;#CC0000&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.html&quot;</span><span class="keyword">, </span><span class="string">&quot;#000000&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.keyword&quot;</span><span class="keyword">, </span><span class="string">&quot;black; font-weight: bold&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&quot;highlight.string&quot;</span><span class="keyword">, </span><span class="string">&quot;#0000FF&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; </span><span class="comment">// ...<br><br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">highlight_string</span><span class="keyword">(</span><span class="string">&quot;&lt;?php &quot; </span><span class="keyword">. </span><span class="default">$text</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);&#xA0; </span><span class="comment">// highlight_string() requires opening PHP tag or otherwise it will not colorize the text<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;|^\\&lt;code\\&gt;\\&lt;span style\\=\&quot;color\\: #[a-fA-F0-9]{0,6}\&quot;\\&gt;|&quot;</span><span class="keyword">, </span><span class="string">&quot;&quot;</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);&#xA0; </span><span class="comment">// remove prefix<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;|\\&lt;/code\\&gt;\$|&quot;</span><span class="keyword">, </span><span class="string">&quot;&quot;</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);&#xA0; </span><span class="comment">// remove suffix 1<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);&#xA0; </span><span class="comment">// remove line breaks<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;|\\&lt;/span\\&gt;\$|&quot;</span><span class="keyword">, </span><span class="string">&quot;&quot;</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);&#xA0; </span><span class="comment">// remove suffix 2<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);&#xA0; </span><span class="comment">// remove line breaks<br>&#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;|^(\\&lt;span style\\=\&quot;color\\: #[a-fA-F0-9]{0,6}\&quot;\\&gt;)(&amp;lt;\\?php&amp;nbsp;)(.*?)(\\&lt;/span\\&gt;)|&quot;</span><span class="keyword">, </span><span class="string">&quot;\$1\$3\$4&quot;</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">);&#xA0; </span><span class="comment">// remove custom added &quot;&lt;?php &quot;<br><br>&#xA0; &#xA0; </span><span class="keyword">return </span><span class="default">$text</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+ini_set("highlight.comment", "#008000");
+ini_set("highlight.default", "#000000");
+ini_set("highlight.html", "#808080");
+ini_set("highlight.keyword", "#0000BB; font-weight: bold");
+ini_set("highlight.string", "#DD0000");
+?>
+```
+
+
+Like you see in the example above, you can even add additional styles like bold text, since the values are set directly to the DOM attribute "style".
+
+Also, this function highlights only text, if it begins with the prefix "
+
+```
+<?php". But this function can highlight other similar formats too (not perfectly, but better than nothing), like HTML, XML, C++, JavaScript, etc. I use following function to highlight different file types and it works quite good:
+
+
+
+```
+<?php
+function highlightText($text)
+{
+    $text = trim($text);
+    $text = highlight_string("
+
+```
+<?php " . $text, true);  // highlight_string() requires opening PHP tag or otherwise it will not colorize the text
+    $text = trim($text);
+    $text = preg_replace("|^\\&lt;code\\&gt;\\&lt;span style\\=\"color\\: #[a-fA-F0-9]{0,6}\"\\&gt;|", "", $text, 1);  // remove prefix
+    $text = preg_replace("|\\&lt;/code\\&gt;\$|", "", $text, 1);  // remove suffix 1
+    $text = trim($text);  // remove line breaks
+    $text = preg_replace("|\\&lt;/span\\&gt;\$|", "", $text, 1);  // remove suffix 2
+    $text = trim($text);  // remove line breaks
+    $text = preg_replace("|^(\\&lt;span style\\=\"color\\: #[a-fA-F0-9]{0,6}\"\\&gt;)(&amp;lt;\\?php&amp;nbsp;)(.*?)(\\&lt;/span\\&gt;)|", "\$1\$3\$4", $text);  // remove custom added "
+
+```
+<?php "
+
+    return $text;
+}
+?>
+```
+
+
+Note, that it will remove the &lt;code&gt; tag too, so you get the formatted text directly, which gives you more freedom to work with the result.
+
+I personally suggest to combine both things to have a nice highlighting function for different file types with different highlight coloring sets:
+
+
+
+```
+<?php
+function highlightText($text, $fileExt="")
+{
+    if ($fileExt == "php")
+    {
+        ini_set("highlight.comment", "#008000");
+        ini_set("highlight.default", "#000000");
+        ini_set("highlight.html", "#808080");
+        ini_set("highlight.keyword", "#0000BB; font-weight: bold");
+        ini_set("highlight.string", "#DD0000");
+    }
+    else if ($fileExt == "html")
+    {
+        ini_set("highlight.comment", "green");
+        ini_set("highlight.default", "#CC0000");
+        ini_set("highlight.html", "#000000");
+        ini_set("highlight.keyword", "black; font-weight: bold");
+        ini_set("highlight.string", "#0000FF");
+    }
+    // ...
+
+    $text = trim($text);
+    $text = highlight_string("
+
+```
+<?php " . $text, true);  // highlight_string() requires opening PHP tag or otherwise it will not colorize the text
+    $text = trim($text);
+    $text = preg_replace("|^\\&lt;code\\&gt;\\&lt;span style\\=\"color\\: #[a-fA-F0-9]{0,6}\"\\&gt;|", "", $text, 1);  // remove prefix
+    $text = preg_replace("|\\&lt;/code\\&gt;\$|", "", $text, 1);  // remove suffix 1
+    $text = trim($text);  // remove line breaks
+    $text = preg_replace("|\\&lt;/span\\&gt;\$|", "", $text, 1);  // remove suffix 2
+    $text = trim($text);  // remove line breaks
+    $text = preg_replace("|^(\\&lt;span style\\=\"color\\: #[a-fA-F0-9]{0,6}\"\\&gt;)(&amp;lt;\\?php&amp;nbsp;)(.*?)(\\&lt;/span\\&gt;)|", "\$1\$3\$4", $text);  // remove custom added "
+
+```
+<?php "
+
+    return $text;
+}
+?>
+```
   
 
 #

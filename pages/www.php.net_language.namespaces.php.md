@@ -2,19 +2,12 @@
 
 
 
-
-
-The keyword &apos;use&apos; has two different applications, but the reserved word table links to here.
-
-It can apply to namespace constucts:
-
-file1:
-
+The keyword &apos;use&apos; has two different applications, but the reserved word table links to here.<br><br>It can apply to namespace constucts:<br><br>file1:<br>
 
 ```
 <?php namespace foo;
-&#xA0; class Cat { 
-&#xA0; &#xA0; static function says() {echo &apos;meoow&apos;;}&#xA0; } ?>
+  class Cat { 
+    static function says() {echo &apos;meoow&apos;;}  } ?>
 ```
 
 
@@ -23,8 +16,8 @@ file2:
 
 ```
 <?php namespace bar;
-&#xA0; class Dog {
-&#xA0; &#xA0; static function says() {echo &apos;ruff&apos;;}&#xA0; } ?>
+  class Dog {
+    static function says() {echo &apos;ruff&apos;;}  } ?>
 ```
 
 
@@ -33,8 +26,8 @@ file3:
 
 ```
 <?php namespace animate;
-&#xA0; class Animal {
-&#xA0; &#xA0; static function breathes() {echo &apos;air&apos;;}&#xA0; } ?>
+  class Animal {
+    static function breathes() {echo &apos;air&apos;;}  } ?>
 ```
 
 
@@ -43,15 +36,15 @@ file4:
 
 ```
 <?php namespace fub;
-&#xA0; include &apos;file1.php&apos;;
-&#xA0; include &apos;file2.php&apos;;
-&#xA0; include &apos;file3.php&apos;;
-&#xA0; use foo as feline;
-&#xA0; use bar as canine;
-&#xA0; use animate;
-&#xA0; echo \feline\Cat::says(), &quot;&lt;br /&gt;\n&quot;;
-&#xA0; echo \canine\Dog::says(), &quot;&lt;br /&gt;\n&quot;;
-&#xA0; echo \animate\Animal::breathes(), &quot;&lt;br /&gt;\n&quot;;&#xA0; ?>
+  include &apos;file1.php&apos;;
+  include &apos;file2.php&apos;;
+  include &apos;file3.php&apos;;
+  use foo as feline;
+  use bar as canine;
+  use animate;
+  echo \feline\Cat::says(), "&lt;br /&gt;\n";
+  echo \canine\Dog::says(), "&lt;br /&gt;\n";
+  echo \animate\Animal::breathes(), "&lt;br /&gt;\n";  ?>
 ```
 
 
@@ -68,41 +61,31 @@ The &apos;use&apos; keyword also applies to closure constructs:
 
 ```
 <?php function getTotal($products_costs, $tax)
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; $total = 0.00;
-&#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; $callback =
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; function ($pricePerItem) use ($tax, &amp;$total)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $total += $pricePerItem * ($tax + 1.0);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; };
-&#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; array_walk($products_costs, $callback);
-&#xA0; &#xA0; &#xA0; &#xA0; return round($total, 2);
-&#xA0; &#xA0; }
+    {
+        $total = 0.00;
+        
+        $callback =
+            function ($pricePerItem) use ($tax, &amp;$total)
+            {
+                
+                $total += $pricePerItem * ($tax + 1.0);
+            };
+        
+        array_walk($products_costs, $callback);
+        return round($total, 2);
+    }
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-Tested on PHP 7.0.5, Windows
-The line &quot;use animate;&quot; equals the line &quot;use animate as animate;&quot;
-but the &quot;use other\animate;&quot; equals &quot;use other\animate as animate;&quot;
-
-file1:
-
+Tested on PHP 7.0.5, Windows<br>The line "use animate;" equals the line "use animate as animate;"<br>but the "use other\animate;" equals "use other\animate as animate;"<br><br>file1:<br>
 
 ```
 <?php namespace foo;
-&#xA0; class Cat { 
-&#xA0; &#xA0; static function says() {echo &apos;meoow&apos;;}&#xA0; } ?>
+  class Cat { 
+    static function says() {echo &apos;meoow&apos;;}  } ?>
 ```
 
 
@@ -111,8 +94,8 @@ file2:
 
 ```
 <?php namespace bar;
-&#xA0; class Dog {
-&#xA0; &#xA0; static function says() {echo &apos;ruff&apos;;}&#xA0; } ?>
+  class Dog {
+    static function says() {echo &apos;ruff&apos;;}  } ?>
 ```
 
 
@@ -121,8 +104,8 @@ file3:
 
 ```
 <?php namespace other\animate;
-&#xA0; class Animal {
-&#xA0; &#xA0; static function breathes() {echo &apos;air&apos;;}&#xA0; } ?>
+  class Animal {
+    static function breathes() {echo &apos;air&apos;;}  } ?>
 ```
 
 
@@ -131,19 +114,16 @@ file4:
 
 ```
 <?php namespace fub;
-&#xA0; include &apos;file1.php&apos;;
-&#xA0; include &apos;file2.php&apos;;
-&#xA0; include &apos;file3.php&apos;;
-&#xA0; use foo as feline;
-&#xA0; use bar as canine;
-&#xA0; use other\animate;&#xA0; &#xA0; &#xA0;&#xA0; //use other\animate as animate;
-&#xA0; echo feline\Cat::says(), &quot;&lt;br /&gt;\n&quot;;
-&#xA0; echo canine\Dog::says(), &quot;&lt;br /&gt;\n&quot;;
-&#xA0; echo \animate\Animal::breathes(), &quot;&lt;br /&gt;\n&quot;;&#xA0; ?>
+  include &apos;file1.php&apos;;
+  include &apos;file2.php&apos;;
+  include &apos;file3.php&apos;;
+  use foo as feline;
+  use bar as canine;
+  use other\animate;       //use other\animate as animate;
+  echo feline\Cat::says(), "&lt;br /&gt;\n";
+  echo canine\Dog::says(), "&lt;br /&gt;\n";
+  echo \animate\Animal::breathes(), "&lt;br /&gt;\n";  ?>
 ```
-
-
-
   
 
 #

@@ -2,11 +2,7 @@
 
 
 
-
-
-I use the following syntax to secure my config.ini.php file:
-
-;
+I use the following syntax to secure my config.ini.php file:<br><br>;
 
 ```
 <?php
@@ -14,31 +10,17 @@ I use the following syntax to secure my config.ini.php file:
 ;/*
 
 [category]
-name=&quot;value&quot;
+name="value"
 
 ;*/
 
 ;?>
 ```
-
-
-Works like a charm and is both: A valid PHP File and a valid ini-File ;)
-
-  
+<br><br>Works like a charm and is both: A valid PHP File and a valid ini-File ;)  
 
 #
 
-
-
-Undocumented feature!
-
-Using ${...} as a value will look to
-1) an INI setting, or
-2) an environment variable
-
-For example,
-
-
+Undocumented feature!<br><br>Using ${...} as a value will look to<br>1) an INI setting, or<br>2) an environment variable<br><br>For example,<br><br>
 
 ```
 <?php
@@ -50,24 +32,11 @@ operating_system = ${OS}
 
 ?>
 ```
-
-
-Array
-(
-&#xA0; &#xA0; <?php_ext_dir] =&gt; ./ext/
-&#xA0; &#xA0; [operating_system] =&gt; Windows_NT
-)
-
-Present in PHP 5.3.2, likely in 5.x, maybe even earlier too.
-
-  
+<br><br>Array<br>(<br>    [php_ext_dir] =&gt; ./ext/<br>    [operating_system] =&gt; Windows_NT<br>)<br><br>Present in PHP 5.3.2, likely in 5.x, maybe even earlier too.  
 
 #
 
-
-
-If your configuration file holds any sensitive information (such as database login details), remember NOT to place it within your document root folder! A common mistake is to replace config.inc.php files, which are formatted in PHP:
-
+If your configuration file holds any sensitive information (such as database login details), remember NOT to place it within your document root folder! A common mistake is to replace config.inc.php files, which are formatted in PHP:<br>
 
 ```
 <?php
@@ -75,51 +44,40 @@ $database[&apos;host&apos;] = &apos;localhost&apos;;
 // etc...
 ?>
 ```
-
-
-With config.ini files which are written in plain text:
-[database]
-host = localhost
-
-The file config.ini can be read by anyone who knows where it&apos;s located, if it&apos;s under your document root folder. Remember to place it above!
-
-  
+<br><br>With config.ini files which are written in plain text:<br>[database]<br>host = localhost<br><br>The file config.ini can be read by anyone who knows where it&apos;s located, if it&apos;s under your document root folder. Remember to place it above!  
 
 #
 
-
-
-Here is a quick parse_ini_file wrapper to add extend support to save typing and redundancy.
-
+Here is a quick parse_ini_file wrapper to add extend support to save typing and redundancy.<br>
 
 ```
 <?php
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Parses INI file adding extends functionality via &quot;:base&quot; postfix on namespace.
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * @param string $filename
-&#xA0; &#xA0;&#xA0; * @return array
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; function parse_ini_file_extended($filename) {
-&#xA0; &#xA0; &#xA0; &#xA0; $p_ini = parse_ini_file($filename, true);
-&#xA0; &#xA0; &#xA0; &#xA0; $config = array();
-&#xA0; &#xA0; &#xA0; &#xA0; foreach($p_ini as $namespace =&gt; $properties){
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; list($name, $extends) = explode(&apos;:&apos;, $namespace);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $name = trim($name);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $extends = trim($extends);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // create namespace if necessary
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(!isset($config[$name])) $config[$name] = array();
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // inherit base namespace
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(isset($p_ini[$extends])){
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach($p_ini[$extends] as $prop =&gt; $val)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $config[$name][$prop] = $val;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // overwrite / set current namespace values
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach($properties as $prop =&gt; $val)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $config[$name][$prop] = $val;
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; return $config;
-&#xA0; &#xA0; }
+    /**
+     * Parses INI file adding extends functionality via ":base" postfix on namespace.
+     *
+     * @param string $filename
+     * @return array
+     */
+    function parse_ini_file_extended($filename) {
+        $p_ini = parse_ini_file($filename, true);
+        $config = array();
+        foreach($p_ini as $namespace =&gt; $properties){
+            list($name, $extends) = explode(&apos;:&apos;, $namespace);
+            $name = trim($name);
+            $extends = trim($extends);
+            // create namespace if necessary
+            if(!isset($config[$name])) $config[$name] = array();
+            // inherit base namespace
+            if(isset($p_ini[$extends])){
+                foreach($p_ini[$extends] as $prop =&gt; $val)
+                    $config[$name][$prop] = $val;
+            }
+            // overwrite / set current namespace values
+            foreach($properties as $prop =&gt; $val)
+            $config[$name][$prop] = $val;
+        }
+        return $config;
+    }
 ?>
 ```
 
@@ -171,33 +129,15 @@ database=archive
 */
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-And for the extra-paranoid like myself, add a rule into your httpd.conf file so that *.ini (or *.inc) in my case can&apos;t be sent to a browser:
-
-&lt;Files *.inc&gt;&#xA0; 
-&#xA0; &#xA0; Order deny,allow
-&#xA0; &#xA0; Deny from all
-&lt;/Files&gt;
-
-  
+And for the extra-paranoid like myself, add a rule into your httpd.conf file so that *.ini (or *.inc) in my case can&apos;t be sent to a browser:<br><br>&lt;Files *.inc&gt;  <br>    Order deny,allow<br>    Deny from all<br>&lt;/Files&gt;  
 
 #
 
-
-
-To those who were like me looking if this could be used to create an array out of commandline output I offer you the function below (I used it to parse mplayer output).
-
-If you want it behave exactly the same as parse_ini_file you&apos;ll obviously have to add some code to feed the different sections to this one. Hope it&apos;s of help to someone!
-
-
+To those who were like me looking if this could be used to create an array out of commandline output I offer you the function below (I used it to parse mplayer output).<br><br>If you want it behave exactly the same as parse_ini_file you&apos;ll obviously have to add some code to feed the different sections to this one. Hope it&apos;s of help to someone!<br><br>
 
 ```
 <?php
@@ -223,47 +163,44 @@ If you want it behave exactly the same as parse_ini_file you&apos;ll obviously h
  */
 function explodeExplode( $string, $array )
 {
-&#xA0; &#xA0; $returnArray = array();
-&#xA0; &#xA0; 
-&#xA0; &#xA0; foreach( $array as $arrayValue )
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; $tmpArray = explode( $string, $arrayValue );
-&#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; if( count( $tmpArray ) == 1 )
-&#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $returnArray[$tmpArray[0]] = &apos;&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; else if( count( $tmpArray ) == 2 )
-&#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $returnArray[$tmpArray[0]] = $tmpArray[1];
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; else if( count( $tmpArray ) &gt; 2 )
-&#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $implodeBack = array();
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $firstLoop&#xA0; &#xA0; &#xA0; = true;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach( $tmpArray as $tmpValue )
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if( $firstLoop )
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $firstLoop = false;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $implodeBack[] = $tmpValue;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; print_r( $implodeBack );
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $returnArray[$tmpArray[0]] = implode( &apos;=&apos;, $implodeBack );
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
-&#xA0; &#xA0; 
-&#xA0; &#xA0; return $returnArray;
+    $returnArray = array();
+    
+    foreach( $array as $arrayValue )
+    {
+        $tmpArray = explode( $string, $arrayValue );
+        
+        if( count( $tmpArray ) == 1 )
+        {
+            $returnArray[$tmpArray[0]] = &apos;&apos;;
+        }
+        else if( count( $tmpArray ) == 2 )
+        {
+            $returnArray[$tmpArray[0]] = $tmpArray[1];
+        }
+        else if( count( $tmpArray ) &gt; 2 )
+        {
+            $implodeBack = array();
+            $firstLoop      = true;
+            foreach( $tmpArray as $tmpValue )
+            {
+                if( $firstLoop )
+                {
+                    $firstLoop = false;
+                }
+                else
+                {
+                    $implodeBack[] = $tmpValue;
+                }
+            }
+            print_r( $implodeBack );
+            $returnArray[$tmpArray[0]] = implode( &apos;=&apos;, $implodeBack );
+        }
+    }
+    
+    return $returnArray;
 }
 ?>
 ```
-
-
-
   
 
 #

@@ -2,40 +2,21 @@
 
 
 
-
-
-All these examples will not work if the php script has no write access within the folder. 
-
-Although you may say this is obvious, I found that in this case, $zip-&gt;open(&quot;name&quot;, ZIPARCHIVE::CREATE) doesn&apos;t return an error as it might not try to access the file system but rather allocates memory. 
-
-It is only $zip-&gt;close() that returns the error. This might cause you seeking at the wrong end.
-
-  
+All these examples will not work if the php script has no write access within the folder. <br><br>Although you may say this is obvious, I found that in this case, $zip-&gt;open("name", ZIPARCHIVE::CREATE) doesn&apos;t return an error as it might not try to access the file system but rather allocates memory. <br><br>It is only $zip-&gt;close() that returns the error. This might cause you seeking at the wrong end.  
 
 #
 
 
 
-
-
 ```
 <?php
-
-&#xA0; &#xA0; &#xA0; &#xA0; $zip = new ZipArchive;
-
-&#xA0; &#xA0; $zip-&gt;open(&apos;teste.zip&apos;);
-
-&#xA0; &#xA0; $zip-&gt;extractTo(&apos;./&apos;);
-
-&#xA0; &#xA0; $zip-&gt;close();
-
-&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;Ok!&quot;;
-
+        $zip = new ZipArchive;
+    $zip-&gt;open(&apos;teste.zip&apos;);
+    $zip-&gt;extractTo(&apos;./&apos;);
+    $zip-&gt;close();
+        echo "Ok!";
 ?>
 ```
-
-
-
   
 
 #

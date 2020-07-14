@@ -2,61 +2,71 @@
 
 
 
+To reflect on a namespaced class in PHP 5.3, you must always specify the fully qualified name of the class - even if you&apos;ve aliased the containing namespace using a "use" statement.<br><br>So instead of:<br><br>
 
-<div class="phpcode"><span class="html">
-To reflect on a namespaced class in PHP 5.3, you must always specify the fully qualified name of the class - even if you&apos;ve aliased the containing namespace using a &quot;use&quot; statement.
-<br>
-<br>So instead of:
-<br>
-<br><span class="default">&lt;?php
-<br></span><span class="keyword">use </span><span class="default">App</span><span class="keyword">\</span><span class="default">Core </span><span class="keyword">as </span><span class="default">Core</span><span class="keyword">;
-<br></span><span class="default">$oReflectionClass </span><span class="keyword">= new </span><span class="default">ReflectionClass</span><span class="keyword">(</span><span class="string">&apos;Core\Singleton&apos;</span><span class="keyword">);
-<br></span><span class="default">?&gt;
-<br></span>
-<br>You would type:
-<br>
-<br><span class="default">&lt;?php
-<br></span><span class="keyword">use </span><span class="default">App</span><span class="keyword">\</span><span class="default">Core </span><span class="keyword">as </span><span class="default">Core</span><span class="keyword">;
-<br></span><span class="default">$oReflectionClass </span><span class="keyword">= new </span><span class="default">ReflectionClass</span><span class="keyword">(</span><span class="string">&apos;App\Core\Singleton&apos;</span><span class="keyword">);
-<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+use App\Core as Core;
+$oReflectionClass = new ReflectionClass(&apos;Core\Singleton&apos;);
+?>
+```
+
+
+You would type:
+
+
+
+```
+<?php
+use App\Core as Core;
+$oReflectionClass = new ReflectionClass(&apos;App\Core\Singleton&apos;);
+?>
+```
   
 
 #
 
+Reflecting an alias will give you a reflection of the resolved class.<br><br>
 
-<div class="phpcode"><span class="html">
-Reflecting an alias will give you a reflection of the resolved class.<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">X </span><span class="keyword">{<br>&#xA0; &#xA0; <br>}<br><br></span><span class="default">class_alias</span><span class="keyword">(</span><span class="string">&apos;X&apos;</span><span class="keyword">,</span><span class="string">&apos;Y&apos;</span><span class="keyword">);<br></span><span class="default">class_alias</span><span class="keyword">(</span><span class="string">&apos;Y&apos;</span><span class="keyword">,</span><span class="string">&apos;Z&apos;</span><span class="keyword">);<br></span><span class="default">$z </span><span class="keyword">= new </span><span class="default">ReflectionClass</span><span class="keyword">(</span><span class="string">&apos;Z&apos;</span><span class="keyword">);<br>echo </span><span class="default">$z</span><span class="keyword">-&gt;</span><span class="default">getName</span><span class="keyword">(); </span><span class="comment">// X<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+class X {
+    
+}
+
+class_alias(&apos;X&apos;,&apos;Y&apos;);
+class_alias(&apos;Y&apos;,&apos;Z&apos;);
+$z = new ReflectionClass(&apos;Z&apos;);
+echo $z-&gt;getName(); // X
+
+?>
+```
   
 
 #
 
+Unserialized reflection class cause error.<br><br>
 
-<div class="phpcode"><span class="html">
-Unserialized reflection class cause error.
-<br>
-<br><span class="default">&lt;?php
-<br></span><span class="comment">/**
-<br> * abc
-<br> */
-<br></span><span class="keyword">class </span><span class="default">a</span><span class="keyword">{}
-<br>
-<br></span><span class="default">$ref </span><span class="keyword">= new </span><span class="default">ReflectionClass</span><span class="keyword">(</span><span class="string">&apos;a&apos;</span><span class="keyword">);
-<br></span><span class="default">$ref </span><span class="keyword">= </span><span class="default">unserialize</span><span class="keyword">(</span><span class="default">serialize</span><span class="keyword">(</span><span class="default">$ref</span><span class="keyword">));
-<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$ref</span><span class="keyword">);
-<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$ref</span><span class="keyword">-&gt;</span><span class="default">getDocComment</span><span class="keyword">());
-<br>
-<br></span><span class="comment">// object(ReflectionClass)#2 (1) {
-<br>//&#xA0;&#xA0; [&quot;name&quot;]=&gt;
-<br>//&#xA0;&#xA0; string(1) &quot;a&quot;
-<br>// }
-<br>// PHP Fatal error:&#xA0; ReflectionClass::getDocComment(): Internal error: Failed to retrieve the reflection object
-<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+/**
+ * abc
+ */
+class a{}
+
+$ref = new ReflectionClass(&apos;a&apos;);
+$ref = unserialize(serialize($ref));
+var_dump($ref);
+var_dump($ref-&gt;getDocComment());
+
+// object(ReflectionClass)#2 (1) {
+//   ["name"]=&gt;
+//   string(1) "a"
+// }
+// PHP Fatal error:  ReflectionClass::getDocComment(): Internal error: Failed to retrieve the reflection object
+?>
+```
   
 
 #

@@ -2,51 +2,9 @@
 
 
 
-
-
-Hi,
-
-
-
-List containing all SQL-92 SQLSTATE Return Codes:
-
-http://www.unix.org.ua/orelly/java-ent/jenut/ch08_06.htm
-
-
-
-Use the following Code to let PDO throw Exceptions (PDOException) on Error.
-
-
-
-&lt;?PHP 
-
-$pdo = new PDO (whatever);
-
-$pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-try {
-
-&#xA0; &#xA0; $pdo-&gt;exec (&quot;QUERY WITH SYNTAX ERROR&quot;);
-
-} catch (PDOException $e) {
-
-&#xA0; &#xA0; if ($e-&gt;getCode() == &apos;2A000&apos;)
-
-&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;Syntax Error: &quot;.$e-&gt;getMessage();
-
-}
-
-?>
+Hi,<br><br>List containing all SQL-92 SQLSTATE Return Codes:<br>http://www.unix.org.ua/orelly/java-ent/jenut/ch08_06.htm<br><br>Use the following Code to let PDO throw Exceptions (PDOException) on Error.<br><br>&lt;?PHP <br>$pdo = new PDO (whatever);<br>$pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);<br>try {<br>    $pdo-&gt;exec ("QUERY WITH SYNTAX ERROR");<br>} catch (PDOException $e) {<br>    if ($e-&gt;getCode() == &apos;2A000&apos;)<br>        echo "Syntax Error: ".$e-&gt;getMessage();<br>}<br>?>
 ```
-
-
-
-
-Bye,
-
-&#xA0; Matthias
-
-  
+<br><br>Bye,<br>  Matthias  
 
 #
 

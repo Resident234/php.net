@@ -2,11 +2,7 @@
 
 
 
-
-
-Statement&apos;s errorCode() returns an empty string before execution, and &apos;00000&apos; (five zeros) after a sucessfull execution:
-
-
+Statement&apos;s errorCode() returns an empty string before execution, and &apos;00000&apos; (five zeros) after a sucessfull execution:<br><br>
 
 ```
 <?php
@@ -17,9 +13,6 @@ $stmt-&gt;execute();
 assert($stmt-&gt;errorCode === &apos;00000&apos;);
 ?>
 ```
-
-
-
   
 
 #

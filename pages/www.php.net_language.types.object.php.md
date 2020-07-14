@@ -2,32 +2,16 @@
 
 
 
-
-
-By far the easiest and correct way to instantiate an empty generic php object that you can then modify for whatever purpose you choose:
-
-
-
-
+By far the easiest and correct way to instantiate an empty generic php object that you can then modify for whatever purpose you choose:<br><br>
 
 ```
 <?php $genericObject = new stdClass(); ?>
 ```
-
-
-
-
-I had the most difficult time finding this, hopefully it will help someone else!
-
-  
+<br><br>I had the most difficult time finding this, hopefully it will help someone else!  
 
 #
 
-
-
-In PHP 7 there are a few ways to create an empty object:
-
-
+In PHP 7 there are a few ways to create an empty object:<br><br>
 
 ```
 <?php
@@ -49,85 +33,68 @@ $obj1 and $obj3 are the same type, but $obj1 !== $obj3. Also, all three will jso
 ```
 <?php
 echo json_encode([
-&#xA0; &#xA0; new \stdClass,
-&#xA0; &#xA0; new class{},
-&#xA0; &#xA0; (object)[],
+    new \stdClass,
+    new class{},
+    (object)[],
 ]);
 ?>
 ```
-
-
-Outputs: [{},{},{}]
-
-  
+<br><br>Outputs: [{},{},{}]  
 
 #
 
-
-
-As of PHP 5.4, we can create stdClass objects with some properties and values using the more beautiful form:
-
-
+As of PHP 5.4, we can create stdClass objects with some properties and values using the more beautiful form:<br><br>
 
 ```
 <?php
-&#xA0; $object = (object) [
-&#xA0; &#xA0; &apos;propertyOne&apos; =&gt; &apos;foo&apos;,
-&#xA0; &#xA0; &apos;propertyTwo&apos; =&gt; 42,
-&#xA0; ];
+  $object = (object) [
+    &apos;propertyOne&apos; =&gt; &apos;foo&apos;,
+    &apos;propertyTwo&apos; =&gt; 42,
+  ];
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-Here a new updated version of &apos;stdObject&apos; class. It&apos;s very useful when extends to controller on MVC design pattern, user can create it&apos;s own class.
-
-Hope it help you.
-
- 
+Here a new updated version of &apos;stdObject&apos; class. It&apos;s very useful when extends to controller on MVC design pattern, user can create it&apos;s own class.<br><br>Hope it help you.<br><br> 
 
 ```
 <?php
 class stdObject {
-&#xA0; &#xA0; public function __construct(array $arguments = array()) {
-&#xA0; &#xA0; &#xA0; &#xA0; if (!empty($arguments)) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach ($arguments as $property =&gt; $argument) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;{$property} = $argument;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
+    public function __construct(array $arguments = array()) {
+        if (!empty($arguments)) {
+            foreach ($arguments as $property =&gt; $argument) {
+                $this-&gt;{$property} = $argument;
+            }
+        }
+    }
 
-&#xA0; &#xA0; public function __call($method, $arguments) {
-&#xA0; &#xA0; &#xA0; &#xA0; $arguments = array_merge(array(&quot;stdObject&quot; =&gt; $this), $arguments); // Note: method argument 0 will always referred to the main class ($this).
-&#xA0; &#xA0; &#xA0; &#xA0; if (isset($this-&gt;{$method}) &amp;&amp; is_callable($this-&gt;{$method})) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return call_user_func_array($this-&gt;{$method}, $arguments);
-&#xA0; &#xA0; &#xA0; &#xA0; } else {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new Exception(&quot;Fatal error: Call to undefined method stdObject::{$method}()&quot;);
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
+    public function __call($method, $arguments) {
+        $arguments = array_merge(array("stdObject" =&gt; $this), $arguments); // Note: method argument 0 will always referred to the main class ($this).
+        if (isset($this-&gt;{$method}) &amp;&amp; is_callable($this-&gt;{$method})) {
+            return call_user_func_array($this-&gt;{$method}, $arguments);
+        } else {
+            throw new Exception("Fatal error: Call to undefined method stdObject::{$method}()");
+        }
+    }
 }
 
 // Usage.
 
 $obj = new stdObject();
-$obj-&gt;name = &quot;Nick&quot;;
-$obj-&gt;surname = &quot;Doe&quot;;
+$obj-&gt;name = "Nick";
+$obj-&gt;surname = "Doe";
 $obj-&gt;age = 20;
 $obj-&gt;adresse = null;
 
 $obj-&gt;getInfo = function($stdObject) { // $stdObject referred to this object (stdObject).
-&#xA0; &#xA0; echo $stdObject-&gt;name . &quot; &quot; . $stdObject-&gt;surname . &quot; have &quot; . $stdObject-&gt;age . &quot; yrs old. And live in &quot; . $stdObject-&gt;adresse;
+    echo $stdObject-&gt;name . " " . $stdObject-&gt;surname . " have " . $stdObject-&gt;age . " yrs old. And live in " . $stdObject-&gt;adresse;
 };
 
-$func = &quot;setAge&quot;;
+$func = "setAge";
 $obj-&gt;{$func} = function($stdObject, $age) { // $age is the first parameter passed when calling this method.
-&#xA0; &#xA0; $stdObject-&gt;age = $age;
+    $stdObject-&gt;age = $age;
 };
 
 $obj-&gt;setAge(24); // Parameter value 24 is passing to the $age argument in method &apos;setAge()&apos;.
@@ -135,52 +102,46 @@ $obj-&gt;setAge(24); // Parameter value 24 is passing to the $age argument in me
 // Create dynamic method. Here i&apos;m generating getter and setter dynimically
 // Beware: Method name are case sensitive.
 foreach ($obj as $func_name =&gt; $value) {
-&#xA0; &#xA0; if (!$value instanceOf Closure) {
+    if (!$value instanceOf Closure) {
 
-&#xA0; &#xA0; &#xA0; &#xA0; $obj-&gt;{&quot;set&quot; . ucfirst($func_name)} = function($stdObject, $value) use ($func_name) {&#xA0; // Note: you can also use keyword &apos;use&apos; to bind parent variables.
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $stdObject-&gt;{$func_name} = $value;
-&#xA0; &#xA0; &#xA0; &#xA0; };
+        $obj-&gt;{"set" . ucfirst($func_name)} = function($stdObject, $value) use ($func_name) {  // Note: you can also use keyword &apos;use&apos; to bind parent variables.
+            $stdObject-&gt;{$func_name} = $value;
+        };
 
-&#xA0; &#xA0; &#xA0; &#xA0; $obj-&gt;{&quot;get&quot; . ucfirst($func_name)} = function($stdObject) use ($func_name) {&#xA0; // Note: you can also use keyword &apos;use&apos; to bind parent variables.
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return $stdObject-&gt;{$func_name};
-&#xA0; &#xA0; &#xA0; &#xA0; };
+        $obj-&gt;{"get" . ucfirst($func_name)} = function($stdObject) use ($func_name) {  // Note: you can also use keyword &apos;use&apos; to bind parent variables.
+            return $stdObject-&gt;{$func_name};
+        };
 
-&#xA0; &#xA0; }
+    }
 }
 
-$obj-&gt;setName(&quot;John&quot;);
-$obj-&gt;setAdresse(&quot;Boston&quot;);
+$obj-&gt;setName("John");
+$obj-&gt;setAdresse("Boston");
 
 $obj-&gt;getInfo();
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-&lt;!--Example shows how to convert array to stdClass Object and how to access its value for display --&gt;
-
+&lt;!--Example shows how to convert array to stdClass Object and how to access its value for display --&gt;<br>
 
 ```
 <?php 
-$num = array(&quot;Garha&quot;,&quot;sitamarhi&quot;,&quot;canada&quot;,&quot;patna&quot;); //create an array
+$num = array("Garha","sitamarhi","canada","patna"); //create an array
 $obj = (object)$num; //change array to stdClass object 
 
-echo &quot;&lt;pre&gt;&quot;;
+echo "&lt;pre&gt;";
 print_r($obj); //stdClass Object created by casting of array 
 
 $newobj = new stdClass();//create a new 
-$newobj-&gt;name = &quot;India&quot;;
-$newobj-&gt;work = &quot;Development&quot;;
-$newobj-&gt;address=&quot;patna&quot;;
+$newobj-&gt;name = "India";
+$newobj-&gt;work = "Development";
+$newobj-&gt;address="patna";
 
 $new = (array)$newobj;//convert stdClass to array
-echo &quot;&lt;pre&gt;&quot;;
+echo "&lt;pre&gt;";
 print_r($new); //print new object
 
 ##How deals with Associative Array
@@ -188,30 +149,18 @@ print_r($new); //print new object
 $test = [Details=&gt;[&apos;name&apos;,&apos;roll number&apos;,&apos;college&apos;,&apos;mobile&apos;],values=&gt;[&apos;Naman Kumar&apos;,&apos;100790310868&apos;,&apos;Pune college&apos;,&apos;9988707202&apos;]];
 $val = json_decode(json_encode($test),false);//convert array into stdClass object
 
-echo &quot;&lt;pre&gt;&quot;;
+echo "&lt;pre&gt;";
 print_r($val);
 
-echo ((is_array($val) == true ?&#xA0; 1 : 0 ) == 1 ? &quot;array&quot; : &quot;not an array&quot; ).&quot;&lt;/br&gt;&quot;; // check whether it is array or not
-echo ((is_object($val) == true ?&#xA0; 1 : 0 ) == 1 ? &quot;object&quot; : &quot;not an object&quot; );//check whether it is object or not 
+echo ((is_array($val) == true ?  1 : 0 ) == 1 ? "array" : "not an array" )."&lt;/br&gt;"; // check whether it is array or not
+echo ((is_object($val) == true ?  1 : 0 ) == 1 ? "object" : "not an object" );//check whether it is object or not 
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-CAUTION:
-&quot;Arrays convert to an object with properties named by keys, and corresponding values&quot;.
-
-This is ALWAYS true, which means that even numeric keys are accepted when converting.
-But the resulting properties cannot be accessed, since they don&apos;t match the variables naming rules.
-
-So this:
-
+CAUTION:<br>"Arrays convert to an object with properties named by keys, and corresponding values".<br><br>This is ALWAYS true, which means that even numeric keys are accepted when converting.<br>But the resulting properties cannot be accessed, since they don&apos;t match the variables naming rules.<br><br>So this:<br>
 
 ```
 <?php
@@ -223,9 +172,9 @@ echo &apos;&lt;pre&gt;&apos;.print_r($x, true).&apos;&lt;/pre&gt;&apos;;
 works and displays:
 stdClass Object
 (
-&#xA0; &#xA0; [a] =&gt; A
-&#xA0; &#xA0; [b] =&gt; B
-&#xA0; &#xA0; [0] =&gt; C
+    [a] =&gt; A
+    [b] =&gt; B
+    [0] =&gt; C
 )
 
 But this:
@@ -238,13 +187,7 @@ echo &apos;&lt;br /&gt;&apos;.$x-&gt;b;
 echo &apos;&lt;br /&gt;&apos;.$x-&gt;{0}; # (don&apos;t use $x-&gt;0, which is obviously a syntax error)
 ?>
 ```
-
-fails and displays:
-A
-B
-Notice: Undefined property: stdClass::$0 in...
-
-  
+<br>fails and displays:<br>A<br>B<br>Notice: Undefined property: stdClass::$0 in...  
 
 #
 

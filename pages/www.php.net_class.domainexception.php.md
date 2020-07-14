@@ -3,28 +3,88 @@
 
 
 
-<div class="phpcode"><span class="html">
-<span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">renderImage</span><span class="keyword">(</span><span class="default">$imageResource</span><span class="keyword">, </span><span class="default">$imageType</span><span class="keyword">)<br>{<br>&#xA0; switch (</span><span class="default">$imageType</span><span class="keyword">) {<br>&#xA0; case </span><span class="string">&apos;jpg&apos;</span><span class="keyword">:<br>&#xA0; case </span><span class="string">&apos;jpeg&apos;</span><span class="keyword">:<br>&#xA0; &#xA0; </span><span class="default">header</span><span class="keyword">(</span><span class="string">&apos;Content-type: image/jpeg&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">imagejpeg</span><span class="keyword">(</span><span class="default">$imageResource</span><span class="keyword">);<br>&#xA0; &#xA0; break;<br>&#xA0; case </span><span class="string">&apos;png&apos;</span><span class="keyword">:<br>&#xA0; &#xA0; </span><span class="default">header</span><span class="keyword">(</span><span class="string">&apos;Content-type: image/png&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">imagepng</span><span class="keyword">(</span><span class="default">$imageResource</span><span class="keyword">);<br>&#xA0; &#xA0; break;<br>&#xA0; default:<br>&#xA0; &#xA0; throw new </span><span class="default">DomainException</span><span class="keyword">(</span><span class="string">&apos;Unknown image type: &apos; </span><span class="keyword">. </span><span class="default">$imageType</span><span class="keyword">);<br>&#xA0; &#xA0; break;<br>&#xA0; }<br>&#xA0; </span><span class="default">imagedestroy</span><span class="keyword">(</span><span class="default">$imageResource</span><span class="keyword">);<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+
+```
+<?php
+function renderImage($imageResource, $imageType)
+{
+  switch ($imageType) {
+  case &apos;jpg&apos;:
+  case &apos;jpeg&apos;:
+    header(&apos;Content-type: image/jpeg&apos;);
+    imagejpeg($imageResource);
+    break;
+  case &apos;png&apos;:
+    header(&apos;Content-type: image/png&apos;);
+    imagepng($imageResource);
+    break;
+  default:
+    throw new DomainException(&apos;Unknown image type: &apos; . $imageType);
+    break;
+  }
+  imagedestroy($imageResource);
+}
+?>
+```
   
 
 #
 
+I think this kind of exception is perfect to throw when expected the  type of parameter, value etc. is good, but its value is out of domain. Look at RangeException:<br>&gt;&gt;Exception thrown to indicate range errors during program execution. Normally this means there was an arithmetic error other than under/overflow. This is the runtime version of DomainException.&lt;&lt;<br>So, this kind of exception is designed for logic error<br><br>When datatype is wrong, the better way is throwing InvalidArgumentException. <br><br>
 
-<div class="phpcode"><span class="html">
-I think this kind of exception is perfect to throw when expected the&#xA0; type of parameter, value etc. is good, but its value is out of domain. Look at RangeException:<br>&gt;&gt;Exception thrown to indicate range errors during program execution. Normally this means there was an arithmetic error other than under/overflow. This is the runtime version of DomainException.&lt;&lt;<br>So, this kind of exception is designed for logic error<br><br>When datatype is wrong, the better way is throwing InvalidArgumentException. <br><br><span class="default">&lt;?php<br></span><span class="comment">// Here, use InvalidArgumentException<br></span><span class="keyword">function </span><span class="default">media</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">) {<br>&#xA0; &#xA0; switch (</span><span class="default">$x</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="default">image</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="string">&apos;PNG&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="default">video</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="string">&apos;MP4&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; default:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">InvalidArgumentException </span><span class="keyword">(</span><span class="string">&quot;Invalid media type!&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>}</span><span class="default">?&gt;<br></span>This is completly diffirent situation than this:<br><span class="default">&lt;?php<br></span><span class="comment">// Here, use DomainException<br></span><span class="default">$object </span><span class="keyword">= new </span><span class="default">Library </span><span class="keyword">();<br>try {<br>&#xA0; &#xA0; </span><span class="default">$object</span><span class="keyword">-&gt;</span><span class="default">allocate</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">);<br>} catch (</span><span class="default">toFewMin $e</span><span class="keyword">) {<br>&#xA0; &#xA0; throw new </span><span class="default">DomainException </span><span class="keyword">(</span><span class="string">&quot;Minimal value to allocate is too high&quot;</span><span class="keyword">).<br>}<br></span><span class="default">?&gt;<br></span>The simillar situation, but problem occurs during runtime:<br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">library </span><span class="keyword">{<br>&#xA0; &#xA0; function </span><span class="default">allocate</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$x</span><span class="keyword">&lt;</span><span class="default">1000</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">RangeException </span><span class="keyword">(</span><span class="string">&quot;Value is too low!&quot;</span><span class="keyword">)<br>&#xA0; &#xA0; }<br>}<br></span><span class="default">?&gt;<br></span>Summary: DomainException corresponds to RangeException and we should use them in simillar situations.&#xA0; But first exception is designed to use when we are sure the problem is with our project, third-part elements etc. (simply: logical error), the second way is designed to use when we are sure the problem is with input data or environment (simply: runtime error).</span>
-</div>
-  
+```
+<?php
+// Here, use InvalidArgumentException
+function media($x) {
+    switch ($x) {
+        case image:
+            return &apos;PNG&apos;;
+        break;
+        case video:
+            return &apos;MP4&apos;;
+        break;
+        default:
+            throw new InvalidArgumentException ("Invalid media type!");
+    }
+}?>
+```
+
+This is completly diffirent situation than this:
+
+
+```
+<?php
+// Here, use DomainException
+$object = new Library ();
+try {
+    $object-&gt;allocate($x);
+} catch (toFewMin $e) {
+    throw new DomainException ("Minimal value to allocate is too high").
+}
+?>
+```
+
+The simillar situation, but problem occurs during runtime:
+
+
+```
+<?php
+class library {
+    function allocate($x) {
+        if ($x&lt;1000)
+            throw new RangeException ("Value is too low!")
+    }
+}
+?>
+```
+<br>Summary: DomainException corresponds to RangeException and we should use them in simillar situations.  But first exception is designed to use when we are sure the problem is with our project, third-part elements etc. (simply: logical error), the second way is designed to use when we are sure the problem is with input data or environment (simply: runtime error).  
 
 #
 
 
-<div class="phpcode"><span class="html">
-<span class="default">&lt;?php<br><br></span><span class="keyword">function </span><span class="default">divide</span><span class="keyword">(</span><span class="default">$divident</span><span class="keyword">, </span><span class="default">$divisor</span><span class="keyword">) {<br>&#xA0; &#xA0; if(!</span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$divident</span><span class="keyword">) || !</span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$divisor</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">InvalidArgumentException</span><span class="keyword">(</span><span class="string">&quot;Function accepts only numeric values&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; if(</span><span class="default">$divisor </span><span class="keyword">== </span><span class="default">0</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">DomainException</span><span class="keyword">(</span><span class="string">&quot;Divisor must not be zero&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">$divident </span><span class="keyword">/ </span><span class="default">$divisor</span><span class="keyword">;<br>}</span>
-</span>
-</div>
-  
+
+```
+<?php<br><br>function divide($divident, $divisor) {<br>    if(!is_numeric($divident) || !is_numeric($divisor)) {<br>        throw new InvalidArgumentException("Function accepts only numeric values");<br>    }<br>    if($divisor == 0) {<br>        throw new DomainException("Divisor must not be zero");<br>    }<br>    return $divident / $divisor;<br>}  
 
 #
 

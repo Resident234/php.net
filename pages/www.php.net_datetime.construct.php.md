@@ -2,31 +2,23 @@
 
 
 
-
-
-There&apos;s a reason for ignoring the time zone when you pass a timestamp to __construct.&#xA0; That is, UNIX timestamps are by definition based on UTC.&#xA0; @1234567890 represents the same date/time regardless of time zone.&#xA0; So there&apos;s no need for a time zone at all.
-
-  
+There&apos;s a reason for ignoring the time zone when you pass a timestamp to __construct.  That is, UNIX timestamps are by definition based on UTC.  @1234567890 represents the same date/time regardless of time zone.  So there&apos;s no need for a time zone at all.  
 
 #
 
-
-
-The theoretical limits of the date range seem to be &quot;-9999-01-01&quot; through &quot;9999-12-31&quot; (PHP 5.2.9 on Windows Vista 64):
-
-
+The theoretical limits of the date range seem to be "-9999-01-01" through "9999-12-31" (PHP 5.2.9 on Windows Vista 64):<br><br>
 
 ```
 <?php
 
-$d = new DateTime(&quot;9999-12-31&quot;); 
-$d-&gt;format(&quot;Y-m-d&quot;); // &quot;9999-12-31&quot;
+$d = new DateTime("9999-12-31"); 
+$d-&gt;format("Y-m-d"); // "9999-12-31"
 
-$d = new DateTime(&quot;0000-12-31&quot;); 
-$d-&gt;format(&quot;Y-m-d&quot;); // &quot;0000-12-31&quot;
+$d = new DateTime("0000-12-31"); 
+$d-&gt;format("Y-m-d"); // "0000-12-31"
 
-$d = new DateTime(&quot;-9999-12-31&quot;); 
-$d-&gt;format(&quot;Y-m-d&quot;); // &quot;-9999-12-31&quot;
+$d = new DateTime("-9999-12-31"); 
+$d-&gt;format("Y-m-d"); // "-9999-12-31"
 
 ?>
 ```
@@ -39,70 +31,42 @@ Dates above 10000 and below -10000 do not throw errors but produce weird results
 ```
 <?php
 
-$d = new DateTime(&quot;10019-01-01&quot;); 
-$d-&gt;format(&quot;Y-m-d&quot;); // &quot;2009-01-01&quot;
+$d = new DateTime("10019-01-01"); 
+$d-&gt;format("Y-m-d"); // "2009-01-01"
 
-$d = new DateTime(&quot;10009-01-01&quot;); 
-$d-&gt;format(&quot;Y-m-d&quot;); // &quot;2009-01-01&quot;
+$d = new DateTime("10009-01-01"); 
+$d-&gt;format("Y-m-d"); // "2009-01-01"
 
-$d = new DateTime(&quot;-10019-01-01&quot;); 
-$d-&gt;format(&quot;Y-m-d&quot;); // &quot;2009-01-01&quot;
+$d = new DateTime("-10019-01-01"); 
+$d-&gt;format("Y-m-d"); // "2009-01-01"
 
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-A definite &quot;gotcha&quot; (while documented) that exists in the __construct is that it ignores your timezone if the $time is a timestamp.&#xA0; While this may not make sense, the object does provide you with methods to work around it.
-
-
-
-
+A definite "gotcha" (while documented) that exists in the __construct is that it ignores your timezone if the $time is a timestamp.  While this may not make sense, the object does provide you with methods to work around it.<br><br>
 
 ```
 <?php
-
 // New Timezone Object
-
 $timezone = new DateTimeZone(&apos;America/New_York&apos;);
 
-
-
 // New DateTime Object
-
-$date =&#xA0; new DateTime(&apos;@1306123200&apos;, $timezone);&#xA0; &#xA0; 
-
-
+$date =  new DateTime(&apos;@1306123200&apos;, $timezone);    
 
 // You would expect the date to be 2011-05-23 00:00:00
-
 // But it actually outputs 2011-05-23 04:00:00
-
 echo $date-&gt;format(&apos;Y-m-d H:i:s&apos;);
 
-
-
-// You can still set the timezone though like so...&#xA0; &#xA0; &#xA0; &#xA0; 
-
+// You can still set the timezone though like so...        
 $date-&gt;setTimezone($timezone);
 
-
-
 // This will now output 2011-05-23 00:00:00
-
 echo $date-&gt;format(&apos;Y-m-d H:i:s&apos;);
-
 ?>
 ```
-
-
-
   
 
 #

@@ -2,13 +2,7 @@
 
 
 
-
-
-stmt_init() seems to clear previous (possibly erroneous) results on the DB connection, which means you don&apos;t necessarily need to use it but it could make the code more robust.
-
-In a PHPUnit test, I had a sequence of prepared queries on the same connection. One of them fetched a row from a SELECT but didn&apos;t keep fetching until it drained the connection, so it left some stale results. When the next query did this:
-
-
+stmt_init() seems to clear previous (possibly erroneous) results on the DB connection, which means you don&apos;t necessarily need to use it but it could make the code more robust.<br><br>In a PHPUnit test, I had a sequence of prepared queries on the same connection. One of them fetched a row from a SELECT but didn&apos;t keep fetching until it drained the connection, so it left some stale results. When the next query did this:<br><br>
 
 ```
 <?php
@@ -18,7 +12,7 @@ $preparedQuery = $db-&gt;prepare ($query);
 ```
 
 
-the prepare() call generated an error: &quot;Could not prepare query: Commands out of sync; you can&apos;t run this command now.&quot; Changing to this:
+the prepare() call generated an error: "Could not prepare query: Commands out of sync; you can&apos;t run this command now." Changing to this:
 
 
 
@@ -29,19 +23,11 @@ $preparedQuery = $db-&gt;stmt_init();
 $preparedQuery-&gt;prepare ($query);
 ?>
 ```
-
-
-resolved the problem.
-
-  
+<br><br>resolved the problem.  
 
 #
 
-
-
-you can use $stmt = $mysqli-&gt;prepare(); directly without stmt-init() . i think there is no need for stmt-init .
-
-  
+you can use $stmt = $mysqli-&gt;prepare(); directly without stmt-init() . i think there is no need for stmt-init .  
 
 #
 

@@ -2,20 +2,88 @@
 
 
 
+A good example on when you would use functionality like this is when working with objects.<br><br>json_encode() will take a DateTime and convert it to:<br><br>{<br>    "date":"2013-01-31 11:14:05",<br>    "timezone_type":3,<br>    "timezone":"America\/Los_Angeles"<br>}<br><br>This is great when working with PHP, but if the Date is being read by Java.  The Java date parser doesn&apos;t know what to do with that.  But it does know what to do with the ISO8601 format...<br><br>
 
-<div class="phpcode"><span class="html">
-A good example on when you would use functionality like this is when working with objects.<br><br>json_encode() will take a DateTime and convert it to:<br><br>{<br>&#xA0; &#xA0; &quot;date&quot;:&quot;2013-01-31 11:14:05&quot;,<br>&#xA0; &#xA0; &quot;timezone_type&quot;:3,<br>&#xA0; &#xA0; &quot;timezone&quot;:&quot;America\/Los_Angeles&quot;<br>}<br><br>This is great when working with PHP, but if the Date is being read by Java.&#xA0; The Java date parser doesn&apos;t know what to do with that.&#xA0; But it does know what to do with the ISO8601 format...<br><br><span class="default">&lt;?php<br><br>date_default_timezone_set</span><span class="keyword">(</span><span class="string">&apos;America/Los_Angeles&apos;</span><span class="keyword">);<br><br>class </span><span class="default">Fruit </span><span class="keyword">implements </span><span class="default">JsonSerializable </span><span class="keyword">{<br>&#xA0; &#xA0; public<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$type </span><span class="keyword">= </span><span class="string">&apos;Apple&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$lastEaten </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br><br>&#xA0; &#xA0; public function </span><span class="default">__construct</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">lastEaten </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">();<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; public function </span><span class="default">jsonSerialize</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; return [<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;type&apos; </span><span class="keyword">=&gt; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">type</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;lastEaten&apos; </span><span class="keyword">=&gt; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">lastEaten</span><span class="keyword">-&gt;</span><span class="default">format</span><span class="keyword">(</span><span class="default">DateTime</span><span class="keyword">::</span><span class="default">ISO8601</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; ];<br>&#xA0; &#xA0; }<br>}<br>echo </span><span class="default">json_encode</span><span class="keyword">(new </span><span class="default">Fruit</span><span class="keyword">()); </span><span class="comment">//which outputs: {&quot;type&quot;:&quot;Apple&quot;,&quot;lastEaten&quot;:&quot;2013-01-31T11:17:07-0500&quot;}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+date_default_timezone_set(&apos;America/Los_Angeles&apos;);
+
+class Fruit implements JsonSerializable {
+    public
+        $type = &apos;Apple&apos;,
+        $lastEaten = null;
+
+    public function __construct() {
+        $this-&gt;lastEaten = new DateTime();
+    }
+
+    public function jsonSerialize() {
+        return [
+            &apos;type&apos; =&gt; $this-&gt;type,
+            &apos;lastEaten&apos; =&gt; $this-&gt;lastEaten-&gt;format(DateTime::ISO8601)
+        ];
+    }
+}
+echo json_encode(new Fruit()); //which outputs: {"type":"Apple","lastEaten":"2013-01-31T11:17:07-0500"}
+
+?>
+```
   
 
 #
 
+Nested json serializable objects will be serialized recursively. No need to call -&gt;jsonSerialize() on your own. It is especially useful in collections.<br><br>
 
-<div class="phpcode"><span class="html">
-Nested json serializable objects will be serialized recursively. No need to call -&gt;jsonSerialize() on your own. It is especially useful in collections.<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">NestedSerializable </span><span class="keyword">implements \</span><span class="default">JsonSerializable<br></span><span class="keyword">{<br><br>&#xA0; &#xA0; private </span><span class="default">$serializable</span><span class="keyword">;<br><br>&#xA0; &#xA0; public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$serializable</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">serializable </span><span class="keyword">= </span><span class="default">$serializable</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; public function </span><span class="default">jsonSerialize</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return [<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;serialized&apos; </span><span class="keyword">=&gt; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">serializable<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">];<br>&#xA0; &#xA0; }<br><br>}<br><br>class </span><span class="default">SerializableCollection </span><span class="keyword">implements \</span><span class="default">JsonSerializable </span><span class="keyword">{<br><br>&#xA0; &#xA0; private </span><span class="default">$elements</span><span class="keyword">;<br><br>&#xA0; &#xA0; public function </span><span class="default">__construct</span><span class="keyword">(array </span><span class="default">$elements</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">elements </span><span class="keyword">= </span><span class="default">$elements</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; public function </span><span class="default">jsonSerialize</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">elements</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>}<br><br></span><span class="comment">// Outputs: [{&quot;serialized&quot;:null},{&quot;serialized&quot;:null},{&quot;serialized&quot;:{&quot;serialized&quot;:null}}]<br></span><span class="keyword">echo </span><span class="default">json_encode</span><span class="keyword">(<br>&#xA0; &#xA0; new </span><span class="default">SerializableCollection</span><span class="keyword">([<br>&#xA0; &#xA0; &#xA0; &#xA0; new </span><span class="default">NestedSerializable</span><span class="keyword">(</span><span class="default">null</span><span class="keyword">),<br>&#xA0; &#xA0; &#xA0; &#xA0; new </span><span class="default">NestedSerializable</span><span class="keyword">(</span><span class="default">null</span><span class="keyword">),<br>&#xA0; &#xA0; &#xA0; &#xA0; new </span><span class="default">NestedSerializable</span><span class="keyword">(new </span><span class="default">NestedSerializable</span><span class="keyword">(</span><span class="default">null</span><span class="keyword">))<br>&#xA0; &#xA0; ])<br>);<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+class NestedSerializable implements \JsonSerializable
+{
+
+    private $serializable;
+
+    public function __construct($serializable)
+    {
+        $this-&gt;serializable = $serializable;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            &apos;serialized&apos; =&gt; $this-&gt;serializable
+        ];
+    }
+
+}
+
+class SerializableCollection implements \JsonSerializable {
+
+    private $elements;
+
+    public function __construct(array $elements)
+    {
+        $this-&gt;elements = $elements;
+    }
+
+    public function jsonSerialize()
+    {
+        return $this-&gt;elements;
+    }
+
+}
+
+// Outputs: [{"serialized":null},{"serialized":null},{"serialized":{"serialized":null}}]
+echo json_encode(
+    new SerializableCollection([
+        new NestedSerializable(null),
+        new NestedSerializable(null),
+        new NestedSerializable(new NestedSerializable(null))
+    ])
+);
+
+?>
+```
   
 
 #

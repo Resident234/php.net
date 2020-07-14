@@ -2,17 +2,13 @@
 
 
 
-
-
-Creating New Session
-==========================
-
+Creating New Session<br>==========================<br>
 
 ```
 <?php 
 session_start();
-/*session is started if you don&apos;t write this line can&apos;t use $_Session&#xA0; global variable*/
-$_SESSION[&quot;newsession&quot;]=$value;
+/*session is started if you don&apos;t write this line can&apos;t use $_Session  global variable*/
+$_SESSION["newsession"]=$value;
 ?>
 ```
 
@@ -23,10 +19,10 @@ Getting Session
 ```
 <?php 
 session_start();
-/*session is started if you don&apos;t write this line can&apos;t use $_Session&#xA0; global variable*/
-$_SESSION[&quot;newsession&quot;]=$value;
+/*session is started if you don&apos;t write this line can&apos;t use $_Session  global variable*/
+$_SESSION["newsession"]=$value;
 /*session created*/
-echo $_SESSION[&quot;newsession&quot;];
+echo $_SESSION["newsession"];
 /*session was getting*/
 ?>
 ```
@@ -38,10 +34,10 @@ Updating Session
 ```
 <?php 
 session_start();
-/*session is started if you don&apos;t write this line can&apos;t use $_Session&#xA0; global variable*/
-$_SESSION[&quot;newsession&quot;]=$value;
+/*session is started if you don&apos;t write this line can&apos;t use $_Session  global variable*/
+$_SESSION["newsession"]=$value;
 /*it is my new session*/
-$_SESSION[&quot;newsession&quot;]=$updatedvalue;
+$_SESSION["newsession"]=$updatedvalue;
 /*session updated*/
 ?>
 ```
@@ -53,25 +49,17 @@ Deleting Session
 ```
 <?php 
 session_start();
-/*session is started if you don&apos;t write this line can&apos;t use $_Session&#xA0; global variable*/
-$_SESSION[&quot;newsession&quot;]=$value;
-unset($_SESSION[&quot;newsession&quot;]);
+/*session is started if you don&apos;t write this line can&apos;t use $_Session  global variable*/
+$_SESSION["newsession"]=$value;
+unset($_SESSION["newsession"]);
 /*session deleted. if you try using this you&apos;ve got an error*/
 ?>
 ```
-
-
-Reference: http://gencbilgin.net/php-session-kullanimi.html
-
-  
+<br><br>Reference: http://gencbilgin.net/php-session-kullanimi.html  
 
 #
 
-
-
-Please note that if you have register_globals to On, global variables associated to $_SESSION variables are references, so this may lead to some weird situations.
-
-
+Please note that if you have register_globals to On, global variables associated to $_SESSION variables are references, so this may lead to some weird situations.<br><br>
 
 ```
 <?php
@@ -97,18 +85,15 @@ The solution is to do this after each time you do a session_start() :
 
 if (ini_get(&apos;register_globals&apos;))
 {
-&#xA0; &#xA0; foreach ($_SESSION as $key=&gt;$value)
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; if (isset($GLOBALS[$key]))
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; unset($GLOBALS[$key]);
-&#xA0; &#xA0; }
+    foreach ($_SESSION as $key=&gt;$value)
+    {
+        if (isset($GLOBALS[$key]))
+            unset($GLOBALS[$key]);
+    }
 }
 
 ?>
 ```
-
-
-
   
 
 #

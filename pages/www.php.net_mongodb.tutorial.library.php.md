@@ -2,50 +2,37 @@
 
 
 
-
-
-To test your connection string, you can do something like this:
-
-
+To test your connection string, you can do something like this:<br><br>
 
 ```
 <?php
 $mongo = new MongoDB\Client(&apos;mongodb://my_server_does_not_exist_here:27017&apos;);
 try 
 {
-&#xA0; &#xA0; $dbs = $mongo-&gt;listDatabases();
+    $dbs = $mongo-&gt;listDatabases();
 }
 catch (MongoDB\Driver\Exception\ConnectionTimeoutException $e)
 {
-&#xA0; &#xA0; // PHP cannot find a MongoDB server using the MongoDB connection string specified
-&#xA0; &#xA0; // do something here
+    // PHP cannot find a MongoDB server using the MongoDB connection string specified
+    // do something here
 }
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-Well most of the tutorials didn&apos;t explained well, So i hope this might help someone 
-Note: this is a part of my laravel project&#xA0; 
-
-//getting data from a collection
-
+Well most of the tutorials didn&apos;t explained well, So i hope this might help someone <br>Note: this is a part of my laravel project  <br><br>//getting data from a collection<br>
 
 ```
 <?php
 
 use MongoDB\Client as Mongo;
 
-$user = &quot;admin&quot;;
+$user = "admin";
 $pwd = &apos;password&apos;;
 
-$mongo = new Mongo(&quot;mongodb://${user}:${pwd}@127.0.0.1:27017&quot;);
+$mongo = new Mongo("mongodb://${user}:${pwd}@127.0.0.1:27017");
 $collection = $mongo-&gt;db_name-&gt;collection;
 $result = $collection-&gt;find()-&gt;toArray();
 
@@ -53,9 +40,6 @@ print_r($result);
 
 ?>
 ```
-
-
-
   
 
 #

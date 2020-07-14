@@ -2,11 +2,7 @@
 
 
 
-
-
-In PHP 5.6 you can make a variadic function.
-
-
+In PHP 5.6 you can make a variadic function.<br><br>
 
 ```
 <?php
@@ -16,10 +12,10 @@ In PHP 5.6 you can make a variadic function.
  * @return string Path
  */
 function file_build_path(...$segments) {
-&#xA0; &#xA0; return join(DIRECTORY_SEPARATOR, $segments);
+    return join(DIRECTORY_SEPARATOR, $segments);
 }
 
-file_build_path(&quot;home&quot;, &quot;alice&quot;, &quot;Documents&quot;, &quot;example.txt&quot;);
+file_build_path("home", "alice", "Documents", "example.txt");
 ?>
 ```
 
@@ -31,33 +27,23 @@ In earlier PHP versions you can use func_get_args.
 ```
 <?php
 function file_build_path() {
-&#xA0; &#xA0; return join(DIRECTORY_SEPARATOR, func_get_args($segments));
+    return join(DIRECTORY_SEPARATOR, func_get_args($segments));
 }
 
-file_build_path(&quot;home&quot;, &quot;alice&quot;, &quot;Documents&quot;, &quot;example.txt&quot;);
+file_build_path("home", "alice", "Documents", "example.txt");
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-For my part I&apos;ll continue to use this constant because it seems more future safe and flexible, even if Windows installations currently convert the paths magically. Not that syntax aesthetics matter but I think it can be made to look attractive:
-
-
+For my part I&apos;ll continue to use this constant because it seems more future safe and flexible, even if Windows installations currently convert the paths magically. Not that syntax aesthetics matter but I think it can be made to look attractive:<br><br>
 
 ```
 <?php
 $path = join(DIRECTORY_SEPARATOR, array(&apos;root&apos;, &apos;lib&apos;, &apos;file.php&apos;);
 ?>
 ```
-
-
-
   
 
 #

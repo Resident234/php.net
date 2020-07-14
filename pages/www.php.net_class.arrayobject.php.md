@@ -2,36 +2,95 @@
 
 
 
+As you know ArrayObject is not an array so you can&apos;t use the built in array functions. Here&apos;s a trick around that:<br><br>Extend the ArrayObject class with your own and implement this magic method:<br><br>
 
-<div class="phpcode"><span class="html">
-As you know ArrayObject is not an array so you can&apos;t use the built in array functions. Here&apos;s a trick around that:<br><br>Extend the ArrayObject class with your own and implement this magic method:<br><br><span class="default">&lt;?php<br>&#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$func</span><span class="keyword">, </span><span class="default">$argv</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; if (!</span><span class="default">is_callable</span><span class="keyword">(</span><span class="default">$func</span><span class="keyword">) || </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$func</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">6</span><span class="keyword">) !== </span><span class="string">&apos;array_&apos;</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">BadMethodCallException</span><span class="keyword">(</span><span class="default">__CLASS__</span><span class="keyword">.</span><span class="string">&apos;-&gt;&apos;</span><span class="keyword">.</span><span class="default">$func</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">call_user_func_array</span><span class="keyword">(</span><span class="default">$func</span><span class="keyword">, </span><span class="default">array_merge</span><span class="keyword">(array(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">getArrayCopy</span><span class="keyword">()), </span><span class="default">$argv</span><span class="keyword">));<br>&#xA0; &#xA0; }<br></span><span class="default">?&gt;<br></span><br>Now you can do this with any array_* function:<br><span class="default">&lt;?php<br>$yourObject</span><span class="keyword">-&gt;</span><span class="default">array_keys</span><span class="keyword">();<br></span><span class="default">?&gt;<br></span>- Don&apos;t forget to ommit the first parameter - it&apos;s automatic!<br><br>Note: You might want to write your own functions if you&apos;re working with large sets of data.</span>
-</div>
+```
+<?php
+    public function __call($func, $argv)
+    {
+        if (!is_callable($func) || substr($func, 0, 6) !== &apos;array_&apos;)
+        {
+            throw new BadMethodCallException(__CLASS__.&apos;-&gt;&apos;.$func);
+        }
+        return call_user_func_array($func, array_merge(array($this-&gt;getArrayCopy()), $argv));
+    }
+?>
+```
+
+
+Now you can do this with any array_* function:
+
+
+```
+<?php
+$yourObject-&gt;array_keys();
+?>
+```
+<br>- Don&apos;t forget to ommit the first parameter - it&apos;s automatic!<br><br>Note: You might want to write your own functions if you&apos;re working with large sets of data.  
+
+#
+
+There is a better explanation about the ArrayObject flags (STD_PROP_LIST and ARRAY_AS_PROPS) right here: <br><br>http://stackoverflow.com/a/16619183/1019305<br><br>Thanks to JayTaph  
+
+#
+
+I found the description of STD_PROP_LIST a bit vague, so I put together a simple demonstration to show its behavior:<br><br>
+
+```
+<?php                                                     
+                                                          
+$a = new ArrayObject(array(), ArrayObject::STD_PROP_LIST);
+    $a[&apos;arr&apos;] = &apos;array data&apos;;                             
+    $a-&gt;prop = &apos;prop data&apos;;                               
+$b = new ArrayObject();                                   
+    $b[&apos;arr&apos;] = &apos;array data&apos;;                             
+    $b-&gt;prop = &apos;prop data&apos;;                               
+                                                          
+// ArrayObject Object                                     
+// (                                                      
+//      [prop] =&gt; prop data                               
+// )                                                      
+print_r($a);                                              
+                                                          
+// ArrayObject Object                                     
+// (                                                      
+//      [arr] =&gt; array data                               
+// )                                                      
+print_r($b);                                              
+                                                          
+?>
+```
   
 
 #
 
+I don&apos;t believe the same performance is true since PHP 5.3. Using the same fill, read_key and foreach approach on both native arrays and ArrayObjects with 10000 keys I get the following<br><br>PHP 5.2<br><br>array() fill         0.013101<br>array() read         0.008685<br>array() foreach      0.004319<br>ArrayObject fill     0.014136<br>ArrayObject read     0.010003<br>ArrayObject foreach  3.454612<br><br>PHP 5.3<br><br>array() fill         0.010395<br>array() read         0.005933<br>array() foreach      0.001903<br>ArrayObject fill     0.010598<br>ArrayObject read     0.006387<br>ArrayObject foreach  0.003451<br><br>This was the code I used for both, an array or ArrayObject is passed into each of the functions. Again PEAR::Benchmark was used to get the results.<br><br>
 
-<div class="phpcode"><span class="html">
-There is a better explanation about the ArrayObject flags (STD_PROP_LIST and ARRAY_AS_PROPS) right here: <br><br><a href="http://stackoverflow.com/a/16619183/1019305" rel="nofollow" target="_blank">http://stackoverflow.com/a/16619183/1019305</a><br><br>Thanks to JayTaph</span>
-</div>
-  
+```
+<?php
+require_once &apos;Benchmark/Timer.php&apos;;
 
-#
+define(&apos;KEYS&apos;, 10000);
 
+function fill(&amp;$arr) {
+    for ($i = 1; $i &lt;= KEYS; $i++) {
+        $arr[&apos;key-&apos; . $i] = $i;
+    }
+}
 
-<div class="phpcode"><span class="html">
-I found the description of STD_PROP_LIST a bit vague, so I put together a simple demonstration to show its behavior:<br><br><span class="default">&lt;?php&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>$a </span><span class="keyword">= new </span><span class="default">ArrayObject</span><span class="keyword">(array(), </span><span class="default">ArrayObject</span><span class="keyword">::</span><span class="default">STD_PROP_LIST</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$a</span><span class="keyword">[</span><span class="string">&apos;arr&apos;</span><span class="keyword">] = </span><span class="string">&apos;array data&apos;</span><span class="keyword">;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; <br>&#xA0; &#xA0; </span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">prop </span><span class="keyword">= </span><span class="string">&apos;prop data&apos;</span><span class="keyword">;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; <br></span><span class="default">$b </span><span class="keyword">= new </span><span class="default">ArrayObject</span><span class="keyword">();&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; <br>&#xA0; &#xA0; </span><span class="default">$b</span><span class="keyword">[</span><span class="string">&apos;arr&apos;</span><span class="keyword">] = </span><span class="string">&apos;array data&apos;</span><span class="keyword">;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; <br>&#xA0; &#xA0; </span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">prop </span><span class="keyword">= </span><span class="string">&apos;prop data&apos;</span><span class="keyword">;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br></span><span class="comment">// ArrayObject Object&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; <br>// (&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>//&#xA0; &#xA0; &#xA0; [prop] =&gt; prop data&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; <br>// )&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">);&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br></span><span class="comment">// ArrayObject Object&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; <br>// (&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>//&#xA0; &#xA0; &#xA0; [arr] =&gt; array data&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; <br>// )&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">);&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
+function read_key(&amp;$arr) {
+    for ($i = 1; $i &lt;= KEYS; $i++) {
+        $v = $arr[&apos;key-&apos; . $i];
+    }
+}
 
-#
-
-
-<div class="phpcode"><span class="html">
-I don&apos;t believe the same performance is true since PHP 5.3. Using the same fill, read_key and foreach approach on both native arrays and ArrayObjects with 10000 keys I get the following<br><br>PHP 5.2<br><br>array() fill&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; 0.013101<br>array() read&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; 0.008685<br>array() foreach&#xA0; &#xA0; &#xA0; 0.004319<br>ArrayObject fill&#xA0; &#xA0;&#xA0; 0.014136<br>ArrayObject read&#xA0; &#xA0;&#xA0; 0.010003<br>ArrayObject foreach&#xA0; 3.454612<br><br>PHP 5.3<br><br>array() fill&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; 0.010395<br>array() read&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; 0.005933<br>array() foreach&#xA0; &#xA0; &#xA0; 0.001903<br>ArrayObject fill&#xA0; &#xA0;&#xA0; 0.010598<br>ArrayObject read&#xA0; &#xA0;&#xA0; 0.006387<br>ArrayObject foreach&#xA0; 0.003451<br><br>This was the code I used for both, an array or ArrayObject is passed into each of the functions. Again PEAR::Benchmark was used to get the results.<br><br><span class="default">&lt;?php<br></span><span class="keyword">require_once </span><span class="string">&apos;Benchmark/Timer.php&apos;</span><span class="keyword">;<br><br></span><span class="default">define</span><span class="keyword">(</span><span class="string">&apos;KEYS&apos;</span><span class="keyword">, </span><span class="default">10000</span><span class="keyword">);<br><br>function </span><span class="default">fill</span><span class="keyword">(&amp;</span><span class="default">$arr</span><span class="keyword">) {<br>&#xA0; &#xA0; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt;= </span><span class="default">KEYS</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$arr</span><span class="keyword">[</span><span class="string">&apos;key-&apos; </span><span class="keyword">. </span><span class="default">$i</span><span class="keyword">] = </span><span class="default">$i</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br>function </span><span class="default">read_key</span><span class="keyword">(&amp;</span><span class="default">$arr</span><span class="keyword">) {<br>&#xA0; &#xA0; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt;= </span><span class="default">KEYS</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$v </span><span class="keyword">= </span><span class="default">$arr</span><span class="keyword">[</span><span class="string">&apos;key-&apos; </span><span class="keyword">. </span><span class="default">$i</span><span class="keyword">];<br>&#xA0; &#xA0; }<br>}<br><br>function </span><span class="default">fe</span><span class="keyword">(&amp;</span><span class="default">$arr</span><span class="keyword">) {<br>&#xA0; &#xA0; foreach (</span><span class="default">$arr </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$v </span><span class="keyword">= </span><span class="default">$value</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+function fe(&amp;$arr) {
+    foreach ($arr as $key =&gt; $value) {
+        $v = $value;
+    }
+}
+?>
+```
   
 
 #

@@ -2,13 +2,7 @@
 
 
 
-
-
-The GC, unfortunately, as expounded in the examples above, has the tendency to promote lazy programming.
-Clearly the benefits of the GC to assist in memory management are there, and help to maintain a stable system, but it is no excuse to not plan and test your code properly.
-Always re-read your code critically and objectively to ensure that you are not introducing memory leaks unintentionally.
-
-  
+The GC, unfortunately, as expounded in the examples above, has the tendency to promote lazy programming.<br>Clearly the benefits of the GC to assist in memory management are there, and help to maintain a stable system, but it is no excuse to not plan and test your code properly.<br>Always re-read your code critically and objectively to ensure that you are not introducing memory leaks unintentionally.  
 
 #
 

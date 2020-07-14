@@ -2,13 +2,7 @@
 
 
 
-
-
-I have tested this and found that the &quot;dbname&quot; field is optional.&#xA0; Which is a good thing if you must first create the db.
-
-After creating a db be sure to exec a &quot;use dbname;&quot;&#xA0; command, or else use fully specified table references.
-
-  
+I have tested this and found that the "dbname" field is optional.  Which is a good thing if you must first create the db.<br><br>After creating a db be sure to exec a "use dbname;"  command, or else use fully specified table references.  
 
 #
 

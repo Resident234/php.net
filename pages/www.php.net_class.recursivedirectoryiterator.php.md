@@ -2,52 +2,154 @@
 
 
 
+If you would like to get, say, all the *.php files in your project folder, recursively, you could use the following:<br><br>
 
-<div class="phpcode"><span class="html">
-If you would like to get, say, all the *.php files in your project folder, recursively, you could use the following:<br><br><span class="default">&lt;?php<br><br>$Directory </span><span class="keyword">= new </span><span class="default">RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="string">&apos;path/to/project/&apos;</span><span class="keyword">);<br></span><span class="default">$Iterator </span><span class="keyword">= new </span><span class="default">RecursiveIteratorIterator</span><span class="keyword">(</span><span class="default">$Directory</span><span class="keyword">);<br></span><span class="default">$Regex </span><span class="keyword">= new </span><span class="default">RegexIterator</span><span class="keyword">(</span><span class="default">$Iterator</span><span class="keyword">, </span><span class="string">&apos;/^.+\.php$/i&apos;</span><span class="keyword">, </span><span class="default">RecursiveRegexIterator</span><span class="keyword">::</span><span class="default">GET_MATCH</span><span class="keyword">);<br><br></span><span class="default">?&gt;<br></span><br>$Regex will contain a single index array for each PHP file.</span>
-</div>
-  
+```
+<?php
 
-#
+$Directory = new RecursiveDirectoryIterator(&apos;path/to/project/&apos;);
+$Iterator = new RecursiveIteratorIterator($Directory);
+$Regex = new RegexIterator($Iterator, &apos;/^.+\.php$/i&apos;, RecursiveRegexIterator::GET_MATCH);
 
-
-<div class="phpcode"><span class="html">
-Since I continue to run into implementations across the net that are unintentionally running into this trap &#x2014; beware:<br><br>RecursiveDirectoryIterator recurses without limitations into the full filesystem tree.<br><br>Do NOT do the following, unless you intentionally want to infinitely recurse without limitations:<br><br><span class="default">&lt;?php<br>$directory </span><span class="keyword">= new \</span><span class="default">RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">);<br></span><span class="default">$iterator </span><span class="keyword">= new \</span><span class="default">RecursiveIteratorIterator</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">);<br></span><span class="default">$files </span><span class="keyword">= array();<br>foreach (</span><span class="default">$iterator </span><span class="keyword">as </span><span class="default">$info</span><span class="keyword">) {<br>&#xA0; if (...</span><span class="default">custom conditions</span><span class="keyword">...) {<br>&#xA0; &#xA0; </span><span class="default">$files</span><span class="keyword">[] = </span><span class="default">$info</span><span class="keyword">-&gt;</span><span class="default">getPathname</span><span class="keyword">();<br>&#xA0; }<br>}<br></span><span class="default">?&gt;<br></span><br>1. RecursiveDirectoryIterator is just a RecursiveIterator that recurses into its children, until no more children are found.<br><br>2. The instantiation of RecursiveIteratorIterator causes RecursiveDirectoryIterator to *immediately* recurse infinitely into the entire filesystem tree (starting from the given base path).<br><br>3. Unnecessary filesystem recursion is slow.&#xA0; In 90% of all cases, this is not what you want.<br><br>Remember this simple rule of thumb:<br><br>&#x2192; A RecursiveDirectoryIterator must be FILTERED or you have a solid reason for why it shouldn&apos;t.<br><br>On PHP &lt;5.4, implement the following - your custom conditions move into a proper filter:<br><br><span class="default">&lt;?php<br>$directory </span><span class="keyword">= new \</span><span class="default">RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, \</span><span class="default">FilesystemIterator</span><span class="keyword">::</span><span class="default">FOLLOW_SYMLINKS</span><span class="keyword">);<br></span><span class="default">$filter </span><span class="keyword">= new </span><span class="default">MyRecursiveFilterIterator</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">);<br></span><span class="default">$iterator </span><span class="keyword">= new \</span><span class="default">RecursiveIteratorIterator</span><span class="keyword">(</span><span class="default">$filter</span><span class="keyword">);<br></span><span class="default">$files </span><span class="keyword">= array();<br>foreach (</span><span class="default">$iterator </span><span class="keyword">as </span><span class="default">$info</span><span class="keyword">) {<br>&#xA0; </span><span class="default">$files</span><span class="keyword">[] = </span><span class="default">$info</span><span class="keyword">-&gt;</span><span class="default">getPathname</span><span class="keyword">();<br>}<br><br>class </span><span class="default">MyRecursiveFilterIterator </span><span class="keyword">extends \</span><span class="default">RecursiveFilterIterator </span><span class="keyword">{<br><br>&#xA0; public function </span><span class="default">accept</span><span class="keyword">() {<br>&#xA0; &#xA0; </span><span class="default">$filename </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">()-&gt;</span><span class="default">getFilename</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="comment">// Skip hidden files and directories.<br>&#xA0; &#xA0; </span><span class="keyword">if (</span><span class="default">$name</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] === </span><span class="string">&apos;.&apos;</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; return </span><span class="default">FALSE</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; if (</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">isDir</span><span class="keyword">()) {<br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// Only recurse into intended subdirectories.<br>&#xA0; &#xA0; &#xA0; </span><span class="keyword">return </span><span class="default">$name </span><span class="keyword">=== </span><span class="string">&apos;wanted_dirname&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; else {<br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// Only consume files of interest.<br>&#xA0; &#xA0; &#xA0; </span><span class="keyword">return </span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="string">&apos;wanted_filename&apos;</span><span class="keyword">) === </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; }<br><br>}<br></span><span class="default">?&gt;<br></span><br>On PHP 5.4+, PHP core addressed the slightly cumbersome issue of having to create an entirely new class and you can leverage the new RecursiveCallbackFilterIterator instead:<br><br><span class="default">&lt;?php<br>$directory </span><span class="keyword">= new \</span><span class="default">RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">, \</span><span class="default">FilesystemIterator</span><span class="keyword">::</span><span class="default">FOLLOW_SYMLINKS</span><span class="keyword">);<br></span><span class="default">$filter </span><span class="keyword">= new \</span><span class="default">RecursiveCallbackFilterIterator</span><span class="keyword">(</span><span class="default">$directory</span><span class="keyword">, function (</span><span class="default">$current</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">, </span><span class="default">$iterator</span><span class="keyword">) {<br>&#xA0; </span><span class="comment">// Skip hidden files and directories.<br>&#xA0; </span><span class="keyword">if (</span><span class="default">$current</span><span class="keyword">-&gt;</span><span class="default">getFilename</span><span class="keyword">()[</span><span class="default">0</span><span class="keyword">] === </span><span class="string">&apos;.&apos;</span><span class="keyword">) {<br>&#xA0; &#xA0; return </span><span class="default">FALSE</span><span class="keyword">;<br>&#xA0; }<br>&#xA0; if (</span><span class="default">$current</span><span class="keyword">-&gt;</span><span class="default">isDir</span><span class="keyword">()) {<br>&#xA0; &#xA0; </span><span class="comment">// Only recurse into intended subdirectories.<br>&#xA0; &#xA0; </span><span class="keyword">return </span><span class="default">$current</span><span class="keyword">-&gt;</span><span class="default">getFilename</span><span class="keyword">() === </span><span class="string">&apos;wanted_dirname&apos;</span><span class="keyword">;<br>&#xA0; }<br>&#xA0; else {<br>&#xA0; &#xA0; </span><span class="comment">// Only consume files of interest.<br>&#xA0; &#xA0; </span><span class="keyword">return </span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$current</span><span class="keyword">-&gt;</span><span class="default">getFilename</span><span class="keyword">(), </span><span class="string">&apos;wanted_filename&apos;</span><span class="keyword">) === </span><span class="default">0</span><span class="keyword">;<br>&#xA0; }<br>});<br></span><span class="default">$iterator </span><span class="keyword">= new \</span><span class="default">RecursiveIteratorIterator</span><span class="keyword">(</span><span class="default">$filter</span><span class="keyword">);<br></span><span class="default">$files </span><span class="keyword">= array();<br>foreach (</span><span class="default">$iterator </span><span class="keyword">as </span><span class="default">$info</span><span class="keyword">) {<br>&#xA0; </span><span class="default">$files</span><span class="keyword">[] = </span><span class="default">$info</span><span class="keyword">-&gt;</span><span class="default">getPathname</span><span class="keyword">();<br>}<br></span><span class="default">?&gt;<br></span><br>Have fun!</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-Usage example:<br><br><span class="default">&lt;?php<br><br>$path </span><span class="keyword">= </span><span class="default">realpath</span><span class="keyword">(</span><span class="string">&apos;/etc&apos;</span><span class="keyword">);<br><br></span><span class="default">$objects </span><span class="keyword">= new </span><span class="default">RecursiveIteratorIterator</span><span class="keyword">(new </span><span class="default">RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="default">$path</span><span class="keyword">), </span><span class="default">RecursiveIteratorIterator</span><span class="keyword">::</span><span class="default">SELF_FIRST</span><span class="keyword">);<br>foreach(</span><span class="default">$objects </span><span class="keyword">as </span><span class="default">$name </span><span class="keyword">=&gt; </span><span class="default">$object</span><span class="keyword">){<br>&#xA0; &#xA0; echo </span><span class="string">&quot;</span><span class="default">$name</span><span class="string">\n&quot;</span><span class="keyword">;<br>}<br><br></span><span class="default">?&gt;<br></span><br>This prints a list of all files and directories under $path (including $path ifself). If you want to omit directories, remove the RecursiveIteratorIterator::SELF_FIRST part.</span>
-</div>
-  
+?>
+```
+<br><br>$Regex will contain a single index array for each PHP file.  
 
 #
 
+Since I continue to run into implementations across the net that are unintentionally running into this trap &#x2014; beware:<br><br>RecursiveDirectoryIterator recurses without limitations into the full filesystem tree.<br><br>Do NOT do the following, unless you intentionally want to infinitely recurse without limitations:<br><br>
 
-<div class="phpcode"><span class="html">
-If you need to convert a nested directory tree into a multidimensional array, use this code:
-<br>
-<br><span class="default">&lt;?php
-<br>$ritit </span><span class="keyword">= new </span><span class="default">RecursiveIteratorIterator</span><span class="keyword">(new </span><span class="default">RecursiveDirectoryIterator</span><span class="keyword">(</span><span class="default">$startpath</span><span class="keyword">), </span><span class="default">RecursiveIteratorIterator</span><span class="keyword">::</span><span class="default">CHILD_FIRST</span><span class="keyword">);
-<br></span><span class="default">$r </span><span class="keyword">= array();
-<br>foreach (</span><span class="default">$ritit </span><span class="keyword">as </span><span class="default">$splFileInfo</span><span class="keyword">) {
-<br>&#xA0;&#xA0; </span><span class="default">$path </span><span class="keyword">= </span><span class="default">$splFileInfo</span><span class="keyword">-&gt;</span><span class="default">isDir</span><span class="keyword">()
-<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; ? array(</span><span class="default">$splFileInfo</span><span class="keyword">-&gt;</span><span class="default">getFilename</span><span class="keyword">() =&gt; array())
-<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; : array(</span><span class="default">$splFileInfo</span><span class="keyword">-&gt;</span><span class="default">getFilename</span><span class="keyword">());
-<br>
-<br>&#xA0;&#xA0; for (</span><span class="default">$depth </span><span class="keyword">= </span><span class="default">$ritit</span><span class="keyword">-&gt;</span><span class="default">getDepth</span><span class="keyword">() - </span><span class="default">1</span><span class="keyword">; </span><span class="default">$depth </span><span class="keyword">&gt;= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$depth</span><span class="keyword">--) {
-<br>&#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$path </span><span class="keyword">= array(</span><span class="default">$ritit</span><span class="keyword">-&gt;</span><span class="default">getSubIterator</span><span class="keyword">(</span><span class="default">$depth</span><span class="keyword">)-&gt;</span><span class="default">current</span><span class="keyword">()-&gt;</span><span class="default">getFilename</span><span class="keyword">() =&gt; </span><span class="default">$path</span><span class="keyword">);
-<br>&#xA0;&#xA0; }
-<br>&#xA0;&#xA0; </span><span class="default">$r </span><span class="keyword">= </span><span class="default">array_merge_recursive</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">, </span><span class="default">$path</span><span class="keyword">);
-<br>}
-<br>
-<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">);
-<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+$directory = new \RecursiveDirectoryIterator($path);
+$iterator = new \RecursiveIteratorIterator($directory);
+$files = array();
+foreach ($iterator as $info) {
+  if (...custom conditions...) {
+    $files[] = $info-&gt;getPathname();
+  }
+}
+?>
+```
+
+
+1. RecursiveDirectoryIterator is just a RecursiveIterator that recurses into its children, until no more children are found.
+
+2. The instantiation of RecursiveIteratorIterator causes RecursiveDirectoryIterator to *immediately* recurse infinitely into the entire filesystem tree (starting from the given base path).
+
+3. Unnecessary filesystem recursion is slow.  In 90% of all cases, this is not what you want.
+
+Remember this simple rule of thumb:
+
+&#x2192; A RecursiveDirectoryIterator must be FILTERED or you have a solid reason for why it shouldn&apos;t.
+
+On PHP &lt;5.4, implement the following - your custom conditions move into a proper filter:
+
+
+
+```
+<?php
+$directory = new \RecursiveDirectoryIterator($path, \FilesystemIterator::FOLLOW_SYMLINKS);
+$filter = new MyRecursiveFilterIterator($directory);
+$iterator = new \RecursiveIteratorIterator($filter);
+$files = array();
+foreach ($iterator as $info) {
+  $files[] = $info-&gt;getPathname();
+}
+
+class MyRecursiveFilterIterator extends \RecursiveFilterIterator {
+
+  public function accept() {
+    $filename = $this-&gt;current()-&gt;getFilename();
+    // Skip hidden files and directories.
+    if ($name[0] === &apos;.&apos;) {
+      return FALSE;
+    }
+    if ($this-&gt;isDir()) {
+      // Only recurse into intended subdirectories.
+      return $name === &apos;wanted_dirname&apos;;
+    }
+    else {
+      // Only consume files of interest.
+      return strpos($name, &apos;wanted_filename&apos;) === 0;
+    }
+  }
+
+}
+?>
+```
+
+
+On PHP 5.4+, PHP core addressed the slightly cumbersome issue of having to create an entirely new class and you can leverage the new RecursiveCallbackFilterIterator instead:
+
+
+
+```
+<?php
+$directory = new \RecursiveDirectoryIterator($path, \FilesystemIterator::FOLLOW_SYMLINKS);
+$filter = new \RecursiveCallbackFilterIterator($directory, function ($current, $key, $iterator) {
+  // Skip hidden files and directories.
+  if ($current-&gt;getFilename()[0] === &apos;.&apos;) {
+    return FALSE;
+  }
+  if ($current-&gt;isDir()) {
+    // Only recurse into intended subdirectories.
+    return $current-&gt;getFilename() === &apos;wanted_dirname&apos;;
+  }
+  else {
+    // Only consume files of interest.
+    return strpos($current-&gt;getFilename(), &apos;wanted_filename&apos;) === 0;
+  }
+});
+$iterator = new \RecursiveIteratorIterator($filter);
+$files = array();
+foreach ($iterator as $info) {
+  $files[] = $info-&gt;getPathname();
+}
+?>
+```
+<br><br>Have fun!  
+
+#
+
+Usage example:<br><br>
+
+```
+<?php
+
+$path = realpath(&apos;/etc&apos;);
+
+$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
+foreach($objects as $name =&gt; $object){
+    echo "$name\n";
+}
+
+?>
+```
+<br><br>This prints a list of all files and directories under $path (including $path ifself). If you want to omit directories, remove the RecursiveIteratorIterator::SELF_FIRST part.  
+
+#
+
+If you need to convert a nested directory tree into a multidimensional array, use this code:<br><br>
+
+```
+<?php
+$ritit = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($startpath), RecursiveIteratorIterator::CHILD_FIRST);
+$r = array();
+foreach ($ritit as $splFileInfo) {
+   $path = $splFileInfo-&gt;isDir()
+         ? array($splFileInfo-&gt;getFilename() =&gt; array())
+         : array($splFileInfo-&gt;getFilename());
+
+   for ($depth = $ritit-&gt;getDepth() - 1; $depth &gt;= 0; $depth--) {
+       $path = array($ritit-&gt;getSubIterator($depth)-&gt;current()-&gt;getFilename() =&gt; $path);
+   }
+   $r = array_merge_recursive($r, $path);
+}
+
+print_r($r);
+?>
+```
   
 
 #

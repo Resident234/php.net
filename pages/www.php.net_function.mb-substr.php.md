@@ -2,10 +2,7 @@
 
 
 
-
-
-Passing null as length will not make mb_substr use it&apos;s default, instead it will interpret it as 0.
-
+Passing null as length will not make mb_substr use it&apos;s default, instead it will interpret it as 0.<br>
 
 ```
 <?php
@@ -21,9 +18,6 @@ Instead use:
 mb_substr($str,$start,mb_strlen($str),$encoding);
 ?>
 ```
-
-
-
   
 
 #

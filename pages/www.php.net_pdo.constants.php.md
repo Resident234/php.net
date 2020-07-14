@@ -2,11 +2,7 @@
 
 
 
-
-
-It should be noted that PDO::FETCH_CLASS will call the constructor *after* setting the values (or calling __set).
-
-  
+It should be noted that PDO::FETCH_CLASS will call the constructor *after* setting the values (or calling __set).  
 
 #
 

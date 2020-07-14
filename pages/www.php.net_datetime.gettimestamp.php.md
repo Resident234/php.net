@@ -2,33 +2,22 @@
 
 
 
-
-
-Note that for dates before the unix epoch getTimestamp() will return false, whereas format(&quot;U&quot;) will return a negative number.
-
-
+Note that for dates before the unix epoch getTimestamp() will return false, whereas format("U") will return a negative number.<br><br>
 
 ```
 <?php
-$date = new DateTime(&quot;1899-12-31&quot;);
-// &quot;-2209078800&quot;
-echo $date-&gt;format(&quot;U&quot;);
+$date = new DateTime("1899-12-31");
+// "-2209078800"
+echo $date-&gt;format("U");
 // false
 echo $date-&gt;getTimestamp();
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-In 32-bit system the unix timestamp will overflow if the date goes beyond year 2038 and this method will return false. In 64-bit systems this function will still work as intended. For more information please see http://en.wikipedia.org/wiki/Year_2038_problem.
-
-  
+In 32-bit system the unix timestamp will overflow if the date goes beyond year 2038 and this method will return false. In 64-bit systems this function will still work as intended. For more information please see http://en.wikipedia.org/wiki/Year_2038_problem.  
 
 #
 

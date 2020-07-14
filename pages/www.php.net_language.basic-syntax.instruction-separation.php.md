@@ -2,11 +2,7 @@
 
 
 
-
-
-Do not mis interpret
-
-
+Do not mis interpret<br><br>
 
 ```
 <?php echo &apos;Ending tag excluded&apos;; 
@@ -18,9 +14,7 @@ with
 
 The second one would give error. Exclude ?>
 ```
- if you no more html to write after the code.
-
-  
+ if you no more html to write after the code.  
 
 #
 

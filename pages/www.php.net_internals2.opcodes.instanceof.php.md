@@ -2,36 +2,107 @@
 
 
 
+When checking instanceof against a subclass of the class in question, it will return true.<br><br>
 
-<div class="phpcode"><span class="html">
-When checking instanceof against a subclass of the class in question, it will return true.<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">Foo </span><span class="keyword">{<br><br>&#xA0; &#xA0; public </span><span class="default">$foobar </span><span class="keyword">= </span><span class="string">&apos;Foo&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; public function </span><span class="default">test</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">foobar </span><span class="keyword">. </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>}<br><br>class </span><span class="default">Bar </span><span class="keyword">extends </span><span class="default">Foo </span><span class="keyword">{<br><br>&#xA0; &#xA0; public </span><span class="default">$foobar </span><span class="keyword">= </span><span class="string">&apos;Bar&apos;</span><span class="keyword">;<br><br>}<br><br></span><span class="default">$a </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br></span><span class="default">$b </span><span class="keyword">= new </span><span class="default">Bar</span><span class="keyword">();<br><br>echo </span><span class="string">&quot;use of test() method\n&quot;</span><span class="keyword">;<br></span><span class="default">$a</span><span class="keyword">-&gt;</span><span class="default">test</span><span class="keyword">();<br></span><span class="default">$b</span><span class="keyword">-&gt;</span><span class="default">test</span><span class="keyword">();<br><br>echo </span><span class="string">&quot;instanceof Foo\n&quot;</span><span class="keyword">;<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$a </span><span class="keyword">instanceof </span><span class="default">Foo</span><span class="keyword">); </span><span class="comment">// TRUE<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$b </span><span class="keyword">instanceof </span><span class="default">Foo</span><span class="keyword">); </span><span class="comment">// TRUE<br><br></span><span class="keyword">echo </span><span class="string">&quot;instanceof Bar\n&quot;</span><span class="keyword">;<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$a </span><span class="keyword">instanceof </span><span class="default">Bar</span><span class="keyword">); </span><span class="comment">// FALSE<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$b </span><span class="keyword">instanceof </span><span class="default">Bar</span><span class="keyword">); </span><span class="comment">// TRUE<br><br></span><span class="keyword">echo </span><span class="string">&quot;subclass of Foo\n&quot;</span><span class="keyword">;<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">is_subclass_of</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="string">&apos;Foo&apos;</span><span class="keyword">)); </span><span class="comment">// FALSE<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">is_subclass_of</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">, </span><span class="string">&apos;Foo&apos;</span><span class="keyword">)); </span><span class="comment">// TRUE<br><br></span><span class="keyword">echo </span><span class="string">&quot;subclass of Bar\n&quot;</span><span class="keyword">;<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">is_subclass_of</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="string">&apos;Bar&apos;</span><span class="keyword">)); </span><span class="comment">// FALSE<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">is_subclass_of</span><span class="keyword">(</span><span class="default">$b</span><span class="keyword">, </span><span class="string">&apos;Bar&apos;</span><span class="keyword">)); </span><span class="comment">// FALSE<br><br></span><span class="default">?&gt;<br></span><br>Result (CLI, 5.4.4):<br><br>use of test() method<br>Foo<br>Bar<br>instanceof Foo<br>bool(true)<br>bool(true)<br>instanceof Bar<br>bool(false)<br>bool(true)<br>subclass of Foo<br>bool(false)<br>bool(true)<br>subclass of Bar<br>bool(false)<br>bool(false)</span>
-</div>
-  
+```
+<?php
+
+class Foo {
+
+    public $foobar = &apos;Foo&apos;;
+    
+    public function test() {
+        echo $this-&gt;foobar . "\n";
+    }
+
+}
+
+class Bar extends Foo {
+
+    public $foobar = &apos;Bar&apos;;
+
+}
+
+$a = new Foo();
+$b = new Bar();
+
+echo "use of test() method\n";
+$a-&gt;test();
+$b-&gt;test();
+
+echo "instanceof Foo\n";
+var_dump($a instanceof Foo); // TRUE
+var_dump($b instanceof Foo); // TRUE
+
+echo "instanceof Bar\n";
+var_dump($a instanceof Bar); // FALSE
+var_dump($b instanceof Bar); // TRUE
+
+echo "subclass of Foo\n";
+var_dump(is_subclass_of($a, &apos;Foo&apos;)); // FALSE
+var_dump(is_subclass_of($b, &apos;Foo&apos;)); // TRUE
+
+echo "subclass of Bar\n";
+var_dump(is_subclass_of($a, &apos;Bar&apos;)); // FALSE
+var_dump(is_subclass_of($b, &apos;Bar&apos;)); // FALSE
+
+?>
+```
+<br><br>Result (CLI, 5.4.4):<br><br>use of test() method<br>Foo<br>Bar<br>instanceof Foo<br>bool(true)<br>bool(true)<br>instanceof Bar<br>bool(false)<br>bool(true)<br>subclass of Foo<br>bool(false)<br>bool(true)<br>subclass of Bar<br>bool(false)<br>bool(false)  
 
 #
 
+Please note, that you get no warnings on non-existent classes:<br><br>
 
-<div class="phpcode"><span class="html">
-Please note, that you get no warnings on non-existent classes:<br><br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">A</span><span class="keyword">() {<br>}<br><br></span><span class="default">$a </span><span class="keyword">= new </span><span class="default">A</span><span class="keyword">();<br><br></span><span class="default">$exists </span><span class="keyword">= (</span><span class="default">$a </span><span class="keyword">instanceof </span><span class="default">A</span><span class="keyword">); </span><span class="comment">//TRUE<br></span><span class="default">$exists </span><span class="keyword">= (</span><span class="default">$a </span><span class="keyword">instanceof </span><span class="default">NonExistentClass</span><span class="keyword">); </span><span class="comment">//FALSE</span>
-</span>
-</div>
-  
+```
+<?php<br>class A() {<br>}<br><br>$a = new A();<br><br>$exists = ($a instanceof A); //TRUE<br>$exists = ($a instanceof NonExistentClass); //FALSE  
 
 #
 
+I&apos;m commenting here because the note from "admin at torntech" is incomplete. You can perfectly replace "is_a()" function with "instanceof" operator. However you must use a variable to store the class name, otherwise you will get a Parse error:<br><br>
 
-<div class="phpcode"><span class="html">
-I&apos;m commenting here because the note from &quot;admin at torntech&quot; is incomplete. You can perfectly replace &quot;is_a()&quot; function with &quot;instanceof&quot; operator. However you must use a variable to store the class name, otherwise you will get a Parse error:<br><br><span class="default">&lt;?php<br>$object </span><span class="keyword">= new \</span><span class="default">stdClass</span><span class="keyword">();<br></span><span class="default">$class_name </span><span class="keyword">= </span><span class="string">&apos;\stdClass&apos;</span><span class="keyword">;<br><br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$object </span><span class="keyword">instanceof </span><span class="default">$class_name</span><span class="keyword">);&#xA0; &#xA0; </span><span class="comment">// bool(true)<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$object </span><span class="keyword">instanceof </span><span class="string">&apos;\stdClass&apos;</span><span class="keyword">);&#xA0; &#xA0; </span><span class="comment">// Parse error: syntax error, unexpected &apos;&apos;\stdClass&apos;&apos; (T_CONSTANT_ENCAPSED_STRING)<br></span><span class="default">?&gt;<br></span><br>Please go to Type Operators page for more details about &quot;instanceof&quot;: <a href="http://php.net/manual/en/language.operators.type.php" rel="nofollow" target="_blank">http://php.net/manual/en/language.operators.type.php</a></span>
-</div>
-  
+```
+<?php
+$object = new \stdClass();
+$class_name = &apos;\stdClass&apos;;
+
+var_dump($object instanceof $class_name);    // bool(true)
+var_dump($object instanceof &apos;\stdClass&apos;);    // Parse error: syntax error, unexpected &apos;&apos;\stdClass&apos;&apos; (T_CONSTANT_ENCAPSED_STRING)
+?>
+```
+<br><br>Please go to Type Operators page for more details about "instanceof": http://php.net/manual/en/language.operators.type.php  
 
 #
 
+When checking instanceof against a class that implements the class in question, it will return true.<br><br>
 
-<div class="phpcode"><span class="html">
-When checking instanceof against a class that implements the class in question, it will return true.<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">interface </span><span class="default">ExampleInterface<br></span><span class="keyword">{<br>&#xA0; &#xA0; public function </span><span class="default">interfaceMethod</span><span class="keyword">();<br><br>}<br><br>class </span><span class="default">ExampleClass </span><span class="keyword">implements </span><span class="default">ExampleInterface<br></span><span class="keyword">{<br>&#xA0; &#xA0; public function </span><span class="default">interfaceMethod</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="string">&apos;Hello World!&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">$exampleInstance </span><span class="keyword">= new </span><span class="default">ExampleClass</span><span class="keyword">();<br><br>if(</span><span class="default">$exampleInstance </span><span class="keyword">instanceof </span><span class="default">ExampleInterface</span><span class="keyword">)<br>&#xA0; &#xA0; echo </span><span class="string">&apos;Yes, it is&apos;</span><span class="keyword">;<br>else<br>&#xA0; &#xA0; echo </span><span class="string">&apos;No, it is not&apos;</span><span class="keyword">;<br><br></span><span class="default">?&gt;<br></span><br>The result:<br><br>Yes, it is</span>
-</div>
-  
+```
+<?php
+
+interface ExampleInterface
+{
+    public function interfaceMethod();
+
+}
+
+class ExampleClass implements ExampleInterface
+{
+    public function interfaceMethod()
+    {
+        return &apos;Hello World!&apos;;
+    }
+}
+
+$exampleInstance = new ExampleClass();
+
+if($exampleInstance instanceof ExampleInterface)
+    echo &apos;Yes, it is&apos;;
+else
+    echo &apos;No, it is not&apos;;
+
+?>
+```
+<br><br>The result:<br><br>Yes, it is  
 
 #
 

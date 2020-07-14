@@ -2,20 +2,108 @@
 
 
 
+I noticed that the posted solutions for manually decoding sessions are not perfect, so I&apos;ve contributed a more robust solution.<br><br>The preg_match solution can never work. It&apos;s not so hard to find a case that might break unserialization.<br>In the case of jason-joeymail is breaks on:<br><br>
 
-<div class="phpcode"><span class="html">
-I noticed that the posted solutions for manually decoding sessions are not perfect, so I&apos;ve contributed a more robust solution.<br><br>The preg_match solution can never work. It&apos;s not so hard to find a case that might break unserialization.<br>In the case of jason-joeymail is breaks on:<br><br><span class="default">&lt;?php<br>$_SESSION</span><span class="keyword">[</span><span class="string">&quot;test&quot;</span><span class="keyword">] = </span><span class="string">&quot;;oops|&quot;</span><span class="keyword">;<br></span><span class="default">?&gt;<br></span><br>Below you can find my solution. It doesn&apos;t use a regular expression but rather the reversibility of the serialize operation and the &apos;feature&apos; that serialize ignores all further input when it thinks it&apos;s done. It&apos;s by no means a beautiful or particularly fast solution but it is a more robust solution.<br>I&apos;ve added a deserializer for &quot;php&quot; and &quot;php_binary&quot;. It should be trivial to add one for &quot;wddx&quot;.<br><br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">Session </span><span class="keyword">{<br>&#xA0; &#xA0; public static function </span><span class="default">unserialize</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$method </span><span class="keyword">= </span><span class="default">ini_get</span><span class="keyword">(</span><span class="string">&quot;session.serialize_handler&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; switch (</span><span class="default">$method</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&quot;php&quot;</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">self</span><span class="keyword">::</span><span class="default">unserialize_php</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&quot;php_binary&quot;</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">self</span><span class="keyword">::</span><span class="default">unserialize_phpbinary</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; default:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">&quot;Unsupported session.serialize_handler: &quot; </span><span class="keyword">. </span><span class="default">$method </span><span class="keyword">. </span><span class="string">&quot;. Supported: php, php_binary&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; private static function </span><span class="default">unserialize_php</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$return_data </span><span class="keyword">= array();<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$offset </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; while (</span><span class="default">$offset </span><span class="keyword">&lt; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (!</span><span class="default">strstr</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">, </span><span class="default">$offset</span><span class="keyword">), </span><span class="string">&quot;|&quot;</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">&quot;invalid data, remaining: &quot; </span><span class="keyword">. </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">, </span><span class="default">$offset</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$pos </span><span class="keyword">= </span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">, </span><span class="string">&quot;|&quot;</span><span class="keyword">, </span><span class="default">$offset</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$num </span><span class="keyword">= </span><span class="default">$pos </span><span class="keyword">- </span><span class="default">$offset</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$varname </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">, </span><span class="default">$offset</span><span class="keyword">, </span><span class="default">$num</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$offset </span><span class="keyword">+= </span><span class="default">$num </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">= </span><span class="default">unserialize</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">, </span><span class="default">$offset</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$return_data</span><span class="keyword">[</span><span class="default">$varname</span><span class="keyword">] = </span><span class="default">$data</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$offset </span><span class="keyword">+= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">serialize</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$return_data</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; private static function </span><span class="default">unserialize_phpbinary</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$return_data </span><span class="keyword">= array();<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$offset </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; while (</span><span class="default">$offset </span><span class="keyword">&lt; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$num </span><span class="keyword">= </span><span class="default">ord</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">[</span><span class="default">$offset</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$offset </span><span class="keyword">+= </span><span class="default">1</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$varname </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">, </span><span class="default">$offset</span><span class="keyword">, </span><span class="default">$num</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$offset </span><span class="keyword">+= </span><span class="default">$num</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">= </span><span class="default">unserialize</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$session_data</span><span class="keyword">, </span><span class="default">$offset</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$return_data</span><span class="keyword">[</span><span class="default">$varname</span><span class="keyword">] = </span><span class="default">$data</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$offset </span><span class="keyword">+= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">serialize</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$return_data</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br></span><span class="default">?&gt;<br></span><br>Usage:<br><br><span class="default">&lt;?php<br>Session</span><span class="keyword">::</span><span class="default">unserialize</span><span class="keyword">(</span><span class="default">session_encode</span><span class="keyword">());<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+$_SESSION["test"] = ";oops|";
+?>
+```
+
+
+Below you can find my solution. It doesn&apos;t use a regular expression but rather the reversibility of the serialize operation and the &apos;feature&apos; that serialize ignores all further input when it thinks it&apos;s done. It&apos;s by no means a beautiful or particularly fast solution but it is a more robust solution.
+I&apos;ve added a deserializer for "php" and "php_binary". It should be trivial to add one for "wddx".
+
+
+
+```
+<?php
+class Session {
+    public static function unserialize($session_data) {
+        $method = ini_get("session.serialize_handler");
+        switch ($method) {
+            case "php":
+                return self::unserialize_php($session_data);
+                break;
+            case "php_binary":
+                return self::unserialize_phpbinary($session_data);
+                break;
+            default:
+                throw new Exception("Unsupported session.serialize_handler: " . $method . ". Supported: php, php_binary");
+        }
+    }
+
+    private static function unserialize_php($session_data) {
+        $return_data = array();
+        $offset = 0;
+        while ($offset &lt; strlen($session_data)) {
+            if (!strstr(substr($session_data, $offset), "|")) {
+                throw new Exception("invalid data, remaining: " . substr($session_data, $offset));
+            }
+            $pos = strpos($session_data, "|", $offset);
+            $num = $pos - $offset;
+            $varname = substr($session_data, $offset, $num);
+            $offset += $num + 1;
+            $data = unserialize(substr($session_data, $offset));
+            $return_data[$varname] = $data;
+            $offset += strlen(serialize($data));
+        }
+        return $return_data;
+    }
+
+    private static function unserialize_phpbinary($session_data) {
+        $return_data = array();
+        $offset = 0;
+        while ($offset &lt; strlen($session_data)) {
+            $num = ord($session_data[$offset]);
+            $offset += 1;
+            $varname = substr($session_data, $offset, $num);
+            $offset += $num;
+            $data = unserialize(substr($session_data, $offset));
+            $return_data[$varname] = $data;
+            $offset += strlen(serialize($data));
+        }
+        return $return_data;
+    }
+}
+?>
+```
+
+
+Usage:
+
+
+
+```
+<?php
+Session::unserialize(session_encode());
+?>
+```
   
 
 #
 
+I found this to be the simplest solution:<br><br>
 
-<div class="phpcode"><span class="html">
-I found this to be the simplest solution:<br><br><span class="default">&lt;?php<br></span><span class="comment">// if session is not started<br></span><span class="default">session_start</span><span class="keyword">();<br><br></span><span class="comment">// store our current session<br></span><span class="default">$my_sess </span><span class="keyword">= </span><span class="default">$_SESSION</span><span class="keyword">;<br><br></span><span class="comment">// decode $data (the encoded session data, either from a file or database). Remember, decoded data is put directly into $_SESSION<br></span><span class="default">session_decode</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);<br></span><span class="default">$data </span><span class="keyword">= </span><span class="default">$_SESSION</span><span class="keyword">;<br><br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);<br><br></span><span class="comment">// restore our own session<br></span><span class="default">$_SESSION </span><span class="keyword">= </span><span class="default">$my_sess</span><span class="keyword">;<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+// if session is not started
+session_start();
+
+// store our current session
+$my_sess = $_SESSION;
+
+// decode $data (the encoded session data, either from a file or database). Remember, decoded data is put directly into $_SESSION
+session_decode($data);
+$data = $_SESSION;
+
+print_r($data);
+
+// restore our own session
+$_SESSION = $my_sess;
+
+?>
+```
   
 
 #

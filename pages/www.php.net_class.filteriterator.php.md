@@ -2,11 +2,49 @@
 
 
 
+The code below is a simple example of usage . Note that the method which does the actual job is accept. <br><br>
 
-<div class="phpcode"><span class="html">
-The code below is a simple example of usage . Note that the method which does the actual job is accept. <br><br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">UserFilter </span><span class="keyword">extends </span><span class="default">FilterIterator <br></span><span class="keyword">{<br>&#xA0; &#xA0; private </span><span class="default">$userFilter</span><span class="keyword">;<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">Iterator $iterator </span><span class="keyword">, </span><span class="default">$filter </span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$iterator</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">userFilter </span><span class="keyword">= </span><span class="default">$filter</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; public function </span><span class="default">accept</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$user </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">getInnerIterator</span><span class="keyword">()-&gt;</span><span class="default">current</span><span class="keyword">();<br>&#xA0; &#xA0; &#xA0; &#xA0; if( </span><span class="default">strcasecmp</span><span class="keyword">(</span><span class="default">$user</span><span class="keyword">[</span><span class="string">&apos;name&apos;</span><span class="keyword">],</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">userFilter</span><span class="keyword">) == </span><span class="default">0</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">true</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">$array </span><span class="keyword">= array(<br>array(</span><span class="string">&apos;name&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;Jonathan&apos;</span><span class="keyword">,</span><span class="string">&apos;id&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;5&apos;</span><span class="keyword">),<br>array(</span><span class="string">&apos;name&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;Abdul&apos; </span><span class="keyword">,</span><span class="string">&apos;id&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;22&apos;</span><span class="keyword">)<br>);<br><br></span><span class="default">$object </span><span class="keyword">= new </span><span class="default">ArrayObject</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">);<br><br></span><span class="comment">// Note it is case insensitive check in our example due the usage of strcasecmp function<br></span><span class="default">$iterator </span><span class="keyword">= new </span><span class="default">UserFilter</span><span class="keyword">(</span><span class="default">$object</span><span class="keyword">-&gt;</span><span class="default">getIterator</span><span class="keyword">(),</span><span class="string">&apos;abdul&apos;</span><span class="keyword">);<br><br>foreach (</span><span class="default">$iterator </span><span class="keyword">as </span><span class="default">$result</span><span class="keyword">) {<br>&#xA0; &#xA0; echo </span><span class="default">$result</span><span class="keyword">[</span><span class="string">&apos;name&apos;</span><span class="keyword">];<br>}<br><br></span><span class="comment">/* Outputs Jonathan */<br><br></span><span class="default">?&gt;<br></span>Regards.</span>
-</div>
-  
+```
+<?php
+class UserFilter extends FilterIterator 
+{
+    private $userFilter;
+    
+    public function __construct(Iterator $iterator , $filter )
+    {
+        parent::__construct($iterator);
+        $this-&gt;userFilter = $filter;
+    }
+    
+    public function accept()
+    {
+        $user = $this-&gt;getInnerIterator()-&gt;current();
+        if( strcasecmp($user[&apos;name&apos;],$this-&gt;userFilter) == 0) {
+            return false;
+        }        
+        return true;
+    }
+}
+
+$array = array(
+array(&apos;name&apos; =&gt; &apos;Jonathan&apos;,&apos;id&apos; =&gt; &apos;5&apos;),
+array(&apos;name&apos; =&gt; &apos;Abdul&apos; ,&apos;id&apos; =&gt; &apos;22&apos;)
+);
+
+$object = new ArrayObject($array);
+
+// Note it is case insensitive check in our example due the usage of strcasecmp function
+$iterator = new UserFilter($object-&gt;getIterator(),&apos;abdul&apos;);
+
+foreach ($iterator as $result) {
+    echo $result[&apos;name&apos;];
+}
+
+/* Outputs Jonathan */
+
+?>
+```
+<br>Regards.  
 
 #
 

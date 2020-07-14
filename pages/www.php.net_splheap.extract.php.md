@@ -3,10 +3,31 @@
 
 
 
-<div class="phpcode"><span class="html">
-<span class="default">&lt;?php<br>$heap </span><span class="keyword">= new </span><span class="default">SplMaxHeap</span><span class="keyword">(); </span><span class="comment"># Ascending order<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(</span><span class="string">&apos;E&apos;</span><span class="keyword">);<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(</span><span class="string">&apos;B&apos;</span><span class="keyword">);<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(</span><span class="string">&apos;D&apos;</span><span class="keyword">);<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(</span><span class="string">&apos;A&apos;</span><span class="keyword">);<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(</span><span class="string">&apos;C&apos;</span><span class="keyword">);<br><br>echo </span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">extract</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">; </span><span class="comment"># E<br></span><span class="keyword">echo </span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">extract</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">; </span><span class="comment"># D<br><br></span><span class="default">$heap </span><span class="keyword">= new </span><span class="default">SplMinHeap</span><span class="keyword">(); </span><span class="comment"># Descending order<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(</span><span class="string">&apos;E&apos;</span><span class="keyword">);<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(</span><span class="string">&apos;B&apos;</span><span class="keyword">);<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(</span><span class="string">&apos;D&apos;</span><span class="keyword">);<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(</span><span class="string">&apos;A&apos;</span><span class="keyword">);<br></span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">insert</span><span class="keyword">(</span><span class="string">&apos;C&apos;</span><span class="keyword">);<br><br>print </span><span class="default">PHP_EOL</span><span class="keyword">;<br>echo </span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">extract</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">; </span><span class="comment"># A<br></span><span class="keyword">echo </span><span class="default">$heap</span><span class="keyword">-&gt;</span><span class="default">extract</span><span class="keyword">(), </span><span class="default">PHP_EOL</span><span class="keyword">; </span><span class="comment"># B<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+
+```
+<?php
+$heap = new SplMaxHeap(); # Ascending order
+$heap-&gt;insert(&apos;E&apos;);
+$heap-&gt;insert(&apos;B&apos;);
+$heap-&gt;insert(&apos;D&apos;);
+$heap-&gt;insert(&apos;A&apos;);
+$heap-&gt;insert(&apos;C&apos;);
+
+echo $heap-&gt;extract(), PHP_EOL; # E
+echo $heap-&gt;extract(), PHP_EOL; # D
+
+$heap = new SplMinHeap(); # Descending order
+$heap-&gt;insert(&apos;E&apos;);
+$heap-&gt;insert(&apos;B&apos;);
+$heap-&gt;insert(&apos;D&apos;);
+$heap-&gt;insert(&apos;A&apos;);
+$heap-&gt;insert(&apos;C&apos;);
+
+print PHP_EOL;
+echo $heap-&gt;extract(), PHP_EOL; # A
+echo $heap-&gt;extract(), PHP_EOL; # B
+?>
+```
   
 
 #

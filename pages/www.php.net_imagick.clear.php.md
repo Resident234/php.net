@@ -2,11 +2,7 @@
 
 
 
-
-
-Imagick::destroy() has been deprecated in favor of Imagick::clear().
-
-  
+Imagick::destroy() has been deprecated in favor of Imagick::clear().  
 
 #
 

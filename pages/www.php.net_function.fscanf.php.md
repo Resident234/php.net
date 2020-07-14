@@ -2,15 +2,7 @@
 
 
 
-
-
-For C/C++ programmers.
-
-
-
-fscanf() does not work like C/C++, because PHP&apos;s fscanf() move file pointer the next line implicitly.
-
-  
+For C/C++ programmers.<br><br>fscanf() does not work like C/C++, because PHP&apos;s fscanf() move file pointer the next line implicitly.  
 
 #
 

@@ -2,39 +2,11 @@
 
 
 
-
-
-The documentation misses the exact meaning and valid ranges of the arguments for ImageFilter(). According to the 5.2.0 sources the arguments are:
-IMG_FILTER_BRIGHTNESS
--255 = min brightness, 0 = no change, +255 = max brightness
-
-IMG_FILTER_CONTRAST
--100 = max contrast, 0 = no change, +100 = min contrast (note the direction!)
-
-IMG_FILTER_COLORIZE
-Adds (subtracts) specified RGB values to each pixel. The valid range for each color is -255...+255, not 0...255. The correct order is red, green, blue.
--255 = min, 0 = no change, +255 = max
-This has not much to do with IMG_FILTER_GRAYSCALE.
-
-IMG_FILTER_SMOOTH
-Applies a 9-cell convolution matrix where center pixel has the weight arg1 and others weight of 1.0. The result is normalized by dividing the sum with arg1 + 8.0 (sum of the matrix).
-any float is accepted, large value (in practice: 2048 or more) = no change
-
-ImageFilter seem to return false if the argument(s) are out of range for the chosen filter.
-
-  
+The documentation misses the exact meaning and valid ranges of the arguments for ImageFilter(). According to the 5.2.0 sources the arguments are:<br>IMG_FILTER_BRIGHTNESS<br>-255 = min brightness, 0 = no change, +255 = max brightness<br><br>IMG_FILTER_CONTRAST<br>-100 = max contrast, 0 = no change, +100 = min contrast (note the direction!)<br><br>IMG_FILTER_COLORIZE<br>Adds (subtracts) specified RGB values to each pixel. The valid range for each color is -255...+255, not 0...255. The correct order is red, green, blue.<br>-255 = min, 0 = no change, +255 = max<br>This has not much to do with IMG_FILTER_GRAYSCALE.<br><br>IMG_FILTER_SMOOTH<br>Applies a 9-cell convolution matrix where center pixel has the weight arg1 and others weight of 1.0. The result is normalized by dividing the sum with arg1 + 8.0 (sum of the matrix).<br>any float is accepted, large value (in practice: 2048 or more) = no change<br><br>ImageFilter seem to return false if the argument(s) are out of range for the chosen filter.  
 
 #
 
-
-
-I needed an especially strong blur effect today and had a hard time achieving adequate results with the built-in IMG_FILTER_GAUSSIAN_BLUR filter. In order to achieve the strength of the blur I required I had to repeat the filter up to&#xA0; 100 times, which took way too long to be acceptable.
-
-After a bit of searching, I found this answer to be quite a good solution to this problem: http://stackoverflow.com/a/20264482
-
-Based on that technique, I wrote the following generic function to achieve a very strong blur in a reasonable amount of processing:
-
-
+I needed an especially strong blur effect today and had a hard time achieving adequate results with the built-in IMG_FILTER_GAUSSIAN_BLUR filter. In order to achieve the strength of the blur I required I had to repeat the filter up to  100 times, which took way too long to be acceptable.<br><br>After a bit of searching, I found this answer to be quite a good solution to this problem: http://stackoverflow.com/a/20264482<br><br>Based on that technique, I wrote the following generic function to achieve a very strong blur in a reasonable amount of processing:<br><br>
 
 ```
 <?php 
@@ -44,120 +16,89 @@ Based on that technique, I wrote the following generic function to achieve a ver
  *
  * @param resource $gdImageResource 
  * @param int $blurFactor optional 
- *&#xA0; This is the strength of the blur
- *&#xA0; 0 = no blur, 3 = default, anything over 5 is extremely blurred
+ *  This is the strength of the blur
+ *  0 = no blur, 3 = default, anything over 5 is extremely blurred
  * @return GD image resource
  * @author Martijn Frazer, idea based on http://stackoverflow.com/a/20264482
  */
 function blur($gdImageResource, $blurFactor = 3)
 {
-&#xA0; // blurFactor has to be an integer
-&#xA0; $blurFactor = round($blurFactor);
-&#xA0; 
-&#xA0; $originalWidth = imagesx($gdImageResource);
-&#xA0; $originalHeight = imagesy($gdImageResource);
+  // blurFactor has to be an integer
+  $blurFactor = round($blurFactor);
+  
+  $originalWidth = imagesx($gdImageResource);
+  $originalHeight = imagesy($gdImageResource);
 
-&#xA0; $smallestWidth = ceil($originalWidth * pow(0.5, $blurFactor));
-&#xA0; $smallestHeight = ceil($originalHeight * pow(0.5, $blurFactor));
+  $smallestWidth = ceil($originalWidth * pow(0.5, $blurFactor));
+  $smallestHeight = ceil($originalHeight * pow(0.5, $blurFactor));
 
-&#xA0; // for the first run, the previous image is the original input
-&#xA0; $prevImage = $gdImageResource;
-&#xA0; $prevWidth = $originalWidth;
-&#xA0; $prevHeight = $originalHeight;
+  // for the first run, the previous image is the original input
+  $prevImage = $gdImageResource;
+  $prevWidth = $originalWidth;
+  $prevHeight = $originalHeight;
 
-&#xA0; // scale way down and gradually scale back up, blurring all the way
-&#xA0; for($i = 0; $i &lt; $blurFactor; $i += 1)
-&#xA0; {&#xA0; &#xA0; 
-&#xA0; &#xA0; // determine dimensions of next image
-&#xA0; &#xA0; $nextWidth = $smallestWidth * pow(2, $i);
-&#xA0; &#xA0; $nextHeight = $smallestHeight * pow(2, $i);
+  // scale way down and gradually scale back up, blurring all the way
+  for($i = 0; $i &lt; $blurFactor; $i += 1)
+  {    
+    // determine dimensions of next image
+    $nextWidth = $smallestWidth * pow(2, $i);
+    $nextHeight = $smallestHeight * pow(2, $i);
 
-&#xA0; &#xA0; // resize previous image to next size
-&#xA0; &#xA0; $nextImage = imagecreatetruecolor($nextWidth, $nextHeight);
-&#xA0; &#xA0; imagecopyresized($nextImage, $prevImage, 0, 0, 0, 0, 
-&#xA0; &#xA0; &#xA0; $nextWidth, $nextHeight, $prevWidth, $prevHeight);
+    // resize previous image to next size
+    $nextImage = imagecreatetruecolor($nextWidth, $nextHeight);
+    imagecopyresized($nextImage, $prevImage, 0, 0, 0, 0, 
+      $nextWidth, $nextHeight, $prevWidth, $prevHeight);
 
-&#xA0; &#xA0; // apply blur filter
-&#xA0; &#xA0; imagefilter($nextImage, IMG_FILTER_GAUSSIAN_BLUR);
+    // apply blur filter
+    imagefilter($nextImage, IMG_FILTER_GAUSSIAN_BLUR);
 
-&#xA0; &#xA0; // now the new image becomes the previous image for the next step
-&#xA0; &#xA0; $prevImage = $nextImage;
-&#xA0; &#xA0; $prevWidth = $nextWidth;
-&#xA0; &#xA0; &#xA0; $prevHeight = $nextHeight;
-&#xA0; }
+    // now the new image becomes the previous image for the next step
+    $prevImage = $nextImage;
+    $prevWidth = $nextWidth;
+      $prevHeight = $nextHeight;
+  }
 
-&#xA0; // scale back to original size and blur one more time
-&#xA0; imagecopyresized($gdImageResource, $nextImage, 
-&#xA0; &#xA0; 0, 0, 0, 0, $originalWidth, $originalHeight, $nextWidth, $nextHeight);
-&#xA0; imagefilter($gdImageResource, IMG_FILTER_GAUSSIAN_BLUR);
+  // scale back to original size and blur one more time
+  imagecopyresized($gdImageResource, $nextImage, 
+    0, 0, 0, 0, $originalWidth, $originalHeight, $nextWidth, $nextHeight);
+  imagefilter($gdImageResource, IMG_FILTER_GAUSSIAN_BLUR);
 
-&#xA0; // clean up
-&#xA0; imagedestroy($prevImage);
+  // clean up
+  imagedestroy($prevImage);
 
-&#xA0; // return result
-&#xA0; return $gdImageResource;
+  // return result
+  return $gdImageResource;
 }
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-Here is an alternative to IMG_FILTER_COLORIZE filter, but taking the alpha parameter of each pixel in account.
-
-
-
-
+Here is an alternative to IMG_FILTER_COLORIZE filter, but taking the alpha parameter of each pixel in account.<br><br>
 
 ```
 <?php
-
 function rgba_colorize($img, $color)
-
 {
+    imagesavealpha($img, true);
+    imagealphablending($img, true);
 
-&#xA0; &#xA0; imagesavealpha($img, true);
-
-&#xA0; &#xA0; imagealphablending($img, true);
-
-
-
-&#xA0; &#xA0; $img_x = imagesx($img);
-
-&#xA0; &#xA0; $img_y = imagesy($img);
-
-&#xA0; &#xA0; for ($x = 0; $x &lt; $img_x; ++$x)
-
-&#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; for ($y = 0; $y &lt; $img_y; ++$y)
-
-&#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $rgba = imagecolorsforindex($img, imagecolorat($img, $x, $y));
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $color_alpha = imagecolorallocatealpha($img, $color[0], $color[1], $color[2], $rgba[&apos;alpha&apos;]);
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; imagesetpixel($img, $x, $y, $color_alpha);
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; imagecolordeallocate($img, $color_alpha);
-
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; }
-
+    $img_x = imagesx($img);
+    $img_y = imagesy($img);
+    for ($x = 0; $x &lt; $img_x; ++$x)
+    {
+        for ($y = 0; $y &lt; $img_y; ++$y)
+        {
+            $rgba = imagecolorsforindex($img, imagecolorat($img, $x, $y));
+            $color_alpha = imagecolorallocatealpha($img, $color[0], $color[1], $color[2], $rgba[&apos;alpha&apos;]);
+            imagesetpixel($img, $x, $y, $color_alpha);
+            imagecolordeallocate($img, $color_alpha);
+        }
+    }
 }
-
 ?>
 ```
-
-
-
   
 
 #

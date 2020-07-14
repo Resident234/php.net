@@ -2,33 +2,26 @@
 
 
 
-
-
-After some INet searches and personal try-and-failures I succeed to rotate PNG images with preserving alpha channel transparency (semi transparency).
-
-
+After some INet searches and personal try-and-failures I succeed to rotate PNG images with preserving alpha channel transparency (semi transparency).<br><br>
 
 ```
 <?php
-&#xA0; &#xA0; $filename = &apos;YourFile.png&apos;;
-&#xA0; &#xA0; $rotang = 20; // Rotation angle
-&#xA0; &#xA0; $source = imagecreatefrompng($filename) or die(&apos;Error opening file &apos;.$filename);
-&#xA0; &#xA0; imagealphablending($source, false);
-&#xA0; &#xA0; imagesavealpha($source, true);
+    $filename = &apos;YourFile.png&apos;;
+    $rotang = 20; // Rotation angle
+    $source = imagecreatefrompng($filename) or die(&apos;Error opening file &apos;.$filename);
+    imagealphablending($source, false);
+    imagesavealpha($source, true);
 
-&#xA0; &#xA0; $rotation = imagerotate($source, $rotang, imageColorAllocateAlpha($source, 0, 0, 0, 127));
-&#xA0; &#xA0; imagealphablending($rotation, false);
-&#xA0; &#xA0; imagesavealpha($rotation, true);
+    $rotation = imagerotate($source, $rotang, imageColorAllocateAlpha($source, 0, 0, 0, 127));
+    imagealphablending($rotation, false);
+    imagesavealpha($rotation, true);
 
-&#xA0; &#xA0; header(&apos;Content-type: image/png&apos;);
-&#xA0; &#xA0; imagepng($rotation);
-&#xA0; &#xA0; imagedestroy($source);
-&#xA0; &#xA0; imagedestroy($rotation);
+    header(&apos;Content-type: image/png&apos;);
+    imagepng($rotation);
+    imagedestroy($source);
+    imagedestroy($rotation);
 ?>
 ```
-
-
-
   
 
 #

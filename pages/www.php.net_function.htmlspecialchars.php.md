@@ -2,35 +2,96 @@
 
 
 
+As of PHP 5.4 they changed default encoding from "ISO-8859-1" to "UTF-8". So if you get null from htmlspecialchars or htmlentities<br><br>where you have only set <br>
 
-<div class="phpcode"><span class="html">
-As of PHP 5.4 they changed default encoding from &quot;ISO-8859-1&quot; to &quot;UTF-8&quot;. So if you get null from htmlspecialchars or htmlentities<br><br>where you have only set <br><span class="default">&lt;?php<br></span><span class="keyword">echo </span><span class="default">htmlspecialchars</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">);<br>echo </span><span class="default">htmlentities</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>you can fix it by<br><span class="default">&lt;?php<br></span><span class="keyword">echo </span><span class="default">htmlspecialchars</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">ENT_COMPAT</span><span class="keyword">,</span><span class="string">&apos;ISO-8859-1&apos;</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br>echo </span><span class="default">htmlentities</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">ENT_COMPAT</span><span class="keyword">,</span><span class="string">&apos;ISO-8859-1&apos;</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br></span><span class="default">?&gt;</span> <br><br>On linux you can find the scripts you need to fix by<br><br>grep -Rl &quot;htmlspecialchars\\|htmlentities&quot; /path/to/php/scripts/</span>
-</div>
-  
+```
+<?php
+echo htmlspecialchars($string);
+echo htmlentities($string);
+?>
+```
+
+
+you can fix it by
+
+
+```
+<?php
+echo htmlspecialchars($string, ENT_COMPAT,&apos;ISO-8859-1&apos;, true);
+echo htmlentities($string, ENT_COMPAT,&apos;ISO-8859-1&apos;, true);
+?>
+```
+ <br><br>On linux you can find the scripts you need to fix by<br><br>grep -Rl "htmlspecialchars\\|htmlentities" /path/to/php/scripts/  
 
 #
 
+Unfortunately, as far as I can tell, the PHP devs did not provide ANY way to set the default encoding used by htmlspecialchars() or htmlentities(), even though they changed the default encoding in PHP 5.4 (*golf clap for PHP devs*). To save someone the time of trying it, this does not work:<br><br>
 
-<div class="phpcode"><span class="html">
-Unfortunately, as far as I can tell, the PHP devs did not provide ANY way to set the default encoding used by htmlspecialchars() or htmlentities(), even though they changed the default encoding in PHP 5.4 (*golf clap for PHP devs*). To save someone the time of trying it, this does not work:<br><br><span class="default">&lt;?php<br>ini_set</span><span class="keyword">(</span><span class="string">&apos;default_charset&apos;</span><span class="keyword">, </span><span class="default">$charset</span><span class="keyword">); </span><span class="comment">// doesn&apos;t work.<br></span><span class="default">?&gt;<br></span><br>Unfortunately, the only way to not have to explicitly provide the second and third parameter every single time this function is called (which gets extremely tedious) is to write your own function as a wrapper:<br><br><span class="default">&lt;?php<br>define</span><span class="keyword">(</span><span class="string">&apos;CHARSET&apos;</span><span class="keyword">, </span><span class="string">&apos;ISO-8859-1&apos;</span><span class="keyword">);<br></span><span class="default">define</span><span class="keyword">(</span><span class="string">&apos;REPLACE_FLAGS&apos;</span><span class="keyword">, </span><span class="default">ENT_COMPAT </span><span class="keyword">| </span><span class="default">ENT_XHTML</span><span class="keyword">);<br><br>function </span><span class="default">html</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">) {<br>&#xA0; &#xA0; return </span><span class="default">htmlspecialchars</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">REPLACE_FLAGS</span><span class="keyword">, </span><span class="default">CHARSET</span><span class="keyword">);<br>}<br><br>echo </span><span class="default">html</span><span class="keyword">(</span><span class="string">&quot;&#xF1;&quot;</span><span class="keyword">); </span><span class="comment">// works<br></span><span class="default">?&gt;<br></span><br>You can do the same for htmlentities()</span>
-</div>
-  
+```
+<?php
+ini_set(&apos;default_charset&apos;, $charset); // doesn&apos;t work.
+?>
+```
+
+
+Unfortunately, the only way to not have to explicitly provide the second and third parameter every single time this function is called (which gets extremely tedious) is to write your own function as a wrapper:
+
+
+
+```
+<?php
+define(&apos;CHARSET&apos;, &apos;ISO-8859-1&apos;);
+define(&apos;REPLACE_FLAGS&apos;, ENT_COMPAT | ENT_XHTML);
+
+function html($string) {
+    return htmlspecialchars($string, REPLACE_FLAGS, CHARSET);
+}
+
+echo html("&#xF1;"); // works
+?>
+```
+<br><br>You can do the same for htmlentities()  
 
 #
 
+i searched for a while for a script, that could see the difference between an html tag and just &lt; and &gt; placed in the text, <br>the reason is that i recieve text from a database,<br>wich is inserted by an html form, and contains text and html tags, <br>the text can contain &lt; and &gt;, so does the tags,<br>with htmlspecialchars you can validate your text to XHTML,<br>but you&apos;ll also change the tags, like &lt;b&gt; to &amp;lt;b&amp;gt;,<br>so i needed a script that could see the difference between those two...<br>but i couldn&apos;t find one so i made my own one, <br>i havent fully tested it, but the parts i tested worked perfect!<br>just for people that were searching for something like this,<br>it may looks big, could be done easier, but it works for me, so im happy.<br><br>
 
-<div class="phpcode"><span class="html">
-i searched for a while for a script, that could see the difference between an html tag and just &lt; and &gt; placed in the text, <br>the reason is that i recieve text from a database,<br>wich is inserted by an html form, and contains text and html tags, <br>the text can contain &lt; and &gt;, so does the tags,<br>with htmlspecialchars you can validate your text to XHTML,<br>but you&apos;ll also change the tags, like &lt;b&gt; to &amp;lt;b&amp;gt;,<br>so i needed a script that could see the difference between those two...<br>but i couldn&apos;t find one so i made my own one, <br>i havent fully tested it, but the parts i tested worked perfect!<br>just for people that were searching for something like this,<br>it may looks big, could be done easier, but it works for me, so im happy.<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">fixtags</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">){<br></span><span class="default">$text </span><span class="keyword">= </span><span class="default">htmlspecialchars</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);<br></span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;/=/&quot;</span><span class="keyword">, </span><span class="string">&quot;=\&quot;\&quot;&quot;</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">);<br></span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;/&amp;quot;/&quot;</span><span class="keyword">, </span><span class="string">&quot;&amp;quot;\&quot;&quot;</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">);<br></span><span class="default">$tags </span><span class="keyword">= </span><span class="string">&quot;/&amp;lt;(\/|)(\w*)(\ |)(\w*)([\\\=]*)(?|(\&quot;)\&quot;&amp;quot;\&quot;|)(?|(.*)?&amp;quot;(\&quot;)|)([\ ]?)(\/|)&amp;gt;/i&quot;</span><span class="keyword">;<br></span><span class="default">$replacement </span><span class="keyword">= </span><span class="string">&quot;&lt;$1$2$3$4$5$6$7$8$9$10&gt;&quot;</span><span class="keyword">;<br></span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="default">$tags</span><span class="keyword">, </span><span class="default">$replacement</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">);<br></span><span class="default">$text </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;/=\&quot;\&quot;/&quot;</span><span class="keyword">, </span><span class="string">&quot;=&quot;</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">);<br>return </span><span class="default">$text</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>an example:<br><br><span class="default">&lt;?php<br>$string </span><span class="keyword">= </span><span class="string">&quot;<br>this is smaller &lt; than this&lt;br /&gt; <br>this is greater &gt; than this&lt;br /&gt;<br>this is the same = as this&lt;br /&gt;<br>&lt;a href=\&quot;<a href="http://www.example.com/example.php?test=test" rel="nofollow" target="_blank">http://www.example.com/example.php?test=test</a>\&quot;&gt;This is a link&lt;/a&gt;&lt;br /&gt;<br>&lt;b&gt;Bold&lt;/b&gt; &lt;i&gt;italic&lt;/i&gt; etc...&quot;</span><span class="keyword">;<br>echo </span><span class="default">fixtags</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>will echo:<br>this is smaller &amp;lt; than this&lt;br /&gt; <br>this is greater &amp;gt; than this&lt;br /&gt; <br>this is the same = as this&lt;br /&gt; <br>&lt;a href=&quot;<a href="http://www.example.com/example.php?test=test" rel="nofollow" target="_blank">http://www.example.com/example.php?test=test</a>&quot;&gt;This is a link&lt;/a&gt;&lt;br /&gt; <br>&lt;b&gt;Bold&lt;/b&gt; &lt;i&gt;italic&lt;/i&gt; etc...<br><br>I hope its helpfull!!</span>
-</div>
-  
+```
+<?php
+function fixtags($text){
+$text = htmlspecialchars($text);
+$text = preg_replace("/=/", "=\"\"", $text);
+$text = preg_replace("/&amp;quot;/", "&amp;quot;\"", $text);
+$tags = "/&amp;lt;(\/|)(\w*)(\ |)(\w*)([\\\=]*)(?|(\")\"&amp;quot;\"|)(?|(.*)?&amp;quot;(\")|)([\ ]?)(\/|)&amp;gt;/i";
+$replacement = "&lt;$1$2$3$4$5$6$7$8$9$10&gt;";
+$text = preg_replace($tags, $replacement, $text);
+$text = preg_replace("/=\"\"/", "=", $text);
+return $text;
+}
+?>
+```
+
+
+an example:
+
+
+
+```
+<?php
+$string = "
+this is smaller &lt; than this&lt;br /&gt; 
+this is greater &gt; than this&lt;br /&gt;
+this is the same = as this&lt;br /&gt;
+&lt;a href=\"http://www.example.com/example.php?test=test\"&gt;This is a link&lt;/a&gt;&lt;br /&gt;
+&lt;b&gt;Bold&lt;/b&gt; &lt;i&gt;italic&lt;/i&gt; etc...";
+echo fixtags($string);
+?>
+```
+<br><br>will echo:<br>this is smaller &amp;lt; than this&lt;br /&gt; <br>this is greater &amp;gt; than this&lt;br /&gt; <br>this is the same = as this&lt;br /&gt; <br>&lt;a href="http://www.example.com/example.php?test=test"&gt;This is a link&lt;/a&gt;&lt;br /&gt; <br>&lt;b&gt;Bold&lt;/b&gt; &lt;i&gt;italic&lt;/i&gt; etc...<br><br>I hope its helpfull!!  
 
 #
 
-
-<div class="phpcode"><span class="html">
-if your goal is just to protect your page from Cross Site Scripting (XSS) attack, or just to show HTML tags on a web page (showing &lt;body&gt; on the page, for example), then using htmlspecialchars() is good enough and better than using htmlentities().&#xA0; A minor point is htmlspecialchars() is faster than htmlentities().&#xA0; A more important point is, when we use&#xA0; htmlspecialchars($s) in our code, it is automatically compatible with UTF-8 string.&#xA0; Otherwise, if we use htmlentities($s), and there happens to be foreign characters in the string $s in UTF-8 encoding, then htmlentities() is going to mess it up, as it modifies the byte 0x80 to 0xFF in the string to entities like &amp;eacute;.&#xA0; (unless you specifically provide a second argument and a third argument to htmlentities(), with the third argument being &quot;UTF-8&quot;).<br><br>The reason htmlspecialchars($s) already works with UTF-8 string is that, it changes bytes that are in the range 0x00 to 0x7F to &amp;lt; etc, while leaving bytes in the range 0x80 to 0xFF unchanged.&#xA0; We may wonder whether htmlspecialchars() may accidentally change any byte in a 2 to 4 byte UTF-8 character to &amp;lt; etc.&#xA0; The answer is, it won&apos;t.&#xA0; When a UTF-8 character is 2 to 4 bytes long, all the bytes in this character is in the 0x80 to 0xFF range. None can be in the 0x00 to 0x7F range.&#xA0; When a UTF-8 character is 1 byte long, it is just the same as ASCII, which is 7 bit, from 0x00 to 0x7F.&#xA0; As a result, when a UTF-8 character is 1 byte long, htmlspecialchars($s) will do its job, and when the UTF-8 character is 2 to 4 bytes long, htmlspecialchars($s) will just pass those bytes unchanged.&#xA0; So htmlspecialchars($s) will do the same job no matter whether $s is in ASCII, ISO-8859-1 (Latin-1), or UTF-8.</span>
-</div>
-  
+if your goal is just to protect your page from Cross Site Scripting (XSS) attack, or just to show HTML tags on a web page (showing &lt;body&gt; on the page, for example), then using htmlspecialchars() is good enough and better than using htmlentities().  A minor point is htmlspecialchars() is faster than htmlentities().  A more important point is, when we use  htmlspecialchars($s) in our code, it is automatically compatible with UTF-8 string.  Otherwise, if we use htmlentities($s), and there happens to be foreign characters in the string $s in UTF-8 encoding, then htmlentities() is going to mess it up, as it modifies the byte 0x80 to 0xFF in the string to entities like &amp;eacute;.  (unless you specifically provide a second argument and a third argument to htmlentities(), with the third argument being "UTF-8").<br><br>The reason htmlspecialchars($s) already works with UTF-8 string is that, it changes bytes that are in the range 0x00 to 0x7F to &amp;lt; etc, while leaving bytes in the range 0x80 to 0xFF unchanged.  We may wonder whether htmlspecialchars() may accidentally change any byte in a 2 to 4 byte UTF-8 character to &amp;lt; etc.  The answer is, it won&apos;t.  When a UTF-8 character is 2 to 4 bytes long, all the bytes in this character is in the 0x80 to 0xFF range. None can be in the 0x00 to 0x7F range.  When a UTF-8 character is 1 byte long, it is just the same as ASCII, which is 7 bit, from 0x00 to 0x7F.  As a result, when a UTF-8 character is 1 byte long, htmlspecialchars($s) will do its job, and when the UTF-8 character is 2 to 4 bytes long, htmlspecialchars($s) will just pass those bytes unchanged.  So htmlspecialchars($s) will do the same job no matter whether $s is in ASCII, ISO-8859-1 (Latin-1), or UTF-8.  
 
 #
 

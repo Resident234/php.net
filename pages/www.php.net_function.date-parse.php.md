@@ -2,38 +2,32 @@
 
 
 
-
-
-A warning to others. Some keys will return with a default value where others will return as false if the date string has it omitted. Unsure if this is a bug or feature, but hopefully this will save someone some time.
-
+A warning to others. Some keys will return with a default value where others will return as false if the date string has it omitted. Unsure if this is a bug or feature, but hopefully this will save someone some time.<br>
 
 ```
 <?php
 ///Example
-$input = &quot;Feb 2010&quot;;
+$input = "Feb 2010";
 $info = date_parse($input);
 var_dump($info);
 
 /*Returns:
 array(12) { 
-&#xA0; &#xA0; [&quot;year&quot;]=&gt; int(2010)
-&#xA0; &#xA0; [&quot;month&quot;]=&gt; int(2)
-&#xA0; &#xA0; [&quot;day&quot;]=&gt; int(1)&#xA0; &#xA0; //&lt;---expected false like below
-&#xA0; &#xA0; [&quot;hour&quot;]=&gt; bool(false)
-&#xA0; &#xA0; [&quot;minute&quot;]=&gt; bool(false)
-&#xA0; &#xA0; [&quot;second&quot;]=&gt; bool(false)
-&#xA0; &#xA0; [&quot;fraction&quot;]=&gt; bool(false)
-&#xA0; &#xA0; [&quot;warning_count&quot;]=&gt; int(0)
-&#xA0; &#xA0; [&quot;warnings&quot;]=&gt; array(0) { }
-&#xA0; &#xA0; [&quot;error_count&quot;]=&gt; int(0)
-&#xA0; &#xA0; [&quot;errors&quot;]=&gt; array(0) { }
-&#xA0; &#xA0; [&quot;is_localtime&quot;]=&gt; bool(false)
+    ["year"]=&gt; int(2010)
+    ["month"]=&gt; int(2)
+    ["day"]=&gt; int(1)    //&lt;---expected false like below
+    ["hour"]=&gt; bool(false)
+    ["minute"]=&gt; bool(false)
+    ["second"]=&gt; bool(false)
+    ["fraction"]=&gt; bool(false)
+    ["warning_count"]=&gt; int(0)
+    ["warnings"]=&gt; array(0) { }
+    ["error_count"]=&gt; int(0)
+    ["errors"]=&gt; array(0) { }
+    ["is_localtime"]=&gt; bool(false)
 }*/
 ?>
 ```
-
-
-
   
 
 #

@@ -2,11 +2,7 @@
 
 
 
-
-
-Beware that negative zero does not compare equal to positive zero.
-
-  
+Beware that negative zero does not compare equal to positive zero.  
 
 #
 

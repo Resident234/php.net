@@ -2,17 +2,7 @@
 
 
 
-
-
-Security tips you must know before use this function :
-
-First : make sure that the file is not empty.
-
-Second : make sure the file name in English characters, numbers and (_-.) symbols, For more protection.
-
-You can use below function as in example
-
-
+Security tips you must know before use this function :<br><br>First : make sure that the file is not empty.<br><br>Second : make sure the file name in English characters, numbers and (_-.) symbols, For more protection.<br><br>You can use below function as in example<br><br>
 
 ```
 <?php
@@ -25,7 +15,7 @@ You can use below function as in example
  */
 function check_file_uploaded_name ($filename)
 {
-&#xA0; &#xA0; (bool) ((preg_match(&quot;`^[-0-9A-Z_\.]+$`i&quot;,$filename)) ? true : false);
+    (bool) ((preg_match("`^[-0-9A-Z_\.]+Security tips you must know before use this function :<br><br>First : make sure that the file is not empty.<br><br>Second : make sure the file name in English characters, numbers and (_-.) symbols, For more protection.<br><br>You can use below function as in example<br><br>i",$filename)) ? true : false);
 }
 
 ?>
@@ -49,7 +39,7 @@ as in example :
  */
 function check_file_uploaded_length ($filename)
 {
-&#xA0; &#xA0; return (bool) ((mb_strlen($filename,&quot;UTF-8&quot;) &gt; 225) ? true : false);
+    return (bool) ((mb_strlen($filename,"UTF-8") &gt; 225) ? true : false);
 }
 
 ?>
@@ -73,40 +63,15 @@ $ext_type = array(&apos;gif&apos;,&apos;jpg&apos;,&apos;jpe&apos;,&apos;jpeg&apo
 
 ?>
 ```
-
-
-You have multi choices to checking extensions and Mime types.
-
-Fifth: Check file size and make sure the limit of php.ini to upload files is what you want, You can start from http://www.php.net/manual/en/ini.core.php#ini.file-uploads
-
-And last but not least : Check the file content if have a bad codes or something like this function http://php.net/manual/en/function.file-get-contents.php.
-
-You can use .htaccess to stop working some scripts as in example php file in your upload path.
-
-use :
-
-AddHandler cgi-script .php .pl .jsp .asp .sh .cgi
-Options -ExecCGI&#xA0; 
-
-Do not forget this steps for your project protection.
-
-  
+<br><br>You have multi choices to checking extensions and Mime types.<br><br>Fifth: Check file size and make sure the limit of php.ini to upload files is what you want, You can start from http://www.php.net/manual/en/ini.core.php#ini.file-uploads<br><br>And last but not least : Check the file content if have a bad codes or something like this function http://php.net/manual/en/function.file-get-contents.php.<br><br>You can use .htaccess to stop working some scripts as in example php file in your upload path.<br><br>use :<br><br>AddHandler cgi-script .php .pl .jsp .asp .sh .cgi<br>Options -ExecCGI  <br><br>Do not forget this steps for your project protection.  
 
 #
 
-
-
-The destination directory must exist; move_uploaded_file() will not automatically create it for you.
-
-  
+The destination directory must exist; move_uploaded_file() will not automatically create it for you.  
 
 #
 
-
-
-For those using PHP on Windows and IIS, you SHOULD set the &quot;upload_tmp_dir&quot; value in php.ini to some directory around where your websites directory is, create that directory, and then set the same permissions on it that you have set for your websites directory. Otherwise, when you upload a file and it goes into C:\WINDOWS\Temp, then you move it to your website directory, its permissions will NOT be set correctly. This will cause you problems if you then want to manipulate that file with something like ImageMagick&apos;s convert utility.
-
-  
+For those using PHP on Windows and IIS, you SHOULD set the "upload_tmp_dir" value in php.ini to some directory around where your websites directory is, create that directory, and then set the same permissions on it that you have set for your websites directory. Otherwise, when you upload a file and it goes into C:\WINDOWS\Temp, then you move it to your website directory, its permissions will NOT be set correctly. This will cause you problems if you then want to manipulate that file with something like ImageMagick&apos;s convert utility.  
 
 #
 

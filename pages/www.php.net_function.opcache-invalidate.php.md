@@ -2,13 +2,7 @@
 
 
 
-
-
-Beware that only existing files can be invalidated.
-
-Instead of removing a file from opcache that you have delete, you need to call opcache_invalidate before deleting it.
-
-  
+Beware that only existing files can be invalidated.<br><br>Instead of removing a file from opcache that you have delete, you need to call opcache_invalidate before deleting it.  
 
 #
 

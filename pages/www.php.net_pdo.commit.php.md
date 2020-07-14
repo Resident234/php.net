@@ -2,13 +2,7 @@
 
 
 
-
-
-Keep in mind this bug: https://bugs.php.net/bug.php?id=66528
-
-you could not rely on commit() return value while using MySql
-
-  
+Keep in mind this bug: https://bugs.php.net/bug.php?id=66528<br><br>you could not rely on commit() return value while using MySql  
 
 #
 

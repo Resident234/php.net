@@ -2,30 +2,16 @@
 
 
 
-
-
-Instead of specifying tds version and client charset in freetds.conf, you may pass it as a parameter.
-
+Instead of specifying tds version and client charset in freetds.conf, you may pass it as a parameter.<br>
 
 ```
 <?php $dsn = &apos;dblib:version=7.0;charset=UTF-8;host=domain.example.com;dbname=example;&apos;; ?>
 ```
-
-
-
   
 
 #
 
-
-
-If you&apos;re using FreeTDS driver and you want to use &quot;charset&quot; parameter then you may have to edit freetds.conf (e.g. /etc/freetds/freetds.conf) and force connection using at least version 7.0 of the protocol.
-
-tds version = 7.0
-
-Charset parameter accepts all encodings supported by iconv (execute iconv --list to show all encodings).
-
-  
+If you&apos;re using FreeTDS driver and you want to use "charset" parameter then you may have to edit freetds.conf (e.g. /etc/freetds/freetds.conf) and force connection using at least version 7.0 of the protocol.<br><br>tds version = 7.0<br><br>Charset parameter accepts all encodings supported by iconv (execute iconv --list to show all encodings).  
 
 #
 

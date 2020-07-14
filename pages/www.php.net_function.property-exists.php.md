@@ -2,28 +2,65 @@
 
 
 
+The function behaves differently depending on whether the property has been present in the class declaration, or has been added dynamically, if the variable has been unset()<br><br>
 
-<div class="phpcode"><span class="html">
-The function behaves differently depending on whether the property has been present in the class declaration, or has been added dynamically, if the variable has been unset()<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">TestClass </span><span class="keyword">{<br><br>&#xA0; &#xA0; public </span><span class="default">$declared </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br>&#xA0; &#xA0; <br>}<br><br></span><span class="default">$testObject </span><span class="keyword">= new </span><span class="default">TestClass</span><span class="keyword">;<br><br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">property_exists</span><span class="keyword">(</span><span class="string">&quot;TestClass&quot;</span><span class="keyword">, </span><span class="string">&quot;dynamic&quot;</span><span class="keyword">)); </span><span class="comment">// boolean false, as expected<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">property_exists</span><span class="keyword">(</span><span class="default">$testObject</span><span class="keyword">, </span><span class="string">&quot;dynamic&quot;</span><span class="keyword">)); </span><span class="comment">// boolean false, same as above<br><br></span><span class="default">$testObject</span><span class="keyword">-&gt;</span><span class="default">dynamic </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">property_exists</span><span class="keyword">(</span><span class="default">$testObject</span><span class="keyword">, </span><span class="string">&quot;dynamic&quot;</span><span class="keyword">)); </span><span class="comment">// boolean true<br><br></span><span class="keyword">unset(</span><span class="default">$testObject</span><span class="keyword">-&gt;</span><span class="default">dynamic</span><span class="keyword">);<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">property_exists</span><span class="keyword">(</span><span class="default">$testObject</span><span class="keyword">, </span><span class="string">&quot;dynamic&quot;</span><span class="keyword">)); </span><span class="comment">// boolean false, again.<br><br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">property_exists</span><span class="keyword">(</span><span class="default">$testObject</span><span class="keyword">, </span><span class="string">&quot;declared&quot;</span><span class="keyword">)); </span><span class="comment">// boolean true, as espected<br><br></span><span class="keyword">unset(</span><span class="default">$testObject</span><span class="keyword">-&gt;</span><span class="default">declared</span><span class="keyword">);<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">property_exists</span><span class="keyword">(</span><span class="default">$testObject</span><span class="keyword">, </span><span class="string">&quot;declared&quot;</span><span class="keyword">)); </span><span class="comment">// boolean true, even if has been unset()</span>
-</span>
-</div>
+```
+<?php<br><br>class TestClass {<br><br>    public $declared = null;<br>    <br>}<br><br>$testObject = new TestClass;<br><br>var_dump(property_exists("TestClass", "dynamic")); // boolean false, as expected<br>var_dump(property_exists($testObject, "dynamic")); // boolean false, same as above<br><br>$testObject-&gt;dynamic = null;<br>var_dump(property_exists($testObject, "dynamic")); // boolean true<br><br>unset($testObject-&gt;dynamic);<br>var_dump(property_exists($testObject, "dynamic")); // boolean false, again.<br><br>var_dump(property_exists($testObject, "declared")); // boolean true, as espected<br><br>unset($testObject-&gt;declared);<br>var_dump(property_exists($testObject, "declared")); // boolean true, even if has been unset()  
+
+#
+
+If you are in a namespaced file, and you want to pass the class name as a string, you will have to include the full namespace for the class name - even from inside the same namespace:<br><br>&lt;?<br>namespace MyNS;<br><br>class A {<br>    public $foo;<br>}<br><br>property_exists("A", "foo");          // false<br>property_exists("\\MyNS\\A", "foo");  // true<br>?>
+```
   
 
 #
 
 
-<div class="phpcode"><span class="html">
-If you are in a namespaced file, and you want to pass the class name as a string, you will have to include the full namespace for the class name - even from inside the same namespace:<br><br>&lt;?<br>namespace MyNS;<br><br>class A {<br>&#xA0; &#xA0; public $foo;<br>}<br><br>property_exists(&quot;A&quot;, &quot;foo&quot;);&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // false<br>property_exists(&quot;\\MyNS\\A&quot;, &quot;foo&quot;);&#xA0; // true<br>?&gt;</span>
-</div>
-  
 
-#
+```
+<?php
 
+class Student {
 
-<div class="phpcode"><span class="html">
-<span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">Student </span><span class="keyword">{<br><br>&#xA0; &#xA0; protected </span><span class="default">$_name</span><span class="keyword">;<br>&#xA0; &#xA0; protected </span><span class="default">$_email</span><span class="keyword">;<br>&#xA0; &#xA0; <br><br>&#xA0; &#xA0; public function </span><span class="default">__call</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$arguments</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$action </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; switch (</span><span class="default">$action</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;get&apos;</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$property </span><span class="keyword">= </span><span class="string">&apos;_&apos; </span><span class="keyword">. </span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">property_exists</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">,</span><span class="default">$property</span><span class="keyword">)){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$this</span><span class="keyword">-&gt;{</span><span class="default">$property</span><span class="keyword">};<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }else{<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;Undefined Property&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;set&apos;</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$property </span><span class="keyword">= </span><span class="string">&apos;_&apos; </span><span class="keyword">. </span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">substr</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">property_exists</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">,</span><span class="default">$property</span><span class="keyword">)){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;{</span><span class="default">$property</span><span class="keyword">} = </span><span class="default">$arguments</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }else{<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;Undefined Property&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; default :<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">FALSE</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br><br>}<br><br></span><span class="default">$s </span><span class="keyword">= new </span><span class="default">Student</span><span class="keyword">();<br></span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">setName</span><span class="keyword">(</span><span class="string">&apos;Nanhe Kumar&apos;</span><span class="keyword">);<br></span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">setEmail</span><span class="keyword">(</span><span class="string">&apos;nanhe.kumar@gmail.com&apos;</span><span class="keyword">);<br>echo </span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">getName</span><span class="keyword">(); </span><span class="comment">//Nanhe Kumar<br></span><span class="keyword">echo </span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">getEmail</span><span class="keyword">(); </span><span class="comment">// nanhe.kumar@gmail.com<br></span><span class="default">$s</span><span class="keyword">-&gt;</span><span class="default">setAge</span><span class="keyword">(</span><span class="default">10</span><span class="keyword">); </span><span class="comment">//Undefined Property<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+    protected $_name;
+    protected $_email;
+    
+
+    public function __call($name, $arguments) {
+        $action = substr($name, 0, 3);
+        switch ($action) {
+            case &apos;get&apos;:
+                $property = &apos;_&apos; . strtolower(substr($name, 3));
+                if(property_exists($this,$property)){
+                    return $this-&gt;{$property};
+                }else{
+                    echo "Undefined Property";
+                }
+                break;
+            case &apos;set&apos;:
+                $property = &apos;_&apos; . strtolower(substr($name, 3));
+                if(property_exists($this,$property)){
+                    $this-&gt;{$property} = $arguments[0];
+                }else{
+                    echo "Undefined Property";
+                }
+                
+                break;
+            default :
+                return FALSE;
+        }
+    }
+
+}
+
+$s = new Student();
+$s-&gt;setName(&apos;Nanhe Kumar&apos;);
+$s-&gt;setEmail(&apos;nanhe.kumar@gmail.com&apos;);
+echo $s-&gt;getName(); //Nanhe Kumar
+echo $s-&gt;getEmail(); // nanhe.kumar@gmail.com
+$s-&gt;setAge(10); //Undefined Property
+?>
+```
   
 
 #

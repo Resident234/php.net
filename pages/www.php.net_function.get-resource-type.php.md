@@ -2,11 +2,38 @@
 
 
 
+Try this to know behavior:<br><br>
 
-<div class="phpcode"><span class="html">
-Try this to know behavior:<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">resource_test</span><span class="keyword">(</span><span class="default">$resource</span><span class="keyword">, </span><span class="default">$name</span><span class="keyword">) {<br>&#xA0; &#xA0; echo <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;[&apos; </span><span class="keyword">. </span><span class="default">$name</span><span class="keyword">. </span><span class="string">&apos;]&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">PHP_EOL</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;(bool)$resource =&gt; &apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$resource </span><span class="keyword">? </span><span class="string">&apos;TRUE&apos; </span><span class="keyword">: </span><span class="string">&apos;FALSE&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">PHP_EOL</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;get_resource_type($resource) =&gt; &apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">get_resource_type</span><span class="keyword">(</span><span class="default">$resource</span><span class="keyword">) ?: </span><span class="string">&apos;FALSE&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">PHP_EOL</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;is_resoruce($resource) =&gt; &apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">is_resource</span><span class="keyword">(</span><span class="default">$resource</span><span class="keyword">) ? </span><span class="string">&apos;TRUE&apos; </span><span class="keyword">: </span><span class="string">&apos;FALSE&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">PHP_EOL</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">PHP_EOL<br>&#xA0; &#xA0; </span><span class="keyword">;<br>}<br> <br></span><span class="default">$resource </span><span class="keyword">= </span><span class="default">tmpfile</span><span class="keyword">();<br></span><span class="default">resource_test</span><span class="keyword">(</span><span class="default">$resource</span><span class="keyword">, </span><span class="string">&apos;Check Valid Resource&apos;</span><span class="keyword">);<br> <br></span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$resource</span><span class="keyword">);<br></span><span class="default">resource_test</span><span class="keyword">(</span><span class="default">$resource</span><span class="keyword">, </span><span class="string">&apos;Check Released Resource&apos;</span><span class="keyword">);<br> <br></span><span class="default">$resource </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br></span><span class="default">resource_test</span><span class="keyword">(</span><span class="default">$resource</span><span class="keyword">, </span><span class="string">&apos;Check NULL&apos;</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>It will be shown as...<br><br>[Check Valid Resource]<br>(bool)$resource =&gt; TRUE<br>get_resource_type($resource) =&gt; stream<br>is_resoruce($resource) =&gt; TRUE<br><br>[Check Released Resource]<br>(bool)$resource =&gt; TRUE<br>get_resource_type($resource) =&gt; Unknown<br>is_resoruce($resource) =&gt; FALSE<br><br>[Check NULL]<br>(bool)$resource =&gt; FALSE<br>get_resource_type($resource) =&gt; FALSE<br>Warning:&#xA0; get_resource_type() expects parameter 1 to be resource, null given in ... on line 10<br>is_resoruce($resource) =&gt; FALSE</span>
-</div>
-  
+```
+<?php
+function resource_test($resource, $name) {
+    echo 
+        &apos;[&apos; . $name. &apos;]&apos;,
+        PHP_EOL,
+        &apos;(bool)$resource =&gt; &apos;,
+        $resource ? &apos;TRUE&apos; : &apos;FALSE&apos;,
+        PHP_EOL,
+        &apos;get_resource_type($resource) =&gt; &apos;,
+        get_resource_type($resource) ?: &apos;FALSE&apos;,
+        PHP_EOL,
+        &apos;is_resoruce($resource) =&gt; &apos;,
+        is_resource($resource) ? &apos;TRUE&apos; : &apos;FALSE&apos;,
+        PHP_EOL,
+        PHP_EOL
+    ;
+}
+ 
+$resource = tmpfile();
+resource_test($resource, &apos;Check Valid Resource&apos;);
+ 
+fclose($resource);
+resource_test($resource, &apos;Check Released Resource&apos;);
+ 
+$resource = null;
+resource_test($resource, &apos;Check NULL&apos;);
+?>
+```
+<br><br>It will be shown as...<br><br>[Check Valid Resource]<br>(bool)$resource =&gt; TRUE<br>get_resource_type($resource) =&gt; stream<br>is_resoruce($resource) =&gt; TRUE<br><br>[Check Released Resource]<br>(bool)$resource =&gt; TRUE<br>get_resource_type($resource) =&gt; Unknown<br>is_resoruce($resource) =&gt; FALSE<br><br>[Check NULL]<br>(bool)$resource =&gt; FALSE<br>get_resource_type($resource) =&gt; FALSE<br>Warning:  get_resource_type() expects parameter 1 to be resource, null given in ... on line 10<br>is_resoruce($resource) =&gt; FALSE  
 
 #
 

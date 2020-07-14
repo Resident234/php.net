@@ -2,19 +2,83 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-As of PHP 5.2, strval() will return the string value of an object, calling its __toString() method to determine what that value is.</span>
-</div>
-  
+As of PHP 5.2, strval() will return the string value of an object, calling its __toString() method to determine what that value is.  
 
 #
 
+If you want to convert an integer into an English word string, eg. 29 -&gt; twenty-nine, then here&apos;s a function to do it.<br><br>Note on use of fmod()<br>  I used the floating point fmod() in preference to the % operator, because % converts the operands to int, corrupting values outside of the range [-2147483648, 2147483647]<br><br>I haven&apos;t bothered with "billion" because the word means 10e9 or 10e12 depending who you ask.<br><br>The function returns &apos;#&apos; if the argument does not represent a whole number.<br><br>
 
-<div class="phpcode"><span class="html">
-If you want to convert an integer into an English word string, eg. 29 -&gt; twenty-nine, then here&apos;s a function to do it.<br><br>Note on use of fmod()<br>&#xA0; I used the floating point fmod() in preference to the % operator, because % converts the operands to int, corrupting values outside of the range [-2147483648, 2147483647]<br><br>I haven&apos;t bothered with &quot;billion&quot; because the word means 10e9 or 10e12 depending who you ask.<br><br>The function returns &apos;#&apos; if the argument does not represent a whole number.<br><br><span class="default">&lt;?php<br>$nwords </span><span class="keyword">= array( </span><span class="string">&quot;zero&quot;</span><span class="keyword">, </span><span class="string">&quot;one&quot;</span><span class="keyword">, </span><span class="string">&quot;two&quot;</span><span class="keyword">, </span><span class="string">&quot;three&quot;</span><span class="keyword">, </span><span class="string">&quot;four&quot;</span><span class="keyword">, </span><span class="string">&quot;five&quot;</span><span class="keyword">, </span><span class="string">&quot;six&quot;</span><span class="keyword">, </span><span class="string">&quot;seven&quot;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="string">&quot;eight&quot;</span><span class="keyword">, </span><span class="string">&quot;nine&quot;</span><span class="keyword">, </span><span class="string">&quot;ten&quot;</span><span class="keyword">, </span><span class="string">&quot;eleven&quot;</span><span class="keyword">, </span><span class="string">&quot;twelve&quot;</span><span class="keyword">, </span><span class="string">&quot;thirteen&quot;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="string">&quot;fourteen&quot;</span><span class="keyword">, </span><span class="string">&quot;fifteen&quot;</span><span class="keyword">, </span><span class="string">&quot;sixteen&quot;</span><span class="keyword">, </span><span class="string">&quot;seventeen&quot;</span><span class="keyword">, </span><span class="string">&quot;eighteen&quot;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="string">&quot;nineteen&quot;</span><span class="keyword">, </span><span class="string">&quot;twenty&quot;</span><span class="keyword">, </span><span class="default">30 </span><span class="keyword">=&gt; </span><span class="string">&quot;thirty&quot;</span><span class="keyword">, </span><span class="default">40 </span><span class="keyword">=&gt; </span><span class="string">&quot;forty&quot;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">50 </span><span class="keyword">=&gt; </span><span class="string">&quot;fifty&quot;</span><span class="keyword">, </span><span class="default">60 </span><span class="keyword">=&gt; </span><span class="string">&quot;sixty&quot;</span><span class="keyword">, </span><span class="default">70 </span><span class="keyword">=&gt; </span><span class="string">&quot;seventy&quot;</span><span class="keyword">, </span><span class="default">80 </span><span class="keyword">=&gt; </span><span class="string">&quot;eighty&quot;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">90 </span><span class="keyword">=&gt; </span><span class="string">&quot;ninety&quot; </span><span class="keyword">);<br><br>function </span><span class="default">int_to_words</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">) {<br>&#xA0;&#xA0; global </span><span class="default">$nwords</span><span class="keyword">;<br><br>&#xA0;&#xA0; if(!</span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$w </span><span class="keyword">= </span><span class="string">&apos;#&apos;</span><span class="keyword">;<br>&#xA0;&#xA0; else if(</span><span class="default">fmod</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">) != </span><span class="default">0</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$w </span><span class="keyword">= </span><span class="string">&apos;#&apos;</span><span class="keyword">;<br>&#xA0;&#xA0; else {<br>&#xA0; &#xA0; &#xA0; if(</span><span class="default">$x </span><span class="keyword">&lt; </span><span class="default">0</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$w </span><span class="keyword">= </span><span class="string">&apos;minus &apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$x </span><span class="keyword">= -</span><span class="default">$x</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; } else<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$w </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; </span><span class="comment">// ... now $x is a non-negative integer.<br><br>&#xA0; &#xA0; &#xA0; </span><span class="keyword">if(</span><span class="default">$x </span><span class="keyword">&lt; </span><span class="default">21</span><span class="keyword">)&#xA0;&#xA0; </span><span class="comment">// 0 to 20<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$w </span><span class="keyword">.= </span><span class="default">$nwords</span><span class="keyword">[</span><span class="default">$x</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; else if(</span><span class="default">$x </span><span class="keyword">&lt; </span><span class="default">100</span><span class="keyword">) {&#xA0;&#xA0; </span><span class="comment">// 21 to 99<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$w </span><span class="keyword">.= </span><span class="default">$nwords</span><span class="keyword">[</span><span class="default">10 </span><span class="keyword">* </span><span class="default">floor</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">/</span><span class="default">10</span><span class="keyword">)];<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$r </span><span class="keyword">= </span><span class="default">fmod</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">, </span><span class="default">10</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; if(</span><span class="default">$r </span><span class="keyword">&gt; </span><span class="default">0</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$w </span><span class="keyword">.= </span><span class="string">&apos;-&apos;</span><span class="keyword">. </span><span class="default">$nwords</span><span class="keyword">[</span><span class="default">$r</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; } else if(</span><span class="default">$x </span><span class="keyword">&lt; </span><span class="default">1000</span><span class="keyword">) {&#xA0;&#xA0; </span><span class="comment">// 100 to 999<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$w </span><span class="keyword">.= </span><span class="default">$nwords</span><span class="keyword">[</span><span class="default">floor</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">/</span><span class="default">100</span><span class="keyword">)] .</span><span class="string">&apos; hundred&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$r </span><span class="keyword">= </span><span class="default">fmod</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">, </span><span class="default">100</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; if(</span><span class="default">$r </span><span class="keyword">&gt; </span><span class="default">0</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$w </span><span class="keyword">.= </span><span class="string">&apos; and &apos;</span><span class="keyword">. </span><span class="default">int_to_words</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; } else if(</span><span class="default">$x </span><span class="keyword">&lt; </span><span class="default">1000000</span><span class="keyword">) {&#xA0;&#xA0; </span><span class="comment">// 1000 to 999999<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$w </span><span class="keyword">.= </span><span class="default">int_to_words</span><span class="keyword">(</span><span class="default">floor</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">/</span><span class="default">1000</span><span class="keyword">)) .</span><span class="string">&apos; thousand&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$r </span><span class="keyword">= </span><span class="default">fmod</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">, </span><span class="default">1000</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; if(</span><span class="default">$r </span><span class="keyword">&gt; </span><span class="default">0</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$w </span><span class="keyword">.= </span><span class="string">&apos; &apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">$r </span><span class="keyword">&lt; </span><span class="default">100</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$w </span><span class="keyword">.= </span><span class="string">&apos;and &apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$w </span><span class="keyword">.= </span><span class="default">int_to_words</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }<br>&#xA0; &#xA0; &#xA0; } else {&#xA0; &#xA0; </span><span class="comment">//&#xA0; millions<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$w </span><span class="keyword">.= </span><span class="default">int_to_words</span><span class="keyword">(</span><span class="default">floor</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">/</span><span class="default">1000000</span><span class="keyword">)) .</span><span class="string">&apos; million&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$r </span><span class="keyword">= </span><span class="default">fmod</span><span class="keyword">(</span><span class="default">$x</span><span class="keyword">, </span><span class="default">1000000</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; if(</span><span class="default">$r </span><span class="keyword">&gt; </span><span class="default">0</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$w </span><span class="keyword">.= </span><span class="string">&apos; &apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">$r </span><span class="keyword">&lt; </span><span class="default">100</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$word </span><span class="keyword">.= </span><span class="string">&apos;and &apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$w </span><span class="keyword">.= </span><span class="default">int_to_words</span><span class="keyword">(</span><span class="default">$r</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }<br>&#xA0; &#xA0; &#xA0; }<br>&#xA0;&#xA0; }<br>&#xA0;&#xA0; return </span><span class="default">$w</span><span class="keyword">;<br>}<br><br></span><span class="default">?&gt;<br></span><br>Usage:<br><span class="default">&lt;?php<br></span><span class="keyword">echo </span><span class="string">&apos;There are currently &apos;</span><span class="keyword">. </span><span class="default">int_to_words</span><span class="keyword">(</span><span class="default">$count</span><span class="keyword">) . </span><span class="string">&apos; members logged on.&apos;</span><span class="keyword">;<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+$nwords = array( "zero", "one", "two", "three", "four", "five", "six", "seven",
+                   "eight", "nine", "ten", "eleven", "twelve", "thirteen",
+                   "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
+                   "nineteen", "twenty", 30 =&gt; "thirty", 40 =&gt; "forty",
+                   50 =&gt; "fifty", 60 =&gt; "sixty", 70 =&gt; "seventy", 80 =&gt; "eighty",
+                   90 =&gt; "ninety" );
+
+function int_to_words($x) {
+   global $nwords;
+
+   if(!is_numeric($x))
+      $w = &apos;#&apos;;
+   else if(fmod($x, 1) != 0)
+      $w = &apos;#&apos;;
+   else {
+      if($x &lt; 0) {
+         $w = &apos;minus &apos;;
+         $x = -$x;
+      } else
+         $w = &apos;&apos;;
+      // ... now $x is a non-negative integer.
+
+      if($x &lt; 21)   // 0 to 20
+         $w .= $nwords[$x];
+      else if($x &lt; 100) {   // 21 to 99
+         $w .= $nwords[10 * floor($x/10)];
+         $r = fmod($x, 10);
+         if($r &gt; 0)
+            $w .= &apos;-&apos;. $nwords[$r];
+      } else if($x &lt; 1000) {   // 100 to 999
+         $w .= $nwords[floor($x/100)] .&apos; hundred&apos;;
+         $r = fmod($x, 100);
+         if($r &gt; 0)
+            $w .= &apos; and &apos;. int_to_words($r);
+      } else if($x &lt; 1000000) {   // 1000 to 999999
+         $w .= int_to_words(floor($x/1000)) .&apos; thousand&apos;;
+         $r = fmod($x, 1000);
+         if($r &gt; 0) {
+            $w .= &apos; &apos;;
+            if($r &lt; 100)
+               $w .= &apos;and &apos;;
+            $w .= int_to_words($r);
+         }
+      } else {    //  millions
+         $w .= int_to_words(floor($x/1000000)) .&apos; million&apos;;
+         $r = fmod($x, 1000000);
+         if($r &gt; 0) {
+            $w .= &apos; &apos;;
+            if($r &lt; 100)
+               $word .= &apos;and &apos;;
+            $w .= int_to_words($r);
+         }
+      }
+   }
+   return $w;
+}
+
+?>
+```
+
+
+Usage:
+
+
+```
+<?php
+echo &apos;There are currently &apos;. int_to_words($count) . &apos; members logged on.&apos;;
+?>
+```
   
 
 #

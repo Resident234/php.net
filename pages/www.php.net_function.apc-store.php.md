@@ -2,11 +2,7 @@
 
 
 
-
-
-if you want to store array of objects in apc use ArrayObject wrapper (PHP5).
-
-
+if you want to store array of objects in apc use ArrayObject wrapper (PHP5).<br><br>
 
 ```
 <?php
@@ -27,9 +23,6 @@ print_r($tmp-&gt;getArrayCopy());
 
 ?>
 ```
-
-
-
   
 
 #

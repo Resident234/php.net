@@ -2,31 +2,27 @@
 
 
 
-
-
-Reading the example, it is a bit difficult to understand what exactly to do with this. The example below is a simple example of what you can do this.
-
-
+Reading the example, it is a bit difficult to understand what exactly to do with this. The example below is a simple example of what you can do this.<br><br>
 
 ```
 <?php
 function nums() {
-&#xA0; &#xA0; for ($i = 0; $i &lt; 5; ++$i) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; //get a value from the caller
-&#xA0; &#xA0; &#xA0; &#xA0; $cmd = (yield $i);
-&#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; if($cmd == &apos;stop&apos;)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return;//exit the function
-&#xA0; &#xA0; &#xA0; &#xA0; }&#xA0; &#xA0;&#xA0; 
+    for ($i = 0; $i &lt; 5; ++$i) {
+                //get a value from the caller
+        $cmd = (yield $i);
+        
+        if($cmd == &apos;stop&apos;)
+            return;//exit the function
+        }     
 }
 
 $gen = nums();
 foreach($gen as $v)
 {
-&#xA0; &#xA0; if($v == 3)//we are satisfied
-&#xA0; &#xA0; &#xA0; &#xA0; $gen-&gt;send(&apos;stop&apos;);
-&#xA0; &#xA0; 
-&#xA0; &#xA0; echo &quot;{$v}\n&quot;;
+    if($v == 3)//we are satisfied
+        $gen-&gt;send(&apos;stop&apos;);
+    
+    echo "{$v}\n";
 }
 
 //Output
@@ -36,9 +32,6 @@ foreach($gen as $v)
 3
 ?>
 ```
-
-
-
   
 
 #

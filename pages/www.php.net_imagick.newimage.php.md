@@ -2,11 +2,7 @@
 
 
 
-
-
-The color value (3rd argument) for transparency is &quot;none&quot;.
-
-  
+The color value (3rd argument) for transparency is "none".  
 
 #
 

@@ -2,19 +2,7 @@
 
 
 
-
-
-here&apos;s a rough replacement using mysqli:
-
-if (!function_exists(&apos;mysql_result&apos;)) {
-&#xA0; &#xA0; function mysql_result($result, $number, $field=0) {
-&#xA0; &#xA0; &#xA0; &#xA0; mysqli_data_seek($result, $number);
-&#xA0; &#xA0; &#xA0; &#xA0; $row = mysqli_fetch_array($result);
-&#xA0; &#xA0; &#xA0; &#xA0; return $row[$field];
-&#xA0; &#xA0; }
-}
-
-  
+here&apos;s a rough replacement using mysqli:<br><br>if (!function_exists(&apos;mysql_result&apos;)) {<br>    function mysql_result($result, $number, $field=0) {<br>        mysqli_data_seek($result, $number);<br>        $row = mysqli_fetch_array($result);<br>        return $row[$field];<br>    }<br>}  
 
 #
 

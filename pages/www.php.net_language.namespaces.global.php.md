@@ -2,93 +2,35 @@
 
 
 
-
-
-Included files will default to the global namespace.
-
-
+Included files will default to the global namespace.<br>
 
 ```
 <?php
-
 //test.php
-
 namespace test {
-
-&#xA0; include &apos;test1.inc&apos;;
-
-&#xA0; echo &apos;-&apos;,__NAMESPACE__,&apos;-&lt;br /&gt;&apos;;
-
+  include &apos;test1.inc&apos;;
+  echo &apos;-&apos;,__NAMESPACE__,&apos;-&lt;br /&gt;&apos;;
 }
-
 ?>
 ```
-
-
 
 
 
 
 ```
 <?php
-
 //test1.inc
-
-&#xA0; echo &apos;-&apos;,__NAMESPACE__,&apos;-&lt;br /&gt;&apos;;
-
+  echo &apos;-&apos;,__NAMESPACE__,&apos;-&lt;br /&gt;&apos;;
 ?>
 ```
-
-
-
-
-Results of test.php:
-
-
-
---
-
--test-
-
-  
+<br><br>Results of test.php:<br><br>--<br>-test-  
 
 #
 
-
-
-In namespaced context the Exception class needs to be prefixed with global prefix operator.
-
-
+In namespaced context the Exception class needs to be prefixed with global prefix operator.<br><br>
 
 ```
-<?php
-
-namespace hey\ho\lets\go;
-
-class MyClass
-{
-&#xA0; &#xA0; public function failToCatch()
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; try {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $thing = somethingThrowingAnException();
-&#xA0; &#xA0; &#xA0; &#xA0; } catch (Exception $ex) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // Not catched
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; public function succeedToCatch()
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; try {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $thing = somethingThrowingAnException();
-&#xA0; &#xA0; &#xA0; &#xA0; } catch (\Exception $ex) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // This is now catched
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
-
-}
-
-
-  
+<?php<br><br>namespace hey\ho\lets\go;<br><br>class MyClass<br>{<br>    public function failToCatch()<br>    {<br>        try {<br>            $thing = somethingThrowingAnException();<br>        } catch (Exception $ex) {<br>              // Not catched<br>        }<br>    }<br><br>    public function succeedToCatch()<br>    {<br>        try {<br>            $thing = somethingThrowingAnException();<br>        } catch (\Exception $ex) {<br>              // This is now catched<br>        }<br>    }<br><br>}  
 
 #
 

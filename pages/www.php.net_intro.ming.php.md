@@ -2,12 +2,7 @@
 
 
 
-
-
-Just found out why this is called Ming and LOL&apos;ed.
-Ming is Flash Gordon&apos;s enemy. :D
-
-  
+Just found out why this is called Ming and LOL&apos;ed.<br>Ming is Flash Gordon&apos;s enemy. :D  
 
 #
 

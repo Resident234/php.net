@@ -2,11 +2,7 @@
 
 
 
-
-
-This does not work with mysqlnd and is marked as wontfix: https://bugs.php.net/bug.php?id=52561
-
-  
+This does not work with mysqlnd and is marked as wontfix: https://bugs.php.net/bug.php?id=52561  
 
 #
 

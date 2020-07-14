@@ -2,24 +2,20 @@
 
 
 
-
-
-When extending a class from another namespace that should instantiate a class from within the current namespace, you need to pass on the namespace.
-
-
+When extending a class from another namespace that should instantiate a class from within the current namespace, you need to pass on the namespace.<br><br>
 
 ```
 <?php // File1.php
 namespace foo;
 class A {
-&#xA0; &#xA0; public function factory() {
-&#xA0; &#xA0; &#xA0; &#xA0; return new C;
-&#xA0; &#xA0; }
+    public function factory() {
+        return new C;
+    }
 }
 class C {
-&#xA0; &#xA0; public function tell() {
-&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;foo&quot;;
-&#xA0; &#xA0; }
+    public function tell() {
+        echo "foo";
+    }
 }
 ?>
 ```
@@ -32,9 +28,9 @@ class C {
 namespace bar;
 class B extends \foo\A {}
 class C {
-&#xA0; &#xA0; public function tell() {
-&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;bar&quot;;
-&#xA0; &#xA0; }
+    public function tell() {
+        echo "bar";
+    }
 }
 ?>
 ```
@@ -44,11 +40,11 @@ class C {
 
 ```
 <?php
-include &quot;File1.php&quot;;
-include &quot;File2.php&quot;;
+include "File1.php";
+include "File2.php";
 $b = new bar\B;
 $c = $b-&gt;factory();
-$c-&gt;tell(); // &quot;foo&quot; but you want &quot;bar&quot;
+$c-&gt;tell(); // "foo" but you want "bar"
 ?>
 ```
 
@@ -63,16 +59,16 @@ When extending a class from another namespace that should instantiate a class fr
 <?php // File1.php
 namespace foo;
 class A {
-&#xA0; &#xA0; protected $namespace = __NAMESPACE__;
-&#xA0; &#xA0; public function factory() {
-&#xA0; &#xA0; &#xA0; &#xA0; $c = $this-&gt;namespace . &apos;\C&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; return new $c;
-&#xA0; &#xA0; }
+    protected $namespace = __NAMESPACE__;
+    public function factory() {
+        $c = $this-&gt;namespace . &apos;\C&apos;;
+        return new $c;
+    }
 }
 class C {
-&#xA0; &#xA0; public function tell() {
-&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;foo&quot;;
-&#xA0; &#xA0; }
+    public function tell() {
+        echo "foo";
+    }
 }
 ?>
 ```
@@ -84,12 +80,12 @@ class C {
 <?php // File2.php
 namespace bar;
 class B extends \foo\A {
-&#xA0; &#xA0; protected $namespace = __NAMESPACE__;
+    protected $namespace = __NAMESPACE__;
 }
 class C {
-&#xA0; &#xA0; public function tell() {
-&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;bar&quot;;
-&#xA0; &#xA0; }
+    public function tell() {
+        echo "bar";
+    }
 }
 ?>
 ```
@@ -99,116 +95,64 @@ class C {
 
 ```
 <?php
-include &quot;File1.php&quot;;
-include &quot;File2.php&quot;;
+include "File1.php";
+include "File2.php";
 $b = new bar\B;
 $c = $b-&gt;factory();
-$c-&gt;tell(); // &quot;bar&quot;
+$c-&gt;tell(); // "bar"
 ?>
 ```
-
-
-(it seems that the namespace-backslashes are stripped from the source code in the preview, maybe it works in the main view. If not: fooA was written as \foo\A and barB as bar\B)
-
-  
+<br><br>(it seems that the namespace-backslashes are stripped from the source code in the preview, maybe it works in the main view. If not: fooA was written as \foo\A and barB as bar\B)  
 
 #
 
-
-
-Please be aware of FQCN (Full Qualified Class Name) point.
-
-Many people will have troubles with this:
-
-
-
-
+Please be aware of FQCN (Full Qualified Class Name) point.<br>Many people will have troubles with this:<br><br>
 
 ```
 <?php
 
-
-
 // File1.php
-
 namespace foo;
-
-
 
 class Bar { ... }
 
-
-
 function factory($class) {
-
-&#xA0; &#xA0; return new $class;
-
+    return new $class;
 }
 
-
-
 // File2.php
-
 $bar = \foo\factory(&apos;Bar&apos;); // Will try to instantiate \Bar, not \foo\Bar
-
-
 
 ?>
 ```
-
-
 
 
 To fix that, and also incorporate a 2 step namespace resolution, you can check for \ as first char of $class, and if not present, build manually the FQCN:
 
 
 
-
-
 ```
 <?php
 
-
-
 // File1.php
-
 namespace foo;
 
-
-
 function factory($class) {
+    if ($class[0] != &apos;\\&apos;) {
+        echo &apos;-&gt;&apos;;
+         $class = &apos;\\&apos; . __NAMESPACE__ . &apos;\\&apos; . $class;
+    }
 
-&#xA0; &#xA0; if ($class[0] != &apos;\\&apos;) {
-
-&#xA0; &#xA0; &#xA0; &#xA0; echo &apos;-&gt;&apos;;
-
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $class = &apos;\\&apos; . __NAMESPACE__ . &apos;\\&apos; . $class;
-
-&#xA0; &#xA0; }
-
-
-
-&#xA0; &#xA0; return new $class();
-
+    return new $class();
 }
 
-
-
 // File2.php
-
 $bar = \foo\factory(&apos;Bar&apos;); // Will correctly instantiate \foo\Bar
-
-
 
 $bar2 = \foo\factory(&apos;\anotherfoo\Bar&apos;); // Wil correctly instantiate \anotherfoo\Bar
 
-
-
 ?>
 ```
-
-
-
   
 
 #

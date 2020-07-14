@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-Whole exception-class hierarchy is shown at <a href="http://php.net/manual/en/spl.exceptions.php#spl.exceptions.tree" rel="nofollow" target="_blank">http://php.net/manual/en/spl.exceptions.php#spl.exceptions.tree</a></span>
-</div>
-  
+Whole exception-class hierarchy is shown at http://php.net/manual/en/spl.exceptions.php#spl.exceptions.tree  
 
 #
 

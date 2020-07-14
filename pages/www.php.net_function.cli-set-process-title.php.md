@@ -2,11 +2,7 @@
 
 
 
-
-
-Setting proc title on PHP based daemons is pretty sweet.
-
-  
+Setting proc title on PHP based daemons is pretty sweet.  
 
 #
 

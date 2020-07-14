@@ -2,20 +2,121 @@
 
 
 
+First of all, sorry for my English.<br>Here are two functions to check group membership and some others which can be useful for work with LDAP (Active Directory in this example).<br><br>index.php<br>---------<br><br>
 
-<div class="phpcode"><span class="html">
-First of all, sorry for my English.<br>Here are two functions to check group membership and some others which can be useful for work with LDAP (Active Directory in this example).<br><br>index.php<br>---------<br><br><span class="default">&lt;?php<br><br>$user </span><span class="keyword">= </span><span class="string">&apos;bob&apos;</span><span class="keyword">;<br></span><span class="default">$password </span><span class="keyword">= </span><span class="string">&apos;zhlob&apos;</span><span class="keyword">;<br></span><span class="default">$host </span><span class="keyword">= </span><span class="string">&apos;myldap&apos;</span><span class="keyword">;<br></span><span class="default">$domain </span><span class="keyword">= </span><span class="string">&apos;mydomain.ex&apos;</span><span class="keyword">;<br></span><span class="default">$basedn </span><span class="keyword">= </span><span class="string">&apos;dc=mydomain,dc=ex&apos;</span><span class="keyword">;<br></span><span class="default">$group </span><span class="keyword">= </span><span class="string">&apos;SomeGroup&apos;</span><span class="keyword">;<br><br></span><span class="default">$ad </span><span class="keyword">= </span><span class="default">ldap_connect</span><span class="keyword">(</span><span class="string">&quot;ldap://</span><span class="keyword">{</span><span class="default">$host</span><span class="keyword">}</span><span class="string">.</span><span class="keyword">{</span><span class="default">$domain</span><span class="keyword">}</span><span class="string">&quot;</span><span class="keyword">) or die(</span><span class="string">&apos;Could not connect to LDAP server.&apos;</span><span class="keyword">);<br></span><span class="default">ldap_set_option</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">LDAP_OPT_PROTOCOL_VERSION</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">);<br></span><span class="default">ldap_set_option</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">LDAP_OPT_REFERRALS</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br>@</span><span class="default">ldap_bind</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="string">&quot;</span><span class="keyword">{</span><span class="default">$user</span><span class="keyword">}</span><span class="string">@</span><span class="keyword">{</span><span class="default">$domain</span><span class="keyword">}</span><span class="string">&quot;</span><span class="keyword">, </span><span class="default">$password</span><span class="keyword">) or die(</span><span class="string">&apos;Could not bind to AD.&apos;</span><span class="keyword">);<br></span><span class="default">$userdn </span><span class="keyword">= </span><span class="default">getDN</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$user</span><span class="keyword">, </span><span class="default">$basedn</span><span class="keyword">);<br>if (</span><span class="default">checkGroupEx</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$userdn</span><span class="keyword">, </span><span class="default">getDN</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$group</span><span class="keyword">, </span><span class="default">$basedn</span><span class="keyword">))) {<br></span><span class="comment">//if (checkGroup($ad, $userdn, getDN($ad, $group, $basedn))) {<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="string">&quot;You&apos;re authorized as &quot;</span><span class="keyword">.</span><span class="default">getCN</span><span class="keyword">(</span><span class="default">$userdn</span><span class="keyword">);<br>} else {<br>&#xA0; &#xA0; echo </span><span class="string">&apos;Authorization failed&apos;</span><span class="keyword">;<br>}<br></span><span class="default">ldap_unbind</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">);<br><br></span><span class="comment">/*<br>* This function searchs in LDAP tree ($ad -LDAP link identifier)<br>* entry specified by samaccountname and returns its DN or epmty<br>* string on failure.<br>*/<br></span><span class="keyword">function </span><span class="default">getDN</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$samaccountname</span><span class="keyword">, </span><span class="default">$basedn</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$attributes </span><span class="keyword">= array(</span><span class="string">&apos;dn&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">ldap_search</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$basedn</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&quot;(samaccountname=</span><span class="keyword">{</span><span class="default">$samaccountname</span><span class="keyword">}</span><span class="string">)&quot;</span><span class="keyword">, </span><span class="default">$attributes</span><span class="keyword">);<br>&#xA0; &#xA0; if (</span><span class="default">$result </span><span class="keyword">=== </span><span class="default">FALSE</span><span class="keyword">) { return </span><span class="string">&apos;&apos;</span><span class="keyword">; }<br>&#xA0; &#xA0; </span><span class="default">$entries </span><span class="keyword">= </span><span class="default">ldap_get_entries</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$result</span><span class="keyword">);<br>&#xA0; &#xA0; if (</span><span class="default">$entries</span><span class="keyword">[</span><span class="string">&apos;count&apos;</span><span class="keyword">]&gt;</span><span class="default">0</span><span class="keyword">) { return </span><span class="default">$entries</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="string">&apos;dn&apos;</span><span class="keyword">]; }<br>&#xA0; &#xA0; else { return </span><span class="string">&apos;&apos;</span><span class="keyword">; };<br>}<br><br></span><span class="comment">/*<br>* This function retrieves and returns CN from given DN<br>*/<br></span><span class="keyword">function </span><span class="default">getCN</span><span class="keyword">(</span><span class="default">$dn</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">&apos;/[^,]*/&apos;</span><span class="keyword">, </span><span class="default">$dn</span><span class="keyword">, </span><span class="default">$matchs</span><span class="keyword">, </span><span class="default">PREG_OFFSET_CAPTURE</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">);<br>&#xA0; &#xA0; return </span><span class="default">$matchs</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">];<br>}<br><br></span><span class="comment">/*<br>* This function checks group membership of the user, searching only<br>* in specified group (not recursively).<br>*/<br></span><span class="keyword">function </span><span class="default">checkGroup</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$userdn</span><span class="keyword">, </span><span class="default">$groupdn</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$attributes </span><span class="keyword">= array(</span><span class="string">&apos;members&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">ldap_read</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$userdn</span><span class="keyword">, </span><span class="string">&quot;(memberof=</span><span class="keyword">{</span><span class="default">$groupdn</span><span class="keyword">}</span><span class="string">)&quot;</span><span class="keyword">, </span><span class="default">$attributes</span><span class="keyword">);<br>&#xA0; &#xA0; if (</span><span class="default">$result </span><span class="keyword">=== </span><span class="default">FALSE</span><span class="keyword">) { return </span><span class="default">FALSE</span><span class="keyword">; };<br>&#xA0; &#xA0; </span><span class="default">$entries </span><span class="keyword">= </span><span class="default">ldap_get_entries</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$result</span><span class="keyword">);<br>&#xA0; &#xA0; return (</span><span class="default">$entries</span><span class="keyword">[</span><span class="string">&apos;count&apos;</span><span class="keyword">] &gt; </span><span class="default">0</span><span class="keyword">);<br>}<br><br></span><span class="comment">/*<br>* This function checks group membership of the user, searching<br>* in specified group and groups which is its members (recursively).<br>*/<br></span><span class="keyword">function </span><span class="default">checkGroupEx</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$userdn</span><span class="keyword">, </span><span class="default">$groupdn</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$attributes </span><span class="keyword">= array(</span><span class="string">&apos;memberof&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">ldap_read</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$userdn</span><span class="keyword">, </span><span class="string">&apos;(objectclass=*)&apos;</span><span class="keyword">, </span><span class="default">$attributes</span><span class="keyword">);<br>&#xA0; &#xA0; if (</span><span class="default">$result </span><span class="keyword">=== </span><span class="default">FALSE</span><span class="keyword">) { return </span><span class="default">FALSE</span><span class="keyword">; };<br>&#xA0; &#xA0; </span><span class="default">$entries </span><span class="keyword">= </span><span class="default">ldap_get_entries</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$result</span><span class="keyword">);<br>&#xA0; &#xA0; if (</span><span class="default">$entries</span><span class="keyword">[</span><span class="string">&apos;count&apos;</span><span class="keyword">] &lt;= </span><span class="default">0</span><span class="keyword">) { return </span><span class="default">FALSE</span><span class="keyword">; };<br>&#xA0; &#xA0; if (empty(</span><span class="default">$entries</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="string">&apos;memberof&apos;</span><span class="keyword">])) { return </span><span class="default">FALSE</span><span class="keyword">; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$entries</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="string">&apos;memberof&apos;</span><span class="keyword">][</span><span class="string">&apos;count&apos;</span><span class="keyword">]; </span><span class="default">$i</span><span class="keyword">++) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$entries</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="string">&apos;memberof&apos;</span><span class="keyword">][</span><span class="default">$i</span><span class="keyword">] == </span><span class="default">$groupdn</span><span class="keyword">) { return </span><span class="default">TRUE</span><span class="keyword">; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; elseif (</span><span class="default">checkGroupEx</span><span class="keyword">(</span><span class="default">$ad</span><span class="keyword">, </span><span class="default">$entries</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">][</span><span class="string">&apos;memberof&apos;</span><span class="keyword">][</span><span class="default">$i</span><span class="keyword">], </span><span class="default">$groupdn</span><span class="keyword">)) { return </span><span class="default">TRUE</span><span class="keyword">; };<br>&#xA0; &#xA0; &#xA0; &#xA0; };<br>&#xA0; &#xA0; };<br>&#xA0; &#xA0; return </span><span class="default">FALSE</span><span class="keyword">;<br>}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+$user = &apos;bob&apos;;
+$password = &apos;zhlob&apos;;
+$host = &apos;myldap&apos;;
+$domain = &apos;mydomain.ex&apos;;
+$basedn = &apos;dc=mydomain,dc=ex&apos;;
+$group = &apos;SomeGroup&apos;;
+
+$ad = ldap_connect("ldap://{$host}.{$domain}") or die(&apos;Could not connect to LDAP server.&apos;);
+ldap_set_option($ad, LDAP_OPT_PROTOCOL_VERSION, 3);
+ldap_set_option($ad, LDAP_OPT_REFERRALS, 0);
+@ldap_bind($ad, "{$user}@{$domain}", $password) or die(&apos;Could not bind to AD.&apos;);
+$userdn = getDN($ad, $user, $basedn);
+if (checkGroupEx($ad, $userdn, getDN($ad, $group, $basedn))) {
+//if (checkGroup($ad, $userdn, getDN($ad, $group, $basedn))) {
+    echo "You&apos;re authorized as ".getCN($userdn);
+} else {
+    echo &apos;Authorization failed&apos;;
+}
+ldap_unbind($ad);
+
+/*
+* This function searchs in LDAP tree ($ad -LDAP link identifier)
+* entry specified by samaccountname and returns its DN or epmty
+* string on failure.
+*/
+function getDN($ad, $samaccountname, $basedn) {
+    $attributes = array(&apos;dn&apos;);
+    $result = ldap_search($ad, $basedn,
+        "(samaccountname={$samaccountname})", $attributes);
+    if ($result === FALSE) { return &apos;&apos;; }
+    $entries = ldap_get_entries($ad, $result);
+    if ($entries[&apos;count&apos;]&gt;0) { return $entries[0][&apos;dn&apos;]; }
+    else { return &apos;&apos;; };
+}
+
+/*
+* This function retrieves and returns CN from given DN
+*/
+function getCN($dn) {
+    preg_match(&apos;/[^,]*/&apos;, $dn, $matchs, PREG_OFFSET_CAPTURE, 3);
+    return $matchs[0][0];
+}
+
+/*
+* This function checks group membership of the user, searching only
+* in specified group (not recursively).
+*/
+function checkGroup($ad, $userdn, $groupdn) {
+    $attributes = array(&apos;members&apos;);
+    $result = ldap_read($ad, $userdn, "(memberof={$groupdn})", $attributes);
+    if ($result === FALSE) { return FALSE; };
+    $entries = ldap_get_entries($ad, $result);
+    return ($entries[&apos;count&apos;] &gt; 0);
+}
+
+/*
+* This function checks group membership of the user, searching
+* in specified group and groups which is its members (recursively).
+*/
+function checkGroupEx($ad, $userdn, $groupdn) {
+    $attributes = array(&apos;memberof&apos;);
+    $result = ldap_read($ad, $userdn, &apos;(objectclass=*)&apos;, $attributes);
+    if ($result === FALSE) { return FALSE; };
+    $entries = ldap_get_entries($ad, $result);
+    if ($entries[&apos;count&apos;] &lt;= 0) { return FALSE; };
+    if (empty($entries[0][&apos;memberof&apos;])) { return FALSE; } else {
+        for ($i = 0; $i &lt; $entries[0][&apos;memberof&apos;][&apos;count&apos;]; $i++) {
+            if ($entries[0][&apos;memberof&apos;][$i] == $groupdn) { return TRUE; }
+            elseif (checkGroupEx($ad, $entries[0][&apos;memberof&apos;][$i], $groupdn)) { return TRUE; };
+        };
+    };
+    return FALSE;
+}
+
+?>
+```
   
 
 #
 
+There is a lot of confusion about accountExpires, pwdLastSet, lastLogon and badPasswordTime active directory fields.<br><br>All of them are using "Interval" date/time format with a value that represents the number of 100-nanosecond intervals since January 1, 1601 (UTC, and a value of 0 or 0x7FFFFFFFFFFFFFFF, 9223372036854775807, indicates that the account never expires): https://msdn.microsoft.com/en-us/library/ms675098(v=vs.85).aspx<br><br>So if you need to translate it from/to UNIX timestamp you can easily calculate the difference with:<br><br>
 
-<div class="phpcode"><span class="html">
-There is a lot of confusion about accountExpires, pwdLastSet, lastLogon and badPasswordTime active directory fields.<br><br>All of them are using &quot;Interval&quot; date/time format with a value that represents the number of 100-nanosecond intervals since January 1, 1601 (UTC, and a value of 0 or 0x7FFFFFFFFFFFFFFF, 9223372036854775807, indicates that the account never expires): <a href="https://msdn.microsoft.com/en-us/library/ms675098(v=vs.85" rel="nofollow" target="_blank">https://msdn.microsoft.com/en-us/library/ms675098(v=vs.85</a>).aspx<br><br>So if you need to translate it from/to UNIX timestamp you can easily calculate the difference with:<br><br><span class="default">&lt;?php<br>$datetime1 </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">(</span><span class="string">&apos;1601-01-01&apos;</span><span class="keyword">);<br></span><span class="default">$datetime2 </span><span class="keyword">= new </span><span class="default">DateTime</span><span class="keyword">(</span><span class="string">&apos;1970-01-01&apos;</span><span class="keyword">);<br></span><span class="default">$interval </span><span class="keyword">= </span><span class="default">$datetime1</span><span class="keyword">-&gt;</span><span class="default">diff</span><span class="keyword">(</span><span class="default">$datetime2</span><span class="keyword">);<br>echo (</span><span class="default">$interval</span><span class="keyword">-&gt;</span><span class="default">days </span><span class="keyword">* </span><span class="default">24 </span><span class="keyword">* </span><span class="default">60 </span><span class="keyword">* </span><span class="default">60</span><span class="keyword">) . </span><span class="string">&quot; seconds\n&quot;</span><span class="keyword">;<br></span><span class="default">?&gt;<br></span><br>The difference between both dates is 11644473600 seconds. Don&apos;t rely on floating point calculations nor other numbers that probably were calculated badly (including time zone or something similar).<br><br>Now you can convert from LDAP field:<br><br><span class="default">&lt;?php<br>$lastlogon </span><span class="keyword">= </span><span class="default">$info</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">][</span><span class="string">&apos;lastlogon&apos;</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">];<br></span><span class="comment">// divide by 10.000.000 to get seconds from 100-nanosecond intervals<br></span><span class="default">$winInterval </span><span class="keyword">= </span><span class="default">round</span><span class="keyword">(</span><span class="default">$lastlogon </span><span class="keyword">/ </span><span class="default">10000000</span><span class="keyword">);<br></span><span class="comment">// substract seconds from 1601-01-01 -&gt; 1970-01-01<br></span><span class="default">$unixTimestamp </span><span class="keyword">= (</span><span class="default">$winInterval </span><span class="keyword">- </span><span class="default">11644473600</span><span class="keyword">);<br></span><span class="comment">// show date/time in local time zone<br></span><span class="keyword">echo </span><span class="default">date</span><span class="keyword">(</span><span class="string">&quot;Y-m-d H:i:s&quot;</span><span class="keyword">, </span><span class="default">$unixTimestamp</span><span class="keyword">) .</span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br></span><span class="default">?&gt;<br></span><br>Hope it helps.</span>
-</div>
-  
+```
+<?php
+$datetime1 = new DateTime(&apos;1601-01-01&apos;);
+$datetime2 = new DateTime(&apos;1970-01-01&apos;);
+$interval = $datetime1-&gt;diff($datetime2);
+echo ($interval-&gt;days * 24 * 60 * 60) . " seconds\n";
+?>
+```
+
+
+The difference between both dates is 11644473600 seconds. Don&apos;t rely on floating point calculations nor other numbers that probably were calculated badly (including time zone or something similar).
+
+Now you can convert from LDAP field:
+
+
+
+```
+<?php
+$lastlogon = $info[$i][&apos;lastlogon&apos;][0];
+// divide by 10.000.000 to get seconds from 100-nanosecond intervals
+$winInterval = round($lastlogon / 10000000);
+// substract seconds from 1601-01-01 -&gt; 1970-01-01
+$unixTimestamp = ($winInterval - 11644473600);
+// show date/time in local time zone
+echo date("Y-m-d H:i:s", $unixTimestamp) ."\n";
+?>
+```
+<br><br>Hope it helps.  
 
 #
 

@@ -2,18 +2,7 @@
 
 
 
-
-
-Take care that that &quot;PHP deflate&quot; != &quot;HTTP deflate&quot;.
-
-The deflate encoding used in HTTP is actually zlib encoded.
-
-This is what PHP functions return:
-gzencode() == gzip
-gzcompress() == zlib (aka. HTTP deflate)
-gzdeflate()&#xA0; == *raw* deflate encoding
-
-  
+Take care that that "PHP deflate" != "HTTP deflate".<br><br>The deflate encoding used in HTTP is actually zlib encoded.<br><br>This is what PHP functions return:<br>gzencode() == gzip<br>gzcompress() == zlib (aka. HTTP deflate)<br>gzdeflate()  == *raw* deflate encoding  
 
 #
 

@@ -2,11 +2,32 @@
 
 
 
+Just in case it isn&apos;t clear (like I had), an example:<br><br>
 
-<div class="phpcode"><span class="html">
-Just in case it isn&apos;t clear (like I had), an example:<br><br><span class="default">&lt;?php<br><br>$domDocument </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">(</span><span class="string">&apos;1.0&apos;</span><span class="keyword">, </span><span class="string">&quot;UTF-8&quot;</span><span class="keyword">);<br></span><span class="default">$domElement </span><span class="keyword">= </span><span class="default">$domDocument</span><span class="keyword">-&gt;</span><span class="default">createElement</span><span class="keyword">(</span><span class="string">&apos;field&apos;</span><span class="keyword">,</span><span class="string">&apos;some random data&apos;</span><span class="keyword">);<br></span><span class="default">$domAttribute </span><span class="keyword">= </span><span class="default">$domDocument</span><span class="keyword">-&gt;</span><span class="default">createAttribute</span><span class="keyword">(</span><span class="string">&apos;name&apos;</span><span class="keyword">);<br><br></span><span class="comment">// Value for the created attribute<br></span><span class="default">$domAttribute</span><span class="keyword">-&gt;</span><span class="default">value </span><span class="keyword">= </span><span class="string">&apos;attributevalue&apos;</span><span class="keyword">;<br><br></span><span class="comment">// Don&apos;t forget to append it to the element<br></span><span class="default">$domElement</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">(</span><span class="default">$domAttribute</span><span class="keyword">);<br><br></span><span class="comment">// Append it to the document itself<br></span><span class="default">$domDocument</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">(</span><span class="default">$domElement</span><span class="keyword">);<br><br></span><span class="default">?&gt;<br></span><br>Will output:<br>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>&lt;field name=&quot;attributevalue&quot;&gt;some random data&lt;/field&gt;</span>
-</div>
-  
+```
+<?php
+
+$domDocument = new DOMDocument(&apos;1.0&apos;, "UTF-8");
+$domElement = $domDocument-&gt;createElement(&apos;field&apos;,&apos;some random data&apos;);
+$domAttribute = $domDocument-&gt;createAttribute(&apos;name&apos;);
+
+// Value for the created attribute
+$domAttribute-&gt;value = &apos;attributevalue&apos;;
+
+// Don&apos;t forget to append it to the element
+$domElement-&gt;appendChild($domAttribute);
+
+// Append it to the document itself
+$domDocument-&gt;appendChild($domElement);
+
+?>
+```
+
+
+Will output:
+&lt;?xml version="1.0" encoding="UTF-8"?>
+```
+<br>&lt;field name="attributevalue"&gt;some random data&lt;/field&gt;  
 
 #
 

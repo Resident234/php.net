@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-If the class doesn&apos;t have a property with the given name, a ReflectionException will be raised.</span>
-</div>
-  
+If the class doesn&apos;t have a property with the given name, a ReflectionException will be raised.  
 
 #
 

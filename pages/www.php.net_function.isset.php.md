@@ -2,136 +2,361 @@
 
 
 
+I, too, was dismayed to find that isset($foo) returns false if ($foo == null). Here&apos;s an (awkward) way around it.<br><br>unset($foo);<br>if (compact(&apos;foo&apos;) != array()) {<br>  do_your_thing();<br>}<br><br>Of course, that is very non-intuitive, long, hard-to-understand, and kludgy. Better to design your code so you don&apos;t depend on the difference between an unset variable and a variable with the value null. But "better" only because PHP has made this weird development choice.<br><br>In my thinking this was a mistake in the development of PHP. The name ("isset") should describe the function and not have the desciption be "is set AND is not null". If it was done properly a programmer could very easily do (isset($var) || is_null($var)) if they wanted to check for this!<br><br>A variable set to null is a different state than a variable not set - there should be some easy way to differentiate. Just my (pointless) $0.02.  
 
-<div class="phpcode"><span class="html">
-I, too, was dismayed to find that isset($foo) returns false if ($foo == null). Here&apos;s an (awkward) way around it.<br><br>unset($foo);<br>if (compact(&apos;foo&apos;) != array()) {<br>&#xA0; do_your_thing();<br>}<br><br>Of course, that is very non-intuitive, long, hard-to-understand, and kludgy. Better to design your code so you don&apos;t depend on the difference between an unset variable and a variable with the value null. But &quot;better&quot; only because PHP has made this weird development choice.<br><br>In my thinking this was a mistake in the development of PHP. The name (&quot;isset&quot;) should describe the function and not have the desciption be &quot;is set AND is not null&quot;. If it was done properly a programmer could very easily do (isset($var) || is_null($var)) if they wanted to check for this!<br><br>A variable set to null is a different state than a variable not set - there should be some easy way to differentiate. Just my (pointless) $0.02.</span>
-</div>
+#
+
+"empty() is the opposite of (boolean) var, except that no warning is generated when the variable is not set."<br><br>So essentially<br>
+
+```
+<?php
+if (isset($var) &amp;&amp; $var)
+?>
+```
+
+is the same as
+
+
+```
+<?php
+if (!empty($var))
+?>
+```
+<br>doesn&apos;t it? :)<br><br>!empty() mimics the chk() function posted before.  
+
+#
+
+You can safely use isset to check properties and subproperties of objects directly. So instead of writing<br><br>    isset($abc) &amp;&amp; isset($abc-&gt;def) &amp;&amp; isset($abc-&gt;def-&gt;ghi)<br><br>or in a shorter form<br><br>    isset($abc, $abc-&gt;def, $abc-&gt;def-&gt;ghi)<br><br>you can just write<br><br>    isset ($abc-&gt;def-&gt;ghi)<br><br>without raising any errors, warnings or notices.<br><br>Examples<br>
+
+```
+<?php
+    $abc = (object) array("def" =&gt; 123);
+    var_dump(isset($abc));                // bool(true)
+    var_dump(isset($abc-&gt;def));           // bool(true)
+    var_dump(isset($abc-&gt;def-&gt;ghi));      // bool(false)
+    var_dump(isset($abc-&gt;def-&gt;ghi-&gt;jkl)); // bool(false)
+    var_dump(isset($def));                // bool(false)
+    var_dump(isset($def-&gt;ghi));           // bool(false)
+    var_dump(isset($def-&gt;ghi-&gt;jkl));      // bool(false)
+
+    var_dump($abc);                       // object(stdClass)#1 (1) { ["def"] =&gt; int(123) }
+    var_dump($abc-&gt;def);                  // int(123)
+    var_dump($abc-&gt;def-&gt;ghi);             // null / E_NOTICE: Trying to get property of non-object
+    var_dump($abc-&gt;def-&gt;ghi-&gt;jkl);        // null / E_NOTICE: Trying to get property of non-object
+    var_dump($def);                       // null / E_NOTICE: Trying to get property of non-object
+    var_dump($def-&gt;ghi);                  // null / E_NOTICE: Trying to get property of non-object
+    var_dump($def-&gt;ghi-&gt;jkl);             // null / E_NOTICE: Trying to get property of non-object
+?>
+```
   
 
 #
 
+How to test for a variable actually existing, including being set to null. This will prevent errors when passing to functions.<br><br>
 
-<div class="phpcode"><span class="html">
-&quot;empty() is the opposite of (boolean) var, except that no warning is generated when the variable is not set.&quot;<br><br>So essentially<br><span class="default">&lt;?php<br></span><span class="keyword">if (isset(</span><span class="default">$var</span><span class="keyword">) &amp;&amp; </span><span class="default">$var</span><span class="keyword">)<br></span><span class="default">?&gt;<br></span>is the same as<br><span class="default">&lt;?php<br></span><span class="keyword">if (!empty(</span><span class="default">$var</span><span class="keyword">))<br></span><span class="default">?&gt;<br></span>doesn&apos;t it? :)<br><br>!empty() mimics the chk() function posted before.</span>
-</div>
+```
+<?php
+// false
+var_export(
+  array_key_exists(&apos;myvar&apos;, get_defined_vars())
+);
+
+$myvar;
+// false
+var_export(
+  array_key_exists(&apos;myvar&apos;, get_defined_vars())
+);
+
+$myvar = null;
+// true
+var_export(
+  array_key_exists(&apos;myvar&apos;, get_defined_vars())
+);
+
+unset($myvar);
+// false
+var_export(
+  array_key_exists(&apos;myvar&apos;, get_defined_vars())
+);
+
+if (array_key_exists(&apos;myvar&apos;, get_defined_vars())) {
+  myfunction($myvar);
+}
+?>
+```
+<br><br>Note: you can&apos;t turn this into a function (e.g. is_defined($myvar)) because get_defined_vars() only gets the variables in the current scope and entering a function changes the scope.  
+
+#
+
+in PHP5, if you have <br><br>&lt;?PHP<br>class Foo<br>{<br>    protected $data = array(&apos;bar&apos; =&gt; null);<br><br>    function __get($p)<br>    {<br>        if( isset($this-&gt;data[$p]) ) return $this-&gt;data[$p];<br>    }<br>}<br>?>
+```
+
+
+and
+&lt;?PHP
+$foo = new Foo;
+echo isset($foo-&gt;bar);
+?>
+```
+<br>will always echo &apos;false&apos;. because the isset() accepts VARIABLES as it parameters, but in this case, $foo-&gt;bar is NOT a VARIABLE. it is a VALUE returned from the __get() method of the class Foo. thus the isset($foo-&gt;bar) expreesion will always equal &apos;false&apos;.  
+
+#
+
+The new (as of PHP7) &apos;null coalesce operator&apos; allows shorthand isset. You can use it like so:<br><br>
+
+```
+<?php
+// Fetches the value of $_GET[&apos;user&apos;] and returns &apos;nobody&apos;
+// if it does not exist.
+$username = $_GET[&apos;user&apos;] ?? &apos;nobody&apos;;
+// This is equivalent to:
+$username = isset($_GET[&apos;user&apos;]) ? $_GET[&apos;user&apos;] : &apos;nobody&apos;;
+
+// Coalescing can be chained: this will return the first
+// defined value out of $_GET[&apos;user&apos;], $_POST[&apos;user&apos;], and
+// &apos;nobody&apos;.
+$username = $_GET[&apos;user&apos;] ?? $_POST[&apos;user&apos;] ?? &apos;nobody&apos;;
+?>
+```
+<br><br>Quoted from http://php.net/manual/en/migration70.new-features.php#migration70.new-features.null-coalesce-op  
+
+#
+
+I tried the example posted previously by Slawek:<br><br>$foo = &apos;a little string&apos;;<br>echo isset($foo)?&apos;yes &apos;:&apos;no &apos;, isset($foo[&apos;aaaa&apos;])?&apos;yes &apos;:&apos;no &apos;;<br><br>He got yes yes, but he didn&apos;t say what version of PHP he was using.<br><br>I tried this on PHP 5.0.5 and got:  yes no<br><br>But on PHP 4.3.5 I got:  yes yes<br><br>Apparently, PHP4 converts the the string &apos;aaaa&apos; to zero and then returns the string character at that position within the string $foo, when $foo is not an array. That means you can&apos;t assume you are dealing with an array, even if you used an expression such as isset($foo[&apos;aaaa&apos;][&apos;bbb&apos;][&apos;cc&apos;][&apos;d&apos;]), because it will return true also if any part is a string.<br><br>PHP5 does not do this. If $foo is a string, the index must actually be numeric (e.g. $foo[0]) for it to return the indexed character.  
+
+#
+
+Careful with this function "ifsetfor" by soapergem, passing by reference means that if, like the example $_GET[&apos;id&apos;], the argument is an array index, it will be created in the original array (with a null value), thus causing posible trouble with the following code. At least in PHP 5.<br><br>For example:<br><br>
+
+```
+<?php
+$a = array();
+print_r($a);
+ifsetor($a["unsetindex"], &apos;default&apos;);
+print_r($a);
+?>
+```
+<br><br>will print <br><br>Array<br>(<br>)<br>Array<br>(<br>    [unsetindex] =&gt; <br>)<br><br>Any foreach or similar will be different before and after the call.  
+
+#
+
+1) Note that isset($var) doesn&apos;t distinguish the two cases when $var is undefined, or is null. Evidence is in the following code.<br><br>
+
+```
+<?php
+unset($undefined);
+$null = null;
+if (true === isset($undefined)){echo &apos;isset($undefined) === true&apos;} else {echo &apos;isset($undefined) === false&apos;); // &apos;isset($undefined) === false&apos;
+if (true === isset($null)){echo &apos;isset($null) === true&apos;} else {echo &apos;isset($null) === false&apos;);              // &apos;isset($null)      === false&apos;
+?>
+```
+
+
+2) If you want to distinguish undefined variable with a defined variable with a null value, then use array_key_exist
+
+
+
+```
+<?php
+unset($undefined);
+$null = null;
+
+if (true !== array_key_exists(&apos;undefined&apos;, get_defined_vars())) {echo &apos;$undefined does not exist&apos;;} else {echo &apos;$undefined exists&apos;;} // &apos;$undefined does not exist&apos;
+if (true === array_key_exists(&apos;null&apos;, get_defined_vars())) {echo &apos;$null exists&apos;;} else {echo &apos;$null does not exist&apos;;}                // &apos;$null exists&apos;
+?>
+```
   
 
 #
 
+To organize some of the frequently used functions..<br><br>
 
-<div class="phpcode"><span class="html">
-You can safely use isset to check properties and subproperties of objects directly. So instead of writing<br><br>&#xA0; &#xA0; isset($abc) &amp;&amp; isset($abc-&gt;def) &amp;&amp; isset($abc-&gt;def-&gt;ghi)<br><br>or in a shorter form<br><br>&#xA0; &#xA0; isset($abc, $abc-&gt;def, $abc-&gt;def-&gt;ghi)<br><br>you can just write<br><br>&#xA0; &#xA0; isset ($abc-&gt;def-&gt;ghi)<br><br>without raising any errors, warnings or notices.<br><br>Examples<br><span class="default">&lt;?php<br>&#xA0; &#xA0; $abc </span><span class="keyword">= (object) array(</span><span class="string">&quot;def&quot; </span><span class="keyword">=&gt; </span><span class="default">123</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(isset(</span><span class="default">$abc</span><span class="keyword">));&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// bool(true)<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(isset(</span><span class="default">$abc</span><span class="keyword">-&gt;</span><span class="default">def</span><span class="keyword">));&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="comment">// bool(true)<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(isset(</span><span class="default">$abc</span><span class="keyword">-&gt;</span><span class="default">def</span><span class="keyword">-&gt;</span><span class="default">ghi</span><span class="keyword">));&#xA0; &#xA0; &#xA0; </span><span class="comment">// bool(false)<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(isset(</span><span class="default">$abc</span><span class="keyword">-&gt;</span><span class="default">def</span><span class="keyword">-&gt;</span><span class="default">ghi</span><span class="keyword">-&gt;</span><span class="default">jkl</span><span class="keyword">)); </span><span class="comment">// bool(false)<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(isset(</span><span class="default">$def</span><span class="keyword">));&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// bool(false)<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(isset(</span><span class="default">$def</span><span class="keyword">-&gt;</span><span class="default">ghi</span><span class="keyword">));&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="comment">// bool(false)<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(isset(</span><span class="default">$def</span><span class="keyword">-&gt;</span><span class="default">ghi</span><span class="keyword">-&gt;</span><span class="default">jkl</span><span class="keyword">));&#xA0; &#xA0; &#xA0; </span><span class="comment">// bool(false)<br><br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$abc</span><span class="keyword">);&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="comment">// object(stdClass)#1 (1) { [&quot;def&quot;] =&gt; int(123) }<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$abc</span><span class="keyword">-&gt;</span><span class="default">def</span><span class="keyword">);&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// int(123)<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$abc</span><span class="keyword">-&gt;</span><span class="default">def</span><span class="keyword">-&gt;</span><span class="default">ghi</span><span class="keyword">);&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="comment">// null / E_NOTICE: Trying to get property of non-object<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$abc</span><span class="keyword">-&gt;</span><span class="default">def</span><span class="keyword">-&gt;</span><span class="default">ghi</span><span class="keyword">-&gt;</span><span class="default">jkl</span><span class="keyword">);&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// null / E_NOTICE: Trying to get property of non-object<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$def</span><span class="keyword">);&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="comment">// null / E_NOTICE: Trying to get property of non-object<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$def</span><span class="keyword">-&gt;</span><span class="default">ghi</span><span class="keyword">);&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// null / E_NOTICE: Trying to get property of non-object<br>&#xA0; &#xA0; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$def</span><span class="keyword">-&gt;</span><span class="default">ghi</span><span class="keyword">-&gt;</span><span class="default">jkl</span><span class="keyword">);&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="comment">// null / E_NOTICE: Trying to get property of non-object<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+/**
+ * Returns field of variable (arr[key] or obj-&gt;prop), otherwise the third parameter
+ * @param array/object $arr_or_obj
+ * @param string $key_or_prop
+ * @param mixed $else
+ */
+function nz($arr_or_obj, $key_or_prop, $else){
+  $result = $else;
+  if(isset($arr_or_obj)){
+    if(is_array($arr_or_obj){
+      if(isset($arr_or_obj[$key_or_prop]))
+        $result = $arr_or_obj[$key_or_prop];
+    }elseif(is_object($arr_or_object))
+      if(isset($arr_or_obj-&gt;$key_or_prop))
+        $result = $arr_or_obj-&gt;$key_or_prop;
+    }
+  }
+  return $result;
+}
+
+/**
+ * Returns integer value using nz()
+ */
+function nz_int($arr_or_obj, $key_or_prop, $else){
+  return intval(nz($arr_or_obj, $key_or_prop, $else));
+}
+
+$my_id = nz_int($_REQUEST, &apos;id&apos;, 0);
+if($my_id &gt; 0){
+  //why?
+}
+?>
+```
   
 
 #
 
+Sometimes you have to check if an array has some keys. To achieve it you can use "isset" like this: isset($array[&apos;key1&apos;], $array[&apos;key2&apos;], $array[&apos;key3&apos;], $array[&apos;key4&apos;])<br>You have to write $array all times and it is reiterative if you use same array each time.<br><br>With this simple function you can check if an array has some keys:<br><br>
 
-<div class="phpcode"><span class="html">
-How to test for a variable actually existing, including being set to null. This will prevent errors when passing to functions.<br><br><span class="default">&lt;?php<br></span><span class="comment">// false<br></span><span class="default">var_export</span><span class="keyword">(<br>&#xA0; </span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="string">&apos;myvar&apos;</span><span class="keyword">, </span><span class="default">get_defined_vars</span><span class="keyword">())<br>);<br><br></span><span class="default">$myvar</span><span class="keyword">;<br></span><span class="comment">// false<br></span><span class="default">var_export</span><span class="keyword">(<br>&#xA0; </span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="string">&apos;myvar&apos;</span><span class="keyword">, </span><span class="default">get_defined_vars</span><span class="keyword">())<br>);<br><br></span><span class="default">$myvar </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br></span><span class="comment">// true<br></span><span class="default">var_export</span><span class="keyword">(<br>&#xA0; </span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="string">&apos;myvar&apos;</span><span class="keyword">, </span><span class="default">get_defined_vars</span><span class="keyword">())<br>);<br><br>unset(</span><span class="default">$myvar</span><span class="keyword">);<br></span><span class="comment">// false<br></span><span class="default">var_export</span><span class="keyword">(<br>&#xA0; </span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="string">&apos;myvar&apos;</span><span class="keyword">, </span><span class="default">get_defined_vars</span><span class="keyword">())<br>);<br><br>if (</span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="string">&apos;myvar&apos;</span><span class="keyword">, </span><span class="default">get_defined_vars</span><span class="keyword">())) {<br>&#xA0; </span><span class="default">myfunction</span><span class="keyword">(</span><span class="default">$myvar</span><span class="keyword">);<br>}<br></span><span class="default">?&gt;<br></span><br>Note: you can&apos;t turn this into a function (e.g. is_defined($myvar)) because get_defined_vars() only gets the variables in the current scope and entering a function changes the scope.</span>
-</div>
+```
+<?php
+function isset_array() {
+    if (func_num_args() &lt; 2) return true;
+    $args = func_get_args();
+    $array = array_shift($args);
+    if (!is_array($array)) return false;
+    foreach ($args as $n) if (!isset($array[$n])) return false;
+    return true;
+}
+?>
+```
+<br><br>Use: isset_array($array, &apos;key1&apos;, &apos;key2&apos;, &apos;key3&apos;, &apos;key4&apos;)<br>First parameter has the array; following parameters has the keys you want to check.  
+
+#
+
+Note that isset() is not recursive as of the 5.4.8 I have available here to test with: if you use it on a multidimensional array or an object it will not check isset() on each dimension as it goes.<br><br>Imagine you have a class with a normal __isset and a __get that fatals for non-existant properties. isset($object-&gt;nosuch) will behave normally but isset($object-&gt;nosuch-&gt;foo) will crash. Rather harsh IMO but still possible.<br><br>
+
+```
+<?php
+
+class FatalOnGet {
+
+    // pretend that the methods have implementations that actually try to do work
+    // in this example I only care about the worst case conditions
+
+    public function __get($name) {
+        echo "(getting {$name}) ";
+
+        // if property does not exist {
+            echo "Property does not exist!";
+            exit;
+        // }
+    }
+
+    public function __isset($name) {
+        echo "(isset {$name}?) ";
+        // return whether the property exists
+        return false;
+    }
+
+}
+
+$obj = new FatalOnGet();
+
+// works
+echo "Testing if -&gt;nosuch exists: ";
+if (isset($obj-&gt;nosuch)) echo "Yes"; else echo "No";
+
+// fatals
+echo "\nTesting if -&gt;nosuch-&gt;foo exists: ";
+if (isset($obj-&gt;nosuch-&gt;foo)) echo "Yes"; else echo "No";
+
+// not executed
+echo "\nTesting if -&gt;irrelevant exists: ";
+if (isset($obj-&gt;irrelevant)) echo "Yes"; else echo "No";
+
+?>
+```
+<br><br>    Testing if -&gt;nosuch exists: No<br>    Testing if -&gt;nosuch-&gt;foo exists: Property does not exist!<br><br>Uncomment the echos in the methods and you&apos;ll see exactly what happened:<br><br>    Testing if -&gt;nosuch exists: (isset nosuch?) No<br>    Testing if -&gt;nosuch-&gt;foo exists: (getting nosuch) Property does not exist!<br><br>On a similar note, if __get always returns but instead issues warnings or notices then those will surface.  
+
+#
+
+isset expects the variable sign first, so you can&apos;t add parentheses or anything.<br><br>
+
+```
+<?php
+    $foo = 1;
+    if(isset(($foo))) { // Syntax error at isset((
+        $foo = 2;
+    }
+?>
+```
   
 
 #
 
+The following is an example of how to test if a variable is set, whether or not it is NULL. It makes use of the fact that an unset variable will throw an E_NOTICE error, but one initialized as NULL will not. <br><br>
 
-<div class="phpcode"><span class="html">
-in PHP5, if you have <br><br><span class="default">&lt;?PHP<br></span><span class="keyword">class </span><span class="default">Foo<br></span><span class="keyword">{<br>&#xA0; &#xA0; protected </span><span class="default">$data </span><span class="keyword">= array(</span><span class="string">&apos;bar&apos; </span><span class="keyword">=&gt; </span><span class="default">null</span><span class="keyword">);<br><br>&#xA0; &#xA0; function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$p</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; if( isset(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">data</span><span class="keyword">[</span><span class="default">$p</span><span class="keyword">]) ) return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">data</span><span class="keyword">[</span><span class="default">$p</span><span class="keyword">];<br>&#xA0; &#xA0; }<br>}<br></span><span class="default">?&gt;<br></span><br>and<br><span class="default">&lt;?PHP<br>$foo </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">;<br>echo isset(</span><span class="default">$foo</span><span class="keyword">-&gt;</span><span class="default">bar</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span>will always echo &apos;false&apos;. because the isset() accepts VARIABLES as it parameters, but in this case, $foo-&gt;bar is NOT a VARIABLE. it is a VALUE returned from the __get() method of the class Foo. thus the isset($foo-&gt;bar) expreesion will always equal &apos;false&apos;.</span>
-</div>
-  
+```
+<?php
 
-#
+function var_exists($var){
+    if (empty($GLOBALS[&apos;var_exists_err&apos;])) {
+        return true;
+    } else {
+        unset($GLOBALS[&apos;var_exists_err&apos;]);
+        return false;
+    }
+}
 
+function var_existsHandler($errno, $errstr, $errfile, $errline) {
+   $GLOBALS[&apos;var_exists_err&apos;] = true;
+}
 
-<div class="phpcode"><span class="html">
-The new (as of PHP7) &apos;null coalesce operator&apos; allows shorthand isset. You can use it like so:<br><br><span class="default">&lt;?php<br></span><span class="comment">// Fetches the value of $_GET[&apos;user&apos;] and returns &apos;nobody&apos;<br>// if it does not exist.<br></span><span class="default">$username </span><span class="keyword">= </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;user&apos;</span><span class="keyword">] ?? </span><span class="string">&apos;nobody&apos;</span><span class="keyword">;<br></span><span class="comment">// This is equivalent to:<br></span><span class="default">$username </span><span class="keyword">= isset(</span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;user&apos;</span><span class="keyword">]) ? </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;user&apos;</span><span class="keyword">] : </span><span class="string">&apos;nobody&apos;</span><span class="keyword">;<br><br></span><span class="comment">// Coalescing can be chained: this will return the first<br>// defined value out of $_GET[&apos;user&apos;], $_POST[&apos;user&apos;], and<br>// &apos;nobody&apos;.<br></span><span class="default">$username </span><span class="keyword">= </span><span class="default">$_GET</span><span class="keyword">[</span><span class="string">&apos;user&apos;</span><span class="keyword">] ?? </span><span class="default">$_POST</span><span class="keyword">[</span><span class="string">&apos;user&apos;</span><span class="keyword">] ?? </span><span class="string">&apos;nobody&apos;</span><span class="keyword">;<br></span><span class="default">?&gt;<br></span><br>Quoted from <a href="http://php.net/manual/en/migration70.new-features.php#migration70.new-features.null-coalesce-op" rel="nofollow" target="_blank">http://php.net/manual/en/migration70.new-features.php#migration70.new-features.null-coalesce-op</a></span>
-</div>
-  
+$l = NULL;
+set_error_handler("var_existsHandler", E_NOTICE);
+echo (var_exists($l)) ? "True " : "False ";
+echo (var_exists($k)) ? "True " : "False ";
+restore_error_handler();
 
-#
-
-
-<div class="phpcode"><span class="html">
-I tried the example posted previously by Slawek:<br><br>$foo = &apos;a little string&apos;;<br>echo isset($foo)?&apos;yes &apos;:&apos;no &apos;, isset($foo[&apos;aaaa&apos;])?&apos;yes &apos;:&apos;no &apos;;<br><br>He got yes yes, but he didn&apos;t say what version of PHP he was using.<br><br>I tried this on PHP 5.0.5 and got:&#xA0; yes no<br><br>But on PHP 4.3.5 I got:&#xA0; yes yes<br><br>Apparently, PHP4 converts the the string &apos;aaaa&apos; to zero and then returns the string character at that position within the string $foo, when $foo is not an array. That means you can&apos;t assume you are dealing with an array, even if you used an expression such as isset($foo[&apos;aaaa&apos;][&apos;bbb&apos;][&apos;cc&apos;][&apos;d&apos;]), because it will return true also if any part is a string.<br><br>PHP5 does not do this. If $foo is a string, the index must actually be numeric (e.g. $foo[0]) for it to return the indexed character.</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-Careful with this function &quot;ifsetfor&quot; by soapergem, passing by reference means that if, like the example $_GET[&apos;id&apos;], the argument is an array index, it will be created in the original array (with a null value), thus causing posible trouble with the following code. At least in PHP 5.<br><br>For example:<br><br><span class="default">&lt;?php<br>$a </span><span class="keyword">= array();<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">);<br></span><span class="default">ifsetor</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">[</span><span class="string">&quot;unsetindex&quot;</span><span class="keyword">], </span><span class="string">&apos;default&apos;</span><span class="keyword">);<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>will print <br><br>Array<br>(<br>)<br>Array<br>(<br>&#xA0; &#xA0; [unsetindex] =&gt; <br>)<br><br>Any foreach or similar will be different before and after the call.</span>
-</div>
-  
-
-#
+?>
+```
 
 
-<div class="phpcode"><span class="html">
-1) Note that isset($var) doesn&apos;t distinguish the two cases when $var is undefined, or is null. Evidence is in the following code.
-<br>
-<br><span class="default">&lt;?php
-<br></span><span class="keyword">unset(</span><span class="default">$undefined</span><span class="keyword">);
-<br></span><span class="default">$null </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;
-<br>if (</span><span class="default">true </span><span class="keyword">=== isset(</span><span class="default">$undefined</span><span class="keyword">)){echo </span><span class="string">&apos;isset($undefined) === true&apos;</span><span class="keyword">} else {echo </span><span class="string">&apos;isset($undefined) === false&apos;</span><span class="keyword">); </span><span class="comment">// &apos;isset($undefined) === false&apos;
-<br></span><span class="keyword">if (</span><span class="default">true </span><span class="keyword">=== isset(</span><span class="default">$null</span><span class="keyword">)){echo </span><span class="string">&apos;isset($null) === true&apos;</span><span class="keyword">} else {echo </span><span class="string">&apos;isset($null) === false&apos;</span><span class="keyword">);&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// &apos;isset($null)&#xA0; &#xA0; &#xA0; === false&apos;
-<br></span><span class="default">?&gt;
-<br></span>
-<br>2) If you want to distinguish undefined variable with a defined variable with a null value, then use array_key_exist
-<br>
-<br><span class="default">&lt;?php
-<br></span><span class="keyword">unset(</span><span class="default">$undefined</span><span class="keyword">);
-<br></span><span class="default">$null </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;
-<br>
-<br>if (</span><span class="default">true </span><span class="keyword">!== </span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="string">&apos;undefined&apos;</span><span class="keyword">, </span><span class="default">get_defined_vars</span><span class="keyword">())) {echo </span><span class="string">&apos;$undefined does not exist&apos;</span><span class="keyword">;} else {echo </span><span class="string">&apos;$undefined exists&apos;</span><span class="keyword">;} </span><span class="comment">// &apos;$undefined does not exist&apos;
-<br></span><span class="keyword">if (</span><span class="default">true </span><span class="keyword">=== </span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="string">&apos;null&apos;</span><span class="keyword">, </span><span class="default">get_defined_vars</span><span class="keyword">())) {echo </span><span class="string">&apos;$null exists&apos;</span><span class="keyword">;} else {echo </span><span class="string">&apos;$null does not exist&apos;</span><span class="keyword">;}&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// &apos;$null exists&apos;
-<br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
+Outputs:
+True False
 
-#
+The problem is, the set_error_handler and restore_error_handler calls can not be inside the function, which means you need 2 extra lines of code every time you are testing. And if you have any E_NOTICE errors caused by other code between the set_error_handler and restore_error_handler they will not be dealt with properly. One solution:
 
 
-<div class="phpcode"><span class="html">
-To organize some of the frequently used functions..<br><br><span class="default">&lt;?php<br><br></span><span class="comment">/**<br> * Returns field of variable (arr[key] or obj-&gt;prop), otherwise the third parameter<br> * @param array/object $arr_or_obj<br> * @param string $key_or_prop<br> * @param mixed $else<br> */<br></span><span class="keyword">function </span><span class="default">nz</span><span class="keyword">(</span><span class="default">$arr_or_obj</span><span class="keyword">, </span><span class="default">$key_or_prop</span><span class="keyword">, </span><span class="default">$else</span><span class="keyword">){<br>&#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">$else</span><span class="keyword">;<br>&#xA0; if(isset(</span><span class="default">$arr_or_obj</span><span class="keyword">)){<br>&#xA0; &#xA0; if(</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$arr_or_obj</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; if(isset(</span><span class="default">$arr_or_obj</span><span class="keyword">[</span><span class="default">$key_or_prop</span><span class="keyword">]))<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">$arr_or_obj</span><span class="keyword">[</span><span class="default">$key_or_prop</span><span class="keyword">];<br>&#xA0; &#xA0; }elseif(</span><span class="default">is_object</span><span class="keyword">(</span><span class="default">$arr_or_object</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; if(isset(</span><span class="default">$arr_or_obj</span><span class="keyword">-&gt;</span><span class="default">$key_or_prop</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">$arr_or_obj</span><span class="keyword">-&gt;</span><span class="default">$key_or_prop</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; }<br>&#xA0; return </span><span class="default">$result</span><span class="keyword">;<br>}<br><br></span><span class="comment">/**<br> * Returns integer value using nz()<br> */<br></span><span class="keyword">function </span><span class="default">nz_int</span><span class="keyword">(</span><span class="default">$arr_or_obj</span><span class="keyword">, </span><span class="default">$key_or_prop</span><span class="keyword">, </span><span class="default">$else</span><span class="keyword">){<br>&#xA0; return </span><span class="default">intval</span><span class="keyword">(</span><span class="default">nz</span><span class="keyword">(</span><span class="default">$arr_or_obj</span><span class="keyword">, </span><span class="default">$key_or_prop</span><span class="keyword">, </span><span class="default">$else</span><span class="keyword">));<br>}<br><br></span><span class="default">$my_id </span><span class="keyword">= </span><span class="default">nz_int</span><span class="keyword">(</span><span class="default">$_REQUEST</span><span class="keyword">, </span><span class="string">&apos;id&apos;</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br>if(</span><span class="default">$my_id </span><span class="keyword">&gt; </span><span class="default">0</span><span class="keyword">){<br>&#xA0; </span><span class="comment">//why?<br></span><span class="keyword">}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
 
-#
+```
+<?php
 
+function var_exists($var){
+   if (empty($GLOBALS[&apos;var_exists_err&apos;])) {
+       return true;
+   } else {
+       unset($GLOBALS[&apos;var_exists_err&apos;]);
+       return false;
+   }
+}
 
-<div class="phpcode"><span class="html">
-Sometimes you have to check if an array has some keys. To achieve it you can use &quot;isset&quot; like this: isset($array[&apos;key1&apos;], $array[&apos;key2&apos;], $array[&apos;key3&apos;], $array[&apos;key4&apos;])<br>You have to write $array all times and it is reiterative if you use same array each time.<br><br>With this simple function you can check if an array has some keys:<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">isset_array</span><span class="keyword">() {<br>&#xA0; &#xA0; if (</span><span class="default">func_num_args</span><span class="keyword">() &lt; </span><span class="default">2</span><span class="keyword">) return </span><span class="default">true</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$args </span><span class="keyword">= </span><span class="default">func_get_args</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="default">$array </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">);<br>&#xA0; &#xA0; if (!</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">)) return </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; foreach (</span><span class="default">$args </span><span class="keyword">as </span><span class="default">$n</span><span class="keyword">) if (!isset(</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$n</span><span class="keyword">])) return </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; return </span><span class="default">true</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>Use: isset_array($array, &apos;key1&apos;, &apos;key2&apos;, &apos;key3&apos;, &apos;key4&apos;)<br>First parameter has the array; following parameters has the keys you want to check.</span>
-</div>
-  
+function var_existsHandler($errno, $errstr, $errfile, $errline) {
+    $filearr = file($errfile);
+    if (strpos($filearr[$errline-1], &apos;var_exists&apos;) !== false) {
+        $GLOBALS[&apos;var_exists_err&apos;] = true;
+        return true;
+    } else {
+        return false;
+    }
+}
 
-#
+$l = NULL;
+set_error_handler("var_existsHandler", E_NOTICE);
+echo (var_exists($l)) ? "True " : "False ";
+echo (var_exists($k)) ? "True " : "False ";
+is_null($j);
+restore_error_handler();
 
-
-<div class="phpcode"><span class="html">
-Note that isset() is not recursive as of the 5.4.8 I have available here to test with: if you use it on a multidimensional array or an object it will not check isset() on each dimension as it goes.<br><br>Imagine you have a class with a normal __isset and a __get that fatals for non-existant properties. isset($object-&gt;nosuch) will behave normally but isset($object-&gt;nosuch-&gt;foo) will crash. Rather harsh IMO but still possible.<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">FatalOnGet </span><span class="keyword">{<br><br>&#xA0; &#xA0; </span><span class="comment">// pretend that the methods have implementations that actually try to do work<br>&#xA0; &#xA0; // in this example I only care about the worst case conditions<br><br>&#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">__get</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;(getting </span><span class="keyword">{</span><span class="default">$name</span><span class="keyword">}</span><span class="string">) &quot;</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// if property does not exist {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">echo </span><span class="string">&quot;Property does not exist!&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; exit;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// }<br>&#xA0; &#xA0; </span><span class="keyword">}<br><br>&#xA0; &#xA0; public function </span><span class="default">__isset</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;(isset </span><span class="keyword">{</span><span class="default">$name</span><span class="keyword">}</span><span class="string">?) &quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// return whether the property exists<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">return </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>}<br><br></span><span class="default">$obj </span><span class="keyword">= new </span><span class="default">FatalOnGet</span><span class="keyword">();<br><br></span><span class="comment">// works<br></span><span class="keyword">echo </span><span class="string">&quot;Testing if -&gt;nosuch exists: &quot;</span><span class="keyword">;<br>if (isset(</span><span class="default">$obj</span><span class="keyword">-&gt;</span><span class="default">nosuch</span><span class="keyword">)) echo </span><span class="string">&quot;Yes&quot;</span><span class="keyword">; else echo </span><span class="string">&quot;No&quot;</span><span class="keyword">;<br><br></span><span class="comment">// fatals<br></span><span class="keyword">echo </span><span class="string">&quot;\nTesting if -&gt;nosuch-&gt;foo exists: &quot;</span><span class="keyword">;<br>if (isset(</span><span class="default">$obj</span><span class="keyword">-&gt;</span><span class="default">nosuch</span><span class="keyword">-&gt;</span><span class="default">foo</span><span class="keyword">)) echo </span><span class="string">&quot;Yes&quot;</span><span class="keyword">; else echo </span><span class="string">&quot;No&quot;</span><span class="keyword">;<br><br></span><span class="comment">// not executed<br></span><span class="keyword">echo </span><span class="string">&quot;\nTesting if -&gt;irrelevant exists: &quot;</span><span class="keyword">;<br>if (isset(</span><span class="default">$obj</span><span class="keyword">-&gt;</span><span class="default">irrelevant</span><span class="keyword">)) echo </span><span class="string">&quot;Yes&quot;</span><span class="keyword">; else echo </span><span class="string">&quot;No&quot;</span><span class="keyword">;<br><br></span><span class="default">?&gt;<br></span><br>&#xA0; &#xA0; Testing if -&gt;nosuch exists: No<br>&#xA0; &#xA0; Testing if -&gt;nosuch-&gt;foo exists: Property does not exist!<br><br>Uncomment the echos in the methods and you&apos;ll see exactly what happened:<br><br>&#xA0; &#xA0; Testing if -&gt;nosuch exists: (isset nosuch?) No<br>&#xA0; &#xA0; Testing if -&gt;nosuch-&gt;foo exists: (getting nosuch) Property does not exist!<br><br>On a similar note, if __get always returns but instead issues warnings or notices then those will surface.</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-isset expects the variable sign first, so you can&apos;t add parentheses or anything.<br><br><span class="default">&lt;?php<br>&#xA0; &#xA0; $foo </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br>&#xA0; &#xA0; if(isset((</span><span class="default">$foo</span><span class="keyword">))) { </span><span class="comment">// Syntax error at isset((<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$foo </span><span class="keyword">= </span><span class="default">2</span><span class="keyword">;<br>&#xA0; &#xA0; }<br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-The following is an example of how to test if a variable is set, whether or not it is NULL. It makes use of the fact that an unset variable will throw an E_NOTICE error, but one initialized as NULL will not. <br><br><span class="default">&lt;?php<br><br></span><span class="keyword">function </span><span class="default">var_exists</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">){<br>&#xA0; &#xA0; if (empty(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">&apos;var_exists_err&apos;</span><span class="keyword">])) {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">true</span><span class="keyword">;<br>&#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; unset(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">&apos;var_exists_err&apos;</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br>function </span><span class="default">var_existsHandler</span><span class="keyword">(</span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errstr</span><span class="keyword">, </span><span class="default">$errfile</span><span class="keyword">, </span><span class="default">$errline</span><span class="keyword">) {<br>&#xA0;&#xA0; </span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">&apos;var_exists_err&apos;</span><span class="keyword">] = </span><span class="default">true</span><span class="keyword">;<br>}<br><br></span><span class="default">$l </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">;<br></span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">&quot;var_existsHandler&quot;</span><span class="keyword">, </span><span class="default">E_NOTICE</span><span class="keyword">);<br>echo (</span><span class="default">var_exists</span><span class="keyword">(</span><span class="default">$l</span><span class="keyword">)) ? </span><span class="string">&quot;True &quot; </span><span class="keyword">: </span><span class="string">&quot;False &quot;</span><span class="keyword">;<br>echo (</span><span class="default">var_exists</span><span class="keyword">(</span><span class="default">$k</span><span class="keyword">)) ? </span><span class="string">&quot;True &quot; </span><span class="keyword">: </span><span class="string">&quot;False &quot;</span><span class="keyword">;<br></span><span class="default">restore_error_handler</span><span class="keyword">();<br><br></span><span class="default">?&gt;<br></span><br>Outputs:<br>True False<br><br>The problem is, the set_error_handler and restore_error_handler calls can not be inside the function, which means you need 2 extra lines of code every time you are testing. And if you have any E_NOTICE errors caused by other code between the set_error_handler and restore_error_handler they will not be dealt with properly. One solution:<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">function </span><span class="default">var_exists</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">){<br>&#xA0;&#xA0; if (empty(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">&apos;var_exists_err&apos;</span><span class="keyword">])) {<br>&#xA0; &#xA0; &#xA0;&#xA0; return </span><span class="default">true</span><span class="keyword">;<br>&#xA0;&#xA0; } else {<br>&#xA0; &#xA0; &#xA0;&#xA0; unset(</span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">&apos;var_exists_err&apos;</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0;&#xA0; return </span><span class="default">false</span><span class="keyword">;<br>&#xA0;&#xA0; }<br>}<br><br>function </span><span class="default">var_existsHandler</span><span class="keyword">(</span><span class="default">$errno</span><span class="keyword">, </span><span class="default">$errstr</span><span class="keyword">, </span><span class="default">$errfile</span><span class="keyword">, </span><span class="default">$errline</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$filearr </span><span class="keyword">= </span><span class="default">file</span><span class="keyword">(</span><span class="default">$errfile</span><span class="keyword">);<br>&#xA0; &#xA0; if (</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$filearr</span><span class="keyword">[</span><span class="default">$errline</span><span class="keyword">-</span><span class="default">1</span><span class="keyword">], </span><span class="string">&apos;var_exists&apos;</span><span class="keyword">) !== </span><span class="default">false</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$GLOBALS</span><span class="keyword">[</span><span class="string">&apos;var_exists_err&apos;</span><span class="keyword">] = </span><span class="default">true</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">true</span><span class="keyword">;<br>&#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">$l </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">;<br></span><span class="default">set_error_handler</span><span class="keyword">(</span><span class="string">&quot;var_existsHandler&quot;</span><span class="keyword">, </span><span class="default">E_NOTICE</span><span class="keyword">);<br>echo (</span><span class="default">var_exists</span><span class="keyword">(</span><span class="default">$l</span><span class="keyword">)) ? </span><span class="string">&quot;True &quot; </span><span class="keyword">: </span><span class="string">&quot;False &quot;</span><span class="keyword">;<br>echo (</span><span class="default">var_exists</span><span class="keyword">(</span><span class="default">$k</span><span class="keyword">)) ? </span><span class="string">&quot;True &quot; </span><span class="keyword">: </span><span class="string">&quot;False &quot;</span><span class="keyword">;<br></span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$j</span><span class="keyword">);<br></span><span class="default">restore_error_handler</span><span class="keyword">();<br><br></span><span class="default">?&gt;<br></span><br>Outputs:<br>True False<br>Notice: Undefined variable: j in filename.php on line 26<br><br>This will make the handler only handle var_exists, but it adds a lot of overhead. Everytime an E_NOTICE error happens, the file it originated from will be loaded into an array.</span>
-</div>
-  
+?>
+```
+<br><br>Outputs:<br>True False<br>Notice: Undefined variable: j in filename.php on line 26<br><br>This will make the handler only handle var_exists, but it adds a lot of overhead. Everytime an E_NOTICE error happens, the file it originated from will be loaded into an array.  
 
 #
 

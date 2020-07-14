@@ -2,19 +2,65 @@
 
 
 
+If two keys are the same, the second one prevails. <br><br>Example:<br>
 
-<div class="phpcode"><span class="html">
-If two keys are the same, the second one prevails. <br><br>Example:<br><span class="default">&lt;?php<br>print_r</span><span class="keyword">(</span><span class="default">array_combine</span><span class="keyword">(Array(</span><span class="string">&apos;a&apos;</span><span class="keyword">,</span><span class="string">&apos;a&apos;</span><span class="keyword">,</span><span class="string">&apos;b&apos;</span><span class="keyword">), Array(</span><span class="default">1</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">,</span><span class="default">3</span><span class="keyword">)));<br></span><span class="default">?&gt;<br></span>Returns:<br>Array<br>(<br>&#xA0; &#xA0; [a] =&gt; 2<br>&#xA0; &#xA0; [b] =&gt; 3<br>)<br><br>But if you need to keep all values, you can use the function below:<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">array_combine_</span><span class="keyword">(</span><span class="default">$keys</span><span class="keyword">, </span><span class="default">$values</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= array();<br>&#xA0; &#xA0; foreach (</span><span class="default">$keys </span><span class="keyword">as </span><span class="default">$i </span><span class="keyword">=&gt; </span><span class="default">$k</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">][] = </span><span class="default">$values</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; </span><span class="default">array_walk</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">, </span><span class="default">create_function</span><span class="keyword">(</span><span class="string">&apos;&amp;$v&apos;</span><span class="keyword">, </span><span class="string">&apos;$v = (count($v) == 1)? array_pop($v): $v;&apos;</span><span class="keyword">));<br>&#xA0; &#xA0; return&#xA0; &#xA0; </span><span class="default">$result</span><span class="keyword">;<br>}<br><br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">array_combine_</span><span class="keyword">(Array(</span><span class="string">&apos;a&apos;</span><span class="keyword">,</span><span class="string">&apos;a&apos;</span><span class="keyword">,</span><span class="string">&apos;b&apos;</span><span class="keyword">), Array(</span><span class="default">1</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">,</span><span class="default">3</span><span class="keyword">)));<br></span><span class="default">?&gt;<br></span>Returns:<br>Array<br>(<br>&#xA0; &#xA0; [a] =&gt; Array<br>&#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [0] =&gt; 1<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [1] =&gt; 2<br>&#xA0; &#xA0; &#xA0; &#xA0; )<br><br>&#xA0; &#xA0; [b] =&gt; 3<br>)</span>
-</div>
-  
+```
+<?php
+print_r(array_combine(Array(&apos;a&apos;,&apos;a&apos;,&apos;b&apos;), Array(1,2,3)));
+?>
+```
+
+Returns:
+Array
+(
+    [a] =&gt; 2
+    [b] =&gt; 3
+)
+
+But if you need to keep all values, you can use the function below:
+
+
+
+```
+<?php
+function array_combine_($keys, $values)
+{
+    $result = array();
+    foreach ($keys as $i =&gt; $k) {
+        $result[$k][] = $values[$i];
+    }
+    array_walk($result, create_function(&apos;&amp;$v&apos;, &apos;$v = (count($v) == 1)? array_pop($v): $v;&apos;));
+    return    $result;
+}
+
+print_r(array_combine_(Array(&apos;a&apos;,&apos;a&apos;,&apos;b&apos;), Array(1,2,3)));
+?>
+```
+<br>Returns:<br>Array<br>(<br>    [a] =&gt; Array<br>        (<br>            [0] =&gt; 1<br>            [1] =&gt; 2<br>        )<br><br>    [b] =&gt; 3<br>)  
 
 #
 
+Further to loreiorg&apos;s script <br>in order to preserve duplicate keys when combining arrays.<br><br>I have modified the script to use a closure instead of create_function<br><br>Reason: see security issue flagged up in the documentation concerning create_function<br><br>
 
-<div class="phpcode"><span class="html">
-Further to loreiorg&apos;s script <br>in order to preserve duplicate keys when combining arrays.<br><br>I have modified the script to use a closure instead of create_function<br><br>Reason: see security issue flagged up in the documentation concerning create_function<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">function </span><span class="default">array_combine_</span><span class="keyword">(</span><span class="default">$keys</span><span class="keyword">, </span><span class="default">$values</span><span class="keyword">){<br>&#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= array();<br><br>&#xA0; &#xA0; foreach (</span><span class="default">$keys </span><span class="keyword">as </span><span class="default">$i </span><span class="keyword">=&gt; </span><span class="default">$k</span><span class="keyword">) {<br>&#xA0; &#xA0;&#xA0; </span><span class="default">$result</span><span class="keyword">[</span><span class="default">$k</span><span class="keyword">][] = </span><span class="default">$values</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br>&#xA0; &#xA0;&#xA0; }<br><br>&#xA0; &#xA0; </span><span class="default">array_walk</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">, function(&amp;</span><span class="default">$v</span><span class="keyword">){<br>&#xA0; &#xA0;&#xA0; </span><span class="default">$v </span><span class="keyword">= (</span><span class="default">count</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">) == </span><span class="default">1</span><span class="keyword">) ? </span><span class="default">array_pop</span><span class="keyword">(</span><span class="default">$v</span><span class="keyword">): </span><span class="default">$v</span><span class="keyword">;<br>&#xA0; &#xA0;&#xA0; });<br><br>&#xA0; &#xA0; return </span><span class="default">$result</span><span class="keyword">;<br>}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+function array_combine_($keys, $values){
+    $result = array();
+
+    foreach ($keys as $i =&gt; $k) {
+     $result[$k][] = $values[$i];
+     }
+
+    array_walk($result, function(&amp;$v){
+     $v = (count($v) == 1) ? array_pop($v): $v;
+     });
+
+    return $result;
+}
+
+?>
+```
   
 
 #

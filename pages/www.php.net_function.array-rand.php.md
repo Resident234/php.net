@@ -2,72 +2,148 @@
 
 
 
+Note: array_rand uses the libc generator, which is slower and less-random than Mersenne Twister.<br><br>
 
-<div class="phpcode"><span class="html">
-Note: array_rand uses the libc generator, which is slower and less-random than Mersenne Twister.<br><br><span class="default">&lt;?php<br>&#xA0; &#xA0; $a </span><span class="keyword">= [</span><span class="string">&apos;<a href="http://php.net/" rel="nofollow" target="_blank">http://php.net/</a>&apos;</span><span class="keyword">, </span><span class="string">&apos;<a href="http://google.com/" rel="nofollow" target="_blank">http://google.com/</a>&apos;</span><span class="keyword">, </span><span class="string">&apos;<a href="http://bbc.co.uk/" rel="nofollow" target="_blank">http://bbc.co.uk/</a>&apos;</span><span class="keyword">];<br><br>&#xA0; &#xA0; </span><span class="default">$website </span><span class="keyword">= </span><span class="default">$a</span><span class="keyword">[</span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">count</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">) - </span><span class="default">1</span><span class="keyword">)];<br></span><span class="default">?&gt;<br></span><br>This is a better alternative.</span>
-</div>
+```
+<?php
+    $a = [&apos;http://php.net/&apos;, &apos;http://google.com/&apos;, &apos;http://bbc.co.uk/&apos;];
+
+    $website = $a[mt_rand(0, count($a) - 1)];
+?>
+```
+<br><br>This is a better alternative.  
+
+#
+
+If the array elements are unique, and are all integers or strings, here is a simple way to pick $n random *values* (not keys) from an array $array:<br><br>
+
+```
+<?php array_rand(array_flip($array), $n); ?>
+```
   
 
 #
 
+Looks like this function has a strange randomness.<br><br>If you take any number of elements in an array which has 40..100 elements, the 31st one is always by far the less occuring (by about 10% less than others).<br><br>I tried this piece of code at home (PHP Version 5.3.2-1ubuntu4.9) and on my server (PHP Version 5.2.17), unfortunately i haven&apos;t any server with the last version here :<br><br>
 
-<div class="phpcode"><span class="html">
-If the array elements are unique, and are all integers or strings, here is a simple way to pick $n random *values* (not keys) from an array $array:
-<br>
-<br><span class="default">&lt;?php array_rand</span><span class="keyword">(</span><span class="default">array_flip</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">), </span><span class="default">$n</span><span class="keyword">); </span><span class="default">?&gt;</span>
-</span>
-</div>
-  
+```
+<?php
+$valeurs = range(1, 40);
+$proba = array_fill(1, 40, 0);
+for ($i = 0; $i &lt; 10000; ++$i)
+{
+    $tirage_tab = array_rand($valeurs, 10);
+    foreach($tirage_tab as $key =&gt; $value)
+    {
+        $proba[$valeurs[$value]]++;
+    }
+}
 
-#
-
-
-<div class="phpcode"><span class="html">
-Looks like this function has a strange randomness.<br><br>If you take any number of elements in an array which has 40..100 elements, the 31st one is always by far the less occuring (by about 10% less than others).<br><br>I tried this piece of code at home (PHP Version 5.3.2-1ubuntu4.9) and on my server (PHP Version 5.2.17), unfortunately i haven&apos;t any server with the last version here :<br><br><span class="default">&lt;?php<br>$valeurs </span><span class="keyword">= </span><span class="default">range</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="default">40</span><span class="keyword">);<br></span><span class="default">$proba </span><span class="keyword">= </span><span class="default">array_fill</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">, </span><span class="default">40</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br>for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">10000</span><span class="keyword">; ++</span><span class="default">$i</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="default">$tirage_tab </span><span class="keyword">= </span><span class="default">array_rand</span><span class="keyword">(</span><span class="default">$valeurs</span><span class="keyword">, </span><span class="default">10</span><span class="keyword">);<br>&#xA0; &#xA0; foreach(</span><span class="default">$tirage_tab </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$proba</span><span class="keyword">[</span><span class="default">$valeurs</span><span class="keyword">[</span><span class="default">$value</span><span class="keyword">]]++;<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">asort</span><span class="keyword">(</span><span class="default">$proba</span><span class="keyword">);<br>echo </span><span class="string">&quot;Proba : &lt;br/&gt;\n&quot;</span><span class="keyword">;<br>foreach(</span><span class="default">$proba </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; echo </span><span class="string">&quot;</span><span class="default">$key</span><span class="string"> : </span><span class="default">$value</span><span class="string">&lt;br/&gt;\n&quot;</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>In every try, the number of occurrences change a bit but the 31 is always far less (around 2200) than the others (2400-2600). I tried with 50 and 100 elements, no change. I tried with more or less elements to pick (second parameter to array_rand), same result. If you pick only one element it&apos;s even worse : 31 has half the result of the others.<br><br>For this particular case, i recommend shuffling the array and taking the nth first elements, in this test it&apos;s 60% faster and the statistics are ok.</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-<span class="default">&lt;?php<br></span><span class="comment">// An example how to fetch multiple values from array_rand<br></span><span class="default">$a </span><span class="keyword">= [ </span><span class="string">&apos;a&apos;</span><span class="keyword">, </span><span class="string">&apos;b&apos;</span><span class="keyword">, </span><span class="string">&apos;c&apos;</span><span class="keyword">, </span><span class="string">&apos;d&apos;</span><span class="keyword">, </span><span class="string">&apos;e&apos;</span><span class="keyword">, </span><span class="string">&apos;f&apos;</span><span class="keyword">, </span><span class="string">&apos;g&apos; </span><span class="keyword">];<br></span><span class="default">$n </span><span class="keyword">= </span><span class="default">3</span><span class="keyword">;<br><br></span><span class="comment">// If you want to fetch multiple values you can try this:<br></span><span class="default">print_r</span><span class="keyword">( </span><span class="default">array_intersect_key</span><span class="keyword">( </span><span class="default">$a</span><span class="keyword">, </span><span class="default">array_flip</span><span class="keyword">( </span><span class="default">array_rand</span><span class="keyword">( </span><span class="default">$a</span><span class="keyword">, </span><span class="default">$n </span><span class="keyword">) ) ) );<br><br></span><span class="comment">// If you want to re-index keys wrap the call in &apos;array_values&apos;:<br></span><span class="default">print_r</span><span class="keyword">( </span><span class="default">array_values</span><span class="keyword">( </span><span class="default">array_intersect_key</span><span class="keyword">( </span><span class="default">$a</span><span class="keyword">, </span><span class="default">array_flip</span><span class="keyword">( </span><span class="default">array_rand</span><span class="keyword">( </span><span class="default">$a</span><span class="keyword">, </span><span class="default">$n </span><span class="keyword">) ) ) ) );</span>
-</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-<span class="default">&lt;?php<br><br></span><span class="comment">/**<br> * Wraps array_rand call with additional checks<br> *<br> * TLDR; not so radom as you&apos;d wish.<br> *<br> * NOTICE: the closer you get to the input arrays length, for the n parameter, the&#xA0; output gets less random.<br> * e.g.: array_random($a, count($a)) == $a will yield true<br> * This, most certainly, has to do with the method used for making the array random (see other comments).<br> *<br> * @throws OutOfBoundsException &#x2013; if n less than one or exceeds size of input array<br> *<br> * @param array $array &#x2013; array to randomize<br> * @param int $n &#x2013; how many elements to return<br> * @return array<br> */<br></span><span class="keyword">function </span><span class="default">array_random</span><span class="keyword">(array </span><span class="default">$array</span><span class="keyword">, </span><span class="default">int $n </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">): array<br>{<br>&#xA0; &#xA0; if (</span><span class="default">$n </span><span class="keyword">&lt; </span><span class="default">1 </span><span class="keyword">|| </span><span class="default">$n </span><span class="keyword">&gt; </span><span class="default">count</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">OutOfBoundsException</span><span class="keyword">();<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; return (</span><span class="default">$n </span><span class="keyword">!== </span><span class="default">1</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; ? </span><span class="default">array_values</span><span class="keyword">(</span><span class="default">array_intersect_key</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">array_flip</span><span class="keyword">(</span><span class="default">array_rand</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$n</span><span class="keyword">))))<br>&#xA0; &#xA0; &#xA0; &#xA0; : array(</span><span class="default">$array</span><span class="keyword">[</span><span class="default">array_rand</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">)]);<br>}</span>
-</span>
-</div>
-  
+asort($proba);
+echo "Proba : &lt;br/&gt;\n";
+foreach($proba as $key =&gt; $value)
+{
+    echo "$key : $value&lt;br/&gt;\n";
+}
+?>
+```
+<br><br>In every try, the number of occurrences change a bit but the 31 is always far less (around 2200) than the others (2400-2600). I tried with 50 and 100 elements, no change. I tried with more or less elements to pick (second parameter to array_rand), same result. If you pick only one element it&apos;s even worse : 31 has half the result of the others.<br><br>For this particular case, i recommend shuffling the array and taking the nth first elements, in this test it&apos;s 60% faster and the statistics are ok.  
 
 #
 
 
-<div class="phpcode"><span class="html">
-An example for getting random value from arrays;<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">array_random</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">, </span><span class="default">$num </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">shuffle</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="default">$r </span><span class="keyword">= array();<br>&#xA0; &#xA0; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$num</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$r</span><span class="keyword">[] = </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">$num </span><span class="keyword">== </span><span class="default">1 </span><span class="keyword">? </span><span class="default">$r</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] : </span><span class="default">$r</span><span class="keyword">;<br>}<br><br></span><span class="default">$a </span><span class="keyword">= array(</span><span class="string">&quot;apple&quot;</span><span class="keyword">, </span><span class="string">&quot;banana&quot;</span><span class="keyword">, </span><span class="string">&quot;cherry&quot;</span><span class="keyword">);<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">array_random</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">));<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">array_random</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">));<br></span><span class="default">?&gt;<br></span><br>cherry<br>Array<br>(<br>&#xA0; &#xA0; [0] =&gt; banana<br>&#xA0; &#xA0; [1] =&gt; apple<br>)<br><br>And example for getting random value from assoc arrays;<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">array_random_assoc</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">, </span><span class="default">$num </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$keys </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">shuffle</span><span class="keyword">(</span><span class="default">$keys</span><span class="keyword">);<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="default">$r </span><span class="keyword">= array();<br>&#xA0; &#xA0; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$num</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$r</span><span class="keyword">[</span><span class="default">$keys</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]] = </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$keys</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]];<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">$r</span><span class="keyword">;<br>}<br><br></span><span class="default">$a </span><span class="keyword">= array(</span><span class="string">&quot;a&quot; </span><span class="keyword">=&gt; </span><span class="string">&quot;apple&quot;</span><span class="keyword">, </span><span class="string">&quot;b&quot; </span><span class="keyword">=&gt; </span><span class="string">&quot;banana&quot;</span><span class="keyword">, </span><span class="string">&quot;c&quot; </span><span class="keyword">=&gt; </span><span class="string">&quot;cherry&quot;</span><span class="keyword">);<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">array_random_assoc</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">));<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">array_random_assoc</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">));<br></span><span class="default">?&gt;<br></span><br>Array<br>(<br>&#xA0; &#xA0; [c] =&gt; cherry<br>)<br>Array<br>(<br>&#xA0; &#xA0; [a] =&gt; apple<br>&#xA0; &#xA0; [b] =&gt; banana<br>)</span>
-</div>
-  
+
+```
+<?php<br>// An example how to fetch multiple values from array_rand<br>$a = [ &apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;, &apos;f&apos;, &apos;g&apos; ];<br>$n = 3;<br><br>// If you want to fetch multiple values you can try this:<br>print_r( array_intersect_key( $a, array_flip( array_rand( $a, $n ) ) ) );<br><br>// If you want to re-index keys wrap the call in &apos;array_values&apos;:<br>print_r( array_values( array_intersect_key( $a, array_flip( array_rand( $a, $n ) ) ) ) );  
+
+#
+
+An example for getting random value from arrays;<br><br>
+
+```
+<?php
+function array_random($arr, $num = 1) {
+    shuffle($arr);
+    
+    $r = array();
+    for ($i = 0; $i &lt; $num; $i++) {
+        $r[] = $arr[$i];
+    }
+    return $num == 1 ? $r[0] : $r;
+}
+
+$a = array("apple", "banana", "cherry");
+print_r(array_random($a));
+print_r(array_random($a, 2));
+?>
+```
+
+
+cherry
+Array
+(
+    [0] =&gt; banana
+    [1] =&gt; apple
+)
+
+And example for getting random value from assoc arrays;
+
+
+
+```
+<?php
+function array_random_assoc($arr, $num = 1) {
+    $keys = array_keys($arr);
+    shuffle($keys);
+    
+    $r = array();
+    for ($i = 0; $i &lt; $num; $i++) {
+        $r[$keys[$i]] = $arr[$keys[$i]];
+    }
+    return $r;
+}
+
+$a = array("a" =&gt; "apple", "b" =&gt; "banana", "c" =&gt; "cherry");
+print_r(array_random_assoc($a));
+print_r(array_random_assoc($a, 2));
+?>
+```
+<br><br>Array<br>(<br>    [c] =&gt; cherry<br>)<br>Array<br>(<br>    [a] =&gt; apple<br>    [b] =&gt; banana<br>)  
 
 #
 
 
-<div class="phpcode"><span class="html">
-I agree with Sebmil (<a href="http://php.net/manual/en/function.array-rand.php#105265" rel="nofollow" target="_blank">http://php.net/manual/en/function.array-rand.php#105265</a>) that &quot;array_rand()&quot; produces weird and very uneven random distribution (as of my local PHP 5.3.8 and my public host&apos;s PHP 5.2.17).<br>Unfortunately, I haven&apos;t got any access either to a server with the latest PHP version. My info is for those of you who like to check things for themselves and who don&apos;t believe all of the official statements in the docs.<br>I&apos;ve made a simple adjustment of his test code like this:<br><span class="default">&lt;?php <br>$s</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">;&#xA0; &#xA0; </span><span class="comment">// Start value<br></span><span class="default">$c</span><span class="keyword">=</span><span class="default">50</span><span class="keyword">;&#xA0; &#xA0; </span><span class="comment">// Count / End value<br></span><span class="default">$test</span><span class="keyword">=</span><span class="default">array_fill</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">, </span><span class="default">$c</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br></span><span class="default">$ts</span><span class="keyword">=</span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br>for(</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">5000000</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++){<br>&#xA0; &#xA0; </span><span class="default">$idx</span><span class="keyword">=</span><span class="default">mt_rand</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">, </span><span class="default">$c</span><span class="keyword">);&#xA0; &#xA0; </span><span class="comment">// Try it with rand() - simpler but more evenly distributed than mt_rand()<br>&#xA0; &#xA0; </span><span class="default">$test</span><span class="keyword">[</span><span class="default">$idx</span><span class="keyword">]++;<br>}<br></span><span class="default">$te</span><span class="keyword">=</span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br></span><span class="default">$te</span><span class="keyword">=(</span><span class="default">$te</span><span class="keyword">-</span><span class="default">$ts</span><span class="keyword">)*</span><span class="default">1000.0</span><span class="keyword">;&#xA0; &#xA0; </span><span class="comment">// Loop time in miliseconds<br><br></span><span class="default">asort</span><span class="keyword">(</span><span class="default">$test</span><span class="keyword">);<br>echo </span><span class="string">&quot;Test mt_rand() in &quot;</span><span class="keyword">.</span><span class="default">$te</span><span class="keyword">.</span><span class="string">&quot; ms: &lt;br/&gt;\n&quot;</span><span class="keyword">;<br>foreach(</span><span class="default">$test </span><span class="keyword">as </span><span class="default">$k</span><span class="keyword">=&gt;</span><span class="default">$v</span><span class="keyword">) echo </span><span class="string">&quot;</span><span class="default">$k</span><span class="string"> :\t</span><span class="default">$v</span><span class="string"> &lt;br/&gt;\n&quot;</span><span class="keyword">;<br></span><span class="default">?&gt;<br></span><br>And it appears to me that simple &quot;$idx=rand(0, count($test)-1);&quot; is much better than &quot;$idx=array_rand($test, 1);&quot;.<br>And what&apos;s more the simpler and a bit slower (0 ms up to total 712.357 ms at 5 mln cycles) &quot;rand()&quot; is better than &quot;mt_rand()&quot; in simple everyday use cases because it is more evenly distributed (difference least vs. most often numbers: ca. 0.20-1.28 % for &quot;rand()&quot; vs. ca. 1.43-1.68 % for &quot;mt_rand()&quot;).<br>Try it for yourself... although it depends on your software and hardware configuration, range of numbers to choose from (due to random patterns), number of cycles in the loop, and temporary (public) server load as well.</span>
-</div>
-  
+
+```
+<?php<br><br>/**<br> * Wraps array_rand call with additional checks<br> *<br> * TLDR; not so radom as you&apos;d wish.<br> *<br> * NOTICE: the closer you get to the input arrays length, for the n parameter, the  output gets less random.<br> * e.g.: array_random($a, count($a)) == $a will yield true<br> * This, most certainly, has to do with the method used for making the array random (see other comments).<br> *<br> * @throws OutOfBoundsException &#x2013; if n less than one or exceeds size of input array<br> *<br> * @param array $array &#x2013; array to randomize<br> * @param int $n &#x2013; how many elements to return<br> * @return array<br> */<br>function array_random(array $array, int $n = 1): array<br>{<br>    if ($n &lt; 1 || $n &gt; count($array)) {<br>        throw new OutOfBoundsException();<br>    }<br><br>    return ($n !== 1)<br>        ? array_values(array_intersect_key($array, array_flip(array_rand($array, $n))))<br>        : array($array[array_rand($array)]);<br>}  
 
 #
 
+I agree with Sebmil (http://php.net/manual/en/function.array-rand.php#105265) that "array_rand()" produces weird and very uneven random distribution (as of my local PHP 5.3.8 and my public host&apos;s PHP 5.2.17).<br>Unfortunately, I haven&apos;t got any access either to a server with the latest PHP version. My info is for those of you who like to check things for themselves and who don&apos;t believe all of the official statements in the docs.<br>I&apos;ve made a simple adjustment of his test code like this:<br>
 
-<div class="phpcode"><span class="html">
-It doesn&apos;t explicitly say it in the documentation, but PHP won&apos;t pick the same key twice in one call.</span>
-</div>
-  
+```
+<?php 
+$s=1;    // Start value
+$c=50;    // Count / End value
+$test=array_fill($s, $c, 0);
+$ts=microtime(true);
+for($i=0; $i&lt;5000000; $i++){
+    $idx=mt_rand($s, $c);    // Try it with rand() - simpler but more evenly distributed than mt_rand()
+    $test[$idx]++;
+}
+$te=microtime(true);
+$te=($te-$ts)*1000.0;    // Loop time in miliseconds
+
+asort($test);
+echo "Test mt_rand() in ".$te." ms: &lt;br/&gt;\n";
+foreach($test as $k=&gt;$v) echo "$k :\t$v &lt;br/&gt;\n";
+?>
+```
+<br><br>And it appears to me that simple "$idx=rand(0, count($test)-1);" is much better than "$idx=array_rand($test, 1);".<br>And what&apos;s more the simpler and a bit slower (0 ms up to total 712.357 ms at 5 mln cycles) "rand()" is better than "mt_rand()" in simple everyday use cases because it is more evenly distributed (difference least vs. most often numbers: ca. 0.20-1.28 % for "rand()" vs. ca. 1.43-1.68 % for "mt_rand()").<br>Try it for yourself... although it depends on your software and hardware configuration, range of numbers to choose from (due to random patterns), number of cycles in the loop, and temporary (public) server load as well.  
+
+#
+
+It doesn&apos;t explicitly say it in the documentation, but PHP won&apos;t pick the same key twice in one call.  
 
 #
 

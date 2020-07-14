@@ -2,10 +2,7 @@
 
 
 
-
-
-Replying to Francois:
-
+Replying to Francois:<br>
 
 ```
 <?php
@@ -31,30 +28,18 @@ $im-&gt;setImageAlphaChannel(11);
 $im-&gt;mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
 ?>
 ```
-
-
-This works at least as far back as version 3.1.0~rc1-1 (current version of the php5-imagick package in Debian 7).
-
-  
+<br><br>This works at least as far back as version 3.1.0~rc1-1 (current version of the php5-imagick package in Debian 7).  
 
 #
 
-
-
-The actual replacement now that flattenImages() has been deprecated is:
-
-
+The actual replacement now that flattenImages() has been deprecated is:<br><br>
 
 ```
 <?php
 $im = $im-&gt;mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
 ?>
 ```
-
-
-So you need to (re)assign the returned Imagick object.
-
-  
+<br><br>So you need to (re)assign the returned Imagick object.  
 
 #
 

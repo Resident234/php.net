@@ -2,11 +2,41 @@
 
 
 
+This function is particularly necessary on VMs running on KVM, XEN (openstack, AWS EC2, etc) when timing execution times. <br><br>On these platforms which lack vDSO the common method of using time() or microtime() can dramatically increase CPU/execution time due to the context switching from userland to kernel when running the `gettimeofday()` system call.<br><br>The common pattern is:<br>
 
-<div class="phpcode"><span class="html">
-This function is particularly necessary on VMs running on KVM, XEN (openstack, AWS EC2, etc) when timing execution times. <br><br>On these platforms which lack vDSO the common method of using time() or microtime() can dramatically increase CPU/execution time due to the context switching from userland to kernel when running the `gettimeofday()` system call.<br><br>The common pattern is:<br><span class="default">&lt;?php<br>$time </span><span class="keyword">= -</span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br></span><span class="default">sleep</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">);<br></span><span class="default">$end </span><span class="keyword">= </span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">&apos;%f&apos;</span><span class="keyword">, </span><span class="default">$time </span><span class="keyword">+= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">));<br></span><span class="default">?&gt;<br></span><br>Substituted as:<br><span class="default">&lt;?php<br>$start</span><span class="keyword">=</span><span class="default">hrtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">); <br></span><span class="default">sleep</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">); <br></span><span class="default">$end</span><span class="keyword">=</span><span class="default">hrtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br></span><span class="default">$eta</span><span class="keyword">=</span><span class="default">$end</span><span class="keyword">-</span><span class="default">$start</span><span class="keyword">;<br><br>echo </span><span class="default">$eta</span><span class="keyword">/</span><span class="default">1e+6</span><span class="keyword">; </span><span class="comment">//nanoseconds to milliseconds<br>//5000.362419<br><br>//OR simply<br><br></span><span class="default">$eta</span><span class="keyword">=-</span><span class="default">hrtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br></span><span class="default">sleep</span><span class="keyword">(</span><span class="default">5</span><span class="keyword">);<br></span><span class="default">$eta</span><span class="keyword">+=</span><span class="default">hrtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br><br>echo </span><span class="default">$eta</span><span class="keyword">/</span><span class="default">1e+6</span><span class="keyword">; </span><span class="comment">//nanoseconds to milliseconds<br>//5000.088229<br></span><span class="default">?&gt;<br></span><br>There is also the new StopWatch class <a href="http://php.net/manual/en/class.hrtime-stopwatch.php" rel="nofollow" target="_blank">http://php.net/manual/en/class.hrtime-stopwatch.php</a></span>
-</div>
-  
+```
+<?php
+$time = -microtime(true);
+sleep(5);
+$end = sprintf(&apos;%f&apos;, $time += microtime(true));
+?>
+```
+
+
+Substituted as:
+
+
+```
+<?php
+$start=hrtime(true); 
+sleep(5); 
+$end=hrtime(true);
+$eta=$end-$start;
+
+echo $eta/1e+6; //nanoseconds to milliseconds
+//5000.362419
+
+//OR simply
+
+$eta=-hrtime(true);
+sleep(5);
+$eta+=hrtime(true);
+
+echo $eta/1e+6; //nanoseconds to milliseconds
+//5000.088229
+?>
+```
+<br><br>There is also the new StopWatch class http://php.net/manual/en/class.hrtime-stopwatch.php  
 
 #
 

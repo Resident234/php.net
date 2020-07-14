@@ -2,48 +2,7 @@
 
 
 
-
-
-Most of the examples below don&apos;t keep the proportions properly. They keep using if/else for the height/width..and forgetting that you might have a max height AND a max width, not one or the other.
-
-/**
-* Resize an image and keep the proportions
-* @author Allison Beckwith &lt;allison@planetargon.com&gt;
-* @param string $filename
-* @param integer $max_width
-* @param integer $max_height
-* @return image
-*/
-function resizeImage($filename, $max_width, $max_height)
-{
-&#xA0; &#xA0; list($orig_width, $orig_height) = getimagesize($filename);
-
-&#xA0; &#xA0; $width = $orig_width;
-&#xA0; &#xA0; $height = $orig_height;
-
-&#xA0; &#xA0; # taller
-&#xA0; &#xA0; if ($height &gt; $max_height) {
-&#xA0; &#xA0; &#xA0; &#xA0; $width = ($max_height / $height) * $width;
-&#xA0; &#xA0; &#xA0; &#xA0; $height = $max_height;
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; # wider
-&#xA0; &#xA0; if ($width &gt; $max_width) {
-&#xA0; &#xA0; &#xA0; &#xA0; $height = ($max_width / $width) * $height;
-&#xA0; &#xA0; &#xA0; &#xA0; $width = $max_width;
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; $image_p = imagecreatetruecolor($width, $height);
-
-&#xA0; &#xA0; $image = imagecreatefromjpeg($filename);
-
-&#xA0; &#xA0; imagecopyresampled($image_p, $image, 0, 0, 0, 0, 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $width, $height, $orig_width, $orig_height);
-
-&#xA0; &#xA0; return $image_p;
-}
-
-  
+Most of the examples below don&apos;t keep the proportions properly. They keep using if/else for the height/width..and forgetting that you might have a max height AND a max width, not one or the other.<br><br>/**<br>* Resize an image and keep the proportions<br>* @author Allison Beckwith &lt;allison@planetargon.com&gt;<br>* @param string $filename<br>* @param integer $max_width<br>* @param integer $max_height<br>* @return image<br>*/<br>function resizeImage($filename, $max_width, $max_height)<br>{<br>    list($orig_width, $orig_height) = getimagesize($filename);<br><br>    $width = $orig_width;<br>    $height = $orig_height;<br><br>    # taller<br>    if ($height &gt; $max_height) {<br>        $width = ($max_height / $height) * $width;<br>        $height = $max_height;<br>    }<br><br>    # wider<br>    if ($width &gt; $max_width) {<br>        $height = ($max_width / $width) * $height;<br>        $width = $max_width;<br>    }<br><br>    $image_p = imagecreatetruecolor($width, $height);<br><br>    $image = imagecreatefromjpeg($filename);<br><br>    imagecopyresampled($image_p, $image, 0, 0, 0, 0, <br>                                     $width, $height, $orig_width, $orig_height);<br><br>    return $image_p;<br>}  
 
 #
 

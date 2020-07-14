@@ -2,15 +2,11 @@
 
 
 
-
-
-If you want to empty a file of it&apos;s contents bare in mind that opening a file in w mode truncates the file automatically, so instead of doing...
-
-
+If you want to empty a file of it&apos;s contents bare in mind that opening a file in w mode truncates the file automatically, so instead of doing...<br><br>
 
 ```
 <?php
-$fp = fopen(&quot;/tmp/file.txt&quot;, &quot;r+&quot;);
+$fp = fopen("/tmp/file.txt", "r+");
 ftruncate($fp, 0);
 fclose($fp);
 ?>
@@ -23,22 +19,15 @@ You can just do...
 
 ```
 <?php
-$fp = fopen(&quot;/tmp/file.txt&quot;, &quot;w&quot;);
+$fp = fopen("/tmp/file.txt", "w");
 fclose($fp);
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-You MUST use rewind() after ftruncate() to replace file content
-
-  
+You MUST use rewind() after ftruncate() to replace file content  
 
 #
 

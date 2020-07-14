@@ -2,52 +2,67 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-To further previous comments and drive the point home:<br><br>What makes SimpleXMLElement tricky to work with is that it feels and behaves like an object, but is actually a system RESOURCE,&#xA0; (specifically a libxml resource).&#xA0; <br><br>That&apos;s why you can&apos;t store a SimpleXMLElement to $_SESSION or perform straight comparison operations on node values without first casting them to some type of object.&#xA0; $_SESSION expects to store &apos;an object&apos; and comparison operators expect to compare 2 &apos;objects&apos; and SimpleXMLElements are not objects.&#xA0; <br><br>When you echo or print a node&apos;s value, PHP converts the value (a resource) into a string object for you.&#xA0; It&apos;s a time saver for sure, but can fool you into thinking that your SimpleXMLElement is an object.&#xA0; <br><br>Hope this helps clarify</span>
-</div>
-  
+To further previous comments and drive the point home:<br><br>What makes SimpleXMLElement tricky to work with is that it feels and behaves like an object, but is actually a system RESOURCE,  (specifically a libxml resource).  <br><br>That&apos;s why you can&apos;t store a SimpleXMLElement to $_SESSION or perform straight comparison operations on node values without first casting them to some type of object.  $_SESSION expects to store &apos;an object&apos; and comparison operators expect to compare 2 &apos;objects&apos; and SimpleXMLElements are not objects.  <br><br>When you echo or print a node&apos;s value, PHP converts the value (a resource) into a string object for you.  It&apos;s a time saver for sure, but can fool you into thinking that your SimpleXMLElement is an object.  <br><br>Hope this helps clarify  
 
 #
 
-
-<div class="phpcode"><span class="html">
-To access the underlying element as a string, it&apos;s necessary to make the cast $x = (string)$my_xml_element.</span>
-</div>
-  
+To access the underlying element as a string, it&apos;s necessary to make the cast $x = (string)$my_xml_element.  
 
 #
 
+Map xml to array (with attributes)<br><br>
 
-<div class="phpcode"><span class="html">
-Map xml to array (with attributes)<br><br><span class="default">&lt;?php </span><span class="keyword">declare(</span><span class="default">strict_types</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">);<br><br></span><span class="comment">/**<br> * @param SimpleXMLElement $xml<br> * @return array<br> */<br></span><span class="keyword">function </span><span class="default">xmlToArray</span><span class="keyword">(</span><span class="default">SimpleXMLElement $xml</span><span class="keyword">): array<br>{<br>&#xA0; &#xA0; </span><span class="default">$parser </span><span class="keyword">= function (</span><span class="default">SimpleXMLElement $xml</span><span class="keyword">, array </span><span class="default">$collection </span><span class="keyword">= []) use (&amp;</span><span class="default">$parser</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$nodes </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">children</span><span class="keyword">();<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$attributes </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">attributes</span><span class="keyword">();<br><br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">0 </span><span class="keyword">!== </span><span class="default">count</span><span class="keyword">(</span><span class="default">$attributes</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$attributes </span><span class="keyword">as </span><span class="default">$attrName </span><span class="keyword">=&gt; </span><span class="default">$attrValue</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$collection</span><span class="keyword">[</span><span class="string">&apos;attributes&apos;</span><span class="keyword">][</span><span class="default">$attrName</span><span class="keyword">] = </span><span class="default">strval</span><span class="keyword">(</span><span class="default">$attrValue</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">0 </span><span class="keyword">=== </span><span class="default">$nodes</span><span class="keyword">-&gt;</span><span class="default">count</span><span class="keyword">()) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$collection</span><span class="keyword">[</span><span class="string">&apos;value&apos;</span><span class="keyword">] = </span><span class="default">strval</span><span class="keyword">(</span><span class="default">$xml</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$collection</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$nodes </span><span class="keyword">as </span><span class="default">$nodeName </span><span class="keyword">=&gt; </span><span class="default">$nodeValue</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">count</span><span class="keyword">(</span><span class="default">$nodeValue</span><span class="keyword">-&gt;</span><span class="default">xpath</span><span class="keyword">(</span><span class="string">&apos;../&apos; </span><span class="keyword">. </span><span class="default">$nodeName</span><span class="keyword">)) &lt; </span><span class="default">2</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$collection</span><span class="keyword">[</span><span class="default">$nodeName</span><span class="keyword">] = </span><span class="default">$parser</span><span class="keyword">(</span><span class="default">$nodeValue</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; continue;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$collection</span><span class="keyword">[</span><span class="default">$nodeName</span><span class="keyword">][] = </span><span class="default">$parser</span><span class="keyword">(</span><span class="default">$nodeValue</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$collection</span><span class="keyword">;<br>&#xA0; &#xA0; };<br><br>&#xA0; &#xA0; return [<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$xml</span><span class="keyword">-&gt;</span><span class="default">getName</span><span class="keyword">() =&gt; </span><span class="default">$parser</span><span class="keyword">(</span><span class="default">$xml</span><span class="keyword">)<br>&#xA0; &#xA0; ];<br>}</span>
-</span>
-</div>
-  
+```
+<?php declare(strict_types=1);<br><br>/**<br> * @param SimpleXMLElement $xml<br> * @return array<br> */<br>function xmlToArray(SimpleXMLElement $xml): array<br>{<br>    $parser = function (SimpleXMLElement $xml, array $collection = []) use (&amp;$parser) {<br>        $nodes = $xml-&gt;children();<br>        $attributes = $xml-&gt;attributes();<br><br>        if (0 !== count($attributes)) {<br>            foreach ($attributes as $attrName =&gt; $attrValue) {<br>                $collection[&apos;attributes&apos;][$attrName] = strval($attrValue);<br>            }<br>        }<br><br>        if (0 === $nodes-&gt;count()) {<br>            $collection[&apos;value&apos;] = strval($xml);<br>            return $collection;<br>        }<br><br>        foreach ($nodes as $nodeName =&gt; $nodeValue) {<br>            if (count($nodeValue-&gt;xpath(&apos;../&apos; . $nodeName)) &lt; 2) {<br>                $collection[$nodeName] = $parser($nodeValue);<br>                continue;<br>            }<br><br>            $collection[$nodeName][] = $parser($nodeValue);<br>        }<br><br>        return $collection;<br>    };<br><br>    return [<br>        $xml-&gt;getName() =&gt; $parser($xml)<br>    ];<br>}  
 
 #
 
+Warning to anyone trying to parse XML with a key name that includes a hyphen ie.)<br>&lt;subscribe&gt;<br>    &lt;callback-url&gt;example url&lt;/callback-url&gt;<br>&lt;/subscribe&gt;<br><br>In order to access the callback-url you will need to do something like the following:<br>
 
-<div class="phpcode"><span class="html">
-Warning to anyone trying to parse XML with a key name that includes a hyphen ie.)<br>&lt;subscribe&gt;<br>&#xA0; &#xA0; &lt;callback-url&gt;example url&lt;/callback-url&gt;<br>&lt;/subscribe&gt;<br><br>In order to access the callback-url you will need to do something like the following:<br><span class="default">&lt;?php<br>$xml </span><span class="keyword">= </span><span class="default">simplexml_load_string</span><span class="keyword">(</span><span class="default">$input</span><span class="keyword">);<br></span><span class="default">$callback </span><span class="keyword">= </span><span class="default">$xml</span><span class="keyword">-&gt;{</span><span class="string">&quot;callback-url&quot;</span><span class="keyword">};<br></span><span class="default">?&gt;<br></span>If you attempt to do it without the curly braces and quotes you will find out that you are returned a 0 instead of what you want.</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-Parsing an invalid XML string through SimpleXML causes the script to crash completely (usually) therefore it is best to make sure the XML is valid before parsing with something like this:<br><br>// Must be tested with ===, as in if(isXML($xml) === true){}<br>// Returns the error message on improper XML<br>function isXML($xml){<br>&#xA0; &#xA0; libxml_use_internal_errors(true);<br><br>&#xA0; &#xA0; $doc = new DOMDocument(&apos;1.0&apos;, &apos;utf-8&apos;);<br>&#xA0; &#xA0; $doc-&gt;loadXML($xml);<br><br>&#xA0; &#xA0; $errors = libxml_get_errors();<br><br>&#xA0; &#xA0; if(empty($errors)){<br>&#xA0; &#xA0; &#xA0; &#xA0; return true;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; $error = $errors[0];<br>&#xA0; &#xA0; if($error-&gt;level &lt; 3){<br>&#xA0; &#xA0; &#xA0; &#xA0; return true;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; $explodedxml = explode(&quot;r&quot;, $xml);<br>&#xA0; &#xA0; $badxml = $explodedxml[($error-&gt;line)-1];<br><br>&#xA0; &#xA0; $message = $error-&gt;message . &apos; at line &apos; . $error-&gt;line . &apos;. Bad XML: &apos; . htmlentities($badxml);<br>&#xA0; &#xA0; return $message;<br>}</span>
-</div>
-  
+```
+<?php
+$xml = simplexml_load_string($input);
+$callback = $xml-&gt;{"callback-url"};
+?>
+```
+<br>If you attempt to do it without the curly braces and quotes you will find out that you are returned a 0 instead of what you want.  
 
 #
 
+Parsing an invalid XML string through SimpleXML causes the script to crash completely (usually) therefore it is best to make sure the XML is valid before parsing with something like this:<br><br>// Must be tested with ===, as in if(isXML($xml) === true){}<br>// Returns the error message on improper XML<br>function isXML($xml){<br>    libxml_use_internal_errors(true);<br><br>    $doc = new DOMDocument(&apos;1.0&apos;, &apos;utf-8&apos;);<br>    $doc-&gt;loadXML($xml);<br><br>    $errors = libxml_get_errors();<br><br>    if(empty($errors)){<br>        return true;<br>    }<br><br>    $error = $errors[0];<br>    if($error-&gt;level &lt; 3){<br>        return true;<br>    }<br><br>    $explodedxml = explode("r", $xml);<br>    $badxml = $explodedxml[($error-&gt;line)-1];<br><br>    $message = $error-&gt;message . &apos; at line &apos; . $error-&gt;line . &apos;. Bad XML: &apos; . htmlentities($badxml);<br>    return $message;<br>}  
 
-<div class="phpcode"><span class="html">
-XML to JSON conversion without &apos;@attributes&apos;<br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">XML2JSON</span><span class="keyword">(</span><span class="default">$xml</span><span class="keyword">) {<br><br>&#xA0; &#xA0; &#xA0; &#xA0; function </span><span class="default">normalizeSimpleXML</span><span class="keyword">(</span><span class="default">$obj</span><span class="keyword">, &amp;</span><span class="default">$result</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">= </span><span class="default">$obj</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_object</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">= </span><span class="default">get_object_vars</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$data </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$res </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">normalizeSimpleXML</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">, </span><span class="default">$res</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if ((</span><span class="default">$key </span><span class="keyword">== </span><span class="string">&apos;@attributes&apos;</span><span class="keyword">) &amp;&amp; (</span><span class="default">$key</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">$res</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$res</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">$data</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">normalizeSimpleXML</span><span class="keyword">(</span><span class="default">simplexml_load_string</span><span class="keyword">(</span><span class="default">$xml</span><span class="keyword">), </span><span class="default">$result</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">json_encode</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">);<br>&#xA0; &#xA0; }<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+#
+
+XML to JSON conversion without &apos;@attributes&apos;<br>
+
+```
+<?php
+function XML2JSON($xml) {
+
+        function normalizeSimpleXML($obj, &amp;$result) {
+            $data = $obj;
+            if (is_object($data)) {
+                $data = get_object_vars($data);
+            }
+            if (is_array($data)) {
+                foreach ($data as $key =&gt; $value) {
+                    $res = null;
+                    normalizeSimpleXML($value, $res);
+                    if (($key == &apos;@attributes&apos;) &amp;&amp; ($key)) {
+                        $result = $res;
+                    } else {
+                        $result[$key] = $res;
+                    }
+                }
+            } else {
+                $result = $data;
+            }
+        }
+        normalizeSimpleXML(simplexml_load_string($xml), $result);
+        return json_encode($result);
+    }
+?>
+```
   
 
 #

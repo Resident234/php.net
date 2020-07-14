@@ -2,11 +2,58 @@
 
 
 
+With regard to the note below about needing htmlentities to avoid warnings about unterminated entity references, I thought it worthwhile to mention that that you don&apos;t need to with createTextNode and DOMText::__construct.  If you mix both methods of setting text nodes and do (or don&apos;t) apply htmlentities consistently to all data to be displayed, you&apos;ll get &amp;amp;s (or warnings and badly-formed xml).<br><br>It&apos;s probably in one&apos;s best interest to extend DOMElement and DOMDocument so that it creates a DOMText node and appends it, rather than passing it up to the DOMElement constructor.  Otherwise, good luck using (or not using) htmlentities in all the right places in your code, especially as code changes get made.<br><br>
 
-<div class="phpcode"><span class="html">
-With regard to the note below about needing htmlentities to avoid warnings about unterminated entity references, I thought it worthwhile to mention that that you don&apos;t need to with createTextNode and DOMText::__construct.&#xA0; If you mix both methods of setting text nodes and do (or don&apos;t) apply htmlentities consistently to all data to be displayed, you&apos;ll get &amp;amp;s (or warnings and badly-formed xml).<br><br>It&apos;s probably in one&apos;s best interest to extend DOMElement and DOMDocument so that it creates a DOMText node and appends it, rather than passing it up to the DOMElement constructor.&#xA0; Otherwise, good luck using (or not using) htmlentities in all the right places in your code, especially as code changes get made.<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">XDOMElement </span><span class="keyword">extends </span><span class="default">DOMElement </span><span class="keyword">{<br>&#xA0; &#xA0; function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$value </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">, </span><span class="default">$namespaceURI </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">null</span><span class="keyword">, </span><span class="default">$namespaceURI</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>}<br><br>class </span><span class="default">XDOMDocument </span><span class="keyword">extends </span><span class="default">DOMDocument </span><span class="keyword">{<br>&#xA0; &#xA0; function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$version </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">, </span><span class="default">$encoding </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$version</span><span class="keyword">, </span><span class="default">$encoding</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">registerNodeClass</span><span class="keyword">(</span><span class="string">&apos;DOMElement&apos;</span><span class="keyword">, </span><span class="string">&apos;XDOMElement&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; function </span><span class="default">createElement</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$value </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">, </span><span class="default">$namespaceURI </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$element </span><span class="keyword">= new </span><span class="default">XDOMElement</span><span class="keyword">(</span><span class="default">$name</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">, </span><span class="default">$namespaceURI</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$element </span><span class="keyword">= </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">importNode</span><span class="keyword">(</span><span class="default">$element</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; if (!empty(</span><span class="default">$value</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$element</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">(new </span><span class="default">DOMText</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$element</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">$doc1 </span><span class="keyword">= new </span><span class="default">XDOMDocument</span><span class="keyword">();<br></span><span class="default">$doc1_e1 </span><span class="keyword">= </span><span class="default">$doc1</span><span class="keyword">-&gt;</span><span class="default">createElement</span><span class="keyword">(</span><span class="string">&apos;foo&apos;</span><span class="keyword">, </span><span class="string">&apos;bar &amp; baz&apos;</span><span class="keyword">);<br></span><span class="default">$doc1</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">(</span><span class="default">$doc1_e1</span><span class="keyword">);<br>echo </span><span class="default">$doc1</span><span class="keyword">-&gt;</span><span class="default">saveXML</span><span class="keyword">();<br><br></span><span class="default">$doc2 </span><span class="keyword">= new </span><span class="default">XDOMDocument</span><span class="keyword">();<br></span><span class="default">$doc2_e1 </span><span class="keyword">= </span><span class="default">$doc2</span><span class="keyword">-&gt;</span><span class="default">createElement</span><span class="keyword">(</span><span class="string">&apos;foo&apos;</span><span class="keyword">);<br></span><span class="default">$doc2</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">(</span><span class="default">$doc2_e1</span><span class="keyword">);<br></span><span class="default">$doc2_e1</span><span class="keyword">-&gt;</span><span class="default">appendChild</span><span class="keyword">(</span><span class="default">$doc2</span><span class="keyword">-&gt;</span><span class="default">createTextNode</span><span class="keyword">(</span><span class="string">&apos;bar &amp; baz&apos;</span><span class="keyword">));<br>echo </span><span class="default">$doc2</span><span class="keyword">-&gt;</span><span class="default">saveXML</span><span class="keyword">();<br><br></span><span class="default">?&gt;<br></span><br>Text specified in createElement:<br>&lt;?xml version=&quot;&quot;?&gt;<br>&lt;foo&gt;bar &amp;amp; baz&lt;/foo&gt;<br><br>Text added via createTextNode:<br>&lt;?xml version=&quot;&quot;?&gt;<br>&lt;foo&gt;bar &amp;amp; baz&lt;/foo&gt;</span>
-</div>
-  
+```
+<?php
+
+class XDOMElement extends DOMElement {
+    function __construct($name, $value = null, $namespaceURI = null) {
+        parent::__construct($name, null, $namespaceURI);
+    }
+}
+
+class XDOMDocument extends DOMDocument {
+    function __construct($version = null, $encoding = null) {
+        parent::__construct($version, $encoding);
+        $this-&gt;registerNodeClass(&apos;DOMElement&apos;, &apos;XDOMElement&apos;);
+    }
+
+    function createElement($name, $value = null, $namespaceURI = null) {
+        $element = new XDOMElement($name, $value, $namespaceURI);
+        $element = $this-&gt;importNode($element);
+        if (!empty($value)) {
+            $element-&gt;appendChild(new DOMText($value));
+        }
+        return $element;
+    }
+}
+
+$doc1 = new XDOMDocument();
+$doc1_e1 = $doc1-&gt;createElement(&apos;foo&apos;, &apos;bar &amp; baz&apos;);
+$doc1-&gt;appendChild($doc1_e1);
+echo $doc1-&gt;saveXML();
+
+$doc2 = new XDOMDocument();
+$doc2_e1 = $doc2-&gt;createElement(&apos;foo&apos;);
+$doc2-&gt;appendChild($doc2_e1);
+$doc2_e1-&gt;appendChild($doc2-&gt;createTextNode(&apos;bar &amp; baz&apos;));
+echo $doc2-&gt;saveXML();
+
+?>
+```
+
+
+Text specified in createElement:
+&lt;?xml version=""?>
+```
+
+&lt;foo&gt;bar &amp;amp; baz&lt;/foo&gt;
+
+Text added via createTextNode:
+&lt;?xml version=""?>
+```
+<br>&lt;foo&gt;bar &amp;amp; baz&lt;/foo&gt;  
 
 #
 

@@ -2,24 +2,15 @@
 
 
 
-
-
-You have to set a flag on the RecursiveDirectoryIterator because by default, the current (&quot;.&quot;) and parent directory (&quot;..&quot;) are included in the listing. This leads to an error message similar to &quot;returned a path &quot;..&quot; that is not in the base directory&quot;.
-
-To fix this, use &quot;SKIP_DOTS&quot;:
-
-
+You have to set a flag on the RecursiveDirectoryIterator because by default, the current (".") and parent directory ("..") are included in the listing. This leads to an error message similar to "returned a path ".." that is not in the base directory".<br><br>To fix this, use "SKIP_DOTS":<br><br>
 
 ```
 <?php
 new RecursiveDirectoryIterator(
-&#xA0; &#xA0; $srcRoot, FilesystemIterator::SKIP_DOTS
+    $srcRoot, FilesystemIterator::SKIP_DOTS
 );
 ?>
 ```
-
-
-
   
 
 #

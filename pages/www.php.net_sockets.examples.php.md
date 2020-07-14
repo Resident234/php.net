@@ -2,11 +2,97 @@
 
 
 
+You can easily extend the first example to handle any number of connections instead of jsut one<br><br>#!/usr/bin/env php<br>
 
-<div class="phpcode"><span class="html">
-You can easily extend the first example to handle any number of connections instead of jsut one<br><br>#!/usr/bin/env php<br><span class="default">&lt;?php<br>error_reporting</span><span class="keyword">(</span><span class="default">E_ALL</span><span class="keyword">);<br><br></span><span class="comment">/* Permitir al script esperar para conexiones. */<br></span><span class="default">set_time_limit</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br><br></span><span class="comment">/* Activar el volcado de salida impl&#xED;cito, as&#xED; veremos lo que estamo obteniendo<br> * mientras llega. */<br></span><span class="default">ob_implicit_flush</span><span class="keyword">();<br><br></span><span class="default">$address </span><span class="keyword">= </span><span class="string">&apos;127.0.0.1&apos;</span><span class="keyword">;<br></span><span class="default">$port </span><span class="keyword">= </span><span class="default">10000</span><span class="keyword">;<br><br>if ((</span><span class="default">$sock </span><span class="keyword">= </span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_INET</span><span class="keyword">, </span><span class="default">SOCK_STREAM</span><span class="keyword">, </span><span class="default">SOL_TCP</span><span class="keyword">)) === </span><span class="default">false</span><span class="keyword">) {<br>&#xA0; &#xA0; echo </span><span class="string">&quot;socket_create() fall&#xF3;: raz&#xF3;n: &quot; </span><span class="keyword">. </span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">()) . </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>}<br><br>if (</span><span class="default">socket_bind</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="default">$address</span><span class="keyword">, </span><span class="default">$port</span><span class="keyword">) === </span><span class="default">false</span><span class="keyword">) {<br>&#xA0; &#xA0; echo </span><span class="string">&quot;socket_bind() fall&#xF3;: raz&#xF3;n: &quot; </span><span class="keyword">. </span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">)) . </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>}<br><br>if (</span><span class="default">socket_listen</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="default">5</span><span class="keyword">) === </span><span class="default">false</span><span class="keyword">) {<br>&#xA0; &#xA0; echo </span><span class="string">&quot;socket_listen() fall&#xF3;: raz&#xF3;n: &quot; </span><span class="keyword">. </span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">)) . </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>}<br><br></span><span class="comment">//clients array<br></span><span class="default">$clients </span><span class="keyword">= array();<br><br>do {<br>&#xA0; &#xA0; </span><span class="default">$read </span><span class="keyword">= array();<br>&#xA0; &#xA0; </span><span class="default">$read</span><span class="keyword">[] = </span><span class="default">$sock</span><span class="keyword">;<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="default">$read </span><span class="keyword">= </span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$read</span><span class="keyword">,</span><span class="default">$clients</span><span class="keyword">);<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">// Set up a blocking call to socket_select<br>&#xA0; &#xA0; </span><span class="keyword">if(</span><span class="default">socket_select</span><span class="keyword">(</span><span class="default">$read</span><span class="keyword">,</span><span class="default">$write </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">, </span><span class="default">$except </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">, </span><span class="default">$tv_sec </span><span class="keyword">= </span><span class="default">5</span><span class="keyword">) &lt; </span><span class="default">1</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//&#xA0; &#xA0; SocketServer::debug(&quot;Problem blocking socket_select?&quot;);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">continue;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">// Handle new Connections<br>&#xA0; &#xA0; </span><span class="keyword">if (</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="default">$read</span><span class="keyword">)) {&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; if ((</span><span class="default">$msgsock </span><span class="keyword">= </span><span class="default">socket_accept</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">)) === </span><span class="default">false</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;socket_accept() fall&#xF3;: raz&#xF3;n: &quot; </span><span class="keyword">. </span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">)) . </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$clients</span><span class="keyword">[] = </span><span class="default">$msgsock</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$key </span><span class="keyword">= </span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$clients</span><span class="keyword">, </span><span class="default">$msgsock</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">/* Enviar instrucciones. */<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$msg </span><span class="keyword">= </span><span class="string">&quot;\nBienvenido al Servidor De Prueba de PHP. \n&quot; </span><span class="keyword">.<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&quot;Usted es el cliente numero: </span><span class="keyword">{</span><span class="default">$key</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]}</span><span class="string">\n&quot; </span><span class="keyword">.<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&quot;Para salir, escriba &apos;quit&apos;. Para cerrar el servidor escriba &apos;shutdown&apos;.\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$msgsock</span><span class="keyword">, </span><span class="default">$msg</span><span class="keyword">, </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">// Handle Input<br>&#xA0; &#xA0; </span><span class="keyword">foreach (</span><span class="default">$clients </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$client</span><span class="keyword">) { </span><span class="comment">// for each client&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if (</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$client</span><span class="keyword">, </span><span class="default">$read</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">false </span><span class="keyword">=== (</span><span class="default">$buf </span><span class="keyword">= </span><span class="default">socket_read</span><span class="keyword">(</span><span class="default">$client</span><span class="keyword">, </span><span class="default">2048</span><span class="keyword">, </span><span class="default">PHP_NORMAL_READ</span><span class="keyword">))) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;socket_read() fall&#xF3;: raz&#xF3;n: &quot; </span><span class="keyword">. </span><span class="default">socket_strerror</span><span class="keyword">(</span><span class="default">socket_last_error</span><span class="keyword">(</span><span class="default">$client</span><span class="keyword">)) . </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break </span><span class="default">2</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (!</span><span class="default">$buf </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$buf</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; continue;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$buf </span><span class="keyword">== </span><span class="string">&apos;quit&apos;</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; unset(</span><span class="default">$clients</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$client</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$buf </span><span class="keyword">== </span><span class="string">&apos;shutdown&apos;</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$client</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break </span><span class="default">2</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$talkback </span><span class="keyword">= </span><span class="string">&quot;Cliente </span><span class="keyword">{</span><span class="default">$key</span><span class="keyword">}</span><span class="string">: Usted dijo &apos;</span><span class="default">$buf</span><span class="string">&apos;.\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$client</span><span class="keyword">, </span><span class="default">$talkback</span><span class="keyword">, </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$talkback</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;</span><span class="default">$buf</span><span class="string">\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; }&#xA0; &#xA0; &#xA0; &#xA0; <br>} while (</span><span class="default">true</span><span class="keyword">);<br><br></span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+error_reporting(E_ALL);
+
+/* Permitir al script esperar para conexiones. */
+set_time_limit(0);
+
+/* Activar el volcado de salida impl&#xED;cito, as&#xED; veremos lo que estamo obteniendo
+ * mientras llega. */
+ob_implicit_flush();
+
+$address = &apos;127.0.0.1&apos;;
+$port = 10000;
+
+if (($sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === false) {
+    echo "socket_create() fall&#xF3;: raz&#xF3;n: " . socket_strerror(socket_last_error()) . "\n";
+}
+
+if (socket_bind($sock, $address, $port) === false) {
+    echo "socket_bind() fall&#xF3;: raz&#xF3;n: " . socket_strerror(socket_last_error($sock)) . "\n";
+}
+
+if (socket_listen($sock, 5) === false) {
+    echo "socket_listen() fall&#xF3;: raz&#xF3;n: " . socket_strerror(socket_last_error($sock)) . "\n";
+}
+
+//clients array
+$clients = array();
+
+do {
+    $read = array();
+    $read[] = $sock;
+    
+    $read = array_merge($read,$clients);
+    
+    // Set up a blocking call to socket_select
+    if(socket_select($read,$write = NULL, $except = NULL, $tv_sec = 5) &lt; 1)
+    {
+        //    SocketServer::debug("Problem blocking socket_select?");
+        continue;
+    }
+    
+    // Handle new Connections
+    if (in_array($sock, $read)) {        
+        
+        if (($msgsock = socket_accept($sock)) === false) {
+            echo "socket_accept() fall&#xF3;: raz&#xF3;n: " . socket_strerror(socket_last_error($sock)) . "\n";
+            break;
+        }
+        $clients[] = $msgsock;
+        $key = array_keys($clients, $msgsock);
+        /* Enviar instrucciones. */
+        $msg = "\nBienvenido al Servidor De Prueba de PHP. \n" .
+        "Usted es el cliente numero: {$key[0]}\n" .
+        "Para salir, escriba &apos;quit&apos;. Para cerrar el servidor escriba &apos;shutdown&apos;.\n";
+        socket_write($msgsock, $msg, strlen($msg));
+        
+    }
+    
+    // Handle Input
+    foreach ($clients as $key =&gt; $client) { // for each client        
+        if (in_array($client, $read)) {
+            if (false === ($buf = socket_read($client, 2048, PHP_NORMAL_READ))) {
+                echo "socket_read() fall&#xF3;: raz&#xF3;n: " . socket_strerror(socket_last_error($client)) . "\n";
+                break 2;
+            }
+            if (!$buf = trim($buf)) {
+                continue;
+            }
+            if ($buf == &apos;quit&apos;) {
+                unset($clients[$key]);
+                socket_close($client);
+                break;
+            }
+            if ($buf == &apos;shutdown&apos;) {
+                socket_close($client);
+                break 2;
+            }
+            $talkback = "Cliente {$key}: Usted dijo &apos;$buf&apos;.\n";
+            socket_write($client, $talkback, strlen($talkback));
+            echo "$buf\n";
+        }
+        
+    }        
+} while (true);
+
+socket_close($sock);
+?>
+```
   
 
 #

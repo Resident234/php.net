@@ -2,20 +2,160 @@
 
 
 
+Function to get current CPU load as percentage value under Windows and Linux.<br><br>Note: Function is getServerLoad(). It will return a decimal value as percentage of current CPU load or NULL if something went wrong (e. g. insufficient access rights).<br><br>
 
-<div class="phpcode"><span class="html">
-Function to get current CPU load as percentage value under Windows and Linux.<br><br>Note: Function is getServerLoad(). It will return a decimal value as percentage of current CPU load or NULL if something went wrong (e. g. insufficient access rights).<br><br><span class="default">&lt;?php<br><br>&#xA0; &#xA0; header</span><span class="keyword">(</span><span class="string">&quot;Content-Type: text/plain&quot;</span><span class="keyword">);<br><br>&#xA0; &#xA0; function </span><span class="default">_getServerLoadLinuxData</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_readable</span><span class="keyword">(</span><span class="string">&quot;/proc/stat&quot;</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$stats </span><span class="keyword">= @</span><span class="default">file_get_contents</span><span class="keyword">(</span><span class="string">&quot;/proc/stat&quot;</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$stats </span><span class="keyword">!== </span><span class="default">false</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// Remove double spaces to make it easier to extract values with explode()<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$stats </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;/[[:blank:]]+/&quot;</span><span class="keyword">, </span><span class="string">&quot; &quot;</span><span class="keyword">, </span><span class="default">$stats</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// Separate lines<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$stats </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(array(</span><span class="string">&quot;\r\n&quot;</span><span class="keyword">, </span><span class="string">&quot;\n\r&quot;</span><span class="keyword">, </span><span class="string">&quot;\r&quot;</span><span class="keyword">), </span><span class="string">&quot;\n&quot;</span><span class="keyword">, </span><span class="default">$stats</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$stats </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&quot;\n&quot;</span><span class="keyword">, </span><span class="default">$stats</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// Separate values and find line for main CPU load<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">foreach (</span><span class="default">$stats </span><span class="keyword">as </span><span class="default">$statLine</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$statLineData </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&quot; &quot;</span><span class="keyword">, </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$statLine</span><span class="keyword">));<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// Found!<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (</span><span class="default">count</span><span class="keyword">(</span><span class="default">$statLineData</span><span class="keyword">) &gt;= </span><span class="default">5</span><span class="keyword">) &amp;&amp;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (</span><span class="default">$statLineData</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] == </span><span class="string">&quot;cpu&quot;</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; )<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return array(<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$statLineData</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">],<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$statLineData</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">],<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$statLineData</span><span class="keyword">[</span><span class="default">3</span><span class="keyword">],<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$statLineData</span><span class="keyword">[</span><span class="default">4</span><span class="keyword">],<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; );<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">null</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="comment">// Returns server load in percent (just number, without percent sign)<br>&#xA0; &#xA0; </span><span class="keyword">function </span><span class="default">getServerLoad</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$load </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">stristr</span><span class="keyword">(</span><span class="default">PHP_OS</span><span class="keyword">, </span><span class="string">&quot;win&quot;</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$cmd </span><span class="keyword">= </span><span class="string">&quot;wmic cpu get loadpercentage /all&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; @</span><span class="default">exec</span><span class="keyword">(</span><span class="default">$cmd</span><span class="keyword">, </span><span class="default">$output</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$output</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$output </span><span class="keyword">as </span><span class="default">$line</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$line </span><span class="keyword">&amp;&amp; </span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">&quot;/^[0-9]+\$/&quot;</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$load </span><span class="keyword">= </span><span class="default">$line</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; else<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_readable</span><span class="keyword">(</span><span class="string">&quot;/proc/stat&quot;</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// Collect 2 samples - each with 1 second period<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // See: <a href="https://de.wikipedia.org/wiki/Load#Der_Load_Average_auf_Unix-Systemen" rel="nofollow" target="_blank">https://de.wikipedia.org/wiki/Load#Der_Load_Average_auf_Unix-Systemen</a><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$statData1 </span><span class="keyword">= </span><span class="default">_getServerLoadLinuxData</span><span class="keyword">();<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$statData2 </span><span class="keyword">= </span><span class="default">_getServerLoadLinuxData</span><span class="keyword">();<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (!</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$statData1</span><span class="keyword">)) &amp;&amp;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (!</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$statData2</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; )<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// Get difference<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$statData2</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] -= </span><span class="default">$statData1</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$statData2</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] -= </span><span class="default">$statData1</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$statData2</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] -= </span><span class="default">$statData1</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$statData2</span><span class="keyword">[</span><span class="default">3</span><span class="keyword">] -= </span><span class="default">$statData1</span><span class="keyword">[</span><span class="default">3</span><span class="keyword">];<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// Sum up the 4 values for User, Nice, System and Idle and calculate<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // the percentage of idle time (which is part of the 4 values!)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$cpuTime </span><span class="keyword">= </span><span class="default">$statData2</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] + </span><span class="default">$statData2</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] + </span><span class="default">$statData2</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] + </span><span class="default">$statData2</span><span class="keyword">[</span><span class="default">3</span><span class="keyword">];<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// Invert percentage to get CPU time, not idle time<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$load </span><span class="keyword">= </span><span class="default">100 </span><span class="keyword">- (</span><span class="default">$statData2</span><span class="keyword">[</span><span class="default">3</span><span class="keyword">] * </span><span class="default">100 </span><span class="keyword">/ </span><span class="default">$cpuTime</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$load</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="comment">//----------------------------<br><br>&#xA0; &#xA0; </span><span class="default">$cpuLoad </span><span class="keyword">= </span><span class="default">getServerLoad</span><span class="keyword">();<br>&#xA0; &#xA0; if (</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$cpuLoad</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;CPU load not estimateable (maybe too old Windows or missing rights at Linux or Windows)&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; else {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="default">$cpuLoad </span><span class="keyword">. </span><span class="string">&quot;%&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+    header("Content-Type: text/plain");
+
+    function _getServerLoadLinuxData()
+    {
+        if (is_readable("/proc/stat"))
+        {
+            $stats = @file_get_contents("/proc/stat");
+
+            if ($stats !== false)
+            {
+                // Remove double spaces to make it easier to extract values with explode()
+                $stats = preg_replace("/[[:blank:]]+/", " ", $stats);
+
+                // Separate lines
+                $stats = str_replace(array("\r\n", "\n\r", "\r"), "\n", $stats);
+                $stats = explode("\n", $stats);
+
+                // Separate values and find line for main CPU load
+                foreach ($stats as $statLine)
+                {
+                    $statLineData = explode(" ", trim($statLine));
+
+                    // Found!
+                    if
+                    (
+                        (count($statLineData) &gt;= 5) &amp;&amp;
+                        ($statLineData[0] == "cpu")
+                    )
+                    {
+                        return array(
+                            $statLineData[1],
+                            $statLineData[2],
+                            $statLineData[3],
+                            $statLineData[4],
+                        );
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    // Returns server load in percent (just number, without percent sign)
+    function getServerLoad()
+    {
+        $load = null;
+
+        if (stristr(PHP_OS, "win"))
+        {
+            $cmd = "wmic cpu get loadpercentage /all";
+            @exec($cmd, $output);
+
+            if ($output)
+            {
+                foreach ($output as $line)
+                {
+                    if ($line &amp;&amp; preg_match("/^[0-9]+\$/", $line))
+                    {
+                        $load = $line;
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (is_readable("/proc/stat"))
+            {
+                // Collect 2 samples - each with 1 second period
+                // See: https://de.wikipedia.org/wiki/Load#Der_Load_Average_auf_Unix-Systemen
+                $statData1 = _getServerLoadLinuxData();
+                sleep(1);
+                $statData2 = _getServerLoadLinuxData();
+
+                if
+                (
+                    (!is_null($statData1)) &amp;&amp;
+                    (!is_null($statData2))
+                )
+                {
+                    // Get difference
+                    $statData2[0] -= $statData1[0];
+                    $statData2[1] -= $statData1[1];
+                    $statData2[2] -= $statData1[2];
+                    $statData2[3] -= $statData1[3];
+
+                    // Sum up the 4 values for User, Nice, System and Idle and calculate
+                    // the percentage of idle time (which is part of the 4 values!)
+                    $cpuTime = $statData2[0] + $statData2[1] + $statData2[2] + $statData2[3];
+
+                    // Invert percentage to get CPU time, not idle time
+                    $load = 100 - ($statData2[3] * 100 / $cpuTime);
+                }
+            }
+        }
+
+        return $load;
+    }
+
+    //----------------------------
+
+    $cpuLoad = getServerLoad();
+    if (is_null($cpuLoad)) {
+        echo "CPU load not estimateable (maybe too old Windows or missing rights at Linux or Windows)";
+    }
+    else {
+        echo $cpuLoad . "%";
+    }
+
+?>
+```
   
 
 #
 
+Here is another one that also works on windows. Note that this method is not fast, so be careful in the number of calls to this function.<br><br>
 
-<div class="phpcode"><span class="html">
-Here is another one that also works on windows. Note that this method is not fast, so be careful in the number of calls to this function.<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">get_server_load</span><span class="keyword">() {<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">stristr</span><span class="keyword">(</span><span class="default">PHP_OS</span><span class="keyword">, </span><span class="string">&apos;win&apos;</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$wmi </span><span class="keyword">= new </span><span class="default">COM</span><span class="keyword">(</span><span class="string">&quot;Winmgmts://&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$server </span><span class="keyword">= </span><span class="default">$wmi</span><span class="keyword">-&gt;</span><span class="default">execquery</span><span class="keyword">(</span><span class="string">&quot;SELECT LoadPercentage FROM Win32_Processor&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$cpu_num </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$load_total </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach(</span><span class="default">$server </span><span class="keyword">as </span><span class="default">$cpu</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$cpu_num</span><span class="keyword">++;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$load_total </span><span class="keyword">+= </span><span class="default">$cpu</span><span class="keyword">-&gt;</span><span class="default">loadpercentage</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$load </span><span class="keyword">= </span><span class="default">round</span><span class="keyword">(</span><span class="default">$load_total</span><span class="keyword">/</span><span class="default">$cpu_num</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$sys_load </span><span class="keyword">= </span><span class="default">sys_getloadavg</span><span class="keyword">();<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$load </span><span class="keyword">= </span><span class="default">$sys_load</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; return (int) </span><span class="default">$load</span><span class="keyword">;<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; }<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+function get_server_load() {
+    
+        if (stristr(PHP_OS, &apos;win&apos;)) {
+        
+            $wmi = new COM("Winmgmts://");
+            $server = $wmi-&gt;execquery("SELECT LoadPercentage FROM Win32_Processor");
+            
+            $cpu_num = 0;
+            $load_total = 0;
+            
+            foreach($server as $cpu){
+                $cpu_num++;
+                $load_total += $cpu-&gt;loadpercentage;
+            }
+            
+            $load = round($load_total/$cpu_num);
+            
+        } else {
+        
+            $sys_load = sys_getloadavg();
+            $load = $sys_load[0];
+        
+        }
+        
+        return (int) $load;
+    
+    }
+?>
+```
   
 
 #

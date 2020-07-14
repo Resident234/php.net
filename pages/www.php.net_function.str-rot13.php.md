@@ -2,11 +2,67 @@
 
 
 
+I was reminded again of the desire for a generic str_rot function. Character manipulation loops in PHP are slow compared to their C counterparts, so here&apos;s a tuned version of the previous function I posted. It&apos;s 1.6 times as fast, mainly by avoiding chr() calls.<br><br>
 
-<div class="phpcode"><span class="html">
-I was reminded again of the desire for a generic str_rot function. Character manipulation loops in PHP are slow compared to their C counterparts, so here&apos;s a tuned version of the previous function I posted. It&apos;s 1.6 times as fast, mainly by avoiding chr() calls.<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">str_rot</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">, </span><span class="default">$n </span><span class="keyword">= </span><span class="default">13</span><span class="keyword">) {<br>&#xA0; &#xA0; static </span><span class="default">$letters </span><span class="keyword">= </span><span class="string">&apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$n </span><span class="keyword">= (int)</span><span class="default">$n </span><span class="keyword">% </span><span class="default">26</span><span class="keyword">;<br>&#xA0; &#xA0; if (!</span><span class="default">$n</span><span class="keyword">) return </span><span class="default">$s</span><span class="keyword">;<br>&#xA0; &#xA0; if (</span><span class="default">$n </span><span class="keyword">== </span><span class="default">13</span><span class="keyword">) return </span><span class="default">str_rot13</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">);<br>&#xA0; &#xA0; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">, </span><span class="default">$l </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">); </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$l</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$c </span><span class="keyword">= </span><span class="default">$s</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$c </span><span class="keyword">&gt;= </span><span class="string">&apos;a&apos; </span><span class="keyword">&amp;&amp; </span><span class="default">$c </span><span class="keyword">&lt;= </span><span class="string">&apos;z&apos;</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$s</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">$letters</span><span class="keyword">[(</span><span class="default">ord</span><span class="keyword">(</span><span class="default">$c</span><span class="keyword">) - </span><span class="default">71 </span><span class="keyword">+ </span><span class="default">$n</span><span class="keyword">) % </span><span class="default">26</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; } else if (</span><span class="default">$c </span><span class="keyword">&gt;= </span><span class="string">&apos;A&apos; </span><span class="keyword">&amp;&amp; </span><span class="default">$c </span><span class="keyword">&lt;= </span><span class="string">&apos;Z&apos;</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$s</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">$letters</span><span class="keyword">[(</span><span class="default">ord</span><span class="keyword">(</span><span class="default">$c</span><span class="keyword">) - </span><span class="default">39 </span><span class="keyword">+ </span><span class="default">$n</span><span class="keyword">) % </span><span class="default">26 </span><span class="keyword">+ </span><span class="default">26</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">$s</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>But using strtr() you can get something 10 times as fast as the above :<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">str_rot</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">, </span><span class="default">$n </span><span class="keyword">= </span><span class="default">13</span><span class="keyword">) {<br>&#xA0; &#xA0; static </span><span class="default">$letters </span><span class="keyword">= </span><span class="string">&apos;AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$n </span><span class="keyword">= (int)</span><span class="default">$n </span><span class="keyword">% </span><span class="default">26</span><span class="keyword">;<br>&#xA0; &#xA0; if (!</span><span class="default">$n</span><span class="keyword">) return </span><span class="default">$s</span><span class="keyword">;<br>&#xA0; &#xA0; if (</span><span class="default">$n </span><span class="keyword">&lt; </span><span class="default">0</span><span class="keyword">) </span><span class="default">$n </span><span class="keyword">+= </span><span class="default">26</span><span class="keyword">;<br>&#xA0; &#xA0; if (</span><span class="default">$n </span><span class="keyword">== </span><span class="default">13</span><span class="keyword">) return </span><span class="default">str_rot13</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$rep </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$letters</span><span class="keyword">, </span><span class="default">$n </span><span class="keyword">* </span><span class="default">2</span><span class="keyword">) . </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$letters</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$n </span><span class="keyword">* </span><span class="default">2</span><span class="keyword">);<br>&#xA0; &#xA0; return </span><span class="default">strtr</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">, </span><span class="default">$letters</span><span class="keyword">, </span><span class="default">$rep</span><span class="keyword">);<br>}<br></span><span class="default">?&gt;<br></span><br>This technique is faster because PHP&apos;s strtr is implemented in C using a byte lookup table (it has O(m + n) complexity). However, PHP 6 will use Unicode, so I guess(?) strtr will then have to be implemented with a search for each character (O(m * n)). Using strtr might still be faster since it offloads the character manipulation to C rather than PHP, but I don&apos;t really know. Take your pick.<br><br>Happy coding!<br><br>(Benchmark code):<br><br><span class="default">&lt;?php<br></span><span class="keyword">for (</span><span class="default">$k </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$k </span><span class="keyword">&lt; </span><span class="default">10</span><span class="keyword">; </span><span class="default">$k</span><span class="keyword">++) {<br>&#xA0; &#xA0; </span><span class="default">$s </span><span class="keyword">= </span><span class="string">&apos;The quick brown fox jumps over the lazy dog.&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$t </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">1000</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) </span><span class="default">$s </span><span class="keyword">= </span><span class="default">str_rot</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$t </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">) - </span><span class="default">$t</span><span class="keyword">;<br>&#xA0; &#xA0; echo </span><span class="default">number_format</span><span class="keyword">(</span><span class="default">$t</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">) . </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+function str_rot($s, $n = 13) {
+    static $letters = &apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&apos;;
+    $n = (int)$n % 26;
+    if (!$n) return $s;
+    if ($n == 13) return str_rot13($s);
+    for ($i = 0, $l = strlen($s); $i &lt; $l; $i++) {
+        $c = $s[$i];
+        if ($c &gt;= &apos;a&apos; &amp;&amp; $c &lt;= &apos;z&apos;) {
+            $s[$i] = $letters[(ord($c) - 71 + $n) % 26];
+        } else if ($c &gt;= &apos;A&apos; &amp;&amp; $c &lt;= &apos;Z&apos;) {
+            $s[$i] = $letters[(ord($c) - 39 + $n) % 26 + 26];
+        }
+    }
+    return $s;
+}
+?>
+```
+
+
+But using strtr() you can get something 10 times as fast as the above :
+
+
+
+```
+<?php
+function str_rot($s, $n = 13) {
+    static $letters = &apos;AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz&apos;;
+    $n = (int)$n % 26;
+    if (!$n) return $s;
+    if ($n &lt; 0) $n += 26;
+    if ($n == 13) return str_rot13($s);
+    $rep = substr($letters, $n * 2) . substr($letters, 0, $n * 2);
+    return strtr($s, $letters, $rep);
+}
+?>
+```
+
+
+This technique is faster because PHP&apos;s strtr is implemented in C using a byte lookup table (it has O(m + n) complexity). However, PHP 6 will use Unicode, so I guess(?) strtr will then have to be implemented with a search for each character (O(m * n)). Using strtr might still be faster since it offloads the character manipulation to C rather than PHP, but I don&apos;t really know. Take your pick.
+
+Happy coding!
+
+(Benchmark code):
+
+
+
+```
+<?php
+for ($k = 0; $k &lt; 10; $k++) {
+    $s = &apos;The quick brown fox jumps over the lazy dog.&apos;;
+    $t = microtime(1);
+    for ($i = 0; $i &lt; 1000; $i++) $s = str_rot($s, $i);
+    $t = microtime(1) - $t;
+    echo number_format($t, 3) . "\n";
+}
+?>
+```
   
 
 #

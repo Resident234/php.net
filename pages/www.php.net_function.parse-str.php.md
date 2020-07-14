@@ -2,37 +2,166 @@
 
 
 
+It bears mentioning that the parse_str builtin does NOT process a query string in the CGI standard way, when it comes to duplicate fields.  If multiple fields of the same name exist in a query string, every other web processing language would read them into an array, but PHP silently overwrites them:<br><br>
 
-<div class="phpcode"><span class="html">
-It bears mentioning that the parse_str builtin does NOT process a query string in the CGI standard way, when it comes to duplicate fields.&#xA0; If multiple fields of the same name exist in a query string, every other web processing language would read them into an array, but PHP silently overwrites them:<br><br><span class="default">&lt;?php<br></span><span class="comment"># silently fails to handle multiple values<br></span><span class="default">parse_str</span><span class="keyword">(</span><span class="string">&apos;foo=1&amp;foo=2&amp;foo=3&apos;</span><span class="keyword">);<br><br></span><span class="comment"># the above produces:<br></span><span class="default">$foo </span><span class="keyword">= array(</span><span class="string">&apos;foo&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;3&apos;</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>Instead, PHP uses a non-standards compliant practice of including brackets in fieldnames to achieve the same effect.<br><br><span class="default">&lt;?php<br></span><span class="comment"># bizarre php-specific behavior<br></span><span class="default">parse_str</span><span class="keyword">(</span><span class="string">&apos;foo[]=1&amp;foo[]=2&amp;foo[]=3&apos;</span><span class="keyword">);<br><br></span><span class="comment"># the above produces:<br></span><span class="default">$foo </span><span class="keyword">= array(</span><span class="string">&apos;foo&apos; </span><span class="keyword">=&gt; array(</span><span class="string">&apos;1&apos;</span><span class="keyword">, </span><span class="string">&apos;2&apos;</span><span class="keyword">, </span><span class="string">&apos;3&apos;</span><span class="keyword">) );<br></span><span class="default">?&gt;<br></span><br>This can be confusing for anyone who&apos;s used to the CGI standard, so keep it in mind.&#xA0; As an alternative, I use a &quot;proper&quot; querystring parser function:<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">proper_parse_str</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">) {<br>&#xA0; </span><span class="comment"># result array<br>&#xA0; </span><span class="default">$arr </span><span class="keyword">= array();<br><br>&#xA0; </span><span class="comment"># split on outer delimiter<br>&#xA0; </span><span class="default">$pairs </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&apos;&amp;&apos;</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">);<br><br>&#xA0; </span><span class="comment"># loop through each pair<br>&#xA0; </span><span class="keyword">foreach (</span><span class="default">$pairs </span><span class="keyword">as </span><span class="default">$i</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="comment"># split into name and value<br>&#xA0; &#xA0; </span><span class="keyword">list(</span><span class="default">$name</span><span class="keyword">,</span><span class="default">$value</span><span class="keyword">) = </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&apos;=&apos;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment"># if name already exists<br>&#xA0; &#xA0; </span><span class="keyword">if( isset(</span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">]) ) {<br>&#xA0; &#xA0; &#xA0; </span><span class="comment"># stick multiple values into an array<br>&#xA0; &#xA0; &#xA0; </span><span class="keyword">if( </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">]) ) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">][] = </span><span class="default">$value</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; else {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">] = array(</span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">], </span><span class="default">$value</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; </span><span class="comment"># otherwise, simply stick it in a scalar<br>&#xA0; &#xA0; </span><span class="keyword">else {<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$name</span><span class="keyword">] = </span><span class="default">$value</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; }<br><br>&#xA0; </span><span class="comment"># return result array<br>&#xA0; </span><span class="keyword">return </span><span class="default">$arr</span><span class="keyword">;<br>}<br><br></span><span class="default">$query </span><span class="keyword">= </span><span class="default">proper_parse_str</span><span class="keyword">(</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">&apos;QUERY_STRING&apos;</span><span class="keyword">]);<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+# silently fails to handle multiple values
+parse_str(&apos;foo=1&amp;foo=2&amp;foo=3&apos;);
+
+# the above produces:
+$foo = array(&apos;foo&apos; =&gt; &apos;3&apos;);
+?>
+```
+
+
+Instead, PHP uses a non-standards compliant practice of including brackets in fieldnames to achieve the same effect.
+
+
+
+```
+<?php
+# bizarre php-specific behavior
+parse_str(&apos;foo[]=1&amp;foo[]=2&amp;foo[]=3&apos;);
+
+# the above produces:
+$foo = array(&apos;foo&apos; =&gt; array(&apos;1&apos;, &apos;2&apos;, &apos;3&apos;) );
+?>
+```
+
+
+This can be confusing for anyone who&apos;s used to the CGI standard, so keep it in mind.  As an alternative, I use a "proper" querystring parser function:
+
+
+
+```
+<?php
+function proper_parse_str($str) {
+  # result array
+  $arr = array();
+
+  # split on outer delimiter
+  $pairs = explode(&apos;&amp;&apos;, $str);
+
+  # loop through each pair
+  foreach ($pairs as $i) {
+    # split into name and value
+    list($name,$value) = explode(&apos;=&apos;, $i, 2);
+    
+    # if name already exists
+    if( isset($arr[$name]) ) {
+      # stick multiple values into an array
+      if( is_array($arr[$name]) ) {
+        $arr[$name][] = $value;
+      }
+      else {
+        $arr[$name] = array($arr[$name], $value);
+      }
+    }
+    # otherwise, simply stick it in a scalar
+    else {
+      $arr[$name] = $value;
+    }
+  }
+
+  # return result array
+  return $arr;
+}
+
+$query = proper_parse_str($_SERVER[&apos;QUERY_STRING&apos;]);
+?>
+```
   
 
 #
 
+if you need custom arg separator, you can use this function. it returns parsed  query as associative array.<br><br>
 
-<div class="phpcode"><span class="html">
-if you need custom arg separator, you can use this function. it returns parsed&#xA0; query as associative array.<br><br><span class="default">&lt;?php<br><br></span><span class="comment">/**<br> * Parses http query string into an array<br> * <br> * @author Alxcube &lt;alxcube@gmail.com&gt;<br> * <br> * @param string $queryString String to parse<br> * @param string $argSeparator Query arguments separator<br> * @param integer $decType Decoding type<br> * @return array<br> */<br></span><span class="keyword">function </span><span class="default">http_parse_query</span><span class="keyword">(</span><span class="default">$queryString</span><span class="keyword">, </span><span class="default">$argSeparator </span><span class="keyword">= </span><span class="string">&apos;&amp;&apos;</span><span class="keyword">, </span><span class="default">$decType </span><span class="keyword">= </span><span class="default">PHP_QUERY_RFC1738</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="keyword">= array();<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$parts&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="default">$argSeparator</span><span class="keyword">, </span><span class="default">$queryString</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$parts </span><span class="keyword">as </span><span class="default">$part</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; list(</span><span class="default">$paramName</span><span class="keyword">, </span><span class="default">$paramValue</span><span class="keyword">)&#xA0;&#xA0; = </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&apos;=&apos;</span><span class="keyword">, </span><span class="default">$part</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; switch (</span><span class="default">$decType</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="default">PHP_QUERY_RFC3986</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$paramName&#xA0; &#xA0; &#xA0; </span><span class="keyword">= </span><span class="default">rawurldecode</span><span class="keyword">(</span><span class="default">$paramName</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$paramValue&#xA0; &#xA0;&#xA0; </span><span class="keyword">= </span><span class="default">rawurldecode</span><span class="keyword">(</span><span class="default">$paramValue</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="default">PHP_QUERY_RFC1738</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; default:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$paramName&#xA0; &#xA0; &#xA0; </span><span class="keyword">= </span><span class="default">urldecode</span><span class="keyword">(</span><span class="default">$paramName</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$paramValue&#xA0; &#xA0;&#xA0; </span><span class="keyword">= </span><span class="default">urldecode</span><span class="keyword">(</span><span class="default">$paramValue</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="string">&apos;/\[([^\]]*)\]/m&apos;</span><span class="keyword">, </span><span class="default">$paramName</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$paramName&#xA0; &#xA0; &#xA0; </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$paramName</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$paramName</span><span class="keyword">, </span><span class="string">&apos;[&apos;</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$keys&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="keyword">= </span><span class="default">array_merge</span><span class="keyword">(array(</span><span class="default">$paramName</span><span class="keyword">), </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$keys&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="keyword">= array(</span><span class="default">$paramName</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$target&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="keyword">= &amp;</span><span class="default">$result</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$keys </span><span class="keyword">as </span><span class="default">$index</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$index </span><span class="keyword">=== </span><span class="string">&apos;&apos;</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (isset(</span><span class="default">$target</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$target</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$intKeys&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">= </span><span class="default">array_filter</span><span class="keyword">(</span><span class="default">array_keys</span><span class="keyword">(</span><span class="default">$target</span><span class="keyword">), </span><span class="string">&apos;is_int&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$index&#xA0; </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$intKeys</span><span class="keyword">) ? </span><span class="default">max</span><span class="keyword">(</span><span class="default">$intKeys</span><span class="keyword">)+</span><span class="default">1 </span><span class="keyword">: </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$target </span><span class="keyword">= array(</span><span class="default">$target</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$index&#xA0; </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$target&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="keyword">= array();<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$index&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } elseif (isset(</span><span class="default">$target</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">]) &amp;&amp; !</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$target</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">])) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$target</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">] = array(</span><span class="default">$target</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$target&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="keyword">= &amp;</span><span class="default">$target</span><span class="keyword">[</span><span class="default">$index</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$target</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$target</span><span class="keyword">[]&#xA0;&#xA0; = </span><span class="default">$paramValue</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$target&#xA0; &#xA0;&#xA0; </span><span class="keyword">= </span><span class="default">$paramValue</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$result</span><span class="keyword">;<br>}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+/**
+ * Parses http query string into an array
+ * 
+ * @author Alxcube &lt;alxcube@gmail.com&gt;
+ * 
+ * @param string $queryString String to parse
+ * @param string $argSeparator Query arguments separator
+ * @param integer $decType Decoding type
+ * @return array
+ */
+function http_parse_query($queryString, $argSeparator = &apos;&amp;&apos;, $decType = PHP_QUERY_RFC1738) {
+        $result             = array();
+        $parts              = explode($argSeparator, $queryString);
+
+        foreach ($parts as $part) {
+                list($paramName, $paramValue)   = explode(&apos;=&apos;, $part, 2);
+
+                switch ($decType) {
+                        case PHP_QUERY_RFC3986:
+                                $paramName      = rawurldecode($paramName);
+                                $paramValue     = rawurldecode($paramValue);
+                                break;
+
+                        case PHP_QUERY_RFC1738:
+                        default:
+                                $paramName      = urldecode($paramName);
+                                $paramValue     = urldecode($paramValue);
+                                break;
+                }
+                
+
+                if (preg_match_all(&apos;/\[([^\]]*)\]/m&apos;, $paramName, $matches)) {
+                        $paramName      = substr($paramName, 0, strpos($paramName, &apos;[&apos;));
+                        $keys           = array_merge(array($paramName), $matches[1]);
+                } else {
+                        $keys           = array($paramName);
+                }
+                
+                $target         = &amp;$result;
+                
+                foreach ($keys as $index) {
+                        if ($index === &apos;&apos;) {
+                                if (isset($target)) {
+                                        if (is_array($target)) {
+                                                $intKeys        = array_filter(array_keys($target), &apos;is_int&apos;);
+                                                $index  = count($intKeys) ? max($intKeys)+1 : 0;
+                                        } else {
+                                                $target = array($target);
+                                                $index  = 1;
+                                        }
+                                } else {
+                                        $target         = array();
+                                        $index          = 0;
+                                }
+                        } elseif (isset($target[$index]) &amp;&amp; !is_array($target[$index])) {
+                                $target[$index] = array($target[$index]);
+                        }
+
+                        $target         = &amp;$target[$index];
+                }
+
+                if (is_array($target)) {
+                        $target[]   = $paramValue;
+                } else {
+                        $target     = $paramValue;
+                }
+        }
+
+        return $result;
+}
+
+?>
+```
   
 
 #
 
-
-<div class="phpcode"><span class="html">
-That&apos;s not says in the description but max_input_vars directive affects this function. If there are more input variables on the string than specified by this directive, an E_WARNING is issued, and further input variables are truncated from the request.</span>
-</div>
-  
+That&apos;s not says in the description but max_input_vars directive affects this function. If there are more input variables on the string than specified by this directive, an E_WARNING is issued, and further input variables are truncated from the request.  
 
 #
 
-
-<div class="phpcode"><span class="html">
-Vladimir: the function is OK in how it deals with &amp;amp;.<br>&amp;amp; must only be used when outputing URLs in HTML/XML data.<br>You should ask yourself why you have &amp;amp; in your URL when you give it to parse_str.</span>
-</div>
-  
+Vladimir: the function is OK in how it deals with &amp;amp;.<br>&amp;amp; must only be used when outputing URLs in HTML/XML data.<br>You should ask yourself why you have &amp;amp; in your URL when you give it to parse_str.  
 
 #
 

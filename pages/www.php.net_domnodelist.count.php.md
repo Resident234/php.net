@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-Be careful with using this function as it&apos;s not available for anything before PHP 7.2, use the length property instead</span>
-</div>
-  
+Be careful with using this function as it&apos;s not available for anything before PHP 7.2, use the length property instead  
 
 #
 

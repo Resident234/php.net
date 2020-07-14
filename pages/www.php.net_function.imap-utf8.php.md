@@ -2,28 +2,15 @@
 
 
 
-
-
-That fixed the all caps issue:
-
-
-
-
+That fixed the all caps issue:<br><br>
 
 ```
 <?php
-
 function imap_utf8_fix($string) {
-
-&#xA0; return iconv_mime_decode($string,0,&quot;UTF-8&quot;);
-
+  return iconv_mime_decode($string,0,"UTF-8");
 }
-
 ?>
 ```
-
-
-
   
 
 #

@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-It appears that fsockopen prior to php5 did not need the unix:// qualifier when opening a unix domain socket:<br><br>php4: fsockopen(&quot;/tmp/mysocket&quot;......);<br><br>php5: fsockopen(&quot;unix:///tmp/mysocket&quot;......);<br><br>This caught me out when upgrading.</span>
-</div>
-  
+It appears that fsockopen prior to php5 did not need the unix:// qualifier when opening a unix domain socket:<br><br>php4: fsockopen("/tmp/mysocket"......);<br><br>php5: fsockopen("unix:///tmp/mysocket"......);<br><br>This caught me out when upgrading.  
 
 #
 

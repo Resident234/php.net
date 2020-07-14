@@ -2,28 +2,200 @@
 
 
 
+Note, that the default autoload implementation is written in C land and is always slightly faster then your native PHP one.<br><br>Here is a trick to use default implementation with any configuration:<br><br>
 
-<div class="phpcode"><span class="html">
-Note, that the default autoload implementation is written in C land and is always slightly faster then your native PHP one.<br><br>Here is a trick to use default implementation with any configuration:<br><br><span class="default">&lt;?php<br><br>&#xA0; &#xA0; </span><span class="comment">// Your custom class dir<br>&#xA0; &#xA0; </span><span class="default">define</span><span class="keyword">(</span><span class="string">&apos;CLASS_DIR&apos;</span><span class="keyword">, </span><span class="string">&apos;class/&apos;</span><span class="keyword">)<br><br>&#xA0; &#xA0; </span><span class="comment">// Add your class dir to include path<br>&#xA0; &#xA0; </span><span class="default">set_include_path</span><span class="keyword">(</span><span class="default">get_include_path</span><span class="keyword">().</span><span class="default">PATH_SEPARATOR</span><span class="keyword">.</span><span class="default">CLASS_DIR</span><span class="keyword">);<br><br>&#xA0; &#xA0; </span><span class="comment">// You can use this trick to make autoloader look for commonly used &quot;My.class.php&quot; type filenames<br>&#xA0; &#xA0; </span><span class="default">spl_autoload_extensions</span><span class="keyword">(</span><span class="string">&apos;.class.php&apos;</span><span class="keyword">);<br><br>&#xA0; &#xA0; </span><span class="comment">// Use default autoload implementation<br>&#xA0; &#xA0; </span><span class="default">spl_autoload_register</span><span class="keyword">();<br></span><span class="default">?&gt;<br></span><br>This also works with namespaces out of the box. So you can write code like &quot;use My\Name\Object&quot; and it will map to &quot;class/My/Name/Object.class.php&quot; file path!</span>
-</div>
+```
+<?php
+
+    // Your custom class dir
+    define(&apos;CLASS_DIR&apos;, &apos;class/&apos;)
+
+    // Add your class dir to include path
+    set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
+
+    // You can use this trick to make autoloader look for commonly used "My.class.php" type filenames
+    spl_autoload_extensions(&apos;.class.php&apos;);
+
+    // Use default autoload implementation
+    spl_autoload_register();
+?>
+```
+<br><br>This also works with namespaces out of the box. So you can write code like "use My\Name\Object" and it will map to "class/My/Name/Object.class.php" file path!  
+
+#
+
+One small example that shows how you can use spl_autoload function in your MVC, Framewrk&apos;s applications. For example, will use the Loader class.<br> <br><br>
+
+```
+<?php
+
+ class Loader
+ {
+        
+    /**
+     * Controller Directory Path
+     *
+     * @var Array
+     * @access protected
+     */
+    protected $_controllerDirectoryPath = array();
+    
+    /**
+     * Model Directory Path
+     *
+     * @var Array
+     * @access protected
+     */
+    protected $_modelDirectoryPath = array();
+    
+    /**
+     * Library Directory Path
+     *
+     * @var Array
+     * @access protected
+     */
+    protected $_libraryDirectoryPath = array();
+    
+    
+    /** 
+     * Constructor
+     * Constant contain my full path to Model, View, Controllers and Lobrary-
+     * Direcories.
+     *
+     * @Constant MPATH,VPATH,CPATH,LPATH
+     */
+     
+    public function __construct()
+    {
+        $this-&gt;modelDirectoryPath      = MPATH;
+        $this-&gt;viewDirectoryPath        = VPATH;
+        $this-&gt;controllerDirectoryPath = CPATH;
+        $this-&gt;libraryDirectoryPath     = LPATH;
+        
+        spl_autoload_register(array($this,&apos;load_controller&apos;));
+        spl_autoload_register(array($this,&apos;load_model&apos;));
+        spl_autoload_register(array($this,&apos;load_library&apos;));
+   
+        log_message(&apos;debug&apos;,"Loader Class Initialized");
+    }
+
+    /** 
+     *-----------------------------------------------------
+     * Load Library
+     *-----------------------------------------------------
+     * Method for load library.
+     * This method return class object.
+     *
+     * @library String
+     * @param String
+     * @access public
+     */    
+    public function load_library($library, $param = null)
+    {
+        if (is_string($library)) {
+            return $this-&gt;initialize_class($library);
+        }
+        if (is_array($library)) {
+            foreach ($library as $key) {
+                return $this-&gt;initialize_class($library);
+            }
+        }                
+    }
+
+    /** 
+     *-----------------------------------------------------
+     * Initialize Class
+     *-----------------------------------------------------
+     * Method for initialise class
+     * This method return new object. 
+     * This method can initialize more class using (array)
+     *
+     * @library String|Array
+     * @param String
+     * @access public
+     */    
+    public function initialize_class($library)
+    {
+        try {
+            if (is_array($library)) {
+                foreach($library as $class) {
+                    $arrayObject =  new $class;
+                }            
+                return $this;
+            }
+            if (is_string($library)) {
+                $stringObject = new $library;
+            }else {
+                throw new ISException(&apos;Class name must be string.&apos;);
+            }
+            if (null == $library) {
+                throw new ISException(&apos;You must enter the name of the class.&apos;);
+            }
+        } catch(Exception $exception) {
+            echo $exception;
+        }
+    }    
+    
+    /**
+     * Autoload Controller class
+     *
+     * @param  string $class
+     * @return object
+     */
+     
+    public function load_controller($controller)
+    {
+        if ($controller) {
+            set_include_path($this-&gt;controllerDirectoryPath);
+            spl_autoload_extensions(&apos;.php&apos;);
+            spl_autoload($class);
+        }
+    }    
+    
+
+      /**
+     * Autoload Model class
+     *
+     * @param  string $class
+     * @return object
+     */
+     
+    public function load_models($model)
+    {
+        if ($model) {
+            set_include_path($this-&gt;modelDirectoryPath);
+            spl_autoload_extensions(&apos;.php&apos;);
+            spl_autoload($class);
+        }
+    }    
+    
+      /**
+     * Autoload Library class
+     *
+     * @param  string $class
+     * @return object
+     */
+     
+    public function load_library($library)
+    {
+        if ($library) {
+            set_include_path($this-&gt;libraryDirectoryPath);
+            spl_autoload_extensions(&apos;.php&apos;);
+            spl_autoload($class);
+        }
+    }
+    
+
+    
+ }
+ 
+ ?>
+```
   
 
 #
 
-
-<div class="phpcode"><span class="html">
-One small example that shows how you can use spl_autoload function in your MVC, Framewrk&apos;s applications. For example, will use the Loader class.<br> <br><br><span class="default">&lt;?php<br><br> </span><span class="keyword">class </span><span class="default">Loader<br> </span><span class="keyword">{<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">/**<br>&#xA0; &#xA0;&#xA0; * Controller Directory Path<br>&#xA0; &#xA0;&#xA0; *<br>&#xA0; &#xA0;&#xA0; * @var Array<br>&#xA0; &#xA0;&#xA0; * @access protected<br>&#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0; </span><span class="keyword">protected </span><span class="default">$_controllerDirectoryPath </span><span class="keyword">= array();<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">/**<br>&#xA0; &#xA0;&#xA0; * Model Directory Path<br>&#xA0; &#xA0;&#xA0; *<br>&#xA0; &#xA0;&#xA0; * @var Array<br>&#xA0; &#xA0;&#xA0; * @access protected<br>&#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0; </span><span class="keyword">protected </span><span class="default">$_modelDirectoryPath </span><span class="keyword">= array();<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">/**<br>&#xA0; &#xA0;&#xA0; * Library Directory Path<br>&#xA0; &#xA0;&#xA0; *<br>&#xA0; &#xA0;&#xA0; * @var Array<br>&#xA0; &#xA0;&#xA0; * @access protected<br>&#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0; </span><span class="keyword">protected </span><span class="default">$_libraryDirectoryPath </span><span class="keyword">= array();<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">/** <br>&#xA0; &#xA0;&#xA0; * Constructor<br>&#xA0; &#xA0;&#xA0; * Constant contain my full path to Model, View, Controllers and Lobrary-<br>&#xA0; &#xA0;&#xA0; * Direcories.<br>&#xA0; &#xA0;&#xA0; *<br>&#xA0; &#xA0;&#xA0; * @Constant MPATH,VPATH,CPATH,LPATH<br>&#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0;&#xA0; <br>&#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">__construct</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">modelDirectoryPath&#xA0; &#xA0; &#xA0; </span><span class="keyword">= </span><span class="default">MPATH</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">viewDirectoryPath&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">= </span><span class="default">VPATH</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">controllerDirectoryPath </span><span class="keyword">= </span><span class="default">CPATH</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">libraryDirectoryPath&#xA0; &#xA0;&#xA0; </span><span class="keyword">= </span><span class="default">LPATH</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">spl_autoload_register</span><span class="keyword">(array(</span><span class="default">$this</span><span class="keyword">,</span><span class="string">&apos;load_controller&apos;</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">spl_autoload_register</span><span class="keyword">(array(</span><span class="default">$this</span><span class="keyword">,</span><span class="string">&apos;load_model&apos;</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">spl_autoload_register</span><span class="keyword">(array(</span><span class="default">$this</span><span class="keyword">,</span><span class="string">&apos;load_library&apos;</span><span class="keyword">));<br>&#xA0;&#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">log_message</span><span class="keyword">(</span><span class="string">&apos;debug&apos;</span><span class="keyword">,</span><span class="string">&quot;Loader Class Initialized&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="comment">/** <br>&#xA0; &#xA0;&#xA0; *-----------------------------------------------------<br>&#xA0; &#xA0;&#xA0; * Load Library<br>&#xA0; &#xA0;&#xA0; *-----------------------------------------------------<br>&#xA0; &#xA0;&#xA0; * Method for load library.<br>&#xA0; &#xA0;&#xA0; * This method return class object.<br>&#xA0; &#xA0;&#xA0; *<br>&#xA0; &#xA0;&#xA0; * @library String<br>&#xA0; &#xA0;&#xA0; * @param String<br>&#xA0; &#xA0;&#xA0; * @access public<br>&#xA0; &#xA0;&#xA0; */&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">load_library</span><span class="keyword">(</span><span class="default">$library</span><span class="keyword">, </span><span class="default">$param </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$library</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">initialize_class</span><span class="keyword">(</span><span class="default">$library</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$library</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$library </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">initialize_class</span><span class="keyword">(</span><span class="default">$library</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; }&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="comment">/** <br>&#xA0; &#xA0;&#xA0; *-----------------------------------------------------<br>&#xA0; &#xA0;&#xA0; * Initialize Class<br>&#xA0; &#xA0;&#xA0; *-----------------------------------------------------<br>&#xA0; &#xA0;&#xA0; * Method for initialise class<br>&#xA0; &#xA0;&#xA0; * This method return new object. <br>&#xA0; &#xA0;&#xA0; * This method can initialize more class using (array)<br>&#xA0; &#xA0;&#xA0; *<br>&#xA0; &#xA0;&#xA0; * @library String|Array<br>&#xA0; &#xA0;&#xA0; * @param String<br>&#xA0; &#xA0;&#xA0; * @access public<br>&#xA0; &#xA0;&#xA0; */&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">initialize_class</span><span class="keyword">(</span><span class="default">$library</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; try {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$library</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach(</span><span class="default">$library </span><span class="keyword">as </span><span class="default">$class</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$arrayObject </span><span class="keyword">=&#xA0; new </span><span class="default">$class</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$this</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$library</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$stringObject </span><span class="keyword">= new </span><span class="default">$library</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">ISException</span><span class="keyword">(</span><span class="string">&apos;Class name must be string.&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">null </span><span class="keyword">== </span><span class="default">$library</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">ISException</span><span class="keyword">(</span><span class="string">&apos;You must enter the name of the class.&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; } catch(</span><span class="default">Exception $exception</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="default">$exception</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }&#xA0; &#xA0; <br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">/**<br>&#xA0; &#xA0;&#xA0; * Autoload Controller class<br>&#xA0; &#xA0;&#xA0; *<br>&#xA0; &#xA0;&#xA0; * @param&#xA0; string $class<br>&#xA0; &#xA0;&#xA0; * @return object<br>&#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0;&#xA0; <br>&#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">load_controller</span><span class="keyword">(</span><span class="default">$controller</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$controller</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">set_include_path</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">controllerDirectoryPath</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">spl_autoload_extensions</span><span class="keyword">(</span><span class="string">&apos;.php&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">spl_autoload</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }&#xA0; &#xA0; <br>&#xA0; &#xA0; <br><br>&#xA0; &#xA0; &#xA0; </span><span class="comment">/**<br>&#xA0; &#xA0;&#xA0; * Autoload Model class<br>&#xA0; &#xA0;&#xA0; *<br>&#xA0; &#xA0;&#xA0; * @param&#xA0; string $class<br>&#xA0; &#xA0;&#xA0; * @return object<br>&#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0;&#xA0; <br>&#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">load_models</span><span class="keyword">(</span><span class="default">$model</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$model</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">set_include_path</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">modelDirectoryPath</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">spl_autoload_extensions</span><span class="keyword">(</span><span class="string">&apos;.php&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">spl_autoload</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }&#xA0; &#xA0; <br>&#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; </span><span class="comment">/**<br>&#xA0; &#xA0;&#xA0; * Autoload Library class<br>&#xA0; &#xA0;&#xA0; *<br>&#xA0; &#xA0;&#xA0; * @param&#xA0; string $class<br>&#xA0; &#xA0;&#xA0; * @return object<br>&#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0;&#xA0; <br>&#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">load_library</span><span class="keyword">(</span><span class="default">$library</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$library</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">set_include_path</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">libraryDirectoryPath</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">spl_autoload_extensions</span><span class="keyword">(</span><span class="string">&apos;.php&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">spl_autoload</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br><br>&#xA0; &#xA0; <br> }<br> <br> </span><span class="default">?&gt;</span>
-</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-Note this function will LOWERCASE the class names its looking for, dont be confused when it cant find Foo_Bar.php<br><br>also, unlike most other autoloader code snippets, this function DOES NOT translate underscores to slashes.<br><br>class Foo_Bar {}<br>will load foo_bar.php and will not try to load foo/bar.php<br><br>You can get around this with<br>spl_autoload_register(function($class) { return spl_autoload(str_replace(&apos;_&apos;, &apos;/&apos;, $class));});</span>
-</div>
-  
+Note this function will LOWERCASE the class names its looking for, dont be confused when it cant find Foo_Bar.php<br><br>also, unlike most other autoloader code snippets, this function DOES NOT translate underscores to slashes.<br><br>class Foo_Bar {}<br>will load foo_bar.php and will not try to load foo/bar.php<br><br>You can get around this with<br>spl_autoload_register(function($class) { return spl_autoload(str_replace(&apos;_&apos;, &apos;/&apos;, $class));});  
 
 #
 

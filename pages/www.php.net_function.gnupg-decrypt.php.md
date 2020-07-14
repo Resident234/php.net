@@ -2,12 +2,7 @@
 
 
 
-
-
-As of gnupg version 2, it is not possible to pass a plain password any more. The parameter is simply ignored. Instead, a pinentry application will be launched in case of php running in cli mode. In cgi or apache mode, opening the key will fail.
-The simplest solution is to use keys without passwords.
-
-  
+As of gnupg version 2, it is not possible to pass a plain password any more. The parameter is simply ignored. Instead, a pinentry application will be launched in case of php running in cli mode. In cgi or apache mode, opening the key will fail.<br>The simplest solution is to use keys without passwords.  
 
 #
 

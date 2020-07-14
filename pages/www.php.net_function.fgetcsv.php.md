@@ -2,12 +2,7 @@
 
 
 
-
-
-If you need to set auto_detect_line_endings to deal with Mac line endings, it may seem obvious but remember it should be set before fopen, not after:
-
-This will work:
-
+If you need to set auto_detect_line_endings to deal with Mac line endings, it may seem obvious but remember it should be set before fopen, not after:<br><br>This will work:<br>
 
 ```
 <?php
@@ -34,287 +29,139 @@ while ( ($data = fgetcsv($handle) ) !== FALSE ) {
 ini_set(&apos;auto_detect_line_endings&apos;,FALSE);
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-This function has no special BOM handling. The first cell of the first row will inherit the BOM bytes, i.e. will be 3 bytes longer than expected. As the BOM is invisible you may not notice.
-
-Excel on Windows, or text editors like Notepad, may add the BOM.
-
-  
+This function has no special BOM handling. The first cell of the first row will inherit the BOM bytes, i.e. will be 3 bytes longer than expected. As the BOM is invisible you may not notice.<br><br>Excel on Windows, or text editors like Notepad, may add the BOM.  
 
 #
 
-
-
-fgetcsv seems to handle newlines within fields fine. So in fact it is not reading a line, but keeps reading untill it finds a \n-character that&apos;s not quoted as a field.
-
-Example:
-
-
+fgetcsv seems to handle newlines within fields fine. So in fact it is not reading a line, but keeps reading untill it finds a \n-character that&apos;s not quoted as a field.<br><br>Example:<br><br>
 
 ```
 <?php
 /* test.csv contains:
-&quot;col 1&quot;,&quot;col2&quot;,&quot;col3&quot;
-&quot;this
+"col 1","col2","col3"
+"this
 is
 having
 multiple
-lines&quot;,&quot;this not&quot;,&quot;this also not&quot;
-&quot;normal record&quot;,&quot;nothing to see here&quot;,&quot;no data&quot;
+lines","this not","this also not"
+"normal record","nothing to see here","no data"
 */
 
-$handle = fopen(&quot;test.csv&quot;, &quot;r&quot;);
+$handle = fopen("test.csv", "r");
 while (($data = fgetcsv($handle)) !== FALSE) {
-&#xA0; &#xA0; var_dump($data);
+    var_dump($data);
 }
 ?>
 ```
-
-
-Returns:
-array(3) {
-&#xA0; [0]=&gt;
-&#xA0; string(5) &quot;col 1&quot;
-&#xA0; [1]=&gt;
-&#xA0; string(4) &quot;col2&quot;
-&#xA0; [2]=&gt;
-&#xA0; string(4) &quot;col3&quot;
-}
-array(3) {
-&#xA0; [0]=&gt;
-&#xA0; string(29) &quot;this
-is
-having
-multiple
-lines&quot;
-&#xA0; [1]=&gt;
-&#xA0; string(8) &quot;this not&quot;
-&#xA0; [2]=&gt;
-&#xA0; string(13) &quot;this also not&quot;
-}
-array(3) {
-&#xA0; [0]=&gt;
-&#xA0; string(13) &quot;normal record&quot;
-&#xA0; [1]=&gt;
-&#xA0; string(19) &quot;nothing to see here&quot;
-&#xA0; [2]=&gt;
-&#xA0; string(7) &quot;no data&quot;
-}
-
-This means that you can expect fgetcsv to handle newlines within fields fine. This was not clear from the documentation.
-
-  
+<br><br>Returns:<br>array(3) {<br>  [0]=&gt;<br>  string(5) "col 1"<br>  [1]=&gt;<br>  string(4) "col2"<br>  [2]=&gt;<br>  string(4) "col3"<br>}<br>array(3) {<br>  [0]=&gt;<br>  string(29) "this<br>is<br>having<br>multiple<br>lines"<br>  [1]=&gt;<br>  string(8) "this not"<br>  [2]=&gt;<br>  string(13) "this also not"<br>}<br>array(3) {<br>  [0]=&gt;<br>  string(13) "normal record"<br>  [1]=&gt;<br>  string(19) "nothing to see here"<br>  [2]=&gt;<br>  string(7) "no data"<br>}<br><br>This means that you can expect fgetcsv to handle newlines within fields fine. This was not clear from the documentation.  
 
 #
 
-
-
-Here is a OOP based importer similar to the one posted earlier. However, this is slightly more flexible in that you can import huge files without running out of memory, you just have to use a limit on the get() method
-
-
-
-Sample usage for small files:-
-
--------------------------------------
-
-
+Here is a OOP based importer similar to the one posted earlier. However, this is slightly more flexible in that you can import huge files without running out of memory, you just have to use a limit on the get() method<br><br>Sample usage for small files:-<br>-------------------------------------<br>
 
 ```
 <?php
-
-$importer = new CsvImporter(&quot;small.txt&quot;,true);
-
+$importer = new CsvImporter("small.txt",true);
 $data = $importer-&gt;get();
-
 print_r($data);
-
 ?>
 ```
-
-
-
 
 
 
 Sample usage for large files:-
-
 -------------------------------------
-
 
 
 ```
 <?php
-
-$importer = new CsvImporter(&quot;large.txt&quot;,true);
-
+$importer = new CsvImporter("large.txt",true);
 while($data = $importer-&gt;get(2000))
-
 {
-
 print_r($data);
-
 }
-
 ?>
 ```
-
-
-
 
 
 
 And heres the class:-
-
 -------------------------------------
-
 
 
 ```
 <?php
-
 class CsvImporter
-
 {
-
-&#xA0; &#xA0; private $fp;
-
-&#xA0; &#xA0; private $parse_header;
-
-&#xA0; &#xA0; private $header;
-
-&#xA0; &#xA0; private $delimiter;
-
-&#xA0; &#xA0; private $length;
-
-&#xA0; &#xA0; //--------------------------------------------------------------------
-
-&#xA0; &#xA0; function __construct($file_name, $parse_header=false, $delimiter=&quot;\t&quot;, $length=8000)
-
-&#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;fp = fopen($file_name, &quot;r&quot;);
-
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;parse_header = $parse_header;
-
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;delimiter = $delimiter;
-
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;length = $length;
-
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;lines = $lines;
-
-
-
-&#xA0; &#xA0; &#xA0; &#xA0; if ($this-&gt;parse_header)
-
-&#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $this-&gt;header = fgetcsv($this-&gt;fp, $this-&gt;length, $this-&gt;delimiter);
-
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-
-
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; //--------------------------------------------------------------------
-
-&#xA0; &#xA0; function __destruct()
-
-&#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; if ($this-&gt;fp)
-
-&#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; fclose($this-&gt;fp);
-
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; //--------------------------------------------------------------------
-
-&#xA0; &#xA0; function get($max_lines=0)
-
-&#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; //if $max_lines is set to 0, then get all the data
-
-
-
-&#xA0; &#xA0; &#xA0; &#xA0; $data = array();
-
-
-
-&#xA0; &#xA0; &#xA0; &#xA0; if ($max_lines &gt; 0)
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $line_count = 0;
-
-&#xA0; &#xA0; &#xA0; &#xA0; else
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $line_count = -1; // so loop limit is ignored
-
-
-
-&#xA0; &#xA0; &#xA0; &#xA0; while ($line_count &lt; $max_lines &amp;&amp; ($row = fgetcsv($this-&gt;fp, $this-&gt;length, $this-&gt;delimiter)) !== FALSE)
-
-&#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if ($this-&gt;parse_header)
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach ($this-&gt;header as $i =&gt; $heading_i)
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $row_new[$heading_i] = $row[$i];
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $data[] = $row_new;
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $data[] = $row;
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-
-
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if ($max_lines &gt; 0)
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $line_count++;
-
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; return $data;
-
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; //--------------------------------------------------------------------
-
-
+    private $fp;
+    private $parse_header;
+    private $header;
+    private $delimiter;
+    private $length;
+    //--------------------------------------------------------------------
+    function __construct($file_name, $parse_header=false, $delimiter="\t", $length=8000)
+    {
+        $this-&gt;fp = fopen($file_name, "r");
+        $this-&gt;parse_header = $parse_header;
+        $this-&gt;delimiter = $delimiter;
+        $this-&gt;length = $length;
+        $this-&gt;lines = $lines;
+
+        if ($this-&gt;parse_header)
+        {
+           $this-&gt;header = fgetcsv($this-&gt;fp, $this-&gt;length, $this-&gt;delimiter);
+        }
+
+    }
+    //--------------------------------------------------------------------
+    function __destruct()
+    {
+        if ($this-&gt;fp)
+        {
+            fclose($this-&gt;fp);
+        }
+    }
+    //--------------------------------------------------------------------
+    function get($max_lines=0)
+    {
+        //if $max_lines is set to 0, then get all the data
+
+        $data = array();
+
+        if ($max_lines &gt; 0)
+            $line_count = 0;
+        else
+            $line_count = -1; // so loop limit is ignored
+
+        while ($line_count &lt; $max_lines &amp;&amp; ($row = fgetcsv($this-&gt;fp, $this-&gt;length, $this-&gt;delimiter)) !== FALSE)
+        {
+            if ($this-&gt;parse_header)
+            {
+                foreach ($this-&gt;header as $i =&gt; $heading_i)
+                {
+                    $row_new[$heading_i] = $row[$i];
+                }
+                $data[] = $row_new;
+            }
+            else
+            {
+                $data[] = $row;
+            }
+
+            if ($max_lines &gt; 0)
+                $line_count++;
+        }
+        return $data;
+    }
+    //--------------------------------------------------------------------
 
 }
-
 ?>
 ```
-
-
-
   
 
 #

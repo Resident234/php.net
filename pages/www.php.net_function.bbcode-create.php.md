@@ -2,44 +2,40 @@
 
 
 
+For those without the BBCode extension, here&apos;s a relatively elegant function to do the trick. <br>Keep in mind that if you&apos;re using XHTML and one of your users tries to overlap lags &lt;b&gt;Like &lt;i&gt;so&lt;/b&gt;&lt;/i&gt;, it will invalidate your markup. Still working on an expression for this. <br><br>
 
-<div class="phpcode"><span class="html">
-For those without the BBCode extension, here&apos;s a relatively elegant function to do the trick. 
-<br>Keep in mind that if you&apos;re using XHTML and one of your users tries to overlap lags &lt;b&gt;Like &lt;i&gt;so&lt;/b&gt;&lt;/i&gt;, it will invalidate your markup. Still working on an expression for this. 
-<br>
-<br><span class="default">&lt;?php 
-<br>&#xA0; &#xA0; </span><span class="keyword">function </span><span class="default">bb_parse</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">) {
-<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$tags </span><span class="keyword">= </span><span class="string">&apos;b|i|size|color|center|quote|url|img&apos;</span><span class="keyword">;
-<br>&#xA0; &#xA0; &#xA0; &#xA0; while (</span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="string">&apos;`\[(&apos;</span><span class="keyword">.</span><span class="default">$tags</span><span class="keyword">.</span><span class="string">&apos;)=?(.*?)\](.+?)\[/\1\]`&apos;</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">)) foreach (</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$match</span><span class="keyword">) {
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; list(</span><span class="default">$tag</span><span class="keyword">, </span><span class="default">$param</span><span class="keyword">, </span><span class="default">$innertext</span><span class="keyword">) = array(</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">], </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">], </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">3</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">]); 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; switch (</span><span class="default">$tag</span><span class="keyword">) { 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;b&apos;</span><span class="keyword">: </span><span class="default">$replacement </span><span class="keyword">= </span><span class="string">&quot;&lt;strong&gt;</span><span class="default">$innertext</span><span class="string">&lt;/strong&gt;&quot;</span><span class="keyword">; break; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;i&apos;</span><span class="keyword">: </span><span class="default">$replacement </span><span class="keyword">= </span><span class="string">&quot;&lt;em&gt;</span><span class="default">$innertext</span><span class="string">&lt;/em&gt;&quot;</span><span class="keyword">; break; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;size&apos;</span><span class="keyword">: </span><span class="default">$replacement </span><span class="keyword">= </span><span class="string">&quot;&lt;span style=\&quot;font-size: </span><span class="default">$param</span><span class="string">;\&quot;&gt;</span><span class="default">$innertext</span><span class="string">&lt;/span&gt;&quot;</span><span class="keyword">; break; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;color&apos;</span><span class="keyword">: </span><span class="default">$replacement </span><span class="keyword">= </span><span class="string">&quot;&lt;span style=\&quot;color: </span><span class="default">$param</span><span class="string">;\&quot;&gt;</span><span class="default">$innertext</span><span class="string">&lt;/span&gt;&quot;</span><span class="keyword">; break; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;center&apos;</span><span class="keyword">: </span><span class="default">$replacement </span><span class="keyword">= </span><span class="string">&quot;&lt;div class=\&quot;centered\&quot;&gt;</span><span class="default">$innertext</span><span class="string">&lt;/div&gt;&quot;</span><span class="keyword">; break; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;quote&apos;</span><span class="keyword">: </span><span class="default">$replacement </span><span class="keyword">= </span><span class="string">&quot;&lt;blockquote&gt;</span><span class="default">$innertext</span><span class="string">&lt;/blockquote&gt;&quot; </span><span class="keyword">. </span><span class="default">$param</span><span class="keyword">? </span><span class="string">&quot;&lt;cite&gt;</span><span class="default">$param</span><span class="string">&lt;/cite&gt;&quot; </span><span class="keyword">: </span><span class="string">&apos;&apos;</span><span class="keyword">; break; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;url&apos;</span><span class="keyword">: </span><span class="default">$replacement </span><span class="keyword">= </span><span class="string">&apos;&lt;a href=&quot;&apos; </span><span class="keyword">. (</span><span class="default">$param</span><span class="keyword">? </span><span class="default">$param </span><span class="keyword">: </span><span class="default">$innertext</span><span class="keyword">) . </span><span class="string">&quot;\&quot;&gt;</span><span class="default">$innertext</span><span class="string">&lt;/a&gt;&quot;</span><span class="keyword">; break; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;img&apos;</span><span class="keyword">: 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; list(</span><span class="default">$width</span><span class="keyword">, </span><span class="default">$height</span><span class="keyword">) = </span><span class="default">preg_split</span><span class="keyword">(</span><span class="string">&apos;`[Xx]`&apos;</span><span class="keyword">, </span><span class="default">$param</span><span class="keyword">); 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$replacement </span><span class="keyword">= </span><span class="string">&quot;&lt;img src=\&quot;</span><span class="default">$innertext</span><span class="string">\&quot; &quot; </span><span class="keyword">. (</span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$width</span><span class="keyword">)? </span><span class="string">&quot;width=\&quot;</span><span class="default">$width</span><span class="string">\&quot; &quot; </span><span class="keyword">: </span><span class="string">&apos;&apos;</span><span class="keyword">) . (</span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$height</span><span class="keyword">)? </span><span class="string">&quot;height=\&quot;</span><span class="default">$height</span><span class="string">\&quot; &quot; </span><span class="keyword">: </span><span class="string">&apos;&apos;</span><span class="keyword">) . </span><span class="string">&apos;/&gt;&apos;</span><span class="keyword">; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&apos;video&apos;</span><span class="keyword">: 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$videourl </span><span class="keyword">= </span><span class="default">parse_url</span><span class="keyword">(</span><span class="default">$innertext</span><span class="keyword">); 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">parse_str</span><span class="keyword">(</span><span class="default">$videourl</span><span class="keyword">[</span><span class="string">&apos;query&apos;</span><span class="keyword">], </span><span class="default">$videoquery</span><span class="keyword">); 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$videourl</span><span class="keyword">[</span><span class="string">&apos;host&apos;</span><span class="keyword">], </span><span class="string">&apos;youtube.com&apos;</span><span class="keyword">) !== </span><span class="default">FALSE</span><span class="keyword">) </span><span class="default">$replacement </span><span class="keyword">= </span><span class="string">&apos;&lt;embed src=&quot;<a href="http://www.youtube.com/v/" rel="nofollow" target="_blank">http://www.youtube.com/v/</a>&apos; </span><span class="keyword">. </span><span class="default">$videoquery</span><span class="keyword">[</span><span class="string">&apos;v&apos;</span><span class="keyword">] . </span><span class="string">&apos;&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;425&quot; height=&quot;344&quot;&gt;&lt;/embed&gt;&apos;</span><span class="keyword">; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$videourl</span><span class="keyword">[</span><span class="string">&apos;host&apos;</span><span class="keyword">], </span><span class="string">&apos;google.com&apos;</span><span class="keyword">) !== </span><span class="default">FALSE</span><span class="keyword">) </span><span class="default">$replacement </span><span class="keyword">= </span><span class="string">&apos;&lt;embed src=&quot;<a href="http://video.google.com/googleplayer.swf?docid=" rel="nofollow" target="_blank">http://video.google.com/googleplayer.swf?docid=</a>&apos; </span><span class="keyword">. </span><span class="default">$videoquery</span><span class="keyword">[</span><span class="string">&apos;docid&apos;</span><span class="keyword">] . </span><span class="string">&apos;&quot; width=&quot;400&quot; height=&quot;326&quot; type=&quot;application/x-shockwave-flash&quot;&gt;&lt;/embed&gt;&apos;</span><span class="keyword">; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$string </span><span class="keyword">= </span><span class="default">str_replace</span><span class="keyword">(</span><span class="default">$match</span><span class="keyword">, </span><span class="default">$replacement</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">); 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; } 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$string</span><span class="keyword">; 
-<br>&#xA0; &#xA0; } 
-<br></span><span class="default">?&gt;
-<br></span>
-<br>[EDIT BY danbrown AT php DOT net: Contains a bugfix provided by (ramonvandam AT gmail DOT com) on 04-SEP-09 to address an improperly-defined parameter.&#xA0; Also contains a bugfix provided by (pompei2 AT gmail DOT com) on 15-FEB-10 to address improperly-closed tags.&#xA0; Plus, contains another bugfix provided by (angad AT wootify DOT com) on 18-JUL-2011 to fix an issue where unsupported tags provided to the function could cause the script to time out.]</span>
-</div>
-  
+```
+<?php 
+    function bb_parse($string) {
+        $tags = &apos;b|i|size|color|center|quote|url|img&apos;;
+        while (preg_match_all(&apos;`\[(&apos;.$tags.&apos;)=?(.*?)\](.+?)\[/\1\]`&apos;, $string, $matches)) foreach ($matches[0] as $key =&gt; $match) {
+            list($tag, $param, $innertext) = array($matches[1][$key], $matches[2][$key], $matches[3][$key]); 
+            switch ($tag) { 
+                case &apos;b&apos;: $replacement = "&lt;strong&gt;$innertext&lt;/strong&gt;"; break; 
+                case &apos;i&apos;: $replacement = "&lt;em&gt;$innertext&lt;/em&gt;"; break; 
+                case &apos;size&apos;: $replacement = "&lt;span style=\"font-size: $param;\"&gt;$innertext&lt;/span&gt;"; break; 
+                case &apos;color&apos;: $replacement = "&lt;span style=\"color: $param;\"&gt;$innertext&lt;/span&gt;"; break; 
+                case &apos;center&apos;: $replacement = "&lt;div class=\"centered\"&gt;$innertext&lt;/div&gt;"; break; 
+                case &apos;quote&apos;: $replacement = "&lt;blockquote&gt;$innertext&lt;/blockquote&gt;" . $param? "&lt;cite&gt;$param&lt;/cite&gt;" : &apos;&apos;; break; 
+                case &apos;url&apos;: $replacement = &apos;&lt;a href="&apos; . ($param? $param : $innertext) . "\"&gt;$innertext&lt;/a&gt;"; break; 
+                case &apos;img&apos;: 
+                    list($width, $height) = preg_split(&apos;`[Xx]`&apos;, $param); 
+                    $replacement = "&lt;img src=\"$innertext\" " . (is_numeric($width)? "width=\"$width\" " : &apos;&apos;) . (is_numeric($height)? "height=\"$height\" " : &apos;&apos;) . &apos;/&gt;&apos;; 
+                break; 
+                case &apos;video&apos;: 
+                    $videourl = parse_url($innertext); 
+                    parse_str($videourl[&apos;query&apos;], $videoquery); 
+                    if (strpos($videourl[&apos;host&apos;], &apos;youtube.com&apos;) !== FALSE) $replacement = &apos;&lt;embed src="http://www.youtube.com/v/&apos; . $videoquery[&apos;v&apos;] . &apos;" type="application/x-shockwave-flash" width="425" height="344"&gt;&lt;/embed&gt;&apos;; 
+                    if (strpos($videourl[&apos;host&apos;], &apos;google.com&apos;) !== FALSE) $replacement = &apos;&lt;embed src="http://video.google.com/googleplayer.swf?docid=&apos; . $videoquery[&apos;docid&apos;] . &apos;" width="400" height="326" type="application/x-shockwave-flash"&gt;&lt;/embed&gt;&apos;; 
+                break; 
+            } 
+            $string = str_replace($match, $replacement, $string); 
+        } 
+        return $string; 
+    } 
+?>
+```
+<br><br>[EDIT BY danbrown AT php DOT net: Contains a bugfix provided by (ramonvandam AT gmail DOT com) on 04-SEP-09 to address an improperly-defined parameter.  Also contains a bugfix provided by (pompei2 AT gmail DOT com) on 15-FEB-10 to address improperly-closed tags.  Plus, contains another bugfix provided by (angad AT wootify DOT com) on 18-JUL-2011 to fix an issue where unsupported tags provided to the function could cause the script to time out.]  
 
 #
 

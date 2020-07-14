@@ -2,11 +2,7 @@
 
 
 
-
-
-Note to users: language constructs (eval, die, exit, isset, unset, echo etc.) which might be confused with functions, cannot be renamed or redefined even with runkit.internal_override.
-
-  
+Note to users: language constructs (eval, die, exit, isset, unset, echo etc.) which might be confused with functions, cannot be renamed or redefined even with runkit.internal_override.  
 
 #
 

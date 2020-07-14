@@ -2,19 +2,45 @@
 
 
 
+An alternative for unicode strings;<br><br>
 
-<div class="phpcode"><span class="html">
-An alternative for unicode strings;<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">chunk_split_unicode</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$l </span><span class="keyword">= </span><span class="default">76</span><span class="keyword">, </span><span class="default">$e </span><span class="keyword">= </span><span class="string">&quot;\r\n&quot;</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$tmp </span><span class="keyword">= </span><span class="default">array_chunk</span><span class="keyword">(<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">preg_split</span><span class="keyword">(</span><span class="string">&quot;//u&quot;</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, -</span><span class="default">1</span><span class="keyword">, </span><span class="default">PREG_SPLIT_NO_EMPTY</span><span class="keyword">), </span><span class="default">$l</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$str </span><span class="keyword">= </span><span class="string">&quot;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; foreach (</span><span class="default">$tmp </span><span class="keyword">as </span><span class="default">$t</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$str </span><span class="keyword">.= </span><span class="default">join</span><span class="keyword">(</span><span class="string">&quot;&quot;</span><span class="keyword">, </span><span class="default">$t</span><span class="keyword">) . </span><span class="default">$e</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">$str</span><span class="keyword">;<br>}<br><br></span><span class="default">$str </span><span class="keyword">= </span><span class="string">&quot;Yar&#x131;m kilo &#xE7;ay, yar&#x131;m kilo &#x15F;eker&quot;</span><span class="keyword">;<br>echo </span><span class="default">chunk_split</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">) .</span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>echo </span><span class="default">chunk_split_unicode</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>Yar&#xFFFD;<br>&#xFFFD;m k<br>ilo <br>&#xE7;ay<br>, ya<br>r&#x131;m<br> kil<br>o &#x15F;<br>eker<br><br>Yar&#x131;<br>m ki<br>lo &#xE7;<br>ay, <br>yar&#x131;<br>m ki<br>lo &#x15F;<br>eker</span>
-</div>
-  
+```
+<?php
+function chunk_split_unicode($str, $l = 76, $e = "\r\n") {
+    $tmp = array_chunk(
+        preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY), $l);
+    $str = "";
+    foreach ($tmp as $t) {
+        $str .= join("", $t) . $e;
+    }
+    return $str;
+}
+
+$str = "Yar&#x131;m kilo &#xE7;ay, yar&#x131;m kilo &#x15F;eker";
+echo chunk_split($str, 4) ."\n";
+echo chunk_split_unicode($str, 4);
+?>
+```
+<br><br>Yar&#xFFFD;<br>&#xFFFD;m k<br>ilo <br>&#xE7;ay<br>, ya<br>r&#x131;m<br> kil<br>o &#x15F;<br>eker<br><br>Yar&#x131;<br>m ki<br>lo &#xE7;<br>ay, <br>yar&#x131;<br>m ki<br>lo &#x15F;<br>eker  
 
 #
 
+As an alternative for  qeremy [atta] gmail [dotta] com<br>There is much shorter way for binarysafe chunking of multibyte string:<br><br>
 
-<div class="phpcode"><span class="html">
-As an alternative for&#xA0; qeremy [atta] gmail [dotta] com<br>There is much shorter way for binarysafe chunking of multibyte string:<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">word_chunk</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$len </span><span class="keyword">= </span><span class="default">76</span><span class="keyword">, </span><span class="default">$end </span><span class="keyword">= </span><span class="string">&quot;\n&quot;</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$pattern </span><span class="keyword">= </span><span class="string">&apos;~.{1,&apos; </span><span class="keyword">. </span><span class="default">$len </span><span class="keyword">. </span><span class="string">&apos;}~u&apos;</span><span class="keyword">; </span><span class="comment">// like &quot;~.{1,76}~u&quot;<br>&#xA0; &#xA0; </span><span class="default">$str </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="default">$pattern</span><span class="keyword">, </span><span class="string">&apos;$0&apos; </span><span class="keyword">. </span><span class="default">$end</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">);<br>&#xA0; &#xA0; return </span><span class="default">rtrim</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$end</span><span class="keyword">);<br>}<br><br></span><span class="default">$str </span><span class="keyword">= </span><span class="string">&apos;&#x440;&#x443;&#x441;&#x441;&#x43A;&#x438;&#x439;&apos;</span><span class="keyword">;<br>echo </span><span class="default">chunk_split</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">) .</span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>echo </span><span class="default">word_chunk</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">) . </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br></span><span class="default">?&gt;<br></span><br>&#x440;&#xFFFD;<br>&#xFFFD;&#x441;<br>&#x441;&#xFFFD;<br>&#xFFFD;&#x438;<br>&#x439;<br><br>&#x440;&#x443;&#x441;<br>&#x441;&#x43A;&#x438;<br>&#x439;</span>
-</div>
-  
+```
+<?php
+function word_chunk($str, $len = 76, $end = "\n") {
+    $pattern = &apos;~.{1,&apos; . $len . &apos;}~u&apos;; // like "~.{1,76}~u"
+    $str = preg_replace($pattern, &apos;$0&apos; . $end, $str);
+    return rtrim($str, $end);
+}
+
+$str = &apos;&#x440;&#x443;&#x441;&#x441;&#x43A;&#x438;&#x439;&apos;;
+echo chunk_split($str, 3) ."\n";
+echo word_chunk($str, 3) . "\n";
+?>
+```
+<br><br>&#x440;&#xFFFD;<br>&#xFFFD;&#x441;<br>&#x441;&#xFFFD;<br>&#xFFFD;&#x438;<br>&#x439;<br><br>&#x440;&#x443;&#x441;<br>&#x441;&#x43A;&#x438;<br>&#x439;  
 
 #
 

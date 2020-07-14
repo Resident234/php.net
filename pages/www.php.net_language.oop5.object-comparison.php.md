@@ -2,15 +2,12 @@
 
 
 
-
-
-Note that when comparing object attributes, the comparison is recursive (at least, it is with PHP 5.2). That is, if $a-&gt;x contains an object then that will be compared with $b-&gt;x in the same manner. Be aware that this can lead to recursion errors:
-
+Note that when comparing object attributes, the comparison is recursive (at least, it is with PHP 5.2). That is, if $a-&gt;x contains an object then that will be compared with $b-&gt;x in the same manner. Be aware that this can lead to recursion errors:<br>
 
 ```
 <?php
 class Foo {
-&#xA0; &#xA0; public $x;
+    public $x;
 }
 $a = new Foo();
 $b = new Foo();
@@ -20,19 +17,11 @@ $b-&gt;x = $a;
 print_r($a == $b);
 ?>
 ```
-
-Results in:
-PHP Fatal error:&#xA0; Nesting level too deep - recursive dependency? in test.php on line 11
-
-  
+<br>Results in:<br>PHP Fatal error:  Nesting level too deep - recursive dependency? in test.php on line 11  
 
 #
 
-
-
-Comparison using &lt;&gt; operators should be documented.&#xA0; Between two objects, at least in PHP5.3, the comparison operation stops and returns at the first unequal property found.
-
-
+Comparison using &lt;&gt; operators should be documented.  Between two objects, at least in PHP5.3, the comparison operation stops and returns at the first unequal property found.<br><br>
 
 ```
 <?php
@@ -59,9 +48,6 @@ echo (int)($o1 &gt; $o2); // 0
 
 ?>
 ```
-
-
-
   
 
 #

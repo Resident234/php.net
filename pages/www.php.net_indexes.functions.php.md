@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-Today 07-01-2019 [dd.mm.yyyy]<br><br>10934 functions in this list &#x1F37A;</span>
-</div>
-  
+Today 07-01-2019 [dd.mm.yyyy]<br><br>10934 functions in this list &#x1F37A;  
 
 #
 

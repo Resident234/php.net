@@ -2,11 +2,46 @@
 
 
 
+I want to stress that in the user function, you do need to return either a 1 or a -1 properly; you cannot simply return 0 if the results are equal and 1 if they are not.  <br><br>The following code is incorrect:<br><br>
 
-<div class="phpcode"><span class="html">
-I want to stress that in the user function, you do need to return either a 1 or a -1 properly; you cannot simply return 0 if the results are equal and 1 if they are not.&#xA0; <br><br>The following code is incorrect:<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">myfunction</span><span class="keyword">(</span><span class="default">$v1</span><span class="keyword">,</span><span class="default">$v2</span><span class="keyword">) <br>{<br>if (</span><span class="default">$v1</span><span class="keyword">===</span><span class="default">$v2</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; return </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>return </span><span class="default">1</span><span class="keyword">;<br>}<br><br></span><span class="default">$a1</span><span class="keyword">=array(</span><span class="default">1</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">);<br></span><span class="default">$a2</span><span class="keyword">=array(</span><span class="default">1</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">);<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">array_uintersect</span><span class="keyword">(</span><span class="default">$a1</span><span class="keyword">,</span><span class="default">$a2</span><span class="keyword">,</span><span class="string">&quot;myfunction&quot;</span><span class="keyword">));<br></span><span class="default">?&gt;<br></span><br>This code is correct:<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">myfunction</span><span class="keyword">(</span><span class="default">$v1</span><span class="keyword">,</span><span class="default">$v2</span><span class="keyword">) <br>{<br>if (</span><span class="default">$v1</span><span class="keyword">===</span><span class="default">$v2</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; return </span><span class="default">0</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>if (</span><span class="default">$v1 </span><span class="keyword">&gt; </span><span class="default">$v2</span><span class="keyword">) return </span><span class="default">1</span><span class="keyword">;<br>return -</span><span class="default">1</span><span class="keyword">;<br>}<br></span><span class="default">$a1</span><span class="keyword">=array(</span><span class="default">1</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">);<br></span><span class="default">$a2</span><span class="keyword">=array(</span><span class="default">1</span><span class="keyword">, </span><span class="default">3</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">);<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">array_uintersect</span><span class="keyword">(</span><span class="default">$a1</span><span class="keyword">,</span><span class="default">$a2</span><span class="keyword">,</span><span class="string">&quot;myfunction&quot;</span><span class="keyword">));<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+function myfunction($v1,$v2) 
+{
+if ($v1===$v2)
+    {
+    return 0;
+    }
+return 1;
+}
+
+$a1=array(1, 2, 4);
+$a2=array(1, 3, 4);
+print_r(array_uintersect($a1,$a2,"myfunction"));
+?>
+```
+
+
+This code is correct:
+
+
+
+```
+<?php
+function myfunction($v1,$v2) 
+{
+if ($v1===$v2)
+    {
+    return 0;
+    }
+if ($v1 &gt; $v2) return 1;
+return -1;
+}
+$a1=array(1, 2, 4);
+$a2=array(1, 3, 4);
+print_r(array_uintersect($a1,$a2,"myfunction"));
+?>
+```
   
 
 #

@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-For those who stumble on notice about ReflectionType::__toString() beeing deprecated, use method ReflectionType::getName() instead which is not yet documented.</span>
-</div>
-  
+For those who stumble on notice about ReflectionType::__toString() beeing deprecated, use method ReflectionType::getName() instead which is not yet documented.  
 
 #
 

@@ -2,27 +2,49 @@
 
 
 
+A proper unicode string split;<br><br>
 
-<div class="phpcode"><span class="html">
-A proper unicode string split;<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">str_split_unicode</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$l </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">) {<br>&#xA0; &#xA0; if (</span><span class="default">$l </span><span class="keyword">&gt; </span><span class="default">0</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$ret </span><span class="keyword">= array();<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$len </span><span class="keyword">= </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="string">&quot;UTF-8&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$len</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">+= </span><span class="default">$l</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$ret</span><span class="keyword">[] = </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="default">$l</span><span class="keyword">, </span><span class="string">&quot;UTF-8&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$ret</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">preg_split</span><span class="keyword">(</span><span class="string">&quot;//u&quot;</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, -</span><span class="default">1</span><span class="keyword">, </span><span class="default">PREG_SPLIT_NO_EMPTY</span><span class="keyword">);<br>}<br></span><span class="default">?&gt;<br></span><br>$s = &quot;Il&#x131;k s&#xFC;t&quot;; // Mild milk<br><br>print_r(str_split($s, 3));<br>print_r(str_split_unicode($s, 3));<br><br>Array<br>(<br>&#xA0; &#xA0; [0] =&gt; Il&#xFFFD;<br>&#xA0; &#xA0; [1] =&gt; &#xFFFD;k <br>&#xA0; &#xA0; [2] =&gt; s&#xFC;<br>&#xA0; &#xA0; [3] =&gt; t<br>)<br><br>Array<br>(<br>&#xA0; &#xA0; [0] =&gt; Il&#x131;<br>&#xA0; &#xA0; [1] =&gt; k s<br>&#xA0; &#xA0; [2] =&gt; &#xFC;t<br>)</span>
-</div>
-  
+```
+<?php
+function str_split_unicode($str, $l = 0) {
+    if ($l &gt; 0) {
+        $ret = array();
+        $len = mb_strlen($str, "UTF-8");
+        for ($i = 0; $i &lt; $len; $i += $l) {
+            $ret[] = mb_substr($str, $i, $l, "UTF-8");
+        }
+        return $ret;
+    }
+    return preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY);
+}
+?>
+```
+<br><br>$s = "Il&#x131;k s&#xFC;t"; // Mild milk<br><br>print_r(str_split($s, 3));<br>print_r(str_split_unicode($s, 3));<br><br>Array<br>(<br>    [0] =&gt; Il&#xFFFD;<br>    [1] =&gt; &#xFFFD;k <br>    [2] =&gt; s&#xFC;<br>    [3] =&gt; t<br>)<br><br>Array<br>(<br>    [0] =&gt; Il&#x131;<br>    [1] =&gt; k s<br>    [2] =&gt; &#xFC;t<br>)  
 
 #
 
+A new version of "str_split_unicode" prev.<br><br>
 
-<div class="phpcode"><span class="html">
-A new version of &quot;str_split_unicode&quot; prev.<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">str_split_unicode</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$length </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$tmp </span><span class="keyword">= </span><span class="default">preg_split</span><span class="keyword">(</span><span class="string">&apos;~~u&apos;</span><span class="keyword">, </span><span class="default">$str</span><span class="keyword">, -</span><span class="default">1</span><span class="keyword">, </span><span class="default">PREG_SPLIT_NO_EMPTY</span><span class="keyword">);<br>&#xA0; &#xA0; if (</span><span class="default">$length </span><span class="keyword">&gt; </span><span class="default">1</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$chunks </span><span class="keyword">= </span><span class="default">array_chunk</span><span class="keyword">(</span><span class="default">$tmp</span><span class="keyword">, </span><span class="default">$length</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$chunks </span><span class="keyword">as </span><span class="default">$i </span><span class="keyword">=&gt; </span><span class="default">$chunk</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$chunks</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">join</span><span class="keyword">(</span><span class="string">&apos;&apos;</span><span class="keyword">, (array) </span><span class="default">$chunk</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$tmp </span><span class="keyword">= </span><span class="default">$chunks</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">$tmp</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>$s = &apos;&#xD6;zg&#xFC;r Yaz&#x131;l&#x131;m!&apos;; // Open Source!<br><br>print_r(str_split_unicode($s));<br>print_r(str_split_unicode($s, 3));<br><br>Array<br>(<br>&#xA0; &#xA0; [0] =&gt; &#xD6;<br>&#xA0; &#xA0; [1] =&gt; z<br>&#xA0; &#xA0; [2] =&gt; g<br>&#xA0; &#xA0; [3] =&gt; &#xFC;<br>&#xA0; &#xA0; [4] =&gt; r<br>&#xA0; &#xA0; [5] =&gt;&#xA0; <br>&#xA0; &#xA0; [6] =&gt; Y<br>&#xA0; &#xA0; [7] =&gt; a<br>&#xA0; &#xA0; [8] =&gt; z<br>&#xA0; &#xA0; [9] =&gt; &#x131;<br>&#xA0; &#xA0; [10] =&gt; l<br>&#xA0; &#xA0; [11] =&gt; &#x131;<br>&#xA0; &#xA0; [12] =&gt; m<br>&#xA0; &#xA0; [13] =&gt; !<br>)<br>Array<br>(<br>&#xA0; &#xA0; [0] =&gt; &#xD6;zg<br>&#xA0; &#xA0; [1] =&gt; &#xFC;r <br>&#xA0; &#xA0; [2] =&gt; Yaz<br>&#xA0; &#xA0; [3] =&gt; &#x131;l&#x131;<br>&#xA0; &#xA0; [4] =&gt; m!<br>)</span>
-</div>
-  
+```
+<?php
+function str_split_unicode($str, $length = 1) {
+    $tmp = preg_split(&apos;~~u&apos;, $str, -1, PREG_SPLIT_NO_EMPTY);
+    if ($length &gt; 1) {
+        $chunks = array_chunk($tmp, $length);
+        foreach ($chunks as $i =&gt; $chunk) {
+            $chunks[$i] = join(&apos;&apos;, (array) $chunk);
+        }
+        $tmp = $chunks;
+    }
+    return $tmp;
+}
+?>
+```
+<br><br>$s = &apos;&#xD6;zg&#xFC;r Yaz&#x131;l&#x131;m!&apos;; // Open Source!<br><br>print_r(str_split_unicode($s));<br>print_r(str_split_unicode($s, 3));<br><br>Array<br>(<br>    [0] =&gt; &#xD6;<br>    [1] =&gt; z<br>    [2] =&gt; g<br>    [3] =&gt; &#xFC;<br>    [4] =&gt; r<br>    [5] =&gt;  <br>    [6] =&gt; Y<br>    [7] =&gt; a<br>    [8] =&gt; z<br>    [9] =&gt; &#x131;<br>    [10] =&gt; l<br>    [11] =&gt; &#x131;<br>    [12] =&gt; m<br>    [13] =&gt; !<br>)<br>Array<br>(<br>    [0] =&gt; &#xD6;zg<br>    [1] =&gt; &#xFC;r <br>    [2] =&gt; Yaz<br>    [3] =&gt; &#x131;l&#x131;<br>    [4] =&gt; m!<br>)  
 
 #
 
-
-<div class="phpcode"><span class="html">
-Version of str_split by rlpvandenberg at hotmail dot com is god-damn inefficient and when $i+$j &gt; strlen($text) [last part of string] throws a lot of notice errors. This should work better:<br><br>&#xA0; &#xA0; if(! function_exists(&apos;str_split&apos;))<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; function str_split($text, $split = 1)<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $array = array();<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; for ($i = 0; $i &lt; strlen($text);)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $array[] = substr($text, $i, $split);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $i += $split;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return $array;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }</span>
-</div>
-  
+Version of str_split by rlpvandenberg at hotmail dot com is god-damn inefficient and when $i+$j &gt; strlen($text) [last part of string] throws a lot of notice errors. This should work better:<br><br>    if(! function_exists(&apos;str_split&apos;))<br>    {<br>        function str_split($text, $split = 1)<br>        {<br>            $array = array();<br>            <br>            for ($i = 0; $i &lt; strlen($text);)<br>            {<br>                $array[] = substr($text, $i, $split);<br>                $i += $split;<br>            }<br>            <br>            return $array;<br>        }<br>    }  
 
 #
 

@@ -2,11 +2,64 @@
 
 
 
+Passing multiple parameters to echo using commas (&apos;,&apos;)is not exactly identical to using the concatenation operator (&apos;.&apos;). There are two notable differences.<br><br>First, concatenation operators have much higher precedence. Referring to http://php.net/operators.precedence, there are many operators with lower precedence than concatenation, so it is a good idea to use the multi-argument form instead of passing concatenated strings.<br><br>
 
-<div class="phpcode"><span class="html">
-Passing multiple parameters to echo using commas (&apos;,&apos;)is not exactly identical to using the concatenation operator (&apos;.&apos;). There are two notable differences.<br><br>First, concatenation operators have much higher precedence. Referring to <a href="http://php.net/operators.precedence," rel="nofollow" target="_blank">http://php.net/operators.precedence,</a> there are many operators with lower precedence than concatenation, so it is a good idea to use the multi-argument form instead of passing concatenated strings.<br><br><span class="default">&lt;?php<br></span><span class="keyword">echo </span><span class="string">&quot;The sum is &quot; </span><span class="keyword">. </span><span class="default">1 </span><span class="keyword">| </span><span class="default">2</span><span class="keyword">; </span><span class="comment">// output: &quot;2&quot;. Parentheses needed.<br></span><span class="keyword">echo </span><span class="string">&quot;The sum is &quot;</span><span class="keyword">, </span><span class="default">1 </span><span class="keyword">| </span><span class="default">2</span><span class="keyword">; </span><span class="comment">// output: &quot;The sum is 3&quot;. Fine.<br></span><span class="default">?&gt;<br></span><br>Second, a slightly confusing phenomenon is that unlike passing arguments to functions, the values are evaluated one by one.<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">f</span><span class="keyword">(</span><span class="default">$arg</span><span class="keyword">){<br>&#xA0; </span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">$arg</span><span class="keyword">);<br>&#xA0; return </span><span class="default">$arg</span><span class="keyword">;<br>}<br>echo </span><span class="string">&quot;Foo&quot; </span><span class="keyword">. </span><span class="default">f</span><span class="keyword">(</span><span class="string">&quot;bar&quot;</span><span class="keyword">) . </span><span class="string">&quot;Foo&quot;</span><span class="keyword">;<br>echo </span><span class="string">&quot;\n\n&quot;</span><span class="keyword">;<br>echo </span><span class="string">&quot;Foo&quot;</span><span class="keyword">, </span><span class="default">f</span><span class="keyword">(</span><span class="string">&quot;bar&quot;</span><span class="keyword">), </span><span class="string">&quot;Foo&quot;</span><span class="keyword">;<br></span><span class="default">?&gt;<br></span><br>The output would be:<br>string(3) &quot;bar&quot;FoobarFoo<br><br>Foostring(3) &quot;bar&quot;<br>barFoo<br><br>It would become a confusing bug for a script that uses blocking functions like sleep() as parameters:<br><br><span class="default">&lt;?php<br></span><span class="keyword">while(</span><span class="default">true</span><span class="keyword">){<br>&#xA0; echo </span><span class="string">&quot;Loop start!\n&quot;</span><span class="keyword">, </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br>}<br></span><span class="default">?&gt;<br></span><br>vs<br><br><span class="default">&lt;?php<br></span><span class="keyword">while(</span><span class="default">true</span><span class="keyword">){<br>&#xA0; echo </span><span class="string">&quot;Loop started!\n&quot; </span><span class="keyword">. </span><span class="default">sleep</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br>}<br></span><span class="default">?&gt;<br></span><br>With &apos;,&apos; the cursor stops at the beginning every newline, while with &apos;.&apos; the cursor stops after the 0 in the beginning every line (because sleep() returns 0).</span>
-</div>
-  
+```
+<?php
+echo "The sum is " . 1 | 2; // output: "2". Parentheses needed.
+echo "The sum is ", 1 | 2; // output: "The sum is 3". Fine.
+?>
+```
+
+
+Second, a slightly confusing phenomenon is that unlike passing arguments to functions, the values are evaluated one by one.
+
+
+
+```
+<?php
+function f($arg){
+  var_dump($arg);
+  return $arg;
+}
+echo "Foo" . f("bar") . "Foo";
+echo "\n\n";
+echo "Foo", f("bar"), "Foo";
+?>
+```
+
+
+The output would be:
+string(3) "bar"FoobarFoo
+
+Foostring(3) "bar"
+barFoo
+
+It would become a confusing bug for a script that uses blocking functions like sleep() as parameters:
+
+
+
+```
+<?php
+while(true){
+  echo "Loop start!\n", sleep(1);
+}
+?>
+```
+
+
+vs
+
+
+
+```
+<?php
+while(true){
+  echo "Loop started!\n" . sleep(1);
+}
+?>
+```
+<br><br>With &apos;,&apos; the cursor stops at the beginning every newline, while with &apos;.&apos; the cursor stops after the 0 in the beginning every line (because sleep() returns 0).  
 
 #
 

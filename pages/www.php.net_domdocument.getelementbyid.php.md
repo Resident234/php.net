@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-Please note that if your HTML does not contain a doctype declaration, then getElementById will always return null.</span>
-</div>
-  
+Please note that if your HTML does not contain a doctype declaration, then getElementById will always return null.  
 
 #
 

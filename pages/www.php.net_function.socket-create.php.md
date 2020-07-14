@@ -2,20 +2,117 @@
 
 
 
+Took me about 20 minutes to figure out the proper arguments to supply for a AF_UNIX socket. Anything else, and I would get a PHP warning about the &apos;type&apos; not being supported. I hope this saves someone else time.<br><br>
 
-<div class="phpcode"><span class="html">
-Took me about 20 minutes to figure out the proper arguments to supply for a AF_UNIX socket. Anything else, and I would get a PHP warning about the &apos;type&apos; not being supported. I hope this saves someone else time.<br><br><span class="default">&lt;?php <br>$socket </span><span class="keyword">= </span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_UNIX</span><span class="keyword">, </span><span class="default">SOCK_STREAM</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br></span><span class="comment">// code<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php 
+$socket = socket_create(AF_UNIX, SOCK_STREAM, 0);
+// code
+?>
+```
   
 
 #
 
+It took some time to understand how one PHP process can communicate with another by means of unix udp sockets. Examples of &apos;server&apos; and &apos;client&apos; code are given below. Server is assumed to run before client starts.<br><br>&apos;Server&apos; code<br>
 
-<div class="phpcode"><span class="html">
-It took some time to understand how one PHP process can communicate with another by means of unix udp sockets. Examples of &apos;server&apos; and &apos;client&apos; code are given below. Server is assumed to run before client starts.<br><br>&apos;Server&apos; code<br><span class="default">&lt;?php<br></span><span class="keyword">if (!</span><span class="default">extension_loaded</span><span class="keyword">(</span><span class="string">&apos;sockets&apos;</span><span class="keyword">)) {<br>&#xA0; &#xA0; die(</span><span class="string">&apos;The sockets extension is not loaded.&apos;</span><span class="keyword">);<br>}<br></span><span class="comment">// create unix udp socket<br></span><span class="default">$socket </span><span class="keyword">= </span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_UNIX</span><span class="keyword">, </span><span class="default">SOCK_DGRAM</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br>if (!</span><span class="default">$socket</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&apos;Unable to create AF_UNIX socket&apos;</span><span class="keyword">);<br><br></span><span class="comment">// same socket will be used in recv_from and send_to<br></span><span class="default">$server_side_sock </span><span class="keyword">= </span><span class="default">dirname</span><span class="keyword">(</span><span class="default">__FILE__</span><span class="keyword">).</span><span class="string">&quot;/server.sock&quot;</span><span class="keyword">;<br>if (!</span><span class="default">socket_bind</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$server_side_sock</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&quot;Unable to bind to </span><span class="default">$server_side_sock</span><span class="string">&quot;</span><span class="keyword">);<br><br>while(</span><span class="default">1</span><span class="keyword">) </span><span class="comment">// server never exits<br></span><span class="keyword">{<br></span><span class="comment">// receive query<br></span><span class="keyword">if (!</span><span class="default">socket_set_block</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&apos;Unable to set blocking mode for socket&apos;</span><span class="keyword">);<br></span><span class="default">$buf </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br></span><span class="default">$from </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br>echo </span><span class="string">&quot;Ready to receive...\n&quot;</span><span class="keyword">;<br></span><span class="comment">// will block to wait client query<br></span><span class="default">$bytes_received </span><span class="keyword">= </span><span class="default">socket_recvfrom</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$buf</span><span class="keyword">, </span><span class="default">65536</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$from</span><span class="keyword">);<br>if (</span><span class="default">$bytes_received </span><span class="keyword">== -</span><span class="default">1</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&apos;An error occured while receiving from the socket&apos;</span><span class="keyword">);<br>echo </span><span class="string">&quot;Received </span><span class="default">$buf</span><span class="string"> from </span><span class="default">$from</span><span class="string">\n&quot;</span><span class="keyword">;<br><br></span><span class="default">$buf </span><span class="keyword">.= </span><span class="string">&quot;-&gt;Response&quot;</span><span class="keyword">; </span><span class="comment">// process client query here<br><br>// send response<br></span><span class="keyword">if (!</span><span class="default">socket_set_nonblock</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&apos;Unable to set nonblocking mode for socket&apos;</span><span class="keyword">);<br></span><span class="comment">// client side socket filename is known from client request: $from<br></span><span class="default">$len </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$buf</span><span class="keyword">);<br></span><span class="default">$bytes_sent </span><span class="keyword">= </span><span class="default">socket_sendto</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$buf</span><span class="keyword">, </span><span class="default">$len</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$from</span><span class="keyword">);<br>if (</span><span class="default">$bytes_sent </span><span class="keyword">== -</span><span class="default">1</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&apos;An error occured while sending to the socket&apos;</span><span class="keyword">);<br>else if (</span><span class="default">$bytes_sent </span><span class="keyword">!= </span><span class="default">$len</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="default">$bytes_sent </span><span class="keyword">. </span><span class="string">&apos; bytes have been sent instead of the &apos; </span><span class="keyword">. </span><span class="default">$len </span><span class="keyword">. </span><span class="string">&apos; bytes expected&apos;</span><span class="keyword">);<br>echo </span><span class="string">&quot;Request processed\n&quot;</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>&apos;Client&apos; code<br><span class="default">&lt;?php<br></span><span class="keyword">if (!</span><span class="default">extension_loaded</span><span class="keyword">(</span><span class="string">&apos;sockets&apos;</span><span class="keyword">)) {<br>&#xA0; &#xA0; die(</span><span class="string">&apos;The sockets extension is not loaded.&apos;</span><span class="keyword">);<br>}<br></span><span class="comment">// create unix udp socket<br></span><span class="default">$socket </span><span class="keyword">= </span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_UNIX</span><span class="keyword">, </span><span class="default">SOCK_DGRAM</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br>if (!</span><span class="default">$socket</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&apos;Unable to create AF_UNIX socket&apos;</span><span class="keyword">);<br><br></span><span class="comment">// same socket will be later used in recv_from<br>// no binding is required if you wish only send and never receive<br></span><span class="default">$client_side_sock </span><span class="keyword">= </span><span class="default">dirname</span><span class="keyword">(</span><span class="default">__FILE__</span><span class="keyword">).</span><span class="string">&quot;/client.sock&quot;</span><span class="keyword">;<br>if (!</span><span class="default">socket_bind</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$client_side_sock</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&quot;Unable to bind to </span><span class="default">$client_side_sock</span><span class="string">&quot;</span><span class="keyword">);<br><br></span><span class="comment">// use socket to send data<br></span><span class="keyword">if (!</span><span class="default">socket_set_nonblock</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&apos;Unable to set nonblocking mode for socket&apos;</span><span class="keyword">);<br></span><span class="comment">// server side socket filename is known apriori<br></span><span class="default">$server_side_sock </span><span class="keyword">= </span><span class="default">dirname</span><span class="keyword">(</span><span class="default">__FILE__</span><span class="keyword">).</span><span class="string">&quot;/server.sock&quot;</span><span class="keyword">;<br></span><span class="default">$msg </span><span class="keyword">= </span><span class="string">&quot;Message&quot;</span><span class="keyword">;<br></span><span class="default">$len </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$msg</span><span class="keyword">);<br></span><span class="comment">// at this point &apos;server&apos; process must be running and bound to receive from serv.sock<br></span><span class="default">$bytes_sent </span><span class="keyword">= </span><span class="default">socket_sendto</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$msg</span><span class="keyword">, </span><span class="default">$len</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$server_side_sock</span><span class="keyword">);<br>if (</span><span class="default">$bytes_sent </span><span class="keyword">== -</span><span class="default">1</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&apos;An error occured while sending to the socket&apos;</span><span class="keyword">);<br>else if (</span><span class="default">$bytes_sent </span><span class="keyword">!= </span><span class="default">$len</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="default">$bytes_sent </span><span class="keyword">. </span><span class="string">&apos; bytes have been sent instead of the &apos; </span><span class="keyword">. </span><span class="default">$len </span><span class="keyword">. </span><span class="string">&apos; bytes expected&apos;</span><span class="keyword">);<br><br></span><span class="comment">// use socket to receive data<br></span><span class="keyword">if (!</span><span class="default">socket_set_block</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&apos;Unable to set blocking mode for socket&apos;</span><span class="keyword">);<br></span><span class="default">$buf </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br></span><span class="default">$from </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br></span><span class="comment">// will block to wait server response<br></span><span class="default">$bytes_received </span><span class="keyword">= </span><span class="default">socket_recvfrom</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">, </span><span class="default">$buf</span><span class="keyword">, </span><span class="default">65536</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$from</span><span class="keyword">);<br>if (</span><span class="default">$bytes_received </span><span class="keyword">== -</span><span class="default">1</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&apos;An error occured while receiving from the socket&apos;</span><span class="keyword">);<br>echo </span><span class="string">&quot;Received </span><span class="default">$buf</span><span class="string"> from </span><span class="default">$from</span><span class="string">\n&quot;</span><span class="keyword">;<br><br></span><span class="comment">// close socket and delete own .sock file<br></span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$socket</span><span class="keyword">);<br></span><span class="default">unlink</span><span class="keyword">(</span><span class="default">$client_side_sock</span><span class="keyword">);<br>echo </span><span class="string">&quot;Client exits\n&quot;</span><span class="keyword">;<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+if (!extension_loaded(&apos;sockets&apos;)) {
+    die(&apos;The sockets extension is not loaded.&apos;);
+}
+// create unix udp socket
+$socket = socket_create(AF_UNIX, SOCK_DGRAM, 0);
+if (!$socket)
+        die(&apos;Unable to create AF_UNIX socket&apos;);
+
+// same socket will be used in recv_from and send_to
+$server_side_sock = dirname(__FILE__)."/server.sock";
+if (!socket_bind($socket, $server_side_sock))
+        die("Unable to bind to $server_side_sock");
+
+while(1) // server never exits
+{
+// receive query
+if (!socket_set_block($socket))
+        die(&apos;Unable to set blocking mode for socket&apos;);
+$buf = &apos;&apos;;
+$from = &apos;&apos;;
+echo "Ready to receive...\n";
+// will block to wait client query
+$bytes_received = socket_recvfrom($socket, $buf, 65536, 0, $from);
+if ($bytes_received == -1)
+        die(&apos;An error occured while receiving from the socket&apos;);
+echo "Received $buf from $from\n";
+
+$buf .= "-&gt;Response"; // process client query here
+
+// send response
+if (!socket_set_nonblock($socket))
+        die(&apos;Unable to set nonblocking mode for socket&apos;);
+// client side socket filename is known from client request: $from
+$len = strlen($buf);
+$bytes_sent = socket_sendto($socket, $buf, $len, 0, $from);
+if ($bytes_sent == -1)
+        die(&apos;An error occured while sending to the socket&apos;);
+else if ($bytes_sent != $len)
+        die($bytes_sent . &apos; bytes have been sent instead of the &apos; . $len . &apos; bytes expected&apos;);
+echo "Request processed\n";
+}
+?>
+```
+
+
+&apos;Client&apos; code
+
+
+```
+<?php
+if (!extension_loaded(&apos;sockets&apos;)) {
+    die(&apos;The sockets extension is not loaded.&apos;);
+}
+// create unix udp socket
+$socket = socket_create(AF_UNIX, SOCK_DGRAM, 0);
+if (!$socket)
+        die(&apos;Unable to create AF_UNIX socket&apos;);
+
+// same socket will be later used in recv_from
+// no binding is required if you wish only send and never receive
+$client_side_sock = dirname(__FILE__)."/client.sock";
+if (!socket_bind($socket, $client_side_sock))
+        die("Unable to bind to $client_side_sock");
+
+// use socket to send data
+if (!socket_set_nonblock($socket))
+        die(&apos;Unable to set nonblocking mode for socket&apos;);
+// server side socket filename is known apriori
+$server_side_sock = dirname(__FILE__)."/server.sock";
+$msg = "Message";
+$len = strlen($msg);
+// at this point &apos;server&apos; process must be running and bound to receive from serv.sock
+$bytes_sent = socket_sendto($socket, $msg, $len, 0, $server_side_sock);
+if ($bytes_sent == -1)
+        die(&apos;An error occured while sending to the socket&apos;);
+else if ($bytes_sent != $len)
+        die($bytes_sent . &apos; bytes have been sent instead of the &apos; . $len . &apos; bytes expected&apos;);
+
+// use socket to receive data
+if (!socket_set_block($socket))
+        die(&apos;Unable to set blocking mode for socket&apos;);
+$buf = &apos;&apos;;
+$from = &apos;&apos;;
+// will block to wait server response
+$bytes_received = socket_recvfrom($socket, $buf, 65536, 0, $from);
+if ($bytes_received == -1)
+        die(&apos;An error occured while receiving from the socket&apos;);
+echo "Received $buf from $from\n";
+
+// close socket and delete own .sock file
+socket_close($socket);
+unlink($client_side_sock);
+echo "Client exits\n";
+?>
+```
   
 
 #

@@ -3,70 +3,39 @@
 
 
 
-<div class="phpcode"><span class="html">
-<span class="default">&lt;?php
-<br>$a </span><span class="keyword">= array(</span><span class="string">&quot;1&quot;</span><span class="keyword">);
-<br>
-<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">array_fill_keys</span><span class="keyword">(</span><span class="default">$a</span><span class="keyword">, </span><span class="string">&quot;test&quot;</span><span class="keyword">));
-<br></span><span class="default">?&gt;
-<br></span>
-<br>array(1) {
-<br>&#xA0; [1]=&gt;
-<br>&#xA0; string(4) &quot;test&quot;
-<br>}
-<br>
-<br>now string key &quot;1&quot; become an integer value 1, be careful.</span>
-</div>
-  
+
+```
+<?php
+$a = array("1");
+
+var_dump(array_fill_keys($a, "test"));
+?>
+```
+<br><br>array(1) {<br>  [1]=&gt;<br>  string(4) "test"<br>}<br><br>now string key "1" become an integer value 1, be careful.  
 
 #
 
+If an associative array is used as the second parameter of array_fill_keys, then the associative array will be appended in all the values of the first array.<br>e.g.<br>
 
-<div class="phpcode"><span class="html">
-If an associative array is used as the second parameter of array_fill_keys, then the associative array will be appended in all the values of the first array.
-<br>e.g.
-<br><span class="default">&lt;?php
-<br>$array1 </span><span class="keyword">= array(
-<br>&#xA0; &#xA0; </span><span class="string">&quot;a&quot; </span><span class="keyword">=&gt; </span><span class="string">&quot;first&quot;</span><span class="keyword">,
-<br>&#xA0; &#xA0; </span><span class="string">&quot;b&quot; </span><span class="keyword">=&gt; </span><span class="string">&quot;second&quot;</span><span class="keyword">,
-<br>&#xA0; &#xA0; </span><span class="string">&quot;c&quot; </span><span class="keyword">=&gt; </span><span class="string">&quot;something&quot;</span><span class="keyword">,
-<br>&#xA0; &#xA0; </span><span class="string">&quot;red&quot;
-<br></span><span class="keyword">);
-<br>
-<br></span><span class="default">$array2 </span><span class="keyword">= array(
-<br>&#xA0; &#xA0; </span><span class="string">&quot;a&quot; </span><span class="keyword">=&gt; </span><span class="string">&quot;first&quot;</span><span class="keyword">,
-<br>&#xA0; &#xA0; </span><span class="string">&quot;b&quot; </span><span class="keyword">=&gt; </span><span class="string">&quot;something&quot;</span><span class="keyword">,
-<br>&#xA0; &#xA0; </span><span class="string">&quot;letsc&quot;
-<br></span><span class="keyword">);
-<br>
-<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">array_fill_keys</span><span class="keyword">(</span><span class="default">$array1</span><span class="keyword">, </span><span class="default">$array2</span><span class="keyword">));
-<br></span><span class="default">?&gt;
-<br></span>
-<br>The output will be
-<br>Array(
-<br>&#xA0; &#xA0; [first] =&gt; Array(
-<br>&#xA0; &#xA0; &#xA0; &#xA0; [a] =&gt; first,
-<br>&#xA0; &#xA0; &#xA0; &#xA0; [b] =&gt; something,
-<br>&#xA0; &#xA0; &#xA0; &#xA0; [0] =&gt; letsc
-<br>&#xA0; &#xA0; ),
-<br>&#xA0; &#xA0; [second] =&gt; Array(
-<br>&#xA0; &#xA0; &#xA0; &#xA0; [a] =&gt; first,
-<br>&#xA0; &#xA0; &#xA0; &#xA0; [b] =&gt; something,
-<br>&#xA0; &#xA0; &#xA0; &#xA0; [0] =&gt; letsc
-<br>&#xA0; &#xA0; ),
-<br>&#xA0; &#xA0; [something] =&gt; Array(
-<br>&#xA0; &#xA0; &#xA0; &#xA0; [a] =&gt; first,
-<br>&#xA0; &#xA0; &#xA0; &#xA0; [b] =&gt; something,
-<br>&#xA0; &#xA0; &#xA0; &#xA0; [0] =&gt; letsc
-<br>&#xA0; &#xA0; ),
-<br>&#xA0; &#xA0; [red] =&gt; Array(
-<br>&#xA0; &#xA0; &#xA0; &#xA0; [a] =&gt; first,
-<br>&#xA0; &#xA0; &#xA0; &#xA0; [b] =&gt; something,
-<br>&#xA0; &#xA0; &#xA0; &#xA0; [0] =&gt; letsc
-<br>&#xA0; &#xA0; )
-<br>)</span>
-</div>
-  
+```
+<?php
+$array1 = array(
+    "a" =&gt; "first",
+    "b" =&gt; "second",
+    "c" =&gt; "something",
+    "red"
+);
+
+$array2 = array(
+    "a" =&gt; "first",
+    "b" =&gt; "something",
+    "letsc"
+);
+
+print_r(array_fill_keys($array1, $array2));
+?>
+```
+<br><br>The output will be<br>Array(<br>    [first] =&gt; Array(<br>        [a] =&gt; first,<br>        [b] =&gt; something,<br>        [0] =&gt; letsc<br>    ),<br>    [second] =&gt; Array(<br>        [a] =&gt; first,<br>        [b] =&gt; something,<br>        [0] =&gt; letsc<br>    ),<br>    [something] =&gt; Array(<br>        [a] =&gt; first,<br>        [b] =&gt; something,<br>        [0] =&gt; letsc<br>    ),<br>    [red] =&gt; Array(<br>        [a] =&gt; first,<br>        [b] =&gt; something,<br>        [0] =&gt; letsc<br>    )<br>)  
 
 #
 

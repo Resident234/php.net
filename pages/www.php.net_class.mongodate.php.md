@@ -2,24 +2,13 @@
 
 
 
-
-
-For showing a human readable MongoDate, you can use something like this:
-
-
-
-
+For showing a human readable MongoDate, you can use something like this:<br><br>
 
 ```
 <?php
-
 date(&apos;Y-M-d h:i:s&apos;, $yourDate-&gt;sec);
-
 ?>
 ```
-
-
-
   
 
 #

@@ -2,46 +2,161 @@
 
 
 
+Another solution to utf-8 safe wordwrap, unsing regular expressions.<br>Pretty good performance and works in linear time.<br><br>
 
-<div class="phpcode"><span class="html">
-Another solution to utf-8 safe wordwrap, unsing regular expressions.<br>Pretty good performance and works in linear time.<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">utf8_wordwrap</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$width</span><span class="keyword">=</span><span class="default">75</span><span class="keyword">, </span><span class="default">$break</span><span class="keyword">=</span><span class="string">&quot;\n&quot;</span><span class="keyword">, </span><span class="default">$cut</span><span class="keyword">=</span><span class="default">false</span><span class="keyword">)<br>{<br>&#xA0; if(</span><span class="default">$cut</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="comment">// Match anything 1 to $width chars long followed by whitespace or EOS,<br>&#xA0; &#xA0; // otherwise match anything $width chars long<br>&#xA0; &#xA0; </span><span class="default">$search </span><span class="keyword">= </span><span class="string">&apos;/(.{1,&apos;</span><span class="keyword">.</span><span class="default">$width</span><span class="keyword">.</span><span class="string">&apos;})(?:\s|$)|(.{&apos;</span><span class="keyword">.</span><span class="default">$width</span><span class="keyword">.</span><span class="string">&apos;})/uS&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$replace </span><span class="keyword">= </span><span class="string">&apos;$1$2&apos;</span><span class="keyword">.</span><span class="default">$break</span><span class="keyword">;<br>&#xA0; } else {<br>&#xA0; &#xA0; </span><span class="comment">// Anchor the beginning of the pattern with a lookahead<br>&#xA0; &#xA0; // to avoid crazy backtracking when words are longer than $width<br>&#xA0; &#xA0; </span><span class="default">$pattern </span><span class="keyword">= </span><span class="string">&apos;/(?=\s)(.{1,&apos;</span><span class="keyword">.</span><span class="default">$width</span><span class="keyword">.</span><span class="string">&apos;})(?:\s|$)/uS&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$replace </span><span class="keyword">= </span><span class="string">&apos;$1&apos;</span><span class="keyword">.</span><span class="default">$break</span><span class="keyword">;<br>&#xA0; }<br>&#xA0; return </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="default">$search</span><span class="keyword">, </span><span class="default">$replace</span><span class="keyword">, </span><span class="default">$string</span><span class="keyword">);<br>}<br></span><span class="default">?&gt;<br></span>Of course don&apos;t forget to use preg_quote on the $width and $break parameters if they come from untrusted input.</span>
-</div>
+```
+<?php
+function utf8_wordwrap($string, $width=75, $break="\n", $cut=false)
+{
+  if($cut) {
+    // Match anything 1 to $width chars long followed by whitespace or EOS,
+    // otherwise match anything $width chars long
+    $search = &apos;/(.{1,&apos;.$width.&apos;})(?:\s|$)|(.{&apos;.$width.&apos;})/uS&apos;;
+    $replace = &apos;$1$2&apos;.$break;
+  } else {
+    // Anchor the beginning of the pattern with a lookahead
+    // to avoid crazy backtracking when words are longer than $width
+    $pattern = &apos;/(?=\s)(.{1,&apos;.$width.&apos;})(?:\s|$)/uS&apos;;
+    $replace = &apos;$1&apos;.$break;
+  }
+  return preg_replace($search, $replace, $string);
+}
+?>
+```
+<br>Of course don&apos;t forget to use preg_quote on the $width and $break parameters if they come from untrusted input.  
+
+#
+
+For those interested in wrapping text to fit a width in *pixels* (instead of characters), you might find the following function useful; particularly for line-wrapping text over dynamically-generated images.<br><br>If a word is too long to squeeze into the available space, it&apos;ll hyphenate it as needed so it fits the container. This operates recursively, so ridiculously long words or names (e.g., URLs or this guy&apos;s signature - http://en.wikipedia.org/wiki/Wolfe+585,_Senior) will still keep getting broken off after they&apos;ve passed the fourth or fifth lines, or whatever.<br><br>
+
+```
+<?php
+
+    /**
+     * Wraps a string to a given number of pixels.
+     * 
+     * This function operates in a similar fashion as PHP&apos;s native wordwrap function; however,
+     * it calculates wrapping based on font and point-size, rather than character count. This
+     * can generate more even wrapping for sentences with a consider number of thin characters.
+     * 
+     * @static $mult;
+     * @param string $text - Input string.
+     * @param float $width - Width, in pixels, of the text&apos;s wrapping area.
+     * @param float $size - Size of the font, expressed in pixels.
+     * @param string $font - Path to the typeface to measure the text with.
+     * @return string The original string with line-breaks manually inserted at detected wrapping points.
+     */
+    function pixel_word_wrap($text, $width, $size, $font){
+
+        #    Passed a blank value? Bail early.
+        if(!$text) return $text;
+
+        #    Check if imagettfbbox is expecting font-size to be declared in points or pixels.
+        static $mult;
+        $mult    =    $mult ?: version_compare(GD_VERSION, &apos;2.0&apos;, &apos;&gt;=&apos;) ? .75 : 1;
+
+        #    Text already fits the designated space without wrapping.
+        $box    =    imagettfbbox($size * $mult, 0, $font, $text);
+        if($box[2] - $box[0] / $mult &lt; $width)    return $text;
+
+        #    Start measuring each line of our input and inject line-breaks when overflow&apos;s detected.
+        $output        =    &apos;&apos;;
+        $length        =    0;
+
+        $words        =    preg_split(&apos;/\b(?=\S)|(?=\s)/&apos;, $text);
+        $word_count    =    count($words);
+        for($i = 0; $i &lt; $word_count; ++$i){
+
+            #    Newline
+            if(PHP_EOL === $words[$i])
+                $length    =    0;
+
+            #    Strip any leading tabs.
+            if(!$length) $words[$i]    =    preg_replace(&apos;/^\t+/&apos;, &apos;&apos;, $words[$i]);
+
+            $box    =    imagettfbbox($size * $mult, 0, $font, $words[$i]);
+            $m        =    $box[2] - $box[0] / $mult;
+
+            #    This is one honkin&apos; long word, so try to hyphenate it.
+            if(($diff = $width - $m) &lt;= 0){
+                $diff    =    abs($diff);
+
+                #    Figure out which end of the word to start measuring from. Saves a few extra cycles in an already heavy-duty function.
+                if($diff - $width &lt;= 0)    for($s = strlen($words[$i]); $s; --$s){
+                    $box    =    imagettfbbox($size * $mult, 0, $font, substr($words[$i], 0, $s) . &apos;-&apos;);
+                    if($width &gt; ($box[2] - $box[0] / $mult) + $size){
+                        $breakpoint    =    $s;
+                        break;
+                    }
+                }
+
+                else{
+                    $word_length    =    strlen($words[$i]);
+                    for($s = 0; $s &lt; $word_length; ++$s){
+                        $box    =    imagettfbbox($size * $mult, 0, $font, substr($words[$i], 0, $s+1) . &apos;-&apos;);
+                        if($width &lt; ($box[2] - $box[0] / $mult) + $size){
+                            $breakpoint    =    $s;
+                            break;
+                        }
+                    }
+                }
+
+                if($breakpoint){
+                    $w_l    =    substr($words[$i], 0, $s+1) . &apos;-&apos;;
+                    $w_r    =    substr($words[$i],     $s+1);
+
+                    $words[$i]    =    $w_l;
+                    array_splice($words, $i+1, 0, $w_r);
+                    ++$word_count;
+                    $box    =    imagettfbbox($size * $mult, 0, $font, $w_l);
+                    $m        =    $box[2] - $box[0] / $mult;
+                }
+            }
+
+            #    If there&apos;s no more room on the current line to fit the next word, start a new line.
+            if($length &gt; 0 &amp;&amp; $length + $m &gt;= $width){
+                $output    .=    PHP_EOL;
+                $length    =    0;
+
+                #    If the current word is just a space, don&apos;t bother. Skip (saves a weird-looking gap in the text).
+                if(&apos; &apos; === $words[$i]) continue;
+            }
+
+            #    Write another word and increase the total length of the current line.
+            $output    .=    $words[$i];
+            $length +=    $m;
+        }
+
+        return $output;
+    };
+
+?>
+```
   
 
 #
 
+If you&apos;d like to break long strings of text but avoid breaking html you may find this useful. It seems to be working for me, hope it works for you. Enjoy. :)<br><br>
 
-<div class="phpcode"><span class="html">
-For those interested in wrapping text to fit a width in *pixels* (instead of characters), you might find the following function useful; particularly for line-wrapping text over dynamically-generated images.<br><br>If a word is too long to squeeze into the available space, it&apos;ll hyphenate it as needed so it fits the container. This operates recursively, so ridiculously long words or names (e.g., URLs or this guy&apos;s signature - <a href="http://en.wikipedia.org/wiki/Wolfe+585,_Senior" rel="nofollow" target="_blank">http://en.wikipedia.org/wiki/Wolfe+585,_Senior</a>) will still keep getting broken off after they&apos;ve passed the fourth or fifth lines, or whatever.<br><br><span class="default">&lt;?php<br><br>&#xA0; &#xA0; </span><span class="comment">/**<br>&#xA0; &#xA0;&#xA0; * Wraps a string to a given number of pixels.<br>&#xA0; &#xA0;&#xA0; * <br>&#xA0; &#xA0;&#xA0; * This function operates in a similar fashion as PHP&apos;s native wordwrap function; however,<br>&#xA0; &#xA0;&#xA0; * it calculates wrapping based on font and point-size, rather than character count. This<br>&#xA0; &#xA0;&#xA0; * can generate more even wrapping for sentences with a consider number of thin characters.<br>&#xA0; &#xA0;&#xA0; * <br>&#xA0; &#xA0;&#xA0; * @static $mult;<br>&#xA0; &#xA0;&#xA0; * @param string $text - Input string.<br>&#xA0; &#xA0;&#xA0; * @param float $width - Width, in pixels, of the text&apos;s wrapping area.<br>&#xA0; &#xA0;&#xA0; * @param float $size - Size of the font, expressed in pixels.<br>&#xA0; &#xA0;&#xA0; * @param string $font - Path to the typeface to measure the text with.<br>&#xA0; &#xA0;&#xA0; * @return string The original string with line-breaks manually inserted at detected wrapping points.<br>&#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0; </span><span class="keyword">function </span><span class="default">pixel_word_wrap</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">, </span><span class="default">$width</span><span class="keyword">, </span><span class="default">$size</span><span class="keyword">, </span><span class="default">$font</span><span class="keyword">){<br><br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">#&#xA0; &#xA0; Passed a blank value? Bail early.<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if(!</span><span class="default">$text</span><span class="keyword">) return </span><span class="default">$text</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">#&#xA0; &#xA0; Check if imagettfbbox is expecting font-size to be declared in points or pixels.<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">static </span><span class="default">$mult</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$mult&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">$mult </span><span class="keyword">?: </span><span class="default">version_compare</span><span class="keyword">(</span><span class="default">GD_VERSION</span><span class="keyword">, </span><span class="string">&apos;2.0&apos;</span><span class="keyword">, </span><span class="string">&apos;&gt;=&apos;</span><span class="keyword">) ? </span><span class="default">.75 </span><span class="keyword">: </span><span class="default">1</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">#&#xA0; &#xA0; Text already fits the designated space without wrapping.<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$box&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">imagettfbbox</span><span class="keyword">(</span><span class="default">$size </span><span class="keyword">* </span><span class="default">$mult</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$font</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">$box</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] - </span><span class="default">$box</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] / </span><span class="default">$mult </span><span class="keyword">&lt; </span><span class="default">$width</span><span class="keyword">)&#xA0; &#xA0; return </span><span class="default">$text</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">#&#xA0; &#xA0; Start measuring each line of our input and inject line-breaks when overflow&apos;s detected.<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$output&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="string">&apos;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$length&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">0</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$words&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">preg_split</span><span class="keyword">(</span><span class="string">&apos;/\b(?=\S)|(?=\s)/&apos;</span><span class="keyword">, </span><span class="default">$text</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$word_count&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">count</span><span class="keyword">(</span><span class="default">$words</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; for(</span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">$word_count</span><span class="keyword">; ++</span><span class="default">$i</span><span class="keyword">){<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">#&#xA0; &#xA0; Newline<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if(</span><span class="default">PHP_EOL </span><span class="keyword">=== </span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">])<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$length&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">0</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">#&#xA0; &#xA0; Strip any leading tabs.<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if(!</span><span class="default">$length</span><span class="keyword">) </span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]&#xA0; &#xA0; =&#xA0; &#xA0; </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&apos;/^\t+/&apos;</span><span class="keyword">, </span><span class="string">&apos;&apos;</span><span class="keyword">, </span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$box&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">imagettfbbox</span><span class="keyword">(</span><span class="default">$size </span><span class="keyword">* </span><span class="default">$mult</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$font</span><span class="keyword">, </span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$m&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">$box</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] - </span><span class="default">$box</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] / </span><span class="default">$mult</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">#&#xA0; &#xA0; This is one honkin&apos; long word, so try to hyphenate it.<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if((</span><span class="default">$diff </span><span class="keyword">= </span><span class="default">$width </span><span class="keyword">- </span><span class="default">$m</span><span class="keyword">) &lt;= </span><span class="default">0</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$diff&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">abs</span><span class="keyword">(</span><span class="default">$diff</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">#&#xA0; &#xA0; Figure out which end of the word to start measuring from. Saves a few extra cycles in an already heavy-duty function.<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if(</span><span class="default">$diff </span><span class="keyword">- </span><span class="default">$width </span><span class="keyword">&lt;= </span><span class="default">0</span><span class="keyword">)&#xA0; &#xA0; for(</span><span class="default">$s </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]); </span><span class="default">$s</span><span class="keyword">; --</span><span class="default">$s</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$box&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">imagettfbbox</span><span class="keyword">(</span><span class="default">$size </span><span class="keyword">* </span><span class="default">$mult</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$font</span><span class="keyword">, </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">], </span><span class="default">0</span><span class="keyword">, </span><span class="default">$s</span><span class="keyword">) . </span><span class="string">&apos;-&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">$width </span><span class="keyword">&gt; (</span><span class="default">$box</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] - </span><span class="default">$box</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] / </span><span class="default">$mult</span><span class="keyword">) + </span><span class="default">$size</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$breakpoint&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">$s</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else{<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$word_length&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; for(</span><span class="default">$s </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">; </span><span class="default">$s </span><span class="keyword">&lt; </span><span class="default">$word_length</span><span class="keyword">; ++</span><span class="default">$s</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$box&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">imagettfbbox</span><span class="keyword">(</span><span class="default">$size </span><span class="keyword">* </span><span class="default">$mult</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$font</span><span class="keyword">, </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">], </span><span class="default">0</span><span class="keyword">, </span><span class="default">$s</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">) . </span><span class="string">&apos;-&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">$width </span><span class="keyword">&lt; (</span><span class="default">$box</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] - </span><span class="default">$box</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] / </span><span class="default">$mult</span><span class="keyword">) + </span><span class="default">$size</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$breakpoint&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">$s</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">$breakpoint</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$w_l&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">], </span><span class="default">0</span><span class="keyword">, </span><span class="default">$s</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">) . </span><span class="string">&apos;-&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$w_r&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">],&#xA0; &#xA0;&#xA0; </span><span class="default">$s</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]&#xA0; &#xA0; =&#xA0; &#xA0; </span><span class="default">$w_l</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">array_splice</span><span class="keyword">(</span><span class="default">$words</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">+</span><span class="default">1</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$w_r</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; ++</span><span class="default">$word_count</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$box&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">imagettfbbox</span><span class="keyword">(</span><span class="default">$size </span><span class="keyword">* </span><span class="default">$mult</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$font</span><span class="keyword">, </span><span class="default">$w_l</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$m&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">$box</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">] - </span><span class="default">$box</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] / </span><span class="default">$mult</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">#&#xA0; &#xA0; If there&apos;s no more room on the current line to fit the next word, start a new line.<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if(</span><span class="default">$length </span><span class="keyword">&gt; </span><span class="default">0 </span><span class="keyword">&amp;&amp; </span><span class="default">$length </span><span class="keyword">+ </span><span class="default">$m </span><span class="keyword">&gt;= </span><span class="default">$width</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$output&#xA0; &#xA0; </span><span class="keyword">.=&#xA0; &#xA0; </span><span class="default">PHP_EOL</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$length&#xA0; &#xA0; </span><span class="keyword">=&#xA0; &#xA0; </span><span class="default">0</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">#&#xA0; &#xA0; If the current word is just a space, don&apos;t bother. Skip (saves a weird-looking gap in the text).<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if(</span><span class="string">&apos; &apos; </span><span class="keyword">=== </span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]) continue;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">#&#xA0; &#xA0; Write another word and increase the total length of the current line.<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$output&#xA0; &#xA0; </span><span class="keyword">.=&#xA0; &#xA0; </span><span class="default">$words</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$length </span><span class="keyword">+=&#xA0; &#xA0; </span><span class="default">$m</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$output</span><span class="keyword">;<br>&#xA0; &#xA0; };<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-If you&apos;d like to break long strings of text but avoid breaking html you may find this useful. It seems to be working for me, hope it works for you. Enjoy. :)
-<br>
-<br><span class="default">&lt;?php
-<br>&#xA0; &#xA0; </span><span class="keyword">function </span><span class="default">textWrap</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">) {
-<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$new_text </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;
-<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$text_1 </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&apos;&gt;&apos;</span><span class="keyword">,</span><span class="default">$text</span><span class="keyword">);
-<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$sizeof </span><span class="keyword">= </span><span class="default">sizeof</span><span class="keyword">(</span><span class="default">$text_1</span><span class="keyword">);
-<br>&#xA0; &#xA0; &#xA0; &#xA0; for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">$sizeof</span><span class="keyword">; ++</span><span class="default">$i</span><span class="keyword">) {
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$text_2 </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&apos;&lt;&apos;</span><span class="keyword">,</span><span class="default">$text_1</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]);
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (!empty(</span><span class="default">$text_2</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">])) {
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$new_text </span><span class="keyword">.= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&apos;#([^\n\r .]{25})#i&apos;</span><span class="keyword">, </span><span class="string">&apos;\\1&#xA0; &apos;</span><span class="keyword">, </span><span class="default">$text_2</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]);
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (!empty(</span><span class="default">$text_2</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">])) {
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$new_text </span><span class="keyword">.= </span><span class="string">&apos;&lt;&apos; </span><span class="keyword">. </span><span class="default">$text_2</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] . </span><span class="string">&apos;&gt;&apos;</span><span class="keyword">;&#xA0; &#xA0; 
-<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-<br>&#xA0; &#xA0; &#xA0; &#xA0; }
-<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$new_text</span><span class="keyword">;
-<br>&#xA0; &#xA0; }
-<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+    function textWrap($text) {
+        $new_text = &apos;&apos;;
+        $text_1 = explode(&apos;&gt;&apos;,$text);
+        $sizeof = sizeof($text_1);
+        for ($i=0; $i&lt;$sizeof; ++$i) {
+            $text_2 = explode(&apos;&lt;&apos;,$text_1[$i]);
+            if (!empty($text_2[0])) {
+                $new_text .= preg_replace(&apos;#([^\n\r .]{25})#i&apos;, &apos;\\1  &apos;, $text_2[0]);
+            }
+            if (!empty($text_2[1])) {
+                $new_text .= &apos;&lt;&apos; . $text_2[1] . &apos;&gt;&apos;;    
+            }
+        }
+        return $new_text;
+    }
+?>
+```
   
 
 #

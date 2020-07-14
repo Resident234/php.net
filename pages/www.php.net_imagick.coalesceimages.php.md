@@ -2,46 +2,24 @@
 
 
 
-
-
-resize and/or crop an animated GIF
-
-
-
-
+resize and/or crop an animated GIF<br><br>
 
 ```
 <?php
-
 $image = new Imagick($file_src);
-
-
 
 $image = $image-&gt;coalesceImages();
 
-
-
 foreach ($image as $frame) {
-
-&#xA0; $frame-&gt;cropImage($crop_w, $crop_h, $crop_x, $crop_y);
-
-&#xA0; $frame-&gt;thumbnailImage($size_w, $size_h);
-
-&#xA0; $frame-&gt;setImagePage($size_w, $size_h, 0, 0);
-
+  $frame-&gt;cropImage($crop_w, $crop_h, $crop_x, $crop_y);
+  $frame-&gt;thumbnailImage($size_w, $size_h);
+  $frame-&gt;setImagePage($size_w, $size_h, 0, 0);
 }
 
-
-
 $image = $image-&gt;deconstructImages();
-
 $image-&gt;writeImages($file_dst, true);
-
 ?>
 ```
-
-
-
   
 
 #

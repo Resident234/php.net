@@ -2,42 +2,18 @@
 
 
 
-
-
-Since SQLite3Result::numRows is unavailable, use:
-
-
-
-
+Since SQLite3Result::numRows is unavailable, use:<br><br>
 
 ```
 <?php
-
 if ($res-&gt;numColumns() &amp;&amp; $res-&gt;columnType(0) != SQLITE3_NULL) {
-
-&#xA0; &#xA0; // have rows
-
+    // have rows
 } else {
-
-&#xA0; &#xA0; // zero rows
-
+    // zero rows
 }
-
 ?>
 ```
-
-
-
-
-Because when there are zero rows:
-
-* SQLite3Result::fetchArray will return &apos;1&apos;
-
-* SQLite3Result::numColumns will return &apos;1&apos;
-
-* Column type for column &apos;0&apos; will be SQLITE3_NULL
-
-  
+<br><br>Because when there are zero rows:<br>* SQLite3Result::fetchArray will return &apos;1&apos;<br>* SQLite3Result::numColumns will return &apos;1&apos;<br>* Column type for column &apos;0&apos; will be SQLITE3_NULL  
 
 #
 

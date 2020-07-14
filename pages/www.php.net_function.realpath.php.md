@@ -2,33 +2,24 @@
 
 
 
-
-
-Because realpath() does not work on files that do not
-exist, I wrote a function that does.
-It replaces (consecutive) occurences of / and \\ with
-whatever is in DIRECTORY_SEPARATOR, and processes /. and /.. fine.
-Paths returned by get_absolute_path() contain no
-(back)slash at position 0 (beginning of the string) or
-position -1 (ending)
-
+Because realpath() does not work on files that do not<br>exist, I wrote a function that does.<br>It replaces (consecutive) occurences of / and \\ with<br>whatever is in DIRECTORY_SEPARATOR, and processes /. and /.. fine.<br>Paths returned by get_absolute_path() contain no<br>(back)slash at position 0 (beginning of the string) or<br>position -1 (ending)<br>
 
 ```
 <?php
-&#xA0; &#xA0; function get_absolute_path($path) {
-&#xA0; &#xA0; &#xA0; &#xA0; $path = str_replace(array(&apos;/&apos;, &apos;\\&apos;), DIRECTORY_SEPARATOR, $path);
-&#xA0; &#xA0; &#xA0; &#xA0; $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), &apos;strlen&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; $absolutes = array();
-&#xA0; &#xA0; &#xA0; &#xA0; foreach ($parts as $part) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (&apos;.&apos; == $part) continue;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (&apos;..&apos; == $part) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; array_pop($absolutes);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } else {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $absolutes[] = $part;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; return implode(DIRECTORY_SEPARATOR, $absolutes);
-&#xA0; &#xA0; }
+    function get_absolute_path($path) {
+        $path = str_replace(array(&apos;/&apos;, &apos;\\&apos;), DIRECTORY_SEPARATOR, $path);
+        $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), &apos;strlen&apos;);
+        $absolutes = array();
+        foreach ($parts as $part) {
+            if (&apos;.&apos; == $part) continue;
+            if (&apos;..&apos; == $part) {
+                array_pop($absolutes);
+            } else {
+                $absolutes[] = $part;
+            }
+        }
+        return implode(DIRECTORY_SEPARATOR, $absolutes);
+    }
 ?>
 ```
 
@@ -38,175 +29,83 @@ A test:
 
 ```
 <?php
-&#xA0; &#xA0; var_dump(get_absolute_path(&apos;this/is/../a/./test/.///is&apos;));
+    var_dump(get_absolute_path(&apos;this/is/../a/./test/.///is&apos;));
 ?>
 ```
-
-Returns: string(14) &quot;this/a/test/is&quot; 
-
-As you can so, it also produces Yoda-speak. :)
-
-  
+<br>Returns: string(14) "this/a/test/is" <br><br>As you can so, it also produces Yoda-speak. :)  
 
 #
-
-
 
 
 
 ```
-<?php
-
-namespace MockingMagician\Organic\Helper;
-
-class Path
-{
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * There is a method that deal with Sven Arduwie proposal https://www.php.net/manual/en/function.realpath.php#84012
-&#xA0; &#xA0;&#xA0; * And runeimp at gmail dot com proposal https://www.php.net/manual/en/function.realpath.php#112367
-&#xA0; &#xA0;&#xA0; * @param string $path
-&#xA0; &#xA0;&#xA0; * @return string
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public static function getAbsolute(string $path): string
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; // Cleaning path regarding OS
-&#xA0; &#xA0; &#xA0; &#xA0; $path = mb_ereg_replace(&apos;\\\\|/&apos;, DIRECTORY_SEPARATOR, $path, &apos;msr&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; // Check if path start with a separator (UNIX)
-&#xA0; &#xA0; &#xA0; &#xA0; $startWithSeparator = $path[0] === DIRECTORY_SEPARATOR;
-&#xA0; &#xA0; &#xA0; &#xA0; // Check if start with drive letter
-&#xA0; &#xA0; &#xA0; &#xA0; preg_match(&apos;/^[a-z]:/&apos;, $path, $matches);
-&#xA0; &#xA0; &#xA0; &#xA0; $startWithLetterDir = isset($matches[0]) ? $matches[0] : false;
-&#xA0; &#xA0; &#xA0; &#xA0; // Get and filter empty sub paths
-&#xA0; &#xA0; &#xA0; &#xA0; $subPaths = array_filter(explode(DIRECTORY_SEPARATOR, $path), &apos;mb_strlen&apos;);
-
-&#xA0; &#xA0; &#xA0; &#xA0; $absolutes = [];
-&#xA0; &#xA0; &#xA0; &#xA0; foreach ($subPaths as $subPath) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (&apos;.&apos; === $subPath) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; continue;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // if $startWithSeparator is false
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // and $startWithLetterDir
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // and (absolutes is empty or all previous values are ..)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // save absolute cause that&apos;s a relative and we can&apos;t deal with that and just forget that we want go up
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (&apos;..&apos; === $subPath
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &amp;&amp; !$startWithSeparator
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &amp;&amp; !$startWithLetterDir
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &amp;&amp; empty(array_filter($absolutes, function ($value) { return !(&apos;..&apos; === $value); }))
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; ) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $absolutes[] = $subPath;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; continue;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (&apos;..&apos; === $subPath) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; array_pop($absolutes);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; continue;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $absolutes[] = $subPath;
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; return
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (($startWithSeparator ? DIRECTORY_SEPARATOR : $startWithLetterDir) ?
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $startWithLetterDir.DIRECTORY_SEPARATOR : &apos;&apos;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; ).implode(DIRECTORY_SEPARATOR, $absolutes);
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Examples
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * echo Path::getAbsolute(&apos;/one/two/../two/./three/../../two&apos;);&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; =&gt;&#xA0; &#xA0; /one/two
-&#xA0; &#xA0;&#xA0; * echo Path::getAbsolute(&apos;../one/two/../two/./three/../../two&apos;);&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; =&gt;&#xA0; &#xA0; ../one/two
-&#xA0; &#xA0;&#xA0; * echo Path::getAbsolute(&apos;../.././../one/two/../two/./three/../../two&apos;);&#xA0; =&gt;&#xA0; &#xA0; ../../../one/two
-&#xA0; &#xA0;&#xA0; * echo Path::getAbsolute(&apos;../././../one/two/../two/./three/../../two&apos;);&#xA0;&#xA0; =&gt;&#xA0; &#xA0; ../../one/two
-&#xA0; &#xA0;&#xA0; * echo Path::getAbsolute(&apos;/../one/two/../two/./three/../../two&apos;);&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; =&gt;&#xA0; &#xA0; /one/two
-&#xA0; &#xA0;&#xA0; * echo Path::getAbsolute(&apos;/../../one/two/../two/./three/../../two&apos;);&#xA0; &#xA0; &#xA0; =&gt;&#xA0; &#xA0; /one/two
-&#xA0; &#xA0;&#xA0; * echo Path::getAbsolute(&apos;c:\.\..\one\two\..\two\.\three\..\..\two&apos;);&#xA0; &#xA0;&#xA0; =&gt;&#xA0; &#xA0; c:/one/two
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; */
-}
-
-
-  
+<?php<br><br>namespace MockingMagician\Organic\Helper;<br><br>class Path<br>{<br>    /**<br>     * There is a method that deal with Sven Arduwie proposal https://www.php.net/manual/en/function.realpath.php#84012<br>     * And runeimp at gmail dot com proposal https://www.php.net/manual/en/function.realpath.php#112367<br>     * @param string $path<br>     * @return string<br>     */<br>    public static function getAbsolute(string $path): string<br>    {<br>        // Cleaning path regarding OS<br>        $path = mb_ereg_replace(&apos;\\\\|/&apos;, DIRECTORY_SEPARATOR, $path, &apos;msr&apos;);<br>        // Check if path start with a separator (UNIX)<br>        $startWithSeparator = $path[0] === DIRECTORY_SEPARATOR;<br>        // Check if start with drive letter<br>        preg_match(&apos;/^[a-z]:/&apos;, $path, $matches);<br>        $startWithLetterDir = isset($matches[0]) ? $matches[0] : false;<br>        // Get and filter empty sub paths<br>        $subPaths = array_filter(explode(DIRECTORY_SEPARATOR, $path), &apos;mb_strlen&apos;);<br><br>        $absolutes = [];<br>        foreach ($subPaths as $subPath) {<br>            if (&apos;.&apos; === $subPath) {<br>                continue;<br>            }<br>            // if $startWithSeparator is false<br>            // and $startWithLetterDir<br>            // and (absolutes is empty or all previous values are ..)<br>            // save absolute cause that&apos;s a relative and we can&apos;t deal with that and just forget that we want go up<br>            if (&apos;..&apos; === $subPath<br>                &amp;&amp; !$startWithSeparator<br>                &amp;&amp; !$startWithLetterDir<br>                &amp;&amp; empty(array_filter($absolutes, function ($value) { return !(&apos;..&apos; === $value); }))<br>            ) {<br>                $absolutes[] = $subPath;<br>                continue;<br>            }<br>            if (&apos;..&apos; === $subPath) {<br>                array_pop($absolutes);<br>                continue;<br>            }<br>            $absolutes[] = $subPath;<br>        }<br><br>        return<br>            (($startWithSeparator ? DIRECTORY_SEPARATOR : $startWithLetterDir) ?<br>                $startWithLetterDir.DIRECTORY_SEPARATOR : &apos;&apos;<br>            ).implode(DIRECTORY_SEPARATOR, $absolutes);<br>    }<br><br>    /**<br>     * Examples<br>     *<br>     * echo Path::getAbsolute(&apos;/one/two/../two/./three/../../two&apos;);            =&gt;    /one/two<br>     * echo Path::getAbsolute(&apos;../one/two/../two/./three/../../two&apos;);          =&gt;    ../one/two<br>     * echo Path::getAbsolute(&apos;../.././../one/two/../two/./three/../../two&apos;);  =&gt;    ../../../one/two<br>     * echo Path::getAbsolute(&apos;../././../one/two/../two/./three/../../two&apos;);   =&gt;    ../../one/two<br>     * echo Path::getAbsolute(&apos;/../one/two/../two/./three/../../two&apos;);         =&gt;    /one/two<br>     * echo Path::getAbsolute(&apos;/../../one/two/../two/./three/../../two&apos;);      =&gt;    /one/two<br>     * echo Path::getAbsolute(&apos;c:\.\..\one\two\..\two\.\three\..\..\two&apos;);     =&gt;    c:/one/two<br>     *<br>     */<br>}  
 
 #
 
-
-
-Needed a method to normalize a virtual path that could handle .. references that go beyond the initial folder reference. So I created the following.
-
+Needed a method to normalize a virtual path that could handle .. references that go beyond the initial folder reference. So I created the following.<br>
 
 ```
 <?php
 
 function normalizePath($path)
 {
-&#xA0; &#xA0; $parts = array();// Array to build a new path from the good parts
-&#xA0; &#xA0; $path = str_replace(&apos;\\&apos;, &apos;/&apos;, $path);// Replace backslashes with forwardslashes
-&#xA0; &#xA0; $path = preg_replace(&apos;/\/+/&apos;, &apos;/&apos;, $path);// Combine multiple slashes into a single slash
-&#xA0; &#xA0; $segments = explode(&apos;/&apos;, $path);// Collect path segments
-&#xA0; &#xA0; $test = &apos;&apos;;// Initialize testing variable
-&#xA0; &#xA0; foreach($segments as $segment)
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; if($segment != &apos;.&apos;)
-&#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $test = array_pop($parts);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(is_null($test))
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $parts[] = $segment;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else if($segment == &apos;..&apos;)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if($test == &apos;..&apos;)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $parts[] = $test;
+    $parts = array();// Array to build a new path from the good parts
+    $path = str_replace(&apos;\\&apos;, &apos;/&apos;, $path);// Replace backslashes with forwardslashes
+    $path = preg_replace(&apos;/\/+/&apos;, &apos;/&apos;, $path);// Combine multiple slashes into a single slash
+    $segments = explode(&apos;/&apos;, $path);// Collect path segments
+    $test = &apos;&apos;;// Initialize testing variable
+    foreach($segments as $segment)
+    {
+        if($segment != &apos;.&apos;)
+        {
+            $test = array_pop($parts);
+            if(is_null($test))
+                $parts[] = $segment;
+            else if($segment == &apos;..&apos;)
+            {
+                if($test == &apos;..&apos;)
+                    $parts[] = $test;
 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if($test == &apos;..&apos; || $test == &apos;&apos;)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $parts[] = $segment;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $parts[] = $test;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $parts[] = $segment;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
-&#xA0; &#xA0; return implode(&apos;/&apos;, $parts);
+                if($test == &apos;..&apos; || $test == &apos;&apos;)
+                    $parts[] = $segment;
+            }
+            else
+            {
+                $parts[] = $test;
+                $parts[] = $segment;
+            }
+        }
+    }
+    return implode(&apos;/&apos;, $parts);
 }
 ?>
 ```
-
-
-Will convert /path/to/test/.././..//..///..///../one/two/../three/filename
-to ../../one/three/filename
-
-  
+<br><br>Will convert /path/to/test/.././..//..///..///../one/two/../three/filename<br>to ../../one/three/filename  
 
 #
 
-
-
-Note: If you use this to check if a file exists, it&apos;s path will be cached, and returns true even if the file is removed (use file_exists instead).
-
-  
+Note: If you use this to check if a file exists, it&apos;s path will be cached, and returns true even if the file is removed (use file_exists instead).  
 
 #
 
-
-
-Here&apos;s a function to canonicalize a URL containing relative paths. Ran into the problem when pulling links from a remote page.
-
-
+Here&apos;s a function to canonicalize a URL containing relative paths. Ran into the problem when pulling links from a remote page.<br><br>
 
 ```
 <?php
 
 function canonicalize($address)
 {
-&#xA0; &#xA0; $address = explode(&apos;/&apos;, $address);
-&#xA0; &#xA0; $keys = array_keys($address, &apos;..&apos;);
+    $address = explode(&apos;/&apos;, $address);
+    $keys = array_keys($address, &apos;..&apos;);
 
-&#xA0; &#xA0; foreach($keys AS $keypos =&gt; $key)
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; array_splice($address, $key - ($keypos * 2 + 1), 2);
-&#xA0; &#xA0; }
+    foreach($keys AS $keypos =&gt; $key)
+    {
+        array_splice($address, $key - ($keypos * 2 + 1), 2);
+    }
 
-&#xA0; &#xA0; $address = implode(&apos;/&apos;, $address);
-&#xA0; &#xA0; $address = str_replace(&apos;./&apos;, &apos;&apos;, $address);
+    $address = implode(&apos;/&apos;, $address);
+    $address = str_replace(&apos;./&apos;, &apos;&apos;, $address);
 }
 
 $url = &apos;http://www.example.com/something/../else&apos;;
@@ -214,9 +113,6 @@ echo canonicalize($url); //http://www.example.com/else
 
 ?>
 ```
-
-
-
   
 
 #

@@ -2,28 +2,65 @@
 
 
 
+Here are the response codes ready for pasting in an ini-style file. Can be used to provide more descriptive message, corresponding to &apos;http_code&apos; index of the arrray returned by curl_getinfo(). <br>These are taken from the W3 consortium HTTP/1.1: Status Code Definitions, found at<br>http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html<br><br>[Informational 1xx]<br>100="Continue"<br>101="Switching Protocols"<br><br>[Successful 2xx]<br>200="OK"<br>201="Created"<br>202="Accepted"<br>203="Non-Authoritative Information"<br>204="No Content"<br>205="Reset Content"<br>206="Partial Content"<br><br>[Redirection 3xx]<br>300="Multiple Choices"<br>301="Moved Permanently"<br>302="Found"<br>303="See Other"<br>304="Not Modified"<br>305="Use Proxy"<br>306="(Unused)"<br>307="Temporary Redirect"<br><br>[Client Error 4xx]<br>400="Bad Request"<br>401="Unauthorized"<br>402="Payment Required"<br>403="Forbidden"<br>404="Not Found"<br>405="Method Not Allowed"<br>406="Not Acceptable"<br>407="Proxy Authentication Required"<br>408="Request Timeout"<br>409="Conflict"<br>410="Gone"<br>411="Length Required"<br>412="Precondition Failed"<br>413="Request Entity Too Large"<br>414="Request-URI Too Long"<br>415="Unsupported Media Type"<br>416="Requested Range Not Satisfiable"<br>417="Expectation Failed"<br><br>[Server Error 5xx]<br>500="Internal Server Error"<br>501="Not Implemented"<br>502="Bad Gateway"<br>503="Service Unavailable"<br>504="Gateway Timeout"<br>505="HTTP Version Not Supported"<br><br>And an example usage:<br>
 
-<div class="phpcode"><span class="html">
-Here are the response codes ready for pasting in an ini-style file. Can be used to provide more descriptive message, corresponding to &apos;http_code&apos; index of the arrray returned by curl_getinfo(). <br>These are taken from the W3 consortium HTTP/1.1: Status Code Definitions, found at<br><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html" rel="nofollow" target="_blank">http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html</a><br><br>[Informational 1xx]<br>100=&quot;Continue&quot;<br>101=&quot;Switching Protocols&quot;<br><br>[Successful 2xx]<br>200=&quot;OK&quot;<br>201=&quot;Created&quot;<br>202=&quot;Accepted&quot;<br>203=&quot;Non-Authoritative Information&quot;<br>204=&quot;No Content&quot;<br>205=&quot;Reset Content&quot;<br>206=&quot;Partial Content&quot;<br><br>[Redirection 3xx]<br>300=&quot;Multiple Choices&quot;<br>301=&quot;Moved Permanently&quot;<br>302=&quot;Found&quot;<br>303=&quot;See Other&quot;<br>304=&quot;Not Modified&quot;<br>305=&quot;Use Proxy&quot;<br>306=&quot;(Unused)&quot;<br>307=&quot;Temporary Redirect&quot;<br><br>[Client Error 4xx]<br>400=&quot;Bad Request&quot;<br>401=&quot;Unauthorized&quot;<br>402=&quot;Payment Required&quot;<br>403=&quot;Forbidden&quot;<br>404=&quot;Not Found&quot;<br>405=&quot;Method Not Allowed&quot;<br>406=&quot;Not Acceptable&quot;<br>407=&quot;Proxy Authentication Required&quot;<br>408=&quot;Request Timeout&quot;<br>409=&quot;Conflict&quot;<br>410=&quot;Gone&quot;<br>411=&quot;Length Required&quot;<br>412=&quot;Precondition Failed&quot;<br>413=&quot;Request Entity Too Large&quot;<br>414=&quot;Request-URI Too Long&quot;<br>415=&quot;Unsupported Media Type&quot;<br>416=&quot;Requested Range Not Satisfiable&quot;<br>417=&quot;Expectation Failed&quot;<br><br>[Server Error 5xx]<br>500=&quot;Internal Server Error&quot;<br>501=&quot;Not Implemented&quot;<br>502=&quot;Bad Gateway&quot;<br>503=&quot;Service Unavailable&quot;<br>504=&quot;Gateway Timeout&quot;<br>505=&quot;HTTP Version Not Supported&quot;<br><br>And an example usage:<br><span class="default">&lt;?php<br>$ch </span><span class="keyword">= </span><span class="default">curl_init</span><span class="keyword">(); </span><span class="comment">// create cURL handle (ch)<br></span><span class="keyword">if (!</span><span class="default">$ch</span><span class="keyword">) {<br>&#xA0; &#xA0; die(</span><span class="string">&quot;Couldn&apos;t initialize a cURL handle&quot;</span><span class="keyword">);<br>}<br></span><span class="comment">// set some cURL options<br></span><span class="default">$ret </span><span class="keyword">= </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_URL</span><span class="keyword">,&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&quot;<a href="http://mail.yahoo.com" rel="nofollow" target="_blank">http://mail.yahoo.com</a>&quot;</span><span class="keyword">);<br></span><span class="default">$ret </span><span class="keyword">= </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_HEADER</span><span class="keyword">,&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">1</span><span class="keyword">);<br></span><span class="default">$ret </span><span class="keyword">= </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_FOLLOWLOCATION</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br></span><span class="default">$ret </span><span class="keyword">= </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_RETURNTRANSFER</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">);<br></span><span class="default">$ret </span><span class="keyword">= </span><span class="default">curl_setopt</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">, </span><span class="default">CURLOPT_TIMEOUT</span><span class="keyword">,&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">30</span><span class="keyword">);<br><br></span><span class="comment">// execute<br></span><span class="default">$ret </span><span class="keyword">= </span><span class="default">curl_exec</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);<br><br>if (empty(</span><span class="default">$ret</span><span class="keyword">)) {<br>&#xA0; &#xA0; </span><span class="comment">// some kind of an error happened<br>&#xA0; &#xA0; </span><span class="keyword">die(</span><span class="default">curl_error</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">));<br>&#xA0; &#xA0; </span><span class="default">curl_close</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">); </span><span class="comment">// close cURL handler<br></span><span class="keyword">} else {<br>&#xA0; &#xA0; </span><span class="default">$info </span><span class="keyword">= </span><span class="default">curl_getinfo</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">curl_close</span><span class="keyword">(</span><span class="default">$ch</span><span class="keyword">); </span><span class="comment">// close cURL handler<br><br>&#xA0; &#xA0; </span><span class="keyword">if (empty(</span><span class="default">$info</span><span class="keyword">[</span><span class="string">&apos;http_code&apos;</span><span class="keyword">])) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; die(</span><span class="string">&quot;No HTTP code was returned&quot;</span><span class="keyword">); <br>&#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// load the HTTP codes<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$http_codes </span><span class="keyword">= </span><span class="default">parse_ini_file</span><span class="keyword">(</span><span class="string">&quot;path/to/the/ini/file/I/pasted/above&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// echo results<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">echo </span><span class="string">&quot;The server responded: &lt;br /&gt;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="default">$info</span><span class="keyword">[</span><span class="string">&apos;http_code&apos;</span><span class="keyword">] . </span><span class="string">&quot; &quot; </span><span class="keyword">. </span><span class="default">$http_codes</span><span class="keyword">[</span><span class="default">$info</span><span class="keyword">[</span><span class="string">&apos;http_code&apos;</span><span class="keyword">]];<br>&#xA0; &#xA0; }<br><br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+$ch = curl_init(); // create cURL handle (ch)
+if (!$ch) {
+    die("Couldn&apos;t initialize a cURL handle");
+}
+// set some cURL options
+$ret = curl_setopt($ch, CURLOPT_URL,            "http://mail.yahoo.com");
+$ret = curl_setopt($ch, CURLOPT_HEADER,         1);
+$ret = curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+$ret = curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);
+$ret = curl_setopt($ch, CURLOPT_TIMEOUT,        30);
+
+// execute
+$ret = curl_exec($ch);
+
+if (empty($ret)) {
+    // some kind of an error happened
+    die(curl_error($ch));
+    curl_close($ch); // close cURL handler
+} else {
+    $info = curl_getinfo($ch);
+    curl_close($ch); // close cURL handler
+
+    if (empty($info[&apos;http_code&apos;])) {
+            die("No HTTP code was returned"); 
+    } else {
+        // load the HTTP codes
+        $http_codes = parse_ini_file("path/to/the/ini/file/I/pasted/above");
+        
+        // echo results
+        echo "The server responded: &lt;br /&gt;";
+        echo $info[&apos;http_code&apos;] . " " . $http_codes[$info[&apos;http_code&apos;]];
+    }
+
+}
+?>
+```
   
 
 #
 
-
-<div class="phpcode"><span class="html">
-CURLINFO_SSL_VERIFYRESULT error codes:<br>0: ok the operation was successful. <br>2 : unable to get issuer certificate<br>3: unable to get certificate CRL<br>4: unable to decrypt certificate&apos;s signature<br>5: unable to decrypt CRL&apos;s signature<br>6: unable to decode issuer public key<br>7: certificate signature failure<br>8: CRL signature failure<br>9: certificate is not yet valid<br>10: certificate has expired<br>11: CRL is not yet valid<br>12:CRL has expired<br>13: format error in certificate&apos;s notBefore field<br>14: format error in certificate&apos;s notAfter field<br>15: format error in CRL&apos;s lastUpdate field<br>16: format error in CRL&apos;s nextUpdate field<br>17: out of memory<br>18: self signed certificate<br>19: self signed certificate in certificate chain<br>20: unable to get local issuer certificate<br>21:unable to verify the first certificate<br>22: certificate chain too long<br>23: certificate revoked<br>24: invalid CA certificate<br>25: path length constraint exceeded<br>26: unsupported certificate purpose<br>27: certificate not trusted<br>28: certificate rejected<br>29: subject issuer mismatch<br>30: authority and subject key identifier mismatch<br>31: authority and issuer serial number mismatch<br>32: key usage does not include certificate signing<br>50: application verification failure<br>details at <a href="http://www.openssl.org/docs/apps/verify.html#VERIFY_OPERATION" rel="nofollow" target="_blank">http://www.openssl.org/docs/apps/verify.html#VERIFY_OPERATION</a></span>
-</div>
-  
+CURLINFO_SSL_VERIFYRESULT error codes:<br>0: ok the operation was successful. <br>2 : unable to get issuer certificate<br>3: unable to get certificate CRL<br>4: unable to decrypt certificate&apos;s signature<br>5: unable to decrypt CRL&apos;s signature<br>6: unable to decode issuer public key<br>7: certificate signature failure<br>8: CRL signature failure<br>9: certificate is not yet valid<br>10: certificate has expired<br>11: CRL is not yet valid<br>12:CRL has expired<br>13: format error in certificate&apos;s notBefore field<br>14: format error in certificate&apos;s notAfter field<br>15: format error in CRL&apos;s lastUpdate field<br>16: format error in CRL&apos;s nextUpdate field<br>17: out of memory<br>18: self signed certificate<br>19: self signed certificate in certificate chain<br>20: unable to get local issuer certificate<br>21:unable to verify the first certificate<br>22: certificate chain too long<br>23: certificate revoked<br>24: invalid CA certificate<br>25: path length constraint exceeded<br>26: unsupported certificate purpose<br>27: certificate not trusted<br>28: certificate rejected<br>29: subject issuer mismatch<br>30: authority and subject key identifier mismatch<br>31: authority and issuer serial number mismatch<br>32: key usage does not include certificate signing<br>50: application verification failure<br>details at http://www.openssl.org/docs/apps/verify.html#VERIFY_OPERATION  
 
 #
 
+CURLINFO_HTTP_CODE does not return a string, as the docs say, but rather an integer.<br><br>
 
-<div class="phpcode"><span class="html">
-CURLINFO_HTTP_CODE does not return a string, as the docs say, but rather an integer.<br><br><span class="default">&lt;?php<br>&#xA0; &#xA0; $c </span><span class="keyword">= </span><span class="default">curl_init</span><span class="keyword">(</span><span class="string">&apos;<a href="http://www.example.com/" rel="nofollow" target="_blank">http://www.example.com/</a>&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; if(</span><span class="default">curl_getinfo</span><span class="keyword">(</span><span class="default">$c</span><span class="keyword">, </span><span class="default">CURLINFO_HTTP_CODE</span><span class="keyword">) === </span><span class="string">&apos;200&apos;</span><span class="keyword">) echo </span><span class="string">&quot;CURLINFO_HTTP_CODE returns a string.&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; if(</span><span class="default">curl_getinfo</span><span class="keyword">(</span><span class="default">$c</span><span class="keyword">, </span><span class="default">CURLINFO_HTTP_CODE</span><span class="keyword">) === </span><span class="default">200</span><span class="keyword">) echo </span><span class="string">&quot;CURLINFO_HTTP_CODE returns an integer.&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">curl_close</span><span class="keyword">(</span><span class="default">$c</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>returns<br><br>&quot;CURLINFO_HTTP_CODE returns an integer.&quot;</span>
-</div>
-  
+```
+<?php
+    $c = curl_init(&apos;http://www.example.com/&apos;);
+    if(curl_getinfo($c, CURLINFO_HTTP_CODE) === &apos;200&apos;) echo "CURLINFO_HTTP_CODE returns a string.";
+    if(curl_getinfo($c, CURLINFO_HTTP_CODE) === 200) echo "CURLINFO_HTTP_CODE returns an integer.";
+    curl_close($c);
+?>
+```
+<br><br>returns<br><br>"CURLINFO_HTTP_CODE returns an integer."  
 
 #
 

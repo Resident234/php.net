@@ -2,11 +2,7 @@
 
 
 
-
-
-If Iterator::valid() returns false, the foreach() loop will be terminated.
-
-  
+If Iterator::valid() returns false, the foreach() loop will be terminated.  
 
 #
 

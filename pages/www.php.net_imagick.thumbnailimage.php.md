@@ -2,11 +2,7 @@
 
 
 
-
-
-Even though thumbnailImage is meant to produce the smallest file size image possible, i found it didn&apos;t. I put together this code and bordering different compression settings, found it produced the smallest file size:
-
-
+Even though thumbnailImage is meant to produce the smallest file size image possible, i found it didn&apos;t. I put together this code and bordering different compression settings, found it produced the smallest file size:<br><br>
 
 ```
 <?php
@@ -41,11 +37,7 @@ $image-&gt;destroy();
 
 ?>
 ```
-
-
-I found setCompression to not function at all and had to use setImageCompression. The stripImage call is needed and strips out unneeded meta data. You can choose whatever filter you want, but i found lanczos to be the best for image reduction, though it is more computationally heavy.
-
-  
+<br><br>I found setCompression to not function at all and had to use setImageCompression. The stripImage call is needed and strips out unneeded meta data. You can choose whatever filter you want, but i found lanczos to be the best for image reduction, though it is more computationally heavy.  
 
 #
 

@@ -2,11 +2,7 @@
 
 
 
-
-
-The return value is a length in bytes. (Not bits, or anything else.)
-
-  
+The return value is a length in bytes. (Not bits, or anything else.)  
 
 #
 

@@ -2,11 +2,57 @@
 
 
 
+Regarding speed of foreach vs while(list) =each<br>I wrote a benchmark script and the results are that clearly foreach is faster. MUCH faster. Even with huge arrays (especially with huge arrays). I tested with sizes 100,000. 1,000,000 and 10,000,000. To do the test with 10 million i had to set my memory limit real high, it was close to 1gb by the time it actually worked. Anyways, <br><br>
 
-<div class="phpcode"><span class="html">
-Regarding speed of foreach vs while(list) =each<br>I wrote a benchmark script and the results are that clearly foreach is faster. MUCH faster. Even with huge arrays (especially with huge arrays). I tested with sizes 100,000. 1,000,000 and 10,000,000. To do the test with 10 million i had to set my memory limit real high, it was close to 1gb by the time it actually worked. Anyways, <br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">getDiff</span><span class="keyword">(</span><span class="default">$start</span><span class="keyword">, </span><span class="default">$end</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$s </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&apos; &apos;</span><span class="keyword">, </span><span class="default">$start</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$stot </span><span class="keyword">= </span><span class="default">$s</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] + </span><span class="default">$s</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br>&#xA0; &#xA0; </span><span class="default">$e </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&apos; &apos;</span><span class="keyword">, </span><span class="default">$end</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$etot </span><span class="keyword">= </span><span class="default">$e</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] + </span><span class="default">$e</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br>&#xA0; &#xA0; return </span><span class="default">$etot </span><span class="keyword">- </span><span class="default">$stot</span><span class="keyword">;<br>}<br><br></span><span class="default">$lim</span><span class="keyword">=</span><span class="default">10000000</span><span class="keyword">;<br></span><span class="default">$arr </span><span class="keyword">= array();<br>for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">$lim</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br>&#xA0; &#xA0; </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">] = </span><span class="default">$i</span><span class="keyword">/</span><span class="default">2</span><span class="keyword">;<br>}<br><br></span><span class="default">$start </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">();<br>foreach (</span><span class="default">$arr </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">=&gt;</span><span class="default">$val</span><span class="keyword">);<br><br></span><span class="default">$end </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">();<br>echo </span><span class="string">&quot;time for foreach = &quot; </span><span class="keyword">. </span><span class="default">getDiff</span><span class="keyword">(</span><span class="default">$start</span><span class="keyword">, </span><span class="default">$end</span><span class="keyword">) . </span><span class="string">&quot;.\n&quot;</span><span class="keyword">;<br><br></span><span class="default">reset</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">);<br></span><span class="default">$start </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">();<br>while (list(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$val</span><span class="keyword">) = </span><span class="default">each</span><span class="keyword">(</span><span class="default">$arr</span><span class="keyword">));<br></span><span class="default">$end </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">();<br>echo </span><span class="string">&quot;time list each = &quot; </span><span class="keyword">. </span><span class="default">getDiff</span><span class="keyword">(</span><span class="default">$start</span><span class="keyword">, </span><span class="default">$end</span><span class="keyword">) . </span><span class="string">&quot;.\n&quot;</span><span class="keyword">;<br></span><span class="default">?&gt;<br></span><br>here are some of my results: with 1,000,000<br>time for foreach = 0.0244591236115.<br>time list each = 0.158002853394.<br>desktop:/media/sda5/mpwolfe/tests$ php test.php<br>time for foreach = 0.0245339870453.<br>time list each = 0.154260158539.<br>desktop:/media/sda5/mpwolfe/tests$ php test.php<br>time for foreach = 0.0269000530243.<br>time list each = 0.157305955887.<br><br>then with 10,000,000:<br>desktop:/media/sda5/mpwolfe/tests$ php test.php<br>time for foreach = 1.96586894989.<br>time list each = 14.1371650696.<br>desktop:/media/sda5/mpwolfe/tests$ php test.php<br>time for foreach = 2.02504014969.<br>time list each = 13.7696218491.<br>desktop:/media/sda5/mpwolfe/tests$ php test.php<br>time for foreach = 2.0246758461.<br>time list each = 13.8425710201.<br><br>by the way, these results are with php 5.2 i believe, and a linux machine with 3gb of ram and 2.8ghz dual core pentium</span>
-</div>
-  
+```
+<?php
+function getDiff($start, $end) {
+    $s = explode(&apos; &apos;, $start);
+    $stot = $s[1] + $s[0];
+    $e = explode(&apos; &apos;, $end);
+    $etot = $e[1] + $e[0];
+    return $etot - $stot;
+}
+
+$lim=10000000;
+$arr = array();
+for ($i=0; $i&lt;$lim; $i++) {
+    $arr[$i] = $i/2;
+}
+
+$start = microtime();
+foreach ($arr as $key=&gt;$val);
+
+$end = microtime();
+echo "time for foreach = " . getDiff($start, $end) . ".\n";
+
+reset($arr);
+$start = microtime();
+while (list($key, $val) = each($arr));
+$end = microtime();
+echo "time list each = " . getDiff($start, $end) . ".\n";
+?>
+```
+
+
+here are some of my results: with 1,000,000
+time for foreach = 0.0244591236115.
+time list each = 0.158002853394.
+desktop:/media/sda5/mpwolfe/tests$ php test.php
+time for foreach = 0.0245339870453.
+time list each = 0.154260158539.
+desktop:/media/sda5/mpwolfe/tests$ php test.php
+time for foreach = 0.0269000530243.
+time list each = 0.157305955887.
+
+then with 10,000,000:
+desktop:/media/sda5/mpwolfe/tests$ php test.php
+time for foreach = 1.96586894989.
+time list each = 14.1371650696.
+desktop:/media/sda5/mpwolfe/tests$ php test.php
+time for foreach = 2.02504014969.
+time list each = 13.7696218491.
+desktop:/media/sda5/mpwolfe/tests$ php test.php<br>time for foreach = 2.0246758461.<br>time list each = 13.8425710201.<br><br>by the way, these results are with php 5.2 i believe, and a linux machine with 3gb of ram and 2.8ghz dual core pentium  
 
 #
 

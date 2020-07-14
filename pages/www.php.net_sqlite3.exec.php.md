@@ -2,13 +2,7 @@
 
 
 
-
-
-I was getting &quot;database locked&quot; all the time until I found out some features of sqlite3 must be set by using SQL special instructions (i.e. using PRAGMA keyword). For instance, what apparently solved my problem with &quot;database locked&quot; was to set journal_mode to &apos;wal&apos; (it is defaulting to &apos;delete&apos;, as stated here: https://www.sqlite.org/wal.html (see Activating&#xA0; And Configuring WAL Mode)).
-
-So basically what I had to do was creating a connection to the database and setting journal_mode with the SQL statement. Example:
-
-
+I was getting "database locked" all the time until I found out some features of sqlite3 must be set by using SQL special instructions (i.e. using PRAGMA keyword). For instance, what apparently solved my problem with "database locked" was to set journal_mode to &apos;wal&apos; (it is defaulting to &apos;delete&apos;, as stated here: https://www.sqlite.org/wal.html (see Activating  And Configuring WAL Mode)).<br><br>So basically what I had to do was creating a connection to the database and setting journal_mode with the SQL statement. Example:<br><br>
 
 ```
 <?php
@@ -19,11 +13,7 @@ $db-&gt;busyTimeout(5000);
 $db-&gt;exec(&apos;PRAGMA journal_mode = wal;&apos;);
 ?>
 ```
-
-
-Hope that helps.
-
-  
+<br><br>Hope that helps.  
 
 #
 

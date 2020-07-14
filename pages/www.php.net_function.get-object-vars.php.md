@@ -2,28 +2,244 @@
 
 
 
+You can still cast the object to an array to get all its members and see its visibility. Example:<br><br>
 
-<div class="phpcode"><span class="html">
-You can still cast the object to an array to get all its members and see its visibility. Example:<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">Potatoe </span><span class="keyword">{<br>&#xA0; &#xA0; public </span><span class="default">$skin</span><span class="keyword">;<br>&#xA0; &#xA0; protected </span><span class="default">$meat</span><span class="keyword">;<br>&#xA0; &#xA0; private </span><span class="default">$roots</span><span class="keyword">;<br><br>&#xA0; &#xA0; function </span><span class="default">__construct </span><span class="keyword">( </span><span class="default">$s</span><span class="keyword">, </span><span class="default">$m</span><span class="keyword">, </span><span class="default">$r </span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">skin </span><span class="keyword">= </span><span class="default">$s</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">meat </span><span class="keyword">= </span><span class="default">$m</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">roots </span><span class="keyword">= </span><span class="default">$r</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">$Obj </span><span class="keyword">= new </span><span class="default">Potatoe </span><span class="keyword">( </span><span class="default">1</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">, </span><span class="default">3 </span><span class="keyword">);<br><br>echo </span><span class="string">&quot;&lt;pre&gt;\n&quot;</span><span class="keyword">;<br>echo </span><span class="string">&quot;Using get_object_vars:\n&quot;</span><span class="keyword">;<br><br></span><span class="default">$vars </span><span class="keyword">= </span><span class="default">get_object_vars </span><span class="keyword">( </span><span class="default">$Obj </span><span class="keyword">);<br></span><span class="default">print_r </span><span class="keyword">( </span><span class="default">$vars </span><span class="keyword">);<br><br>echo </span><span class="string">&quot;\n\nUsing array cast:\n&quot;</span><span class="keyword">;<br><br></span><span class="default">$Arr </span><span class="keyword">= (array)</span><span class="default">$Obj</span><span class="keyword">;<br></span><span class="default">print_r </span><span class="keyword">( </span><span class="default">$Arr </span><span class="keyword">);<br><br></span><span class="default">?&gt;<br></span><br>This will returns:<br><br>Using get_object_vars:<br>Array<br>(<br>&#xA0; &#xA0; [skin] =&gt; 1<br>)<br><br>Using array cast:<br>Array<br>(<br>&#xA0; &#xA0; [skin] =&gt; 1<br>&#xA0; &#xA0; [ * meat] =&gt; 2<br>&#xA0; &#xA0; [ Potatoe roots] =&gt; 3<br>)<br><br>As you can see, you can obtain the visibility for each member from this cast. That which seems to be spaces into array keys are &apos;\0&apos; characters, so the general rule to parse keys seems to be:<br><br>Public members: member_name<br>Protected memebers: \0*\0member_name<br>Private members: \0Class_name\0member_name<br><br>I&apos;ve wroten a obj2array function that creates entries without visibility for each key, so you can handle them into the array as it were within the object:<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">function </span><span class="default">obj2array </span><span class="keyword">( &amp;</span><span class="default">$Instance </span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$clone </span><span class="keyword">= (array) </span><span class="default">$Instance</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$rtn </span><span class="keyword">= array ();<br>&#xA0; &#xA0; </span><span class="default">$rtn</span><span class="keyword">[</span><span class="string">&apos;___SOURCE_KEYS_&apos;</span><span class="keyword">] = </span><span class="default">$clone</span><span class="keyword">;<br><br>&#xA0; &#xA0; while ( list (</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">) = </span><span class="default">each </span><span class="keyword">(</span><span class="default">$clone</span><span class="keyword">) ) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$aux </span><span class="keyword">= </span><span class="default">explode </span><span class="keyword">(</span><span class="string">&quot;\0&quot;</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$newkey </span><span class="keyword">= </span><span class="default">$aux</span><span class="keyword">[</span><span class="default">count</span><span class="keyword">(</span><span class="default">$aux</span><span class="keyword">)-</span><span class="default">1</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$rtn</span><span class="keyword">[</span><span class="default">$newkey</span><span class="keyword">] = &amp;</span><span class="default">$rtn</span><span class="keyword">[</span><span class="string">&apos;___SOURCE_KEYS_&apos;</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">];<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; return </span><span class="default">$rtn</span><span class="keyword">;<br>}<br><br></span><span class="default">?&gt;<br></span><br>I&apos;ve created also a &lt;i&gt;bless&lt;/i&gt; function that works similar to Perl&apos;s bless, so you can further recast the array converting it in an object of an specific class:<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">function </span><span class="default">bless </span><span class="keyword">( &amp;</span><span class="default">$Instance</span><span class="keyword">, </span><span class="default">$Class </span><span class="keyword">) {<br>&#xA0; &#xA0; if ( ! (</span><span class="default">is_array </span><span class="keyword">(</span><span class="default">$Instance</span><span class="keyword">) ) ) {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">NULL</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="comment">// First get source keys if available<br>&#xA0; &#xA0; </span><span class="keyword">if ( isset (</span><span class="default">$Instance</span><span class="keyword">[</span><span class="string">&apos;___SOURCE_KEYS_&apos;</span><span class="keyword">])) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$Instance </span><span class="keyword">= </span><span class="default">$Instance</span><span class="keyword">[</span><span class="string">&apos;___SOURCE_KEYS_&apos;</span><span class="keyword">];<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="comment">// Get serialization data from array<br>&#xA0; &#xA0; </span><span class="default">$serdata </span><span class="keyword">= </span><span class="default">serialize </span><span class="keyword">( </span><span class="default">$Instance </span><span class="keyword">);<br><br>&#xA0; &#xA0; list (</span><span class="default">$array_params</span><span class="keyword">, </span><span class="default">$array_elems</span><span class="keyword">) = </span><span class="default">explode </span><span class="keyword">(</span><span class="string">&apos;{&apos;</span><span class="keyword">, </span><span class="default">$serdata</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);<br>&#xA0; &#xA0; list (</span><span class="default">$array_tag</span><span class="keyword">, </span><span class="default">$array_count</span><span class="keyword">) = </span><span class="default">explode </span><span class="keyword">(</span><span class="string">&apos;:&apos;</span><span class="keyword">, </span><span class="default">$array_params</span><span class="keyword">, </span><span class="default">3 </span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$serdata </span><span class="keyword">= </span><span class="string">&quot;O:&quot;</span><span class="keyword">.</span><span class="default">strlen </span><span class="keyword">(</span><span class="default">$Class</span><span class="keyword">).</span><span class="string">&quot;:\&quot;</span><span class="default">$Class</span><span class="string">\&quot;:</span><span class="default">$array_count</span><span class="string">:{&quot;</span><span class="keyword">.</span><span class="default">$array_elems</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="default">$Instance </span><span class="keyword">= </span><span class="default">unserialize </span><span class="keyword">( </span><span class="default">$serdata </span><span class="keyword">);<br>&#xA0; &#xA0; return </span><span class="default">$Instance</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>With these ones you can do things like:<br><br><span class="default">&lt;?php<br><br>define</span><span class="keyword">(</span><span class="string">&quot;SFCMS_DIR&quot;</span><span class="keyword">, </span><span class="default">dirname</span><span class="keyword">(</span><span class="default">__FILE__</span><span class="keyword">).</span><span class="string">&quot;/..&quot;</span><span class="keyword">);<br>require_once (</span><span class="default">SFCMS_DIR</span><span class="keyword">.</span><span class="string">&quot;/Misc/bless.php&quot;</span><span class="keyword">);<br><br>class </span><span class="default">Potatoe </span><span class="keyword">{<br>&#xA0; &#xA0; public </span><span class="default">$skin</span><span class="keyword">;<br>&#xA0; &#xA0; protected </span><span class="default">$meat</span><span class="keyword">;<br>&#xA0; &#xA0; private </span><span class="default">$roots</span><span class="keyword">;<br><br>&#xA0; &#xA0; function </span><span class="default">__construct </span><span class="keyword">( </span><span class="default">$s</span><span class="keyword">, </span><span class="default">$m</span><span class="keyword">, </span><span class="default">$r </span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">skin </span><span class="keyword">= </span><span class="default">$s</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">meat </span><span class="keyword">= </span><span class="default">$m</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">roots </span><span class="keyword">= </span><span class="default">$r</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; function </span><span class="default">PrintAll </span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;skin = &quot;</span><span class="keyword">.</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">skin</span><span class="keyword">.</span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;meat = &quot;</span><span class="keyword">.</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">meat</span><span class="keyword">.</span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;roots = &quot;</span><span class="keyword">.</span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">roots</span><span class="keyword">.</span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">$Obj </span><span class="keyword">= new </span><span class="default">Potatoe </span><span class="keyword">( </span><span class="default">1</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">, </span><span class="default">3 </span><span class="keyword">);<br><br>echo </span><span class="string">&quot;&lt;pre&gt;\n&quot;</span><span class="keyword">;<br>echo </span><span class="string">&quot;Using get_object_vars:\n&quot;</span><span class="keyword">;<br><br></span><span class="default">$vars </span><span class="keyword">= </span><span class="default">get_object_vars </span><span class="keyword">( </span><span class="default">$Obj </span><span class="keyword">);<br></span><span class="default">print_r </span><span class="keyword">( </span><span class="default">$vars </span><span class="keyword">);<br><br>echo </span><span class="string">&quot;\n\nUsing obj2array func:\n&quot;</span><span class="keyword">;<br><br></span><span class="default">$Arr </span><span class="keyword">= </span><span class="default">obj2array</span><span class="keyword">(</span><span class="default">$Obj</span><span class="keyword">);<br></span><span class="default">print_r </span><span class="keyword">( </span><span class="default">$Arr </span><span class="keyword">);<br><br>echo </span><span class="string">&quot;\n\nSetting all members to 0.\n&quot;</span><span class="keyword">;<br></span><span class="default">$Arr</span><span class="keyword">[</span><span class="string">&apos;skin&apos;</span><span class="keyword">]=</span><span class="default">0</span><span class="keyword">;<br></span><span class="default">$Arr</span><span class="keyword">[</span><span class="string">&apos;meat&apos;</span><span class="keyword">]=</span><span class="default">0</span><span class="keyword">;<br></span><span class="default">$Arr</span><span class="keyword">[</span><span class="string">&apos;roots&apos;</span><span class="keyword">]=</span><span class="default">0</span><span class="keyword">;<br><br>echo </span><span class="string">&quot;Converting the array into an instance of the original class.\n&quot;</span><span class="keyword">;<br></span><span class="default">bless </span><span class="keyword">( </span><span class="default">$Arr</span><span class="keyword">, </span><span class="default">Potatoe </span><span class="keyword">);<br><br>if ( </span><span class="default">is_object </span><span class="keyword">(</span><span class="default">$Arr</span><span class="keyword">) ) {<br>&#xA0; &#xA0; echo </span><span class="string">&quot;\$Arr is now an object.\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; if ( </span><span class="default">$Arr </span><span class="keyword">instanceof </span><span class="default">Potatoe </span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;\$Arr is an instance of Potatoe class.\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">$Arr</span><span class="keyword">-&gt;</span><span class="default">PrintAll</span><span class="keyword">();<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+class Potatoe {
+    public $skin;
+    protected $meat;
+    private $roots;
+
+    function __construct ( $s, $m, $r ) {
+        $this-&gt;skin = $s;
+        $this-&gt;meat = $m;
+        $this-&gt;roots = $r;
+    }
+}
+
+$Obj = new Potatoe ( 1, 2, 3 );
+
+echo "&lt;pre&gt;\n";
+echo "Using get_object_vars:\n";
+
+$vars = get_object_vars ( $Obj );
+print_r ( $vars );
+
+echo "\n\nUsing array cast:\n";
+
+$Arr = (array)$Obj;
+print_r ( $Arr );
+
+?>
+```
+
+
+This will returns:
+
+Using get_object_vars:
+Array
+(
+    [skin] =&gt; 1
+)
+
+Using array cast:
+Array
+(
+    [skin] =&gt; 1
+    [ * meat] =&gt; 2
+    [ Potatoe roots] =&gt; 3
+)
+
+As you can see, you can obtain the visibility for each member from this cast. That which seems to be spaces into array keys are &apos;\0&apos; characters, so the general rule to parse keys seems to be:
+
+Public members: member_name
+Protected memebers: \0*\0member_name
+Private members: \0Class_name\0member_name
+
+I&apos;ve wroten a obj2array function that creates entries without visibility for each key, so you can handle them into the array as it were within the object:
+
+
+
+```
+<?php
+
+function obj2array ( &amp;$Instance ) {
+    $clone = (array) $Instance;
+    $rtn = array ();
+    $rtn[&apos;___SOURCE_KEYS_&apos;] = $clone;
+
+    while ( list ($key, $value) = each ($clone) ) {
+        $aux = explode ("\0", $key);
+        $newkey = $aux[count($aux)-1];
+        $rtn[$newkey] = &amp;$rtn[&apos;___SOURCE_KEYS_&apos;][$key];
+    }
+
+    return $rtn;
+}
+
+?>
+```
+
+
+I&apos;ve created also a &lt;i&gt;bless&lt;/i&gt; function that works similar to Perl&apos;s bless, so you can further recast the array converting it in an object of an specific class:
+
+
+
+```
+<?php
+
+function bless ( &amp;$Instance, $Class ) {
+    if ( ! (is_array ($Instance) ) ) {
+        return NULL;
+    }
+
+    // First get source keys if available
+    if ( isset ($Instance[&apos;___SOURCE_KEYS_&apos;])) {
+        $Instance = $Instance[&apos;___SOURCE_KEYS_&apos;];
+    }
+
+    // Get serialization data from array
+    $serdata = serialize ( $Instance );
+
+    list ($array_params, $array_elems) = explode (&apos;{&apos;, $serdata, 2);
+    list ($array_tag, $array_count) = explode (&apos;:&apos;, $array_params, 3 );
+    $serdata = "O:".strlen ($Class).":\"$Class\":$array_count:{".$array_elems;
+
+    $Instance = unserialize ( $serdata );
+    return $Instance;
+}
+?>
+```
+
+
+With these ones you can do things like:
+
+
+
+```
+<?php
+
+define("SFCMS_DIR", dirname(__FILE__)."/..");
+require_once (SFCMS_DIR."/Misc/bless.php");
+
+class Potatoe {
+    public $skin;
+    protected $meat;
+    private $roots;
+
+    function __construct ( $s, $m, $r ) {
+        $this-&gt;skin = $s;
+        $this-&gt;meat = $m;
+        $this-&gt;roots = $r;
+    }
+
+    function PrintAll () {
+        echo "skin = ".$this-&gt;skin."\n";
+        echo "meat = ".$this-&gt;meat."\n";
+        echo "roots = ".$this-&gt;roots."\n";
+    }
+}
+
+$Obj = new Potatoe ( 1, 2, 3 );
+
+echo "&lt;pre&gt;\n";
+echo "Using get_object_vars:\n";
+
+$vars = get_object_vars ( $Obj );
+print_r ( $vars );
+
+echo "\n\nUsing obj2array func:\n";
+
+$Arr = obj2array($Obj);
+print_r ( $Arr );
+
+echo "\n\nSetting all members to 0.\n";
+$Arr[&apos;skin&apos;]=0;
+$Arr[&apos;meat&apos;]=0;
+$Arr[&apos;roots&apos;]=0;
+
+echo "Converting the array into an instance of the original class.\n";
+bless ( $Arr, Potatoe );
+
+if ( is_object ($Arr) ) {
+    echo "\$Arr is now an object.\n";
+    if ( $Arr instanceof Potatoe ) {
+        echo "\$Arr is an instance of Potatoe class.\n";
+    }
+}
+
+$Arr-&gt;PrintAll();
+
+?>
+```
   
 
 #
 
-
-<div class="phpcode"><span class="html">
-You can use call_user_func() to return public variables from inside the class:<br><br>class Test {<br>&#xA0; &#xA0; protected $protected;<br>&#xA0; &#xA0; public $public;<br>&#xA0; &#xA0; private $private;<br><br>&#xA0; &#xA0; public function getPublicVars () {<br>&#xA0; &#xA0; &#xA0; &#xA0; return call_user_func(&apos;get_object_vars&apos;, $this);<br>&#xA0; &#xA0; }<br>}<br><br>$test = new Test();<br>var_dump($test-&gt;getPublicVars()); // array(&quot;public&quot; =&gt; NULL)</span>
-</div>
-  
+You can use call_user_func() to return public variables from inside the class:<br><br>class Test {<br>    protected $protected;<br>    public $public;<br>    private $private;<br><br>    public function getPublicVars () {<br>        return call_user_func(&apos;get_object_vars&apos;, $this);<br>    }<br>}<br><br>$test = new Test();<br>var_dump($test-&gt;getPublicVars()); // array("public" =&gt; NULL)  
 
 #
 
+Hi all, I just wrote a function which dumps all the object propreties and its associations recursively into an array. Here it is..<br>
 
-<div class="phpcode"><span class="html">
-Hi all, I just wrote a function which dumps all the object propreties and its associations recursively into an array. Here it is..<br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">object_to_array</span><span class="keyword">(</span><span class="default">$obj</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$_arr </span><span class="keyword">= </span><span class="default">is_object</span><span class="keyword">(</span><span class="default">$obj</span><span class="keyword">) ? </span><span class="default">get_object_vars</span><span class="keyword">(</span><span class="default">$obj</span><span class="keyword">) : </span><span class="default">$obj</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$_arr </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$val</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$val </span><span class="keyword">= (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">) || </span><span class="default">is_object</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">)) ? </span><span class="default">object_to_array</span><span class="keyword">(</span><span class="default">$val</span><span class="keyword">) : </span><span class="default">$val</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$arr</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$val</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$arr</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>Example:<br>You have an object like this:<br>fruitsbasket Object<br>(<br>&#xA0; &#xA0; [Fruits] =&gt; Array<br>&#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [0] =&gt; fruits Object<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_name] =&gt; Mango<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_color] =&gt; Green<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_weight] =&gt; 10<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; )<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [1] =&gt; fruits Object<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_name] =&gt; Apple<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_color] =&gt; Red<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_weight] =&gt; 15<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; )<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [2] =&gt; fruits Object<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_name] =&gt; Grape<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_color] =&gt; Purple<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_weight] =&gt; 5<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; )<br><br>&#xA0; &#xA0; &#xA0; &#xA0; )<br><br>&#xA0; &#xA0; [total_weight] =&gt; 30<br>)<br><br>just do:<br><span class="default">&lt;?php<br>$the_array </span><span class="keyword">= </span><span class="default">object_to_array</span><span class="keyword">(</span><span class="default">$the_object</span><span class="keyword">);<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$the_array</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>it will produce an array:<br>Array<br>(<br>&#xA0; &#xA0; [Fruits] =&gt; Array<br>&#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [0] =&gt; Array<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_name] =&gt; Mango<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_color] =&gt; Green<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_weight] =&gt; 10<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; )<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [1] =&gt; Array<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_name] =&gt; Apple<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_color] =&gt; Red<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_weight] =&gt; 15<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; )<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [2] =&gt; Array<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_name] =&gt; Grape<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_color] =&gt; Purple<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [_weight] =&gt; 5<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; )<br><br>&#xA0; &#xA0; &#xA0; &#xA0; )<br><br>&#xA0; &#xA0; [total_weight] =&gt; 30<br>)<br><br>I wish function like this could be usefull for you all. :)</span>
-</div>
-  
+```
+<?php
+function object_to_array($obj) {
+        $_arr = is_object($obj) ? get_object_vars($obj) : $obj;
+        foreach ($_arr as $key =&gt; $val) {
+                $val = (is_array($val) || is_object($val)) ? object_to_array($val) : $val;
+                $arr[$key] = $val;
+        }
+        return $arr;
+}
+?>
+```
+
+
+Example:
+You have an object like this:
+fruitsbasket Object
+(
+    [Fruits] =&gt; Array
+        (
+            [0] =&gt; fruits Object
+                (
+                    [_name] =&gt; Mango
+                    [_color] =&gt; Green
+                    [_weight] =&gt; 10
+                )
+
+            [1] =&gt; fruits Object
+                (
+                    [_name] =&gt; Apple
+                    [_color] =&gt; Red
+                    [_weight] =&gt; 15
+                )
+
+            [2] =&gt; fruits Object
+                (
+                    [_name] =&gt; Grape
+                    [_color] =&gt; Purple
+                    [_weight] =&gt; 5
+                )
+
+        )
+
+    [total_weight] =&gt; 30
+)
+
+just do:
+
+
+```
+<?php
+$the_array = object_to_array($the_object);
+print_r($the_array);
+?>
+```
+<br><br>it will produce an array:<br>Array<br>(<br>    [Fruits] =&gt; Array<br>        (<br>            [0] =&gt; Array<br>                (<br>                    [_name] =&gt; Mango<br>                    [_color] =&gt; Green<br>                    [_weight] =&gt; 10<br>                )<br><br>            [1] =&gt; Array<br>                (<br>                    [_name] =&gt; Apple<br>                    [_color] =&gt; Red<br>                    [_weight] =&gt; 15<br>                )<br><br>            [2] =&gt; Array<br>                (<br>                    [_name] =&gt; Grape<br>                    [_color] =&gt; Purple<br>                    [_weight] =&gt; 5<br>                )<br><br>        )<br><br>    [total_weight] =&gt; 30<br>)<br><br>I wish function like this could be usefull for you all. :)  
 
 #
 

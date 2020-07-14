@@ -2,49 +2,29 @@
 
 
 
-
-
-I am running Windows 7 with Apache.&#xA0; It took hours to figure out why it was not working.
-
-First, enable the php_fileinfo.dll extension in you php.ini. You&apos;ll also need the four magic files that are found in the following library:
-
-http://sourceforge.net/projects/gnuwin32/files/file/4.23/file-4.23-bin.zip/download
-
-An environment variable or a direct path to the file named &quot;magic&quot; is necessary, without any extension.&#xA0; 
-
-Then, make sure that xdebug is either turned off or set the ini error_reporting to not display notices or warnings for the script.
-
-Hope this saves someone a few hours of frustration!
-
-  
+I am running Windows 7 with Apache.  It took hours to figure out why it was not working.<br><br>First, enable the php_fileinfo.dll extension in you php.ini. You&apos;ll also need the four magic files that are found in the following library:<br><br>http://sourceforge.net/projects/gnuwin32/files/file/4.23/file-4.23-bin.zip/download<br><br>An environment variable or a direct path to the file named "magic" is necessary, without any extension.  <br><br>Then, make sure that xdebug is either turned off or set the ini error_reporting to not display notices or warnings for the script.<br><br>Hope this saves someone a few hours of frustration!  
 
 #
 
-
-
-For most common image files:
-
+For most common image files:<br>
 
 ```
 <?php
 function minimime($fname) {
-&#xA0; &#xA0; $fh=fopen($fname,&apos;rb&apos;);
-&#xA0; &#xA0; if ($fh) { 
-&#xA0; &#xA0; &#xA0; &#xA0; $bytes6=fread($fh,6);
-&#xA0; &#xA0; &#xA0; &#xA0; fclose($fh); 
-&#xA0; &#xA0; &#xA0; &#xA0; if ($bytes6===false) return false;
-&#xA0; &#xA0; &#xA0; &#xA0; if (substr($bytes6,0,3)==&quot;\xff\xd8\xff&quot;) return &apos;image/jpeg&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; if ($bytes6==&quot;\x89PNG\x0d\x0a&quot;) return &apos;image/png&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; if ($bytes6==&quot;GIF87a&quot; || $bytes6==&quot;GIF89a&quot;) return &apos;image/gif&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; return &apos;application/octet-stream&apos;;
-&#xA0; &#xA0; }
-&#xA0; &#xA0; return false;
+    $fh=fopen($fname,&apos;rb&apos;);
+    if ($fh) { 
+        $bytes6=fread($fh,6);
+        fclose($fh); 
+        if ($bytes6===false) return false;
+        if (substr($bytes6,0,3)=="\xff\xd8\xff") return &apos;image/jpeg&apos;;
+        if ($bytes6=="\x89PNG\x0d\x0a") return &apos;image/png&apos;;
+        if ($bytes6=="GIF87a" || $bytes6=="GIF89a") return &apos;image/gif&apos;;
+        return &apos;application/octet-stream&apos;;
+    }
+    return false;
 }
 ?>
 ```
-
-
-
   
 
 #

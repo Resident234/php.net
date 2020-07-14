@@ -2,11 +2,7 @@
 
 
 
-
-
-Note that all pg_fetch_* function ignoring the original type of the data and always return strings. (for numbers too)
-
-  
+Note that all pg_fetch_* function ignoring the original type of the data and always return strings. (for numbers too)  
 
 #
 

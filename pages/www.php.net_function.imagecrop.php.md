@@ -2,13 +2,7 @@
 
 
 
-
-
-It appears that imagecrop() will output a black line along the bottom the resulting image until version 5.6.12. Your only choices are to upgrade PHP or use imagecopyresampled().
-
-http://php.net/ChangeLog-5.php#5.6.12 (bug #67447)
-
-  
+It appears that imagecrop() will output a black line along the bottom the resulting image until version 5.6.12. Your only choices are to upgrade PHP or use imagecopyresampled().<br><br>http://php.net/ChangeLog-5.php#5.6.12 (bug #67447)  
 
 #
 

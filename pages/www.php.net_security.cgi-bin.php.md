@@ -2,20 +2,7 @@
 
 
 
-
-
-IMPORTANT INFORMATION
-
-There was a serious vulnerability in certain CGI-based PHP setups that has gone unnoticed for at least 8 years.
-
-For PHP this means that a request containing ?-s may dump the PHP source code for the page.
-
-Make sure to update to current versions and/or use an .htaccess patch, both available here:
-
-PHP 5.3.12 and PHP 5.4.2 Released:
-http://www.php.net/archive/2012.php#id2012-05-03-1
-
-  
+IMPORTANT INFORMATION<br><br>There was a serious vulnerability in certain CGI-based PHP setups that has gone unnoticed for at least 8 years.<br><br>For PHP this means that a request containing ?-s may dump the PHP source code for the page.<br><br>Make sure to update to current versions and/or use an .htaccess patch, both available here:<br><br>PHP 5.3.12 and PHP 5.4.2 Released:<br>http://www.php.net/archive/2012.php#id2012-05-03-1  
 
 #
 

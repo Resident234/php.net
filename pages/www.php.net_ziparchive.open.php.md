@@ -2,22 +2,17 @@
 
 
 
-
-
-With php 5.2.6, the following code created a new zip or replaced a existing zip.
-Note that I am only using the ZIPARCHIVE::OVERWRITE flag.
-
-
+With php 5.2.6, the following code created a new zip or replaced a existing zip.<br>Note that I am only using the ZIPARCHIVE::OVERWRITE flag.<br><br>
 
 ```
 <?php
-&#xA0; &#xA0; $zip = new ZipArchive();
-&#xA0; &#xA0; $opened = $zip-&gt;open( $zipFileName, ZIPARCHIVE::OVERWRITE );
-&#xA0; &#xA0; if( $opened !== true ){
-&#xA0; &#xA0; &#xA0; &#xA0; die(&quot;cannot open {$zipFileName} for writing.&quot;);
-&#xA0; &#xA0; }
-&#xA0; &#xA0; $zip-&gt;addFromString( $name, $contents );
-&#xA0; &#xA0; $zip-&gt;close();
+    $zip = new ZipArchive();
+    $opened = $zip-&gt;open( $zipFileName, ZIPARCHIVE::OVERWRITE );
+    if( $opened !== true ){
+        die("cannot open {$zipFileName} for writing.");
+    }
+    $zip-&gt;addFromString( $name, $contents );
+    $zip-&gt;close();
 ?>
 ```
 
@@ -32,25 +27,18 @@ To fix this, you must specify the flags as create or overwrite.
 
 ```
 <?php
-&#xA0; &#xA0; $zip = new ZipArchive();
-&#xA0; &#xA0; $opened = $zip-&gt;open( $zipFileName, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE );
-&#xA0; &#xA0; if( $opened !== true ){
-&#xA0; &#xA0; &#xA0; &#xA0; die(&quot;cannot open {$zipFileName} for writing.&quot;);
-&#xA0; &#xA0; }
-&#xA0; &#xA0; $zip-&gt;addFromString( $name, $contents );
-&#xA0; &#xA0; $zip-&gt;close();
+    $zip = new ZipArchive();
+    $opened = $zip-&gt;open( $zipFileName, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE );
+    if( $opened !== true ){
+        die("cannot open {$zipFileName} for writing.");
+    }
+    $zip-&gt;addFromString( $name, $contents );
+    $zip-&gt;close();
 ?>
 ```
-
-
-When googling for the error message I found a lot of people that had it but couldn&apos;t figure out why they were getting it.
-I hope this helps someone.
-
-  
+<br><br>When googling for the error message I found a lot of people that had it but couldn&apos;t figure out why they were getting it.<br>I hope this helps someone.  
 
 #
-
-
 
 
 
@@ -60,189 +48,155 @@ I hope this helps someone.
 #license GPL
 
 class zip extends ZipArchive
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; public function message($code)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; switch ($code)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 0:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;No error&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 1:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Multi-disk zip archives not supported&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 2:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Renaming temporary file failed&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 3:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Closing zip archive failed&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 4:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Seek error&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 5:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Read error&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 6:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Write error&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 7:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;CRC error&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 8:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Containing zip archive was closed&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 9:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;No such file&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 10:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;File already exists&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 11:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Can\&apos;t open file&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 12:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Failure to create temporary file&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 13:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Zlib error&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 14:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Malloc failure&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 15:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Entry has been changed&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 16:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Compression method not supported&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 17:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Premature EOF&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 18:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Invalid argument&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 19:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Not a zip archive&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 20:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Internal error&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 21:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Zip archive inconsistent&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 22:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Can\&apos;t remove file&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case 23:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;Entry has been deleted&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; default:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return &apos;An unknown error has occurred(&apos;.intval($code).&apos;)&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
+    {
+        public function message($code)
+            {
+                switch ($code)
+                    {
+                        case 0:
+                        return &apos;No error&apos;;
+                        
+                        case 1:
+                        return &apos;Multi-disk zip archives not supported&apos;;
+                        
+                        case 2:
+                        return &apos;Renaming temporary file failed&apos;;
+                        
+                        case 3:
+                        return &apos;Closing zip archive failed&apos;;
+                        
+                        case 4:
+                        return &apos;Seek error&apos;;
+                        
+                        case 5:
+                        return &apos;Read error&apos;;
+                        
+                        case 6:
+                        return &apos;Write error&apos;;
+                        
+                        case 7:
+                        return &apos;CRC error&apos;;
+                        
+                        case 8:
+                        return &apos;Containing zip archive was closed&apos;;
+                        
+                        case 9:
+                        return &apos;No such file&apos;;
+                        
+                        case 10:
+                        return &apos;File already exists&apos;;
+                        
+                        case 11:
+                        return &apos;Can\&apos;t open file&apos;;
+                        
+                        case 12:
+                        return &apos;Failure to create temporary file&apos;;
+                        
+                        case 13:
+                        return &apos;Zlib error&apos;;
+                        
+                        case 14:
+                        return &apos;Malloc failure&apos;;
+                        
+                        case 15:
+                        return &apos;Entry has been changed&apos;;
+                        
+                        case 16:
+                        return &apos;Compression method not supported&apos;;
+                        
+                        case 17:
+                        return &apos;Premature EOF&apos;;
+                        
+                        case 18:
+                        return &apos;Invalid argument&apos;;
+                        
+                        case 19:
+                        return &apos;Not a zip archive&apos;;
+                        
+                        case 20:
+                        return &apos;Internal error&apos;;
+                        
+                        case 21:
+                        return &apos;Zip archive inconsistent&apos;;
+                        
+                        case 22:
+                        return &apos;Can\&apos;t remove file&apos;;
+                        
+                        case 23:
+                        return &apos;Entry has been deleted&apos;;
+                        
+                        default:
+                        return &apos;An unknown error has occurred(&apos;.intval($code).&apos;)&apos;;
+                    }                
+            }
 
-&#xA0; &#xA0; &#xA0; &#xA0; public function isDir($path)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return substr($path,-1) == &apos;/&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
+        public function isDir($path)
+            {
+                return substr($path,-1) == &apos;/&apos;;
+            }
 
-&#xA0; &#xA0; &#xA0; &#xA0; public function getTree()
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $Tree = array();
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $pathArray = array();
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; for($i=0; $i&lt;$this-&gt;numFiles; $i++)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $path = $this-&gt;getNameIndex($i);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $pathBySlash = array_values(explode(&apos;/&apos;,$path));
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $c = count($pathBySlash);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $temp = &amp;$Tree;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; for($j=0; $j&lt;$c-1; $j++)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(isset($temp[$pathBySlash[$j]]))
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $temp = &amp;$temp[$pathBySlash[$j]];
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $temp[$pathBySlash[$j]] = array();
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $temp = &amp;$temp[$pathBySlash[$j]];
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if($this-&gt;isDir($path))
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $temp[$pathBySlash[$c-1]] = array();
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $temp[] = $pathBySlash[$c-1];
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return $Tree;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
+        public function getTree()
+            {
+                $Tree = array();
+                $pathArray = array();
+                for($i=0; $i&lt;$this-&gt;numFiles; $i++)
+                    {
+                        $path = $this-&gt;getNameIndex($i);
+                        $pathBySlash = array_values(explode(&apos;/&apos;,$path));
+                        $c = count($pathBySlash);
+                        $temp = &amp;$Tree;
+                        for($j=0; $j&lt;$c-1; $j++)
+                            if(isset($temp[$pathBySlash[$j]]))
+                                $temp = &amp;$temp[$pathBySlash[$j]];
+                            else
+                                {
+                                    $temp[$pathBySlash[$j]] = array();
+                                    $temp = &amp;$temp[$pathBySlash[$j]];
+                                }
+                        if($this-&gt;isDir($path))
+                            $temp[$pathBySlash[$c-1]] = array();
+                        else
+                            $temp[] = $pathBySlash[$c-1];
+                    }
+                return $Tree;
+            }
+    }
 ?>
 ```
-
-
-
   
 
 #
-
-
 
 
 
 ```
 <?php
-&#xA0; &#xA0; // Use ZipArchive::OVERWRITE when the targetd file does not exist may lead you to an error like this
-&#xA0; &#xA0; // Warning: ZipArchive::addFile(): Invalid or uninitialized Zip object 
-&#xA0; &#xA0; // try ZipArchive::OVERWRITE|ZipArchive::CREATE when you want to replace a zip archive that may not exist
-&#xA0; &#xA0; $zip = new ZipArchive;
-&#xA0; &#xA0; $rt=$zip-&gt;open(&apos;i.zip&apos;,ZipArchive::OVERWRITE);
-&#xA0; &#xA0; echo $rt;
-&#xA0; &#xA0; // when i.zip does not exist, $rt is 9, ZipArchive::ER_NOENT, or &quot;No such file.&quot;
-&#xA0; &#xA0; $zip-&gt;addFile(&apos;wuxiancheng.cn.sql&apos;,&apos;db.sql&apos;);
-&#xA0; &#xA0; // triggers an error with the message &quot;Warning: ZipArchive::addFile(): Invalid or uninitialized Zip object ...&quot;
-&#xA0; &#xA0; 
-&#xA0; &#xA0; 
-&#xA0; &#xA0; // Use ZipArchive::OVERWRITE|ZipArchive::CREATE
-&#xA0; &#xA0; $zip = new ZipArchive;
-&#xA0; &#xA0; $zip-&gt;open(&apos;i.zip&apos;,ZipArchive::OVERWRITE|ZipArchive::CREATE);&#xA0; &#xA0; 
-&#xA0; &#xA0; $zip-&gt;addFile(&apos;wuxiancheng.cn.sql&apos;,&apos;db.sql&apos;);&#xA0; &#xA0; 
+    // Use ZipArchive::OVERWRITE when the targetd file does not exist may lead you to an error like this
+    // Warning: ZipArchive::addFile(): Invalid or uninitialized Zip object 
+    // try ZipArchive::OVERWRITE|ZipArchive::CREATE when you want to replace a zip archive that may not exist
+    $zip = new ZipArchive;
+    $rt=$zip-&gt;open(&apos;i.zip&apos;,ZipArchive::OVERWRITE);
+    echo $rt;
+    // when i.zip does not exist, $rt is 9, ZipArchive::ER_NOENT, or "No such file."
+    $zip-&gt;addFile(&apos;wuxiancheng.cn.sql&apos;,&apos;db.sql&apos;);
+    // triggers an error with the message "Warning: ZipArchive::addFile(): Invalid or uninitialized Zip object ..."
+    
+    
+    // Use ZipArchive::OVERWRITE|ZipArchive::CREATE
+    $zip = new ZipArchive;
+    $zip-&gt;open(&apos;i.zip&apos;,ZipArchive::OVERWRITE|ZipArchive::CREATE);    
+    $zip-&gt;addFile(&apos;wuxiancheng.cn.sql&apos;,&apos;db.sql&apos;);    
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-if you are echoing out the output and confused about the number...maybe this will help.&#xA0; i&apos;m not totally sure it is accurate though.
-
-ZIPARCHIVE::ER_EXISTS - 10
-ZIPARCHIVE::ER_INCONS - 21
-ZIPARCHIVE::ER_INVAL - 18
-ZIPARCHIVE::ER_MEMORY - 14
-ZIPARCHIVE::ER_NOENT - 9
-ZIPARCHIVE::ER_NOZIP - 19
-ZIPARCHIVE::ER_OPEN - 11
-ZIPARCHIVE::ER_READ - 5
-ZIPARCHIVE::ER_SEEK - 4
-
-  
+if you are echoing out the output and confused about the number...maybe this will help.  i&apos;m not totally sure it is accurate though.<br><br>ZIPARCHIVE::ER_EXISTS - 10<br>ZIPARCHIVE::ER_INCONS - 21<br>ZIPARCHIVE::ER_INVAL - 18<br>ZIPARCHIVE::ER_MEMORY - 14<br>ZIPARCHIVE::ER_NOENT - 9<br>ZIPARCHIVE::ER_NOZIP - 19<br>ZIPARCHIVE::ER_OPEN - 11<br>ZIPARCHIVE::ER_READ - 5<br>ZIPARCHIVE::ER_SEEK - 4  
 
 #
 
-
-
-If you have archives that you want to overwrite just use:
-
-ZIPARCHIVE::CREATE
-
-It will overwrite existing archives and at the same time create new ones if they don&apos;t already exist.
-
-ZIPARCHIVE::OVERWRITE won&apos;t work for both of these scenarios.
-
-(PHP version 5.4.4)
-
-  
+If you have archives that you want to overwrite just use:<br><br>ZIPARCHIVE::CREATE<br><br>It will overwrite existing archives and at the same time create new ones if they don&apos;t already exist.<br><br>ZIPARCHIVE::OVERWRITE won&apos;t work for both of these scenarios.<br><br>(PHP version 5.4.4)  
 
 #
 

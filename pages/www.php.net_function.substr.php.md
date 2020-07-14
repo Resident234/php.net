@@ -2,29 +2,107 @@
 
 
 
+For getting a substring of UTF-8 characters, I highly recommend mb_substr<br><br>
 
-<div class="phpcode"><span class="html">
-For getting a substring of UTF-8 characters, I highly recommend mb_substr<br><br><span class="default">&lt;?php<br>&#xA0; &#xA0; &#xA0; &#xA0; $utf8string </span><span class="keyword">= </span><span class="string">&quot;cake&#xE6;&#xF8;&#xE5;&quot;</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$utf8string</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">5</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// output cake#<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$utf8string</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">5</span><span class="keyword">,</span><span class="string">&apos;UTF-8&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//output cake&#xE6;<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+        $utf8string = "cake&#xE6;&#xF8;&#xE5;";
+
+        echo substr($utf8string,0,5);
+        // output cake#
+        echo mb_substr($utf8string,0,5,&apos;UTF-8&apos;);
+        //output cake&#xE6;
+?>
+```
   
 
 #
 
+may be by following functions will be easier to extract the needed sub parts from a string:<br><br>
 
-<div class="phpcode"><span class="html">
-may be by following functions will be easier to extract the needed sub parts from a string:<br><br><span class="default">&lt;?php<br>after </span><span class="keyword">(</span><span class="string">&apos;@&apos;</span><span class="keyword">, </span><span class="string">&apos;biohazard@online.ge&apos;</span><span class="keyword">);<br></span><span class="comment">//returns &apos;online.ge&apos;<br>//from the first occurrence of &apos;@&apos;<br><br></span><span class="default">before </span><span class="keyword">(</span><span class="string">&apos;@&apos;</span><span class="keyword">, </span><span class="string">&apos;biohazard@online.ge&apos;</span><span class="keyword">);<br></span><span class="comment">//returns &apos;biohazard&apos;<br>//from the first occurrence of &apos;@&apos;<br><br></span><span class="default">between </span><span class="keyword">(</span><span class="string">&apos;@&apos;</span><span class="keyword">, </span><span class="string">&apos;.&apos;</span><span class="keyword">, </span><span class="string">&apos;biohazard@online.ge&apos;</span><span class="keyword">);<br></span><span class="comment">//returns &apos;online&apos;<br>//from the first occurrence of &apos;@&apos;<br><br></span><span class="default">after_last </span><span class="keyword">(</span><span class="string">&apos;[&apos;</span><span class="keyword">, </span><span class="string">&apos;sin[90]*cos[180]&apos;</span><span class="keyword">);<br></span><span class="comment">//returns &apos;180]&apos;<br>//from the last occurrence of &apos;[&apos;<br><br></span><span class="default">before_last </span><span class="keyword">(</span><span class="string">&apos;[&apos;</span><span class="keyword">, </span><span class="string">&apos;sin[90]*cos[180]&apos;</span><span class="keyword">);<br></span><span class="comment">//returns &apos;sin[90]*cos[&apos;<br>//from the last occurrence of &apos;[&apos;<br><br></span><span class="default">between_last </span><span class="keyword">(</span><span class="string">&apos;[&apos;</span><span class="keyword">, </span><span class="string">&apos;]&apos;</span><span class="keyword">, </span><span class="string">&apos;sin[90]*cos[180]&apos;</span><span class="keyword">);<br></span><span class="comment">//returns &apos;180&apos;<br>//from the last occurrence of &apos;[&apos;<br></span><span class="default">?&gt;<br></span><br>here comes the source:<br><br><span class="default">&lt;?php<br><br>&#xA0; &#xA0; </span><span class="keyword">function </span><span class="default">after </span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$inthat</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; if (!</span><span class="default">is_bool</span><span class="keyword">(</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$inthat</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">)))<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$inthat</span><span class="keyword">, </span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$inthat</span><span class="keyword">,</span><span class="default">$this</span><span class="keyword">)+</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">));<br>&#xA0; &#xA0; };<br><br>&#xA0; &#xA0; function </span><span class="default">after_last </span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$inthat</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; if (!</span><span class="default">is_bool</span><span class="keyword">(</span><span class="default">strrevpos</span><span class="keyword">(</span><span class="default">$inthat</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">)))<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$inthat</span><span class="keyword">, </span><span class="default">strrevpos</span><span class="keyword">(</span><span class="default">$inthat</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">)+</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">));<br>&#xA0; &#xA0; };<br><br>&#xA0; &#xA0; function </span><span class="default">before </span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$inthat</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$inthat</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$inthat</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">));<br>&#xA0; &#xA0; };<br><br>&#xA0; &#xA0; function </span><span class="default">before_last </span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$inthat</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$inthat</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">strrevpos</span><span class="keyword">(</span><span class="default">$inthat</span><span class="keyword">, </span><span class="default">$this</span><span class="keyword">));<br>&#xA0; &#xA0; };<br><br>&#xA0; &#xA0; function </span><span class="default">between </span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$that</span><span class="keyword">, </span><span class="default">$inthat</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">before </span><span class="keyword">(</span><span class="default">$that</span><span class="keyword">, </span><span class="default">after</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$inthat</span><span class="keyword">));<br>&#xA0; &#xA0; };<br><br>&#xA0; &#xA0; function </span><span class="default">between_last </span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">$that</span><span class="keyword">, </span><span class="default">$inthat</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0;&#xA0; return </span><span class="default">after_last</span><span class="keyword">(</span><span class="default">$this</span><span class="keyword">, </span><span class="default">before_last</span><span class="keyword">(</span><span class="default">$that</span><span class="keyword">, </span><span class="default">$inthat</span><span class="keyword">));<br>&#xA0; &#xA0; };<br><br></span><span class="comment">// use strrevpos function in case your php version does not include it<br></span><span class="keyword">function </span><span class="default">strrevpos</span><span class="keyword">(</span><span class="default">$instr</span><span class="keyword">, </span><span class="default">$needle</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="default">$rev_pos </span><span class="keyword">= </span><span class="default">strpos </span><span class="keyword">(</span><span class="default">strrev</span><span class="keyword">(</span><span class="default">$instr</span><span class="keyword">), </span><span class="default">strrev</span><span class="keyword">(</span><span class="default">$needle</span><span class="keyword">));<br>&#xA0; &#xA0; if (</span><span class="default">$rev_pos</span><span class="keyword">===</span><span class="default">false</span><span class="keyword">) return </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; else return </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$instr</span><span class="keyword">) - </span><span class="default">$rev_pos </span><span class="keyword">- </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$needle</span><span class="keyword">);<br>};<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+after (&apos;@&apos;, &apos;biohazard@online.ge&apos;);
+//returns &apos;online.ge&apos;
+//from the first occurrence of &apos;@&apos;
+
+before (&apos;@&apos;, &apos;biohazard@online.ge&apos;);
+//returns &apos;biohazard&apos;
+//from the first occurrence of &apos;@&apos;
+
+between (&apos;@&apos;, &apos;.&apos;, &apos;biohazard@online.ge&apos;);
+//returns &apos;online&apos;
+//from the first occurrence of &apos;@&apos;
+
+after_last (&apos;[&apos;, &apos;sin[90]*cos[180]&apos;);
+//returns &apos;180]&apos;
+//from the last occurrence of &apos;[&apos;
+
+before_last (&apos;[&apos;, &apos;sin[90]*cos[180]&apos;);
+//returns &apos;sin[90]*cos[&apos;
+//from the last occurrence of &apos;[&apos;
+
+between_last (&apos;[&apos;, &apos;]&apos;, &apos;sin[90]*cos[180]&apos;);
+//returns &apos;180&apos;
+//from the last occurrence of &apos;[&apos;
+?>
+```
+
+
+here comes the source:
+
+
+
+```
+<?php
+
+    function after ($this, $inthat)
+    {
+        if (!is_bool(strpos($inthat, $this)))
+        return substr($inthat, strpos($inthat,$this)+strlen($this));
+    };
+
+    function after_last ($this, $inthat)
+    {
+        if (!is_bool(strrevpos($inthat, $this)))
+        return substr($inthat, strrevpos($inthat, $this)+strlen($this));
+    };
+
+    function before ($this, $inthat)
+    {
+        return substr($inthat, 0, strpos($inthat, $this));
+    };
+
+    function before_last ($this, $inthat)
+    {
+        return substr($inthat, 0, strrevpos($inthat, $this));
+    };
+
+    function between ($this, $that, $inthat)
+    {
+        return before ($that, after($this, $inthat));
+    };
+
+    function between_last ($this, $that, $inthat)
+    {
+     return after_last($this, before_last($that, $inthat));
+    };
+
+// use strrevpos function in case your php version does not include it
+function strrevpos($instr, $needle)
+{
+    $rev_pos = strpos (strrev($instr), strrev($needle));
+    if ($rev_pos===false) return false;
+    else return strlen($instr) - $rev_pos - strlen($needle);
+};
+?>
+```
   
 
 #
 
-
-<div class="phpcode"><span class="html">
-<span class="default">&lt;?Php <br><br></span><span class="comment">### SUB STRING&#xA0; BY WORD USING substr() and strpos()&#xA0; #####<br><br>### THIS SCRIPT WILL RETURN PART OF STRING&#xA0; WITHOUT WORD BREAK ###<br><br></span><span class="default">$description </span><span class="keyword">= </span><span class="default">&#x2018;your description here your description here your description here your description here your description here your description here your description hereyour description here your description here&#x2019;&#xA0; </span><span class="comment">// your description here .<br><br></span><span class="default">$no_letter </span><span class="keyword">= </span><span class="default">30 </span><span class="keyword">;<br><br>if(</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$desctiption</span><span class="keyword">) &gt; </span><span class="default">30 </span><span class="keyword">)<br>{<br>&#xA0; &#xA0;&#xA0; echo </span><span class="default">substr</span><span class="keyword">(</span><span class="default">$description</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">strpos</span><span class="keyword">(</span><span class="default">$description</span><span class="keyword">,</span><span class="default">&#x2019; &#x2018;</span><span class="keyword">,</span><span class="default">30</span><span class="keyword">));&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="comment">//strpos to find &#x2018; &#x2018; after 30 characters.<br></span><span class="keyword">}<br>else {<br>&#xA0; &#xA0;&#xA0; echo </span><span class="default">$description</span><span class="keyword">;<br>}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+&lt;?Php <br><br>### SUB STRING  BY WORD USING substr() and strpos()  #####<br><br>### THIS SCRIPT WILL RETURN PART OF STRING  WITHOUT WORD BREAK ###<br><br>$description = &#x2018;your description here your description here your description here your description here your description here your description here your description hereyour description here your description here&#x2019;  // your description here .<br><br>$no_letter = 30 ;<br><br>if(strlen($desctiption) &gt; 30 )<br>{<br>     echo substr($description,0,strpos($description,&#x2019; &#x2018;,30));             //strpos to find &#x2018; &#x2018; after 30 characters.<br>}<br>else {<br>     echo $description;<br>}<br><br>?>
+```
   
 
 #

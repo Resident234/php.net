@@ -2,11 +2,7 @@
 
 
 
-
-
-Use mb_list_encodings() to check if an encoding is supported by mbstring before using its functions for it.
-
-  
+Use mb_list_encodings() to check if an encoding is supported by mbstring before using its functions for it.  
 
 #
 

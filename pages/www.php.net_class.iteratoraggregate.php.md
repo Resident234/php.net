@@ -2,61 +2,44 @@
 
 
 
-
-
-Note that, at least as of 5.3, you still aren&apos;t allowed to return a normal Array from getIterator().
-
-In some places, the docs wrap the array into an ArrayObject and return that.&#xA0; DON&apos;T DO IT.&#xA0; ArrayObject drops any empty-string keys on the floor when you iterate over it (again, at least as of 5.3).
-
-Use ArrayIterator instead.&#xA0; I wouldn&apos;t be surprised if it didn&apos;t have its own set of wonderful bugs, but at the very least it works correctly when you use it with this method.
-
-  
+Note that, at least as of 5.3, you still aren&apos;t allowed to return a normal Array from getIterator().<br><br>In some places, the docs wrap the array into an ArrayObject and return that.  DON&apos;T DO IT.  ArrayObject drops any empty-string keys on the floor when you iterate over it (again, at least as of 5.3).<br><br>Use ArrayIterator instead.  I wouldn&apos;t be surprised if it didn&apos;t have its own set of wonderful bugs, but at the very least it works correctly when you use it with this method.  
 
 #
 
-
-
-It might seem obvious, but you can return a compiled generator from your IteratorAggregate::getIterator() implementation.
-
-
+It might seem obvious, but you can return a compiled generator from your IteratorAggregate::getIterator() implementation.<br><br>
 
 ```
 <?php
 class Collection implements IteratorAggregate
 {
-&#xA0; &#xA0; private $items = [];
+    private $items = [];
 
-&#xA0; &#xA0; public function __construct($items = [])
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;items = $items;
-&#xA0; &#xA0; }
+    public function __construct($items = [])
+    {
+        $this-&gt;items = $items;
+    }
 
-&#xA0; &#xA0; public function getIterator()
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; return (function () {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; while(list($key, $val) = each($this-&gt;items)) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; yield $key =&gt; $val;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; })();
-&#xA0; &#xA0; }
+    public function getIterator()
+    {
+        return (function () {
+            while(list($key, $val) = each($this-&gt;items)) {
+                yield $key =&gt; $val;
+            }
+        })();
+    }
 }
 
 $data = [ &apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos; ];
 $collection = new Collection($data);
 
 foreach ($collection as $key =&gt; $val) {
-&#xA0; &#xA0; echo sprintf(&quot;[%s] =&gt; %s\n&quot;, $key, $val);
+    echo sprintf("[%s] =&gt; %s\n", $key, $val);
 }
 ?>
 ```
-
-
-
   
 
 #
-
-
 
 
 
@@ -67,58 +50,54 @@ foreach ($collection as $key =&gt; $val) {
 
 class myData implements IteratorAggregate {
 
-&#xA0; &#xA0; private $array = [];
-&#xA0; &#xA0; const TYPE_INDEXED = 1;
-&#xA0; &#xA0; const TYPE_ASSOCIATIVE = 2;
+    private $array = [];
+    const TYPE_INDEXED = 1;
+    const TYPE_ASSOCIATIVE = 2;
 
-&#xA0; &#xA0; public function __construct( array $data, $type = self::TYPE_INDEXED ) {
-&#xA0; &#xA0; &#xA0; &#xA0; reset($data);
-&#xA0; &#xA0; &#xA0; &#xA0; while( list($k, $v) = each($data) ) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $type == self::TYPE_INDEXED ?
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;array[] = $v :
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;array[$k] = $v;
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
+    public function __construct( array $data, $type = self::TYPE_INDEXED ) {
+        reset($data);
+        while( list($k, $v) = each($data) ) {
+            $type == self::TYPE_INDEXED ?
+            $this-&gt;array[] = $v :
+            $this-&gt;array[$k] = $v;
+        }
+    }
 
-&#xA0; &#xA0; public function getIterator() {
-&#xA0; &#xA0; &#xA0; &#xA0; return new ArrayIterator($this-&gt;array);
-&#xA0; &#xA0; }
+    public function getIterator() {
+        return new ArrayIterator($this-&gt;array);
+    }
 
 }
 
 $obj = new myData([&apos;one&apos;=&gt;&apos;php&apos;,&apos;javascript&apos;,&apos;three&apos;=&gt;&apos;c#&apos;,&apos;java&apos;,], /*TYPE 1 or 2*/ );
 
 foreach($obj as $key =&gt; $value) {
-&#xA0; &#xA0; var_dump($key, $value);
-&#xA0; &#xA0; echo PHP_EOL;
+    var_dump($key, $value);
+    echo PHP_EOL;
 }
 
 // if TYPE == 1
 #int(0)
-#string(3) &quot;php&quot;
+#string(3) "php"
 #int(1)
-#string(10) &quot;javascript&quot;
+#string(10) "javascript"
 #int(2)
-#string(2) &quot;c#&quot;
+#string(2) "c#"
 #int(3)
-#string(4) &quot;java&quot;
+#string(4) "java"
 
 // if TYPE == 2
-#string(3) &quot;one&quot;
-#string(3) &quot;php&quot;
+#string(3) "one"
+#string(3) "php"
 #int(0)
-#string(10) &quot;javascript&quot;
-#string(5) &quot;three&quot;
-#string(2) &quot;c#&quot;
+#string(10) "javascript"
+#string(5) "three"
+#string(2) "c#"
 #int(1)
-#string(4) &quot;java&quot;
+#string(4) "java"
 ?>
 ```
-
-
-Good luck!
-
-  
+<br><br>Good luck!  
 
 #
 

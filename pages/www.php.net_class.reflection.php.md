@@ -2,11 +2,58 @@
 
 
 
+Here is a code snippet for some of us who are just beginning with reflection. I have a simple class below with two properties and two methods. We will use reflection classes to populate the properties dynamically and then print them:<br><br>
 
-<div class="phpcode"><span class="html">
-Here is a code snippet for some of us who are just beginning with reflection. I have a simple class below with two properties and two methods. We will use reflection classes to populate the properties dynamically and then print them:<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">class </span><span class="default">A<br></span><span class="keyword">{<br>&#xA0; &#xA0; public </span><span class="default">$one </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; public </span><span class="default">$two </span><span class="keyword">= </span><span class="string">&apos;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">//Constructor<br>&#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">__construct</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//Constructor<br>&#xA0; &#xA0; </span><span class="keyword">}<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">//print variable one<br>&#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">echoOne</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">one</span><span class="keyword">.</span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>&#xA0; &#xA0; </span><span class="comment">//print variable two&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">echoTwo</span><span class="keyword">()<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">two</span><span class="keyword">.</span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="comment">//Instantiate the object<br></span><span class="default">$a </span><span class="keyword">= new </span><span class="default">A</span><span class="keyword">();<br><br></span><span class="comment">//Instantiate the reflection object<br></span><span class="default">$reflector </span><span class="keyword">= new </span><span class="default">ReflectionClass</span><span class="keyword">(</span><span class="string">&apos;A&apos;</span><span class="keyword">);<br><br></span><span class="comment">//Now get all the properties from class A in to $properties array<br></span><span class="default">$properties </span><span class="keyword">= </span><span class="default">$reflector</span><span class="keyword">-&gt;</span><span class="default">getProperties</span><span class="keyword">();<br><br></span><span class="default">$i </span><span class="keyword">=</span><span class="default">1</span><span class="keyword">;<br></span><span class="comment">//Now go through the $properties array and populate each property<br></span><span class="keyword">foreach(</span><span class="default">$properties </span><span class="keyword">as </span><span class="default">$property</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="comment">//Populating properties<br>&#xA0; &#xA0; </span><span class="default">$a</span><span class="keyword">-&gt;{</span><span class="default">$property</span><span class="keyword">-&gt;</span><span class="default">getName</span><span class="keyword">()}=</span><span class="default">$i</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="comment">//Invoking the method to print what was populated<br>&#xA0; &#xA0; </span><span class="default">$a</span><span class="keyword">-&gt;{</span><span class="string">&quot;echo&quot;</span><span class="keyword">.</span><span class="default">ucfirst</span><span class="keyword">(</span><span class="default">$property</span><span class="keyword">-&gt;</span><span class="default">getName</span><span class="keyword">())}().</span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="default">$i</span><span class="keyword">++;<br>}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+class A
+{
+    public $one = &apos;&apos;;
+    public $two = &apos;&apos;;
+    
+    //Constructor
+    public function __construct()
+    {
+        //Constructor
+    }
+    
+    //print variable one
+    public function echoOne()
+    {
+        echo $this-&gt;one."\n";
+    }
+
+    //print variable two    
+    public function echoTwo()
+    {
+        echo $this-&gt;two."\n";
+    }
+}
+
+//Instantiate the object
+$a = new A();
+
+//Instantiate the reflection object
+$reflector = new ReflectionClass(&apos;A&apos;);
+
+//Now get all the properties from class A in to $properties array
+$properties = $reflector-&gt;getProperties();
+
+$i =1;
+//Now go through the $properties array and populate each property
+foreach($properties as $property)
+{
+    //Populating properties
+    $a-&gt;{$property-&gt;getName()}=$i;
+    //Invoking the method to print what was populated
+    $a-&gt;{"echo".ucfirst($property-&gt;getName())}()."\n";
+    
+    $i++;
+}
+
+?>
+```
   
 
 #

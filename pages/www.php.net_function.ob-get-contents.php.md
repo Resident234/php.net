@@ -2,36 +2,29 @@
 
 
 
-
-
-This is an example of how the stack works:
-
-
+This is an example of how the stack works:<br><br>
 
 ```
 <?php
 //Level 0
 ob_start();
-echo &quot;Hello &quot;;
+echo "Hello ";
 
 //Level 1
 ob_start();
-echo &quot;Hello World&quot;;
+echo "Hello World";
 $out2 = ob_get_contents();
 ob_end_clean();
 
 //Back to level 0
-echo &quot;Galaxy&quot;;
+echo "Galaxy";
 $out1 = ob_get_contents();
 ob_end_clean();
 
 //Just output
 var_dump($out1, $out2);
-php?>
+?>
 ```
-
-
-
   
 
 #

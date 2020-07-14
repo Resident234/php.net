@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-This extension can be used to provide server-side and client-side form validation by executing the same JavaScript code at both places.</span>
-</div>
-  
+This extension can be used to provide server-side and client-side form validation by executing the same JavaScript code at both places.  
 
 #
 

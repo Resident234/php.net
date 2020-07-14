@@ -2,58 +2,9 @@
 
 
 
-
-
-This method gets all the files in a directory, and echoes them in the order of the date they were added (by ftp or whatever).
-
-&lt;?PHP
-function dirList ($directory, $sortOrder){
-
-&#xA0; &#xA0; //Get each file and add its details to two arrays
-&#xA0; &#xA0; $results = array();
-&#xA0; &#xA0; $handler = opendir($directory);
-&#xA0; &#xA0; while ($file = readdir($handler)) {&#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; if ($file != &apos;.&apos; &amp;&amp; $file != &apos;..&apos; &amp;&amp; $file != &quot;robots.txt&quot; &amp;&amp; $file != &quot;.htaccess&quot;){
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $currentModified = filectime($directory.&quot;/&quot;.$file);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $file_names[] = $file;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $file_dates[] = $currentModified;
-&#xA0; &#xA0; &#xA0; &#xA0; }&#xA0; &#xA0; 
-&#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0;&#xA0; closedir($handler);
-
-&#xA0; &#xA0; //Sort the date array by preferred order
-&#xA0; &#xA0; if ($sortOrder == &quot;newestFirst&quot;){
-&#xA0; &#xA0; &#xA0; &#xA0; arsort($file_dates);
-&#xA0; &#xA0; }else{
-&#xA0; &#xA0; &#xA0; &#xA0; asort($file_dates);
-&#xA0; &#xA0; }
-&#xA0; &#xA0; 
-&#xA0; &#xA0; //Match file_names array to file_dates array
-&#xA0; &#xA0; $file_names_Array = array_keys($file_dates);
-&#xA0; &#xA0; foreach ($file_names_Array as $idx =&gt; $name) $name=$file_names[$name];
-&#xA0; &#xA0; $file_dates = array_merge($file_dates);
-&#xA0; &#xA0; 
-&#xA0; &#xA0; $i = 0;
-
-&#xA0; &#xA0; //Loop through dates array and then echo the list
-&#xA0; &#xA0; foreach ($file_dates as $file_dates){
-&#xA0; &#xA0; &#xA0; &#xA0; $date = $file_dates;
-&#xA0; &#xA0; &#xA0; &#xA0; $j = $file_names_Array[$i];
-&#xA0; &#xA0; &#xA0; &#xA0; $file = $file_names[$j];
-&#xA0; &#xA0; &#xA0; &#xA0; $i++;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; echo&#xA0; &quot;File name: $file - Date Added: $date. &lt;br/&gt;&quot;&quot;;&#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; }
-
-}
-?>
+This method gets all the files in a directory, and echoes them in the order of the date they were added (by ftp or whatever).<br><br>&lt;?PHP<br>function dirList ($directory, $sortOrder){<br><br>    //Get each file and add its details to two arrays<br>    $results = array();<br>    $handler = opendir($directory);<br>    while ($file = readdir($handler)) {  <br>        if ($file != &apos;.&apos; &amp;&amp; $file != &apos;..&apos; &amp;&amp; $file != "robots.txt" &amp;&amp; $file != ".htaccess"){<br>            $currentModified = filectime($directory."/".$file);<br>            $file_names[] = $file;<br>            $file_dates[] = $currentModified;<br>        }    <br>    }<br>       closedir($handler);<br><br>    //Sort the date array by preferred order<br>    if ($sortOrder == "newestFirst"){<br>        arsort($file_dates);<br>    }else{<br>        asort($file_dates);<br>    }<br>    <br>    //Match file_names array to file_dates array<br>    $file_names_Array = array_keys($file_dates);<br>    foreach ($file_names_Array as $idx =&gt; $name) $name=$file_names[$name];<br>    $file_dates = array_merge($file_dates);<br>    <br>    $i = 0;<br><br>    //Loop through dates array and then echo the list<br>    foreach ($file_dates as $file_dates){<br>        $date = $file_dates;<br>        $j = $file_names_Array[$i];<br>        $file = $file_names[$j];<br>        $i++;<br>            <br>        echo  "File name: $file - Date Added: $date. &lt;br/&gt;"";        <br>    }<br><br>}<br>?>
 ```
-
-
-I hope this is useful to somebody.
-
-
-  
+<br><br>I hope this is useful to somebody.  
 
 #
 

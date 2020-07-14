@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-Direct known subclasses:<br>BadFunctionCallException, DomainException, InvalidArgumentException, LengthException, OutOfRangeException</span>
-</div>
-  
+Direct known subclasses:<br>BadFunctionCallException, DomainException, InvalidArgumentException, LengthException, OutOfRangeException  
 
 #
 

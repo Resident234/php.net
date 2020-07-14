@@ -2,20 +2,117 @@
 
 
 
+Note that although you can provide a default filter for the entire input array there is no way to provide a flag for that filter without building the entire definition array yourself.<br><br>So here is a small function that can alleviate this hassle!<br><br>
 
-<div class="phpcode"><span class="html">
-Note that although you can provide a default filter for the entire input array there is no way to provide a flag for that filter without building the entire definition array yourself.<br><br>So here is a small function that can alleviate this hassle!<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">filter_input_array_with_default_flags</span><span class="keyword">(</span><span class="default">$type</span><span class="keyword">, </span><span class="default">$filter</span><span class="keyword">, </span><span class="default">$flags</span><span class="keyword">, </span><span class="default">$add_empty </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$loopThrough </span><span class="keyword">= array();<br>&#xA0; &#xA0; switch (</span><span class="default">$type</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="default">INPUT_GET </span><span class="keyword">: </span><span class="default">$loopThrough </span><span class="keyword">= </span><span class="default">$_GET</span><span class="keyword">; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="default">INPUT_POST </span><span class="keyword">: </span><span class="default">$loopThrough </span><span class="keyword">= </span><span class="default">$_POST</span><span class="keyword">; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="default">INPUT_COOKIE </span><span class="keyword">: </span><span class="default">$loopThrough </span><span class="keyword">= </span><span class="default">$_COOKIE</span><span class="keyword">; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="default">INPUT_SERVER </span><span class="keyword">: </span><span class="default">$loopThrough </span><span class="keyword">= </span><span class="default">$_SERVER</span><span class="keyword">; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="default">INPUT_ENV </span><span class="keyword">: </span><span class="default">$loopThrough </span><span class="keyword">= </span><span class="default">$_ENV</span><span class="keyword">; break;<br>&#xA0; &#xA0; }<br>&#xA0;&#xA0; <br>&#xA0; &#xA0; </span><span class="default">$args </span><span class="keyword">= array();<br>&#xA0; &#xA0; foreach (</span><span class="default">$loopThrough </span><span class="keyword">as </span><span class="default">$key</span><span class="keyword">=&gt;</span><span class="default">$value</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$args</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = array(</span><span class="string">&apos;filter&apos;</span><span class="keyword">=&gt;</span><span class="default">$filter</span><span class="keyword">, </span><span class="string">&apos;flags&apos;</span><span class="keyword">=&gt;</span><span class="default">$flags</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; return </span><span class="default">filter_input_array</span><span class="keyword">(</span><span class="default">$type</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">, </span><span class="default">$add_empty</span><span class="keyword">);<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+function filter_input_array_with_default_flags($type, $filter, $flags, $add_empty = true) {
+    $loopThrough = array();
+    switch ($type) {
+        case INPUT_GET : $loopThrough = $_GET; break;
+        case INPUT_POST : $loopThrough = $_POST; break;
+        case INPUT_COOKIE : $loopThrough = $_COOKIE; break;
+        case INPUT_SERVER : $loopThrough = $_SERVER; break;
+        case INPUT_ENV : $loopThrough = $_ENV; break;
+    }
+   
+    $args = array();
+    foreach ($loopThrough as $key=&gt;$value) {
+        $args[$key] = array(&apos;filter&apos;=&gt;$filter, &apos;flags&apos;=&gt;$flags);
+    }
+    
+    return filter_input_array($type, $args, $add_empty);
+}
+?>
+```
   
 
 #
 
+[New Version]<br>This function is very useful for filtering complicated array structure.<br>Also, Some integer bitmasks and invalid UTF-8 sequence detection are available.<br><br>Code:<br>
 
-<div class="phpcode"><span class="html">
-[New Version]<br>This function is very useful for filtering complicated array structure.<br>Also, Some integer bitmasks and invalid UTF-8 sequence detection are available.<br><br>Code:<br><span class="default">&lt;?php<br></span><span class="comment">/**<br> * @param&#xA0; integer $type&#xA0; &#xA0; Constant like INPUT_XXX.<br> * @param&#xA0; array&#xA0;&#xA0; $default Default structure of the specified super global var.<br> *&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; Following bitmasks are available:<br> *&#xA0; + FILTER_STRUCT_FORCE_ARRAY - Force 1 dimensional array.<br> *&#xA0; + FILTER_STRUCT_TRIM&#xA0; &#xA0; &#xA0; &#xA0; - Trim by ASCII control chars.<br> *&#xA0; + FILTER_STRUCT_FULL_TRIM&#xA0;&#xA0; - Trim by ASCII control chars,<br> *&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; full-width and no-break space.<br> * @return array&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; The value of the filtered super global var.<br> */<br></span><span class="default">define</span><span class="keyword">(</span><span class="string">&apos;FILTER_STRUCT_FORCE_ARRAY&apos;</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br></span><span class="default">define</span><span class="keyword">(</span><span class="string">&apos;FILTER_STRUCT_TRIM&apos;</span><span class="keyword">, </span><span class="default">2</span><span class="keyword">);<br></span><span class="default">define</span><span class="keyword">(</span><span class="string">&apos;FILTER_STRUCT_FULL_TRIM&apos;</span><span class="keyword">, </span><span class="default">4</span><span class="keyword">);<br>function </span><span class="default">filter_struct_utf8</span><span class="keyword">(</span><span class="default">$type</span><span class="keyword">, array </span><span class="default">$default</span><span class="keyword">) {<br>&#xA0; &#xA0; static </span><span class="default">$func </span><span class="keyword">= </span><span class="default">__FUNCTION__</span><span class="keyword">;<br>&#xA0; &#xA0; static </span><span class="default">$trim </span><span class="keyword">= </span><span class="string">&quot;[\\x0-\x20\x7f]&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; static </span><span class="default">$ftrim </span><span class="keyword">= </span><span class="string">&quot;[\\x0-\x20\x7f\xc2\xa0\xe3\x80\x80]&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; static </span><span class="default">$recursive_static </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; if (!</span><span class="default">$recursive </span><span class="keyword">= </span><span class="default">$recursive_static</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$types </span><span class="keyword">= array(<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">INPUT_GET </span><span class="keyword">=&gt; </span><span class="default">$_GET</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">INPUT_POST </span><span class="keyword">=&gt; </span><span class="default">$_POST</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">INPUT_COOKIE </span><span class="keyword">=&gt; </span><span class="default">$_COOKIE</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">INPUT_REQUEST </span><span class="keyword">=&gt; </span><span class="default">$_REQUEST</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; );<br>&#xA0; &#xA0; &#xA0; &#xA0; if (!isset(</span><span class="default">$types</span><span class="keyword">[(int)</span><span class="default">$type</span><span class="keyword">])) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">LogicException</span><span class="keyword">(</span><span class="string">&apos;unknown super global var type&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$var </span><span class="keyword">= </span><span class="default">$types</span><span class="keyword">[(int)</span><span class="default">$type</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$recursive_static </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br>&#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$var </span><span class="keyword">= </span><span class="default">$type</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; </span><span class="default">$ret </span><span class="keyword">= array();<br>&#xA0; &#xA0; foreach (</span><span class="default">$default </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$is_int </span><span class="keyword">= </span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (!(</span><span class="default">$value </span><span class="keyword">| (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">FILTER_STRUCT_FORCE_ARRAY </span><span class="keyword">|<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">FILTER_STRUCT_FULL_TRIM </span><span class="keyword">| <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">FILTER_STRUCT_TRIM<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">))) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$recursive_static </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new </span><span class="default">LogicException</span><span class="keyword">(</span><span class="string">&apos;unknown bitmask&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$value </span><span class="keyword">&amp; </span><span class="default">FILTER_STRUCT_FORCE_ARRAY</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$tmp </span><span class="keyword">= array();<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (isset(</span><span class="default">$var</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">])) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; foreach ((array)</span><span class="default">$var</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] as </span><span class="default">$k </span><span class="keyword">=&gt; </span><span class="default">$v</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (!</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">&apos;//u&apos;</span><span class="keyword">, </span><span class="default">$k</span><span class="keyword">)){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; continue;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$value </span><span class="keyword">&amp;= </span><span class="default">FILTER_STRUCT_FULL_TRIM </span><span class="keyword">| </span><span class="default">FILTER_STRUCT_TRIM</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$tmp </span><span class="keyword">+= array(</span><span class="default">$k </span><span class="keyword">=&gt; </span><span class="default">$value </span><span class="keyword">? </span><span class="default">$value </span><span class="keyword">: </span><span class="string">&apos;&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$value </span><span class="keyword">= </span><span class="default">$tmp</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$isset </span><span class="keyword">= isset(</span><span class="default">$var</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]) and </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$ret</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$func</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">], </span><span class="default">$value</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; } elseif (!</span><span class="default">$isset </span><span class="keyword">|| </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$var</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">])) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$ret</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">null</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; } elseif (</span><span class="default">$is_int </span><span class="keyword">&amp;&amp; </span><span class="default">$value </span><span class="keyword">&amp; </span><span class="default">FILTER_STRUCT_FULL_TRIM</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$ret</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;/\A</span><span class="keyword">{</span><span class="default">$ftrim</span><span class="keyword">}</span><span class="string">++|</span><span class="keyword">{</span><span class="default">$ftrim</span><span class="keyword">}</span><span class="string">++\z/u&quot;</span><span class="keyword">, </span><span class="string">&apos;&apos;</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0; } elseif (</span><span class="default">$is_int </span><span class="keyword">&amp;&amp; </span><span class="default">$value </span><span class="keyword">&amp; </span><span class="default">FILTER_STRUCT_TRIM</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$ret</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&quot;/\A</span><span class="keyword">{</span><span class="default">$trim</span><span class="keyword">}</span><span class="string">++|</span><span class="keyword">{</span><span class="default">$trim</span><span class="keyword">}</span><span class="string">++\z/u&quot;</span><span class="keyword">, </span><span class="string">&apos;&apos;</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$ret</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&apos;//u&apos;</span><span class="keyword">, </span><span class="string">&apos;&apos;</span><span class="keyword">, </span><span class="default">$var</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$ret</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] === </span><span class="default">null</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$ret</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$is_int </span><span class="keyword">? </span><span class="string">&apos;&apos; </span><span class="keyword">: </span><span class="default">$value</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; if (!</span><span class="default">$recursive</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$recursive_static </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">$ret</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+/**
+ * @param  integer $type    Constant like INPUT_XXX.
+ * @param  array   $default Default structure of the specified super global var.
+ *                          Following bitmasks are available:
+ *  + FILTER_STRUCT_FORCE_ARRAY - Force 1 dimensional array.
+ *  + FILTER_STRUCT_TRIM        - Trim by ASCII control chars.
+ *  + FILTER_STRUCT_FULL_TRIM   - Trim by ASCII control chars,
+ *                                full-width and no-break space.
+ * @return array            The value of the filtered super global var.
+ */
+define(&apos;FILTER_STRUCT_FORCE_ARRAY&apos;, 1);
+define(&apos;FILTER_STRUCT_TRIM&apos;, 2);
+define(&apos;FILTER_STRUCT_FULL_TRIM&apos;, 4);
+function filter_struct_utf8($type, array $default) {
+    static $func = __FUNCTION__;
+    static $trim = "[\\x0-\x20\x7f]";
+    static $ftrim = "[\\x0-\x20\x7f\xc2\xa0\xe3\x80\x80]";
+    static $recursive_static = false;
+    if (!$recursive = $recursive_static) {
+        $types = array(
+            INPUT_GET =&gt; $_GET,
+            INPUT_POST =&gt; $_POST,
+            INPUT_COOKIE =&gt; $_COOKIE,
+            INPUT_REQUEST =&gt; $_REQUEST,
+        );
+        if (!isset($types[(int)$type])) {
+            throw new LogicException(&apos;unknown super global var type&apos;);
+        }
+        $var = $types[(int)$type];
+        $recursive_static = true;
+    } else {
+        $var = $type;
+    }
+    $ret = array();
+    foreach ($default as $key =&gt; $value) {
+        if ($is_int = is_int($value)) {
+            if (!($value | (
+                FILTER_STRUCT_FORCE_ARRAY |
+                FILTER_STRUCT_FULL_TRIM | 
+                FILTER_STRUCT_TRIM
+            ))) {
+                $recursive_static = false;
+                throw new LogicException(&apos;unknown bitmask&apos;);
+            }
+            if ($value &amp; FILTER_STRUCT_FORCE_ARRAY) {
+                $tmp = array();
+                if (isset($var[$key])) {
+                    foreach ((array)$var[$key] as $k =&gt; $v) {
+                        if (!preg_match(&apos;//u&apos;, $k)){
+                            continue;
+                        }
+                        $value &amp;= FILTER_STRUCT_FULL_TRIM | FILTER_STRUCT_TRIM;
+                        $tmp += array($k =&gt; $value ? $value : &apos;&apos;);
+                    }
+                }
+                $value = $tmp;
+            }
+        }
+        if ($isset = isset($var[$key]) and is_array($value)) {
+            $ret[$key] = $func($var[$key], $value);
+        } elseif (!$isset || is_array($var[$key])) {
+            $ret[$key] = null;
+        } elseif ($is_int &amp;&amp; $value &amp; FILTER_STRUCT_FULL_TRIM) {
+            $ret[$key] = preg_replace("/\A{$ftrim}++|{$ftrim}++\z/u", &apos;&apos;, $var[$key]);
+        } elseif ($is_int &amp;&amp; $value &amp; FILTER_STRUCT_TRIM) {
+            $ret[$key] = preg_replace("/\A{$trim}++|{$trim}++\z/u", &apos;&apos;, $var[$key]);
+        } else {
+            $ret[$key] = preg_replace(&apos;//u&apos;, &apos;&apos;, $var[$key]);
+        }
+        if ($ret[$key] === null) {
+            $ret[$key] = $is_int ? &apos;&apos; : $value;
+        }
+    }
+    if (!$recursive) {
+        $recursive_static = false;
+    }
+    return $ret;
+}
+?>
+```
   
 
 #

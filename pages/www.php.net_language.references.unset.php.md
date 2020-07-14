@@ -2,109 +2,100 @@
 
 
 
-
-
-Simple look how PHP Reference works
-
+Simple look how PHP Reference works<br>
 
 ```
 <?php
 /* Imagine this is memory map
  ______________________________
-|pointer | value | variable&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; |
+|pointer | value | variable              |
  -----------------------------------
-|&#xA0;&#xA0; 1&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 2&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 3&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 4&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 5&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |
+|   1     |  NULL  |         ---           |
+|   2     |  NULL  |         ---           |
+|   3     |  NULL  |         ---           |
+|   4     |  NULL  |         ---           |
+|   5     |  NULL  |         ---           |
 ------------------------------------
-Create some variables&#xA0;&#xA0; */
+Create some variables   */
 $a=10;
 $b=20;
 $c=array (&apos;one&apos;=&gt;array (1, 2, 3));
 /* Look at memory
  _______________________________
-|pointer | value |&#xA0; &#xA0; &#xA0;&#xA0; variable&apos;s&#xA0; &#xA0; &#xA0;&#xA0; |
+|pointer | value |       variable&apos;s       |
  -----------------------------------
-|&#xA0;&#xA0; 1&#xA0; &#xA0;&#xA0; |&#xA0; 10&#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0;&#xA0; $a&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 2&#xA0; &#xA0;&#xA0; |&#xA0; 20&#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0;&#xA0; $b&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 3&#xA0; &#xA0;&#xA0; |&#xA0; 1&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][0]&#xA0;&#xA0; |
-|&#xA0;&#xA0; 4&#xA0; &#xA0;&#xA0; |&#xA0; 2&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][1]&#xA0;&#xA0; |
-|&#xA0;&#xA0; 5&#xA0; &#xA0;&#xA0; |&#xA0; 3&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][2]&#xA0;&#xA0; |
+|   1     |  10     |       $a               |
+|   2     |  20     |       $b               |
+|   3     |  1       |      $c[&apos;one&apos;][0]   |
+|   4     |  2       |      $c[&apos;one&apos;][1]   |
+|   5     |  3       |      $c[&apos;one&apos;][2]   |
 ------------------------------------
-do&#xA0; */
+do  */
 $a=&amp;$c[&apos;one&apos;][2];
 /* Look at memory
  _______________________________
-|pointer | value |&#xA0; &#xA0; &#xA0;&#xA0; variable&apos;s&#xA0; &#xA0; &#xA0;&#xA0; |
+|pointer | value |       variable&apos;s       |
  -----------------------------------
-|&#xA0;&#xA0; 1&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; |&#xA0; //value of&#xA0; $a is destroyed and pointer is free
-|&#xA0;&#xA0; 2&#xA0; &#xA0;&#xA0; |&#xA0; 20&#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0;&#xA0; $b&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 3&#xA0; &#xA0;&#xA0; |&#xA0; 1&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][0]&#xA0;&#xA0; |
-|&#xA0;&#xA0; 4&#xA0; &#xA0;&#xA0; |&#xA0; 2&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][1]&#xA0;&#xA0; |
-|&#xA0;&#xA0; 5&#xA0; &#xA0;&#xA0; |&#xA0; 3&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; $c[&apos;one&apos;][2]&#xA0; ,$a | // $a is now here
+|   1     |  NULL  |       ---              |  //value of  $a is destroyed and pointer is free
+|   2     |  20     |       $b               |
+|   3     |  1       |      $c[&apos;one&apos;][0]   |
+|   4     |  2       |      $c[&apos;one&apos;][1]   |
+|   5     |  3       |  $c[&apos;one&apos;][2]  ,$a | // $a is now here
 ------------------------------------
-do&#xA0; */
-$b=&amp;$a;&#xA0; // or&#xA0; $b=&amp;$c[&apos;one&apos;][2]; result is same as both &quot;$c[&apos;one&apos;][2]&quot; and &quot;$a&quot; is at same pointer.
+do  */
+$b=&amp;$a;  // or  $b=&amp;$c[&apos;one&apos;][2]; result is same as both "$c[&apos;one&apos;][2]" and "$a" is at same pointer.
 /* Look at memory
  _________________________________
-|pointer | value |&#xA0; &#xA0; &#xA0;&#xA0; variable&apos;s&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |
+|pointer | value |       variable&apos;s           |
  --------------------------------------
-|&#xA0;&#xA0; 1&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; |&#xA0; 
-|&#xA0;&#xA0; 2&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; |&#xA0; //value of&#xA0; $b is destroyed and pointer is free
-|&#xA0;&#xA0; 3&#xA0; &#xA0;&#xA0; |&#xA0; 1&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][0]&#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 4&#xA0; &#xA0;&#xA0; |&#xA0; 2&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][1]&#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 5&#xA0; &#xA0;&#xA0; |&#xA0; 3&#xA0; &#xA0; &#xA0;&#xA0; |$c[&apos;one&apos;][2]&#xA0; ,$a , $b |&#xA0; // $b is now here
+|   1     |  NULL  |       ---                  |  
+|   2     |  NULL  |       ---                  |  //value of  $b is destroyed and pointer is free
+|   3     |  1       |      $c[&apos;one&apos;][0]       |
+|   4     |  2       |      $c[&apos;one&apos;][1]       |
+|   5     |  3       |$c[&apos;one&apos;][2]  ,$a , $b |  // $b is now here
 ---------------------------------------
 next do */
 unset($c[&apos;one&apos;][2]);
 /* Look at memory
  _________________________________
-|pointer | value |&#xA0; &#xA0; &#xA0;&#xA0; variable&apos;s&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |
+|pointer | value |       variable&apos;s           |
  --------------------------------------
-|&#xA0;&#xA0; 1&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; |&#xA0; 
-|&#xA0;&#xA0; 2&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; |&#xA0; 
-|&#xA0;&#xA0; 3&#xA0; &#xA0;&#xA0; |&#xA0; 1&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][0]&#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 4&#xA0; &#xA0;&#xA0; |&#xA0; 2&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][1]&#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 5&#xA0; &#xA0;&#xA0; |&#xA0; 3&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $a , $b&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; | // $c[&apos;one&apos;][2]&#xA0; is&#xA0; destroyed not in memory, not in array
+|   1     |  NULL  |       ---                  |  
+|   2     |  NULL  |       ---                  |  
+|   3     |  1       |      $c[&apos;one&apos;][0]       |
+|   4     |  2       |      $c[&apos;one&apos;][1]       |
+|   5     |  3       |      $a , $b              | // $c[&apos;one&apos;][2]  is  destroyed not in memory, not in array
 ---------------------------------------
-next do&#xA0;&#xA0; */
-$c[&apos;one&apos;][2]=500;&#xA0; &#xA0; //now it is in array
+next do   */
+$c[&apos;one&apos;][2]=500;    //now it is in array
 /* Look at memory
  _________________________________
-|pointer | value |&#xA0; &#xA0; &#xA0;&#xA0; variable&apos;s&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |
+|pointer | value |       variable&apos;s           |
  --------------------------------------
-|&#xA0;&#xA0; 1&#xA0; &#xA0;&#xA0; |&#xA0; 500&#xA0; &#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][2]&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; //created it lands on any(next) free pointer in memory
-|&#xA0;&#xA0; 2&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; |&#xA0; 
-|&#xA0;&#xA0; 3&#xA0; &#xA0;&#xA0; |&#xA0; 1&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][0]&#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 4&#xA0; &#xA0;&#xA0; |&#xA0; 2&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][1]&#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 5&#xA0; &#xA0;&#xA0; |&#xA0; 3&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $a , $b&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; | //this pointer is in use
+|   1     |  500    |      $c[&apos;one&apos;][2]       |  //created it lands on any(next) free pointer in memory
+|   2     |  NULL  |       ---                  |  
+|   3     |  1       |      $c[&apos;one&apos;][0]       |
+|   4     |  2       |      $c[&apos;one&apos;][1]       |
+|   5     |  3       |      $a , $b              | //this pointer is in use
 ---------------------------------------
-lets tray to return $c[&apos;one&apos;][2] at old pointer an remove reference $a,$b.&#xA0; */
+lets tray to return $c[&apos;one&apos;][2] at old pointer an remove reference $a,$b.  */
 $c[&apos;one&apos;][2]=&amp;$a;
 unset($a);
-unset($b);&#xA0;&#xA0; 
+unset($b);   
 /* look at memory
  _________________________________
-|pointer | value |&#xA0; &#xA0; &#xA0;&#xA0; variable&apos;s&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; |
+|pointer | value |       variable&apos;s           |
  --------------------------------------
-|&#xA0;&#xA0; 1&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; |&#xA0; 
-|&#xA0;&#xA0; 2&#xA0; &#xA0;&#xA0; |&#xA0; NULL&#xA0; |&#xA0; &#xA0; &#xA0;&#xA0; ---&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; |&#xA0; 
-|&#xA0;&#xA0; 3&#xA0; &#xA0;&#xA0; |&#xA0; 1&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][0]&#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 4&#xA0; &#xA0;&#xA0; |&#xA0; 2&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][1]&#xA0; &#xA0; &#xA0;&#xA0; |
-|&#xA0;&#xA0; 5&#xA0; &#xA0;&#xA0; |&#xA0; 3&#xA0; &#xA0; &#xA0;&#xA0; |&#xA0; &#xA0; &#xA0; $c[&apos;one&apos;][2]&#xA0; &#xA0; &#xA0;&#xA0; | //$c[&apos;one&apos;][2] is returned, $a,$b is destroyed
+|   1     |  NULL  |       ---                  |  
+|   2     |  NULL  |       ---                  |  
+|   3     |  1       |      $c[&apos;one&apos;][0]       |
+|   4     |  2       |      $c[&apos;one&apos;][1]       |
+|   5     |  3       |      $c[&apos;one&apos;][2]       | //$c[&apos;one&apos;][2] is returned, $a,$b is destroyed
 --------------------------------------- ?>
 ```
-
-I hope this helps.
-
-
-  
+<br>I hope this helps.  
 
 #
-
-
 
 
 
@@ -112,56 +103,52 @@ I hope this helps.
 <?php
 //if you do:
 
-$a = &quot;hihaha&quot;;
+$a = "hihaha";
 $b = &amp;$a;
-$c = &quot;eita&quot;;
+$c = "eita";
 $b = $c;
-echo $a; // shows &quot;eita&quot;
+echo $a; // shows "eita"
 
-$a = &quot;hihaha&quot;;
+$a = "hihaha";
 $b = &amp;$a;
-$c = &quot;eita&quot;;
+$c = "eita";
 $b = &amp;$c;
-echo $a; // shows &quot;hihaha&quot;
+echo $a; // shows "hihaha"
 
-$a = &quot;hihaha&quot;;
+$a = "hihaha";
 $b = &amp;$a;
 $b = null;
 echo $a; // shows nothing (both are set to null)
 
-$a = &quot;hihaha&quot;;
+$a = "hihaha";
 $b = &amp;$a;
 unset($b);
-echo $a; // shows &quot;hihaha&quot;
+echo $a; // shows "hihaha"
 
-$a = &quot;hihaha&quot;;
+$a = "hihaha";
 $b = &amp;$a;
-$c = &quot;eita&quot;;
+$c = "eita";
 $a = $c;
-echo $b; // shows &quot;eita&quot;
+echo $b; // shows "eita"
 
-$a = &quot;hihaha&quot;;
+$a = "hihaha";
 $b = &amp;$a;
-$c = &quot;eita&quot;;
+$c = "eita";
 $a = &amp;$c;
-echo $b; // shows &quot;hihaha&quot;
+echo $b; // shows "hihaha"
 
-$a = &quot;hihaha&quot;;
+$a = "hihaha";
 $b = &amp;$a;
 $a = null;
 echo $b; // shows nothing (both are set to null)
 
-$a = &quot;hihaha&quot;;
+$a = "hihaha";
 $b = &amp;$a;
 unset($a);
-echo $b; // shows &quot;hihaha&quot;
+echo $b; // shows "hihaha"
 ?>
 ```
-
-
-I tested each case individually on PHP 4.3.10.
-
-  
+<br><br>I tested each case individually on PHP 4.3.10.  
 
 #
 

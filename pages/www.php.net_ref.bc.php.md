@@ -2,57 +2,23 @@
 
 
 
-
-
-Please be aware not to use/have spaces in your strings. It took me a while to find the error in some advanced calculations!
-
-
+Please be aware not to use/have spaces in your strings. It took me a while to find the error in some advanced calculations!<br><br>
 
 ```
 <?php
-echo bcadd(&quot;1&quot;, &quot;2&quot;); // 3
-echo bcadd(&quot;1&quot;, &quot;2 &quot;); // 1
-echo bcadd(&quot;1&quot;, &quot; 2&quot;); // 1
+echo bcadd("1", "2"); // 3
+echo bcadd("1", "2 "); // 1
+echo bcadd("1", " 2"); // 1
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-Here are some useful functions to convert large hex numbers from and to large decimal ones :
-
-
+Here are some useful functions to convert large hex numbers from and to large decimal ones :<br><br>
 
 ```
-<?php
-&#xA0; &#xA0; public static function bchexdec($hex) {
-&#xA0; &#xA0; &#xA0; &#xA0; if(strlen($hex) == 1) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return hexdec($hex);
-&#xA0; &#xA0; &#xA0; &#xA0; } else {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $remain = substr($hex, 0, -1);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $last = substr($hex, -1);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return bcadd(bcmul(16, bchexdec($remain)), hexdec($last));
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; public static function bcdechex($dec) {
-&#xA0; &#xA0; &#xA0; &#xA0; $last = bcmod($dec, 16);
-&#xA0; &#xA0; &#xA0; &#xA0; $remain = bcdiv(bcsub($dec, $last), 16);
-
-&#xA0; &#xA0; &#xA0; &#xA0; if($remain == 0) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return dechex($last);
-&#xA0; &#xA0; &#xA0; &#xA0; } else {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return bcdechex($remain).dechex($last);
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
-
-
-  
+<?php<br>    public static function bchexdec($hex) {<br>        if(strlen($hex) == 1) {<br>            return hexdec($hex);<br>        } else {<br>            $remain = substr($hex, 0, -1);<br>            $last = substr($hex, -1);<br>            return bcadd(bcmul(16, bchexdec($remain)), hexdec($last));<br>        }<br>    }<br><br>    public static function bcdechex($dec) {<br>        $last = bcmod($dec, 16);<br>        $remain = bcdiv(bcsub($dec, $last), 16);<br><br>        if($remain == 0) {<br>            return dechex($last);<br>        } else {<br>            return bcdechex($remain).dechex($last);<br>        }<br>    }  
 
 #
 

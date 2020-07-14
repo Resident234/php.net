@@ -2,47 +2,26 @@
 
 
 
-
-
-unlink() does not clear the cache if you are performing file_exists() on a remote file like:
-
-
-
-
+unlink() does not clear the cache if you are performing file_exists() on a remote file like:<br><br>
 
 ```
 <?php
-
-if (file_exists(&quot;ftp://ftp.example.com/somefile&quot;))
-
+if (file_exists("ftp://ftp.example.com/somefile"))
 ?>
 ```
-
-
 
 
 In this case, even after you unlink() successfully, you must call clearstatcache().
 
 
 
-
-
 ```
 <?php
-
-unlink(&quot;ftp://ftp.example.com/somefile&quot;);
-
+unlink("ftp://ftp.example.com/somefile");
 clearstatcache();
-
 ?>
 ```
-
-
-
-
-file_exists() then properly returns false.
-
-  
+<br><br>file_exists() then properly returns false.  
 
 #
 

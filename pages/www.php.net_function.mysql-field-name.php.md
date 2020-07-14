@@ -2,50 +2,43 @@
 
 
 
-
-
-This function is slightly stupid to be honest, why not just make an array of field names... You could consolidate the two of these functions that way and it makes it a lot easier to list them when your script is dynamic.
-
-
+This function is slightly stupid to be honest, why not just make an array of field names... You could consolidate the two of these functions that way and it makes it a lot easier to list them when your script is dynamic.<br><br>
 
 ```
 <?php
 
-&#xA0; &#xA0; function mysql_field_array( $query ) {
-&#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; $field = mysql_num_fields( $query );
-&#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; for ( $i = 0; $i &lt; $field; $i++ ) {
-&#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $names[] = mysql_field_name( $query, $i );
-&#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; 
-&#xA0; &#xA0; &#xA0; &#xA0; return $names;
-&#xA0; &#xA0; 
-&#xA0; &#xA0; }
-&#xA0; &#xA0; 
-&#xA0; &#xA0; // Examples of use
-&#xA0; &#xA0; 
-&#xA0; &#xA0; $fields = mysql_field_array( $query );
-&#xA0; &#xA0; 
-&#xA0; &#xA0; // Show name of column 3
-&#xA0; &#xA0; 
-&#xA0; &#xA0; echo $fields[3];
-&#xA0; &#xA0; 
-&#xA0; &#xA0; // Show them all
-&#xA0; &#xA0; 
-&#xA0; &#xA0; echo implode( &apos;, &apos;, $fields[3] );
-&#xA0; &#xA0; 
-&#xA0; &#xA0;&#xA0; // Count them - easy equivelant to &apos;mysql_num_fields&apos;
-&#xA0; &#xA0; 
-&#xA0; &#xA0; echo count( $fields );
+    function mysql_field_array( $query ) {
+    
+        $field = mysql_num_fields( $query );
+    
+        for ( $i = 0; $i &lt; $field; $i++ ) {
+        
+            $names[] = mysql_field_name( $query, $i );
+        
+        }
+        
+        return $names;
+    
+    }
+    
+    // Examples of use
+    
+    $fields = mysql_field_array( $query );
+    
+    // Show name of column 3
+    
+    echo $fields[3];
+    
+    // Show them all
+    
+    echo implode( &apos;, &apos;, $fields[3] );
+    
+     // Count them - easy equivelant to &apos;mysql_num_fields&apos;
+    
+    echo count( $fields );
 
 ?>
 ```
-
-
-
   
 
 #

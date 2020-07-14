@@ -2,20 +2,111 @@
 
 
 
+With the (?R) item you can link only to the full pattern, because it quasi equals to (?0). You can not use anchors, asserts etc., and you can only check that string CONTAINS a valid hierarchy or not.<br><br>This is wrong: ^\(((?>
+```
+[^()]+)|(?R))*\)$<br><br>However, you can bracketing the full expression, and replace (?R) to the relative link (?-2). This make it reusable. So you can check complex expressions, for example:<br>
 
-<div class="phpcode"><span class="html">
-With the (?R) item you can link only to the full pattern, because it quasi equals to (?0). You can not use anchors, asserts etc., and you can only check that string CONTAINS a valid hierarchy or not.<br><br>This is wrong: ^\(((?&gt;[^()]+)|(?R))*\)$<br><br>However, you can bracketing the full expression, and replace (?R) to the relative link (?-2). This make it reusable. So you can check complex expressions, for example:<br><span class="default">&lt;?php<br><br>$bracket_system </span><span class="keyword">= </span><span class="string">&quot;(\\(((?&gt;[^()]+)|(?-2))*\\))&quot;</span><span class="keyword">; </span><span class="comment">// (reuseable)<br></span><span class="default">$bracket_systems </span><span class="keyword">= </span><span class="string">&quot;((?&gt;[^()]+)?</span><span class="default">$bracket_system</span><span class="string">)*(?&gt;[^()]+)?&quot;</span><span class="keyword">; </span><span class="comment">// (reuseable)<br></span><span class="default">$equation </span><span class="keyword">= </span><span class="string">&quot;</span><span class="default">$bracket_systems</span><span class="string">=</span><span class="default">$bracket_systems</span><span class="string">&quot;</span><span class="keyword">; </span><span class="comment">// Both side of the equation must be contain valid bracket systems<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">&quot;/^</span><span class="default">$equation</span><span class="string">\$/&quot;</span><span class="keyword">,</span><span class="string">&quot;a*(a-(2a+2))=4(a+3)-2(a-(a-2))&quot;</span><span class="keyword">)); </span><span class="comment">// Outputs &apos;int(1)&apos;<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">&quot;/^</span><span class="default">$equation</span><span class="string">\$/&quot;</span><span class="keyword">,</span><span class="string">&quot;a*(a-(2a+2)=4(a+3)-2(a-(a-2)))&quot;</span><span class="keyword">)); </span><span class="comment">// Outputs &apos;int(0)&apos;<br><br></span><span class="default">?&gt;<br></span><br>You can also catch multibyte quotes with the &apos;u&apos; modifier (if you use UTF-8), eg:<br><span class="default">&lt;?php<br><br>$quoted </span><span class="keyword">= </span><span class="string">&quot;(&#xBB;((?&gt;[^&#xBB;&#xAB;]+)|(?-2))*&#xAB;)&quot;</span><span class="keyword">; </span><span class="comment">// (reuseable)<br></span><span class="default">$prompt </span><span class="keyword">= </span><span class="string">&quot;[\\w ]+: </span><span class="default">$quoted</span><span class="string">&quot;</span><span class="keyword">;<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">preg_match</span><span class="keyword">(</span><span class="string">&quot;/^</span><span class="default">$prompt</span><span class="string">\$/u&quot;</span><span class="keyword">,</span><span class="string">&quot;Your name: &#xBB;write here&#xAB;&quot;</span><span class="keyword">)); </span><span class="comment">// Outputs &apos;int(1)&apos;<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+$bracket_system = "(\\(((?>
+```
+[^()]+)|(?-2))*\\))"; // (reuseable)
+$bracket_systems = "((?>
+```
+[^()]+)?$bracket_system)*(?>
+```
+[^()]+)?"; // (reuseable)
+$equation = "$bracket_systems=$bracket_systems"; // Both side of the equation must be contain valid bracket systems
+var_dump(preg_match("/^$equation\$/","a*(a-(2a+2))=4(a+3)-2(a-(a-2))")); // Outputs &apos;int(1)&apos;
+var_dump(preg_match("/^$equation\$/","a*(a-(2a+2)=4(a+3)-2(a-(a-2)))")); // Outputs &apos;int(0)&apos;
+
+?>
+```
+
+
+You can also catch multibyte quotes with the &apos;u&apos; modifier (if you use UTF-8), eg:
+
+
+```
+<?php
+
+$quoted = "(&#xBB;((?>
+```
+[^&#xBB;&#xAB;]+)|(?-2))*&#xAB;)"; // (reuseable)
+$prompt = "[\\w ]+: $quoted";
+var_dump(preg_match("/^$prompt\$/u","Your name: &#xBB;write here&#xAB;")); // Outputs &apos;int(1)&apos;
+
+?>
+```
   
 
 #
 
+The recursion in regular expressions is the only way to allow the parsing of HTML code with nested tags of indefinite depth.<br>It seems it&apos;s not yet a spreaded practice; not so much contents are available on the web regarding regexp recursion, and until now no user contribute notes have been published on this manual page.<br>I made several tests with complex patterns to get tags with specific attributes or namespaces, studying the recursion of a subpattern only instead of the full pattern.<br>Here&apos;s an example that may power a fast LL parser with recursive descent (http://en.wikipedia.org/wiki/Recursive_descent_parser):<br><br>$pattern = "/&lt;([\w]+)([^&gt;]*?) (([\s]*\/&gt;)| (&gt;((([^&lt;]*?|&lt;\!\-\-.*?\-\-&gt;)| (?R))*)&lt;\/\\1[\s]*&gt;))/xsm";<br><br>The performances of a preg_match or preg_match_all function call over an avarage (x)HTML document are quite fast and may drive you to chose this way instead of classic DOM object methods, which have a lot of limits and are usually poor in performance with their workarounds, too.<br>I post a sample application in a brief function (easy to be turned into OOP), which returns an array of objects:<br><br>
 
-<div class="phpcode"><span class="html">
-The recursion in regular expressions is the only way to allow the parsing of HTML code with nested tags of indefinite depth.<br>It seems it&apos;s not yet a spreaded practice; not so much contents are available on the web regarding regexp recursion, and until now no user contribute notes have been published on this manual page.<br>I made several tests with complex patterns to get tags with specific attributes or namespaces, studying the recursion of a subpattern only instead of the full pattern.<br>Here&apos;s an example that may power a fast LL parser with recursive descent (<a href="http://en.wikipedia.org/wiki/Recursive_descent_parser" rel="nofollow" target="_blank">http://en.wikipedia.org/wiki/Recursive_descent_parser</a>):<br><br>$pattern = &quot;/&lt;([\w]+)([^&gt;]*?) (([\s]*\/&gt;)| (&gt;((([^&lt;]*?|&lt;\!\-\-.*?\-\-&gt;)| (?R))*)&lt;\/\\1[\s]*&gt;))/xsm&quot;;<br><br>The performances of a preg_match or preg_match_all function call over an avarage (x)HTML document are quite fast and may drive you to chose this way instead of classic DOM object methods, which have a lot of limits and are usually poor in performance with their workarounds, too.<br>I post a sample application in a brief function (easy to be turned into OOP), which returns an array of objects:<br><br><span class="default">&lt;?php<br></span><span class="comment">// test function:<br></span><span class="keyword">function </span><span class="default">parse</span><span class="keyword">(</span><span class="default">$html</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="comment">// I have split the pattern in two lines not to have long lines alerts by the PHP.net form:<br>&#xA0; &#xA0; </span><span class="default">$pattern </span><span class="keyword">= </span><span class="string">&quot;/&lt;([\w]+)([^&gt;]*?)(([\s]*\/&gt;)|&quot;</span><span class="keyword">.<br>&#xA0; &#xA0; </span><span class="string">&quot;(&gt;((([^&lt;]*?|&lt;\!\-\-.*?\-\-&gt;)|(?R))*)&lt;\/\\1[\s]*&gt;))/sm&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">preg_match_all</span><span class="keyword">(</span><span class="default">$pattern</span><span class="keyword">, </span><span class="default">$html</span><span class="keyword">, </span><span class="default">$matches</span><span class="keyword">, </span><span class="default">PREG_OFFSET_CAPTURE</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$elements </span><span class="keyword">= array();<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; foreach (</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">] as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$match</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$elements</span><span class="keyword">[] = (object)array(<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;node&apos; </span><span class="keyword">=&gt; </span><span class="default">$match</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">],<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;offset&apos; </span><span class="keyword">=&gt; </span><span class="default">$match</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">],<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;tagname&apos; </span><span class="keyword">=&gt; </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">],<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;attributes&apos; </span><span class="keyword">=&gt; isset(</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">]) ? </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">] : </span><span class="string">&apos;&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;omittag&apos; </span><span class="keyword">=&gt; (</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">4</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">][</span><span class="default">1</span><span class="keyword">] &gt; -</span><span class="default">1</span><span class="keyword">), </span><span class="comment">// boolean<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;inner_html&apos; </span><span class="keyword">=&gt; isset(</span><span class="default">$matches</span><span class="keyword">[</span><span class="default">6</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">]) ? </span><span class="default">$matches</span><span class="keyword">[</span><span class="default">6</span><span class="keyword">][</span><span class="default">$key</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">] : </span><span class="string">&apos;&apos;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">);<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">$elements</span><span class="keyword">;<br>}<br><br></span><span class="comment">// random html nodes as example:<br></span><span class="default">$html </span><span class="keyword">= &lt;&lt;&lt;EOD<br></span><span class="string">&lt;div id=&quot;airport&quot;&gt;<br>&#xA0; &#xA0; &lt;div geo:position=&quot;1.234324,3.455546&quot; class=&quot;index&quot;&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &lt;!-- comment test:<br>&#xA0; &#xA0; &#xA0; &#xA0; &lt;div class=&quot;index_top&quot; /&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; --&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &lt;div class=&quot;element decorator&quot;&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &lt;ul class=&quot;lister&quot;&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &lt;li onclick=&quot;javascript:item.showAttribute(&apos;desc&apos;);&quot;&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &lt;h3 class=&quot;outline&quot;&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &lt;a href=&quot;<a href="http://php.net/manual/en/regexp.reference.recursive.php" rel="nofollow" target="_blank">http://php.net/manual/en/regexp.reference.recursive.php</a>&quot; onclick=&quot;openPopup()&quot;&gt;Link&lt;/a&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &lt;/h3&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &lt;div class=&quot;description&quot;&gt;Sample description&lt;/div&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &lt;/li&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &lt;/ul&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &lt;/div&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &lt;div class=&quot;clean-line&quot;&gt;&lt;/div&gt;<br>&#xA0; &#xA0; &lt;/div&gt;<br>&lt;/div&gt;<br>&lt;div id=&quot;omittag_test&quot; rel=&quot;rootChild&quot; /&gt;<br></span><span class="keyword">EOD;<br><br></span><span class="comment">// application:<br></span><span class="default">$elements </span><span class="keyword">= </span><span class="default">parse</span><span class="keyword">(</span><span class="default">$html</span><span class="keyword">);<br><br>if (</span><span class="default">count</span><span class="keyword">(</span><span class="default">$elements</span><span class="keyword">) &gt; </span><span class="default">0</span><span class="keyword">) {<br>&#xA0; &#xA0; echo </span><span class="string">&quot;Elements found: &lt;b&gt;&quot;</span><span class="keyword">.</span><span class="default">count</span><span class="keyword">(</span><span class="default">$elements</span><span class="keyword">).</span><span class="string">&quot;&lt;/b&gt;&lt;br /&gt;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; foreach (</span><span class="default">$elements </span><span class="keyword">as </span><span class="default">$element</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;&lt;p&gt;Tpl node: &lt;pre&gt;&quot;</span><span class="keyword">.</span><span class="default">htmlentities</span><span class="keyword">(</span><span class="default">$element</span><span class="keyword">-&gt;</span><span class="default">node</span><span class="keyword">).</span><span class="string">&quot;&lt;/pre&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; Tagname: &lt;tt&gt;&quot;</span><span class="keyword">.</span><span class="default">$element</span><span class="keyword">-&gt;</span><span class="default">tagname</span><span class="keyword">.</span><span class="string">&quot;&lt;/tt&gt;&lt;br /&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; Attributes: &lt;tt&gt;&quot;</span><span class="keyword">.</span><span class="default">$element</span><span class="keyword">-&gt;</span><span class="default">attributes</span><span class="keyword">.</span><span class="string">&quot;&lt;/tt&gt;&lt;br /&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; Omittag: &lt;tt&gt;&quot;</span><span class="keyword">.(</span><span class="default">$element</span><span class="keyword">-&gt;</span><span class="default">omittag </span><span class="keyword">? </span><span class="string">&apos;true&apos; </span><span class="keyword">: </span><span class="string">&apos;false&apos;</span><span class="keyword">).</span><span class="string">&quot;&lt;/tt&gt;&lt;br /&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; Inner HTML: &lt;pre&gt;&quot;</span><span class="keyword">.</span><span class="default">htmlentities</span><span class="keyword">(</span><span class="default">$element</span><span class="keyword">-&gt;</span><span class="default">inner_html</span><span class="keyword">).</span><span class="string">&quot;&lt;/pre&gt;&lt;/p&gt;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+// test function:
+function parse($html) {
+    // I have split the pattern in two lines not to have long lines alerts by the PHP.net form:
+    $pattern = "/&lt;([\w]+)([^&gt;]*?)(([\s]*\/&gt;)|".
+    "(&gt;((([^&lt;]*?|&lt;\!\-\-.*?\-\-&gt;)|(?R))*)&lt;\/\\1[\s]*&gt;))/sm";
+    preg_match_all($pattern, $html, $matches, PREG_OFFSET_CAPTURE);
+    $elements = array();
+    
+    foreach ($matches[0] as $key =&gt; $match) {
+        $elements[] = (object)array(
+            &apos;node&apos; =&gt; $match[0],
+            &apos;offset&apos; =&gt; $match[1],
+            &apos;tagname&apos; =&gt; $matches[1][$key][0],
+            &apos;attributes&apos; =&gt; isset($matches[2][$key][0]) ? $matches[2][$key][0] : &apos;&apos;,
+            &apos;omittag&apos; =&gt; ($matches[4][$key][1] &gt; -1), // boolean
+            &apos;inner_html&apos; =&gt; isset($matches[6][$key][0]) ? $matches[6][$key][0] : &apos;&apos;
+        );
+    }
+    return $elements;
+}
+
+// random html nodes as example:
+$html = &lt;&lt;&lt;EOD
+&lt;div id="airport"&gt;
+    &lt;div geo:position="1.234324,3.455546" class="index"&gt;
+        &lt;!-- comment test:
+        &lt;div class="index_top" /&gt;
+        --&gt;
+        &lt;div class="element decorator"&gt;
+                &lt;ul class="lister"&gt;
+                    &lt;li onclick="javascript:item.showAttribute(&apos;desc&apos;);"&gt;
+                        &lt;h3 class="outline"&gt;
+                            &lt;a href="http://php.net/manual/en/regexp.reference.recursive.php" onclick="openPopup()"&gt;Link&lt;/a&gt;
+                        &lt;/h3&gt;
+                        &lt;div class="description"&gt;Sample description&lt;/div&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;div class="clean-line"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="omittag_test" rel="rootChild" /&gt;
+EOD;
+
+// application:
+$elements = parse($html);
+
+if (count($elements) &gt; 0) {
+    echo "Elements found: &lt;b&gt;".count($elements)."&lt;/b&gt;&lt;br /&gt;";
+    
+    foreach ($elements as $element) {
+        echo "&lt;p&gt;Tpl node: &lt;pre&gt;".htmlentities($element-&gt;node)."&lt;/pre&gt;
+        Tagname: &lt;tt&gt;".$element-&gt;tagname."&lt;/tt&gt;&lt;br /&gt;
+        Attributes: &lt;tt&gt;".$element-&gt;attributes."&lt;/tt&gt;&lt;br /&gt;
+        Omittag: &lt;tt&gt;".($element-&gt;omittag ? &apos;true&apos; : &apos;false&apos;)."&lt;/tt&gt;&lt;br /&gt;
+        Inner HTML: &lt;pre&gt;".htmlentities($element-&gt;inner_html)."&lt;/pre&gt;&lt;/p&gt;";
+    }
+}
+?>
+```
   
 
 #

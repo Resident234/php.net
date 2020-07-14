@@ -2,11 +2,7 @@
 
 
 
-
-
-This method is supported in the MySQL 5.0+ driver.&#xA0; It can be used for object hydration:
-
-
+This method is supported in the MySQL 5.0+ driver.  It can be used for object hydration:<br><br>
 
 ```
 <?php
@@ -15,24 +11,20 @@ $pdo_stmt = $dbh-&gt;execute(&apos;SELECT discussion.id, discussion.text, commen
 
 foreach(range(0, $pdo_stmt-&gt;columnCount() - 1) as $column_index)
 {
-&#xA0; $meta[] = $pdo_stmt-&gt;getColumnMeta($column_index);
+  $meta[] = $pdo_stmt-&gt;getColumnMeta($column_index);
 }
 
 while($row = $pdo_stmt-&gt;fetch(PDO::FETCH_NUM))
 {
-&#xA0; foreach($row as $column_index =&gt; $column_value)
-&#xA0; {
-&#xA0; &#xA0; //do something with the data, using the ids to establish the discussion.has_many(comments) relationship.
-&#xA0; }
+  foreach($row as $column_index =&gt; $column_value)
+  {
+    //do something with the data, using the ids to establish the discussion.has_many(comments) relationship.
+  }
 }
 
 ?>
 ```
-
-
-If you are building an ORM, this method is very useful to support more natural SQL syntax.&#xA0; Most ORMs require the column names to be aliases so that they can be parsed and turned into objects that properly represent has_one, has_many, many_to_many relationships.
-
-  
+<br><br>If you are building an ORM, this method is very useful to support more natural SQL syntax.  Most ORMs require the column names to be aliases so that they can be parsed and turned into objects that properly represent has_one, has_many, many_to_many relationships.  
 
 #
 

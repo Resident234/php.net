@@ -2,15 +2,7 @@
 
 
 
-
-
-Note:
-
-This extension is obsoleted by Hash.
-
-I thought I would post this here as it took me a few minutes to find out.
-
-  
+Note:<br><br>This extension is obsoleted by Hash.<br><br>I thought I would post this here as it took me a few minutes to find out.  
 
 #
 

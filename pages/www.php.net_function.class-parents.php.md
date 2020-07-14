@@ -3,10 +3,17 @@
 
 
 
-<div class="phpcode"><span class="html">
-<span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">foo </span><span class="keyword">{}<br>class </span><span class="default">bar </span><span class="keyword">extends </span><span class="default">foo </span><span class="keyword">{}<br>class </span><span class="default">baz </span><span class="keyword">extends </span><span class="default">bar </span><span class="keyword">{}<br><br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">class_parents</span><span class="keyword">(new </span><span class="default">baz</span><span class="keyword">));<br></span><span class="default">?&gt;<br></span><br>Will output:<br>Array<br>(<br>&#xA0; &#xA0; [bar] =&gt; bar<br>&#xA0; &#xA0; [foo] =&gt; foo<br>)</span>
-</div>
-  
+
+```
+<?php
+class foo {}
+class bar extends foo {}
+class baz extends bar {}
+
+print_r(class_parents(new baz));
+?>
+```
+<br><br>Will output:<br>Array<br>(<br>    [bar] =&gt; bar<br>    [foo] =&gt; foo<br>)  
 
 #
 

@@ -2,10 +2,7 @@
 
 
 
-
-
-Simple example of pathinfo and array destructuring in PHP 7:
-
+Simple example of pathinfo and array destructuring in PHP 7:<br>
 
 ```
 <?php
@@ -14,35 +11,15 @@ Simple example of pathinfo and array destructuring in PHP 7:
 var_dump($basename, $dirname);
 
 // result:
-// string(11) &quot;lib.inc.php&quot;
-// string(15) &quot;/www/htdocs/inc&quot;
+// string(11) "lib.inc.php"
+// string(15) "/www/htdocs/inc"
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-Note:
-
-pathinfo() is locale aware, so for it to parse a path containing multibyte characters correctly, the matching locale must be set using the setlocale() function. 
-
-Reality:
-var_dump(pathinfo(&apos;&#x4E2D;&#x56FD;&#x4EBA;2016.xls&apos;));
-exit();
-array(4) { &apos;dirname&apos; =&gt; string(1) &quot;.&quot; &apos;basename&apos; =&gt; string(8) &quot;2016.xls&quot; &apos;extension&apos; =&gt; string(3) &quot;xls&quot; &apos;filename&apos; =&gt; string(4) &quot;2016&quot; } 
-
-Expect(Solve):
-setlocale(LC_ALL, &apos;zh_CN.UTF-8&apos;);
-var_dump(pathinfo(&apos;&#x4E2D;&#x56FD;&#x4EBA;2016.xls&apos;));
-exit();
-array(4) { &apos;dirname&apos; =&gt; string(1) &quot;.&quot; &apos;basename&apos; =&gt; string(17) &quot;&#x4E2D;&#x56FD;&#x4EBA;2016.xls&quot; &apos;extension&apos; =&gt; string(3) &quot;xls&quot; &apos;filename&apos; =&gt; string(13) &quot;&#x4E2D;&#x56FD;&#x4EBA;2016&quot; }
-
-  
+Note:<br><br>pathinfo() is locale aware, so for it to parse a path containing multibyte characters correctly, the matching locale must be set using the setlocale() function. <br><br>Reality:<br>var_dump(pathinfo(&apos;&#x4E2D;&#x56FD;&#x4EBA;2016.xls&apos;));<br>exit();<br>array(4) { &apos;dirname&apos; =&gt; string(1) "." &apos;basename&apos; =&gt; string(8) "2016.xls" &apos;extension&apos; =&gt; string(3) "xls" &apos;filename&apos; =&gt; string(4) "2016" } <br><br>Expect(Solve):<br>setlocale(LC_ALL, &apos;zh_CN.UTF-8&apos;);<br>var_dump(pathinfo(&apos;&#x4E2D;&#x56FD;&#x4EBA;2016.xls&apos;));<br>exit();<br>array(4) { &apos;dirname&apos; =&gt; string(1) "." &apos;basename&apos; =&gt; string(17) "&#x4E2D;&#x56FD;&#x4EBA;2016.xls" &apos;extension&apos; =&gt; string(3) "xls" &apos;filename&apos; =&gt; string(13) "&#x4E2D;&#x56FD;&#x4EBA;2016" }  
 
 #
 

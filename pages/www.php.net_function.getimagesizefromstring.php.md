@@ -2,26 +2,19 @@
 
 
 
-
-
-getimagesizefromstring function for &lt; 5.4
-
-
+getimagesizefromstring function for &lt; 5.4<br><br>
 
 ```
 <?php
-&#xA0;&#xA0; if (!function_exists(&apos;getimagesizefromstring&apos;)) {
-&#xA0; &#xA0; &#xA0; function getimagesizefromstring($string_data)
-&#xA0; &#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $uri = &apos;data://application/octet-stream;base64,&apos;&#xA0; . base64_encode($string_data);
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; return getimagesize($uri);
-&#xA0; &#xA0; &#xA0; }
+   if (!function_exists(&apos;getimagesizefromstring&apos;)) {
+      function getimagesizefromstring($string_data)
+      {
+         $uri = &apos;data://application/octet-stream;base64,&apos;  . base64_encode($string_data);
+         return getimagesize($uri);
+      }
 }
 ?>
 ```
-
-
-
   
 
 #

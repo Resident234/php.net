@@ -2,26 +2,18 @@
 
 
 
-
-
-Add this method to your class definition if you want an array of class constants (get_defined_constants doesn&apos;t work with class constants as Peter P said above):
-
-
+Add this method to your class definition if you want an array of class constants (get_defined_constants doesn&apos;t work with class constants as Peter P said above):<br><br>
 
 ```
 <?php
 public function get_class_constants()
 {
-&#xA0; &#xA0; $reflect = new ReflectionClass(get_class($this));
-&#xA0; &#xA0; return $reflect-&gt;getConstants());
+    $reflect = new ReflectionClass(get_class($this));
+    return $reflect-&gt;getConstants());
 }
-php?>
+?>
 ```
-
-
-You could also override stdObject with it so that all your classes&#xA0; have this method
-
-  
+<br><br>You could also override stdObject with it so that all your classes  have this method  
 
 #
 

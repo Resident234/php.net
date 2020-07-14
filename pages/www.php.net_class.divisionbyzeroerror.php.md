@@ -2,13 +2,7 @@
 
 
 
-
-
-Note that on division by zero 1/0 and module by zero 1%0 an E_WARNING is triggered first (probably for backward compatibility with PHP5), then the DivisionByZeroError exception is thrown next.
-
-The result is, for example, that if you set the maximum level of error detection with error_level(-1) and you also map errors to exception, say ErrorException, then on division by zero only this latter exception is thrown reporting &quot;Division by zero&quot;. The result is that a code like this:
-
-
+Note that on division by zero 1/0 and module by zero 1%0 an E_WARNING is triggered first (probably for backward compatibility with PHP5), then the DivisionByZeroError exception is thrown next.<br><br>The result is, for example, that if you set the maximum level of error detection with error_level(-1) and you also map errors to exception, say ErrorException, then on division by zero only this latter exception is thrown reporting "Division by zero". The result is that a code like this:<br><br>
 
 ```
 <?php
@@ -20,18 +14,14 @@ function my_error_handler($errno, $message)
 { throw new ErrorException($message); }
 
 try {
-&#xA0; &#xA0; echo 1/0;
+    echo 1/0;
 }
 catch(ErrorException $e){
-&#xA0; &#xA0; echo &quot;got $e&quot;;
+    echo "got $e";
 }
 ?>
 ```
-
-
-allows to detect such error in the same way under PHP5 and PHP7, although the DivisionByZeroError exception is masked off by ErrorException.
-
-  
+<br><br>allows to detect such error in the same way under PHP5 and PHP7, although the DivisionByZeroError exception is masked off by ErrorException.  
 
 #
 

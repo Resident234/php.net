@@ -2,24 +2,17 @@
 
 
 
-
-
-There is no equivalent for this method in the new extension, so instead use&#x2026;
-
-
+There is no equivalent for this method in the new extension, so instead use&#x2026;<br><br>
 
 ```
 <?php
 if ($id instanceof \MongoDB\BSON\ObjectID
-&#xA0; &#xA0; || preg_match(&apos;/^[a-f\d]{24}$/i&apos;, $id)
+    || preg_match(&apos;/^[a-f\d]{24}$/i&apos;, $id)
 ) {
-&#xA0; &#x2026;
+  &#x2026;
 }
 ?>
 ```
-
-
-
   
 
 #

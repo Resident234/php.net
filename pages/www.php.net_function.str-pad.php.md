@@ -2,28 +2,102 @@
 
 
 
+since the default pad_type is STR_PAD_RIGHT. using STR_PAD_BOTH were always favor in the right pad if the required number of padding characters can&apos;t be evenly divided. <br><br>e.g<br><br>
 
-<div class="phpcode"><span class="html">
-since the default pad_type is STR_PAD_RIGHT. using STR_PAD_BOTH were always favor in the right pad if the required number of padding characters can&apos;t be evenly divided. <br><br>e.g<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">echo </span><span class="default">str_pad</span><span class="keyword">(</span><span class="string">&quot;input&quot;</span><span class="keyword">, </span><span class="default">10</span><span class="keyword">, </span><span class="string">&quot;pp&quot;</span><span class="keyword">, </span><span class="default">STR_PAD_BOTH </span><span class="keyword">); </span><span class="comment">// ppinputppp<br></span><span class="keyword">echo </span><span class="default">str_pad</span><span class="keyword">(</span><span class="string">&quot;input&quot;</span><span class="keyword">, </span><span class="default">6</span><span class="keyword">, </span><span class="string">&quot;p&quot;</span><span class="keyword">, </span><span class="default">STR_PAD_BOTH </span><span class="keyword">); </span><span class="comment">// inputp<br></span><span class="keyword">echo </span><span class="default">str_pad</span><span class="keyword">(</span><span class="string">&quot;input&quot;</span><span class="keyword">, </span><span class="default">8</span><span class="keyword">, </span><span class="string">&quot;p&quot;</span><span class="keyword">, </span><span class="default">STR_PAD_BOTH </span><span class="keyword">); </span><span class="comment">//pinputpp<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+echo str_pad("input", 10, "pp", STR_PAD_BOTH ); // ppinputppp
+echo str_pad("input", 6, "p", STR_PAD_BOTH ); // inputp
+echo str_pad("input", 8, "p", STR_PAD_BOTH ); //pinputpp
+
+?>
+```
   
 
 #
 
+A proper unicode string padder;<br><br>
 
-<div class="phpcode"><span class="html">
-A proper unicode string padder;<br><br><span class="default">&lt;?php<br>mb_internal_encoding</span><span class="keyword">(</span><span class="string">&apos;utf-8&apos;</span><span class="keyword">); </span><span class="comment">// @important<br><br></span><span class="keyword">function </span><span class="default">str_pad_unicode</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$pad_len</span><span class="keyword">, </span><span class="default">$pad_str </span><span class="keyword">= </span><span class="string">&apos; &apos;</span><span class="keyword">, </span><span class="default">$dir </span><span class="keyword">= </span><span class="default">STR_PAD_RIGHT</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$str_len </span><span class="keyword">= </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$pad_str_len </span><span class="keyword">= </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$pad_str</span><span class="keyword">);<br>&#xA0; &#xA0; if (!</span><span class="default">$str_len </span><span class="keyword">&amp;&amp; (</span><span class="default">$dir </span><span class="keyword">== </span><span class="default">STR_PAD_RIGHT </span><span class="keyword">|| </span><span class="default">$dir </span><span class="keyword">== </span><span class="default">STR_PAD_LEFT</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$str_len </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; </span><span class="comment">// @debug<br>&#xA0; &#xA0; </span><span class="keyword">}<br>&#xA0; &#xA0; if (!</span><span class="default">$pad_len </span><span class="keyword">|| !</span><span class="default">$pad_str_len </span><span class="keyword">|| </span><span class="default">$pad_len </span><span class="keyword">&lt;= </span><span class="default">$str_len</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$str</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$repeat </span><span class="keyword">= </span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$str_len </span><span class="keyword">- </span><span class="default">$pad_str_len </span><span class="keyword">+ </span><span class="default">$pad_len</span><span class="keyword">);<br>&#xA0; &#xA0; if (</span><span class="default">$dir </span><span class="keyword">== </span><span class="default">STR_PAD_RIGHT</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">$str </span><span class="keyword">. </span><span class="default">str_repeat</span><span class="keyword">(</span><span class="default">$pad_str</span><span class="keyword">, </span><span class="default">$repeat</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$pad_len</span><span class="keyword">);<br>&#xA0; &#xA0; } else if (</span><span class="default">$dir </span><span class="keyword">== </span><span class="default">STR_PAD_LEFT</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">str_repeat</span><span class="keyword">(</span><span class="default">$pad_str</span><span class="keyword">, </span><span class="default">$repeat</span><span class="keyword">) . </span><span class="default">$str</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$result</span><span class="keyword">, -</span><span class="default">$pad_len</span><span class="keyword">);<br>&#xA0; &#xA0; } else if (</span><span class="default">$dir </span><span class="keyword">== </span><span class="default">STR_PAD_BOTH</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$length </span><span class="keyword">= (</span><span class="default">$pad_len </span><span class="keyword">- </span><span class="default">$str_len</span><span class="keyword">) / </span><span class="default">2</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$repeat </span><span class="keyword">= </span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$length </span><span class="keyword">/ </span><span class="default">$pad_str_len</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">str_repeat</span><span class="keyword">(</span><span class="default">$pad_str</span><span class="keyword">, </span><span class="default">$repeat</span><span class="keyword">), </span><span class="default">0</span><span class="keyword">, </span><span class="default">floor</span><span class="keyword">(</span><span class="default">$length</span><span class="keyword">)) <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; . </span><span class="default">$str <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="keyword">. </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">str_repeat</span><span class="keyword">(</span><span class="default">$pad_str</span><span class="keyword">, </span><span class="default">$repeat</span><span class="keyword">), </span><span class="default">0</span><span class="keyword">, </span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$length</span><span class="keyword">));<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; return </span><span class="default">$result</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>Test;<br><span class="default">&lt;?php<br></span><span class="comment">// needs ie. &quot;test.php&quot; file encoded in &quot;utf-8 without bom&quot;<br></span><span class="default">$s </span><span class="keyword">= </span><span class="string">&apos;...&apos;</span><span class="keyword">;<br>for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">3</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt;= </span><span class="default">1000</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">++) {<br>&#xA0; &#xA0; </span><span class="default">$s1 </span><span class="keyword">= </span><span class="default">str_pad</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="string">&apos;AO&apos;</span><span class="keyword">, </span><span class="default">STR_PAD_BOTH</span><span class="keyword">); </span><span class="comment">// can not inculde unicode char!!!<br>&#xA0; &#xA0; </span><span class="default">$s2 </span><span class="keyword">= </span><span class="default">str_pad_unicode</span><span class="keyword">(</span><span class="default">$s</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">, </span><span class="string">&apos;&#xC4;&#xD6;&apos;</span><span class="keyword">, </span><span class="default">STR_PAD_BOTH</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$sl1 </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$s1</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$sl2 </span><span class="keyword">= </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$s2</span><span class="keyword">);<br>&#xA0; &#xA0; echo&#xA0; </span><span class="string">&quot;len </span><span class="default">$sl1</span><span class="string">: </span><span class="default">$s1</span><span class="string"> \n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; echo&#xA0; </span><span class="string">&quot;len </span><span class="default">$sl2</span><span class="string">: </span><span class="default">$s2</span><span class="string"> \n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; echo&#xA0; </span><span class="string">&quot;\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; if (</span><span class="default">$sl1 </span><span class="keyword">!= </span><span class="default">$sl2</span><span class="keyword">) die(</span><span class="string">&quot;Fail!&quot;</span><span class="keyword">);<br>}<br></span><span class="default">?&gt;<br></span><br>Output;<br>len 3: ... <br>len 3: ... <br><br>len 4: ...A <br>len 4: ...&#xC4; <br><br>len 5: A...A <br>len 5: &#xC4;...&#xC4; <br><br>len 6: A...AO <br>len 6: &#xC4;...&#xC4;&#xD6; <br>...</span>
-</div>
-  
+```
+<?php
+mb_internal_encoding(&apos;utf-8&apos;); // @important
+
+function str_pad_unicode($str, $pad_len, $pad_str = &apos; &apos;, $dir = STR_PAD_RIGHT) {
+    $str_len = mb_strlen($str);
+    $pad_str_len = mb_strlen($pad_str);
+    if (!$str_len &amp;&amp; ($dir == STR_PAD_RIGHT || $dir == STR_PAD_LEFT)) {
+        $str_len = 1; // @debug
+    }
+    if (!$pad_len || !$pad_str_len || $pad_len &lt;= $str_len) {
+        return $str;
+    }
+    
+    $result = null;
+    $repeat = ceil($str_len - $pad_str_len + $pad_len);
+    if ($dir == STR_PAD_RIGHT) {
+        $result = $str . str_repeat($pad_str, $repeat);
+        $result = mb_substr($result, 0, $pad_len);
+    } else if ($dir == STR_PAD_LEFT) {
+        $result = str_repeat($pad_str, $repeat) . $str;
+        $result = mb_substr($result, -$pad_len);
+    } else if ($dir == STR_PAD_BOTH) {
+        $length = ($pad_len - $str_len) / 2;
+        $repeat = ceil($length / $pad_str_len);
+        $result = mb_substr(str_repeat($pad_str, $repeat), 0, floor($length)) 
+                    . $str 
+                       . mb_substr(str_repeat($pad_str, $repeat), 0, ceil($length));
+    }
+    
+    return $result;
+}
+?>
+```
+
+
+Test;
+
+
+```
+<?php
+// needs ie. "test.php" file encoded in "utf-8 without bom"
+$s = &apos;...&apos;;
+for ($i = 3; $i &lt;= 1000; $i++) {
+    $s1 = str_pad($s, $i, &apos;AO&apos;, STR_PAD_BOTH); // can not inculde unicode char!!!
+    $s2 = str_pad_unicode($s, $i, &apos;&#xC4;&#xD6;&apos;, STR_PAD_BOTH);
+    $sl1 = strlen($s1);
+    $sl2 = mb_strlen($s2);
+    echo  "len $sl1: $s1 \n";
+    echo  "len $sl2: $s2 \n";
+    echo  "\n";
+    if ($sl1 != $sl2) die("Fail!");
+}
+?>
+```
+<br><br>Output;<br>len 3: ... <br>len 3: ... <br><br>len 4: ...A <br>len 4: ...&#xC4; <br><br>len 5: A...A <br>len 5: &#xC4;...&#xC4; <br><br>len 6: A...AO <br>len 6: &#xC4;...&#xC4;&#xD6; <br>...  
 
 #
 
+multibyte version:<br><br>
 
-<div class="phpcode"><span class="html">
-multibyte version:<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">mb_str_pad</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$pad_len</span><span class="keyword">, </span><span class="default">$pad_str </span><span class="keyword">= </span><span class="string">&apos; &apos;</span><span class="keyword">, </span><span class="default">$dir </span><span class="keyword">= </span><span class="default">STR_PAD_RIGHT</span><span class="keyword">, </span><span class="default">$encoding </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="default">$encoding </span><span class="keyword">= </span><span class="default">$encoding </span><span class="keyword">=== </span><span class="default">NULL </span><span class="keyword">? </span><span class="default">mb_internal_encoding</span><span class="keyword">() : </span><span class="default">$encoding</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$padBefore </span><span class="keyword">= </span><span class="default">$dir </span><span class="keyword">=== </span><span class="default">STR_PAD_BOTH </span><span class="keyword">|| </span><span class="default">$dir </span><span class="keyword">=== </span><span class="default">STR_PAD_LEFT</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$padAfter </span><span class="keyword">= </span><span class="default">$dir </span><span class="keyword">=== </span><span class="default">STR_PAD_BOTH </span><span class="keyword">|| </span><span class="default">$dir </span><span class="keyword">=== </span><span class="default">STR_PAD_RIGHT</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$pad_len </span><span class="keyword">-= </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$str</span><span class="keyword">, </span><span class="default">$encoding</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$targetLen </span><span class="keyword">= </span><span class="default">$padBefore </span><span class="keyword">&amp;&amp; </span><span class="default">$padAfter </span><span class="keyword">? </span><span class="default">$pad_len </span><span class="keyword">/ </span><span class="default">2 </span><span class="keyword">: </span><span class="default">$pad_len</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$strToRepeatLen </span><span class="keyword">= </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$pad_str</span><span class="keyword">, </span><span class="default">$encoding</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$repeatTimes </span><span class="keyword">= </span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$targetLen </span><span class="keyword">/ </span><span class="default">$strToRepeatLen</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$repeatedString </span><span class="keyword">= </span><span class="default">str_repeat</span><span class="keyword">(</span><span class="default">$pad_str</span><span class="keyword">, </span><span class="default">max</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">$repeatTimes</span><span class="keyword">)); </span><span class="comment">// safe if used with valid utf-8 strings<br>&#xA0; &#xA0; </span><span class="default">$before </span><span class="keyword">= </span><span class="default">$padBefore </span><span class="keyword">? </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$repeatedString</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">floor</span><span class="keyword">(</span><span class="default">$targetLen</span><span class="keyword">), </span><span class="default">$encoding</span><span class="keyword">) : </span><span class="string">&apos;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$after </span><span class="keyword">= </span><span class="default">$padAfter </span><span class="keyword">? </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$repeatedString</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">ceil</span><span class="keyword">(</span><span class="default">$targetLen</span><span class="keyword">), </span><span class="default">$encoding</span><span class="keyword">) : </span><span class="string">&apos;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; return </span><span class="default">$before </span><span class="keyword">. </span><span class="default">$str </span><span class="keyword">. </span><span class="default">$after</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+function mb_str_pad($str, $pad_len, $pad_str = &apos; &apos;, $dir = STR_PAD_RIGHT, $encoding = NULL)
+{
+    $encoding = $encoding === NULL ? mb_internal_encoding() : $encoding;
+    $padBefore = $dir === STR_PAD_BOTH || $dir === STR_PAD_LEFT;
+    $padAfter = $dir === STR_PAD_BOTH || $dir === STR_PAD_RIGHT;
+    $pad_len -= mb_strlen($str, $encoding);
+    $targetLen = $padBefore &amp;&amp; $padAfter ? $pad_len / 2 : $pad_len;
+    $strToRepeatLen = mb_strlen($pad_str, $encoding);
+    $repeatTimes = ceil($targetLen / $strToRepeatLen);
+    $repeatedString = str_repeat($pad_str, max(0, $repeatTimes)); // safe if used with valid utf-8 strings
+    $before = $padBefore ? mb_substr($repeatedString, 0, floor($targetLen), $encoding) : &apos;&apos;;
+    $after = $padAfter ? mb_substr($repeatedString, 0, ceil($targetLen), $encoding) : &apos;&apos;;
+    return $before . $str . $after;
+}
+?>
+```
   
 
 #

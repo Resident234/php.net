@@ -2,56 +2,26 @@
 
 
 
-
-
-The definition should mention that the function also &quot;turns off output buffering&quot;, not just cleans it.
-
-  
+The definition should mention that the function also "turns off output buffering", not just cleans it.  
 
 #
 
-
-
-Also, don&apos;t forget that you will need to ob_start() again for any successive calls:
-
-
-
-
+Also, don&apos;t forget that you will need to ob_start() again for any successive calls:<br><br>
 
 ```
 <?php
-
 ob_start();
-
-echo &quot;1&quot;;
-
+echo "1";
 $content = ob_get_clean();
 
-
-
 ob_start(); // This is NECESSARY for the next ob_get_clean() to work as intended.
-
-echo &quot;2&quot;;
-
+echo "2";
 $content .= ob_get_clean();
 
-
-
 echo $content;
-
-php?>
+?>
 ```
-
-
-
-
-Output: 12
-
-
-
-Without the second ob_start(), the output is 21 ...
-
-  
+<br><br>Output: 12<br><br>Without the second ob_start(), the output is 21 ...  
 
 #
 

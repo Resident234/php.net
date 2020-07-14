@@ -2,11 +2,37 @@
 
 
 
+This is my try on linenumbers<br>
 
-<div class="phpcode"><span class="html">
-This is my try on linenumbers<br><span class="default">&lt;?php<br>&#xA0; &#xA0; </span><span class="keyword">public static function </span><span class="default">highlight_file_with_line_numbers</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">) { <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//Strip code and first span<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$code </span><span class="keyword">= </span><span class="default">substr</span><span class="keyword">(</span><span class="default">highlight_file</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">), </span><span class="default">36</span><span class="keyword">, -</span><span class="default">15</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//Split lines<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$lines </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&apos;&lt;br /&gt;&apos;</span><span class="keyword">, </span><span class="default">$code</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//Count<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$lineCount </span><span class="keyword">= </span><span class="default">count</span><span class="keyword">(</span><span class="default">$lines</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//Calc pad length<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$padLength </span><span class="keyword">= </span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$lineCount</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//Re-Print the code and span again<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">echo </span><span class="string">&quot;&lt;code&gt;&lt;span style=\&quot;color: #000000\&quot;&gt;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//Loop lines<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">foreach(</span><span class="default">$lines </span><span class="keyword">as </span><span class="default">$i </span><span class="keyword">=&gt; </span><span class="default">$line</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//Create line number<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$lineNumber </span><span class="keyword">= </span><span class="default">str_pad</span><span class="keyword">(</span><span class="default">$i </span><span class="keyword">+ </span><span class="default">1</span><span class="keyword">,&#xA0; </span><span class="default">$padLength</span><span class="keyword">, </span><span class="string">&apos;0&apos;</span><span class="keyword">, </span><span class="default">STR_PAD_LEFT</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//Print line<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">&apos;&lt;br&gt;&lt;span style=&quot;color: #999999&quot;&gt;%s | &lt;/span&gt;%s&apos;</span><span class="keyword">, </span><span class="default">$lineNumber</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//Close span<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">echo </span><span class="string">&quot;&lt;/span&gt;&lt;/code&gt;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+    public static function highlight_file_with_line_numbers($file) { 
+          //Strip code and first span
+        $code = substr(highlight_file($file, true), 36, -15);
+        //Split lines
+        $lines = explode(&apos;&lt;br /&gt;&apos;, $code);
+        //Count
+        $lineCount = count($lines);
+        //Calc pad length
+        $padLength = strlen($lineCount);
+        
+        //Re-Print the code and span again
+        echo "&lt;code&gt;&lt;span style=\"color: #000000\"&gt;";
+        
+        //Loop lines
+        foreach($lines as $i =&gt; $line) {
+            //Create line number
+            $lineNumber = str_pad($i + 1,  $padLength, &apos;0&apos;, STR_PAD_LEFT);
+            //Print line
+            echo sprintf(&apos;&lt;br&gt;&lt;span style="color: #999999"&gt;%s | &lt;/span&gt;%s&apos;, $lineNumber, $line);
+        }
+        
+        //Close span
+        echo "&lt;/span&gt;&lt;/code&gt;";
+    }
+
+?>
+```
   
 
 #

@@ -2,11 +2,99 @@
 
 
 
+A simple PHP script using socket_select() to manage multiple connections.<br>connect using "telnet localhost 9050". it broadcasts your messages that you send through telnet to other users connected to the server -- sort of like a chat script<br><br>#!/usr/local/bin/php<br>
 
-<div class="phpcode"><span class="html">
-A simple PHP script using socket_select() to manage multiple connections.<br>connect using &quot;telnet localhost 9050&quot;. it broadcasts your messages that you send through telnet to other users connected to the server -- sort of like a chat script<br><br>#!/usr/local/bin/php<br><span class="default">&lt;?php<br><br>&#xA0; &#xA0; $port </span><span class="keyword">= </span><span class="default">9050</span><span class="keyword">;<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">// create a streaming socket, of type TCP/IP<br>&#xA0; &#xA0; </span><span class="default">$sock </span><span class="keyword">= </span><span class="default">socket_create</span><span class="keyword">(</span><span class="default">AF_INET</span><span class="keyword">, </span><span class="default">SOCK_STREAM</span><span class="keyword">, </span><span class="default">SOL_TCP</span><span class="keyword">);<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">// set the option to reuse the port<br>&#xA0; &#xA0; </span><span class="default">socket_set_option</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="default">SOL_SOCKET</span><span class="keyword">, </span><span class="default">SO_REUSEADDR</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">// &quot;bind&quot; the socket to the address to &quot;localhost&quot;, on port $port<br>&#xA0; &#xA0; // so this means that all connections on this port are now our resposibility to send/recv data, disconnect, etc..<br>&#xA0; &#xA0; </span><span class="default">socket_bind</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$port</span><span class="keyword">);<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="comment">// start listen for connections<br>&#xA0; &#xA0; </span><span class="default">socket_listen</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br><br>&#xA0; &#xA0; </span><span class="comment">// create a list of all the clients that will be connected to us..<br>&#xA0; &#xA0; // add the listening socket to this list<br>&#xA0; &#xA0; </span><span class="default">$clients </span><span class="keyword">= array(</span><span class="default">$sock</span><span class="keyword">);<br>&#xA0; &#xA0; <br>&#xA0; &#xA0; while (</span><span class="default">true</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// create a copy, so $clients doesn&apos;t get modified by socket_select()<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$read </span><span class="keyword">= </span><span class="default">$clients</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// get a list of all the clients that have data to be read from<br>&#xA0; &#xA0; &#xA0; &#xA0; // if there are no clients with data, go to next iteration<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if (</span><span class="default">socket_select</span><span class="keyword">(</span><span class="default">$read</span><span class="keyword">, </span><span class="default">$write </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">, </span><span class="default">$except </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">) &lt; </span><span class="default">1</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; continue;<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// check if there is a client trying to connect<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if (</span><span class="default">in_array</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="default">$read</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// accept the client, and add him to the $clients array<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$clients</span><span class="keyword">[] = </span><span class="default">$newsock </span><span class="keyword">= </span><span class="default">socket_accept</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// send the client a welcome message<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$newsock</span><span class="keyword">, </span><span class="string">&quot;no noobs, but ill make an exception :)\n&quot;</span><span class="keyword">.<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&quot;There are &quot;</span><span class="keyword">.(</span><span class="default">count</span><span class="keyword">(</span><span class="default">$clients</span><span class="keyword">) - </span><span class="default">1</span><span class="keyword">).</span><span class="string">&quot; client(s) connected to the server\n&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">socket_getpeername</span><span class="keyword">(</span><span class="default">$newsock</span><span class="keyword">, </span><span class="default">$ip</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;New client connected: </span><span class="keyword">{</span><span class="default">$ip</span><span class="keyword">}</span><span class="string">\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// remove the listening socket from the clients-with-data array<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$key </span><span class="keyword">= </span><span class="default">array_search</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">, </span><span class="default">$read</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; unset(</span><span class="default">$read</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// loop through all the clients that have data to read from<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">foreach (</span><span class="default">$read </span><span class="keyword">as </span><span class="default">$read_sock</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// read until newline or 1024 bytes<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; // socket_read while show errors when the client is disconnected, so silence the error messages<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">= @</span><span class="default">socket_read</span><span class="keyword">(</span><span class="default">$read_sock</span><span class="keyword">, </span><span class="default">1024</span><span class="keyword">, </span><span class="default">PHP_NORMAL_READ</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// check if the client is disconnected<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if (</span><span class="default">$data </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// remove client for $clients array<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$key </span><span class="keyword">= </span><span class="default">array_search</span><span class="keyword">(</span><span class="default">$read_sock</span><span class="keyword">, </span><span class="default">$clients</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; unset(</span><span class="default">$clients</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;client disconnected.\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// continue to the next client to read from, if any<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">continue;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// trim off the trailing/beginning white spaces<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">= </span><span class="default">trim</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// check if there is any data after trimming off the spaces<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if (!empty(</span><span class="default">$data</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// send this to all the clients in the $clients array (except the first one, which is a listening socket)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">foreach (</span><span class="default">$clients </span><span class="keyword">as </span><span class="default">$send_sock</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// if its the listening sock or the client that we got the message from, go to the next one in the list<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if (</span><span class="default">$send_sock </span><span class="keyword">== </span><span class="default">$sock </span><span class="keyword">|| </span><span class="default">$send_sock </span><span class="keyword">== </span><span class="default">$read_sock</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; continue;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// write the message to the client -- add a newline character to the end of the message<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">socket_write</span><span class="keyword">(</span><span class="default">$send_sock</span><span class="keyword">, </span><span class="default">$data</span><span class="keyword">.</span><span class="string">&quot;\n&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } </span><span class="comment">// end of broadcast foreach<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">}<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; } </span><span class="comment">// end of reading foreach<br>&#xA0; &#xA0; </span><span class="keyword">}<br><br>&#xA0; &#xA0; </span><span class="comment">// close the listening socket<br>&#xA0; &#xA0; </span><span class="default">socket_close</span><span class="keyword">(</span><span class="default">$sock</span><span class="keyword">);<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+    $port = 9050;
+    
+    // create a streaming socket, of type TCP/IP
+    $sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+    
+    // set the option to reuse the port
+    socket_set_option($sock, SOL_SOCKET, SO_REUSEADDR, 1);
+    
+    // "bind" the socket to the address to "localhost", on port $port
+    // so this means that all connections on this port are now our resposibility to send/recv data, disconnect, etc..
+    socket_bind($sock, 0, $port);
+    
+    // start listen for connections
+    socket_listen($sock);
+
+    // create a list of all the clients that will be connected to us..
+    // add the listening socket to this list
+    $clients = array($sock);
+    
+    while (true) {
+        // create a copy, so $clients doesn&apos;t get modified by socket_select()
+        $read = $clients;
+        
+        // get a list of all the clients that have data to be read from
+        // if there are no clients with data, go to next iteration
+        if (socket_select($read, $write = NULL, $except = NULL, 0) &lt; 1)
+            continue;
+        
+        // check if there is a client trying to connect
+        if (in_array($sock, $read)) {
+            // accept the client, and add him to the $clients array
+            $clients[] = $newsock = socket_accept($sock);
+            
+            // send the client a welcome message
+            socket_write($newsock, "no noobs, but ill make an exception :)\n".
+            "There are ".(count($clients) - 1)." client(s) connected to the server\n");
+            
+            socket_getpeername($newsock, $ip);
+            echo "New client connected: {$ip}\n";
+            
+            // remove the listening socket from the clients-with-data array
+            $key = array_search($sock, $read);
+            unset($read[$key]);
+        }
+        
+        // loop through all the clients that have data to read from
+        foreach ($read as $read_sock) {
+            // read until newline or 1024 bytes
+            // socket_read while show errors when the client is disconnected, so silence the error messages
+            $data = @socket_read($read_sock, 1024, PHP_NORMAL_READ);
+            
+            // check if the client is disconnected
+            if ($data === false) {
+                // remove client for $clients array
+                $key = array_search($read_sock, $clients);
+                unset($clients[$key]);
+                echo "client disconnected.\n";
+                // continue to the next client to read from, if any
+                continue;
+            }
+            
+            // trim off the trailing/beginning white spaces
+            $data = trim($data);
+            
+            // check if there is any data after trimming off the spaces
+            if (!empty($data)) {
+            
+                // send this to all the clients in the $clients array (except the first one, which is a listening socket)
+                foreach ($clients as $send_sock) {
+                
+                    // if its the listening sock or the client that we got the message from, go to the next one in the list
+                    if ($send_sock == $sock || $send_sock == $read_sock)
+                        continue;
+                    
+                    // write the message to the client -- add a newline character to the end of the message
+                    socket_write($send_sock, $data."\n");
+                    
+                } // end of broadcast foreach
+                
+            }
+            
+        } // end of reading foreach
+    }
+
+    // close the listening socket
+    socket_close($sock);
+?>
+```
   
 
 #

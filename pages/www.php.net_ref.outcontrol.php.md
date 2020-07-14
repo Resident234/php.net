@@ -2,11 +2,7 @@
 
 
 
-
-
-It seems that while using output buffering, an included file which calls die() before the output buffer is closed is flushed rather than cleaned. That is, ob_end_flush() is called by default.
-
-
+It seems that while using output buffering, an included file which calls die() before the output buffer is closed is flushed rather than cleaned. That is, ob_end_flush() is called by default.<br><br>
 
 ```
 <?php
@@ -14,7 +10,7 @@ It seems that while using output buffering, an included file which calls die() b
 ob_start();
 include(&apos;b.php&apos;);
 ob_end_clean();
-php?>
+?>
 ```
 
 
@@ -23,15 +19,11 @@ php?>
 ```
 <?php
 // b.php
-print &quot;b&quot;;
+print "b";
 die();
-php?>
+?>
 ```
-
-
-This ends up printing &quot;b&quot; rather than nothing as ob_end_flush() is called instead of ob_end_clean(). That is, die() flushes the buffer rather than cleans it. This took me a while to determine what was causing the flush, so I thought I&apos;d share.
-
-  
+<br><br>This ends up printing "b" rather than nothing as ob_end_flush() is called instead of ob_end_clean(). That is, die() flushes the buffer rather than cleans it. This took me a while to determine what was causing the flush, so I thought I&apos;d share.  
 
 #
 

@@ -2,19 +2,7 @@
 
 
 
-
-
-The parser doesn&apos;t handle mixing alternative if syntaxes as reasonably as possible.
-
-The following is illegal (as it should be):
-
-&lt;?
-if($a):
-&#xA0; &#xA0; echo $a;
-else {
-&#xA0; &#xA0; echo $c;
-}
-?>
+The parser doesn&apos;t handle mixing alternative if syntaxes as reasonably as possible.<br><br>The following is illegal (as it should be):<br><br>&lt;?<br>if($a):<br>    echo $a;<br>else {<br>    echo $c;<br>}<br>?>
 ```
 
 
@@ -22,10 +10,10 @@ This is also illegal (as it should be):
 
 &lt;?
 if($a) {
-&#xA0; &#xA0; echo $a;
+    echo $a;
 }
 else:
-&#xA0; &#xA0; echo $c;
+    echo $c;
 endif;
 ?>
 ```
@@ -35,22 +23,16 @@ But since the two alternative if syntaxes are not interchangeable, it&apos;s rea
 
 &lt;?
 if($a):
-&#xA0; &#xA0; echo $a;
-&#xA0; &#xA0; if($b) {
-&#xA0; &#xA0; &#xA0; echo $b;
-&#xA0; &#xA0; }
+    echo $a;
+    if($b) {
+      echo $b;
+    }
 else:
-&#xA0; &#xA0; echo $c;
+    echo $c;
 endif;
 ?>
 ```
-
-
-Instead of concluding that the else statement was intended to match the if($b) statement (and erroring out), the parser could match the else statement to the if($a) statement, which shares its syntax.
-
-While it&apos;s understandable that the PHP developers don&apos;t consider this a bug, or don&apos;t consider it a bug worth their time, jsimlo was right to point out that mixing alternative if syntaxes might lead to unexpected results.
-
-  
+<br><br>Instead of concluding that the else statement was intended to match the if($b) statement (and erroring out), the parser could match the else statement to the if($a) statement, which shares its syntax.<br><br>While it&apos;s understandable that the PHP developers don&apos;t consider this a bug, or don&apos;t consider it a bug worth their time, jsimlo was right to point out that mixing alternative if syntaxes might lead to unexpected results.  
 
 #
 

@@ -2,47 +2,28 @@
 
 
 
-
-
-To get the underlying file path of a tmpfile file pointer:
-
-
+To get the underlying file path of a tmpfile file pointer:<br><br>
 
 ```
-<?php
-$file = tmpfile();
-$path = stream_get_meta_data($file)[&apos;uri&apos;]; // eg: /tmp/phpFx0513a
-
-
-  
+<?php<br>$file = tmpfile();<br>$path = stream_get_meta_data($file)[&apos;uri&apos;]; // eg: /tmp/phpFx0513a  
 
 #
 
-
-
-I found this function useful when uploading a file through FTP. One of the files I was uploading was input from a textarea on the previous page, so really there was no &quot;file&quot; to upload, this solved the problem nicely:
-
-
+I found this function useful when uploading a file through FTP. One of the files I was uploading was input from a textarea on the previous page, so really there was no "file" to upload, this solved the problem nicely:<br><br>
 
 ```
 <?php
-&#xA0; &#xA0; # Upload setup.inc
-&#xA0; &#xA0; $fSetup = tmpfile();
-&#xA0; &#xA0; fwrite($fSetup,$setup);
-&#xA0; &#xA0; fseek($fSetup,0);
-&#xA0; &#xA0; if (!ftp_fput($ftp,&quot;inc/setup.inc&quot;,$fSetup,FTP_ASCII)) {
-&#xA0; &#xA0; &#xA0; &#xA0; echo &quot;&lt;br /&gt;&lt;i&gt;Setup file NOT inserted&lt;/i&gt;&lt;br /&gt;&lt;br /&gt;&quot;;
-&#xA0; &#xA0; }
-&#xA0; &#xA0; fclose($fSetup);
+    # Upload setup.inc
+    $fSetup = tmpfile();
+    fwrite($fSetup,$setup);
+    fseek($fSetup,0);
+    if (!ftp_fput($ftp,"inc/setup.inc",$fSetup,FTP_ASCII)) {
+        echo "&lt;br /&gt;&lt;i&gt;Setup file NOT inserted&lt;/i&gt;&lt;br /&gt;&lt;br /&gt;";
+    }
+    fclose($fSetup);
 ?>
 ```
-
-
-The $setup variable is the contents of the textarea.
-
-And I&apos;m not sure if you need the fseek($temp,0); in there either, just leave it unless you know it doesn&apos;t effect it.
-
-  
+<br><br>The $setup variable is the contents of the textarea.<br><br>And I&apos;m not sure if you need the fseek($temp,0); in there either, just leave it unless you know it doesn&apos;t effect it.  
 
 #
 

@@ -3,19 +3,68 @@
 
 
 
-<div class="phpcode"><span class="html">
-<span class="default">&lt;?php<br>set_time_limit</span><span class="keyword">(</span><span class="default">30</span><span class="keyword">);<br></span><span class="default">error_reporting</span><span class="keyword">(</span><span class="default">E_ALL</span><span class="keyword">);<br></span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&apos;error_reporting&apos;</span><span class="keyword">, </span><span class="default">E_ALL</span><span class="keyword">);<br></span><span class="default">ini_set</span><span class="keyword">(</span><span class="string">&apos;display_errors&apos;</span><span class="keyword">,</span><span class="default">1</span><span class="keyword">);<br><br></span><span class="comment">// config<br></span><span class="default">$ldapserver </span><span class="keyword">= </span><span class="string">&apos;svr.domain.com&apos;</span><span class="keyword">;<br></span><span class="default">$ldapuser&#xA0; &#xA0; &#xA0; </span><span class="keyword">= </span><span class="string">&apos;administrator&apos;</span><span class="keyword">;&#xA0; <br></span><span class="default">$ldappass&#xA0; &#xA0;&#xA0; </span><span class="keyword">= </span><span class="string">&apos;PASSWORD_HERE&apos;</span><span class="keyword">;<br></span><span class="default">$ldaptree&#xA0; &#xA0; </span><span class="keyword">= </span><span class="string">&quot;OU=SBSUsers,OU=Users,OU=MyBusiness,DC=myDomain,DC=local&quot;</span><span class="keyword">;<br><br></span><span class="comment">// connect <br></span><span class="default">$ldapconn </span><span class="keyword">= </span><span class="default">ldap_connect</span><span class="keyword">(</span><span class="default">$ldapserver</span><span class="keyword">) or die(</span><span class="string">&quot;Could not connect to LDAP server.&quot;</span><span class="keyword">);<br><br>if(</span><span class="default">$ldapconn</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="comment">// binding to ldap server<br>&#xA0; &#xA0; </span><span class="default">$ldapbind </span><span class="keyword">= </span><span class="default">ldap_bind</span><span class="keyword">(</span><span class="default">$ldapconn</span><span class="keyword">, </span><span class="default">$ldapuser</span><span class="keyword">, </span><span class="default">$ldappass</span><span class="keyword">) or die (</span><span class="string">&quot;Error trying to bind: &quot;</span><span class="keyword">.</span><span class="default">ldap_error</span><span class="keyword">(</span><span class="default">$ldapconn</span><span class="keyword">));<br>&#xA0; &#xA0; </span><span class="comment">// verify binding<br>&#xA0; &#xA0; </span><span class="keyword">if (</span><span class="default">$ldapbind</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;LDAP bind successful...&lt;br /&gt;&lt;br /&gt;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$result </span><span class="keyword">= </span><span class="default">ldap_search</span><span class="keyword">(</span><span class="default">$ldapconn</span><span class="keyword">,</span><span class="default">$ldaptree</span><span class="keyword">, </span><span class="string">&quot;(cn=*)&quot;</span><span class="keyword">) or die (</span><span class="string">&quot;Error in search query: &quot;</span><span class="keyword">.</span><span class="default">ldap_error</span><span class="keyword">(</span><span class="default">$ldapconn</span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">= </span><span class="default">ldap_get_entries</span><span class="keyword">(</span><span class="default">$ldapconn</span><span class="keyword">, </span><span class="default">$result</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// SHOW ALL DATA<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">echo </span><span class="string">&apos;&lt;h1&gt;Dump all data&lt;/h1&gt;&lt;pre&gt;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">);&#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&apos;&lt;/pre&gt;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// iterate over array and print data for each entry<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">echo </span><span class="string">&apos;&lt;h1&gt;Show me the users&lt;/h1&gt;&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; for (</span><span class="default">$i</span><span class="keyword">=</span><span class="default">0</span><span class="keyword">; </span><span class="default">$i</span><span class="keyword">&lt;</span><span class="default">$data</span><span class="keyword">[</span><span class="string">&quot;count&quot;</span><span class="keyword">]; </span><span class="default">$i</span><span class="keyword">++) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//echo &quot;dn is: &quot;. $data[$i][&quot;dn&quot;] .&quot;&lt;br /&gt;&quot;;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">echo </span><span class="string">&quot;User: &quot;</span><span class="keyword">. </span><span class="default">$data</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">][</span><span class="string">&quot;cn&quot;</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">] .</span><span class="string">&quot;&lt;br /&gt;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(isset(</span><span class="default">$data</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">][</span><span class="string">&quot;mail&quot;</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">])) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;Email: &quot;</span><span class="keyword">. </span><span class="default">$data</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">][</span><span class="string">&quot;mail&quot;</span><span class="keyword">][</span><span class="default">0</span><span class="keyword">] .</span><span class="string">&quot;&lt;br /&gt;&lt;br /&gt;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;Email: None&lt;br /&gt;&lt;br /&gt;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// print number of entries found<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">echo </span><span class="string">&quot;Number of entries found: &quot; </span><span class="keyword">. </span><span class="default">ldap_count_entries</span><span class="keyword">(</span><span class="default">$ldapconn</span><span class="keyword">, </span><span class="default">$result</span><span class="keyword">);<br>&#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;LDAP bind failed...&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br><br>}<br><br></span><span class="comment">// all done? clean up<br></span><span class="default">ldap_close</span><span class="keyword">(</span><span class="default">$ldapconn</span><span class="keyword">);<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+
+```
+<?php
+set_time_limit(30);
+error_reporting(E_ALL);
+ini_set(&apos;error_reporting&apos;, E_ALL);
+ini_set(&apos;display_errors&apos;,1);
+
+// config
+$ldapserver = &apos;svr.domain.com&apos;;
+$ldapuser      = &apos;administrator&apos;;  
+$ldappass     = &apos;PASSWORD_HERE&apos;;
+$ldaptree    = "OU=SBSUsers,OU=Users,OU=MyBusiness,DC=myDomain,DC=local";
+
+// connect 
+$ldapconn = ldap_connect($ldapserver) or die("Could not connect to LDAP server.");
+
+if($ldapconn) {
+    // binding to ldap server
+    $ldapbind = ldap_bind($ldapconn, $ldapuser, $ldappass) or die ("Error trying to bind: ".ldap_error($ldapconn));
+    // verify binding
+    if ($ldapbind) {
+        echo "LDAP bind successful...&lt;br /&gt;&lt;br /&gt;";
+        
+        
+        $result = ldap_search($ldapconn,$ldaptree, "(cn=*)") or die ("Error in search query: ".ldap_error($ldapconn));
+        $data = ldap_get_entries($ldapconn, $result);
+        
+        // SHOW ALL DATA
+        echo &apos;&lt;h1&gt;Dump all data&lt;/h1&gt;&lt;pre&gt;&apos;;
+        print_r($data);    
+        echo &apos;&lt;/pre&gt;&apos;;
+        
+        
+        // iterate over array and print data for each entry
+        echo &apos;&lt;h1&gt;Show me the users&lt;/h1&gt;&apos;;
+        for ($i=0; $i&lt;$data["count"]; $i++) {
+            //echo "dn is: ". $data[$i]["dn"] ."&lt;br /&gt;";
+            echo "User: ". $data[$i]["cn"][0] ."&lt;br /&gt;";
+            if(isset($data[$i]["mail"][0])) {
+                echo "Email: ". $data[$i]["mail"][0] ."&lt;br /&gt;&lt;br /&gt;";
+            } else {
+                echo "Email: None&lt;br /&gt;&lt;br /&gt;";
+            }
+        }
+        // print number of entries found
+        echo "Number of entries found: " . ldap_count_entries($ldapconn, $result);
+    } else {
+        echo "LDAP bind failed...";
+    }
+
+}
+
+// all done? clean up
+ldap_close($ldapconn);
+?>
+```
   
 
 #
 
-
-<div class="phpcode"><span class="html">
-Here are a couple of resources for proper construction of filters. <br><br><a href="http://msdn2.microsoft.com/En-US/library/aa746475.aspx" rel="nofollow" target="_blank">http://msdn2.microsoft.com/En-US/library/aa746475.aspx</a><br><br><a href="http://technet.microsoft.com/en-us/library/aa996205.aspx" rel="nofollow" target="_blank">http://technet.microsoft.com/en-us/library/aa996205.aspx</a><br><br>Before finding these I had been stumped for hours on how to do something like &quot;all users starting with &quot;a&quot; except those from OU &apos;foo&apos;&quot;</span>
-</div>
-  
+Here are a couple of resources for proper construction of filters. <br><br>http://msdn2.microsoft.com/En-US/library/aa746475.aspx<br><br>http://technet.microsoft.com/en-us/library/aa996205.aspx<br><br>Before finding these I had been stumped for hours on how to do something like "all users starting with "a" except those from OU &apos;foo&apos;"  
 
 #
 

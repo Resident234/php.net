@@ -2,27 +2,18 @@
 
 
 
-
-
-While $php_errormsg is a global, it is not a superglobal.
-
-You&apos;ll have to qualify it with a global keyword inside a function.
-
-
+While $php_errormsg is a global, it is not a superglobal.<br><br>You&apos;ll have to qualify it with a global keyword inside a function.<br><br>
 
 ```
 <?php
 function checkErrormsg()
 {
-&#xA0; &#xA0; global $php_errormsg;
-&#xA0; &#xA0; @strpos();
-&#xA0; &#xA0; return $php_errormsg;
+    global $php_errormsg;
+    @strpos();
+    return $php_errormsg;
 }
 ?>
 ```
-
-
-
   
 
 #

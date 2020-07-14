@@ -2,11 +2,7 @@
 
 
 
-
-
-When you&apos;ve got external inputs that do not strictly follow the formatting and disambiguation rules, you may still be able to use the static method ::createFromFormat() to create a usable DateTime object
-
-
+When you&apos;ve got external inputs that do not strictly follow the formatting and disambiguation rules, you may still be able to use the static method ::createFromFormat() to create a usable DateTime object<br><br>
 
 ```
 <?php 
@@ -18,18 +14,17 @@ When you&apos;ve got external inputs that do not strictly follow the formatting 
 error_reporting(E_ALL);
 
 // THIS IS INVALID, WOULD IMPLY MONTH == 19
-$external = &quot;19/10/2016 14:48:21&quot;;
+$external = "19/10/2016 14:48:21";
 
 // HOWEVER WE CAN INJECT THE FORMATTING WHEN WE DECODE THE DATE
-$format = &quot;d/m/Y H:i:s&quot;;
+$format = "d/m/Y H:i:s";
 $dateobj = DateTime::createFromFormat($format, $external);
 
 $iso_datetime = $dateobj-&gt;format(Datetime::ATOM);
-echo &quot;SUCCESS: $external EQUALS ISO-8601 $iso_datetime&quot;;
+echo "SUCCESS: $external EQUALS ISO-8601 $iso_datetime";
 
-// MAN PAGE: http://php.net/manual/en/datetime.createfromformat.php
-
-
+// MAN PAGE: http://php.net/manual/en/datetime.createfromformat.php?>
+```
   
 
 #

@@ -2,11 +2,7 @@
 
 
 
-
-
-The best and simplest way to get input from a user in the CLI with only PHP is to use fgetc() function with the STDIN constant:
-
-
+The best and simplest way to get input from a user in the CLI with only PHP is to use fgetc() function with the STDIN constant:<br><br>
 
 ```
 <?php
@@ -16,14 +12,11 @@ $input = fgetc(STDIN);
 
 if ($input == &apos;y&apos;)
 {
-&#xA0; &#xA0; exit(0);
+    exit(0);
 }
 
 ?>
 ```
-
-
-
   
 
 #

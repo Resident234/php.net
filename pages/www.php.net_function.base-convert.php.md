@@ -2,23 +2,7 @@
 
 
 
-
-
-Convert an arbitrarily large number from any base to any base.
-
-string convBase(string $numberInput, string $fromBaseInput, string $toBaseInput)
-$numberInput number to convert as a string
-$fromBaseInput base of the number to convert as a string
-$toBaseInput base the number should be converted to as a string
-examples for $fromBaseInput and $toBaseInput
-&apos;0123456789ABCDEF&apos; for Hexadecimal (Base16)
-&apos;0123456789&apos; for Decimal (Base10)
-&apos;01234567&apos; for Octal (Base8)
-&apos;01&apos; for Binary (Base2) 
-You can really put in whatever you want and the first character is the 0.
-Examples:
-
-
+Convert an arbitrarily large number from any base to any base.<br><br>string convBase(string $numberInput, string $fromBaseInput, string $toBaseInput)<br>$numberInput number to convert as a string<br>$fromBaseInput base of the number to convert as a string<br>$toBaseInput base the number should be converted to as a string<br>examples for $fromBaseInput and $toBaseInput<br>&apos;0123456789ABCDEF&apos; for Hexadecimal (Base16)<br>&apos;0123456789&apos; for Decimal (Base10)<br>&apos;01234567&apos; for Octal (Base8)<br>&apos;01&apos; for Binary (Base2) <br>You can really put in whatever you want and the first character is the 0.<br>Examples:<br><br>
 
 ```
 <?php 
@@ -39,7 +23,7 @@ convBase(&apos;1324523453243154324542341524315432113200203012&apos;, &apos;01234
 //result: 1F9881BAD10454A8C23A838EF00F50
 
 convBase(&apos;355927353784509896715106760&apos;,&apos;0123456789&apos;,&apos;Christopher&apos;);
-//Convert &apos;355927353784509896715106760&apos; from decimal (base10) to undecimal (base11) using &quot;Christopher&quot; as the numbers.
+//Convert &apos;355927353784509896715106760&apos; from decimal (base10) to undecimal (base11) using "Christopher" as the numbers.
 //result: iihtspiphoeCrCeshhorsrrtrh
 
 convBase(&apos;1C238Ab97132aAC84B72&apos;,&apos;0123456789aAbBcCdD&apos;, &apos;~!@#$%^&amp;*()&apos;);
@@ -48,209 +32,114 @@ convBase(&apos;1C238Ab97132aAC84B72&apos;,&apos;0123456789aAbBcCdD&apos;, &apos;
 
 function convBase($numberInput, $fromBaseInput, $toBaseInput)
 {
-&#xA0; &#xA0; if ($fromBaseInput==$toBaseInput) return $numberInput;
-&#xA0; &#xA0; $fromBase = str_split($fromBaseInput,1);
-&#xA0; &#xA0; $toBase = str_split($toBaseInput,1);
-&#xA0; &#xA0; $number = str_split($numberInput,1);
-&#xA0; &#xA0; $fromLen=strlen($fromBaseInput);
-&#xA0; &#xA0; $toLen=strlen($toBaseInput);
-&#xA0; &#xA0; $numberLen=strlen($numberInput);
-&#xA0; &#xA0; $retval=&apos;&apos;;
-&#xA0; &#xA0; if ($toBaseInput == &apos;0123456789&apos;)
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; $retval=0;
-&#xA0; &#xA0; &#xA0; &#xA0; for ($i = 1;$i &lt;= $numberLen; $i++)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $retval = bcadd($retval, bcmul(array_search($number[$i-1], $fromBase),bcpow($fromLen,$numberLen-$i)));
-&#xA0; &#xA0; &#xA0; &#xA0; return $retval;
-&#xA0; &#xA0; }
-&#xA0; &#xA0; if ($fromBaseInput != &apos;0123456789&apos;)
-&#xA0; &#xA0; &#xA0; &#xA0; $base10=convBase($numberInput, $fromBaseInput, &apos;0123456789&apos;);
-&#xA0; &#xA0; else
-&#xA0; &#xA0; &#xA0; &#xA0; $base10 = $numberInput;
-&#xA0; &#xA0; if ($base10&lt;strlen($toBaseInput))
-&#xA0; &#xA0; &#xA0; &#xA0; return $toBase[$base10];
-&#xA0; &#xA0; while($base10 != &apos;0&apos;)
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; $retval = $toBase[bcmod($base10,$toLen)].$retval;
-&#xA0; &#xA0; &#xA0; &#xA0; $base10 = bcdiv($base10,$toLen,0);
-&#xA0; &#xA0; }
-&#xA0; &#xA0; return $retval;
+    if ($fromBaseInput==$toBaseInput) return $numberInput;
+    $fromBase = str_split($fromBaseInput,1);
+    $toBase = str_split($toBaseInput,1);
+    $number = str_split($numberInput,1);
+    $fromLen=strlen($fromBaseInput);
+    $toLen=strlen($toBaseInput);
+    $numberLen=strlen($numberInput);
+    $retval=&apos;&apos;;
+    if ($toBaseInput == &apos;0123456789&apos;)
+    {
+        $retval=0;
+        for ($i = 1;$i &lt;= $numberLen; $i++)
+            $retval = bcadd($retval, bcmul(array_search($number[$i-1], $fromBase),bcpow($fromLen,$numberLen-$i)));
+        return $retval;
+    }
+    if ($fromBaseInput != &apos;0123456789&apos;)
+        $base10=convBase($numberInput, $fromBaseInput, &apos;0123456789&apos;);
+    else
+        $base10 = $numberInput;
+    if ($base10&lt;strlen($toBaseInput))
+        return $toBase[$base10];
+    while($base10 != &apos;0&apos;)
+    {
+        $retval = $toBase[bcmod($base10,$toLen)].$retval;
+        $base10 = bcdiv($base10,$toLen,0);
+    }
+    return $retval;
 }
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-Short arabic2roman conveter:
-
-
-
-
+Short arabic2roman conveter:<br><br>
 
 ```
 <?php
-
 function rome($N){
-
-&#xA0; &#xA0; &#xA0; &#xA0; $c=&apos;IVXLCDM&apos;;
-
-&#xA0; &#xA0; &#xA0; &#xA0; for($a=5,$b=$s=&apos;&apos;;$N;$b++,$a^=7)
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; for($o=$N%$a,$N=$N/$a^0;$o--;$s=$c[$o&gt;2?$b+$N-($N&amp;=-2)+$o=1:$b].$s);
-
-&#xA0; &#xA0; &#xA0; &#xA0; return $s;
-
+        $c=&apos;IVXLCDM&apos;;
+        for($a=5,$b=$s=&apos;&apos;;$N;$b++,$a^=7)
+                for($o=$N%$a,$N=$N/$a^0;$o--;$s=$c[$o&gt;2?$b+$N-($N&amp;=-2)+$o=1:$b].$s);
+        return $s;
 }
-
 ?>
 ```
-
-
-
-
-And it works :)
-
-  
+<br><br>And it works :)  
 
 #
 
-
-
-If you use base_convert to convert a large (eg. 80-bit) hexadecimal to base-36, you might observe:
-
-
-
-ABCDEF00001234567890 (hexadecimal) =&gt; 3O47RE02JZSW0KS8 (base-36) =&gt; ABCDEF00001240000000 (hexadecimal)
-
-
-
-This is normal and is due to the loss of precision on large numbers.
-
-
-
-I have written a string-based function using the built-in BC Math Extension which will overcome this and similar problems.
-
-
-
-
+If you use base_convert to convert a large (eg. 80-bit) hexadecimal to base-36, you might observe:<br><br>ABCDEF00001234567890 (hexadecimal) =&gt; 3O47RE02JZSW0KS8 (base-36) =&gt; ABCDEF00001240000000 (hexadecimal)<br><br>This is normal and is due to the loss of precision on large numbers.<br><br>I have written a string-based function using the built-in BC Math Extension which will overcome this and similar problems.<br><br>
 
 ```
 <?php
-
-
 
 function str_baseconvert($str, $frombase=10, $tobase=36) {
-
-&#xA0; &#xA0; $str = trim($str);
-
-&#xA0; &#xA0; if (intval($frombase) != 10) {
-
-&#xA0; &#xA0; &#xA0; &#xA0; $len = strlen($str);
-
-&#xA0; &#xA0; &#xA0; &#xA0; $q = 0;
-
-&#xA0; &#xA0; &#xA0; &#xA0; for ($i=0; $i&lt;$len; $i++) {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $r = base_convert($str[$i], $frombase, 10);
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $q = bcadd(bcmul($q, $frombase), $r);
-
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; else $q = $str;
-
+    $str = trim($str);
+    if (intval($frombase) != 10) {
+        $len = strlen($str);
+        $q = 0;
+        for ($i=0; $i&lt;$len; $i++) {
+            $r = base_convert($str[$i], $frombase, 10);
+            $q = bcadd(bcmul($q, $frombase), $r);
+        }
+    }
+    else $q = $str;
  
-
-&#xA0; &#xA0; if (intval($tobase) != 10) {
-
-&#xA0; &#xA0; &#xA0; &#xA0; $s = &apos;&apos;;
-
-&#xA0; &#xA0; &#xA0; &#xA0; while (bccomp($q, &apos;0&apos;, 0) &gt; 0) {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $r = intval(bcmod($q, $tobase));
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $s = base_convert($r, 10, $tobase) . $s;
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $q = bcdiv($q, $tobase, 0);
-
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; else $s = $q;
-
+    if (intval($tobase) != 10) {
+        $s = &apos;&apos;;
+        while (bccomp($q, &apos;0&apos;, 0) &gt; 0) {
+            $r = intval(bcmod($q, $tobase));
+            $s = base_convert($r, 10, $tobase) . $s;
+            $q = bcdiv($q, $tobase, 0);
+        }
+    }
+    else $s = $q;
  
-
-&#xA0; &#xA0; return $s;
-
+    return $s;
 }
-
-
 
 ?>
 ```
-
-
 
 
 Typical use-cases:
-
-1.&#xA0; Convert a large arbitrary precision number to base-36.
-
-2.&#xA0; Convert a 32-char hexadecimal UUID (128-bit) to a 25-char base-36 unique key, and vice versa.
-
-
+1.  Convert a large arbitrary precision number to base-36.
+2.  Convert a 32-char hexadecimal UUID (128-bit) to a 25-char base-36 unique key, and vice versa.
 
 Examples:
 
 
 
-
-
 ```
 <?php
-
 $b16 = &apos;ABCDEF00001234567890&apos;;
-
 $b36 = str_baseconvert($b16, 16, 36);
-
-echo (&quot;$b16 (hexadecimal) = $b36 (base-36) \\n&quot;);
-
-
+echo ("$b16 (hexadecimal) = $b36 (base-36) \\n");
 
 $uuid = &apos;ABCDEF01234567890123456789ABCDEF&apos;;
-
 $ukey = str_baseconvert($uuid, 16, 36);
-
-echo (&quot;$uuid (hexadecimal) = $ukey (base-36) \\n&quot;);
-
+echo ("$uuid (hexadecimal) = $ukey (base-36) \\n");
 ?>
 ```
-
-
-
-
-ABCDEF00001234567890 (hexadecimal) = 3o47re02jzqisvio (base-36) 
-
-ABCDEF01234567890123456789ABCDEF (hexadecimal) = a65xa07491kf5zyfpvbo76g33 (base-36)
-
-  
+<br><br>ABCDEF00001234567890 (hexadecimal) = 3o47re02jzqisvio (base-36) <br>ABCDEF01234567890123456789ABCDEF (hexadecimal) = a65xa07491kf5zyfpvbo76g33 (base-36)  
 
 #
 
-
-
-If you need to use base_convert with numbers larger then 32 bit, the following gmp implementation of base_convert should work.
-
-
+If you need to use base_convert with numbers larger then 32 bit, the following gmp implementation of base_convert should work.<br><br>
 
 ```
 <?php
@@ -258,23 +147,16 @@ If you need to use base_convert with numbers larger then 32 bit, the following g
 /*use gmp library to convert base. gmp will convert numbers &gt; 32bit*/
 function gmp_convert($num, $base_a, $base_b)
 {
-&#xA0; &#xA0; &#xA0; &#xA0; return gmp_strval ( gmp_init($num, $base_a), $base_b );
+        return gmp_strval ( gmp_init($num, $base_a), $base_b );
 }
 
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-If you would like to convert numbers into just the uppercase alphabet base and vice-versa (e.g. the column names in a Microsoft Windows Excel sheet..A-Z, AA-ZZ, AAA-ZZZ, ...), the following functions will do this.
-
-
+If you would like to convert numbers into just the uppercase alphabet base and vice-versa (e.g. the column names in a Microsoft Windows Excel sheet..A-Z, AA-ZZ, AAA-ZZZ, ...), the following functions will do this.<br><br>
 
 ```
 <?php
@@ -288,12 +170,12 @@ If you would like to convert numbers into just the uppercase alphabet base and v
  * 
  */
 function num2alpha($n) {
-&#xA0; &#xA0; $r = &apos;&apos;;
-&#xA0; &#xA0; for ($i = 1; $n &gt;= 0 &amp;&amp; $i &lt; 10; $i++) {
-&#xA0; &#xA0; &#xA0; &#xA0; $r = chr(0x41 + ($n % pow(26, $i) / pow(26, $i - 1))) . $r;
-&#xA0; &#xA0; &#xA0; &#xA0; $n -= pow(26, $i);
-&#xA0; &#xA0; }
-&#xA0; &#xA0; return $r;
+    $r = &apos;&apos;;
+    for ($i = 1; $n &gt;= 0 &amp;&amp; $i &lt; 10; $i++) {
+        $r = chr(0x41 + ($n % pow(26, $i) / pow(26, $i - 1))) . $r;
+        $n -= pow(26, $i);
+    }
+    return $r;
 }
 /**
  * Converts an alphabetic string into an integer.
@@ -304,21 +186,17 @@ function num2alpha($n) {
  * 
  */
 function alpha2num($a) {
-&#xA0; &#xA0; $r = 0;
-&#xA0; &#xA0; $l = strlen($a);
-&#xA0; &#xA0; for ($i = 0; $i &lt; $l; $i++) {
-&#xA0; &#xA0; &#xA0; &#xA0; $r += pow(26, $i) * (ord($a[$l - $i - 1]) - 0x40);
-&#xA0; &#xA0; }
-&#xA0; &#xA0; return $r - 1;
+    $r = 0;
+    $l = strlen($a);
+    for ($i = 0; $i &lt; $l; $i++) {
+        $r += pow(26, $i) * (ord($a[$l - $i - 1]) - 0x40);
+    }
+    return $r - 1;
 }
 
 ?>
 ```
-
-
-Microsoft Windows Excel stops at IV (255), but this function can handle much larger. However, English words will start to form after a while and some may be offensive, so be careful.
-
-  
+<br><br>Microsoft Windows Excel stops at IV (255), but this function can handle much larger. However, English words will start to form after a while and some may be offensive, so be careful.  
 
 #
 

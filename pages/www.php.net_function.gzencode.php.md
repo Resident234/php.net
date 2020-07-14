@@ -2,12 +2,7 @@
 
 
 
-
-
-Had some trouble finding the correct way to send a Content-Length header with HTTP compression.
-The pitch is to use gzencode (not gzdeflaten not gzcompress).
-
-
+Had some trouble finding the correct way to send a Content-Length header with HTTP compression.<br>The pitch is to use gzencode (not gzdeflaten not gzcompress).<br><br>
 
 ```
 <?php
@@ -22,7 +17,7 @@ $gzipoutput = gzencode($output,6);
 header(&apos;Content-Type: application/x-download&apos;);
 header(&apos;Content-Encoding: gzip&apos;); #
 header(&apos;Content-Length: &apos;.strlen($gzipoutput)); #
-header(&apos;Content-Disposition: attachment; filename=&quot;myfile.name&quot;&apos;);
+header(&apos;Content-Disposition: attachment; filename="myfile.name"&apos;);
 header(&apos;Cache-Control: no-cache, no-store, max-age=0, must-revalidate&apos;);
 header(&apos;Pragma: no-cache&apos;);
 
@@ -31,9 +26,6 @@ echo $gzipoutput;
 
 ?>
 ```
-
-
-
   
 
 #

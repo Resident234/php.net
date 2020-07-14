@@ -2,11 +2,7 @@
 
 
 
-
-
-See http://www.imagemagick.org/script/formats.php for pseudoString parameter
-
-  
+See http://www.imagemagick.org/script/formats.php for pseudoString parameter  
 
 #
 

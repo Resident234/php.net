@@ -2,20 +2,16 @@
 
 
 
-
-
-WATCH OUT: if you mix $mysqli-&gt;multi_query and $mysqli-&gt;query, the latter(s) won&apos;t be executed!
-
-
+WATCH OUT: if you mix $mysqli-&gt;multi_query and $mysqli-&gt;query, the latter(s) won&apos;t be executed!<br><br>
 
 ```
 <?php
 // BAD CODE:
-$mysqli-&gt;multi_query(&quot; Many SQL queries ; &quot;); // OK
-$mysqli-&gt;query(&quot; SQL statement #1 ; &quot;) // not executed!
-$mysqli-&gt;query(&quot; SQL statement #2 ; &quot;) // not executed!
-$mysqli-&gt;query(&quot; SQL statement #3 ; &quot;) // not executed!
-$mysqli-&gt;query(&quot; SQL statement #4 ; &quot;) // not executed!
+$mysqli-&gt;multi_query(" Many SQL queries ; "); // OK
+$mysqli-&gt;query(" SQL statement #1 ; ") // not executed!
+$mysqli-&gt;query(" SQL statement #2 ; ") // not executed!
+$mysqli-&gt;query(" SQL statement #3 ; ") // not executed!
+$mysqli-&gt;query(" SQL statement #4 ; ") // not executed!
 ?>
 ```
 
@@ -27,46 +23,36 @@ The only way to do this correctly is:
 ```
 <?php
 // WORKING CODE:
-$mysqli-&gt;multi_query(&quot; Many SQL queries ; &quot;); // OK
+$mysqli-&gt;multi_query(" Many SQL queries ; "); // OK
 while ($mysqli-&gt;next_result()) {;} // flush multi_queries
-$mysqli-&gt;query(&quot; SQL statement #1 ; &quot;) // now executed!
-$mysqli-&gt;query(&quot; SQL statement #2 ; &quot;) // now executed!
-$mysqli-&gt;query(&quot; SQL statement #3 ; &quot;) // now executed!
-$mysqli-&gt;query(&quot; SQL statement #4 ; &quot;) // now executed!
+$mysqli-&gt;query(" SQL statement #1 ; ") // now executed!
+$mysqli-&gt;query(" SQL statement #2 ; ") // now executed!
+$mysqli-&gt;query(" SQL statement #3 ; ") // now executed!
+$mysqli-&gt;query(" SQL statement #4 ; ") // now executed!
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-To be able to execute a $mysqli-&gt;query() after a $mysqli-&gt;multi_query() for MySQL &gt; 5.3, I updated the code of jcn50 by this one :
-
-
+To be able to execute a $mysqli-&gt;query() after a $mysqli-&gt;multi_query() for MySQL &gt; 5.3, I updated the code of jcn50 by this one :<br><br>
 
 ```
 <?php
-&#xA0; &#xA0; // WORKING CODE:
-&#xA0; &#xA0; $mysqli-&gt;multi_query(&quot; Many SQL queries ; &quot;); // OK
+    // WORKING CODE:
+    $mysqli-&gt;multi_query(" Many SQL queries ; "); // OK
 
-&#xA0; &#xA0; while ($mysqli-&gt;next_result()) // flush multi_queries
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; if (!$mysqli-&gt;more_results()) break;
-&#xA0; &#xA0; }
+    while ($mysqli-&gt;next_result()) // flush multi_queries
+    {
+        if (!$mysqli-&gt;more_results()) break;
+    }
 
-&#xA0; &#xA0; $mysqli-&gt;query(&quot; SQL statement #1 ; &quot;) // now executed!
-&#xA0; &#xA0; $mysqli-&gt;query(&quot; SQL statement #2 ; &quot;) // now executed!
-&#xA0; &#xA0; $mysqli-&gt;query(&quot; SQL statement #3 ; &quot;) // now executed!
-&#xA0; &#xA0; $mysqli-&gt;query(&quot; SQL statement #4 ; &quot;) // now executed!
+    $mysqli-&gt;query(" SQL statement #1 ; ") // now executed!
+    $mysqli-&gt;query(" SQL statement #2 ; ") // now executed!
+    $mysqli-&gt;query(" SQL statement #3 ; ") // now executed!
+    $mysqli-&gt;query(" SQL statement #4 ; ") // now executed!
 ?>
 ```
-
-
-
   
 
 #

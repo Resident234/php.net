@@ -2,130 +2,65 @@
 
 
 
-
-
-A class constant, class property (static), and class function (static) can all share the same name and be accessed using the double-colon.
-
-
+A class constant, class property (static), and class function (static) can all share the same name and be accessed using the double-colon.<br><br>
 
 ```
 <?php
 
 class A {
 
-&#xA0; &#xA0; public static $B = &apos;1&apos;; # Static class variable.
+    public static $B = &apos;1&apos;; # Static class variable.
 
-&#xA0; &#xA0; const B = &apos;2&apos;; # Class constant.
-&#xA0; &#xA0; 
-&#xA0; &#xA0; public static function B() { # Static class function.
-&#xA0; &#xA0; &#xA0; &#xA0; return &apos;3&apos;;
-&#xA0; &#xA0; }
-&#xA0; &#xA0; 
+    const B = &apos;2&apos;; # Class constant.
+    
+    public static function B() { # Static class function.
+        return &apos;3&apos;;
+    }
+    
 }
 
 echo A::$B . A::B . A::B(); # Outputs: 123
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-In PHP, you use the self keyword to access static properties and methods.
-
-The problem is that you can replace $this-&gt;method() with self::method() anywhere, regardless if method() is declared static or not. So which one should you use?
-
-Consider this code:
-
-class ParentClass {
-&#xA0; &#xA0; function test() {
-&#xA0; &#xA0; &#xA0; &#xA0; self::who();&#xA0; &#xA0; // will output &apos;parent&apos;
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;who();&#xA0; &#xA0; // will output &apos;child&apos;
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; function who() {
-&#xA0; &#xA0; &#xA0; &#xA0; echo &apos;parent&apos;;
-&#xA0; &#xA0; }
-}
-
-class ChildClass extends ParentClass {
-&#xA0; &#xA0; function who() {
-&#xA0; &#xA0; &#xA0; &#xA0; echo &apos;child&apos;;
-&#xA0; &#xA0; }
-}
-
-$obj = new ChildClass();
-$obj-&gt;test();
-In this example, self::who() will always output &#x2018;parent&#x2019;, while $this-&gt;who() will depend on what class the object has.
-
-Now we can see that self refers to the class in which it is called, while $this refers to the class of the current object.
-
-So, you should use self only when $this is not available, or when you don&#x2019;t want to allow descendant classes to overwrite the current method.
-
-  
+In PHP, you use the self keyword to access static properties and methods.<br><br>The problem is that you can replace $this-&gt;method() with self::method() anywhere, regardless if method() is declared static or not. So which one should you use?<br><br>Consider this code:<br><br>class ParentClass {<br>    function test() {<br>        self::who();    // will output &apos;parent&apos;<br>        $this-&gt;who();    // will output &apos;child&apos;<br>    }<br><br>    function who() {<br>        echo &apos;parent&apos;;<br>    }<br>}<br><br>class ChildClass extends ParentClass {<br>    function who() {<br>        echo &apos;child&apos;;<br>    }<br>}<br><br>$obj = new ChildClass();<br>$obj-&gt;test();<br>In this example, self::who() will always output &#x2018;parent&#x2019;, while $this-&gt;who() will depend on what class the object has.<br><br>Now we can see that self refers to the class in which it is called, while $this refers to the class of the current object.<br><br>So, you should use self only when $this is not available, or when you don&#x2019;t want to allow descendant classes to overwrite the current method.  
 
 #
 
-
-
-It seems as though you can use more than the class name to reference the static variables, constants, and static functions of a class definition from outside that class using the :: . The language appears to allow you to use the object itself. 
-
-For example:
-class horse 
-{
-&#xA0;&#xA0; static $props = {&apos;order&apos;=&gt;&apos;mammal&apos;};
-}
-$animal = new horse();
-echo $animal::$props[&apos;order&apos;];
-
-// yields &apos;mammal&apos;
-
-This does not appear to be documented but I see it as an important convenience in the language. I would like to see it documented and supported as valid. 
-
-If it weren&apos;t supported officially, the alternative would seem to be messy, something like this:
-
-$animalClass = get_class($animal);
-echo $animalClass::$props[&apos;order&apos;];
-
-  
+It seems as though you can use more than the class name to reference the static variables, constants, and static functions of a class definition from outside that class using the :: . The language appears to allow you to use the object itself. <br><br>For example:<br>class horse <br>{<br>   static $props = {&apos;order&apos;=&gt;&apos;mammal&apos;};<br>}<br>$animal = new horse();<br>echo $animal::$props[&apos;order&apos;];<br><br>// yields &apos;mammal&apos;<br><br>This does not appear to be documented but I see it as an important convenience in the language. I would like to see it documented and supported as valid. <br><br>If it weren&apos;t supported officially, the alternative would seem to be messy, something like this:<br><br>$animalClass = get_class($animal);<br>echo $animalClass::$props[&apos;order&apos;];  
 
 #
 
-
-
-Just found out that using the class name may also work to call similar function of anchestor class.
-
-
+Just found out that using the class name may also work to call similar function of anchestor class.<br><br>
 
 ```
 <?php
 
 class Anchestor {
-&#xA0;&#xA0; 
-&#xA0;&#xA0; public $Prefix = &apos;&apos;;
+   
+   public $Prefix = &apos;&apos;;
 
-&#xA0;&#xA0; private $_string =&#xA0; &apos;Bar&apos;;
-&#xA0; &#xA0; public function Foo() {
-&#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;Prefix.$this-&gt;_string;
-&#xA0; &#xA0; }
+   private $_string =  &apos;Bar&apos;;
+    public function Foo() {
+        return $this-&gt;Prefix.$this-&gt;_string;
+    }
 }
 
 class MyParent extends Anchestor {
-&#xA0; &#xA0; public function Foo() {
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $this-&gt;Prefix = null;
-&#xA0; &#xA0; &#xA0; &#xA0; return parent::Foo().&apos;Baz&apos;;
-&#xA0; &#xA0; }
+    public function Foo() {
+         $this-&gt;Prefix = null;
+        return parent::Foo().&apos;Baz&apos;;
+    }
 }
 
 class Child extends MyParent {
-&#xA0; &#xA0; public function Foo() {
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;Prefix = &apos;Foo&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; return Anchestor::Foo();
-&#xA0; &#xA0; }
+    public function Foo() {
+        $this-&gt;Prefix = &apos;Foo&apos;;
+        return Anchestor::Foo();
+    }
 }
 
 $c = new Child();
@@ -133,11 +68,7 @@ echo $c-&gt;Foo(); //return FooBar, because Prefix, as in Anchestor::Foo()
 
 ?>
 ```
-
-
-The Child class calls at Anchestor::Foo(), and therefore MyParent::Foo() is never run.
-
-  
+<br><br>The Child class calls at Anchestor::Foo(), and therefore MyParent::Foo() is never run.  
 
 #
 

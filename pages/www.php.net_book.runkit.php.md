@@ -2,17 +2,7 @@
 
 
 
-
-
-I found that Mr. Dmitry Zenovich (http://ru.linkedin.com/in/zenovich) implemented a new version of the runkit library here http://github.com/zenovich/runkit/.
-
-Thanks to Mr. Zenovich for his effort in maintaining this library.
-
-Some other interesting updated info here:
-
-http://bit.ly/9puHiH
-
-  
+I found that Mr. Dmitry Zenovich (http://ru.linkedin.com/in/zenovich) implemented a new version of the runkit library here http://github.com/zenovich/runkit/.<br><br>Thanks to Mr. Zenovich for his effort in maintaining this library.<br><br>Some other interesting updated info here:<br><br>http://bit.ly/9puHiH  
 
 #
 

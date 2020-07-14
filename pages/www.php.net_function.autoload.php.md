@@ -2,20 +2,74 @@
 
 
 
+It is highly recommended not to use the __autoload() function any more. Now the spl_autoload_register() function is what you should consider.Sorry for the mistake in line 6 of my previous note. And below is the corrected PHP code.<br>
 
-<div class="phpcode"><span class="html">
-It is highly recommended not to use the __autoload() function any more. Now the spl_autoload_register() function is what you should consider.Sorry for the mistake in line 6 of my previous note. And below is the corrected PHP code.<br><span class="default">&lt;?php<br>&#xA0; &#xA0; </span><span class="keyword">if(!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">&apos;classAutoLoader&apos;</span><span class="keyword">)){<br>&#xA0; &#xA0; &#xA0; &#xA0; function </span><span class="default">classAutoLoader</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$class</span><span class="keyword">=</span><span class="default">strtolower</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$classFile</span><span class="keyword">=</span><span class="default">$_SERVER</span><span class="keyword">[</span><span class="string">&apos;DOCUMENT_ROOT&apos;</span><span class="keyword">].</span><span class="string">&apos;/include/class/&apos;</span><span class="keyword">.</span><span class="default">$class</span><span class="keyword">.</span><span class="string">&apos;.class.php&apos;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">is_file</span><span class="keyword">(</span><span class="default">$classFile</span><span class="keyword">)&amp;&amp;!</span><span class="default">class_exists</span><span class="keyword">(</span><span class="default">$class</span><span class="keyword">)) include </span><span class="default">$classFile</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; </span><span class="default">spl_autoload_register</span><span class="keyword">(</span><span class="string">&apos;classAutoLoader&apos;</span><span class="keyword">);<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+    if(!function_exists(&apos;classAutoLoader&apos;)){
+        function classAutoLoader($class){
+            $class=strtolower($class);
+            $classFile=$_SERVER[&apos;DOCUMENT_ROOT&apos;].&apos;/include/class/&apos;.$class.&apos;.class.php&apos;;
+            if(is_file($classFile)&amp;&amp;!class_exists($class)) include $classFile;
+        }
+    }
+    spl_autoload_register(&apos;classAutoLoader&apos;);
+?>
+```
   
 
 #
 
+Even I have never been using this function, just a simple example in order to explain it;<br><br>./myClass.php<br>
 
-<div class="phpcode"><span class="html">
-Even I have never been using this function, just a simple example in order to explain it;<br><br>./myClass.php<br><span class="default">&lt;?php<br></span><span class="keyword">class </span><span class="default">myClass </span><span class="keyword">{<br>&#xA0; &#xA0; public function </span><span class="default">__construct</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;myClass init&apos;ed successfuly!!!&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>}<br></span><span class="default">?&gt;<br></span><br>./index.php<br><span class="default">&lt;?php<br></span><span class="comment">// we&apos;ve writen this code where we need<br></span><span class="keyword">function </span><span class="default">__autoload</span><span class="keyword">(</span><span class="default">$classname</span><span class="keyword">) {<br>&#xA0; &#xA0; </span><span class="default">$filename </span><span class="keyword">= </span><span class="string">&quot;./&quot;</span><span class="keyword">. </span><span class="default">$classname </span><span class="keyword">.</span><span class="string">&quot;.php&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; include_once(</span><span class="default">$filename</span><span class="keyword">);<br>}<br><br></span><span class="comment">// we&apos;ve called a class ***<br></span><span class="default">$obj </span><span class="keyword">= new </span><span class="default">myClass</span><span class="keyword">();<br></span><span class="default">?&gt;<br></span><br>*** At this line, our &quot;./myClass.php&quot; will be included! This is the magic that we&apos;re wondering... And you get this result &quot;myClass init&apos;ed successfuly!!!&quot;.<br><br>So, if you call a class that named as myClass then a file will be included myClass.php if it exists (if not you get an include error normally). If you call Foo, Foo.php will be included, and so on...<br><br>And you don&apos;t need some code like this anymore;<br><br><span class="default">&lt;?php<br></span><span class="keyword">include_once(</span><span class="string">&quot;./myClass.php&quot;</span><span class="keyword">);<br>include_once(</span><span class="string">&quot;./myFoo.php&quot;</span><span class="keyword">);<br>include_once(</span><span class="string">&quot;./myBar.php&quot;</span><span class="keyword">);<br><br></span><span class="default">$obj </span><span class="keyword">= new </span><span class="default">myClass</span><span class="keyword">();<br></span><span class="default">$foo </span><span class="keyword">= new </span><span class="default">Foo</span><span class="keyword">();<br></span><span class="default">$bar </span><span class="keyword">= new </span><span class="default">Bar</span><span class="keyword">();<br></span><span class="default">?&gt;<br></span><br>Your class files will be included &quot;automatically&quot; when you call (init) them without these functions: &quot;include, include_once, require, require_once&quot;.</span>
-</div>
-  
+```
+<?php
+class myClass {
+    public function __construct() {
+        echo "myClass init&apos;ed successfuly!!!";
+    }
+}
+?>
+```
+
+
+./index.php
+
+
+```
+<?php
+// we&apos;ve writen this code where we need
+function __autoload($classname) {
+    $filename = "./". $classname .".php";
+    include_once($filename);
+}
+
+// we&apos;ve called a class ***
+$obj = new myClass();
+?>
+```
+
+
+*** At this line, our "./myClass.php" will be included! This is the magic that we&apos;re wondering... And you get this result "myClass init&apos;ed successfuly!!!".
+
+So, if you call a class that named as myClass then a file will be included myClass.php if it exists (if not you get an include error normally). If you call Foo, Foo.php will be included, and so on...
+
+And you don&apos;t need some code like this anymore;
+
+
+
+```
+<?php
+include_once("./myClass.php");
+include_once("./myFoo.php");
+include_once("./myBar.php");
+
+$obj = new myClass();
+$foo = new Foo();
+$bar = new Bar();
+?>
+```
+<br><br>Your class files will be included "automatically" when you call (init) them without these functions: "include, include_once, require, require_once".  
 
 #
 

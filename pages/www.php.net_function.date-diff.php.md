@@ -2,39 +2,9 @@
 
 
 
-
-
-Powerful Function to get two date difference.
-
-//////////////////////////////////////////////////////////////////////
-//PARA: Date Should In YYYY-MM-DD Format
-//RESULT FORMAT:
-// &apos;%y Year %m Month %d Day %h Hours %i Minute %s Seconds&apos;&#xA0; &#xA0; &#xA0; &#xA0; =&gt;&#xA0; 1 Year 3 Month 14 Day 11 Hours 49 Minute 36 Seconds
-// &apos;%y Year %m Month %d Day&apos;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; =&gt;&#xA0; 1 Year 3 Month 14 Days
-// &apos;%m Month %d Day&apos;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; =&gt;&#xA0; 3 Month 14 Day
-// &apos;%d Day %h Hours&apos;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; =&gt;&#xA0; 14 Day 11 Hours
-// &apos;%d Day&apos;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; =&gt;&#xA0; 14 Days
-// &apos;%h Hours %i Minute %s Seconds&apos;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; =&gt;&#xA0; 11 Hours 49 Minute 36 Seconds
-// &apos;%i Minute %s Seconds&apos;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; =&gt;&#xA0; 49 Minute 36 Seconds
-// &apos;%h Hours&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; =&gt;&#xA0; 11 Hours
-// &apos;%a Days&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; =&gt;&#xA0; 468 Days
-//////////////////////////////////////////////////////////////////////
-function dateDifference($date_1 , $date_2 , $differenceFormat = &apos;%a&apos; )
-{
-&#xA0; &#xA0; $datetime1 = date_create($date_1);
-&#xA0; &#xA0; $datetime2 = date_create($date_2);
-&#xA0; &#xA0; 
-&#xA0; &#xA0; $interval = date_diff($datetime1, $datetime2);
-&#xA0; &#xA0; 
-&#xA0; &#xA0; return $interval-&gt;format($differenceFormat);
-&#xA0; &#xA0; 
-}
-
-  
+Powerful Function to get two date difference.<br><br>//////////////////////////////////////////////////////////////////////<br>//PARA: Date Should In YYYY-MM-DD Format<br>//RESULT FORMAT:<br>// &apos;%y Year %m Month %d Day %h Hours %i Minute %s Seconds&apos;        =&gt;  1 Year 3 Month 14 Day 11 Hours 49 Minute 36 Seconds<br>// &apos;%y Year %m Month %d Day&apos;                                    =&gt;  1 Year 3 Month 14 Days<br>// &apos;%m Month %d Day&apos;                                            =&gt;  3 Month 14 Day<br>// &apos;%d Day %h Hours&apos;                                            =&gt;  14 Day 11 Hours<br>// &apos;%d Day&apos;                                                        =&gt;  14 Days<br>// &apos;%h Hours %i Minute %s Seconds&apos;                                =&gt;  11 Hours 49 Minute 36 Seconds<br>// &apos;%i Minute %s Seconds&apos;                                        =&gt;  49 Minute 36 Seconds<br>// &apos;%h Hours                                                    =&gt;  11 Hours<br>// &apos;%a Days                                                        =&gt;  468 Days<br>//////////////////////////////////////////////////////////////////////<br>function dateDifference($date_1 , $date_2 , $differenceFormat = &apos;%a&apos; )<br>{<br>    $datetime1 = date_create($date_1);<br>    $datetime2 = date_create($date_2);<br>    <br>    $interval = date_diff($datetime1, $datetime2);<br>    <br>    return $interval-&gt;format($differenceFormat);<br>    <br>}  
 
 #
-
-
 
 
 
@@ -53,41 +23,38 @@ function dateDifference($date_1 , $date_2 , $differenceFormat = &apos;%a&apos; )
 
 function s_datediff( $str_interval, $dt_menor, $dt_maior, $relative=false){
 
-&#xA0; &#xA0; &#xA0;&#xA0; if( is_string( $dt_menor)) $dt_menor = date_create( $dt_menor);
-&#xA0; &#xA0; &#xA0;&#xA0; if( is_string( $dt_maior)) $dt_maior = date_create( $dt_maior);
+       if( is_string( $dt_menor)) $dt_menor = date_create( $dt_menor);
+       if( is_string( $dt_maior)) $dt_maior = date_create( $dt_maior);
 
-&#xA0; &#xA0; &#xA0;&#xA0; $diff = date_diff( $dt_menor, $dt_maior, ! $relative);
-&#xA0; &#xA0; &#xA0;&#xA0; 
-&#xA0; &#xA0; &#xA0;&#xA0; switch( $str_interval){
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; case &quot;y&quot;: 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $total = $diff-&gt;y + $diff-&gt;m / 12 + $diff-&gt;d / 365.25; break;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; case &quot;m&quot;:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $total= $diff-&gt;y * 12 + $diff-&gt;m + $diff-&gt;d/30 + $diff-&gt;h / 24;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; break;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; case &quot;d&quot;:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $total = $diff-&gt;y * 365.25 + $diff-&gt;m * 30 + $diff-&gt;d + $diff-&gt;h/24 + $diff-&gt;i / 60;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; break;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; case &quot;h&quot;: 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $total = ($diff-&gt;y * 365.25 + $diff-&gt;m * 30 + $diff-&gt;d) * 24 + $diff-&gt;h + $diff-&gt;i/60;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; break;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; case &quot;i&quot;: 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $total = (($diff-&gt;y * 365.25 + $diff-&gt;m * 30 + $diff-&gt;d) * 24 + $diff-&gt;h) * 60 + $diff-&gt;i + $diff-&gt;s/60;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; break;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; case &quot;s&quot;: 
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; $total = ((($diff-&gt;y * 365.25 + $diff-&gt;m * 30 + $diff-&gt;d) * 24 + $diff-&gt;h) * 60 + $diff-&gt;i)*60 + $diff-&gt;s;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; break;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0;&#xA0; if( $diff-&gt;invert)
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; return -1 * $total;
-&#xA0; &#xA0; &#xA0;&#xA0; else&#xA0; &#xA0; return $total;
-&#xA0;&#xA0; }
+       $diff = date_diff( $dt_menor, $dt_maior, ! $relative);
+       
+       switch( $str_interval){
+           case "y": 
+               $total = $diff-&gt;y + $diff-&gt;m / 12 + $diff-&gt;d / 365.25; break;
+           case "m":
+               $total= $diff-&gt;y * 12 + $diff-&gt;m + $diff-&gt;d/30 + $diff-&gt;h / 24;
+               break;
+           case "d":
+               $total = $diff-&gt;y * 365.25 + $diff-&gt;m * 30 + $diff-&gt;d + $diff-&gt;h/24 + $diff-&gt;i / 60;
+               break;
+           case "h": 
+               $total = ($diff-&gt;y * 365.25 + $diff-&gt;m * 30 + $diff-&gt;d) * 24 + $diff-&gt;h + $diff-&gt;i/60;
+               break;
+           case "i": 
+               $total = (($diff-&gt;y * 365.25 + $diff-&gt;m * 30 + $diff-&gt;d) * 24 + $diff-&gt;h) * 60 + $diff-&gt;i + $diff-&gt;s/60;
+               break;
+           case "s": 
+               $total = ((($diff-&gt;y * 365.25 + $diff-&gt;m * 30 + $diff-&gt;d) * 24 + $diff-&gt;h) * 60 + $diff-&gt;i)*60 + $diff-&gt;s;
+               break;
+          }
+       if( $diff-&gt;invert)
+               return -1 * $total;
+       else    return $total;
+   }
 
 /* Enjoy and feedback me ;-) */
 ?>
 ```
-
-
-
   
 
 #

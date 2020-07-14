@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-Great work.&#xA0; Thank you for allowing Lists to return on foreach.</span>
-</div>
-  
+Great work.  Thank you for allowing Lists to return on foreach.  
 
 #
 

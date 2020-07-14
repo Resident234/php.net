@@ -2,15 +2,11 @@
 
 
 
-
-
-The simplest way to get around the fact that max() won&apos;t give the key is array_search:
-
-
+The simplest way to get around the fact that max() won&apos;t give the key is array_search:<br><br>
 
 ```
 <?php
-$student_grades = array (&quot;john&quot; =&gt; 100, &quot;sarah&quot; =&gt; 90, &quot;anne&quot; =&gt; 100);
+$student_grades = array ("john" =&gt; 100, "sarah" =&gt; 90, "anne" =&gt; 100);
 $top_student = array_search(max($student_grades),$student_grades); // john
 ?>
 ```
@@ -37,27 +33,15 @@ To get all the max value keys:
 $top_students = array_keys($student_grades,max($student_grades)); // john, anne
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-max(null, 0) = null
-
-max(0, null) = 0
-
-  
+max(null, 0) = null<br>max(0, null) = 0  
 
 #
 
-
-
-max() (and min()) on DateTime objects compares them like dates (with timezone info) and returns DateTime object.
-
+max() (and min()) on DateTime objects compares them like dates (with timezone info) and returns DateTime object.<br>
 
 ```
 <?php 
@@ -67,25 +51,17 @@ echo max($dt1,$dt2)-&gt;format(DateTime::RFC3339) . PHP_EOL; // 2014-05-07T16:53
 echo min($dt1,$dt2)-&gt;format(DateTime::RFC3339) . PHP_EOL; // 2014-05-07T18:53:00+03:00
 ?>
 ```
-
-
-It works at least 5.3.3-7+squeeze17
-
-  
+<br><br>It works at least 5.3.3-7+squeeze17  
 
 #
 
-
-
-Notice that whenever there is a Number in front of the String, it will be used for Comparison.
-
-
+Notice that whenever there is a Number in front of the String, it will be used for Comparison.<br><br>
 
 ```
 <?php
 
-&#xA0; max(&apos;7iuwmssuxue&apos;, 1); //returns 7iuwmssuxu
-&#xA0; max(&apos;-7suidha&apos;, -4); //returns -4
+  max(&apos;7iuwmssuxue&apos;, 1); //returns 7iuwmssuxu
+  max(&apos;-7suidha&apos;, -4); //returns -4
 
 ?>
 ```
@@ -98,13 +74,10 @@ But just if it is in front of the String
 ```
 <?php
 
-&#xA0; max(&apos;sdihatewin7wduiw&apos;, 3); //returns 3
+  max(&apos;sdihatewin7wduiw&apos;, 3); //returns 3
 
 ?>
 ```
-
-
-
   
 
 #

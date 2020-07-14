@@ -2,11 +2,7 @@
 
 
 
-
-
-As for me, curly braces serve good substitution for concatenation, and they are quicker to type and code looks cleaner. Remember to use double quotes (&quot; &quot;) as their content is parced by php, because in single quotes (&apos; &apos;) you&apos;ll get litaral name of variable provided:
-
-
+As for me, curly braces serve good substitution for concatenation, and they are quicker to type and code looks cleaner. Remember to use double quotes (" ") as their content is parced by php, because in single quotes (&apos; &apos;) you&apos;ll get litaral name of variable provided:<br><br>
 
 ```
 <?php
@@ -14,111 +10,69 @@ As for me, curly braces serve good substitution for concatenation, and they are 
  $a = &apos;12345&apos;;
 
 // This works:
- echo &quot;qwe{$a}rty&quot;; // qwe12345rty, using braces
- echo &quot;qwe&quot; . $a . &quot;rty&quot;; // qwe12345rty, concatenation used
+ echo "qwe{$a}rty"; // qwe12345rty, using braces
+ echo "qwe" . $a . "rty"; // qwe12345rty, concatenation used
 
 // Does not work:
  echo &apos;qwe{$a}rty&apos;; // qwe{$a}rty, single quotes are not parsed
- echo &quot;qwe$arty&quot;; // qwe, because $a became $arty, which is undefined
+ echo "qwe$arty"; // qwe, because $a became $arty, which is undefined
 
 ?>
 ```
-
-
-
   
 
 #
 
+A word of caution - the dot operator has the same precedence as + and -, which can yield unexpected results. <br><br>Example:<br><br>&lt;php<br>$var = 3;<br><br>echo "Result: " . $var + 3;<br>?>
+```
 
 
-A word of caution - the dot operator has the same precedence as + and -, which can yield unexpected results. 
+The above will print out "3" instead of "Result: 6", since first the string "Result3" is created and this is then added to 3 yielding 3, non-empty non-numeric strings being converted to 0.
 
-Example:
+To print "Result: 6", use parantheses to alter precedence:
 
 &lt;php
 $var = 3;
 
-echo &quot;Result: &quot; . $var + 3;
+echo "Result: " . ($var + 3); 
 ?>
 ```
-
-
-The above will print out &quot;3&quot; instead of &quot;Result: 6&quot;, since first the string &quot;Result3&quot; is created and this is then added to 3 yielding 3, non-empty non-numeric strings being converted to 0.
-
-To print &quot;Result: 6&quot;, use parantheses to alter precedence:
-
-&lt;php
-$var = 3;
-
-echo &quot;Result: &quot; . ($var + 3); 
-?>
-```
-
-
   
 
 #
-
-
 
 
 
 ```
 <?php 
-&quot;{$str1}{$str2}{$str3}&quot;; // one concat = fast
-&#xA0; $str1. $str2. $str3;&#xA0;&#xA0; // two concats = slow
+"{$str1}{$str2}{$str3}"; // one concat = fast
+  $str1. $str2. $str3;   // two concats = slow
 ?>
 ```
-
-Use double quotes to concat more than two strings instead of multiple &apos;.&apos; operators.&#xA0; PHP is forced to re-concatenate with every &apos;.&apos; operator.
-
-  
+<br>Use double quotes to concat more than two strings instead of multiple &apos;.&apos; operators.  PHP is forced to re-concatenate with every &apos;.&apos; operator.  
 
 #
 
-
-
-If you attempt to add numbers with a concatenation operator, your result will be the result of those numbers as strings.
-
-
+If you attempt to add numbers with a concatenation operator, your result will be the result of those numbers as strings.<br><br>
 
 ```
 <?php
 
-echo &quot;thr&quot;.&quot;ee&quot;;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; //prints the string &quot;three&quot;
-echo &quot;twe&quot; . &quot;lve&quot;;&#xA0; &#xA0; &#xA0; &#xA0; //prints the string &quot;twelve&quot;
-echo 1 . 2;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; //prints the string &quot;12&quot;
-echo 1.2;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; //prints the number 1.2
-echo 1+2;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; //prints the number 3
+echo "thr"."ee";           //prints the string "three"
+echo "twe" . "lve";        //prints the string "twelve"
+echo 1 . 2;                //prints the string "12"
+echo 1.2;                  //prints the number 1.2
+echo 1+2;                  //prints the number 3
 
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-Be careful so that you don&apos;t type &quot;.&quot; instead of &quot;;&quot; at the end of a line.
-
-It took me more than 30 minutes to debug a long script because of something like this:
-
-&lt;?
-echo &apos;a&apos;.
-$c = &apos;x&apos;;
-echo &apos;b&apos;;
-echo &apos;c&apos;;
-?>
+Be careful so that you don&apos;t type "." instead of ";" at the end of a line.<br><br>It took me more than 30 minutes to debug a long script because of something like this:<br><br>&lt;?<br>echo &apos;a&apos;.<br>$c = &apos;x&apos;;<br>echo &apos;b&apos;;<br>echo &apos;c&apos;;<br>?>
 ```
-
-
-The output is &quot;axbc&quot;, because of the dot on the first line.
-
-  
+<br><br>The output is "axbc", because of the dot on the first line.  
 
 #
 

@@ -2,42 +2,23 @@
 
 
 
-
-
-StripImage also delete ICC image profile by default.
-The resulting images seem to lose a lot of color information and look &quot;flat&quot; compared to their non-stripped versions.
-
-Consider keeping the ICC profile (which causes richer colors) while removing all other EXIF data:
-
-1. Extract the ICC profile
-2. Strip EXIF data and image profile
-3. Add the ICC profile back
-
-The code is:
-
+StripImage also delete ICC image profile by default.<br>The resulting images seem to lose a lot of color information and look "flat" compared to their non-stripped versions.<br><br>Consider keeping the ICC profile (which causes richer colors) while removing all other EXIF data:<br><br>1. Extract the ICC profile<br>2. Strip EXIF data and image profile<br>3. Add the ICC profile back<br><br>The code is:<br>
 
 ```
 <?php
-$profiles = $img-&gt;getImageProfiles(&quot;icc&quot;, true);
+$profiles = $img-&gt;getImageProfiles("icc", true);
 
 $img-&gt;stripImage();
 
 if(!empty($profiles))
-&#xA0; &#xA0; $img-&gt;profileImage(&quot;icc&quot;, $profiles[&apos;icc&apos;]);
+    $img-&gt;profileImage("icc", $profiles[&apos;icc&apos;]);
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-Please note that striping off the exif information without handling the orientation information available in the exif will lead to wrong orientation of the image
-
-  
+Please note that striping off the exif information without handling the orientation information available in the exif will lead to wrong orientation of the image  
 
 #
 

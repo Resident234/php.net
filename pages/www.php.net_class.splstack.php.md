@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-the SplStack is&#xA0; simply a SplDoublyLinkedList with&#xA0; an iteration mode IT_MODE_LIFO and IT_MODE_KEEP</span>
-</div>
-  
+the SplStack is  simply a SplDoublyLinkedList with  an iteration mode IT_MODE_LIFO and IT_MODE_KEEP  
 
 #
 

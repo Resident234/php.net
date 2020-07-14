@@ -2,11 +2,45 @@
 
 
 
+A trick to detecting if a connection is closed without having to send data that will otherwise corrupt the stream of data (like a binary file) you can use a combination of chunking the data on HTTP/1.1 by sending a "0" ("zero") as a leading chunk size without anything else.<br><br>*NOTE* it&apos;s important to note that it&apos;s not a good idea to check the stream more then once every few seconds. By doing this you are potentially increasing the data sent to the user with no gain to the user.<br><br>A good reason to do it this way is if you are generating a report that takes a long time to run and takes a lot of server resources. This would allow the server to detect if a user canceled the download and do any cleanup without corrupting the file file being download.<br><br>Here is an example:<br><br>
 
-<div class="phpcode"><span class="html">
-A trick to detecting if a connection is closed without having to send data that will otherwise corrupt the stream of data (like a binary file) you can use a combination of chunking the data on HTTP/1.1 by sending a &quot;0&quot; (&quot;zero&quot;) as a leading chunk size without anything else.<br><br>*NOTE* it&apos;s important to note that it&apos;s not a good idea to check the stream more then once every few seconds. By doing this you are potentially increasing the data sent to the user with no gain to the user.<br><br>A good reason to do it this way is if you are generating a report that takes a long time to run and takes a lot of server resources. This would allow the server to detect if a user canceled the download and do any cleanup without corrupting the file file being download.<br><br>Here is an example:<br><br><span class="default">&lt;?php<br>ignore_user_abort</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br></span><span class="default">header</span><span class="keyword">(</span><span class="string">&apos;Transfer-Encoding:chunked&apos;</span><span class="keyword">);<br></span><span class="default">ob_flush</span><span class="keyword">();<br></span><span class="default">flush</span><span class="keyword">();<br></span><span class="default">$start </span><span class="keyword">= </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">);<br></span><span class="default">$i </span><span class="keyword">= </span><span class="default">0</span><span class="keyword">;<br></span><span class="comment">// Use this function to echo anything to the browser.<br></span><span class="keyword">function </span><span class="default">vPrint</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">){<br>&#xA0; &#xA0; if(</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="default">dechex</span><span class="keyword">(</span><span class="default">strlen</span><span class="keyword">(</span><span class="default">$data</span><span class="keyword">)), </span><span class="string">&quot;\r\n&quot;</span><span class="keyword">, </span><span class="default">$data</span><span class="keyword">, </span><span class="string">&quot;\r\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">ob_flush</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="default">flush</span><span class="keyword">();<br>}<br></span><span class="comment">// You MUST execute this function after you are done streaming information to the browser.<br></span><span class="keyword">function </span><span class="default">endPacket</span><span class="keyword">(){<br>&#xA0; &#xA0; echo </span><span class="string">&quot;0\r\n\r\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">ob_flush</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="default">flush</span><span class="keyword">();<br>}<br>do{<br>&#xA0; &#xA0; echo </span><span class="string">&quot;0&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">ob_flush</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="default">flush</span><span class="keyword">();<br>&#xA0; &#xA0; if(</span><span class="default">connection_aborted</span><span class="keyword">()){<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// This happens when connection is closed<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">file_put_contents</span><span class="keyword">(</span><span class="string">&apos;/tmp/test.tmp&apos;</span><span class="keyword">, </span><span class="default">sprintf</span><span class="keyword">(</span><span class="string">&quot;Conn Closed\nTime spent with connection open: %01.5f sec\nLoop itterations: %s\n\n&quot;</span><span class="keyword">, </span><span class="default">microtime</span><span class="keyword">(</span><span class="default">true</span><span class="keyword">) - </span><span class="default">$start</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">), </span><span class="default">FILE_APPEND</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">endPacket</span><span class="keyword">();<br>&#xA0; &#xA0; &#xA0; &#xA0; exit;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; </span><span class="default">usleep</span><span class="keyword">(</span><span class="default">50000</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">vPrint</span><span class="keyword">(</span><span class="string">&quot;I get echo&apos;ed every itteration (every .5 second)&lt;br /&gt;\n&quot;</span><span class="keyword">);<br>}while(</span><span class="default">$i</span><span class="keyword">++ &lt; </span><span class="default">200</span><span class="keyword">);<br></span><span class="default">endPacket</span><span class="keyword">();<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+ignore_user_abort(true);
+header(&apos;Transfer-Encoding:chunked&apos;);
+ob_flush();
+flush();
+$start = microtime(true);
+$i = 0;
+// Use this function to echo anything to the browser.
+function vPrint($data){
+    if(strlen($data))
+        echo dechex(strlen($data)), "\r\n", $data, "\r\n";
+    ob_flush();
+    flush();
+}
+// You MUST execute this function after you are done streaming information to the browser.
+function endPacket(){
+    echo "0\r\n\r\n";
+    ob_flush();
+    flush();
+}
+do{
+    echo "0";
+    ob_flush();
+    flush();
+    if(connection_aborted()){
+        // This happens when connection is closed
+        file_put_contents(&apos;/tmp/test.tmp&apos;, sprintf("Conn Closed\nTime spent with connection open: %01.5f sec\nLoop itterations: %s\n\n", microtime(true) - $start, $i), FILE_APPEND);
+        endPacket();
+        exit;
+    }
+    usleep(50000);
+    vPrint("I get echo&apos;ed every itteration (every .5 second)&lt;br /&gt;\n");
+}while($i++ &lt; 200);
+endPacket();
+?>
+```
   
 
 #

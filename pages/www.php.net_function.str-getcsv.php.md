@@ -2,76 +2,179 @@
 
 
 
+[Editor&apos;s Note (cmb): that does not produce the desired results, if fields contain linebreaks.]<br><br>Handy one liner to parse a CSV file into an array<br><br>
 
-<div class="phpcode"><span class="html">
-[Editor&apos;s Note (cmb): that does not produce the desired results, if fields contain linebreaks.]
-<br>
-<br>Handy one liner to parse a CSV file into an array
-<br>
-<br><span class="default">&lt;?php
-<br>
-<br>$csv </span><span class="keyword">= </span><span class="default">array_map</span><span class="keyword">(</span><span class="string">&apos;str_getcsv&apos;</span><span class="keyword">, </span><span class="default">file</span><span class="keyword">(</span><span class="string">&apos;data.csv&apos;</span><span class="keyword">));
-<br>
-<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+$csv = array_map(&apos;str_getcsv&apos;, file(&apos;data.csv&apos;));
+
+?>
+```
   
 
 #
 
+Based on James&apos; line, this will create an array of associative arrays with the first row column headers as the keys.<br><br>
 
-<div class="phpcode"><span class="html">
-Based on James&apos; line, this will create an array of associative arrays with the first row column headers as the keys.<br><br><span class="default">&lt;?php<br>&#xA0; &#xA0; $csv </span><span class="keyword">= </span><span class="default">array_map</span><span class="keyword">(</span><span class="string">&apos;str_getcsv&apos;</span><span class="keyword">, </span><span class="default">file</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">));<br>&#xA0; &#xA0; </span><span class="default">array_walk</span><span class="keyword">(</span><span class="default">$csv</span><span class="keyword">, function(&amp;</span><span class="default">$a</span><span class="keyword">) use (</span><span class="default">$csv</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$a </span><span class="keyword">= </span><span class="default">array_combine</span><span class="keyword">(</span><span class="default">$csv</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">$a</span><span class="keyword">);<br>&#xA0; &#xA0; });<br>&#xA0; &#xA0; </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$csv</span><span class="keyword">); </span><span class="comment"># remove column header<br></span><span class="default">?&gt;</span> <br><br>This will yield something like<br>&#xA0; &#xA0; [2] =&gt; Array<br>&#xA0; &#xA0; &#xA0; &#xA0; (<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [Campaign ID] =&gt; 295095038<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [Ad group ID] =&gt; 22460178158<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [Keyword ID] =&gt; 3993587178</span>
-</div>
+```
+<?php
+    $csv = array_map(&apos;str_getcsv&apos;, file($file));
+    array_walk($csv, function(&amp;$a) use ($csv) {
+      $a = array_combine($csv[0], $a);
+    });
+    array_shift($csv); # remove column header
+?>
+```
+ <br><br>This will yield something like<br>    [2] =&gt; Array<br>        (<br>            [Campaign ID] =&gt; 295095038<br>            [Ad group ID] =&gt; 22460178158<br>            [Keyword ID] =&gt; 3993587178  
+
+#
+
+As the str_getcsv(), unlike to fgetcsv(), does not parse the rows in CSV string, I have found following easy workaround:<br><br>
+
+```
+<?php
+$Data = str_getcsv($CsvString, "\n"); //parse the rows
+foreach($Data as &amp;$Row) $Row = str_getcsv($Row, ";"); //parse the items in rows
+?>
+```
+<br><br>Why not use explode() instead of str_getcsv() to parse rows? Because explode() would not treat possible enclosured parts of string or escaped characters correctly.  
+
+#
+
+Here is a quick and easy way to convert a CSV file to an associated array:<br><br>
+
+```
+<?php
+/**
+ * @link http://gist.github.com/385876
+ */
+function csv_to_array($filename=&apos;&apos;, $delimiter=&apos;,&apos;)
+{
+    if(!file_exists($filename) || !is_readable($filename))
+        return FALSE;
+
+    $header = NULL;
+    $data = array();
+    if (($handle = fopen($filename, &apos;r&apos;)) !== FALSE)
+    {
+        while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE)
+        {
+            if(!$header)
+                $header = $row;
+            else
+                $data[] = array_combine($header, $row);
+        }
+        fclose($handle);
+    }
+    return $data;
+}
+
+?>
+```
   
 
 #
 
+Like some other users here noted, str_getcsv() cannot be used if you want to comply with either the RFC or with most spreadsheet tools like Excel or Google Docs.<br><br>These tools do not escape commas or new lines, but instead place double-quotes (") around the field. If there are any double-quotes in the field, these are escaped with another double-quote (" becomes ""). All this may look odd, but it is what the RFC and most tools do ... <br><br>For instance, try exporting as .csv a Google Docs spreadsheet (File &gt; Download as &gt; .csv) which has new lines and commas as part of the field values and see how the .csv content looks, then try to parse it using str_getcsv() ... it will spectacularly regardless of the arguments you pass to it.<br><br>Here is a function that can handle everything correctly, and more:<br><br>- doesn&apos;t use any for or while loops,<br>- it allows for any separator (any string of any length),<br>- option to skip empty lines,<br>- option to trim fields,<br>- can handle UTF8 data too (although .csv files are likely non-unicode).<br><br>Here is the more human readable version of the function:<br><br>
 
-<div class="phpcode"><span class="html">
-As the str_getcsv(), unlike to fgetcsv(), does not parse the rows in CSV string, I have found following easy workaround:
-<br>
-<br><span class="default">&lt;?php
-<br>$Data </span><span class="keyword">= </span><span class="default">str_getcsv</span><span class="keyword">(</span><span class="default">$CsvString</span><span class="keyword">, </span><span class="string">&quot;\n&quot;</span><span class="keyword">); </span><span class="comment">//parse the rows
-<br></span><span class="keyword">foreach(</span><span class="default">$Data </span><span class="keyword">as &amp;</span><span class="default">$Row</span><span class="keyword">) </span><span class="default">$Row </span><span class="keyword">= </span><span class="default">str_getcsv</span><span class="keyword">(</span><span class="default">$Row</span><span class="keyword">, </span><span class="string">&quot;;&quot;</span><span class="keyword">); </span><span class="comment">//parse the items in rows
-<br></span><span class="default">?&gt;
-<br></span>
-<br>Why not use explode() instead of str_getcsv() to parse rows? Because explode() would not treat possible enclosured parts of string or escaped characters correctly.</span>
-</div>
-  
+```
+<?php
+
+// returns a two-dimensional array or rows and fields
+
+function parse_csv ($csv_string, $delimiter = ",", $skip_empty_lines = true, $trim_fields = true)
+{
+    $enc = preg_replace(&apos;/(?&lt;!")""/&apos;, &apos;!!Q!!&apos;, $csv_string);
+    $enc = preg_replace_callback(
+        &apos;/"(.*?)"/s&apos;,
+        function ($field) {
+            return urlencode(utf8_encode($field[1]));
+        },
+        $enc
+    );
+    $lines = preg_split($skip_empty_lines ? ($trim_fields ? &apos;/( *\R)+/s&apos; : &apos;/\R+/s&apos;) : &apos;/\R/s&apos;, $enc);
+    return array_map(
+        function ($line) use ($delimiter, $trim_fields) {
+            $fields = $trim_fields ? array_map(&apos;trim&apos;, explode($delimiter, $line)) : explode($delimiter, $line);
+            return array_map(
+                function ($field) {
+                    return str_replace(&apos;!!Q!!&apos;, &apos;"&apos;, utf8_decode(urldecode($field)));
+                },
+                $fields
+            );
+        },
+        $lines
+    );
+}
+
+?>
+```
+
+
+Since this is not using any loops, you can actually write it as a one-line statement (one-liner).
+
+Here&apos;s the function using just one line of code for the function body, formatted nicely though:
+
+
+
+```
+<?php
+
+// returns the same two-dimensional array as above, but with a one-liner code
+
+function parse_csv ($csv_string, $delimiter = ",", $skip_empty_lines = true, $trim_fields = true)
+{
+    return array_map(
+        function ($line) use ($delimiter, $trim_fields) {
+            return array_map(
+                function ($field) {
+                    return str_replace(&apos;!!Q!!&apos;, &apos;"&apos;, utf8_decode(urldecode($field)));
+                },
+                $trim_fields ? array_map(&apos;trim&apos;, explode($delimiter, $line)) : explode($delimiter, $line)
+            );
+        },
+        preg_split(
+            $skip_empty_lines ? ($trim_fields ? &apos;/( *\R)+/s&apos; : &apos;/\R+/s&apos;) : &apos;/\R/s&apos;,
+            preg_replace_callback(
+                &apos;/"(.*?)"/s&apos;,
+                function ($field) {
+                    return urlencode(utf8_encode($field[1]));
+                },
+                $enc = preg_replace(&apos;/(?&lt;!")""/&apos;, &apos;!!Q!!&apos;, $csv_string)
+            )
+        )
+    );
+}
+
+?>
+```
+<br><br>Replace !!Q!! with another placeholder if you wish.<br><br>Have fun.  
 
 #
 
+I wanted the best of the 2 solutions by james at moss dot io and Jay Williams (csv_to_array()) - create associative array from a CSV file with a header row.<br><br>
 
-<div class="phpcode"><span class="html">
-Here is a quick and easy way to convert a CSV file to an associated array:<br><br><span class="default">&lt;?php<br></span><span class="comment">/**<br> * @link <a href="http://gist.github.com/385876" rel="nofollow" target="_blank">http://gist.github.com/385876</a><br> */<br></span><span class="keyword">function </span><span class="default">csv_to_array</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">=</span><span class="string">&apos;&apos;</span><span class="keyword">, </span><span class="default">$delimiter</span><span class="keyword">=</span><span class="string">&apos;,&apos;</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; if(!</span><span class="default">file_exists</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">) || !</span><span class="default">is_readable</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">FALSE</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="default">$header </span><span class="keyword">= </span><span class="default">NULL</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$data </span><span class="keyword">= array();<br>&#xA0; &#xA0; if ((</span><span class="default">$handle </span><span class="keyword">= </span><span class="default">fopen</span><span class="keyword">(</span><span class="default">$filename</span><span class="keyword">, </span><span class="string">&apos;r&apos;</span><span class="keyword">)) !== </span><span class="default">FALSE</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; while ((</span><span class="default">$row </span><span class="keyword">= </span><span class="default">fgetcsv</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">, </span><span class="default">1000</span><span class="keyword">, </span><span class="default">$delimiter</span><span class="keyword">)) !== </span><span class="default">FALSE</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(!</span><span class="default">$header</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$header </span><span class="keyword">= </span><span class="default">$row</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$data</span><span class="keyword">[] = </span><span class="default">array_combine</span><span class="keyword">(</span><span class="default">$header</span><span class="keyword">, </span><span class="default">$row</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$handle</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">$data</span><span class="keyword">;<br>}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
+```
+<?php
 
-#
+$array = array_map(&apos;str_getcsv&apos;, file(&apos;data.csv&apos;));
 
+$header = array_shift($array);
 
-<div class="phpcode"><span class="html">
-Like some other users here noted, str_getcsv() cannot be used if you want to comply with either the RFC or with most spreadsheet tools like Excel or Google Docs.<br><br>These tools do not escape commas or new lines, but instead place double-quotes (&quot;) around the field. If there are any double-quotes in the field, these are escaped with another double-quote (&quot; becomes &quot;&quot;). All this may look odd, but it is what the RFC and most tools do ... <br><br>For instance, try exporting as .csv a Google Docs spreadsheet (File &gt; Download as &gt; .csv) which has new lines and commas as part of the field values and see how the .csv content looks, then try to parse it using str_getcsv() ... it will spectacularly regardless of the arguments you pass to it.<br><br>Here is a function that can handle everything correctly, and more:<br><br>- doesn&apos;t use any for or while loops,<br>- it allows for any separator (any string of any length),<br>- option to skip empty lines,<br>- option to trim fields,<br>- can handle UTF8 data too (although .csv files are likely non-unicode).<br><br>Here is the more human readable version of the function:<br><br><span class="default">&lt;?php<br><br></span><span class="comment">// returns a two-dimensional array or rows and fields<br><br></span><span class="keyword">function </span><span class="default">parse_csv </span><span class="keyword">(</span><span class="default">$csv_string</span><span class="keyword">, </span><span class="default">$delimiter </span><span class="keyword">= </span><span class="string">&quot;,&quot;</span><span class="keyword">, </span><span class="default">$skip_empty_lines </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">, </span><span class="default">$trim_fields </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; </span><span class="default">$enc </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&apos;/(?&lt;!&quot;)&quot;&quot;/&apos;</span><span class="keyword">, </span><span class="string">&apos;!!Q!!&apos;</span><span class="keyword">, </span><span class="default">$csv_string</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$enc </span><span class="keyword">= </span><span class="default">preg_replace_callback</span><span class="keyword">(<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;/&quot;(.*?)&quot;/s&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; function (</span><span class="default">$field</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">urlencode</span><span class="keyword">(</span><span class="default">utf8_encode</span><span class="keyword">(</span><span class="default">$field</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]));<br>&#xA0; &#xA0; &#xA0; &#xA0; },<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$enc<br>&#xA0; &#xA0; </span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$lines </span><span class="keyword">= </span><span class="default">preg_split</span><span class="keyword">(</span><span class="default">$skip_empty_lines </span><span class="keyword">? (</span><span class="default">$trim_fields </span><span class="keyword">? </span><span class="string">&apos;/( *\R)+/s&apos; </span><span class="keyword">: </span><span class="string">&apos;/\R+/s&apos;</span><span class="keyword">) : </span><span class="string">&apos;/\R/s&apos;</span><span class="keyword">, </span><span class="default">$enc</span><span class="keyword">);<br>&#xA0; &#xA0; return </span><span class="default">array_map</span><span class="keyword">(<br>&#xA0; &#xA0; &#xA0; &#xA0; function (</span><span class="default">$line</span><span class="keyword">) use (</span><span class="default">$delimiter</span><span class="keyword">, </span><span class="default">$trim_fields</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$fields </span><span class="keyword">= </span><span class="default">$trim_fields </span><span class="keyword">? </span><span class="default">array_map</span><span class="keyword">(</span><span class="string">&apos;trim&apos;</span><span class="keyword">, </span><span class="default">explode</span><span class="keyword">(</span><span class="default">$delimiter</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">)) : </span><span class="default">explode</span><span class="keyword">(</span><span class="default">$delimiter</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">array_map</span><span class="keyword">(<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; function (</span><span class="default">$field</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">&apos;!!Q!!&apos;</span><span class="keyword">, </span><span class="string">&apos;&quot;&apos;</span><span class="keyword">, </span><span class="default">utf8_decode</span><span class="keyword">(</span><span class="default">urldecode</span><span class="keyword">(</span><span class="default">$field</span><span class="keyword">)));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; },<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$fields<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; },<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$lines<br>&#xA0; &#xA0; </span><span class="keyword">);<br>}<br><br></span><span class="default">?&gt;<br></span><br>Since this is not using any loops, you can actually write it as a one-line statement (one-liner).<br><br>Here&apos;s the function using just one line of code for the function body, formatted nicely though:<br><br><span class="default">&lt;?php<br><br></span><span class="comment">// returns the same two-dimensional array as above, but with a one-liner code<br><br></span><span class="keyword">function </span><span class="default">parse_csv </span><span class="keyword">(</span><span class="default">$csv_string</span><span class="keyword">, </span><span class="default">$delimiter </span><span class="keyword">= </span><span class="string">&quot;,&quot;</span><span class="keyword">, </span><span class="default">$skip_empty_lines </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">, </span><span class="default">$trim_fields </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; return </span><span class="default">array_map</span><span class="keyword">(<br>&#xA0; &#xA0; &#xA0; &#xA0; function (</span><span class="default">$line</span><span class="keyword">) use (</span><span class="default">$delimiter</span><span class="keyword">, </span><span class="default">$trim_fields</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">array_map</span><span class="keyword">(<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; function (</span><span class="default">$field</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">&apos;!!Q!!&apos;</span><span class="keyword">, </span><span class="string">&apos;&quot;&apos;</span><span class="keyword">, </span><span class="default">utf8_decode</span><span class="keyword">(</span><span class="default">urldecode</span><span class="keyword">(</span><span class="default">$field</span><span class="keyword">)));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; },<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$trim_fields </span><span class="keyword">? </span><span class="default">array_map</span><span class="keyword">(</span><span class="string">&apos;trim&apos;</span><span class="keyword">, </span><span class="default">explode</span><span class="keyword">(</span><span class="default">$delimiter</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">)) : </span><span class="default">explode</span><span class="keyword">(</span><span class="default">$delimiter</span><span class="keyword">, </span><span class="default">$line</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; );<br>&#xA0; &#xA0; &#xA0; &#xA0; },<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">preg_split</span><span class="keyword">(<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$skip_empty_lines </span><span class="keyword">? (</span><span class="default">$trim_fields </span><span class="keyword">? </span><span class="string">&apos;/( *\R)+/s&apos; </span><span class="keyword">: </span><span class="string">&apos;/\R+/s&apos;</span><span class="keyword">) : </span><span class="string">&apos;/\R/s&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">preg_replace_callback</span><span class="keyword">(<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;/&quot;(.*?)&quot;/s&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; function (</span><span class="default">$field</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">urlencode</span><span class="keyword">(</span><span class="default">utf8_encode</span><span class="keyword">(</span><span class="default">$field</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]));<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; },<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$enc </span><span class="keyword">= </span><span class="default">preg_replace</span><span class="keyword">(</span><span class="string">&apos;/(?&lt;!&quot;)&quot;&quot;/&apos;</span><span class="keyword">, </span><span class="string">&apos;!!Q!!&apos;</span><span class="keyword">, </span><span class="default">$csv_string</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; )<br>&#xA0; &#xA0; &#xA0; &#xA0; )<br>&#xA0; &#xA0; );<br>}<br><br></span><span class="default">?&gt;<br></span><br>Replace !!Q!! with another placeholder if you wish.<br><br>Have fun.</span>
-</div>
-  
+array_walk($array, &apos;_combine_array&apos;, $header);
 
-#
+function _combine_array(&amp;$row, $key, $header) {
+  $row = array_combine($header, $row);
+}
 
-
-<div class="phpcode"><span class="html">
-I wanted the best of the 2 solutions by james at moss dot io and Jay Williams (csv_to_array()) - create associative array from a CSV file with a header row.<br><br><span class="default">&lt;?php<br><br>$array </span><span class="keyword">= </span><span class="default">array_map</span><span class="keyword">(</span><span class="string">&apos;str_getcsv&apos;</span><span class="keyword">, </span><span class="default">file</span><span class="keyword">(</span><span class="string">&apos;data.csv&apos;</span><span class="keyword">));<br><br></span><span class="default">$header </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">);<br><br></span><span class="default">array_walk</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="string">&apos;_combine_array&apos;</span><span class="keyword">, </span><span class="default">$header</span><span class="keyword">);<br><br>function </span><span class="default">_combine_array</span><span class="keyword">(&amp;</span><span class="default">$row</span><span class="keyword">, </span><span class="default">$key</span><span class="keyword">, </span><span class="default">$header</span><span class="keyword">) {<br>&#xA0; </span><span class="default">$row </span><span class="keyword">= </span><span class="default">array_combine</span><span class="keyword">(</span><span class="default">$header</span><span class="keyword">, </span><span class="default">$row</span><span class="keyword">);<br>}<br><br></span><span class="default">?&gt;<br></span><br>Then I thought why not try some benchmarking? I grabbed a sample CSV file with 50,000 rows (10 columns each) and Vulcan Logic Disassembler (VLD) which hooks into the Zend Engine and dumps all the opcodes (execution units) of a script - see <a href="http://pecl.php.net/package/vld" rel="nofollow" target="_blank">http://pecl.php.net/package/vld</a> and example here: <a href="http://fabien.potencier.org/article/8/print-vs-echo-which-one-is-faster" rel="nofollow" target="_blank">http://fabien.potencier.org/article/8/print-vs-echo-which-one-is-faster</a><br><br>Result: <br><br>array_walk() and array_map() - 39 opcodes<br>csv_to_array() - 69 opcodes</span>
-</div>
-  
+?>
+```
+<br><br>Then I thought why not try some benchmarking? I grabbed a sample CSV file with 50,000 rows (10 columns each) and Vulcan Logic Disassembler (VLD) which hooks into the Zend Engine and dumps all the opcodes (execution units) of a script - see http://pecl.php.net/package/vld and example here: http://fabien.potencier.org/article/8/print-vs-echo-which-one-is-faster<br><br>Result: <br><br>array_walk() and array_map() - 39 opcodes<br>csv_to_array() - 69 opcodes  
 
 #
 
-
-<div class="phpcode"><span class="html">
-@normadize - that is a nice start, but it fails on situations where a field is empty but quoted (returning a string with one double quote instead of an empty string) and cases like &quot;&quot;&quot;&quot;&quot;foo&quot;&quot;&quot;&quot;&quot; that should result in &quot;&quot;foo&quot;&quot; but instead return &quot;foo&quot;. I also get a row with 1 empty field at the end because of the final CRLF in the CSV. Plus, I don&apos;t really like the !!Q!! magic or urlencoding to get around things. Also, \R doesn&apos;t work in pcre on any of my php installations.<br><br>Here is my take on this, without anonymous functions (so it works on PHP &lt; 5.3), and without your options (because I believe the only correct way to parse according to the RFC would be $skip_empty_lines = false and $trim_fields = false).<br><br>//parse a CSV file into a two-dimensional array<br>//this seems as simple as splitting a string by lines and commas, but this only works if tricks are performed<br>//to ensure that you do NOT split on lines and commas that are inside of double quotes.<br>function parse_csv($str)<br>{<br>&#xA0; &#xA0; //match all the non-quoted text and one series of quoted text (or the end of the string)<br>&#xA0; &#xA0; //each group of matches will be parsed with the callback, with $matches[1] containing all the non-quoted text,<br>&#xA0; &#xA0; //and $matches[3] containing everything inside the quotes<br>&#xA0; &#xA0; $str = preg_replace_callback(&apos;/([^&quot;]*)(&quot;((&quot;&quot;|[^&quot;])*)&quot;|$)/s&apos;, &apos;parse_csv_quotes&apos;, $str);<br><br>&#xA0; &#xA0; //remove the very last newline to prevent a 0-field array for the last line<br>&#xA0; &#xA0; $str = preg_replace(&apos;/\n$/&apos;, &apos;&apos;, $str);<br><br>&#xA0; &#xA0; //split on LF and parse each line with a callback<br>&#xA0; &#xA0; return array_map(&apos;parse_csv_line&apos;, explode(&quot;\n&quot;, $str));<br>}<br><br>//replace all the csv-special characters inside double quotes with markers using an escape sequence<br>function parse_csv_quotes($matches)<br>{<br>&#xA0; &#xA0; //anything inside the quotes that might be used to split the string into lines and fields later,<br>&#xA0; &#xA0; //needs to be quoted. The only character we can guarantee as safe to use, because it will never appear in the unquoted text, is a CR<br>&#xA0; &#xA0; //So we&apos;re going to use CR as a marker to make escape sequences for CR, LF, Quotes, and Commas.<br>&#xA0; &#xA0; $str = str_replace(&quot;\r&quot;, &quot;\rR&quot;, $matches[3]);<br>&#xA0; &#xA0; $str = str_replace(&quot;\n&quot;, &quot;\rN&quot;, $str);<br>&#xA0; &#xA0; $str = str_replace(&apos;&quot;&quot;&apos;, &quot;\rQ&quot;, $str);<br>&#xA0; &#xA0; $str = str_replace(&apos;,&apos;, &quot;\rC&quot;, $str);<br><br>&#xA0; &#xA0; //The unquoted text is where commas and newlines are allowed, and where the splits will happen<br>&#xA0; &#xA0; //We&apos;re going to remove all CRs from the unquoted text, by normalizing all line endings to just LF<br>&#xA0; &#xA0; //This ensures us that the only place CR is used, is as the escape sequences for quoted text<br>&#xA0; &#xA0; return preg_replace(&apos;/\r\n?/&apos;, &quot;\n&quot;, $matches[1]) . $str;<br>}<br><br>//split on comma and parse each field with a callback<br>function parse_csv_line($line)<br>{<br>&#xA0; &#xA0; return array_map(&apos;parse_csv_field&apos;, explode(&apos;,&apos;, $line));<br>}<br><br>//restore any csv-special characters that are part of the data<br>function parse_csv_field($field) {<br>&#xA0; &#xA0; $field = str_replace(&quot;\rC&quot;, &apos;,&apos;, $field);<br>&#xA0; &#xA0; $field = str_replace(&quot;\rQ&quot;, &apos;&quot;&apos;, $field);<br>&#xA0; &#xA0; $field = str_replace(&quot;\rN&quot;, &quot;\n&quot;, $field);<br>&#xA0; &#xA0; $field = str_replace(&quot;\rR&quot;, &quot;\r&quot;, $field);<br>&#xA0; &#xA0; return $field;<br>}</span>
-</div>
-  
+@normadize - that is a nice start, but it fails on situations where a field is empty but quoted (returning a string with one double quote instead of an empty string) and cases like """""foo""""" that should result in ""foo"" but instead return "foo". I also get a row with 1 empty field at the end because of the final CRLF in the CSV. Plus, I don&apos;t really like the !!Q!! magic or urlencoding to get around things. Also, \R doesn&apos;t work in pcre on any of my php installations.<br><br>Here is my take on this, without anonymous functions (so it works on PHP &lt; 5.3), and without your options (because I believe the only correct way to parse according to the RFC would be $skip_empty_lines = false and $trim_fields = false).<br><br>//parse a CSV file into a two-dimensional array<br>//this seems as simple as splitting a string by lines and commas, but this only works if tricks are performed<br>//to ensure that you do NOT split on lines and commas that are inside of double quotes.<br>function parse_csv($str)<br>{<br>    //match all the non-quoted text and one series of quoted text (or the end of the string)<br>    //each group of matches will be parsed with the callback, with $matches[1] containing all the non-quoted text,<br>    //and $matches[3] containing everything inside the quotes<br>    $str = preg_replace_callback(&apos;/([^"]*)("((""|[^"])*)"|$)/s&apos;, &apos;parse_csv_quotes&apos;, $str);<br><br>    //remove the very last newline to prevent a 0-field array for the last line<br>    $str = preg_replace(&apos;/\n$/&apos;, &apos;&apos;, $str);<br><br>    //split on LF and parse each line with a callback<br>    return array_map(&apos;parse_csv_line&apos;, explode("\n", $str));<br>}<br><br>//replace all the csv-special characters inside double quotes with markers using an escape sequence<br>function parse_csv_quotes($matches)<br>{<br>    //anything inside the quotes that might be used to split the string into lines and fields later,<br>    //needs to be quoted. The only character we can guarantee as safe to use, because it will never appear in the unquoted text, is a CR<br>    //So we&apos;re going to use CR as a marker to make escape sequences for CR, LF, Quotes, and Commas.<br>    $str = str_replace("\r", "\rR", $matches[3]);<br>    $str = str_replace("\n", "\rN", $str);<br>    $str = str_replace(&apos;""&apos;, "\rQ", $str);<br>    $str = str_replace(&apos;,&apos;, "\rC", $str);<br><br>    //The unquoted text is where commas and newlines are allowed, and where the splits will happen<br>    //We&apos;re going to remove all CRs from the unquoted text, by normalizing all line endings to just LF<br>    //This ensures us that the only place CR is used, is as the escape sequences for quoted text<br>    return preg_replace(&apos;/\r\n?/&apos;, "\n", $matches[1]) . $str;<br>}<br><br>//split on comma and parse each field with a callback<br>function parse_csv_line($line)<br>{<br>    return array_map(&apos;parse_csv_field&apos;, explode(&apos;,&apos;, $line));<br>}<br><br>//restore any csv-special characters that are part of the data<br>function parse_csv_field($field) {<br>    $field = str_replace("\rC", &apos;,&apos;, $field);<br>    $field = str_replace("\rQ", &apos;"&apos;, $field);<br>    $field = str_replace("\rN", "\n", $field);<br>    $field = str_replace("\rR", "\r", $field);<br>    return $field;<br>}  
 
 #
 

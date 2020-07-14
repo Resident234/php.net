@@ -2,19 +2,67 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-The #2 comment on this comments page (as of Feb 2015) is 9 years old and recommends phpass.&#xA0; I have independently security audited this product and, while it continues to be recommended for password security, it is actually insecure and should NOT be used.&#xA0; It hasn&apos;t seen any updates in years (still at v0.3) and there are more recent alternatives such as using the newer built-in PHP password_hash() function that are much better.&#xA0; Everyone, please take a few moments to confirm what I&apos;m saying is accurate (i.e. review the phpass code for yourself) and then click the down arrow to sink the phpass comment to the bottom.&#xA0; You&apos;ll be increasing security across the Internet by doing so.<br><br>For those who want details:&#xA0; md5() with microtime() are a fallback position within the source code of phpass.&#xA0; Instead of terminating, it continues to execute code.&#xA0; The author&apos;s intentions of trying to work everywhere are admirable but, when it comes to application security, that stance actually backfires.&#xA0; The only correct answer in a security context is to terminate the application rather than fallback to a weak position that can potentially be exploited (usually by forcing that weaker position to happen).</span>
-</div>
-  
+The #2 comment on this comments page (as of Feb 2015) is 9 years old and recommends phpass.  I have independently security audited this product and, while it continues to be recommended for password security, it is actually insecure and should NOT be used.  It hasn&apos;t seen any updates in years (still at v0.3) and there are more recent alternatives such as using the newer built-in PHP password_hash() function that are much better.  Everyone, please take a few moments to confirm what I&apos;m saying is accurate (i.e. review the phpass code for yourself) and then click the down arrow to sink the phpass comment to the bottom.  You&apos;ll be increasing security across the Internet by doing so.<br><br>For those who want details:  md5() with microtime() are a fallback position within the source code of phpass.  Instead of terminating, it continues to execute code.  The author&apos;s intentions of trying to work everywhere are admirable but, when it comes to application security, that stance actually backfires.  The only correct answer in a security context is to terminate the application rather than fallback to a weak position that can potentially be exploited (usually by forcing that weaker position to happen).  
 
 #
 
+As I understand it, blowfish is generally seen a secure hashing algorithm, even for enterprise use (correct me if I&apos;m wrong). Because of this, I created functions to create and check secure password hashes using this algorithm, and using the (also deemed cryptographically secure) openssl_random_pseudo_bytes function to generate the salt.<br><br>
 
-<div class="phpcode"><span class="html">
-As I understand it, blowfish is generally seen a secure hashing algorithm, even for enterprise use (correct me if I&apos;m wrong). Because of this, I created functions to create and check secure password hashes using this algorithm, and using the (also deemed cryptographically secure) openssl_random_pseudo_bytes function to generate the salt.<br><br><span class="default">&lt;?php<br></span><span class="comment">/*<br> * Generate a secure hash for a given password. The cost is passed<br> * to the blowfish algorithm. Check the PHP manual page for crypt to<br> * find more information about this setting.<br> */<br></span><span class="keyword">function </span><span class="default">generate_hash</span><span class="keyword">(</span><span class="default">$password</span><span class="keyword">, </span><span class="default">$cost</span><span class="keyword">=</span><span class="default">11</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">/* To generate the salt, first generate enough random bytes. Because<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; * base64 returns one character for each 6 bits, the we should generate<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; * at least 22*6/8=16.5 bytes, so we generate 17. Then we get the first<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; * 22 base64 characters<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$salt</span><span class="keyword">=</span><span class="default">substr</span><span class="keyword">(</span><span class="default">base64_encode</span><span class="keyword">(</span><span class="default">openssl_random_pseudo_bytes</span><span class="keyword">(</span><span class="default">17</span><span class="keyword">)),</span><span class="default">0</span><span class="keyword">,</span><span class="default">22</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">/* As blowfish takes a salt with the alphabet ./A-Za-z0-9 we have to<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; * replace any &apos;+&apos; in the base64 string with &apos;.&apos;. We don&apos;t have to do<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; * anything about the &apos;=&apos;, as this only occurs when the b64 string is<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; * padded, which is always after the first 22 characters.<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$salt</span><span class="keyword">=</span><span class="default">str_replace</span><span class="keyword">(</span><span class="string">&quot;+&quot;</span><span class="keyword">,</span><span class="string">&quot;.&quot;</span><span class="keyword">,</span><span class="default">$salt</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">/* Next, create a string that will be passed to crypt, containing all<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; * of the settings, separated by dollar signs<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$param</span><span class="keyword">=</span><span class="string">&apos;$&apos;</span><span class="keyword">.</span><span class="default">implode</span><span class="keyword">(</span><span class="string">&apos;$&apos;</span><span class="keyword">,array(<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&quot;2y&quot;</span><span class="keyword">, </span><span class="comment">//select the most secure version of blowfish (&gt;=PHP 5.3.7)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">str_pad</span><span class="keyword">(</span><span class="default">$cost</span><span class="keyword">,</span><span class="default">2</span><span class="keyword">,</span><span class="string">&quot;0&quot;</span><span class="keyword">,</span><span class="default">STR_PAD_LEFT</span><span class="keyword">), </span><span class="comment">//add the cost in two digits<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$salt </span><span class="comment">//add the salt<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">));<br>&#xA0; &#xA0; &#xA0;&#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">//now do the actual hashing<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">return </span><span class="default">crypt</span><span class="keyword">(</span><span class="default">$password</span><span class="keyword">,</span><span class="default">$param</span><span class="keyword">);<br>}<br> <br></span><span class="comment">/*<br> * Check the password against a hash generated by the generate_hash<br> * function.<br> */<br></span><span class="keyword">function </span><span class="default">validate_pw</span><span class="keyword">(</span><span class="default">$password</span><span class="keyword">, </span><span class="default">$hash</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">/* Regenerating the with an available hash as the options parameter should<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; * produce the same hash if the same password is passed.<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; */<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">return </span><span class="default">crypt</span><span class="keyword">(</span><span class="default">$password</span><span class="keyword">, </span><span class="default">$hash</span><span class="keyword">)==</span><span class="default">$hash</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+/*
+ * Generate a secure hash for a given password. The cost is passed
+ * to the blowfish algorithm. Check the PHP manual page for crypt to
+ * find more information about this setting.
+ */
+function generate_hash($password, $cost=11){
+        /* To generate the salt, first generate enough random bytes. Because
+         * base64 returns one character for each 6 bits, the we should generate
+         * at least 22*6/8=16.5 bytes, so we generate 17. Then we get the first
+         * 22 base64 characters
+         */
+        $salt=substr(base64_encode(openssl_random_pseudo_bytes(17)),0,22);
+        /* As blowfish takes a salt with the alphabet ./A-Za-z0-9 we have to
+         * replace any &apos;+&apos; in the base64 string with &apos;.&apos;. We don&apos;t have to do
+         * anything about the &apos;=&apos;, as this only occurs when the b64 string is
+         * padded, which is always after the first 22 characters.
+         */
+        $salt=str_replace("+",".",$salt);
+        /* Next, create a string that will be passed to crypt, containing all
+         * of the settings, separated by dollar signs
+         */
+        $param=&apos;
+
+```
+<?php<br>/*<br> * Generate a secure hash for a given password. The cost is passed<br> * to the blowfish algorithm. Check the PHP manual page for crypt to<br> * find more information about this setting.<br> */<br>function generate_hash($password, $cost=11){<br>        /* To generate the salt, first generate enough random bytes. Because<br>         * base64 returns one character for each 6 bits, the we should generate<br>         * at least 22*6/8=16.5 bytes, so we generate 17. Then we get the first<br>         * 22 base64 characters<br>         */<br>        $salt=substr(base64_encode(openssl_random_pseudo_bytes(17)),0,22);<br>        /* As blowfish takes a salt with the alphabet ./A-Za-z0-9 we have to<br>         * replace any &apos;+&apos; in the base64 string with &apos;.&apos;. We don&apos;t have to do<br>         * anything about the &apos;=&apos;, as this only occurs when the b64 string is<br>         * padded, which is always after the first 22 characters.<br>         */<br>        $salt=str_replace("+",".",$salt);<br>        /* Next, create a string that will be passed to crypt, containing all<br>         * of the settings, separated by dollar signs<br>         */<br>        $param=&apos;$&apos;.implode(&apos;$&apos;,array(<br>                "2y", //select the most secure version of blowfish (&gt;=PHP 5.3.7)<br>                str_pad($cost,2,"0",STR_PAD_LEFT), //add the cost in two digits<br>                $salt //add the salt<br>        ));<br>       <br>        //now do the actual hashing<br>        return crypt($password,$param);<br>}<br> <br>/*<br> * Check the password against a hash generated by the generate_hash<br> * function.<br> */<br>function validate_pw($password, $hash){<br>        /* Regenerating the with an available hash as the options parameter should<br>         * produce the same hash if the same password is passed.<br>         */<br>        return crypt($password, $hash)==$hash;<br>}<br>?>
+```
+apos;.implode(&apos;
+
+```
+<?php<br>/*<br> * Generate a secure hash for a given password. The cost is passed<br> * to the blowfish algorithm. Check the PHP manual page for crypt to<br> * find more information about this setting.<br> */<br>function generate_hash($password, $cost=11){<br>        /* To generate the salt, first generate enough random bytes. Because<br>         * base64 returns one character for each 6 bits, the we should generate<br>         * at least 22*6/8=16.5 bytes, so we generate 17. Then we get the first<br>         * 22 base64 characters<br>         */<br>        $salt=substr(base64_encode(openssl_random_pseudo_bytes(17)),0,22);<br>        /* As blowfish takes a salt with the alphabet ./A-Za-z0-9 we have to<br>         * replace any &apos;+&apos; in the base64 string with &apos;.&apos;. We don&apos;t have to do<br>         * anything about the &apos;=&apos;, as this only occurs when the b64 string is<br>         * padded, which is always after the first 22 characters.<br>         */<br>        $salt=str_replace("+",".",$salt);<br>        /* Next, create a string that will be passed to crypt, containing all<br>         * of the settings, separated by dollar signs<br>         */<br>        $param=&apos;$&apos;.implode(&apos;$&apos;,array(<br>                "2y", //select the most secure version of blowfish (&gt;=PHP 5.3.7)<br>                str_pad($cost,2,"0",STR_PAD_LEFT), //add the cost in two digits<br>                $salt //add the salt<br>        ));<br>       <br>        //now do the actual hashing<br>        return crypt($password,$param);<br>}<br> <br>/*<br> * Check the password against a hash generated by the generate_hash<br> * function.<br> */<br>function validate_pw($password, $hash){<br>        /* Regenerating the with an available hash as the options parameter should<br>         * produce the same hash if the same password is passed.<br>         */<br>        return crypt($password, $hash)==$hash;<br>}<br>?>
+```
+apos;,array(
+                "2y", //select the most secure version of blowfish (&gt;=PHP 5.3.7)
+                str_pad($cost,2,"0",STR_PAD_LEFT), //add the cost in two digits
+                $salt //add the salt
+        ));
+       
+        //now do the actual hashing
+        return crypt($password,$param);
+}
+ 
+/*
+ * Check the password against a hash generated by the generate_hash
+ * function.
+ */
+function validate_pw($password, $hash){
+        /* Regenerating the with an available hash as the options parameter should
+         * produce the same hash if the same password is passed.
+         */
+        return crypt($password, $hash)==$hash;
+}
+?>
+```
   
 
 #

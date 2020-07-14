@@ -2,21 +2,15 @@
 
 
 
-
-
-To find out are you in CLI or not, this is much better in my opinion:
-
+To find out are you in CLI or not, this is much better in my opinion:<br>
 
 ```
 <?php
-if (PHP_SAPI != &quot;cli&quot;) {
-&#xA0; &#xA0; exit;
+if (PHP_SAPI != "cli") {
+    exit;
 }
 ?>
 ```
-
-
-
   
 
 #

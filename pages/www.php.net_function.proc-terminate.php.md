@@ -2,19 +2,53 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-/bin/sh -c CMD will fork sh and then exec CMD.<br>/bin/sh -c exec CMD will NOT fork and only executes CMD.<br><br>Therefore, you can get rid of this hack by prefixing your command to &quot;exec bla bla bla&quot;.</span>
-</div>
-  
+/bin/sh -c CMD will fork sh and then exec CMD.<br>/bin/sh -c exec CMD will NOT fork and only executes CMD.<br><br>Therefore, you can get rid of this hack by prefixing your command to "exec bla bla bla".  
 
 #
 
+As explained in http://bugs.php.net/bug.php?id=39992, proc_terminate() leaves children of the child process running. In my application, these children often have infinite loops, so I need a sure way to kill processes created with proc_open(). When I call proc_terminate(), the /bin/sh process is killed, but the child with the infinite loop is left running. <br><br>Until proc_terminate() gets fixed, I would not recommend using it. Instead, my solution is to:<br>1) call proc_get_status() to get the parent pid (ppid) of the process I want to kill. <br>2) use ps to get all pids that have that ppid as their parent pid<br>3) use posix_kill() to send the SIGKILL (9) signal to each of those child pids<br>4) call proc_close() on process resource<br><br>
 
-<div class="phpcode"><span class="html">
-As explained in <a href="http://bugs.php.net/bug.php?id=39992," rel="nofollow" target="_blank">http://bugs.php.net/bug.php?id=39992,</a> proc_terminate() leaves children of the child process running. In my application, these children often have infinite loops, so I need a sure way to kill processes created with proc_open(). When I call proc_terminate(), the /bin/sh process is killed, but the child with the infinite loop is left running. <br><br>Until proc_terminate() gets fixed, I would not recommend using it. Instead, my solution is to:<br>1) call proc_get_status() to get the parent pid (ppid) of the process I want to kill. <br>2) use ps to get all pids that have that ppid as their parent pid<br>3) use posix_kill() to send the SIGKILL (9) signal to each of those child pids<br>4) call proc_close() on process resource<br><br><span class="default">&lt;?php<br>$descriptorspec </span><span class="keyword">= array(<br></span><span class="default">0 </span><span class="keyword">=&gt; array(</span><span class="string">&apos;pipe&apos;</span><span class="keyword">, </span><span class="string">&apos;r&apos;</span><span class="keyword">),&#xA0; </span><span class="comment">// stdin is a pipe that the child will read from<br></span><span class="default">1 </span><span class="keyword">=&gt; array(</span><span class="string">&apos;pipe&apos;</span><span class="keyword">, </span><span class="string">&apos;w&apos;</span><span class="keyword">),&#xA0; </span><span class="comment">// stdout is a pipe that the child will write to<br></span><span class="default">2 </span><span class="keyword">=&gt; array(</span><span class="string">&apos;pipe&apos;</span><span class="keyword">, </span><span class="string">&apos;w&apos;</span><span class="keyword">)&#xA0;&#xA0; </span><span class="comment">// stderr is a pipe the child will write to<br></span><span class="keyword">);<br></span><span class="default">$process </span><span class="keyword">= </span><span class="default">proc_open</span><span class="keyword">(</span><span class="string">&apos;bad_program&apos;</span><span class="keyword">, </span><span class="default">$descriptorspec</span><span class="keyword">, </span><span class="default">$pipes</span><span class="keyword">);<br>if(!</span><span class="default">is_resource</span><span class="keyword">(</span><span class="default">$process</span><span class="keyword">)) {<br>&#xA0; &#xA0; throw new </span><span class="default">Exception</span><span class="keyword">(</span><span class="string">&apos;bad_program could not be started.&apos;</span><span class="keyword">);<br>}<br></span><span class="comment">//pass some input to the program<br></span><span class="default">fwrite</span><span class="keyword">(</span><span class="default">$pipes</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">], </span><span class="default">$lots_of_data</span><span class="keyword">);<br></span><span class="comment">//close stdin. By closing stdin, the program should exit<br>//after it finishes processing the input<br></span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$pipes</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">]);<br><br></span><span class="comment">//do some other stuff ... the process will probably still be running<br>//if we check on it right away<br><br></span><span class="default">$status </span><span class="keyword">= </span><span class="default">proc_get_status</span><span class="keyword">(</span><span class="default">$process</span><span class="keyword">);<br>if(</span><span class="default">$status</span><span class="keyword">[</span><span class="string">&apos;running&apos;</span><span class="keyword">] == </span><span class="default">true</span><span class="keyword">) { </span><span class="comment">//process ran too long, kill it<br>&#xA0; &#xA0; //close all pipes that are still open<br>&#xA0; &#xA0; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$pipes</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">]); </span><span class="comment">//stdout<br>&#xA0; &#xA0; </span><span class="default">fclose</span><span class="keyword">(</span><span class="default">$pipes</span><span class="keyword">[</span><span class="default">2</span><span class="keyword">]); </span><span class="comment">//stderr<br>&#xA0; &#xA0; //get the parent pid of the process we want to kill<br>&#xA0; &#xA0; </span><span class="default">$ppid </span><span class="keyword">= </span><span class="default">$status</span><span class="keyword">[</span><span class="string">&apos;pid&apos;</span><span class="keyword">];<br>&#xA0; &#xA0; </span><span class="comment">//use ps to get all the children of this process, and kill them<br>&#xA0; &#xA0; </span><span class="default">$pids </span><span class="keyword">= </span><span class="default">preg_split</span><span class="keyword">(</span><span class="string">&apos;/\s+/&apos;</span><span class="keyword">, `</span><span class="string">ps -o pid --no-heading --ppid </span><span class="default">$ppid</span><span class="keyword">`);<br>&#xA0; &#xA0; foreach(</span><span class="default">$pids </span><span class="keyword">as </span><span class="default">$pid</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; if(</span><span class="default">is_numeric</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; echo </span><span class="string">&quot;Killing </span><span class="default">$pid</span><span class="string">\n&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">posix_kill</span><span class="keyword">(</span><span class="default">$pid</span><span class="keyword">, </span><span class="default">9</span><span class="keyword">); </span><span class="comment">//9 is the SIGKILL signal<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">}<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; </span><span class="default">proc_close</span><span class="keyword">(</span><span class="default">$process</span><span class="keyword">);<br>}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+$descriptorspec = array(
+0 =&gt; array(&apos;pipe&apos;, &apos;r&apos;),  // stdin is a pipe that the child will read from
+1 =&gt; array(&apos;pipe&apos;, &apos;w&apos;),  // stdout is a pipe that the child will write to
+2 =&gt; array(&apos;pipe&apos;, &apos;w&apos;)   // stderr is a pipe the child will write to
+);
+$process = proc_open(&apos;bad_program&apos;, $descriptorspec, $pipes);
+if(!is_resource($process)) {
+    throw new Exception(&apos;bad_program could not be started.&apos;);
+}
+//pass some input to the program
+fwrite($pipes[0], $lots_of_data);
+//close stdin. By closing stdin, the program should exit
+//after it finishes processing the input
+fclose($pipes[0]);
+
+//do some other stuff ... the process will probably still be running
+//if we check on it right away
+
+$status = proc_get_status($process);
+if($status[&apos;running&apos;] == true) { //process ran too long, kill it
+    //close all pipes that are still open
+    fclose($pipes[1]); //stdout
+    fclose($pipes[2]); //stderr
+    //get the parent pid of the process we want to kill
+    $ppid = $status[&apos;pid&apos;];
+    //use ps to get all the children of this process, and kill them
+    $pids = preg_split(&apos;/\s+/&apos;, `ps -o pid --no-heading --ppid $ppid`);
+    foreach($pids as $pid) {
+        if(is_numeric($pid)) {
+            echo "Killing $pid\n";
+            posix_kill($pid, 9); //9 is the SIGKILL signal
+        }
+    }
+        
+    proc_close($process);
+}
+
+?>
+```
   
 
 #

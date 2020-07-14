@@ -2,11 +2,70 @@
 
 
 
+Nice that this function finally found its was to the PHP core! If you want to use it also with older PHP versions before 5.3.0, you can define it this way:<br><br>
 
-<div class="phpcode"><span class="html">
-Nice that this function finally found its was to the PHP core! If you want to use it also with older PHP versions before 5.3.0, you can define it this way:<br><br><span class="default">&lt;?php<br></span><span class="keyword">if (!</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">&apos;array_replace_recursive&apos;</span><span class="keyword">))<br>{<br>&#xA0; function </span><span class="default">array_replace_recursive</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$array1</span><span class="keyword">)<br>&#xA0; {<br>&#xA0; &#xA0; function </span><span class="default">recurse</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$array1</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$array1 </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// create new key in $array, if it is empty or not an array<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if (!isset(</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]) || (isset(</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]) &amp;&amp; !</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">])))<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = array();<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// overwrite the value in the base array<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$value </span><span class="keyword">= </span><span class="default">recurse</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">], </span><span class="default">$value</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$array</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$value</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; return </span><span class="default">$array</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; <br>&#xA0; &#xA0; </span><span class="comment">// handle the arguments, merge one by one<br>&#xA0; &#xA0; </span><span class="default">$args </span><span class="keyword">= </span><span class="default">func_get_args</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="default">$array </span><span class="keyword">= </span><span class="default">$args</span><span class="keyword">[</span><span class="default">0</span><span class="keyword">];<br>&#xA0; &#xA0; if (!</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">))<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; return </span><span class="default">$array</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; for (</span><span class="default">$i </span><span class="keyword">= </span><span class="default">1</span><span class="keyword">; </span><span class="default">$i </span><span class="keyword">&lt; </span><span class="default">count</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">); </span><span class="default">$i</span><span class="keyword">++)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$args</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]))<br>&#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$array </span><span class="keyword">= </span><span class="default">recurse</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">, </span><span class="default">$args</span><span class="keyword">[</span><span class="default">$i</span><span class="keyword">]);<br>&#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">$array</span><span class="keyword">;<br>&#xA0; }<br>}<br></span><span class="default">?&gt;<br></span><br>I called this function array_merge_recursive_overwrite() in my older projects, but array_replace_recursive() sounds quite better while they do the same.<br><br>If you implemented such a compatible function before and don&apos;t want to refactor all your code, you can update it with the following snippet to use the native (and hopefully faster) implementation of PHP 5.3.0, if available. Just start your function with these lines:<br><br><span class="default">&lt;?php<br>&#xA0; </span><span class="comment">// as of PHP 5.3.0 array_replace_recursive() does the work for us<br>&#xA0; </span><span class="keyword">if (</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">&apos;array_replace_recursive&apos;</span><span class="keyword">))<br>&#xA0; {<br>&#xA0; &#xA0; return </span><span class="default">call_user_func_array</span><span class="keyword">(</span><span class="string">&apos;array_replace_recursive&apos;</span><span class="keyword">, </span><span class="default">func_get_args</span><span class="keyword">());<br>&#xA0; }<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+if (!function_exists(&apos;array_replace_recursive&apos;))
+{
+  function array_replace_recursive($array, $array1)
+  {
+    function recurse($array, $array1)
+    {
+      foreach ($array1 as $key =&gt; $value)
+      {
+        // create new key in $array, if it is empty or not an array
+        if (!isset($array[$key]) || (isset($array[$key]) &amp;&amp; !is_array($array[$key])))
+        {
+          $array[$key] = array();
+        }
+  
+        // overwrite the value in the base array
+        if (is_array($value))
+        {
+          $value = recurse($array[$key], $value);
+        }
+        $array[$key] = $value;
+      }
+      return $array;
+    }
+  
+    // handle the arguments, merge one by one
+    $args = func_get_args();
+    $array = $args[0];
+    if (!is_array($array))
+    {
+      return $array;
+    }
+    for ($i = 1; $i &lt; count($args); $i++)
+    {
+      if (is_array($args[$i]))
+      {
+        $array = recurse($array, $args[$i]);
+      }
+    }
+    return $array;
+  }
+}
+?>
+```
+
+
+I called this function array_merge_recursive_overwrite() in my older projects, but array_replace_recursive() sounds quite better while they do the same.
+
+If you implemented such a compatible function before and don&apos;t want to refactor all your code, you can update it with the following snippet to use the native (and hopefully faster) implementation of PHP 5.3.0, if available. Just start your function with these lines:
+
+
+
+```
+<?php
+  // as of PHP 5.3.0 array_replace_recursive() does the work for us
+  if (function_exists(&apos;array_replace_recursive&apos;))
+  {
+    return call_user_func_array(&apos;array_replace_recursive&apos;, func_get_args());
+  }
+?>
+```
   
 
 #

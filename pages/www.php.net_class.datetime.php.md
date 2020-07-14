@@ -2,70 +2,51 @@
 
 
 
-
-
-DateTime supports microseconds since 5.2.2. This is mentioned in the documentation for the date function, but bears repeating here. You can create a DateTime with fractional seconds and retrieve that value using the &apos;u&apos; format string.
-
-
+DateTime supports microseconds since 5.2.2. This is mentioned in the documentation for the date function, but bears repeating here. You can create a DateTime with fractional seconds and retrieve that value using the &apos;u&apos; format string.<br><br>
 
 ```
-<?php
-// Instantiate a DateTime with microseconds.
-$d = new DateTime(&apos;2011-01-01T15:03:01.012345Z&apos;);
-
-// Output the microseconds.
-echo $d-&gt;format(&apos;u&apos;); // 012345
-
-// Output the date with microseconds.
-echo $d-&gt;format(&apos;Y-m-d\TH:i:s.u&apos;); // 2011-01-01T15:03:01.012345
-
-
-  
+<?php<br>// Instantiate a DateTime with microseconds.<br>$d = new DateTime(&apos;2011-01-01T15:03:01.012345Z&apos;);<br><br>// Output the microseconds.<br>echo $d-&gt;format(&apos;u&apos;); // 012345<br><br>// Output the date with microseconds.<br>echo $d-&gt;format(&apos;Y-m-d\TH:i:s.u&apos;); // 2011-01-01T15:03:01.012345  
 
 #
 
-
-
-Small but powerful extension to DateTime
-
-
+Small but powerful extension to DateTime<br><br>
 
 ```
 <?php
 
 class Blar_DateTime extends DateTime {
 
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Return Date in ISO8601 format
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * @return String
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public function __toString() {
-&#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;format(&apos;Y-m-d H:i&apos;);
-&#xA0; &#xA0; }
+    /**
+     * Return Date in ISO8601 format
+     *
+     * @return String
+     */
+    public function __toString() {
+        return $this-&gt;format(&apos;Y-m-d H:i&apos;);
+    }
 
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Return difference between $this and $now
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * @param Datetime|String $now
-&#xA0; &#xA0;&#xA0; * @return DateInterval
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public function diff($now = &apos;NOW&apos;) {
-&#xA0; &#xA0; &#xA0; &#xA0; if(!($now instanceOf DateTime)) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $now = new DateTime($now);
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; return parent::diff($now);
-&#xA0; &#xA0; }
+    /**
+     * Return difference between $this and $now
+     *
+     * @param Datetime|String $now
+     * @return DateInterval
+     */
+    public function diff($now = &apos;NOW&apos;) {
+        if(!($now instanceOf DateTime)) {
+            $now = new DateTime($now);
+        }
+        return parent::diff($now);
+    }
 
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Return Age in Years
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * @param Datetime|String $now
-&#xA0; &#xA0;&#xA0; * @return Integer
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public function getAge($now = &apos;NOW&apos;) {
-&#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;diff($now)-&gt;format(&apos;%y&apos;);
-&#xA0; &#xA0; }
+    /**
+     * Return Age in Years
+     *
+     * @param Datetime|String $now
+     * @return Integer
+     */
+    public function getAge($now = &apos;NOW&apos;) {
+        return $this-&gt;diff($now)-&gt;format(&apos;%y&apos;);
+    }
 
 }
 
@@ -100,18 +81,11 @@ echo &apos;&lt;p&gt;Albert Einstein was on 2010-10-10 &apos;, $birthday-&gt;getA
 
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-There is a subtle difference between the following two statments which causes JavaScript&apos;s Date object on iPhones to fail.
-
-
+There is a subtle difference between the following two statments which causes JavaScript&apos;s Date object on iPhones to fail.<br><br>
 
 ```
 <?php
@@ -140,38 +114,25 @@ Our solution was to create the following constant on our DateHelper object.
 <?php
 class DateHelper
 {
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * An ISO8601 format string for PHP&apos;s date functions that&apos;s compatible with JavaScript&apos;s Date&apos;s constructor method
-&#xA0; &#xA0;&#xA0; * Example: 2013-04-12T16:40:00-04:00
-&#xA0; &#xA0;&#xA0; * 
-&#xA0; &#xA0;&#xA0; * PHP&apos;s ISO8601 constant doesn&apos;t add the colon to the timezone offset which is required for iPhone
-&#xA0; &#xA0; **/
-&#xA0; &#xA0; const ISO8601 = &apos;Y-m-d\TH:i:sP&apos;;
+    /**
+     * An ISO8601 format string for PHP&apos;s date functions that&apos;s compatible with JavaScript&apos;s Date&apos;s constructor method
+     * Example: 2013-04-12T16:40:00-04:00
+     * 
+     * PHP&apos;s ISO8601 constant doesn&apos;t add the colon to the timezone offset which is required for iPhone
+    **/
+    const ISO8601 = &apos;Y-m-d\TH:i:sP&apos;;
 }
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-At PHP 7.1 the DateTime constructor incorporates microseconds when constructed from the current time.&#xA0; Make your comparisons carefully, since two DateTime objects constructed one after another are now more likely to have different values.
-
-http://php.net/manual/en/migration71.incompatible.php
-
-  
+At PHP 7.1 the DateTime constructor incorporates microseconds when constructed from the current time.  Make your comparisons carefully, since two DateTime objects constructed one after another are now more likely to have different values.<br><br>http://php.net/manual/en/migration71.incompatible.php  
 
 #
 
-
-
-This caused some confusion with a blog I was working on and just wanted to make other people aware of this. If you use createFromFormat to turn a date into a timestamp it will include the current time. For example:
-
-
+This caused some confusion with a blog I was working on and just wanted to make other people aware of this. If you use createFromFormat to turn a date into a timestamp it will include the current time. For example:<br><br>
 
 ```
 <?php
@@ -181,7 +142,7 @@ echo $publishDate-&gt;getTimestamp();
 ```
 
 
-Would not output the expected &quot;1389312000&quot; instead it would output something more like &quot;1389344025&quot;. To fix this you would want to do:
+Would not output the expected "1389312000" instead it would output something more like "1389344025". To fix this you would want to do:
 
 
 
@@ -192,47 +153,30 @@ $publishDate-&gt;setTime(0, 0, 0);
 echo $publishDate-&gt;getTimestamp();
 ?>
 ```
-
-
-I hope this helps someone!
-
-  
+<br><br>I hope this helps someone!  
 
 #
 
-
-
-IF You want to create clone of $time, use clone..
-
-
+IF You want to create clone of $time, use clone..<br><br>
 
 ```
 <?php
-&#xA0; $now&#xA0;&#xA0; = new DateTime;
-&#xA0; $clone = $now;&#xA0; &#xA0; &#xA0; &#xA0; //this doesnot clone so:
-&#xA0; $clone-&gt;modify( &apos;-1 day&apos; );
+  $now   = new DateTime;
+  $clone = $now;        //this doesnot clone so:
+  $clone-&gt;modify( &apos;-1 day&apos; );
  
-&#xA0; echo $now-&gt;format( &apos;d-m-Y&apos; ), &quot;\n&quot;, $clone-&gt;format( &apos;d-m-Y&apos; );
-&#xA0; echo &apos;----&apos;, &quot;\n&quot;;
+  echo $now-&gt;format( &apos;d-m-Y&apos; ), "\n", $clone-&gt;format( &apos;d-m-Y&apos; );
+  echo &apos;----&apos;, "\n";
 
-&#xA0; // will print same.. if you want to clone make like this:
-&#xA0; $now&#xA0;&#xA0; = new DateTime;
-&#xA0; $clone = clone $now;&#xA0; &#xA0; 
-&#xA0; $clone-&gt;modify( &apos;-1 day&apos; );
-&#xA0; &#xA0; 
-&#xA0; echo $now-&gt;format( &apos;d-m-Y&apos; ), &quot;\n&quot;, $clone-&gt;format( &apos;d-m-Y&apos; );
+  // will print same.. if you want to clone make like this:
+  $now   = new DateTime;
+  $clone = clone $now;    
+  $clone-&gt;modify( &apos;-1 day&apos; );
+    
+  echo $now-&gt;format( &apos;d-m-Y&apos; ), "\n", $clone-&gt;format( &apos;d-m-Y&apos; );
 ?>
 ```
-
-
-Results:
-18-07-2011
-18-07-2011
-----
-19-07-2011
-18-07-2011
-
-  
+<br><br>Results:<br>18-07-2011<br>18-07-2011<br>----<br>19-07-2011<br>18-07-2011  
 
 #
 

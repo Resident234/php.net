@@ -2,11 +2,33 @@
 
 
 
+Implementation for PHP &lt; 5.4:<br><br>
 
-<div class="phpcode"><span class="html">
-Implementation for PHP &lt; 5.4:<br><br><span class="default">&lt;?php <br></span><span class="keyword">if (!</span><span class="default">class_exists</span><span class="keyword">(</span><span class="string">&apos;CallbackFilterIterator&apos;</span><span class="keyword">)) {&#xA0; &#xA0; <br>&#xA0; &#xA0; class </span><span class="default">CallbackFilterIterator </span><span class="keyword">extends </span><span class="default">FilterIterator </span><span class="keyword">{<br>&#xA0; &#xA0; &#xA0; &#xA0; protected </span><span class="default">$callback</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="comment">// &quot;Closure&quot; type hint should be &quot;callable&quot; in PHP 5.4<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">public function </span><span class="default">__construct</span><span class="keyword">(</span><span class="default">Iterator $iterator</span><span class="keyword">, </span><span class="default">Closure $callback </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">callback </span><span class="keyword">= </span><span class="default">$callback</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">parent</span><span class="keyword">::</span><span class="default">__construct</span><span class="keyword">(</span><span class="default">$iterator</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; public function </span><span class="default">accept</span><span class="keyword">() {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">call_user_func</span><span class="keyword">(<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">callback</span><span class="keyword">, <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">(), <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">(), <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$this</span><span class="keyword">-&gt;</span><span class="default">getInnerIterator</span><span class="keyword">()<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; );<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php 
+if (!class_exists(&apos;CallbackFilterIterator&apos;)) {    
+    class CallbackFilterIterator extends FilterIterator {
+        protected $callback;
+
+        // "Closure" type hint should be "callable" in PHP 5.4
+        public function __construct(Iterator $iterator, Closure $callback = null) {
+            $this-&gt;callback = $callback;
+            parent::__construct($iterator);
+        }
+
+        public function accept() {
+            return call_user_func(
+                $this-&gt;callback, 
+                $this-&gt;current(), 
+                $this-&gt;key(), 
+                $this-&gt;getInnerIterator()
+            );
+        }
+    }
+}
+
+?>
+```
   
 
 #

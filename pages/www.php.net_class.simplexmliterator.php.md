@@ -2,11 +2,37 @@
 
 
 
+The documentation is a bit sparse for SimpleXmlIterator.  Here is an example showing the use of its methods. xml2Array and sxiToArray work together to convert an XML document to an associative array structure.<br><br>The contents of cats.xml:<br>======================================<br>&lt;cats&gt;<br>  &lt;cat&gt;<br>      &lt;name&gt;Jack&lt;/name&gt;<br>      &lt;age&gt;2&lt;/age&gt;<br>      &lt;color&gt;grey&lt;/color&gt;<br>      &lt;color&gt;white&lt;/color&gt;<br>  &lt;/cat&gt;<br>  &lt;cat&gt;<br>      &lt;name&gt;Maxwell&lt;/name&gt;<br>      &lt;age&gt;12&lt;/age&gt;<br>      &lt;color&gt;orange&lt;/color&gt;<br>      &lt;color&gt;black&lt;/color&gt;<br>  &lt;/cat&gt;<br>&lt;/cats&gt;<br>======================================<br><br>
 
-<div class="phpcode"><span class="html">
-The documentation is a bit sparse for SimpleXmlIterator.&#xA0; Here is an example showing the use of its methods. xml2Array and sxiToArray work together to convert an XML document to an associative array structure.<br><br>The contents of cats.xml:<br>======================================<br>&lt;cats&gt;<br>&#xA0; &lt;cat&gt;<br>&#xA0; &#xA0; &#xA0; &lt;name&gt;Jack&lt;/name&gt;<br>&#xA0; &#xA0; &#xA0; &lt;age&gt;2&lt;/age&gt;<br>&#xA0; &#xA0; &#xA0; &lt;color&gt;grey&lt;/color&gt;<br>&#xA0; &#xA0; &#xA0; &lt;color&gt;white&lt;/color&gt;<br>&#xA0; &lt;/cat&gt;<br>&#xA0; &lt;cat&gt;<br>&#xA0; &#xA0; &#xA0; &lt;name&gt;Maxwell&lt;/name&gt;<br>&#xA0; &#xA0; &#xA0; &lt;age&gt;12&lt;/age&gt;<br>&#xA0; &#xA0; &#xA0; &lt;color&gt;orange&lt;/color&gt;<br>&#xA0; &#xA0; &#xA0; &lt;color&gt;black&lt;/color&gt;<br>&#xA0; &lt;/cat&gt;<br>&lt;/cats&gt;<br>======================================<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">xml2array</span><span class="keyword">(</span><span class="default">$fname</span><span class="keyword">){<br>&#xA0; </span><span class="default">$sxi </span><span class="keyword">= new </span><span class="default">SimpleXmlIterator</span><span class="keyword">(</span><span class="default">$fname</span><span class="keyword">, </span><span class="default">null</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">);<br>&#xA0; return </span><span class="default">sxiToArray</span><span class="keyword">(</span><span class="default">$sxi</span><span class="keyword">);<br>}<br><br>function </span><span class="default">sxiToArray</span><span class="keyword">(</span><span class="default">$sxi</span><span class="keyword">){<br>&#xA0; </span><span class="default">$a </span><span class="keyword">= array();<br>&#xA0; for( </span><span class="default">$sxi</span><span class="keyword">-&gt;</span><span class="default">rewind</span><span class="keyword">(); </span><span class="default">$sxi</span><span class="keyword">-&gt;</span><span class="default">valid</span><span class="keyword">(); </span><span class="default">$sxi</span><span class="keyword">-&gt;</span><span class="default">next</span><span class="keyword">() ) {<br>&#xA0; &#xA0; if(!</span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="default">$sxi</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">(), </span><span class="default">$a</span><span class="keyword">)){<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$a</span><span class="keyword">[</span><span class="default">$sxi</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">()] = array();<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; if(</span><span class="default">$sxi</span><span class="keyword">-&gt;</span><span class="default">hasChildren</span><span class="keyword">()){<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$a</span><span class="keyword">[</span><span class="default">$sxi</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">()][] = </span><span class="default">sxiToArray</span><span class="keyword">(</span><span class="default">$sxi</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">());<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; else{<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$a</span><span class="keyword">[</span><span class="default">$sxi</span><span class="keyword">-&gt;</span><span class="default">key</span><span class="keyword">()][] = </span><span class="default">strval</span><span class="keyword">(</span><span class="default">$sxi</span><span class="keyword">-&gt;</span><span class="default">current</span><span class="keyword">());<br>&#xA0; &#xA0; }<br>&#xA0; }<br>&#xA0; return </span><span class="default">$a</span><span class="keyword">;<br>}<br><br></span><span class="comment">// Read cats.xml and print the results:<br></span><span class="default">$catArray </span><span class="keyword">= </span><span class="default">xml2array</span><span class="keyword">(</span><span class="string">&apos;cats.xml&apos;</span><span class="keyword">);<br></span><span class="default">print_r</span><span class="keyword">(</span><span class="default">$catArray</span><span class="keyword">);<br></span><span class="default">?&gt;<br></span><br>Results (reformatted a bit for compactness and clarity):<br>======================================<br>Array(<br>&#xA0; [cat] =&gt; Array(<br>&#xA0; &#xA0; [0] =&gt; Array(<br>&#xA0; &#xA0; &#xA0; [name] =&gt; Array(&#xA0; [0] =&gt; Jack&#xA0; &#xA0; )<br>&#xA0; &#xA0; &#xA0; [age] =&gt; Array(&#xA0;&#xA0; [0] =&gt; 2&#xA0; &#xA0; &#xA0;&#xA0; )<br>&#xA0; &#xA0; &#xA0; [color] =&gt; Array( [0] =&gt; grey,<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [1] =&gt; white&#xA0;&#xA0; )<br>&#xA0; &#xA0; )<br>&#xA0; &#xA0; [1] =&gt; Array(<br>&#xA0; &#xA0; &#xA0; [name] =&gt; Array(&#xA0; [0] =&gt; Maxwell )<br>&#xA0; &#xA0; &#xA0; [age] =&gt; Array(&#xA0;&#xA0; [0] =&gt; 12&#xA0; &#xA0; &#xA0; )<br>&#xA0; &#xA0; &#xA0; [color] =&gt; Array( [0] =&gt; orange<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [1] =&gt; black&#xA0;&#xA0; )<br>&#xA0; &#xA0; )<br>&#xA0; )<br>)</span>
-</div>
-  
+```
+<?php
+function xml2array($fname){
+  $sxi = new SimpleXmlIterator($fname, null, true);
+  return sxiToArray($sxi);
+}
+
+function sxiToArray($sxi){
+  $a = array();
+  for( $sxi-&gt;rewind(); $sxi-&gt;valid(); $sxi-&gt;next() ) {
+    if(!array_key_exists($sxi-&gt;key(), $a)){
+      $a[$sxi-&gt;key()] = array();
+    }
+    if($sxi-&gt;hasChildren()){
+      $a[$sxi-&gt;key()][] = sxiToArray($sxi-&gt;current());
+    }
+    else{
+      $a[$sxi-&gt;key()][] = strval($sxi-&gt;current());
+    }
+  }
+  return $a;
+}
+
+// Read cats.xml and print the results:
+$catArray = xml2array(&apos;cats.xml&apos;);
+print_r($catArray);
+?>
+```
+<br><br>Results (reformatted a bit for compactness and clarity):<br>======================================<br>Array(<br>  [cat] =&gt; Array(<br>    [0] =&gt; Array(<br>      [name] =&gt; Array(  [0] =&gt; Jack    )<br>      [age] =&gt; Array(   [0] =&gt; 2       )<br>      [color] =&gt; Array( [0] =&gt; grey,<br>                        [1] =&gt; white   )<br>    )<br>    [1] =&gt; Array(<br>      [name] =&gt; Array(  [0] =&gt; Maxwell )<br>      [age] =&gt; Array(   [0] =&gt; 12      )<br>      [color] =&gt; Array( [0] =&gt; orange<br>                        [1] =&gt; black   )<br>    )<br>  )<br>)  
 
 #
 

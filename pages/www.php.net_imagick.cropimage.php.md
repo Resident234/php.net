@@ -2,13 +2,7 @@
 
 
 
-
-
-When cropping gif-images (I had no problems with jpg and png images), the canvas is not removed. Please run the following command on the cropped gif, to remove the blank space:
-
-$im-&gt;setImagePage(0, 0, 0, 0);
-
-  
+When cropping gif-images (I had no problems with jpg and png images), the canvas is not removed. Please run the following command on the cropped gif, to remove the blank space:<br><br>$im-&gt;setImagePage(0, 0, 0, 0);  
 
 #
 

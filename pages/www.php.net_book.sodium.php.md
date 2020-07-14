@@ -2,11 +2,7 @@
 
 
 
-
-
-Libsodium documentation: https://github.com/paragonie/pecl-libsodium-doc
-
-  
+Libsodium documentation: https://github.com/paragonie/pecl-libsodium-doc  
 
 #
 

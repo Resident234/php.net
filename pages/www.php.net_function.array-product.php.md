@@ -2,11 +2,45 @@
 
 
 
+This function can be used to test if all values in an array of booleans are TRUE.<br><br>Consider:<br><br>
 
-<div class="phpcode"><span class="html">
-This function can be used to test if all values in an array of booleans are TRUE.<br><br>Consider:<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">function </span><span class="default">outbool</span><span class="keyword">(</span><span class="default">$test</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; return (bool) </span><span class="default">$test</span><span class="keyword">;<br>}<br><br></span><span class="default">$check</span><span class="keyword">[] = </span><span class="default">outbool</span><span class="keyword">(</span><span class="default">TRUE</span><span class="keyword">);<br></span><span class="default">$check</span><span class="keyword">[] = </span><span class="default">outbool</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br></span><span class="default">$check</span><span class="keyword">[] = </span><span class="default">outbool</span><span class="keyword">(</span><span class="default">FALSE</span><span class="keyword">);<br></span><span class="default">$check</span><span class="keyword">[] = </span><span class="default">outbool</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br><br></span><span class="default">$result </span><span class="keyword">= (bool) </span><span class="default">array_product</span><span class="keyword">(</span><span class="default">$check</span><span class="keyword">);<br></span><span class="comment">// $result is set to FALSE because only two of the four values evaluated to TRUE<br><br></span><span class="default">?&gt;<br></span><br>The above is equivalent to:<br><br><span class="default">&lt;?php<br><br>$check1 </span><span class="keyword">= </span><span class="default">outbool</span><span class="keyword">(</span><span class="default">TRUE</span><span class="keyword">);<br></span><span class="default">$check2 </span><span class="keyword">= </span><span class="default">outbool</span><span class="keyword">(</span><span class="default">1</span><span class="keyword">);<br></span><span class="default">$check3 </span><span class="keyword">= </span><span class="default">outbool</span><span class="keyword">(</span><span class="default">FALSE</span><span class="keyword">);<br></span><span class="default">$check4 </span><span class="keyword">= </span><span class="default">outbool</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">);<br><br></span><span class="default">$result </span><span class="keyword">= (</span><span class="default">$check1 </span><span class="keyword">&amp;&amp; </span><span class="default">$check2 </span><span class="keyword">&amp;&amp; </span><span class="default">$check3 </span><span class="keyword">&amp;&amp; </span><span class="default">$check4</span><span class="keyword">);<br><br></span><span class="default">?&gt;<br></span><br>This use of array_product is especially useful when testing an indefinite number of booleans and is easy to construct in a loop.</span>
-</div>
-  
+```
+<?php
+
+function outbool($test)
+{
+    return (bool) $test;
+}
+
+$check[] = outbool(TRUE);
+$check[] = outbool(1);
+$check[] = outbool(FALSE);
+$check[] = outbool(0);
+
+$result = (bool) array_product($check);
+// $result is set to FALSE because only two of the four values evaluated to TRUE
+
+?>
+```
+
+
+The above is equivalent to:
+
+
+
+```
+<?php
+
+$check1 = outbool(TRUE);
+$check2 = outbool(1);
+$check3 = outbool(FALSE);
+$check4 = outbool(0);
+
+$result = ($check1 &amp;&amp; $check2 &amp;&amp; $check3 &amp;&amp; $check4);
+
+?>
+```
+<br><br>This use of array_product is especially useful when testing an indefinite number of booleans and is easy to construct in a loop.  
 
 #
 

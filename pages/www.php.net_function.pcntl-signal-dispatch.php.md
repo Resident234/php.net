@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-If you are running PHP as CLI and as a &quot;daemon&quot; (i.e. in a loop), this function must be called in each loop&#xA0; to check if new signals are waiting dispatching.</span>
-</div>
-  
+If you are running PHP as CLI and as a "daemon" (i.e. in a loop), this function must be called in each loop  to check if new signals are waiting dispatching.  
 
 #
 

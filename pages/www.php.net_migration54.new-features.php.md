@@ -2,11 +2,7 @@
 
 
 
-
-<div class="phpcode"><span class="html">
-&apos;callable&apos; was implemented as a typehint in 5.4</span>
-</div>
-  
+&apos;callable&apos; was implemented as a typehint in 5.4  
 
 #
 

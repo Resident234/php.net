@@ -2,11 +2,7 @@
 
 
 
-
-
-If you are working with Images only and you need mime type (e.g. for headers), then this is a fast and reliable technique:
- 
-
+If you are working with Images only and you need mime type (e.g. for headers), then this is a fast and reliable technique:<br> <br>
 
 ```
 <?php
@@ -14,11 +10,7 @@ $file = &apos;path/to/image.jpg&apos;;
 $image_mime = image_type_to_mime_type(exif_imagetype($file));
 ?>
 ```
-
-
-It will output true image mime type even if you rename your image file.
-
-  
+<br><br>It will output true image mime type even if you rename your image file.  
 
 #
 

@@ -2,29 +2,97 @@
 
 
 
+It took some searching to figure this one out. I didn&apos;t see much in the way of explaining this glitch in the manual thus far. (For PHP5 I believe)<br><br>formatOutput = true; appears to fail when the origin of the DOM came from a file via load(). EX:<br><br>
 
-<div class="phpcode"><span class="html">
-It took some searching to figure this one out. I didn&apos;t see much in the way of explaining this glitch in the manual thus far. (For PHP5 I believe)<br><br>formatOutput = true; appears to fail when the origin of the DOM came from a file via load(). EX:<br><br><span class="default">&lt;?php<br>&#xA0; &#xA0; $dom </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">load </span><span class="keyword">(</span><span class="string">&quot;test.xml&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">formatOutput </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="default">$new_tag </span><span class="keyword">= </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">createElement </span><span class="keyword">(</span><span class="string">&apos;testNode&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$new_tag</span><span class="keyword">-&gt;</span><span class="default">appendChild </span><span class="keyword">(<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">createElement </span><span class="keyword">(</span><span class="string">&apos;test&apos;</span><span class="keyword">, </span><span class="string">&apos;this is a test&apos;</span><span class="keyword">));<br>&#xA0; &#xA0; </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">documentElement</span><span class="keyword">-&gt;</span><span class="default">appendChild </span><span class="keyword">(</span><span class="default">$new_tag</span><span class="keyword">);<br><br>&#xA0; &#xA0; </span><span class="default">printf </span><span class="keyword">(</span><span class="string">&quot;&lt;pre&gt;%s&lt;/pre&gt;&quot;</span><span class="keyword">, </span><span class="default">htmlentities </span><span class="keyword">(</span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">saveXML</span><span class="keyword">()));<br></span><span class="default">?&gt;<br></span><br>Will not indent the output and will display the modified nodes all in one long line. Makes for editing a config.xml a bit difficult when saving to a file.<br><br>By adding the preserveWhiteSpace = false; BEFORE the load() the formatOutput works as expected. EX:<br><br><span class="default">&lt;?php<br>&#xA0; &#xA0; $dom </span><span class="keyword">= new </span><span class="default">DOMDocument</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">preserveWhiteSpace </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">load </span><span class="keyword">(</span><span class="string">&quot;test.xml&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">formatOutput </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br><br>&#xA0; &#xA0; </span><span class="default">$new_tag </span><span class="keyword">= </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">createElement </span><span class="keyword">(</span><span class="string">&apos;testNode&apos;</span><span class="keyword">);<br>&#xA0; &#xA0; </span><span class="default">$new_tag</span><span class="keyword">-&gt;</span><span class="default">appendChild </span><span class="keyword">(<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">createElement </span><span class="keyword">(</span><span class="string">&apos;test&apos;</span><span class="keyword">, </span><span class="string">&apos;this is a test&apos;</span><span class="keyword">));<br>&#xA0; &#xA0; </span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">documentElement</span><span class="keyword">-&gt;</span><span class="default">appendChild </span><span class="keyword">(</span><span class="default">$new_tag</span><span class="keyword">);<br><br>&#xA0; &#xA0; </span><span class="default">printf </span><span class="keyword">(</span><span class="string">&quot;&lt;pre&gt;%s&lt;/pre&gt;&quot;</span><span class="keyword">, </span><span class="default">htmlentities </span><span class="keyword">(</span><span class="default">$dom</span><span class="keyword">-&gt;</span><span class="default">saveXML</span><span class="keyword">()));<br></span><span class="default">?&gt;<br></span><br>CAUTION: If your loaded xml file (test.xml) has an empty root node that is not shortened or has no children this will NOT work.<br><br>Example:<br><br>DOES NOT WORK:<br>&lt;?xml version=&quot;1.0&quot;?&gt;<br>&lt;root&gt;<br>&lt;/root&gt;<br><br>WORKS:<br>&lt;?xml version=&quot;1.0&quot;?&gt;<br>&lt;root/&gt;<br><br>WORKS:<br>&lt;?xml version=&quot;1.0&quot;?&gt;<br>&lt;root&gt;<br>&#xA0; &lt;!-- comment --&gt;<br>&lt;/root&gt;<br><br>WORKS:<br>&lt;?xml version=&quot;1.0&quot;?&gt;<br>&lt;root&gt;<br>&#xA0; &lt;child/&gt;<br>&lt;/root&gt;</span>
-</div>
-  
+```
+<?php
+    $dom = new DOMDocument();
+    $dom-&gt;load ("test.xml");
+    $dom-&gt;formatOutput = true;
+
+    $new_tag = $dom-&gt;createElement (&apos;testNode&apos;);
+    $new_tag-&gt;appendChild (
+        $dom-&gt;createElement (&apos;test&apos;, &apos;this is a test&apos;));
+    $dom-&gt;documentElement-&gt;appendChild ($new_tag);
+
+    printf ("&lt;pre&gt;%s&lt;/pre&gt;", htmlentities ($dom-&gt;saveXML()));
+?>
+```
+
+
+Will not indent the output and will display the modified nodes all in one long line. Makes for editing a config.xml a bit difficult when saving to a file.
+
+By adding the preserveWhiteSpace = false; BEFORE the load() the formatOutput works as expected. EX:
+
+
+
+```
+<?php
+    $dom = new DOMDocument();
+    $dom-&gt;preserveWhiteSpace = false;
+    $dom-&gt;load ("test.xml");
+    $dom-&gt;formatOutput = true;
+
+    $new_tag = $dom-&gt;createElement (&apos;testNode&apos;);
+    $new_tag-&gt;appendChild (
+        $dom-&gt;createElement (&apos;test&apos;, &apos;this is a test&apos;));
+    $dom-&gt;documentElement-&gt;appendChild ($new_tag);
+
+    printf ("&lt;pre&gt;%s&lt;/pre&gt;", htmlentities ($dom-&gt;saveXML()));
+?>
+```
+
+
+CAUTION: If your loaded xml file (test.xml) has an empty root node that is not shortened or has no children this will NOT work.
+
+Example:
+
+DOES NOT WORK:
+&lt;?xml version="1.0"?>
+```
+
+&lt;root&gt;
+&lt;/root&gt;
+
+WORKS:
+&lt;?xml version="1.0"?>
+```
+
+&lt;root/&gt;
+
+WORKS:
+&lt;?xml version="1.0"?>
+```
+
+&lt;root&gt;
+  &lt;!-- comment --&gt;
+&lt;/root&gt;
+
+WORKS:
+&lt;?xml version="1.0"?>
+```
+<br>&lt;root&gt;<br>  &lt;child/&gt;<br>&lt;/root&gt;  
 
 #
 
+if you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems. It will spit out the characters converted in encoded format.<br><br>
 
-<div class="phpcode"><span class="html">
-if you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems. It will spit out the characters converted in encoded format.
-<br>
-<br><span class="default">&lt;?php
-<br>$str </span><span class="keyword">= </span><span class="default">domdoc</span><span class="keyword">-&gt;</span><span class="default">saveXML</span><span class="keyword">(); </span><span class="comment">// gives &quot;&amp;x#1245;&quot; some encoded data
-<br></span><span class="default">?&gt;
-<br></span>
-<br>Instead do the following
-<br>
-<br><span class="default">&lt;?php
-<br>$str </span><span class="keyword">= </span><span class="default">domdoc</span><span class="keyword">-&gt;</span><span class="default">saveXML</span><span class="keyword">(</span><span class="default">domdoc</span><span class="keyword">-&gt;</span><span class="default">documentElement</span><span class="keyword">); </span><span class="comment">// gives &quot;&#x4FDD;&#x5B58;&#x3057;&#x307E;&#x3057;&#x305F;&quot; correct multi-byte data
-<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+$str = domdoc-&gt;saveXML(); // gives "&amp;x#1245;" some encoded data
+?>
+```
+
+
+Instead do the following
+
+
+
+```
+<?php
+$str = domdoc-&gt;saveXML(domdoc-&gt;documentElement); // gives "&#x4FDD;&#x5B58;&#x3057;&#x307E;&#x3057;&#x305F;" correct multi-byte data
+?>
+```
   
 
 #

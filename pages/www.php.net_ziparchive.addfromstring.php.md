@@ -2,11 +2,7 @@
 
 
 
-
-
-Note that this function overwrites existing files of the same name.
-
-  
+Note that this function overwrites existing files of the same name.  
 
 #
 

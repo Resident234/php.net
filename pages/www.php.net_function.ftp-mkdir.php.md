@@ -2,11 +2,35 @@
 
 
 
+Here&apos;s the correct code for making recursive directories:<br><br>
 
-<div class="phpcode"><span class="html">
-Here&apos;s the correct code for making recursive directories:<br><br><span class="default">&lt;?php<br><br></span><span class="comment">// function<br></span><span class="keyword">function </span><span class="default">ftp_mksubdirs</span><span class="keyword">(</span><span class="default">$ftpcon</span><span class="keyword">,</span><span class="default">$ftpbasedir</span><span class="keyword">,</span><span class="default">$ftpath</span><span class="keyword">){<br>&#xA0;&#xA0; @</span><span class="default">ftp_chdir</span><span class="keyword">(</span><span class="default">$ftpcon</span><span class="keyword">, </span><span class="default">$ftpbasedir</span><span class="keyword">); </span><span class="comment">// /var/www/uploads<br>&#xA0;&#xA0; </span><span class="default">$parts </span><span class="keyword">= </span><span class="default">explode</span><span class="keyword">(</span><span class="string">&apos;/&apos;</span><span class="keyword">,</span><span class="default">$ftpath</span><span class="keyword">); </span><span class="comment">// 2013/06/11/username<br>&#xA0;&#xA0; </span><span class="keyword">foreach(</span><span class="default">$parts </span><span class="keyword">as </span><span class="default">$part</span><span class="keyword">){<br>&#xA0; &#xA0; &#xA0; if(!@</span><span class="default">ftp_chdir</span><span class="keyword">(</span><span class="default">$ftpcon</span><span class="keyword">, </span><span class="default">$part</span><span class="keyword">)){<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">ftp_mkdir</span><span class="keyword">(</span><span class="default">$ftpcon</span><span class="keyword">, </span><span class="default">$part</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">ftp_chdir</span><span class="keyword">(</span><span class="default">$ftpcon</span><span class="keyword">, </span><span class="default">$part</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="comment">//ftp_chmod($ftpcon, 0777, $part);<br>&#xA0; &#xA0; &#xA0; </span><span class="keyword">}<br>&#xA0;&#xA0; }<br>}<br><br></span><span class="comment">// usage<br></span><span class="default">$path_of_storage </span><span class="keyword">= </span><span class="string">&apos;/var/www/uploads&apos;</span><span class="keyword">;<br></span><span class="default">$newftpdir </span><span class="keyword">= </span><span class="string">&apos;2013/06/11/username&apos;</span><span class="keyword">;<br><br></span><span class="default">$conn_id </span><span class="keyword">= </span><span class="default">ftp_connect</span><span class="keyword">(</span><span class="default">$ftpserver</span><span class="keyword">);<br></span><span class="default">ftp_login</span><span class="keyword">(</span><span class="default">$conn_id</span><span class="keyword">, </span><span class="default">$login</span><span class="keyword">, </span><span class="default">$pass</span><span class="keyword">);<br></span><span class="default">ftp_mksubdirs</span><span class="keyword">(</span><span class="default">$conn_id</span><span class="keyword">,</span><span class="default">$path_of_storage</span><span class="keyword">,</span><span class="default">$newftpdir</span><span class="keyword">);<br></span><span class="default">ftp_close</span><span class="keyword">(</span><span class="default">$conn_id</span><span class="keyword">);<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+// function
+function ftp_mksubdirs($ftpcon,$ftpbasedir,$ftpath){
+   @ftp_chdir($ftpcon, $ftpbasedir); // /var/www/uploads
+   $parts = explode(&apos;/&apos;,$ftpath); // 2013/06/11/username
+   foreach($parts as $part){
+      if(!@ftp_chdir($ftpcon, $part)){
+         ftp_mkdir($ftpcon, $part);
+         ftp_chdir($ftpcon, $part);
+         //ftp_chmod($ftpcon, 0777, $part);
+      }
+   }
+}
+
+// usage
+$path_of_storage = &apos;/var/www/uploads&apos;;
+$newftpdir = &apos;2013/06/11/username&apos;;
+
+$conn_id = ftp_connect($ftpserver);
+ftp_login($conn_id, $login, $pass);
+ftp_mksubdirs($conn_id,$path_of_storage,$newftpdir);
+ftp_close($conn_id);
+
+?>
+```
   
 
 #

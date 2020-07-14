@@ -2,11 +2,67 @@
 
 
 
+I created a function, which combines xml_paresr_create and all functions around.<br><br>
 
-<div class="phpcode"><span class="html">
-I created a function, which combines xml_paresr_create and all functions around.<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">html_parse</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">)<br>&#xA0; &#xA0;&#xA0; {<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$array </span><span class="keyword">= </span><span class="default">str_split</span><span class="keyword">(</span><span class="default">$file</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$count </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="string">&quot;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$end </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; foreach(</span><span class="default">$array </span><span class="keyword">as </span><span class="default">$temp</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0;&#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; switch(</span><span class="default">$temp</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&quot;&lt;&quot;</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">between</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="string">&quot;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$count </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$end </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&quot;&gt;&quot;</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; if(</span><span class="default">$end </span><span class="keyword">== </span><span class="default">true</span><span class="keyword">) {</span><span class="default">end_tag</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);}<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; else {</span><span class="default">start_tag</span><span class="keyword">(</span><span class="default">$text</span><span class="keyword">);}<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="string">&quot;&quot;</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case </span><span class="string">&quot;/&quot;</span><span class="keyword">:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; if(</span><span class="default">$count </span><span class="keyword">== </span><span class="default">true</span><span class="keyword">) {</span><span class="default">$end </span><span class="keyword">= </span><span class="default">true</span><span class="keyword">;}<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; else {</span><span class="default">$text </span><span class="keyword">= </span><span class="default">$text </span><span class="keyword">. </span><span class="string">&quot;/&quot;</span><span class="keyword">;}<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; break;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; default:<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$count </span><span class="keyword">= </span><span class="default">false</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; </span><span class="default">$text </span><span class="keyword">= </span><span class="default">$text </span><span class="keyword">. </span><span class="default">$temp</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }<br>&#xA0; &#xA0; &#xA0;&#xA0; }<br>&#xA0; &#xA0;&#xA0; }<br></span><span class="default">?&gt;<br></span>The input value is a string.<br>It calls functions start_tag() , between() and end_tag() just like the original xml parser.<br><br>But it has a few differences:<br>&#xA0; - It does NOT check the code. Just resends values to that three functions, no matter, if they are right<br>&#xA0; - It works with parameters. For example: from tag &lt;sth b=&quot;42&quot;&gt; sends sth b=&quot;42&quot;<br>&#xA0; - It works wit diacritics. The original parser sometimes wrapped the text before the first diacritics appearance.<br>&#xA0; - Works with all encoding. If the input is UTF-8, the output will be UTF-8 too<br>&#xA0; - It works with strings. Not with file pointers.<br>&#xA0; - No &quot;Reserved XML name&quot; error<br>&#xA0; - No doctype needed<br>&#xA0; - It does not work with commentaries, notes, programming instructions etc. Just the tags<br><br>definition of the handling functions is:<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">between</span><span class="keyword">(</span><span class="default">$stuff</span><span class="keyword">) {}<br></span><span class="default">?&gt;<br></span><br>No other attributes</span>
-</div>
-  
+```
+<?php
+function html_parse($file)
+     {
+      $array = str_split($file, 1);
+      $count = false;
+      $text = "";
+      $end = false;
+      foreach($array as $temp)
+       {
+        switch($temp)
+         {
+          case "&lt;":
+           between($text);
+           $text = "";
+           $count = true;
+           $end = false;
+           break;
+          case "&gt;":
+           if($end == true) {end_tag($text);}
+           else {start_tag($text);}
+           $text = "";
+           break;
+          case "/":
+           if($count == true) {$end = true;}
+           else {$text = $text . "/";}
+           break;
+          default:
+           $count = false;
+           $text = $text . $temp;
+         }
+       }
+     }
+?>
+```
+
+The input value is a string.
+It calls functions start_tag() , between() and end_tag() just like the original xml parser.
+
+But it has a few differences:
+  - It does NOT check the code. Just resends values to that three functions, no matter, if they are right
+  - It works with parameters. For example: from tag &lt;sth b="42"&gt; sends sth b="42"
+  - It works wit diacritics. The original parser sometimes wrapped the text before the first diacritics appearance.
+  - Works with all encoding. If the input is UTF-8, the output will be UTF-8 too
+  - It works with strings. Not with file pointers.
+  - No "Reserved XML name" error
+  - No doctype needed
+  - It does not work with commentaries, notes, programming instructions etc. Just the tags
+
+definition of the handling functions is:
+
+
+
+```
+<?php
+function between($stuff) {}
+?>
+```
+<br><br>No other attributes  
 
 #
 

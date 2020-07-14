@@ -2,40 +2,18 @@
 
 
 
-
-
-Converting an old project from using the mysql extension to the mysqli extension, I found the most annoying change to be the lack of a corresponding mysql_result function in mysqli. While mysql_result is a generally terrible function, it was useful for fetching a single result field *value* from a result set (for example, if looking up a user&apos;s ID).
-
-
-
-The behavior of mysql_result is approximated here, though you may want to name it something other than mysqli_result so as to avoid thinking it&apos;s an actual, built-in function.
-
-
-
-
+Converting an old project from using the mysql extension to the mysqli extension, I found the most annoying change to be the lack of a corresponding mysql_result function in mysqli. While mysql_result is a generally terrible function, it was useful for fetching a single result field *value* from a result set (for example, if looking up a user&apos;s ID).<br><br>The behavior of mysql_result is approximated here, though you may want to name it something other than mysqli_result so as to avoid thinking it&apos;s an actual, built-in function.<br><br>
 
 ```
 <?php
-
 function mysqli_result($res, $row, $field=0) {
-
-&#xA0; &#xA0; $res-&gt;data_seek($row);
-
-&#xA0; &#xA0; $datarow = $res-&gt;fetch_array();
-
-&#xA0; &#xA0; return $datarow[$field];
-
+    $res-&gt;data_seek($row);
+    $datarow = $res-&gt;fetch_array();
+    return $datarow[$field];
 }
-
 ?>
 ```
-
-
-
-
-Implementing it via the OO interface is left as an exercise to the reader.
-
-  
+<br><br>Implementing it via the OO interface is left as an exercise to the reader.  
 
 #
 

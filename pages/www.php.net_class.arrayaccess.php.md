@@ -2,24 +2,13 @@
 
 
 
-
-
-It bit me today, so putting it here in the hope it will help others:
-If you call array_key_exists() on an object of a class that implements ArrayAccess, ArrayAccess::offsetExists() wil NOT be called.
-
-  
+It bit me today, so putting it here in the hope it will help others:<br>If you call array_key_exists() on an object of a class that implements ArrayAccess, ArrayAccess::offsetExists() wil NOT be called.  
 
 #
 
-
-
-The indexes used in an ArrayAccess object are not limited to strings and integers as they are for arrays: you can use any type for the index as long as you write your implementation to handle them. This fact is exploited by the SplObjectStorage class.
-
-  
+The indexes used in an ArrayAccess object are not limited to strings and integers as they are for arrays: you can use any type for the index as long as you write your implementation to handle them. This fact is exploited by the SplObjectStorage class.  
 
 #
-
-
 
 
 
@@ -35,109 +24,109 @@ The indexes used in an ArrayAccess object are not limited to strings and integer
 
 class ArrayAndObjectAccess implements ArrayAccess {
 
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Data
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * @var array
-&#xA0; &#xA0;&#xA0; * @access private
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; private $data = [];
+    /**
+     * Data
+     *
+     * @var array
+     * @access private
+     */
+    private $data = [];
 
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Get a data by key
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * @param string The key data to retrieve
-&#xA0; &#xA0;&#xA0; * @access public
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public function &amp;__get ($key) {
-&#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;data[$key];
-&#xA0; &#xA0; }
+    /**
+     * Get a data by key
+     *
+     * @param string The key data to retrieve
+     * @access public
+     */
+    public function &amp;__get ($key) {
+        return $this-&gt;data[$key];
+    }
 
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Assigns a value to the specified data
-&#xA0; &#xA0;&#xA0; * 
-&#xA0; &#xA0;&#xA0; * @param string The data key to assign the value to
-&#xA0; &#xA0;&#xA0; * @param mixed&#xA0; The value to set
-&#xA0; &#xA0;&#xA0; * @access public 
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public function __set($key,$value) {
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;data[$key] = $value;
-&#xA0; &#xA0; }
+    /**
+     * Assigns a value to the specified data
+     * 
+     * @param string The data key to assign the value to
+     * @param mixed  The value to set
+     * @access public 
+     */
+    public function __set($key,$value) {
+        $this-&gt;data[$key] = $value;
+    }
 
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Whether or not an data exists by key
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * @param string An data key to check for
-&#xA0; &#xA0;&#xA0; * @access public
-&#xA0; &#xA0;&#xA0; * @return boolean
-&#xA0; &#xA0;&#xA0; * @abstracting ArrayAccess
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public function __isset ($key) {
-&#xA0; &#xA0; &#xA0; &#xA0; return isset($this-&gt;data[$key]);
-&#xA0; &#xA0; }
+    /**
+     * Whether or not an data exists by key
+     *
+     * @param string An data key to check for
+     * @access public
+     * @return boolean
+     * @abstracting ArrayAccess
+     */
+    public function __isset ($key) {
+        return isset($this-&gt;data[$key]);
+    }
 
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Unsets an data by key
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * @param string The key to unset
-&#xA0; &#xA0;&#xA0; * @access public
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public function __unset($key) {
-&#xA0; &#xA0; &#xA0; &#xA0; unset($this-&gt;data[$key]);
-&#xA0; &#xA0; }
+    /**
+     * Unsets an data by key
+     *
+     * @param string The key to unset
+     * @access public
+     */
+    public function __unset($key) {
+        unset($this-&gt;data[$key]);
+    }
 
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Assigns a value to the specified offset
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * @param string The offset to assign the value to
-&#xA0; &#xA0;&#xA0; * @param mixed&#xA0; The value to set
-&#xA0; &#xA0;&#xA0; * @access public
-&#xA0; &#xA0;&#xA0; * @abstracting ArrayAccess
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public function offsetSet($offset,$value) {
-&#xA0; &#xA0; &#xA0; &#xA0; if (is_null($offset)) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;data[] = $value;
-&#xA0; &#xA0; &#xA0; &#xA0; } else {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;data[$offset] = $value;
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
+    /**
+     * Assigns a value to the specified offset
+     *
+     * @param string The offset to assign the value to
+     * @param mixed  The value to set
+     * @access public
+     * @abstracting ArrayAccess
+     */
+    public function offsetSet($offset,$value) {
+        if (is_null($offset)) {
+            $this-&gt;data[] = $value;
+        } else {
+            $this-&gt;data[$offset] = $value;
+        }
+    }
 
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Whether or not an offset exists
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * @param string An offset to check for
-&#xA0; &#xA0;&#xA0; * @access public
-&#xA0; &#xA0;&#xA0; * @return boolean
-&#xA0; &#xA0;&#xA0; * @abstracting ArrayAccess
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public function offsetExists($offset) {
-&#xA0; &#xA0; &#xA0; &#xA0; return isset($this-&gt;data[$offset]);
-&#xA0; &#xA0; }
+    /**
+     * Whether or not an offset exists
+     *
+     * @param string An offset to check for
+     * @access public
+     * @return boolean
+     * @abstracting ArrayAccess
+     */
+    public function offsetExists($offset) {
+        return isset($this-&gt;data[$offset]);
+    }
 
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Unsets an offset
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * @param string The offset to unset
-&#xA0; &#xA0;&#xA0; * @access public
-&#xA0; &#xA0;&#xA0; * @abstracting ArrayAccess
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public function offsetUnset($offset) {
-&#xA0; &#xA0; &#xA0; &#xA0; if ($this-&gt;offsetExists($offset)) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; unset($this-&gt;data[$offset]);
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
+    /**
+     * Unsets an offset
+     *
+     * @param string The offset to unset
+     * @access public
+     * @abstracting ArrayAccess
+     */
+    public function offsetUnset($offset) {
+        if ($this-&gt;offsetExists($offset)) {
+            unset($this-&gt;data[$offset]);
+        }
+    }
 
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Returns the value at specified offset
-&#xA0; &#xA0;&#xA0; *
-&#xA0; &#xA0;&#xA0; * @param string The offset to retrieve
-&#xA0; &#xA0;&#xA0; * @access public
-&#xA0; &#xA0;&#xA0; * @return mixed
-&#xA0; &#xA0;&#xA0; * @abstracting ArrayAccess
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public function offsetGet($offset) {
-&#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;offsetExists($offset) ? $this-&gt;data[$offset] : null;
-&#xA0; &#xA0; }
+    /**
+     * Returns the value at specified offset
+     *
+     * @param string The offset to retrieve
+     * @access public
+     * @return mixed
+     * @abstracting ArrayAccess
+     */
+    public function offsetGet($offset) {
+        return $this-&gt;offsetExists($offset) ? $this-&gt;data[$offset] : null;
+    }
 
 }
 
@@ -156,12 +145,12 @@ $foo = new ArrayAndObjectAccess();
 $foo-&gt;fname = &apos;Yousef&apos;;
 $foo-&gt;lname = &apos;Ismaeil&apos;;
 // Call as object
-echo &apos;fname as object &apos;.$foo-&gt;fname.&quot;\n&quot;;
+echo &apos;fname as object &apos;.$foo-&gt;fname."\n";
 // Call as array
-echo &apos;lname as array &apos;.$foo[&apos;lname&apos;].&quot;\n&quot;;
+echo &apos;lname as array &apos;.$foo[&apos;lname&apos;]."\n";
 // Reset as array
 $foo[&apos;fname&apos;] = &apos;Cliprz&apos;;
-echo $foo[&apos;fname&apos;].&quot;\n&quot;;
+echo $foo[&apos;fname&apos;]."\n";
 
 /** Outputs
 fname as object Yousef
@@ -171,151 +160,60 @@ Cliprz
 
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-Objects implementing ArrayAccess may return objects by references in PHP 5.3.0.
-
-You can implement your ArrayAccess object like this:
-
-&#xA0; &#xA0; class Reflectable implements ArrayAccess {
-
-&#xA0; &#xA0; &#xA0; &#xA0; public function set($name, $value) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;{$name} = $value;
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; public function &amp;get($name) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;{$name};
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; public function offsetGet($offset) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;get($offset);
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; public function offsetSet($offset, $value) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;set($offset, $value);
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; ...
-
-&#xA0; &#xA0; }
-
-This base class allows you to get / set your object properties using the [] operator just like in Javascript:
-
-&#xA0; &#xA0; class Boo extends Reflectable {
-&#xA0; &#xA0; &#xA0; &#xA0; public $name;
-&#xA0; &#xA0; }
-
-&#xA0; &#xA0; $obj = new Boo();
-&#xA0; &#xA0; $obj[&apos;name&apos;] = &quot;boo&quot;;
-&#xA0; &#xA0; echo $obj[&apos;name&apos;]; // prints boo
-
-  
+Objects implementing ArrayAccess may return objects by references in PHP 5.3.0.<br><br>You can implement your ArrayAccess object like this:<br><br>    class Reflectable implements ArrayAccess {<br><br>        public function set($name, $value) {<br>            $this-&gt;{$name} = $value;<br>        }<br><br>        public function &amp;get($name) {<br>            return $this-&gt;{$name};<br>        }<br><br>        public function offsetGet($offset) {<br>            return $this-&gt;get($offset);<br>        }<br><br>        public function offsetSet($offset, $value) {<br>            $this-&gt;set($offset, $value);<br>        }<br><br>        ...<br><br>    }<br><br>This base class allows you to get / set your object properties using the [] operator just like in Javascript:<br><br>    class Boo extends Reflectable {<br>        public $name;<br>    }<br><br>    $obj = new Boo();<br>    $obj[&apos;name&apos;] = "boo";<br>    echo $obj[&apos;name&apos;]; // prints boo  
 
 #
 
-
-
-Conclusion: Type hints \ArrayAccess and array are not compatible.
-
-
-
-
+Conclusion: Type hints \ArrayAccess and array are not compatible.<br><br>
 
 ```
 <?php
 
+     class MyArrayAccess implements \ArrayAccess
+     {
+         public function offsetExists($offset)
+         {
+
+         }
+
+         public function offsetSet($offset, $value)
+         {
+
+         }
+
+         public function offsetGet($offset)
+         {
+
+         }
+
+         public function offsetUnset($offset)
+         {
+
+         }
+     }
 
 
-&#xA0; &#xA0;&#xA0; class MyArrayAccess implements \ArrayAccess
+     function test(array $arr)
+     {
+     }
 
-&#xA0; &#xA0;&#xA0; {
+     function test2(\ArrayAccess $arr)
+     {
 
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; public function offsetExists($offset)
-
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; {
-
-
-
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }
+     }
 
 
-
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; public function offsetSet($offset, $value)
-
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; {
-
-
-
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }
-
-
-
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; public function offsetGet($offset)
-
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; {
-
-
-
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }
-
-
-
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; public function offsetUnset($offset)
-
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; {
-
-
-
-&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }
-
-&#xA0; &#xA0;&#xA0; }
-
-
-
-
-
-&#xA0; &#xA0;&#xA0; function test(array $arr)
-
-&#xA0; &#xA0;&#xA0; {
-
-&#xA0; &#xA0;&#xA0; }
-
-
-
-&#xA0; &#xA0;&#xA0; function test2(\ArrayAccess $arr)
-
-&#xA0; &#xA0;&#xA0; {
-
-
-
-&#xA0; &#xA0;&#xA0; }
-
-
-
-
-
-&#xA0; &#xA0;&#xA0; $arrObj = new MyArrayAccess();
-
-&#xA0; &#xA0;&#xA0; test([]); //result: works!
-
-&#xA0; &#xA0;&#xA0; test($arrObj); //result: does NOT work
-
-&#xA0; &#xA0;&#xA0; test2([]); //result: does NOT work
-
-&#xA0; &#xA0;&#xA0; test2($arrObj); // result: works!
-
+     $arrObj = new MyArrayAccess();
+     test([]); //result: works!
+     test($arrObj); //result: does NOT work
+     test2([]); //result: does NOT work
+     test2($arrObj); // result: works!
 ?>
 ```
-
-
-
   
 
 #

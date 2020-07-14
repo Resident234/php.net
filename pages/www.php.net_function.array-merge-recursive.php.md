@@ -2,44 +2,181 @@
 
 
 
+I refactored the Daniel&apos;s function and I got it:<br><br>
 
-<div class="phpcode"><span class="html">
-I refactored the Daniel&apos;s function and I got it:<br><br><span class="default">&lt;?php<br></span><span class="comment">/**<br> * array_merge_recursive does indeed merge arrays, but it converts values with duplicate<br> * keys to arrays rather than overwriting the value in the first array with the duplicate<br> * value in the second array, as array_merge does. I.e., with array_merge_recursive,<br> * this happens (documented behavior):<br> *<br> * array_merge_recursive(array(&apos;key&apos; =&gt; &apos;org value&apos;), array(&apos;key&apos; =&gt; &apos;new value&apos;));<br> *&#xA0; &#xA0;&#xA0; =&gt; array(&apos;key&apos; =&gt; array(&apos;org value&apos;, &apos;new value&apos;));<br> *<br> * array_merge_recursive_distinct does not change the datatypes of the values in the arrays.<br> * Matching keys&apos; values in the second array overwrite those in the first array, as is the<br> * case with array_merge, i.e.:<br> *<br> * array_merge_recursive_distinct(array(&apos;key&apos; =&gt; &apos;org value&apos;), array(&apos;key&apos; =&gt; &apos;new value&apos;));<br> *&#xA0; &#xA0;&#xA0; =&gt; array(&apos;key&apos; =&gt; array(&apos;new value&apos;));<br> *<br> * Parameters are passed by reference, though only for performance reasons. They&apos;re not<br> * altered by this function.<br> *<br> * @param array $array1<br> * @param array $array2<br> * @return array<br> * @author Daniel &lt;daniel (at) danielsmedegaardbuus (dot) dk&gt;<br> * @author Gabriel Sobrinho &lt;gabriel (dot) sobrinho (at) gmail (dot) com&gt;<br> */<br></span><span class="keyword">function </span><span class="default">array_merge_recursive_distinct </span><span class="keyword">( array &amp;</span><span class="default">$array1</span><span class="keyword">, array &amp;</span><span class="default">$array2 </span><span class="keyword">)<br>{<br>&#xA0; </span><span class="default">$merged </span><span class="keyword">= </span><span class="default">$array1</span><span class="keyword">;<br><br>&#xA0; foreach ( </span><span class="default">$array2 </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; &amp;</span><span class="default">$value </span><span class="keyword">)<br>&#xA0; {<br>&#xA0; &#xA0; if ( </span><span class="default">is_array </span><span class="keyword">( </span><span class="default">$value </span><span class="keyword">) &amp;&amp; isset ( </span><span class="default">$merged </span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] ) &amp;&amp; </span><span class="default">is_array </span><span class="keyword">( </span><span class="default">$merged </span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] ) )<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$merged </span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">array_merge_recursive_distinct </span><span class="keyword">( </span><span class="default">$merged </span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">], </span><span class="default">$value </span><span class="keyword">);<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; else<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$merged </span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$value</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; }<br><br>&#xA0; return </span><span class="default">$merged</span><span class="keyword">;<br>}<br></span><span class="default">?&gt;<br></span><br>This fix the E_NOTICE when the the first array doesn&apos;t have the key and the second array have a value which is a array.</span>
-</div>
+```
+<?php
+/**
+ * array_merge_recursive does indeed merge arrays, but it converts values with duplicate
+ * keys to arrays rather than overwriting the value in the first array with the duplicate
+ * value in the second array, as array_merge does. I.e., with array_merge_recursive,
+ * this happens (documented behavior):
+ *
+ * array_merge_recursive(array(&apos;key&apos; =&gt; &apos;org value&apos;), array(&apos;key&apos; =&gt; &apos;new value&apos;));
+ *     =&gt; array(&apos;key&apos; =&gt; array(&apos;org value&apos;, &apos;new value&apos;));
+ *
+ * array_merge_recursive_distinct does not change the datatypes of the values in the arrays.
+ * Matching keys&apos; values in the second array overwrite those in the first array, as is the
+ * case with array_merge, i.e.:
+ *
+ * array_merge_recursive_distinct(array(&apos;key&apos; =&gt; &apos;org value&apos;), array(&apos;key&apos; =&gt; &apos;new value&apos;));
+ *     =&gt; array(&apos;key&apos; =&gt; array(&apos;new value&apos;));
+ *
+ * Parameters are passed by reference, though only for performance reasons. They&apos;re not
+ * altered by this function.
+ *
+ * @param array $array1
+ * @param array $array2
+ * @return array
+ * @author Daniel &lt;daniel (at) danielsmedegaardbuus (dot) dk&gt;
+ * @author Gabriel Sobrinho &lt;gabriel (dot) sobrinho (at) gmail (dot) com&gt;
+ */
+function array_merge_recursive_distinct ( array &amp;$array1, array &amp;$array2 )
+{
+  $merged = $array1;
+
+  foreach ( $array2 as $key =&gt; &amp;$value )
+  {
+    if ( is_array ( $value ) &amp;&amp; isset ( $merged [$key] ) &amp;&amp; is_array ( $merged [$key] ) )
+    {
+      $merged [$key] = array_merge_recursive_distinct ( $merged [$key], $value );
+    }
+    else
+    {
+      $merged [$key] = $value;
+    }
+  }
+
+  return $merged;
+}
+?>
+```
+<br><br>This fix the E_NOTICE when the the first array doesn&apos;t have the key and the second array have a value which is a array.  
+
+#
+
+I little bit improved daniel&apos;s and gabriel&apos;s contribution to behave more like original array_merge function to append numeric keys instead of overwriting them and added usefull option of specifying which elements to merge as you more often than not need to merge only specific part of array tree, and some parts of array just need  to let overwrite previous. By specifying helper element mergeWithParent=true, that section of array  will be merged, otherwise latter array part will override former. First level of array behave as classic array_merge.<br><br>        function array_merge_recursive_distinct ( array &amp;$array1, array &amp;$array2 )<br>    {<br>        static $level=0;<br>        $merged = [];<br>        if (!empty($array2["mergeWithParent"]) || $level == 0) {<br>            $merged = $array1;<br>        }<br><br>        foreach ( $array2 as $key =&gt; &amp;$value )<br>        {<br>            if (is_numeric($key)) {<br>                $merged [] = $value;<br>            } else {<br>                $merged[$key] = $value;<br>            }<br><br>            if ( is_array ( $value ) &amp;&amp; isset ( $array1 [$key] ) &amp;&amp; is_array ( $array1 [$key] )<br>            ) {<br>                $level++;<br>                $merged [$key] = array_merge_recursive_distinct($array1 [$key], $value);<br>                $level--;<br>            }<br>        }<br>        unset($merged["mergeWithParent"]);<br>        return $merged;<br>    }  
+
+#
+
+This is my version of array_merge_recursive without overwriting numeric keys:<br>
+
+```
+<?php
+function array_merge_recursive_new() {
+
+        $arrays = func_get_args();
+        $base = array_shift($arrays);
+
+        foreach ($arrays as $array) {
+            reset($base); //important
+            while (list($key, $value) = @each($array)) {
+                if (is_array($value) &amp;&amp; @is_array($base[$key])) {
+                    $base[$key] = array_merge_recursive_new($base[$key], $value);
+                } else {
+                    $base[$key] = $value;
+                }
+            }
+        }
+
+        return $base;
+    }
+?>
+```
   
 
 #
 
+There are a lot of examples here for recursion that are meant to behave more like array_merge() but they don&apos;t get it quite right or are fairly customised. I think this version is most similar, takes more than 2 arguments and can be renamed in one place:<br><br>
 
-<div class="phpcode"><span class="html">
-I little bit improved daniel&apos;s and gabriel&apos;s contribution to behave more like original array_merge function to append numeric keys instead of overwriting them and added usefull option of specifying which elements to merge as you more often than not need to merge only specific part of array tree, and some parts of array just need&#xA0; to let overwrite previous. By specifying helper element mergeWithParent=true, that section of array&#xA0; will be merged, otherwise latter array part will override former. First level of array behave as classic array_merge.<br><br>&#xA0; &#xA0; &#xA0; &#xA0; function array_merge_recursive_distinct ( array &amp;$array1, array &amp;$array2 )<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; static $level=0;<br>&#xA0; &#xA0; &#xA0; &#xA0; $merged = [];<br>&#xA0; &#xA0; &#xA0; &#xA0; if (!empty($array2[&quot;mergeWithParent&quot;]) || $level == 0) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $merged = $array1;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; foreach ( $array2 as $key =&gt; &amp;$value )<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (is_numeric($key)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $merged [] = $value;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $merged[$key] = $value;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if ( is_array ( $value ) &amp;&amp; isset ( $array1 [$key] ) &amp;&amp; is_array ( $array1 [$key] )<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; ) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $level++;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $merged [$key] = array_merge_recursive_distinct($array1 [$key], $value);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $level--;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; unset($merged[&quot;mergeWithParent&quot;]);<br>&#xA0; &#xA0; &#xA0; &#xA0; return $merged;<br>&#xA0; &#xA0; }</span>
-</div>
-  
+```
+<?php
+
+function array_merge_recursive_simple() {
+
+    if (func_num_args() &lt; 2) {
+        trigger_error(__FUNCTION__ .&apos; needs two or more array arguments&apos;, E_USER_WARNING);
+        return;
+    }
+    $arrays = func_get_args();
+    $merged = array();
+    while ($arrays) {
+        $array = array_shift($arrays);
+        if (!is_array($array)) {
+            trigger_error(__FUNCTION__ .&apos; encountered a non array argument&apos;, E_USER_WARNING);
+            return;
+        }
+        if (!$array)
+            continue;
+        foreach ($array as $key =&gt; $value)
+            if (is_string($key))
+                if (is_array($value) &amp;&amp; array_key_exists($key, $merged) &amp;&amp; is_array($merged[$key]))
+                    $merged[$key] = call_user_func(__FUNCTION__, $merged[$key], $value);
+                else
+                    $merged[$key] = $value;
+            else
+                $merged[] = $value;
+    }
+    return $merged;
+}
+
+$a1 = array(
+    88 =&gt; 1,
+    &apos;foo&apos; =&gt; 2,
+    &apos;bar&apos; =&gt; array(4),
+    &apos;x&apos; =&gt; 5,
+    &apos;z&apos; =&gt; array(
+        6,
+        &apos;m&apos; =&gt; &apos;hi&apos;,
+    ),
+);
+$a2 = array(
+    99 =&gt; 7,
+    &apos;foo&apos; =&gt; array(8),
+    &apos;bar&apos; =&gt; 9,
+    &apos;y&apos; =&gt; 10,
+    &apos;z&apos; =&gt; array(
+        &apos;m&apos; =&gt; &apos;bye&apos;,
+        11,
+    ),
+);
+$a3 = array(
+    &apos;z&apos; =&gt; array(
+        &apos;m&apos; =&gt; &apos;ciao&apos;,
+    ),
+);
+var_dump(array_merge($a1, $a2, $a3));
+var_dump(array_merge_recursive_simple($a1, $a2, $a3));
+var_dump(array_merge_recursive($a1, $a2, $a3));
+?>
+```
+<br><br>gives:<br><br>array(7) {              array(7) {              array(7) {<br>  int(1)                  int(1)                  int(1)<br>  ["foo"]=&gt;               ["foo"]=&gt;               ["foo"]=&gt;<br>  array(1) {              array(1) {              array(2) {<br>    [0]=&gt;                   [0]=&gt;                   [0]=&gt;<br>    int(8)                  int(8)                  int(2)<br>  }                       }                         [1]=&gt;<br>  ["bar"]=&gt;               ["bar"]=&gt;                 int(8)<br>  int(9)                  int(9)                  }<br>  ["x"]=&gt;                 ["x"]=&gt;                 ["bar"]=&gt;<br>  int(5)                  int(5)                  array(2) {<br>  ["z"]=&gt;                 ["z"]=&gt;                   [0]=&gt;<br>  array(1) {              array(3) {                int(4)<br>    ["m"]=&gt;                 [0]=&gt;                   [1]=&gt;<br>    string(4) "ciao"        int(6)                  int(9)<br>  }                         ["m"]=&gt;               }<br>  [1]=&gt;                     string(4) "ciao"      ["x"]=&gt;<br>  int(7)                    [1]=&gt;                 int(5)<br>  ["y"]=&gt;                   int(11)               ["z"]=&gt;<br>  int(10)                 }                       array(3) {<br>}                         [1]=&gt;                     [0]=&gt;<br>                          int(7)                    int(6)<br>                          ["y"]=&gt;                   ["m"]=&gt;<br>                          int(10)                   array(3) {<br>                        }                             [0]=&gt;<br>                                                      string(2) "hi"<br>                                                      [1]=&gt;<br>                                                      string(3) "bye"<br>                                                      [2]=&gt;<br>                                                      string(4) "ciao"<br>                                                    }<br>                                                    [1]=&gt;<br>                                                    int(11)<br>                                                  }<br>                                                  [1]=&gt;<br>                                                  int(7)<br>                                                  ["y"]=&gt;<br>                                                  int(10)<br>                                                }  
 
 #
 
+Here&apos;s my function to recursively merge two arrays with overwrites. Nice for merging configurations.<br><br>
 
-<div class="phpcode"><span class="html">
-This is my version of array_merge_recursive without overwriting numeric keys:<br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">array_merge_recursive_new</span><span class="keyword">() {<br><br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$arrays </span><span class="keyword">= </span><span class="default">func_get_args</span><span class="keyword">();<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$base </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$arrays</span><span class="keyword">);<br><br>&#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$arrays </span><span class="keyword">as </span><span class="default">$array</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">reset</span><span class="keyword">(</span><span class="default">$base</span><span class="keyword">); </span><span class="comment">//important<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="keyword">while (list(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$value</span><span class="keyword">) = @</span><span class="default">each</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">) &amp;&amp; @</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$base</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">])) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$base</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">array_merge_recursive_new</span><span class="keyword">(</span><span class="default">$base</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">], </span><span class="default">$value</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; } else {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$base</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$value</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">$base</span><span class="keyword">;<br>&#xA0; &#xA0; }<br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
+```
+<?php
 
-#
+function MergeArrays($Arr1, $Arr2)
+{
+  foreach($Arr2 as $key =&gt; $Value)
+  {
+    if(array_key_exists($key, $Arr1) &amp;&amp; is_array($Value))
+      $Arr1[$key] = MergeArrays($Arr1[$key], $Arr2[$key]);
 
+    else
+      $Arr1[$key] = $Value;
 
-<div class="phpcode"><span class="html">
-There are a lot of examples here for recursion that are meant to behave more like array_merge() but they don&apos;t get it quite right or are fairly customised. I think this version is most similar, takes more than 2 arguments and can be renamed in one place:<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">function </span><span class="default">array_merge_recursive_simple</span><span class="keyword">() {<br><br>&#xA0; &#xA0; if (</span><span class="default">func_num_args</span><span class="keyword">() &lt; </span><span class="default">2</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="default">__FUNCTION__ </span><span class="keyword">.</span><span class="string">&apos; needs two or more array arguments&apos;</span><span class="keyword">, </span><span class="default">E_USER_WARNING</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; return;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; </span><span class="default">$arrays </span><span class="keyword">= </span><span class="default">func_get_args</span><span class="keyword">();<br>&#xA0; &#xA0; </span><span class="default">$merged </span><span class="keyword">= array();<br>&#xA0; &#xA0; while (</span><span class="default">$arrays</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$array </span><span class="keyword">= </span><span class="default">array_shift</span><span class="keyword">(</span><span class="default">$arrays</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; if (!</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$array</span><span class="keyword">)) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">trigger_error</span><span class="keyword">(</span><span class="default">__FUNCTION__ </span><span class="keyword">.</span><span class="string">&apos; encountered a non array argument&apos;</span><span class="keyword">, </span><span class="default">E_USER_WARNING</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; if (!</span><span class="default">$array</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; continue;<br>&#xA0; &#xA0; &#xA0; &#xA0; foreach (</span><span class="default">$array </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$value</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_string</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$value</span><span class="keyword">) &amp;&amp; </span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$merged</span><span class="keyword">) &amp;&amp; </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$merged</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]))<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$merged</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">call_user_func</span><span class="keyword">(</span><span class="default">__FUNCTION__</span><span class="keyword">, </span><span class="default">$merged</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">], </span><span class="default">$value</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$merged</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$value</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$merged</span><span class="keyword">[] = </span><span class="default">$value</span><span class="keyword">;<br>&#xA0; &#xA0; }<br>&#xA0; &#xA0; return </span><span class="default">$merged</span><span class="keyword">;<br>}<br><br></span><span class="default">$a1 </span><span class="keyword">= array(<br>&#xA0; &#xA0; </span><span class="default">88 </span><span class="keyword">=&gt; </span><span class="default">1</span><span class="keyword">,<br>&#xA0; &#xA0; </span><span class="string">&apos;foo&apos; </span><span class="keyword">=&gt; </span><span class="default">2</span><span class="keyword">,<br>&#xA0; &#xA0; </span><span class="string">&apos;bar&apos; </span><span class="keyword">=&gt; array(</span><span class="default">4</span><span class="keyword">),<br>&#xA0; &#xA0; </span><span class="string">&apos;x&apos; </span><span class="keyword">=&gt; </span><span class="default">5</span><span class="keyword">,<br>&#xA0; &#xA0; </span><span class="string">&apos;z&apos; </span><span class="keyword">=&gt; array(<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">6</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;m&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;hi&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; ),<br>);<br></span><span class="default">$a2 </span><span class="keyword">= array(<br>&#xA0; &#xA0; </span><span class="default">99 </span><span class="keyword">=&gt; </span><span class="default">7</span><span class="keyword">,<br>&#xA0; &#xA0; </span><span class="string">&apos;foo&apos; </span><span class="keyword">=&gt; array(</span><span class="default">8</span><span class="keyword">),<br>&#xA0; &#xA0; </span><span class="string">&apos;bar&apos; </span><span class="keyword">=&gt; </span><span class="default">9</span><span class="keyword">,<br>&#xA0; &#xA0; </span><span class="string">&apos;y&apos; </span><span class="keyword">=&gt; </span><span class="default">10</span><span class="keyword">,<br>&#xA0; &#xA0; </span><span class="string">&apos;z&apos; </span><span class="keyword">=&gt; array(<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;m&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;bye&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">11</span><span class="keyword">,<br>&#xA0; &#xA0; ),<br>);<br></span><span class="default">$a3 </span><span class="keyword">= array(<br>&#xA0; &#xA0; </span><span class="string">&apos;z&apos; </span><span class="keyword">=&gt; array(<br>&#xA0; &#xA0; &#xA0; &#xA0; </span><span class="string">&apos;m&apos; </span><span class="keyword">=&gt; </span><span class="string">&apos;ciao&apos;</span><span class="keyword">,<br>&#xA0; &#xA0; ),<br>);<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">array_merge</span><span class="keyword">(</span><span class="default">$a1</span><span class="keyword">, </span><span class="default">$a2</span><span class="keyword">, </span><span class="default">$a3</span><span class="keyword">));<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">array_merge_recursive_simple</span><span class="keyword">(</span><span class="default">$a1</span><span class="keyword">, </span><span class="default">$a2</span><span class="keyword">, </span><span class="default">$a3</span><span class="keyword">));<br></span><span class="default">var_dump</span><span class="keyword">(</span><span class="default">array_merge_recursive</span><span class="keyword">(</span><span class="default">$a1</span><span class="keyword">, </span><span class="default">$a2</span><span class="keyword">, </span><span class="default">$a3</span><span class="keyword">));<br></span><span class="default">?&gt;<br></span><br>gives:<br><br>array(7) {&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; array(7) {&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; array(7) {<br>&#xA0; int(1)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(1)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(1)<br>&#xA0; [&quot;foo&quot;]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [&quot;foo&quot;]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [&quot;foo&quot;]=&gt;<br>&#xA0; array(1) {&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; array(1) {&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; array(2) {<br>&#xA0; &#xA0; [0]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [0]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [0]=&gt;<br>&#xA0; &#xA0; int(8)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(8)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(2)<br>&#xA0; }&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [1]=&gt;<br>&#xA0; [&quot;bar&quot;]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [&quot;bar&quot;]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; int(8)<br>&#xA0; int(9)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(9)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; [&quot;x&quot;]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [&quot;x&quot;]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [&quot;bar&quot;]=&gt;<br>&#xA0; int(5)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(5)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; array(2) {<br>&#xA0; [&quot;z&quot;]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [&quot;z&quot;]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [0]=&gt;<br>&#xA0; array(1) {&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; array(3) {&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(4)<br>&#xA0; &#xA0; [&quot;m&quot;]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [0]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [1]=&gt;<br>&#xA0; &#xA0; string(4) &quot;ciao&quot;&#xA0; &#xA0; &#xA0; &#xA0; int(6)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(9)<br>&#xA0; }&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [&quot;m&quot;]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }<br>&#xA0; [1]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; string(4) &quot;ciao&quot;&#xA0; &#xA0; &#xA0; [&quot;x&quot;]=&gt;<br>&#xA0; int(7)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [1]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; int(5)<br>&#xA0; [&quot;y&quot;]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; int(11)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [&quot;z&quot;]=&gt;<br>&#xA0; int(10)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; }&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; array(3) {<br>}&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [1]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [0]=&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(7)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(6)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [&quot;y&quot;]=&gt;&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [&quot;m&quot;]=&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(10)&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; array(3) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; [0]=&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; string(2) &quot;hi&quot;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [1]=&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; string(3) &quot;bye&quot;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [2]=&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; string(4) &quot;ciao&quot;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [1]=&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(11)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [1]=&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(7)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; [&quot;y&quot;]=&gt;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; int(10)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }</span>
-</div>
-  
+  }
 
-#
+  return $Arr1;
 
+}
 
-<div class="phpcode"><span class="html">
-Here&apos;s my function to recursively merge two arrays with overwrites. Nice for merging configurations.<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">function </span><span class="default">MergeArrays</span><span class="keyword">(</span><span class="default">$Arr1</span><span class="keyword">, </span><span class="default">$Arr2</span><span class="keyword">)<br>{<br>&#xA0; foreach(</span><span class="default">$Arr2 </span><span class="keyword">as </span><span class="default">$key </span><span class="keyword">=&gt; </span><span class="default">$Value</span><span class="keyword">)<br>&#xA0; {<br>&#xA0; &#xA0; if(</span><span class="default">array_key_exists</span><span class="keyword">(</span><span class="default">$key</span><span class="keyword">, </span><span class="default">$Arr1</span><span class="keyword">) &amp;&amp; </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$Value</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$Arr1</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">MergeArrays</span><span class="keyword">(</span><span class="default">$Arr1</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">], </span><span class="default">$Arr2</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">]);<br><br>&#xA0; &#xA0; else<br>&#xA0; &#xA0; &#xA0; </span><span class="default">$Arr1</span><span class="keyword">[</span><span class="default">$key</span><span class="keyword">] = </span><span class="default">$Value</span><span class="keyword">;<br><br>&#xA0; }<br><br>&#xA0; return </span><span class="default">$Arr1</span><span class="keyword">;<br><br>}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+?>
+```
   
 
 #

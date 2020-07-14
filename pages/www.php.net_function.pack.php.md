@@ -2,47 +2,131 @@
 
 
 
+If you&apos;d like to understand pack/unpack. There is a tutorial here in perl, that works equally well in understanding it for php:<br><br>http://perldoc.perl.org/perlpacktut.html  
 
-<div class="phpcode"><span class="html">
-If you&apos;d like to understand pack/unpack. There is a tutorial here in perl, that works equally well in understanding it for php:<br><br><a href="http://perldoc.perl.org/perlpacktut.html" rel="nofollow" target="_blank">http://perldoc.perl.org/perlpacktut.html</a></span>
-</div>
+#
+
+A helper class to convert integer to binary strings and vice versa. Useful for writing and reading integers to / from files or sockets.<br><br>
+
+```
+<?php
+
+    class int_helper
+    {
+        public static function int8($i) {
+            return is_int($i) ? pack("c", $i) : unpack("c", $i)[1];
+        }
+
+        public static function uInt8($i) {
+            return is_int($i) ? pack("C", $i) : unpack("C", $i)[1];
+        }
+
+        public static function int16($i) {
+            return is_int($i) ? pack("s", $i) : unpack("s", $i)[1];
+        }
+
+        public static function uInt16($i, $endianness=false) {
+            $f = is_int($i) ? "pack" : "unpack";
+
+            if ($endianness === true) {  // big-endian
+                $i = $f("n", $i);
+            }
+            else if ($endianness === false) {  // little-endian
+                $i = $f("v", $i);
+            }
+            else if ($endianness === null) {  // machine byte order
+                $i = $f("S", $i);
+            }
+
+            return is_array($i) ? $i[1] : $i;
+        }
+
+        public static function int32($i) {
+            return is_int($i) ? pack("l", $i) : unpack("l", $i)[1];
+        }
+
+        public static function uInt32($i, $endianness=false) {
+            $f = is_int($i) ? "pack" : "unpack";
+
+            if ($endianness === true) {  // big-endian
+                $i = $f("N", $i);
+            }
+            else if ($endianness === false) {  // little-endian
+                $i = $f("V", $i);
+            }
+            else if ($endianness === null) {  // machine byte order
+                $i = $f("L", $i);
+            }
+
+            return is_array($i) ? $i[1] : $i;
+        }
+
+        public static function int64($i) {
+            return is_int($i) ? pack("q", $i) : unpack("q", $i)[1];
+        }
+
+        public static function uInt64($i, $endianness=false) {
+            $f = is_int($i) ? "pack" : "unpack";
+
+            if ($endianness === true) {  // big-endian
+                $i = $f("J", $i);
+            }
+            else if ($endianness === false) {  // little-endian
+                $i = $f("P", $i);
+            }
+            else if ($endianness === null) {  // machine byte order
+                $i = $f("Q", $i);
+            }
+
+            return is_array($i) ? $i[1] : $i;
+        }
+    }
+?>
+```
+
+
+Usage example:
+
+
+```
+<?php
+    Header("Content-Type: text/plain");
+    include("int_helper.php");
+
+    echo int_helper::uInt8(0x6b) . PHP_EOL;  // k
+    echo int_helper::uInt8(107) . PHP_EOL;  // k
+    echo int_helper::uInt8("\x6b") . PHP_EOL . PHP_EOL;  // 107
+
+    echo int_helper::uInt16(4101) . PHP_EOL;  // \x05\x10
+    echo int_helper::uInt16("\x05\x10") . PHP_EOL;  // 4101
+    echo int_helper::uInt16("\x05\x10", true) . PHP_EOL . PHP_EOL;  // 1296
+
+    echo int_helper::uInt32(2147483647) . PHP_EOL;  // \xff\xff\xff\x7f
+    echo int_helper::uInt32("\xff\xff\xff\x7f") . PHP_EOL . PHP_EOL;  // 2147483647
+
+    // Note: Test this with 64-bit build of PHP
+    echo int_helper::uInt64(9223372036854775807) . PHP_EOL;  // \xff\xff\xff\xff\xff\xff\xff\x7f
+    echo int_helper::uInt64("\xff\xff\xff\xff\xff\xff\xff\x7f") . PHP_EOL . PHP_EOL;  // 9223372036854775807
+
+?>
+```
   
 
 #
 
-
-<div class="phpcode"><span class="html">
-A helper class to convert integer to binary strings and vice versa. Useful for writing and reading integers to / from files or sockets.<br><br><span class="default">&lt;?php<br><br>&#xA0; &#xA0; </span><span class="keyword">class </span><span class="default">int_helper<br>&#xA0; &#xA0; </span><span class="keyword">{<br>&#xA0; &#xA0; &#xA0; &#xA0; public static function </span><span class="default">int8</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) ? </span><span class="default">pack</span><span class="keyword">(</span><span class="string">&quot;c&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">) : </span><span class="default">unpack</span><span class="keyword">(</span><span class="string">&quot;c&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">)[</span><span class="default">1</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; public static function </span><span class="default">uInt8</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) ? </span><span class="default">pack</span><span class="keyword">(</span><span class="string">&quot;C&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">) : </span><span class="default">unpack</span><span class="keyword">(</span><span class="string">&quot;C&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">)[</span><span class="default">1</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; public static function </span><span class="default">int16</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) ? </span><span class="default">pack</span><span class="keyword">(</span><span class="string">&quot;s&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">) : </span><span class="default">unpack</span><span class="keyword">(</span><span class="string">&quot;s&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">)[</span><span class="default">1</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; public static function </span><span class="default">uInt16</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">, </span><span class="default">$endianness</span><span class="keyword">=</span><span class="default">false</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$f </span><span class="keyword">= </span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) ? </span><span class="string">&quot;pack&quot; </span><span class="keyword">: </span><span class="string">&quot;unpack&quot;</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$endianness </span><span class="keyword">=== </span><span class="default">true</span><span class="keyword">) {&#xA0; </span><span class="comment">// big-endian<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">$f</span><span class="keyword">(</span><span class="string">&quot;n&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else if (</span><span class="default">$endianness </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {&#xA0; </span><span class="comment">// little-endian<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">$f</span><span class="keyword">(</span><span class="string">&quot;v&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else if (</span><span class="default">$endianness </span><span class="keyword">=== </span><span class="default">null</span><span class="keyword">) {&#xA0; </span><span class="comment">// machine byte order<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">$f</span><span class="keyword">(</span><span class="string">&quot;S&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) ? </span><span class="default">$i</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] : </span><span class="default">$i</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; public static function </span><span class="default">int32</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) ? </span><span class="default">pack</span><span class="keyword">(</span><span class="string">&quot;l&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">) : </span><span class="default">unpack</span><span class="keyword">(</span><span class="string">&quot;l&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">)[</span><span class="default">1</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; public static function </span><span class="default">uInt32</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">, </span><span class="default">$endianness</span><span class="keyword">=</span><span class="default">false</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$f </span><span class="keyword">= </span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) ? </span><span class="string">&quot;pack&quot; </span><span class="keyword">: </span><span class="string">&quot;unpack&quot;</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$endianness </span><span class="keyword">=== </span><span class="default">true</span><span class="keyword">) {&#xA0; </span><span class="comment">// big-endian<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">$f</span><span class="keyword">(</span><span class="string">&quot;N&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else if (</span><span class="default">$endianness </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {&#xA0; </span><span class="comment">// little-endian<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">$f</span><span class="keyword">(</span><span class="string">&quot;V&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else if (</span><span class="default">$endianness </span><span class="keyword">=== </span><span class="default">null</span><span class="keyword">) {&#xA0; </span><span class="comment">// machine byte order<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">$f</span><span class="keyword">(</span><span class="string">&quot;L&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) ? </span><span class="default">$i</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] : </span><span class="default">$i</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; public static function </span><span class="default">int64</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) ? </span><span class="default">pack</span><span class="keyword">(</span><span class="string">&quot;q&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">) : </span><span class="default">unpack</span><span class="keyword">(</span><span class="string">&quot;q&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">)[</span><span class="default">1</span><span class="keyword">];<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; public static function </span><span class="default">uInt64</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">, </span><span class="default">$endianness</span><span class="keyword">=</span><span class="default">false</span><span class="keyword">) {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$f </span><span class="keyword">= </span><span class="default">is_int</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) ? </span><span class="string">&quot;pack&quot; </span><span class="keyword">: </span><span class="string">&quot;unpack&quot;</span><span class="keyword">;<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$endianness </span><span class="keyword">=== </span><span class="default">true</span><span class="keyword">) {&#xA0; </span><span class="comment">// big-endian<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">$f</span><span class="keyword">(</span><span class="string">&quot;J&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else if (</span><span class="default">$endianness </span><span class="keyword">=== </span><span class="default">false</span><span class="keyword">) {&#xA0; </span><span class="comment">// little-endian<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">$f</span><span class="keyword">(</span><span class="string">&quot;P&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else if (</span><span class="default">$endianness </span><span class="keyword">=== </span><span class="default">null</span><span class="keyword">) {&#xA0; </span><span class="comment">// machine byte order<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$i </span><span class="keyword">= </span><span class="default">$f</span><span class="keyword">(</span><span class="string">&quot;Q&quot;</span><span class="keyword">, </span><span class="default">$i</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br><br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">is_array</span><span class="keyword">(</span><span class="default">$i</span><span class="keyword">) ? </span><span class="default">$i</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">] : </span><span class="default">$i</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; }<br></span><span class="default">?&gt;<br></span><br>Usage example:<br><span class="default">&lt;?php<br>&#xA0; &#xA0; Header</span><span class="keyword">(</span><span class="string">&quot;Content-Type: text/plain&quot;</span><span class="keyword">);<br>&#xA0; &#xA0; include(</span><span class="string">&quot;int_helper.php&quot;</span><span class="keyword">);<br><br>&#xA0; &#xA0; echo </span><span class="default">int_helper</span><span class="keyword">::</span><span class="default">uInt8</span><span class="keyword">(</span><span class="default">0x6b</span><span class="keyword">) . </span><span class="default">PHP_EOL</span><span class="keyword">;&#xA0; </span><span class="comment">// k<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">int_helper</span><span class="keyword">::</span><span class="default">uInt8</span><span class="keyword">(</span><span class="default">107</span><span class="keyword">) . </span><span class="default">PHP_EOL</span><span class="keyword">;&#xA0; </span><span class="comment">// k<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">int_helper</span><span class="keyword">::</span><span class="default">uInt8</span><span class="keyword">(</span><span class="string">&quot;\x6b&quot;</span><span class="keyword">) . </span><span class="default">PHP_EOL </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;&#xA0; </span><span class="comment">// 107<br><br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">int_helper</span><span class="keyword">::</span><span class="default">uInt16</span><span class="keyword">(</span><span class="default">4101</span><span class="keyword">) . </span><span class="default">PHP_EOL</span><span class="keyword">;&#xA0; </span><span class="comment">// \x05\x10<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">int_helper</span><span class="keyword">::</span><span class="default">uInt16</span><span class="keyword">(</span><span class="string">&quot;\x05\x10&quot;</span><span class="keyword">) . </span><span class="default">PHP_EOL</span><span class="keyword">;&#xA0; </span><span class="comment">// 4101<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">int_helper</span><span class="keyword">::</span><span class="default">uInt16</span><span class="keyword">(</span><span class="string">&quot;\x05\x10&quot;</span><span class="keyword">, </span><span class="default">true</span><span class="keyword">) . </span><span class="default">PHP_EOL </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;&#xA0; </span><span class="comment">// 1296<br><br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">int_helper</span><span class="keyword">::</span><span class="default">uInt32</span><span class="keyword">(</span><span class="default">2147483647</span><span class="keyword">) . </span><span class="default">PHP_EOL</span><span class="keyword">;&#xA0; </span><span class="comment">// \xff\xff\xff\x7f<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">int_helper</span><span class="keyword">::</span><span class="default">uInt32</span><span class="keyword">(</span><span class="string">&quot;\xff\xff\xff\x7f&quot;</span><span class="keyword">) . </span><span class="default">PHP_EOL </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;&#xA0; </span><span class="comment">// 2147483647<br><br>&#xA0; &#xA0; // Note: Test this with 64-bit build of PHP<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">int_helper</span><span class="keyword">::</span><span class="default">uInt64</span><span class="keyword">(</span><span class="default">9223372036854775807</span><span class="keyword">) . </span><span class="default">PHP_EOL</span><span class="keyword">;&#xA0; </span><span class="comment">// \xff\xff\xff\xff\xff\xff\xff\x7f<br>&#xA0; &#xA0; </span><span class="keyword">echo </span><span class="default">int_helper</span><span class="keyword">::</span><span class="default">uInt64</span><span class="keyword">(</span><span class="string">&quot;\xff\xff\xff\xff\xff\xff\xff\x7f&quot;</span><span class="keyword">) . </span><span class="default">PHP_EOL </span><span class="keyword">. </span><span class="default">PHP_EOL</span><span class="keyword">;&#xA0; </span><span class="comment">// 9223372036854775807<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
-  
+Note that the the upper command in perl looks like this:<br><br>$binarydata = pack ("n v c*", 0x1234, 0x5678, 65, 66);<br>In PHP it seems that no whitespaces are allowed in the first parameter. So if you want to convert your pack command from perl -&gt; PHP, don&apos;t forget to remove the whitespaces!  
 
 #
 
+If you need to unpack a signed short from big-endian or little-endian specifically, instead of machine-byte-order, you need only unpack it as the unsigned form, and then if the result is &gt;= 2^15, subtract 2^16 from it.<br><br>And example would be:<br><br>
 
-<div class="phpcode"><span class="html">
-Note that the the upper command in perl looks like this:
-<br>
-<br>$binarydata = pack (&quot;n v c*&quot;, 0x1234, 0x5678, 65, 66);
-<br>In PHP it seems that no whitespaces are allowed in the first parameter. So if you want to convert your pack command from perl -&gt; PHP, don&apos;t forget to remove the whitespaces!</span>
-</div>
-  
-
-#
-
-
-<div class="phpcode"><span class="html">
-If you need to unpack a signed short from big-endian or little-endian specifically, instead of machine-byte-order, you need only unpack it as the unsigned form, and then if the result is &gt;= 2^15, subtract 2^16 from it.
-<br>
-<br>And example would be:
-<br>
-<br><span class="default">&lt;?php
-<br>$foo </span><span class="keyword">= </span><span class="default">unpack</span><span class="keyword">(</span><span class="string">&quot;n&quot;</span><span class="keyword">, </span><span class="default">$signedbigendianshort</span><span class="keyword">);
-<br></span><span class="default">$foo </span><span class="keyword">= </span><span class="default">$foo</span><span class="keyword">[</span><span class="default">1</span><span class="keyword">];
-<br>if(</span><span class="default">$foo </span><span class="keyword">&gt;= </span><span class="default">pow</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">, </span><span class="default">15</span><span class="keyword">)) </span><span class="default">$foo </span><span class="keyword">-= </span><span class="default">pow</span><span class="keyword">(</span><span class="default">2</span><span class="keyword">, </span><span class="default">16</span><span class="keyword">);
-<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+$foo = unpack("n", $signedbigendianshort);
+$foo = $foo[1];
+if($foo &gt;= pow(2, 15)) $foo -= pow(2, 16);
+?>
+```
   
 
 #

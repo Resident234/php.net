@@ -2,50 +2,30 @@
 
 
 
-
-
-This is a misuse of the term overloading. This article should call this technique &quot;interpreter hooks&quot;.
-
-  
+This is a misuse of the term overloading. This article should call this technique "interpreter hooks".  
 
 #
 
-
-
-A word of warning!&#xA0; It may seem obvious, but remember, when deciding whether to use __get, __set, and __call as a way to access the data in your class (as opposed to hard-coding getters and setters), keep in mind that this will prevent any sort of autocomplete, highlighting, or documentation that your ide mite do.
-
-Furthermore, it beyond personal preference when working with other people.&#xA0; Even without an ide, it can be much easier to go through and look at hardcoded member and method definitions in code, than having to sift through code and piece together the method/member names that are assembled in __get and __set.
-
-If you still decide to use __get and __set for everything in your class, be sure to include detailed comments and documenting, so that the people you are working with (or the people who inherit the code from you at a later date) don&apos;t have to waste time interpreting your code just to be able to use it.
-
-  
+A word of warning!  It may seem obvious, but remember, when deciding whether to use __get, __set, and __call as a way to access the data in your class (as opposed to hard-coding getters and setters), keep in mind that this will prevent any sort of autocomplete, highlighting, or documentation that your ide mite do.<br><br>Furthermore, it beyond personal preference when working with other people.  Even without an ide, it can be much easier to go through and look at hardcoded member and method definitions in code, than having to sift through code and piece together the method/member names that are assembled in __get and __set.<br><br>If you still decide to use __get and __set for everything in your class, be sure to include detailed comments and documenting, so that the people you are working with (or the people who inherit the code from you at a later date) don&apos;t have to waste time interpreting your code just to be able to use it.  
 
 #
 
-
-
-First off all, if you read this, please upvote the first comment on this list that states that &#x201C;overloading&#x201D; is a bad term for this behaviour. Because it REALLY is a bad name. You&#x2019;re giving new definition to an already accepted IT-branch terminology.
-
-Second, I concur with all criticism you will read about this functionality. Just as naming it &#x201C;overloading&#x201D;, the functionality is also very bad practice. Please don&#x2019;t use this in a production environment. To be honest, avoid to use it at all. Especially if you are a beginner at PHP. It can make your code react very unexpectedly. In which case you MIGHT be learning invalid coding!
-
-And last, because of __get, __set and __call the following code executes. Which is abnormal behaviour. And can cause a lot of problems/bugs.
-
-
+First off all, if you read this, please upvote the first comment on this list that states that &#x201C;overloading&#x201D; is a bad term for this behaviour. Because it REALLY is a bad name. You&#x2019;re giving new definition to an already accepted IT-branch terminology.<br><br>Second, I concur with all criticism you will read about this functionality. Just as naming it &#x201C;overloading&#x201D;, the functionality is also very bad practice. Please don&#x2019;t use this in a production environment. To be honest, avoid to use it at all. Especially if you are a beginner at PHP. It can make your code react very unexpectedly. In which case you MIGHT be learning invalid coding!<br><br>And last, because of __get, __set and __call the following code executes. Which is abnormal behaviour. And can cause a lot of problems/bugs.<br><br>
 
 ```
 <?php
 
 class BadPractice {
-&#xA0; // Two real properties
-&#xA0; public $DontAllowVariableNameWithTypos = true;
-&#xA0; protected $Number = 0;
-&#xA0; // One private method
-&#xA0; private function veryPrivateMethod() { }
-&#xA0; // And three very magic methods that will make everything look inconsistent
-&#xA0; // with all you have ever learned about PHP.
-&#xA0; public function __get($n) {}
-&#xA0; public function __set($n, $v) {}
-&#xA0; public function __call($n, $v) {}
+  // Two real properties
+  public $DontAllowVariableNameWithTypos = true;
+  protected $Number = 0;
+  // One private method
+  private function veryPrivateMethod() { }
+  // And three very magic methods that will make everything look inconsistent
+  // with all you have ever learned about PHP.
+  public function __get($n) {}
+  public function __set($n, $v) {}
+  public function __call($n, $v) {}
 }
 
 // Let&apos;s see our BadPractice in a production environment!
@@ -85,64 +65,35 @@ $UnexpectedBehaviour-&gt;veryPrivateMethod();
 // then you would have corrected the typho and this code will not have
 // been executed. (This can really be a BIG PAIN)
 if ($UnexpectedBehaviour-&gt;DontAllowVariableNameWithTypos) {
-&#xA0; // if this code block would have deleted a file, or do a deletion on
-&#xA0; // a database, you could really be VERY SAD for a long time!
-&#xA0; $UnexpectedBehaviour-&gt;executeStuffYouDontWantHere(true);
+  // if this code block would have deleted a file, or do a deletion on
+  // a database, you could really be VERY SAD for a long time!
+  $UnexpectedBehaviour-&gt;executeStuffYouDontWantHere(true);
 }
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-It is important to understand that encapsulation can be very easily violated in PHP. for example :
-class Object{
-
-}
-
-$Object = new Object();
-$Objet-&gt;barbarianProperties&#xA0; = &apos;boom&apos;;
-
-var_dump($Objet);// object(Objet)#1 (1) { [&quot;barbarianProperties&quot;]=&gt; string(7) &quot;boom&quot; }
-
-Hence it is possible to add a propertie out form the class definition.
-It is then a necessity in order to protect encapsulation to introduce __set() in the class :
-
-class Objet{
-&#xA0; &#xA0; public function __set($name,$value){
-&#xA0; &#xA0; &#xA0; &#xA0; throw new Exception (&apos;no&apos;);
-&#xA0; &#xA0; }
-}
-
-  
+It is important to understand that encapsulation can be very easily violated in PHP. for example :<br>class Object{<br><br>}<br><br>$Object = new Object();<br>$Objet-&gt;barbarianProperties  = &apos;boom&apos;;<br><br>var_dump($Objet);// object(Objet)#1 (1) { ["barbarianProperties"]=&gt; string(7) "boom" }<br><br>Hence it is possible to add a propertie out form the class definition.<br>It is then a necessity in order to protect encapsulation to introduce __set() in the class :<br><br>class Objet{<br>    public function __set($name,$value){<br>        throw new Exception (&apos;no&apos;);<br>    }<br>}  
 
 #
 
-
-
-Small vocabulary note: This is *not* &quot;overloading&quot;, this is &quot;overriding&quot;.
-
-Overloading: Declaring a function multiple times with a different set of parameters like this:
-
+Small vocabulary note: This is *not* "overloading", this is "overriding".<br><br>Overloading: Declaring a function multiple times with a different set of parameters like this:<br>
 
 ```
 <?php
 
 function foo($a) {
-&#xA0; &#xA0; return $a;
+    return $a;
 }
 
 function foo($a, $b) {
-&#xA0; &#xA0; return $a + $b;
+    return $a + $b;
 }
 
-echo foo(5); // Prints &quot;5&quot;
-echo foo(5, 2); // Prints &quot;7&quot;
+echo foo(5); // Prints "5"
+echo foo(5, 2); // Prints "7"
 
 ?>
 ```
@@ -155,173 +106,108 @@ Overriding: Replacing the parent class&apos;s method(s) with a new method by red
 <?php
 
 class foo {
-&#xA0; &#xA0; function new($args) {
-&#xA0; &#xA0; &#xA0; &#xA0; // Do something.
-&#xA0; &#xA0; }
+    function new($args) {
+        // Do something.
+    }
 }
 
 class bar extends foo {
-&#xA0; &#xA0; function new($args) {
-&#xA0; &#xA0; &#xA0; &#xA0; // Do something different.
-&#xA0; &#xA0; }
+    function new($args) {
+        // Do something different.
+    }
 }
 
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-Using magic methods, especially __get(), __set(), and __call() will effectively disable autocomplete in most IDEs (eg.: IntelliSense) for the affected classes.
-
-To overcome this inconvenience, use phpDoc to let the IDE know about these magic methods and properties: @method, @property, @property-read, @property-write.
-
-/**
- * @property-read name
- * @property-read price
- */
-class MyClass
-{
-&#xA0; &#xA0; private $properties = array(&apos;name&apos; =&gt; &apos;IceFruit&apos;, &apos;price&apos; =&gt; 2.49)
-&#xA0; &#xA0; 
-&#xA0; &#xA0; public function __get($name)
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;properties($name);
-&#xA0; &#xA0; }
-}
-
-  
+Using magic methods, especially __get(), __set(), and __call() will effectively disable autocomplete in most IDEs (eg.: IntelliSense) for the affected classes.<br><br>To overcome this inconvenience, use phpDoc to let the IDE know about these magic methods and properties: @method, @property, @property-read, @property-write.<br><br>/**<br> * @property-read name<br> * @property-read price<br> */<br>class MyClass<br>{<br>    private $properties = array(&apos;name&apos; =&gt; &apos;IceFruit&apos;, &apos;price&apos; =&gt; 2.49)<br>    <br>    public function __get($name)<br>    {<br>        return $this-&gt;properties($name);<br>    }<br>}  
 
 #
 
-
-
-Be extra careful when using __call():&#xA0; if you typo a function call somewhere it won&apos;t trigger an undefined function error, but get passed to __call() instead, possibly causing all sorts of bizarre side effects.
-In versions before 5.3 without __callStatic, static calls to nonexistent functions also fall through to __call!
-This caused me hours of confusion, hopefully this comment will save someone else from the same.
-
-  
+Be extra careful when using __call():  if you typo a function call somewhere it won&apos;t trigger an undefined function error, but get passed to __call() instead, possibly causing all sorts of bizarre side effects.<br>In versions before 5.3 without __callStatic, static calls to nonexistent functions also fall through to __call!<br>This caused me hours of confusion, hopefully this comment will save someone else from the same.  
 
 #
 
-
-
-If you want to make it work more naturally for arrays $obj-&gt;variable[] etc you&apos;ll need to return __get by reference.
-
-
-
-
+If you want to make it work more naturally for arrays $obj-&gt;variable[] etc you&apos;ll need to return __get by reference.<br><br>
 
 ```
 <?php
-
 class Variables
-
 {
-
-&#xA0; &#xA0; &#xA0; &#xA0; public function __construct()
-
-&#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if(session_id() === &quot;&quot;)
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; session_start();
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; public function __set($name,$value)
-
-&#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $_SESSION[&quot;Variables&quot;][$name] = $value;
-
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; public function &amp;__get($name)
-
-&#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return $_SESSION[&quot;Variables&quot;][$name];
-
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
-&#xA0; &#xA0; &#xA0; &#xA0; public function __isset($name)
-
-&#xA0; &#xA0; &#xA0; &#xA0; {
-
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return isset($_SESSION[&quot;Variables&quot;][$name]);
-
-&#xA0; &#xA0; &#xA0; &#xA0; }
-
+        public function __construct()
+        {
+                if(session_id() === "")
+                {
+                        session_start();
+                }
+        }
+        public function __set($name,$value)
+        {
+                $_SESSION["Variables"][$name] = $value;
+        }
+        public function &amp;__get($name)
+        {
+                return $_SESSION["Variables"][$name];
+        }
+        public function __isset($name)
+        {
+                return isset($_SESSION["Variables"][$name]);
+        }
 }
-
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-Example of usage __call() to have implicit getters and setters
-
-
+Example of usage __call() to have implicit getters and setters<br><br>
 
 ```
 <?php
 class Entity {
-&#xA0; &#xA0; public function __call($methodName, $args) {
-&#xA0; &#xA0; &#xA0; &#xA0; if (preg_match(&apos;~^(set|get)([A-Z])(.*)$~&apos;, $methodName, $matches)) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $property = strtolower($matches[2]) . $matches[3];
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (!property_exists($this, $property)) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new MemberAccessException(&apos;Property &apos; . $property . &apos; not exists&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; switch($matches[1]) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case &apos;set&apos;:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;checkArguments($args, 1, 1, $methodName);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;set($property, $args[0]);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case &apos;get&apos;:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;checkArguments($args, 0, 0, $methodName);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;get($property);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; case &apos;default&apos;:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new MemberAccessException(&apos;Method &apos; . $methodName . &apos; not exists&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
+    public function __call($methodName, $args) {
+        if (preg_match(&apos;~^(set|get)([A-Z])(.*)$~&apos;, $methodName, $matches)) {
+            $property = strtolower($matches[2]) . $matches[3];
+            if (!property_exists($this, $property)) {
+                throw new MemberAccessException(&apos;Property &apos; . $property . &apos; not exists&apos;);
+            }
+            switch($matches[1]) {
+                case &apos;set&apos;:
+                    $this-&gt;checkArguments($args, 1, 1, $methodName);
+                    return $this-&gt;set($property, $args[0]);
+                case &apos;get&apos;:
+                    $this-&gt;checkArguments($args, 0, 0, $methodName);
+                    return $this-&gt;get($property);
+                case &apos;default&apos;:
+                    throw new MemberAccessException(&apos;Method &apos; . $methodName . &apos; not exists&apos;);
+            }
+        }
+    }
 
-&#xA0; &#xA0; public function get($property) {
-&#xA0; &#xA0; &#xA0; &#xA0; return $this-&gt;$property;
-&#xA0; &#xA0; }
+    public function get($property) {
+        return $this-&gt;$property;
+    }
 
-&#xA0; &#xA0; public function set($property, $value) {
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;$property = $value;
-&#xA0; &#xA0; &#xA0; &#xA0; return $this;
-&#xA0; &#xA0; }
+    public function set($property, $value) {
+        $this-&gt;$property = $value;
+        return $this;
+    }
 
-&#xA0; &#xA0; protected function checkArguments(array $args, $min, $max, $methodName) {
-&#xA0; &#xA0; &#xA0; &#xA0; $argc = count($args);
-&#xA0; &#xA0; &#xA0; &#xA0; if ($argc &lt; $min || $argc &gt; $max) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new MemberAccessException(&apos;Method &apos; . $methodName . &apos; needs minimaly &apos; . $min . &apos; and maximaly &apos; . $max . &apos; arguments. &apos; . $argc . &apos; arguments given.&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; }
+    protected function checkArguments(array $args, $min, $max, $methodName) {
+        $argc = count($args);
+        if ($argc &lt; $min || $argc &gt; $max) {
+            throw new MemberAccessException(&apos;Method &apos; . $methodName . &apos; needs minimaly &apos; . $min . &apos; and maximaly &apos; . $max . &apos; arguments. &apos; . $argc . &apos; arguments given.&apos;);
+        }
+    }
 }
 
 class MemberAccessException extends Exception{}
 
 class Foo extends Entity {
-&#xA0; &#xA0; protected $a;
+    protected $a;
 }
 
 $foo = new Foo();
@@ -329,17 +215,17 @@ $foo-&gt;setA(&apos;some&apos;); // outputs some
 echo $foo-&gt;getA();
 
 class Bar extends Entity {
-&#xA0; &#xA0; protected $a;
-&#xA0; &#xA0; /**
-&#xA0; &#xA0;&#xA0; * Custom setter.
-&#xA0; &#xA0;&#xA0; */
-&#xA0; &#xA0; public function setA($a) {
-&#xA0; &#xA0; &#xA0; &#xA0; if (!preg_match(&apos;~^[0-9a-z]+$~i&apos;, $a)) {
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new MemberAccessException(&apos;A can be only alphanumerical&apos;);
-&#xA0; &#xA0; &#xA0; &#xA0; }
-&#xA0; &#xA0; &#xA0; &#xA0; $this-&gt;a = $a;
-&#xA0; &#xA0; &#xA0; &#xA0; return $this;
-&#xA0; &#xA0; }
+    protected $a;
+    /**
+     * Custom setter.
+     */
+    public function setA($a) {
+        if (!preg_match(&apos;~^[0-9a-z]+$~i&apos;, $a)) {
+            throw new MemberAccessException(&apos;A can be only alphanumerical&apos;);
+        }
+        $this-&gt;a = $a;
+        return $this;
+    }
 }
 
 $bar = new Bar();
@@ -347,34 +233,25 @@ $bar-&gt;setA(&apos;abc123&apos;); // ok
 $bar-&gt;setA(&apos;[]/*@...&apos;); // throws exception
 ?>
 ```
-
-
-
   
 
 #
 
-
-
-PHP 5.2.1
-
-Its possible to call magic methods with invalid names using variable method/property names:
-
-
+PHP 5.2.1<br><br>Its possible to call magic methods with invalid names using variable method/property names:<br><br>
 
 ```
 <?php
 
 class foo
 {
-&#xA0; &#xA0; function __get($n)
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; print_r($n);
-&#xA0; &#xA0; }
-&#xA0; &#xA0; function __call($m, $a)
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; print_r($m);
-&#xA0; &#xA0; }
+    function __get($n)
+    {
+        print_r($n);
+    }
+    function __call($m, $a)
+    {
+        print_r($m);
+    }
 }
 
 $test = new foo;
@@ -384,11 +261,7 @@ $test-&gt;$varname();
 
 ?>
 ```
-
-
-I just don&apos;t know if it is a bug or a feature :)
-
-  
+<br><br>I just don&apos;t know if it is a bug or a feature :)  
 
 #
 

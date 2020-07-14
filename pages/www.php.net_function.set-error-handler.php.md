@@ -2,126 +2,19 @@
 
 
 
-
-
-By this function alone you can not catch fatal errors, there is a simple work around. Below is part of my error.php file which handles errors and exceptions in the application. Before someone complains I&apos;ll add that I do not care that I am using globals, this file is part of my mini framework and without the &apos;config&apos; variable the application would crash anyways.
-
-
+By this function alone you can not catch fatal errors, there is a simple work around. Below is part of my error.php file which handles errors and exceptions in the application. Before someone complains I&apos;ll add that I do not care that I am using globals, this file is part of my mini framework and without the &apos;config&apos; variable the application would crash anyways.<br><br>
 
 ```
-<?php
-
-/**
- * Error handler, passes flow over the exception logger with new ErrorException.
- */
-function log_error( $num, $str, $file, $line, $context = null )
-{
-&#xA0; &#xA0; log_exception( new ErrorException( $str, 0, $num, $file, $line ) );
-}
-
-/**
- * Uncaught exception handler.
- */
-function log_exception( Exception $e )
-{
-&#xA0; &#xA0; global $config;
-&#xA0; &#xA0; 
-&#xA0; &#xA0; if ( $config[&quot;debug&quot;] == true )
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; print &quot;&lt;div style=&apos;text-align: center;&apos;&gt;&quot;;
-&#xA0; &#xA0; &#xA0; &#xA0; print &quot;&lt;h2 style=&apos;color: rgb(190, 50, 50);&apos;&gt;Exception Occured:&lt;/h2&gt;&quot;;
-&#xA0; &#xA0; &#xA0; &#xA0; print &quot;&lt;table style=&apos;width: 800px; display: inline-block;&apos;&gt;&quot;;
-&#xA0; &#xA0; &#xA0; &#xA0; print &quot;&lt;tr style=&apos;background-color:rgb(230,230,230);&apos;&gt;&lt;th style=&apos;width: 80px;&apos;&gt;Type&lt;/th&gt;&lt;td&gt;&quot; . get_class( $e ) . &quot;&lt;/td&gt;&lt;/tr&gt;&quot;;
-&#xA0; &#xA0; &#xA0; &#xA0; print &quot;&lt;tr style=&apos;background-color:rgb(240,240,240);&apos;&gt;&lt;th&gt;Message&lt;/th&gt;&lt;td&gt;{$e-&gt;getMessage()}&lt;/td&gt;&lt;/tr&gt;&quot;;
-&#xA0; &#xA0; &#xA0; &#xA0; print &quot;&lt;tr style=&apos;background-color:rgb(230,230,230);&apos;&gt;&lt;th&gt;File&lt;/th&gt;&lt;td&gt;{$e-&gt;getFile()}&lt;/td&gt;&lt;/tr&gt;&quot;;
-&#xA0; &#xA0; &#xA0; &#xA0; print &quot;&lt;tr style=&apos;background-color:rgb(240,240,240);&apos;&gt;&lt;th&gt;Line&lt;/th&gt;&lt;td&gt;{$e-&gt;getLine()}&lt;/td&gt;&lt;/tr&gt;&quot;;
-&#xA0; &#xA0; &#xA0; &#xA0; print &quot;&lt;/table&gt;&lt;/div&gt;&quot;;
-&#xA0; &#xA0; }
-&#xA0; &#xA0; else
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; $message = &quot;Type: &quot; . get_class( $e ) . &quot;; Message: {$e-&gt;getMessage()}; File: {$e-&gt;getFile()}; Line: {$e-&gt;getLine()};&quot;;
-&#xA0; &#xA0; &#xA0; &#xA0; file_put_contents( $config[&quot;app_dir&quot;] . &quot;/tmp/logs/exceptions.log&quot;, $message . PHP_EOL, FILE_APPEND );
-&#xA0; &#xA0; &#xA0; &#xA0; header( &quot;Location: {$config[&quot;error_page&quot;]}&quot; );
-&#xA0; &#xA0; }
-&#xA0; &#xA0; 
-&#xA0; &#xA0; exit();
-}
-
-/**
- * Checks for a fatal error, work around for set_error_handler not working on fatal errors.
- */
-function check_for_fatal()
-{
-&#xA0; &#xA0; $error = error_get_last();
-&#xA0; &#xA0; if ( $error[&quot;type&quot;] == E_ERROR )
-&#xA0; &#xA0; &#xA0; &#xA0; log_error( $error[&quot;type&quot;], $error[&quot;message&quot;], $error[&quot;file&quot;], $error[&quot;line&quot;] );
-}
-
-register_shutdown_function( &quot;check_for_fatal&quot; );
-set_error_handler( &quot;log_error&quot; );
-set_exception_handler( &quot;log_exception&quot; );
-ini_set( &quot;display_errors&quot;, &quot;off&quot; );
-error_reporting( E_ALL );
-
-
-  
+<?php<br><br>/**<br> * Error handler, passes flow over the exception logger with new ErrorException.<br> */<br>function log_error( $num, $str, $file, $line, $context = null )<br>{<br>    log_exception( new ErrorException( $str, 0, $num, $file, $line ) );<br>}<br><br>/**<br> * Uncaught exception handler.<br> */<br>function log_exception( Exception $e )<br>{<br>    global $config;<br>    <br>    if ( $config["debug"] == true )<br>    {<br>        print "&lt;div style=&apos;text-align: center;&apos;&gt;";<br>        print "&lt;h2 style=&apos;color: rgb(190, 50, 50);&apos;&gt;Exception Occured:&lt;/h2&gt;";<br>        print "&lt;table style=&apos;width: 800px; display: inline-block;&apos;&gt;";<br>        print "&lt;tr style=&apos;background-color:rgb(230,230,230);&apos;&gt;&lt;th style=&apos;width: 80px;&apos;&gt;Type&lt;/th&gt;&lt;td&gt;" . get_class( $e ) . "&lt;/td&gt;&lt;/tr&gt;";<br>        print "&lt;tr style=&apos;background-color:rgb(240,240,240);&apos;&gt;&lt;th&gt;Message&lt;/th&gt;&lt;td&gt;{$e-&gt;getMessage()}&lt;/td&gt;&lt;/tr&gt;";<br>        print "&lt;tr style=&apos;background-color:rgb(230,230,230);&apos;&gt;&lt;th&gt;File&lt;/th&gt;&lt;td&gt;{$e-&gt;getFile()}&lt;/td&gt;&lt;/tr&gt;";<br>        print "&lt;tr style=&apos;background-color:rgb(240,240,240);&apos;&gt;&lt;th&gt;Line&lt;/th&gt;&lt;td&gt;{$e-&gt;getLine()}&lt;/td&gt;&lt;/tr&gt;";<br>        print "&lt;/table&gt;&lt;/div&gt;";<br>    }<br>    else<br>    {<br>        $message = "Type: " . get_class( $e ) . "; Message: {$e-&gt;getMessage()}; File: {$e-&gt;getFile()}; Line: {$e-&gt;getLine()};";<br>        file_put_contents( $config["app_dir"] . "/tmp/logs/exceptions.log", $message . PHP_EOL, FILE_APPEND );<br>        header( "Location: {$config["error_page"]}" );<br>    }<br>    <br>    exit();<br>}<br><br>/**<br> * Checks for a fatal error, work around for set_error_handler not working on fatal errors.<br> */<br>function check_for_fatal()<br>{<br>    $error = error_get_last();<br>    if ( $error["type"] == E_ERROR )<br>        log_error( $error["type"], $error["message"], $error["file"], $error["line"] );<br>}<br><br>register_shutdown_function( "check_for_fatal" );<br>set_error_handler( "log_error" );<br>set_exception_handler( "log_exception" );<br>ini_set( "display_errors", "off" );<br>error_reporting( E_ALL );  
 
 #
 
 
 
-
-
 ```
-<?php
-/**
- * throw exceptions based on E_* error types
- */
-set_error_handler(function ($err_severity, $err_msg, $err_file, $err_line, array $err_context)
-{
-&#xA0; &#xA0; // error was suppressed with the @-operator
-&#xA0; &#xA0; if (0 === error_reporting()) { return false;}
-&#xA0; &#xA0; switch($err_severity)
-&#xA0; &#xA0; {
-&#xA0; &#xA0; &#xA0; &#xA0; case E_ERROR:&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; throw new ErrorException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_WARNING:&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; throw new WarningException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_PARSE:&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; throw new ParseException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_NOTICE:&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new NoticeException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_CORE_ERROR:&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new CoreErrorException&#xA0; &#xA0; &#xA0; &#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_CORE_WARNING:&#xA0; &#xA0; &#xA0; &#xA0; throw new CoreWarningException&#xA0; &#xA0; &#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_COMPILE_ERROR:&#xA0; &#xA0; &#xA0;&#xA0; throw new CompileErrorException&#xA0; &#xA0;&#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_COMPILE_WARNING:&#xA0; &#xA0;&#xA0; throw new CoreWarningException&#xA0; &#xA0; &#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_USER_ERROR:&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new UserErrorException&#xA0; &#xA0; &#xA0; &#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_USER_WARNING:&#xA0; &#xA0; &#xA0; &#xA0; throw new UserWarningException&#xA0; &#xA0; &#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_USER_NOTICE:&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; throw new UserNoticeException&#xA0; &#xA0; &#xA0;&#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_STRICT:&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new StrictException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_RECOVERABLE_ERROR:&#xA0;&#xA0; throw new RecoverableErrorException ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_DEPRECATED:&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; throw new DeprecatedException&#xA0; &#xA0; &#xA0;&#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; &#xA0; &#xA0; case E_USER_DEPRECATED:&#xA0; &#xA0;&#xA0; throw new UserDeprecatedException&#xA0;&#xA0; ($err_msg, 0, $err_severity, $err_file, $err_line);
-&#xA0; &#xA0; }
-});
-
-class WarningException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; extends ErrorException {}
-class ParseException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; extends ErrorException {}
-class NoticeException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; extends ErrorException {}
-class CoreErrorException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; extends ErrorException {}
-class CoreWarningException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; extends ErrorException {}
-class CompileErrorException&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; extends ErrorException {}
-class CompileWarningException&#xA0; &#xA0; &#xA0;&#xA0; extends ErrorException {}
-class UserErrorException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; extends ErrorException {}
-class UserWarningException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; extends ErrorException {}
-class UserNoticeException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; extends ErrorException {}
-class StrictException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; extends ErrorException {}
-class RecoverableErrorException&#xA0; &#xA0;&#xA0; extends ErrorException {}
-class DeprecatedException&#xA0; &#xA0; &#xA0; &#xA0; &#xA0;&#xA0; extends ErrorException {}
-class UserDeprecatedException&#xA0; &#xA0; &#xA0;&#xA0; extends ErrorException {}
-
-
-  
+<?php<br>/**<br> * throw exceptions based on E_* error types<br> */<br>set_error_handler(function ($err_severity, $err_msg, $err_file, $err_line, array $err_context)<br>{<br>    // error was suppressed with the @-operator<br>    if (0 === error_reporting()) { return false;}<br>    switch($err_severity)<br>    {<br>        case E_ERROR:               throw new ErrorException            ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_WARNING:             throw new WarningException          ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_PARSE:               throw new ParseException            ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_NOTICE:              throw new NoticeException           ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_CORE_ERROR:          throw new CoreErrorException        ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_CORE_WARNING:        throw new CoreWarningException      ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_COMPILE_ERROR:       throw new CompileErrorException     ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_COMPILE_WARNING:     throw new CoreWarningException      ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_USER_ERROR:          throw new UserErrorException        ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_USER_WARNING:        throw new UserWarningException      ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_USER_NOTICE:         throw new UserNoticeException       ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_STRICT:              throw new StrictException           ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_RECOVERABLE_ERROR:   throw new RecoverableErrorException ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_DEPRECATED:          throw new DeprecatedException       ($err_msg, 0, $err_severity, $err_file, $err_line);<br>        case E_USER_DEPRECATED:     throw new UserDeprecatedException   ($err_msg, 0, $err_severity, $err_file, $err_line);<br>    }<br>});<br><br>class WarningException              extends ErrorException {}<br>class ParseException                extends ErrorException {}<br>class NoticeException               extends ErrorException {}<br>class CoreErrorException            extends ErrorException {}<br>class CoreWarningException          extends ErrorException {}<br>class CompileErrorException         extends ErrorException {}<br>class CompileWarningException       extends ErrorException {}<br>class UserErrorException            extends ErrorException {}<br>class UserWarningException          extends ErrorException {}<br>class UserNoticeException           extends ErrorException {}<br>class StrictException               extends ErrorException {}<br>class RecoverableErrorException     extends ErrorException {}<br>class DeprecatedException           extends ErrorException {}<br>class UserDeprecatedException       extends ErrorException {}  
 
 #
-
-
 
 
 
@@ -135,7 +28,7 @@ class UserDeprecatedException&#xA0; &#xA0; &#xA0;&#xA0; extends ErrorException {
  * @author Aditya Mehrotra&lt;aditycse@gmail.com&gt;
  */
 error_reporting(E_ALL);
-ini_set(&quot;display_errors&quot;, &quot;off&quot;);
+ini_set("display_errors", "off");
 define(&apos;ERROR_LOG_FILE&apos;, &apos;/var/www/error.log&apos;);
 
 /**
@@ -148,24 +41,24 @@ define(&apos;ERROR_LOG_FILE&apos;, &apos;/var/www/error.log&apos;);
  * @return boolean
  */
 function handleError($code, $description, $file = null, $line = null, $context = null) {
-&#xA0; &#xA0; $displayErrors = ini_get(&quot;display_errors&quot;);
-&#xA0; &#xA0; $displayErrors = strtolower($displayErrors);
-&#xA0; &#xA0; if (error_reporting() === 0 || $displayErrors === &quot;on&quot;) {
-&#xA0; &#xA0; &#xA0; &#xA0; return false;
-&#xA0; &#xA0; }
-&#xA0; &#xA0; list($error, $log) = mapErrorCode($code);
-&#xA0; &#xA0; $data = array(
-&#xA0; &#xA0; &#xA0; &#xA0; &apos;level&apos; =&gt; $log,
-&#xA0; &#xA0; &#xA0; &#xA0; &apos;code&apos; =&gt; $code,
-&#xA0; &#xA0; &#xA0; &#xA0; &apos;error&apos; =&gt; $error,
-&#xA0; &#xA0; &#xA0; &#xA0; &apos;description&apos; =&gt; $description,
-&#xA0; &#xA0; &#xA0; &#xA0; &apos;file&apos; =&gt; $file,
-&#xA0; &#xA0; &#xA0; &#xA0; &apos;line&apos; =&gt; $line,
-&#xA0; &#xA0; &#xA0; &#xA0; &apos;context&apos; =&gt; $context,
-&#xA0; &#xA0; &#xA0; &#xA0; &apos;path&apos; =&gt; $file,
-&#xA0; &#xA0; &#xA0; &#xA0; &apos;message&apos; =&gt; $error . &apos; (&apos; . $code . &apos;): &apos; . $description . &apos; in [&apos; . $file . &apos;, line &apos; . $line . &apos;]&apos;
-&#xA0; &#xA0; );
-&#xA0; &#xA0; return fileLog($data);
+    $displayErrors = ini_get("display_errors");
+    $displayErrors = strtolower($displayErrors);
+    if (error_reporting() === 0 || $displayErrors === "on") {
+        return false;
+    }
+    list($error, $log) = mapErrorCode($code);
+    $data = array(
+        &apos;level&apos; =&gt; $log,
+        &apos;code&apos; =&gt; $code,
+        &apos;error&apos; =&gt; $error,
+        &apos;description&apos; =&gt; $description,
+        &apos;file&apos; =&gt; $file,
+        &apos;line&apos; =&gt; $line,
+        &apos;context&apos; =&gt; $context,
+        &apos;path&apos; =&gt; $file,
+        &apos;message&apos; =&gt; $error . &apos; (&apos; . $code . &apos;): &apos; . $description . &apos; in [&apos; . $file . &apos;, line &apos; . $line . &apos;]&apos;
+    );
+    return fileLog($data);
 }
 
 /**
@@ -175,13 +68,13 @@ function handleError($code, $description, $file = null, $line = null, $context =
  * @return boolean
  */
 function fileLog($logData, $fileName = ERROR_LOG_FILE) {
-&#xA0; &#xA0; $fh = fopen($fileName, &apos;a+&apos;);
-&#xA0; &#xA0; if (is_array($logData)) {
-&#xA0; &#xA0; &#xA0; &#xA0; $logData = print_r($logData, 1);
-&#xA0; &#xA0; }
-&#xA0; &#xA0; $status = fwrite($fh, $logData);
-&#xA0; &#xA0; fclose($fh);
-&#xA0; &#xA0; return ($status) ? true : false;
+    $fh = fopen($fileName, &apos;a+&apos;);
+    if (is_array($logData)) {
+        $logData = print_r($logData, 1);
+    }
+    $status = fwrite($fh, $logData);
+    fclose($fh);
+    return ($status) ? true : false;
 }
 
 /**
@@ -191,54 +84,51 @@ function fileLog($logData, $fileName = ERROR_LOG_FILE) {
  * @return array Array of error word, and log location.
  */
 function mapErrorCode($code) {
-&#xA0; &#xA0; $error = $log = null;
-&#xA0; &#xA0; switch ($code) {
-&#xA0; &#xA0; &#xA0; &#xA0; case E_PARSE:
-&#xA0; &#xA0; &#xA0; &#xA0; case E_ERROR:
-&#xA0; &#xA0; &#xA0; &#xA0; case E_CORE_ERROR:
-&#xA0; &#xA0; &#xA0; &#xA0; case E_COMPILE_ERROR:
-&#xA0; &#xA0; &#xA0; &#xA0; case E_USER_ERROR:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $error = &apos;Fatal Error&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $log = LOG_ERR;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;
-&#xA0; &#xA0; &#xA0; &#xA0; case E_WARNING:
-&#xA0; &#xA0; &#xA0; &#xA0; case E_USER_WARNING:
-&#xA0; &#xA0; &#xA0; &#xA0; case E_COMPILE_WARNING:
-&#xA0; &#xA0; &#xA0; &#xA0; case E_RECOVERABLE_ERROR:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $error = &apos;Warning&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $log = LOG_WARNING;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;
-&#xA0; &#xA0; &#xA0; &#xA0; case E_NOTICE:
-&#xA0; &#xA0; &#xA0; &#xA0; case E_USER_NOTICE:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $error = &apos;Notice&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $log = LOG_NOTICE;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;
-&#xA0; &#xA0; &#xA0; &#xA0; case E_STRICT:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $error = &apos;Strict&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $log = LOG_NOTICE;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;
-&#xA0; &#xA0; &#xA0; &#xA0; case E_DEPRECATED:
-&#xA0; &#xA0; &#xA0; &#xA0; case E_USER_DEPRECATED:
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $error = &apos;Deprecated&apos;;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; $log = LOG_NOTICE;
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;
-&#xA0; &#xA0; &#xA0; &#xA0; default :
-&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; break;
-&#xA0; &#xA0; }
-&#xA0; &#xA0; return array($error, $log);
+    $error = $log = null;
+    switch ($code) {
+        case E_PARSE:
+        case E_ERROR:
+        case E_CORE_ERROR:
+        case E_COMPILE_ERROR:
+        case E_USER_ERROR:
+            $error = &apos;Fatal Error&apos;;
+            $log = LOG_ERR;
+            break;
+        case E_WARNING:
+        case E_USER_WARNING:
+        case E_COMPILE_WARNING:
+        case E_RECOVERABLE_ERROR:
+            $error = &apos;Warning&apos;;
+            $log = LOG_WARNING;
+            break;
+        case E_NOTICE:
+        case E_USER_NOTICE:
+            $error = &apos;Notice&apos;;
+            $log = LOG_NOTICE;
+            break;
+        case E_STRICT:
+            $error = &apos;Strict&apos;;
+            $log = LOG_NOTICE;
+            break;
+        case E_DEPRECATED:
+        case E_USER_DEPRECATED:
+            $error = &apos;Deprecated&apos;;
+            $log = LOG_NOTICE;
+            break;
+        default :
+            break;
+    }
+    return array($error, $log);
 }
 
 //calling custom error handler
-set_error_handler(&quot;handleError&quot;);
+set_error_handler("handleError");
 
 print_r($arra); //undefined variable
 print_r($dssdfdfgg); //undefined variable
 include_once &apos;file.php&apos;; //No such file or directory
-php?>
+?>
 ```
-
-
-
   
 
 #

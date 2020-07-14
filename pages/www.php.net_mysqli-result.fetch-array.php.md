@@ -2,23 +2,19 @@
 
 
 
-
-
-Putting multiple rows into an array:
-
-
+Putting multiple rows into an array:<br><br>
 
 ```
 <?php
-$mysqli = new mysqli(&quot;localhost&quot;, &quot;my_user&quot;, &quot;my_password&quot;, &quot;world&quot;);
+$mysqli = new mysqli("localhost", "my_user", "my_password", "world");
 
 /* check connection */
 if (mysqli_connect_errno()) {
-&#xA0; &#xA0; printf(&quot;Connect failed: %s\n&quot;, mysqli_connect_error());
-&#xA0; &#xA0; exit();
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
 }
 
-$query = &quot;SELECT Name, CountryCode FROM City ORDER by ID LIMIT 3&quot;;
+$query = "SELECT Name, CountryCode FROM City ORDER by ID LIMIT 3";
 $result = $mysqli-&gt;query($query);
 
 while($row = $result-&gt;fetch_array())
@@ -38,9 +34,6 @@ $result-&gt;close();
 $mysqli-&gt;close();
 ?>
 ```
-
-
-
   
 
 #

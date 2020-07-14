@@ -2,11 +2,7 @@
 
 
 
-
-
-Note that the Zip functions return an integer error number in the event of error. So:
-
-
+Note that the Zip functions return an integer error number in the event of error. So:<br><br>
 
 ```
 <?php
@@ -28,9 +24,6 @@ $zip = zip_open($file);
 if (is_resource($zip)) {
 ?>
 ```
-
-
-
   
 
 #

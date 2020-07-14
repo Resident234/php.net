@@ -2,11 +2,50 @@
 
 
 
+The allowsNull method look if arguments have a type. <br>If a type is defined, null is allowed only if default value is null.<br><br> 
 
-<div class="phpcode"><span class="html">
-The allowsNull method look if arguments have a type. <br>If a type is defined, null is allowed only if default value is null.<br><br> <span class="default">&lt;?php <br></span><span class="keyword">function </span><span class="default">myfunction </span><span class="keyword">( </span><span class="default">$param </span><span class="keyword">) {<br>&#xA0; &#xA0; <br>}<br><br>echo (new </span><span class="default">ReflectionFunction</span><span class="keyword">(</span><span class="string">&quot;myfunction&quot;</span><span class="keyword">))-&gt;</span><span class="default">getParameters</span><span class="keyword">()[</span><span class="default">0</span><span class="keyword">]-&gt;</span><span class="default">allowsNull</span><span class="keyword">() ? </span><span class="string">&quot;true&quot;</span><span class="keyword">:</span><span class="string">&quot;false&quot;</span><span class="keyword">;<br><br></span><span class="default">?&gt;<br></span><br>Result : true<br><br><span class="default">&lt;?php <br></span><span class="keyword">function </span><span class="default">myfunction </span><span class="keyword">( </span><span class="default">stdClass $param </span><span class="keyword">) {<br>&#xA0; &#xA0; <br>}<br><br>echo (new </span><span class="default">ReflectionFunction</span><span class="keyword">(</span><span class="string">&quot;myfunction&quot;</span><span class="keyword">))-&gt;</span><span class="default">getParameters</span><span class="keyword">()[</span><span class="default">0</span><span class="keyword">]-&gt;</span><span class="default">allowsNull</span><span class="keyword">() ? </span><span class="string">&quot;true&quot;</span><span class="keyword">:</span><span class="string">&quot;false&quot;</span><span class="keyword">;<br><br></span><span class="default">?&gt;<br></span><br>Result : false<br><br><span class="default">&lt;?php<br></span><span class="keyword">function </span><span class="default">myfunction </span><span class="keyword">( </span><span class="default">stdClass $param </span><span class="keyword">= </span><span class="default">null </span><span class="keyword">) {<br>&#xA0; &#xA0; <br>}<br><br>echo (new </span><span class="default">ReflectionFunction</span><span class="keyword">(</span><span class="string">&quot;myfunction&quot;</span><span class="keyword">))-&gt;</span><span class="default">getParameters</span><span class="keyword">()[</span><span class="default">0</span><span class="keyword">]-&gt;</span><span class="default">allowsNull</span><span class="keyword">() ? </span><span class="string">&quot;true&quot;</span><span class="keyword">:</span><span class="string">&quot;false&quot;</span><span class="keyword">;<br></span><span class="default">?&gt;<br></span><br>Result : true</span>
-</div>
-  
+```
+<?php 
+function myfunction ( $param ) {
+    
+}
+
+echo (new ReflectionFunction("myfunction"))-&gt;getParameters()[0]-&gt;allowsNull() ? "true":"false";
+
+?>
+```
+
+
+Result : true
+
+
+
+```
+<?php 
+function myfunction ( stdClass $param ) {
+    
+}
+
+echo (new ReflectionFunction("myfunction"))-&gt;getParameters()[0]-&gt;allowsNull() ? "true":"false";
+
+?>
+```
+
+
+Result : false
+
+
+
+```
+<?php
+function myfunction ( stdClass $param = null ) {
+    
+}
+
+echo (new ReflectionFunction("myfunction"))-&gt;getParameters()[0]-&gt;allowsNull() ? "true":"false";
+?>
+```
+<br><br>Result : true  
 
 #
 

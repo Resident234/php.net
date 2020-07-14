@@ -2,62 +2,142 @@
 
 
 
+It&apos;s worth noting that when start and length are both negative -and- the length is less than or equal to start, the length will have the effect of being set as 0.<br><br>
 
-<div class="phpcode"><span class="html">
-It&apos;s worth noting that when start and length are both negative -and- the length is less than or equal to start, the length will have the effect of being set as 0.
-<br>
-<br><span class="default">&lt;?php
-<br>substr_replace</span><span class="keyword">(</span><span class="string">&apos;eggs&apos;</span><span class="keyword">,</span><span class="string">&apos;x&apos;</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">); </span><span class="comment">//eggxs
-<br></span><span class="default">substr_replace</span><span class="keyword">(</span><span class="string">&apos;eggs&apos;</span><span class="keyword">,</span><span class="string">&apos;x&apos;</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">,-</span><span class="default">2</span><span class="keyword">); </span><span class="comment">//eggxs
-<br></span><span class="default">substr_replace</span><span class="keyword">(</span><span class="string">&apos;eggs&apos;</span><span class="keyword">,</span><span class="string">&apos;x&apos;</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">,-</span><span class="default">2</span><span class="keyword">); </span><span class="comment">//eggxs
-<br></span><span class="default">?&gt;
-<br></span>
-<br>Same as: 
-<br><span class="default">&lt;?php
-<br>substr_replace</span><span class="keyword">(</span><span class="string">&apos;eggs&apos;</span><span class="keyword">,</span><span class="string">&apos;x&apos;</span><span class="keyword">,-</span><span class="default">1</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">); </span><span class="comment">//eggxs
-<br></span><span class="default">?&gt;
-<br></span>
-<br><span class="default">&lt;?php
-<br>substr_replace</span><span class="keyword">(</span><span class="string">&apos;huevos&apos;</span><span class="keyword">,</span><span class="string">&apos;x&apos;</span><span class="keyword">,-</span><span class="default">2</span><span class="keyword">,-</span><span class="default">2</span><span class="keyword">); </span><span class="comment">//huevxos
-<br></span><span class="default">substr_replace</span><span class="keyword">(</span><span class="string">&apos;huevos&apos;</span><span class="keyword">,</span><span class="string">&apos;x&apos;</span><span class="keyword">,-</span><span class="default">2</span><span class="keyword">,-</span><span class="default">3</span><span class="keyword">); </span><span class="comment">//huevxos
-<br></span><span class="default">substr_replace</span><span class="keyword">(</span><span class="string">&apos;huevos&apos;</span><span class="keyword">,</span><span class="string">&apos;x&apos;</span><span class="keyword">,-</span><span class="default">2</span><span class="keyword">,-</span><span class="default">3</span><span class="keyword">); </span><span class="comment">//huevxos
-<br></span><span class="default">?&gt;
-<br></span>
-<br>Same as: 
-<br><span class="default">&lt;?php
-<br>substr_replace</span><span class="keyword">(</span><span class="string">&apos;huevos&apos;</span><span class="keyword">,</span><span class="string">&apos;x&apos;</span><span class="keyword">,-</span><span class="default">2</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">); </span><span class="comment">//huevxos
-<br></span><span class="default">?&gt;
-<br></span>
-<br>Another note, if length is negative and start offsets the same position as length, length (yet again) will have the effect as being set as 0. (Of course, as mentioned in the manual, when length is negative it actually represents the position before it)
-<br>
-<br><span class="default">&lt;?php
-<br>substr_replace</span><span class="keyword">(</span><span class="string">&apos;abcd&apos;</span><span class="keyword">, </span><span class="string">&apos;x&apos;</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, -</span><span class="default">4</span><span class="keyword">); </span><span class="comment">//xabcd
-<br></span><span class="default">?&gt;
-<br></span>
-<br>Same as: 
-<br><span class="default">&lt;?php
-<br>substr_replace</span><span class="keyword">(</span><span class="string">&apos;abcd&apos;</span><span class="keyword">,</span><span class="string">&apos;x&apos;</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">,</span><span class="default">0</span><span class="keyword">); </span><span class="comment">//xabcd
-<br></span><span class="default">?&gt;
-<br></span>
-<br><span class="default">&lt;?php
-<br>substr_replace</span><span class="keyword">(</span><span class="string">&apos;abcd&apos;</span><span class="keyword">, </span><span class="string">&apos;x&apos;</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, -</span><span class="default">3</span><span class="keyword">); </span><span class="comment">//axbcd
-<br></span><span class="default">?&gt;
-<br></span>
-<br>Same as:
-<br><span class="default">&lt;?php
-<br>substr_replace</span><span class="keyword">(</span><span class="string">&apos;abcd&apos;</span><span class="keyword">, </span><span class="string">&apos;x&apos;</span><span class="keyword">, </span><span class="default">1</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">); </span><span class="comment">//axbcd
-<br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+substr_replace(&apos;eggs&apos;,&apos;x&apos;,-1,-1); //eggxs
+substr_replace(&apos;eggs&apos;,&apos;x&apos;,-1,-2); //eggxs
+substr_replace(&apos;eggs&apos;,&apos;x&apos;,-1,-2); //eggxs
+?>
+```
+
+
+Same as: 
+
+
+```
+<?php
+substr_replace(&apos;eggs&apos;,&apos;x&apos;,-1,0); //eggxs
+?>
+```
+
+
+
+
+```
+<?php
+substr_replace(&apos;huevos&apos;,&apos;x&apos;,-2,-2); //huevxos
+substr_replace(&apos;huevos&apos;,&apos;x&apos;,-2,-3); //huevxos
+substr_replace(&apos;huevos&apos;,&apos;x&apos;,-2,-3); //huevxos
+?>
+```
+
+
+Same as: 
+
+
+```
+<?php
+substr_replace(&apos;huevos&apos;,&apos;x&apos;,-2,0); //huevxos
+?>
+```
+
+
+Another note, if length is negative and start offsets the same position as length, length (yet again) will have the effect as being set as 0. (Of course, as mentioned in the manual, when length is negative it actually represents the position before it)
+
+
+
+```
+<?php
+substr_replace(&apos;abcd&apos;, &apos;x&apos;, 0, -4); //xabcd
+?>
+```
+
+
+Same as: 
+
+
+```
+<?php
+substr_replace(&apos;abcd&apos;,&apos;x&apos;,0,0); //xabcd
+?>
+```
+
+
+
+
+```
+<?php
+substr_replace(&apos;abcd&apos;, &apos;x&apos;, 1, -3); //axbcd
+?>
+```
+
+
+Same as:
+
+
+```
+<?php
+substr_replace(&apos;abcd&apos;, &apos;x&apos;, 1, 0); //axbcd
+?>
+```
   
 
 #
 
+Forget all of the mb_substr_replace() implementations mentioned in this page, they&apos;re all buggy.<br><br>Here is a version that mimics the behavior of substr_replace() exactly:<br><br>
 
-<div class="phpcode"><span class="html">
-Forget all of the mb_substr_replace() implementations mentioned in this page, they&apos;re all buggy.<br><br>Here is a version that mimics the behavior of substr_replace() exactly:<br><br><span class="default">&lt;?php<br><br></span><span class="keyword">if (</span><span class="default">function_exists</span><span class="keyword">(</span><span class="string">&apos;mb_substr_replace&apos;</span><span class="keyword">) === </span><span class="default">false</span><span class="keyword">)<br>{<br>&#xA0; &#xA0; function </span><span class="default">mb_substr_replace</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$replacement</span><span class="keyword">, </span><span class="default">$start</span><span class="keyword">, </span><span class="default">$length </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">, </span><span class="default">$encoding </span><span class="keyword">= </span><span class="default">null</span><span class="keyword">)<br>&#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">extension_loaded</span><span class="keyword">(</span><span class="string">&apos;mbstring&apos;</span><span class="keyword">) === </span><span class="default">true</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$string_length </span><span class="keyword">= (</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$encoding</span><span class="keyword">) === </span><span class="default">true</span><span class="keyword">) ? </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">) : </span><span class="default">mb_strlen</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$encoding</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$start </span><span class="keyword">&lt; </span><span class="default">0</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$start </span><span class="keyword">= </span><span class="default">max</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">$string_length </span><span class="keyword">+ </span><span class="default">$start</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else if (</span><span class="default">$start </span><span class="keyword">&gt; </span><span class="default">$string_length</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$start </span><span class="keyword">= </span><span class="default">$string_length</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">$length </span><span class="keyword">&lt; </span><span class="default">0</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$length </span><span class="keyword">= </span><span class="default">max</span><span class="keyword">(</span><span class="default">0</span><span class="keyword">, </span><span class="default">$string_length </span><span class="keyword">- </span><span class="default">$start </span><span class="keyword">+ </span><span class="default">$length</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; else if ((</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$length</span><span class="keyword">) === </span><span class="default">true</span><span class="keyword">) || (</span><span class="default">$length </span><span class="keyword">&gt; </span><span class="default">$string_length</span><span class="keyword">))<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$length </span><span class="keyword">= </span><span class="default">$string_length</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if ((</span><span class="default">$start </span><span class="keyword">+ </span><span class="default">$length</span><span class="keyword">) &gt; </span><span class="default">$string_length</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; </span><span class="default">$length </span><span class="keyword">= </span><span class="default">$string_length </span><span class="keyword">- </span><span class="default">$start</span><span class="keyword">;<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; if (</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$encoding</span><span class="keyword">) === </span><span class="default">true</span><span class="keyword">)<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; {<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$start</span><span class="keyword">) . </span><span class="default">$replacement </span><span class="keyword">. </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$start </span><span class="keyword">+ </span><span class="default">$length</span><span class="keyword">, </span><span class="default">$string_length </span><span class="keyword">- </span><span class="default">$start </span><span class="keyword">- </span><span class="default">$length</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; &#xA0; &#xA0; return </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">0</span><span class="keyword">, </span><span class="default">$start</span><span class="keyword">, </span><span class="default">$encoding</span><span class="keyword">) . </span><span class="default">$replacement </span><span class="keyword">. </span><span class="default">mb_substr</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$start </span><span class="keyword">+ </span><span class="default">$length</span><span class="keyword">, </span><span class="default">$string_length </span><span class="keyword">- </span><span class="default">$start </span><span class="keyword">- </span><span class="default">$length</span><span class="keyword">, </span><span class="default">$encoding</span><span class="keyword">);<br>&#xA0; &#xA0; &#xA0; &#xA0; }<br>&#xA0; &#xA0; &#xA0; &#xA0; <br>&#xA0; &#xA0; &#xA0; &#xA0; return (</span><span class="default">is_null</span><span class="keyword">(</span><span class="default">$length</span><span class="keyword">) === </span><span class="default">true</span><span class="keyword">) ? </span><span class="default">substr_replace</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$replacement</span><span class="keyword">, </span><span class="default">$start</span><span class="keyword">) : </span><span class="default">substr_replace</span><span class="keyword">(</span><span class="default">$string</span><span class="keyword">, </span><span class="default">$replacement</span><span class="keyword">, </span><span class="default">$start</span><span class="keyword">, </span><span class="default">$length</span><span class="keyword">);<br>&#xA0; &#xA0; }<br>}<br><br></span><span class="default">?&gt;</span>
-</span>
-</div>
+```
+<?php
+
+if (function_exists(&apos;mb_substr_replace&apos;) === false)
+{
+    function mb_substr_replace($string, $replacement, $start, $length = null, $encoding = null)
+    {
+        if (extension_loaded(&apos;mbstring&apos;) === true)
+        {
+            $string_length = (is_null($encoding) === true) ? mb_strlen($string) : mb_strlen($string, $encoding);
+            
+            if ($start &lt; 0)
+            {
+                $start = max(0, $string_length + $start);
+            }
+            
+            else if ($start &gt; $string_length)
+            {
+                $start = $string_length;
+            }
+            
+            if ($length &lt; 0)
+            {
+                $length = max(0, $string_length - $start + $length);
+            }
+            
+            else if ((is_null($length) === true) || ($length &gt; $string_length))
+            {
+                $length = $string_length;
+            }
+            
+            if (($start + $length) &gt; $string_length)
+            {
+                $length = $string_length - $start;
+            }
+            
+            if (is_null($encoding) === true)
+            {
+                return mb_substr($string, 0, $start) . $replacement . mb_substr($string, $start + $length, $string_length - $start - $length);
+            }
+            
+            return mb_substr($string, 0, $start, $encoding) . $replacement . mb_substr($string, $start + $length, $string_length - $start - $length, $encoding);
+        }
+        
+        return (is_null($length) === true) ? substr_replace($string, $replacement, $start) : substr_replace($string, $replacement, $start, $length);
+    }
+}
+
+?>
+```
   
 
 #

@@ -2,69 +2,7 @@
 
 
 
-
-
-==Installation ibm_db2 in PHP5, using Data Server Driver Package and pecl on Debian / Ubuntu==
-
-==Advantages==
-#You do not need DB2 (database) installed
-#The ibm_db2 driver is downloaded and automatically compiled by pecl
-
-==Steps==
-#1- Install packages
-apt-get install php-pear ksh zip
-
-#2- Make directory
-mkdir /opt/ibm 
-
-#3- Download Data Server Driver Package (dsdriver), as the architecture
-(https://www-304.ibm.com/support/docview.wss?rs=4020&amp;uid=swg27016878&amp;wv=1)
-
-#4- Decompress dsdriver at /opt/ibm/
-tar -xvf v10.5fp1_linuxx64_dsdriver.tar.gz&#xA0; (linux64)
-or
-tar -xvf v10.5fp1_linuxia32_dsdriver.tar.gz (linux32)
-
-#5- Change permission instalation script&#xA0; -&#xA0; /opt/ibm/dsddriver
-chmod 755 installDSDriver
-
-#6- Run the installation script 
-ksh installDSDriver
-
-#7- Download and install the driver using the pecl
-pecl install ibm_db2
-
-downloading ibm_db2-1.9.5.tgz ...
-Starting to download ibm_db2-1.9.5.tgz (157,720 bytes)
-................done: 157,720 bytes
-5 source files, building
-running: phpize
-Configuring for:
-PHP Api Version:&#xA0; &#xA0; &#xA0; &#xA0;&#xA0; 20090626
-Zend Module Api No:&#xA0; &#xA0; &#xA0; 20090626
-Zend Extension Api No:&#xA0;&#xA0; 220090626
-
-#8- Configure the installation directory
-DB2 Installation Directory? : /opt/ibm/dsdriver
-
-Build process completed successfully
-Installing &apos;/usr/lib/php5/20090626/ibm_db2.so&apos;
-install ok: channel://pecl.php.net/ibm_db2-1.9.5
-configuration option &quot;php_ini&quot; is not set to php.ini location
-You should add &quot;extension=ibm_db2.so&quot; to php.ini
-
-#9- Change php.ini
-vim /etc/php5/apache2/php.ini
-;;;;;;;;;;;;;;;;;;;;;;
-; Dynamic Extensions ;
-;;;;;;;;;;;;;;;;;;;;;;
-extension = ibm_db2.so
-extension = /usr/lib/php5/20090626/ibm_db2.so
-
-#10- Reboot the Apache
-service apache2 restart
-
-  
+==Installation ibm_db2 in PHP5, using Data Server Driver Package and pecl on Debian / Ubuntu==<br><br>==Advantages==<br>#You do not need DB2 (database) installed<br>#The ibm_db2 driver is downloaded and automatically compiled by pecl<br><br>==Steps==<br>#1- Install packages<br>apt-get install php-pear ksh zip<br><br>#2- Make directory<br>mkdir /opt/ibm <br><br>#3- Download Data Server Driver Package (dsdriver), as the architecture<br>(https://www-304.ibm.com/support/docview.wss?rs=4020&amp;uid=swg27016878&amp;wv=1)<br><br>#4- Decompress dsdriver at /opt/ibm/<br>tar -xvf v10.5fp1_linuxx64_dsdriver.tar.gz  (linux64)<br>or<br>tar -xvf v10.5fp1_linuxia32_dsdriver.tar.gz (linux32)<br><br>#5- Change permission instalation script  -  /opt/ibm/dsddriver<br>chmod 755 installDSDriver<br><br>#6- Run the installation script <br>ksh installDSDriver<br><br>#7- Download and install the driver using the pecl<br>pecl install ibm_db2<br><br>downloading ibm_db2-1.9.5.tgz ...<br>Starting to download ibm_db2-1.9.5.tgz (157,720 bytes)<br>................done: 157,720 bytes<br>5 source files, building<br>running: phpize<br>Configuring for:<br>PHP Api Version:         20090626<br>Zend Module Api No:      20090626<br>Zend Extension Api No:   220090626<br><br>#8- Configure the installation directory<br>DB2 Installation Directory? : /opt/ibm/dsdriver<br><br>Build process completed successfully<br>Installing &apos;/usr/lib/php5/20090626/ibm_db2.so&apos;<br>install ok: channel://pecl.php.net/ibm_db2-1.9.5<br>configuration option "php_ini" is not set to php.ini location<br>You should add "extension=ibm_db2.so" to php.ini<br><br>#9- Change php.ini<br>vim /etc/php5/apache2/php.ini<br>;;;;;;;;;;;;;;;;;;;;;;<br>; Dynamic Extensions ;<br>;;;;;;;;;;;;;;;;;;;;;;<br>extension = ibm_db2.so<br>extension = /usr/lib/php5/20090626/ibm_db2.so<br><br>#10- Reboot the Apache<br>service apache2 restart  
 
 #
 
