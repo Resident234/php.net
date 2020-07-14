@@ -15,7 +15,7 @@ set_time_limit(0);
  * mientras llega. */
 ob_implicit_flush();
 
-$address = &apos;127.0.0.1&apos;;
+$address = '127.0.0.1';
 $port = 10000;
 
 if (($sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === false) {
@@ -58,7 +58,7 @@ do {
         /* Enviar instrucciones. */
         $msg = "\nBienvenido al Servidor De Prueba de PHP. \n" .
         "Usted es el cliente numero: {$key[0]}\n" .
-        "Para salir, escriba &apos;quit&apos;. Para cerrar el servidor escriba &apos;shutdown&apos;.\n";
+        "Para salir, escriba 'quit'. Para cerrar el servidor escriba 'shutdown'.\n";
         socket_write($msgsock, $msg, strlen($msg));
         
     }
@@ -73,16 +73,16 @@ do {
             if (!$buf = trim($buf)) {
                 continue;
             }
-            if ($buf == &apos;quit&apos;) {
+            if ($buf == 'quit') {
                 unset($clients[$key]);
                 socket_close($client);
                 break;
             }
-            if ($buf == &apos;shutdown&apos;) {
+            if ($buf == 'shutdown') {
                 socket_close($client);
                 break 2;
             }
-            $talkback = "Cliente {$key}: Usted dijo &apos;$buf&apos;.\n";
+            $talkback = "Cliente {$key}: Usted dijo '$buf'.\n";
             socket_write($client, $talkback, strlen($talkback));
             echo "$buf\n";
         }

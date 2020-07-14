@@ -13,7 +13,7 @@ You can this:
 
 
 ```
-<?php setcookie( "TestCookie", $value, strtotime( &apos;+30 days&apos; ) ); ?>
+<?php setcookie( "TestCookie", $value, strtotime( '+30 days' ) ); ?>
 ```
   
 
@@ -36,8 +36,8 @@ something that wasn&apos;t made clear to me here and totally confused me for a w
 ```
 <?php
 
-$domain = ($_SERVER[&apos;HTTP_HOST&apos;] != &apos;localhost&apos;) ? $_SERVER[&apos;HTTP_HOST&apos;] : false;
-setcookie(&apos;cookiename&apos;, &apos;data&apos;, time()+60*60*24*365, &apos;/&apos;, $domain, false);
+$domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
+setcookie('cookiename', 'data', time()+60*60*24*365, '/', $domain, false);
 
 ?>
 ```
@@ -49,8 +49,8 @@ It&apos;s worth a mention: you should avoid dots on cookie names.<br><br>
 
 ```
 <?php
-// this will actually set &apos;ace_fontSize&apos; name:
-setcookie( &apos;ace.fontSize&apos;, 18 );
+// this will actually set 'ace_fontSize' name:
+setcookie( 'ace.fontSize', 18 );
 ?>
 ```
   
@@ -64,7 +64,7 @@ If you&apos;re having problem with IE not accepting session cookies this could h
 If you want to delete all cookies on your domain, you may want to use the value of:<br><br>
 
 ```
-<?php $_SERVER[&apos;HTTP_COOKIE&apos;] ?>
+<?php $_SERVER['HTTP_COOKIE'] ?>
 ```
 
 
@@ -79,7 +79,7 @@ rather than:
 
 to dertermine the cookie names. 
 If cookie names are in Array notation, eg: user[username] 
-Then PHP will automatically create a corresponding array in $_COOKIE. Instead use $_SERVER[&apos;HTTP_COOKIE&apos;] as it mirrors the actual HTTP Request header. 
+Then PHP will automatically create a corresponding array in $_COOKIE. Instead use $_SERVER['HTTP_COOKIE'] as it mirrors the actual HTTP Request header. 
 
 
 
@@ -87,13 +87,13 @@ Then PHP will automatically create a corresponding array in $_COOKIE. Instead us
 <?php
 
 // unset cookies
-if (isset($_SERVER[&apos;HTTP_COOKIE&apos;])) {
-    $cookies = explode(&apos;;&apos;, $_SERVER[&apos;HTTP_COOKIE&apos;]);
+if (isset($_SERVER['HTTP_COOKIE'])) {
+    $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
     foreach($cookies as $cookie) {
-        $parts = explode(&apos;=&apos;, $cookie);
+        $parts = explode('=', $cookie);
         $name = trim($parts[0]);
-        setcookie($name, &apos;&apos;, time()-1000);
-        setcookie($name, &apos;&apos;, time()-1000, &apos;/&apos;);
+        setcookie($name, '', time()-1000);
+        setcookie($name, '', time()-1000, '/');
     }
 }
 

@@ -6,8 +6,8 @@ Be careful, address with leading 0 return false.<br><br>Example : <br>
 
 ```
 <?php
-inet_pton(&apos;172.27.1.04&apos;); // return false
-inet_pton(&apos;172.27.1.4&apos;) ;// return the good result
+inet_pton('172.27.1.04'); // return false
+inet_pton('172.27.1.4') ;// return the good result
 ?>
 ```
   

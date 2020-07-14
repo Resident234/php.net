@@ -11,7 +11,7 @@ Several times this one is asked on the net but an answer could not be found in t
 ```
 <?php
   header( "refresh:5;url=wherever.php" );
-  echo &apos;You\&apos;ll be redirected in about 5 secs. If not, click &lt;a href="wherever.php"&gt;here&lt;/a&gt;.&apos;;
+  echo 'You\'ll be redirected in about 5 secs. If not, click &lt;a href="wherever.php"&gt;here&lt;/a&gt;.';
 ?>
 ```
 <br><br>Hth someone  
@@ -46,20 +46,20 @@ When using PHP to output an image, it won&apos;t be cached by the client so if y
 <?php
 
     // Test image.
-    $fn = &apos;/test/foo.png&apos;;
+    $fn = '/test/foo.png';
 
     // Getting headers sent by the client.
     $headers = apache_request_headers(); 
 
     // Checking if the client is validating his cache and if it is current.
-    if (isset($headers[&apos;If-Modified-Since&apos;]) &amp;&amp; (strtotime($headers[&apos;If-Modified-Since&apos;]) == filemtime($fn))) {
-        // Client&apos;s cache IS current, so we just respond &apos;304 Not Modified&apos;.
-        header(&apos;Last-Modified: &apos;.gmdate(&apos;D, d M Y H:i:s&apos;, filemtime($fn)).&apos; GMT&apos;, true, 304);
+    if (isset($headers['If-Modified-Since']) &amp;&amp; (strtotime($headers['If-Modified-Since']) == filemtime($fn))) {
+        // Client's cache IS current, so we just respond '304 Not Modified'.
+        header('Last-Modified: '.gmdate('D, d M Y H:i:s', filemtime($fn)).' GMT', true, 304);
     } else {
-        // Image not cached or cache outdated, we respond &apos;200 OK&apos; and output the image.
-        header(&apos;Last-Modified: &apos;.gmdate(&apos;D, d M Y H:i:s&apos;, filemtime($fn)).&apos; GMT&apos;, true, 200);
-        header(&apos;Content-Length: &apos;.filesize($fn));
-        header(&apos;Content-Type: image/png&apos;);
+        // Image not cached or cache outdated, we respond '200 OK' and output the image.
+        header('Last-Modified: '.gmdate('D, d M Y H:i:s', filemtime($fn)).' GMT', true, 200);
+        header('Content-Length: '.filesize($fn));
+        header('Content-Type: image/png');
         print file_get_contents($fn);
     }
 

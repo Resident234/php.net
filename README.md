@@ -1,70 +1,34 @@
 # PHP Manual
 
-## Function Reference
+## Getting Started
 
-### Other Services
+### A simple tutorial
 
-[Memcached](/pages/www.php.net_book.memcached.php.md)
+[Something Useful](/pages/www.php.net_tutorial.useful.php.md)
 
-##### Memcached
+[Dealing with Forms](/pages/www.php.net_tutorial.forms.php.md)
 
-##### Installing/Configuring
+## Installation and Configuration
 
-[Installation](/pages/www.php.net_memcached.installation.php.md)
+### Installation on Unix systems
 
-[Predefined Constants](/pages/www.php.net_memcached.constants.php.md)
+[Nginx 1.4.x on Unix systems](/pages/www.php.net_install.unix.nginx.php.md)
 
-[Sessions support](/pages/www.php.net_memcached.sessions.php.md)
+[OpenBSD installation notes](/pages/www.php.net_install.unix.openbsd.php.md)
 
-[Memcached::addServer](/pages/www.php.net_memcached.addserver.php.md)
+[Debian GNU/Linux installation notes](/pages/www.php.net_install.unix.debian.php.md)
 
-[Memcached::__construct](/pages/www.php.net_memcached.construct.php.md)
+[Installation on macOS](/pages/www.php.net_install.macosx.php.md)
 
-[Memcached::decrement](/pages/www.php.net_memcached.decrement.php.md)
+### Installation on macOS
 
-[Memcached::delete](/pages/www.php.net_memcached.delete.php.md)
+[Using the bundled PHP](/pages/www.php.net_install.macosx.bundled.php.md)
 
-[Memcached::get](/pages/www.php.net_memcached.get.php.md)
+[Installation on Windows systems](/pages/www.php.net_install.windows.php.md)
 
-[Memcached::getResultCode](/pages/www.php.net_memcached.getresultcode.php.md)
+[FastCGI Process Manager (FPM)](/pages/www.php.net_install.fpm.php.md)
 
-[Memcached::getVersion](/pages/www.php.net_memcached.getversion.php.md)
+### FastCGI Process Manager (FPM)
 
-[Memcached::increment](/pages/www.php.net_memcached.increment.php.md)
-
-[Memcached::set](/pages/www.php.net_memcached.set.php.md)
-
-#### Network
-
-[Network Functions](/pages/www.php.net_ref.network.php.md)
-
-##### Network Functions
-
-[checkdnsrr](/pages/www.php.net_function.checkdnsrr.php.md)
-
-[dns_get_record](/pages/www.php.net_function.dns-get-record.php.md)
-
-[fsockopen](/pages/www.php.net_function.fsockopen.php.md)
-
-[gethostbyaddr](/pages/www.php.net_function.gethostbyaddr.php.md)
-
-[gethostbyname](/pages/www.php.net_function.gethostbyname.php.md)
-
-[getmxrr](/pages/www.php.net_function.getmxrr.php.md)
-
-[header_remove](/pages/www.php.net_function.header-remove.php.md)
-
-[header](/pages/www.php.net_function.header.php.md)
-
-[headers_list](/pages/www.php.net_function.headers-list.php.md)
-
-[headers_sent](/pages/www.php.net_function.headers-sent.php.md)
-
-[http_response_code](/pages/www.php.net_function.http-response-code.php.md)
-
-[inet_ntop](/pages/www.php.net_function.inet-ntop.php.md)
-
-[inet_pton](/pages/www.php.net_function.inet-pton.php.md)
-
-[ip2long](/pages/www.php.net_function.ip2long.php.md)
+[Configuration](/pages/www.php.net_install.fpm.configuration.php.md)
 

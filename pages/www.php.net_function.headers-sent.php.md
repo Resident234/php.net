@@ -8,17 +8,17 @@
 <?php
 function redirect($filename) {
     if (!headers_sent())
-        header(&apos;Location: &apos;.$filename);
+        header('Location: '.$filename);
     else {
-        echo &apos;&lt;script type="text/javascript"&gt;&apos;;
-        echo &apos;window.location.href="&apos;.$filename.&apos;";&apos;;
-        echo &apos;&lt;/script&gt;&apos;;
-        echo &apos;&lt;noscript&gt;&apos;;
-        echo &apos;&lt;meta http-equiv="refresh" content="0;url=&apos;.$filename.&apos;" /&gt;&apos;;
-        echo &apos;&lt;/noscript&gt;&apos;;
+        echo '&lt;script type="text/javascript"&gt;';
+        echo 'window.location.href="'.$filename.'";';
+        echo '&lt;/script&gt;';
+        echo '&lt;noscript&gt;';
+        echo '&lt;meta http-equiv="refresh" content="0;url='.$filename.'" /&gt;';
+        echo '&lt;/noscript&gt;';
     }
 }
-redirect(&apos;http://www.google.com&apos;);
+redirect('http://www.google.com');
 ?>
 ```
   

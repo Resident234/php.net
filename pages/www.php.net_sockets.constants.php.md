@@ -7,7 +7,7 @@ We can know sockets constants values with :<br><br>
 ```
 <?php
 $a = get_defined_constants(TRUE) ;
-foreach ( $a[&apos;sockets&apos;] as $constant =&gt; $value ) {
+foreach ( $a['sockets'] as $constant =&gt; $value ) {
     printf("%-25s %d\r\n", $constant, $value) ;
 }
 ?>

@@ -6,16 +6,16 @@ In addition to my previous post, I figured out that sftp-&gt;fopen-&gt;file_get_
 
 ```
 <?php
-$srcFile = &apos;/var/tmp/dir1/file_to_send.txt&apos;;
-$dstFile = &apos;/var/tmp/dir2/file_received.txt&apos;;
+$srcFile = '/var/tmp/dir1/file_to_send.txt';
+$dstFile = '/var/tmp/dir2/file_received.txt';
 
 // Create connection the the remote host
-$conn = ssh2_connect(&apos;my.server.com&apos;, 22);
+$conn = ssh2_connect('my.server.com', 22);
 
 // Create SFTP session
 $sftp = ssh2_sftp($conn);
 
-$sftpStream = @fopen(&apos;ssh2.sftp://&apos;.$sftp.$dstFile, &apos;w&apos;);
+$sftpStream = @fopen('ssh2.sftp://'.$sftp.$dstFile, 'w');
 
 try {
 
@@ -36,7 +36,7 @@ try {
     fclose($sftpStream);
                     
 } catch (Exception $e) {
-    error_log(&apos;Exception: &apos; . $e-&gt;getMessage());
+    error_log('Exception: ' . $e->getMessage());
     fclose($sftpStream);
 }
 ?>

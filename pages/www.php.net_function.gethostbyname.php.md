@@ -10,7 +10,7 @@ Options for the underlying resolver functions can be supplied by using the RES_O
 
 ```
 <?php
-  putenv(&apos;RES_OPTIONS=retrans:1 retry:1 timeout:1 attempts:1&apos;);
+  putenv('RES_OPTIONS=retrans:1 retry:1 timeout:1 attempts:1');
   gethostbyname($something);
 ?>
 ```

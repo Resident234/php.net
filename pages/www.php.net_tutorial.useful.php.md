@@ -6,9 +6,9 @@ Please note that Internet Explorer 11 no longer contains MSIE in its user agent 
 
 ```
 <?php
-if (strpos($_SERVER[&apos;HTTP_USER_AGENT&apos;], &apos;MSIE&apos;) !== FALSE ||
-    strpos($_SERVER[&apos;HTTP_USER_AGENT&apos;], &apos;Trident&apos;) !== FALSE) {
-    echo &apos;You are using Internet Explorer.&lt;br /&gt;&apos;;
+if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE ||
+    strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== FALSE) {
+    echo 'You are using Internet Explorer.&lt;br /&gt;';
 }
 ?>
 ```

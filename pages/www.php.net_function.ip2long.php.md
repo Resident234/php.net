@@ -8,7 +8,7 @@ A quick method to convert a netmask (ex: 255.255.255.240) to a cidr mask (ex: /2
 <?php
 function mask2cidr($mask){
   $long = ip2long($mask);
-  $base = ip2long(&apos;255.255.255.255&apos;);
+  $base = ip2long('255.255.255.255');
   return 32-log(($long ^ $base)+1,2);
 
   /* xor-ing will give you the inverse mask,
@@ -35,8 +35,8 @@ function mask2cidr($mask){
      ref:  http://php.net/manual/en/language.operators.bitwise.php
 */
 
-$ip=&apos;10.10.10.7&apos;;
-$mask=&apos;255.255.255.0&apos;;
+$ip='10.10.10.7';
+$mask='255.255.255.0';
 $wcmask=long2ip( ~ip2long($mask) );
 $subnet=long2ip( ip2long($ip) &amp; ip2long($mask) );
 $bcast=long2ip( ip2long($ip) | ip2long($wcmask) );

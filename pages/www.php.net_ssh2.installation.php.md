@@ -17,7 +17,10 @@ ssh2<br>     service apache2 restart
 Steps for installing the extension package on Debian systems:<br><br>&gt; sudo apt-get install libssh2
 
 ```
-<?php<br>&gt; sudo /etc/init.d/apache2 restart  
+<?php
+&gt; sudo /etc/init.d/apache2 restart?>
+```
+  
 
 #
 

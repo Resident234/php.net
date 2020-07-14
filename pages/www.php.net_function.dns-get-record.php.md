@@ -10,7 +10,7 @@ Get more than one type at once like this:<br>
 
 ```
 <?php
-$dnsr = dns_get_record(&apos;php.net&apos;, DNS_A + DNS_NS);
+$dnsr = dns_get_record('php.net', DNS_A + DNS_NS);
 print_r($dnsr);
 ?>
 ```
@@ -24,7 +24,7 @@ This gets all records except DNS_PTR:
 
 ```
 <?php
-$dnsr = dns_get_record(&apos;php.net&apos;, DNS_ALL - DNS_PTR);
+$dnsr = dns_get_record('php.net', DNS_ALL - DNS_PTR);
 print_r($dnsr);
 ?>
 ```

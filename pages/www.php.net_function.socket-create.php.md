@@ -18,13 +18,13 @@ It took some time to understand how one PHP process can communicate with another
 
 ```
 <?php
-if (!extension_loaded(&apos;sockets&apos;)) {
-    die(&apos;The sockets extension is not loaded.&apos;);
+if (!extension_loaded('sockets')) {
+    die('The sockets extension is not loaded.');
 }
 // create unix udp socket
 $socket = socket_create(AF_UNIX, SOCK_DGRAM, 0);
 if (!$socket)
-        die(&apos;Unable to create AF_UNIX socket&apos;);
+        die('Unable to create AF_UNIX socket');
 
 // same socket will be used in recv_from and send_to
 $server_side_sock = dirname(__FILE__)."/server.sock";
@@ -35,46 +35,46 @@ while(1) // server never exits
 {
 // receive query
 if (!socket_set_block($socket))
-        die(&apos;Unable to set blocking mode for socket&apos;);
-$buf = &apos;&apos;;
-$from = &apos;&apos;;
+        die('Unable to set blocking mode for socket');
+$buf = '';
+$from = '';
 echo "Ready to receive...\n";
 // will block to wait client query
 $bytes_received = socket_recvfrom($socket, $buf, 65536, 0, $from);
 if ($bytes_received == -1)
-        die(&apos;An error occured while receiving from the socket&apos;);
+        die('An error occured while receiving from the socket');
 echo "Received $buf from $from\n";
 
-$buf .= "-&gt;Response"; // process client query here
+$buf .= "->Response"; // process client query here
 
 // send response
 if (!socket_set_nonblock($socket))
-        die(&apos;Unable to set nonblocking mode for socket&apos;);
+        die('Unable to set nonblocking mode for socket');
 // client side socket filename is known from client request: $from
 $len = strlen($buf);
 $bytes_sent = socket_sendto($socket, $buf, $len, 0, $from);
 if ($bytes_sent == -1)
-        die(&apos;An error occured while sending to the socket&apos;);
+        die('An error occured while sending to the socket');
 else if ($bytes_sent != $len)
-        die($bytes_sent . &apos; bytes have been sent instead of the &apos; . $len . &apos; bytes expected&apos;);
+        die($bytes_sent . ' bytes have been sent instead of the ' . $len . ' bytes expected');
 echo "Request processed\n";
 }
 ?>
 ```
 
 
-&apos;Client&apos; code
+'Client' code
 
 
 ```
 <?php
-if (!extension_loaded(&apos;sockets&apos;)) {
-    die(&apos;The sockets extension is not loaded.&apos;);
+if (!extension_loaded('sockets')) {
+    die('The sockets extension is not loaded.');
 }
 // create unix udp socket
 $socket = socket_create(AF_UNIX, SOCK_DGRAM, 0);
 if (!$socket)
-        die(&apos;Unable to create AF_UNIX socket&apos;);
+        die('Unable to create AF_UNIX socket');
 
 // same socket will be later used in recv_from
 // no binding is required if you wish only send and never receive
@@ -84,27 +84,27 @@ if (!socket_bind($socket, $client_side_sock))
 
 // use socket to send data
 if (!socket_set_nonblock($socket))
-        die(&apos;Unable to set nonblocking mode for socket&apos;);
+        die('Unable to set nonblocking mode for socket');
 // server side socket filename is known apriori
 $server_side_sock = dirname(__FILE__)."/server.sock";
 $msg = "Message";
 $len = strlen($msg);
-// at this point &apos;server&apos; process must be running and bound to receive from serv.sock
+// at this point 'server' process must be running and bound to receive from serv.sock
 $bytes_sent = socket_sendto($socket, $msg, $len, 0, $server_side_sock);
 if ($bytes_sent == -1)
-        die(&apos;An error occured while sending to the socket&apos;);
+        die('An error occured while sending to the socket');
 else if ($bytes_sent != $len)
-        die($bytes_sent . &apos; bytes have been sent instead of the &apos; . $len . &apos; bytes expected&apos;);
+        die($bytes_sent . ' bytes have been sent instead of the ' . $len . ' bytes expected');
 
 // use socket to receive data
 if (!socket_set_block($socket))
-        die(&apos;Unable to set blocking mode for socket&apos;);
-$buf = &apos;&apos;;
-$from = &apos;&apos;;
+        die('Unable to set blocking mode for socket');
+$buf = '';
+$from = '';
 // will block to wait server response
 $bytes_received = socket_recvfrom($socket, $buf, 65536, 0, $from);
 if ($bytes_received == -1)
-        die(&apos;An error occured while receiving from the socket&apos;);
+        die('An error occured while receiving from the socket');
 echo "Received $buf from $from\n";
 
 // close socket and delete own .sock file

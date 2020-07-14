@@ -6,7 +6,7 @@ Firefox is following the real spec and does not decode &apos;+&apos; to space...
 
 ```
 <?php
-setrawcookie(&apos;cookie_name&apos;, rawurlencode($value), time()+60*60*24*365);
+setrawcookie('cookie_name', rawurlencode($value), time()+60*60*24*365);
 ?>
 ```
 <br><br>The only change is that spaces will be encoded to &apos;%20&apos; instead of &apos;+&apos; and will now decode properly.  

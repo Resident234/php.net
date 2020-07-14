@@ -7,21 +7,21 @@ After many non-sleep nights I got the most simple multi-client server written in
 ```
 <?php
 
-ini_set(&apos;error_reporting&apos;, E_ALL ^ E_NOTICE);
-ini_set(&apos;display_errors&apos;, 1);
+ini_set('error_reporting', E_ALL ^ E_NOTICE);
+ini_set('display_errors', 1);
 
 // Set time limit to indefinite execution
 set_time_limit (0);
 
 // Set the ip and port we will listen on
-$address = &apos;10.203.9.67&apos;;
+$address = '10.203.9.67';
 $port = 6901;
 
 // Create a TCP Stream socket
 $sock = socket_create(AF_INET, SOCK_STREAM, 0);
 
 // Bind the socket to an address/port
-socket_bind($sock, $address, $port) or die(&apos;Could not bind to address&apos;);
+socket_bind($sock, $address, $port) or die('Could not bind to address');
 
 // Start listening for connections
 socket_listen($sock);

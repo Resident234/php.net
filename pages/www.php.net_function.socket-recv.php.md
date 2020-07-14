@@ -11,7 +11,7 @@ I&apos;ve used socket_select and socket_recv with a while loop and found myself 
 Workaround for the missing MSG_DONTWAIT flag according to the bug report page:<br><br>
 
 ```
-<?php if(!defined(&apos;MSG_DONTWAIT&apos;)) define(&apos;MSG_DONTWAIT&apos;, 0x40); ?>
+<?php if(!defined('MSG_DONTWAIT')) define('MSG_DONTWAIT', 0x40); ?>
 ```
   
 

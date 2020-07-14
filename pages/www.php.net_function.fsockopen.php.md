@@ -12,9 +12,9 @@ $path = "/the/url/path/file.php"; //or .dll, etc. for authnet, etc.
 
 //you will need to setup an array of fields to post with
 //then create the post string
-$formdata = array ( "x_field" =&gt; "somevalue");
+$formdata = array ( "x_field" => "somevalue");
 //build the post string
-  foreach($formdata AS $key =&gt; $val){
+  foreach($formdata AS $key => $val){
     $poststring .= urlencode($key) . "=" . urlencode($val) . "&amp;";
   }
 // strip off trailing ampersand
@@ -58,9 +58,9 @@ if(!$fp){
 // The tricky part is making sure the HTTP headers and file boundaries are acceptable to the target webserver.
 // This script is for example purposes only and could/should be improved upon.
 
-$host=&apos;targethost&apos;;
+$host='targethost';
 $port=80;
-$path=&apos;/test/socket/file_upload/receive_files.php&apos;;
+$path='/test/socket/file_upload/receive_files.php';
 
 // the file you want to upload 
 $file_array[0] = "dingoboy.gif"; // the file 

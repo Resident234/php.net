@@ -6,7 +6,7 @@ This function won&apos;t work for when you&apos;re running PHP from the command 
 
 ```
 <?php
-$headers = php_sapi_name() === &apos;cli&apos; ? xdebug_get_headers() : headers_list();
+$headers = php_sapi_name() === 'cli' ? xdebug_get_headers() : headers_list();
 ?>
 ```
   
@@ -18,11 +18,11 @@ note that it does not return the status header<br><br>
 ```
 <?php
 
-header(&apos;HTTP/1.1 301 Moved Permanently&apos;, true, 301);
+header('HTTP/1.1 301 Moved Permanently', true, 301);
 
-header(&apos;foo: bar&apos;);
-header(&apos;a: b&apos;);
-header(&apos;colon less example&apos;);
+header('foo: bar');
+header('a: b');
+header('colon less example');
 
 print_r(headers_list());
 ?>

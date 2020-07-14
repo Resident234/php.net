@@ -27,7 +27,7 @@ A simple PHP script using socket_select() to manage multiple connections.<br>con
     $clients = array($sock);
     
     while (true) {
-        // create a copy, so $clients doesn&apos;t get modified by socket_select()
+        // create a copy, so $clients doesn't get modified by socket_select()
         $read = $clients;
         
         // get a list of all the clients that have data to be read from

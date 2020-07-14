@@ -9,7 +9,7 @@ If you want to have multiple clients on a server you will have to use non blocki
 
 $clients = array();
 $socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-socket_bind($socket,&apos;127.0.0.1&apos;,$port);
+socket_bind($socket,'127.0.0.1',$port);
 socket_listen($socket);
 socket_set_nonblock($socket);
 
@@ -45,13 +45,13 @@ declare(ticks = 1);
 
 become_daemon();
 
-/* nobody/nogroup, change to your host&apos;s uid/gid of the non-priv user */
+/* nobody/nogroup, change to your host's uid/gid of the non-priv user */
 change_identity(65534, 65534);
 
 /* handle signals */
-pcntl_signal(SIGTERM, &apos;sig_handler&apos;);
-pcntl_signal(SIGINT, &apos;sig_handler&apos;);
-pcntl_signal(SIGCHLD, &apos;sig_handler&apos;);
+pcntl_signal(SIGTERM, 'sig_handler');
+pcntl_signal(SIGINT, 'sig_handler');
+pcntl_signal(SIGCHLD, 'sig_handler');
 
 /* change this to your own host / port */
 server_loop("127.0.0.1", 1234);
@@ -192,7 +192,7 @@ function become_daemon()
     {
         /* child becomes our daemon */
         posix_setsid();
-        chdir(&apos;/&apos;);
+        chdir('/');
         umask(0);
         return posix_getpid();
 

@@ -8,37 +8,37 @@ Due to a lack of complete examples, here&apos;s a simple SSH2 class for connecti
 <?php
 class NiceSSH {
     // SSH Host
-    private $ssh_host = &apos;myserver.example.com&apos;;
+    private $ssh_host = 'myserver.example.com';
     // SSH Port
     private $ssh_port = 22;
     // SSH Server Fingerprint
-    private $ssh_server_fp = &apos;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&apos;;
+    private $ssh_server_fp = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
     // SSH Username
-    private $ssh_auth_user = &apos;username&apos;;
+    private $ssh_auth_user = 'username';
     // SSH Public Key File
-    private $ssh_auth_pub = &apos;/home/username/.ssh/id_rsa.pub&apos;;
+    private $ssh_auth_pub = '/home/username/.ssh/id_rsa.pub';
     // SSH Private Key File
-    private $ssh_auth_priv = &apos;/home/username/.ssh/id_rsa&apos;;
+    private $ssh_auth_priv = '/home/username/.ssh/id_rsa';
     // SSH Private Key Passphrase (null == no passphrase)
     private $ssh_auth_pass;
     // SSH Connection
     private $connection;
     
     public function connect() {
-        if (!($this-&gt;connection = ssh2_connect($this-&gt;ssh_host, $this-&gt;ssh_port))) {
-            throw new Exception(&apos;Cannot connect to server&apos;);
+        if (!($this->connection = ssh2_connect($this->ssh_host, $this->ssh_port))) {
+            throw new Exception('Cannot connect to server');
         }
-        $fingerprint = ssh2_fingerprint($this-&gt;connection, SSH2_FINGERPRINT_MD5 | SSH2_FINGERPRINT_HEX);
-        if (strcmp($this-&gt;ssh_server_fp, $fingerprint) !== 0) {
-            throw new Exception(&apos;Unable to verify server identity!&apos;);
+        $fingerprint = ssh2_fingerprint($this->connection, SSH2_FINGERPRINT_MD5 | SSH2_FINGERPRINT_HEX);
+        if (strcmp($this->ssh_server_fp, $fingerprint) !== 0) {
+            throw new Exception('Unable to verify server identity!');
         }
-        if (!ssh2_auth_pubkey_file($this-&gt;connection, $this-&gt;ssh_auth_user, $this-&gt;ssh_auth_pub, $this-&gt;ssh_auth_priv, $this-&gt;ssh_auth_pass)) {
-            throw new Exception(&apos;Autentication rejected by server&apos;);
+        if (!ssh2_auth_pubkey_file($this->connection, $this->ssh_auth_user, $this->ssh_auth_pub, $this->ssh_auth_priv, $this->ssh_auth_pass)) {
+            throw new Exception('Autentication rejected by server');
         }
     }
     public function exec($cmd) {
-        if (!($stream = ssh2_exec($this-&gt;connection, $cmd))) {
-            throw new Exception(&apos;SSH command failed&apos;);
+        if (!($stream = ssh2_exec($this->connection, $cmd))) {
+            throw new Exception('SSH command failed');
         }
         stream_set_blocking($stream, true);
         $data = "";
@@ -49,11 +49,11 @@ class NiceSSH {
         return $data;
     }
     public function disconnect() {
-        $this-&gt;exec(&apos;echo "EXITING" &amp;&amp; exit;&apos;);
-        $this-&gt;connection = null;
+        $this->exec('echo "EXITING" &amp;&amp; exit;');
+        $this->connection = null;
     }
     public function __destruct() {
-        $this-&gt;disconnect();
+        $this->disconnect();
     }
 }
 ?>
@@ -66,7 +66,7 @@ Be careful when providing a specific hostkey order. <br><br>
 
 ```
 <?php
-ssh2_connect(&apos;IP&apos;, &apos;port&apos;, array(&apos;hostkey&apos;=&gt;&apos;ssh-rsa, ssh-dss&apos;));
+ssh2_connect('IP', 'port', array('hostkey'=&gt;'ssh-rsa, ssh-dss'));
 ?>
 ```
 
@@ -79,7 +79,7 @@ So a similar code:
 
 ```
 <?php
-ssh2_connect(&apos;IP&apos;, &apos;port&apos;,   array(&apos;hostkey&apos;=&gt;&apos;ssh-rsa,ssh-dss&apos;));
+ssh2_connect('IP', 'port',   array('hostkey'=&gt;'ssh-rsa,ssh-dss'));
 ?>
 ```
 <br><br>Will work. The HOSTKEY method is overriden using exactly what you write, so no empty spaces are allowed.<br><br>This took me some time that you could save ;)  
