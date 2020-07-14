@@ -11,18 +11,18 @@ class Cache {
         private $obj;
 
         function __construct($id){
-                $this-&gt;id = $id;
-                $this-&gt;obj = new Memcached($id);
+                $this->id = $id;
+                $this->obj = new Memcached($id);
         }
 
         public function connect($host , $port){
-                $servers = $this-&gt;obj-&gt;getServerList();
+                $servers = $this->obj->getServerList();
                 if(is_array($servers)) {
                         foreach ($servers as $server)
-                                if($server[&apos;host&apos;] == $host and $server[&apos;port&apos;] == $port)
+                                if($server['host'] == $host and $server['port'] == $port)
                                         return true;
                 }
-                return $this-&gt;obj-&gt;addServer($host , $port);
+                return $this->obj->addServer($host , $port);
         }
 
 }
@@ -37,7 +37,7 @@ As of version 2.0.0b1 you can use Unix socket.<br><br>
 ```
 <?php
 $m = new Memcached();
-$m-&gt;addServer(&apos;/path/to/socket&apos;,0);
+$m->addServer('/path/to/socket',0);
 ?>
 ```
 <br><br>Not to be confused with Memcache that use &apos;unix:///path/to/socket&apos;  

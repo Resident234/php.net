@@ -19,65 +19,65 @@ class mxlookup
 
       function mxlookup($domain, $dns="192.168.2.1")
       {
-         $this-&gt;QNAME($domain);
-         $this-&gt;pack_dns_packet();
+         $this->QNAME($domain);
+         $this->pack_dns_packet();
          $dns_socket = fsockopen("udp://$dns", 53);
 
-         fwrite($dns_socket,$this-&gt;dns_packet,strlen($this-&gt;dns_packet));
-         $this-&gt;dns_reply  = fread($dns_socket,1);
+         fwrite($dns_socket,$this->dns_packet,strlen($this->dns_packet));
+         $this->dns_reply  = fread($dns_socket,1);
          $bytes = stream_get_meta_data($dns_socket);
-         $this-&gt;dns_reply .= fread($dns_socket,$bytes[&apos;unread_bytes&apos;]);
+         $this->dns_reply .= fread($dns_socket,$bytes['unread_bytes']);
          fclose($dns_socket);
-         $this-&gt;cIx=6;
-         $this-&gt;ANCOUNT   = $this-&gt;gord(2);
-         $this-&gt;cIx+=4;
-         $this-&gt;parse_data($this-&gt;dns_repl_domain);
-         $this-&gt;cIx+=7;
+         $this->cIx=6;
+         $this->ANCOUNT   = $this->gord(2);
+         $this->cIx+=4;
+         $this->parse_data($this->dns_repl_domain);
+         $this->cIx+=7;
 
-         for($ic=1;$ic&lt;=$this-&gt;ANCOUNT;$ic++)
+         for($ic=1;$ic&lt;=$this->ANCOUNT;$ic++)
          {
-           $QTYPE = ord($this-&gt;gdi($this-&gt;cIx));
+           $QTYPE = ord($this->gdi($this->cIx));
            if($QTYPE!==15){print("[MX Record not returned]"); die();}
-           $this-&gt;cIx+=9;
-           $mxPref = ord($this-&gt;gdi($this-&gt;cIx));
-           $this-&gt;parse_data($curmx);
-           $this-&gt;arrMX[] = array("MX_Pref" =&gt; $mxPref, "MX" =&gt; $curmx);
-           $this-&gt;cIx+=3;
+           $this->cIx+=9;
+           $mxPref = ord($this->gdi($this->cIx));
+           $this->parse_data($curmx);
+           $this->arrMX[] = array("MX_Pref" => $mxPref, "MX" => $curmx);
+           $this->cIx+=3;
          }
       }
 
       function parse_data(&amp;$retval)
       {
         $arName = array();
-        $byte = ord($this-&gt;gdi($this-&gt;cIx));
+        $byte = ord($this->gdi($this->cIx));
         while($byte!==0)
         {
           if($byte==192) //compressed
           {
-            $tmpIx = $this-&gt;cIx;
-            $this-&gt;cIx = ord($this-&gt;gdi($cIx));
+            $tmpIx = $this->cIx;
+            $this->cIx = ord($this->gdi($cIx));
             $tmpName = $retval;
-            $this-&gt;parse_data($tmpName);
+            $this->parse_data($tmpName);
             $retval=$retval.".".$tmpName;
-            $this-&gt;cIx = $tmpIx+1;
+            $this->cIx = $tmpIx+1;
             return;
           }
           $retval="";
           $bCount = $byte;
           for($b=0;$b&lt;$bCount;$b++)
           {
-            $retval .= $this-&gt;gdi($this-&gt;cIx);
+            $retval .= $this->gdi($this->cIx);
           }
           $arName[]=$retval;
-         $byte = ord($this-&gt;gdi($this-&gt;cIx));
+         $byte = ord($this->gdi($this->cIx));
        }
        $retval=join(".",$arName);
      }
 
      function gdi(&amp;$cIx,$bytes=1)
      {
-       $this-&gt;cIx++;
-       return(substr($this-&gt;dns_reply, $this-&gt;cIx-1, $bytes));
+       $this->cIx++;
+       return(substr($this->dns_reply, $this->cIx-1, $bytes));
      }
 
       function QNAME($domain)
@@ -87,17 +87,17 @@ class mxlookup
         {
           $temp   = substr($domain,0,$dot_pos);
           $domain = substr($domain,$dot_pos+1);
-          $this-&gt;QNAME .= chr(strlen($temp)).$temp;
+          $this->QNAME .= chr(strlen($temp)).$temp;
         }
-        $this-&gt;QNAME .= chr(strlen($domain)).$domain.chr(0);
+        $this->QNAME .= chr(strlen($domain)).$domain.chr(0);
       }
 
       function gord($ln=1)
       {
         $reply="";
         for($i=0;$i&lt;$ln;$i++){
-         $reply.=ord(substr($this-&gt;dns_reply,$this-&gt;cIx,1));
-         $this-&gt;cIx++;
+         $reply.=ord(substr($this->dns_reply,$this->cIx,1));
+         $this->cIx++;
          }
 
         return $reply;
@@ -105,13 +105,13 @@ class mxlookup
 
       function pack_dns_packet()
       {
-        $this-&gt;dns_packet = chr(0).chr(1).
+        $this->dns_packet = chr(0).chr(1).
                             chr(1).chr(0).
                             chr(0).chr(1).
                             chr(0).chr(0).
                             chr(0).chr(0).
                             chr(0).chr(0).
-                            $this-&gt;QNAME.
+                            $this->QNAME.
                             chr(0).chr(15).
                             chr(0).chr(1);
       }
@@ -130,9 +130,9 @@ class mxlookup
 /* Exampe of use: */
 $mx = new mxlookup("php.net");
 
-print $mx-&gt;ANCOUNT." MX Records\n";
-print "Records returned for ".$mx-&gt;dns_repl_domain.":\n&lt;pre&gt;";
-print_r($mx-&gt;arrMX);
+print $mx->ANCOUNT." MX Records\n";
+print "Records returned for ".$mx->dns_repl_domain.":\n&lt;pre&gt;";
+print_r($mx->arrMX);
 
 ?>
 ```

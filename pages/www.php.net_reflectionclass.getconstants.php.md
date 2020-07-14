@@ -27,7 +27,28 @@ class myClass {
 You can pass $this as class for the ReflectionClass. __CLASS__ won&apos;t help if you extend the original class, because it is a magic constant based on the file itself.<br><br>
 
 ```
-<?php <br><br>class Example {<br>  const TYPE_A = 1;<br>  const TYPE_B = &apos;hello&apos;;<br><br>  public function getConstants()<br>  {<br>    $reflectionClass = new ReflectionClass($this);<br>    return $reflectionClass-&gt;getConstants();<br>  }<br>}<br><br>$example = new Example();<br>var_dump($example-&gt;getConstants());<br><br>// Result:<br>array ( size = 2)<br>  &apos;TYPE_A&apos; =&gt; int 1<br>  &apos;TYPE_B&apos; =&gt; (string) &apos;hello&apos;  
+<?php 
+
+class Example {
+  const TYPE_A = 1;
+  const TYPE_B = &apos;hello&apos;;
+
+  public function getConstants()
+  {
+    $reflectionClass = new ReflectionClass($this);
+    return $reflectionClass-&gt;getConstants();
+  }
+}
+
+$example = new Example();
+var_dump($example-&gt;getConstants());
+
+// Result:
+array ( size = 2)
+  &apos;TYPE_A&apos; =&gt; int 1
+  &apos;TYPE_B&apos; =&gt; (string) &apos;hello&apos;?>
+```
+  
 
 #
 

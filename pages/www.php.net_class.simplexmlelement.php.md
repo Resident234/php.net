@@ -13,7 +13,47 @@ To access the underlying element as a string, it&apos;s necessary to make the ca
 Map xml to array (with attributes)<br><br>
 
 ```
-<?php declare(strict_types=1);<br><br>/**<br> * @param SimpleXMLElement $xml<br> * @return array<br> */<br>function xmlToArray(SimpleXMLElement $xml): array<br>{<br>    $parser = function (SimpleXMLElement $xml, array $collection = []) use (&amp;$parser) {<br>        $nodes = $xml-&gt;children();<br>        $attributes = $xml-&gt;attributes();<br><br>        if (0 !== count($attributes)) {<br>            foreach ($attributes as $attrName =&gt; $attrValue) {<br>                $collection[&apos;attributes&apos;][$attrName] = strval($attrValue);<br>            }<br>        }<br><br>        if (0 === $nodes-&gt;count()) {<br>            $collection[&apos;value&apos;] = strval($xml);<br>            return $collection;<br>        }<br><br>        foreach ($nodes as $nodeName =&gt; $nodeValue) {<br>            if (count($nodeValue-&gt;xpath(&apos;../&apos; . $nodeName)) &lt; 2) {<br>                $collection[$nodeName] = $parser($nodeValue);<br>                continue;<br>            }<br><br>            $collection[$nodeName][] = $parser($nodeValue);<br>        }<br><br>        return $collection;<br>    };<br><br>    return [<br>        $xml-&gt;getName() =&gt; $parser($xml)<br>    ];<br>}  
+<?php declare(strict_types=1);
+
+/**
+ * @param SimpleXMLElement $xml
+ * @return array
+ */
+function xmlToArray(SimpleXMLElement $xml): array
+{
+    $parser = function (SimpleXMLElement $xml, array $collection = []) use (&amp;$parser) {
+        $nodes = $xml-&gt;children();
+        $attributes = $xml-&gt;attributes();
+
+        if (0 !== count($attributes)) {
+            foreach ($attributes as $attrName =&gt; $attrValue) {
+                $collection[&apos;attributes&apos;][$attrName] = strval($attrValue);
+            }
+        }
+
+        if (0 === $nodes-&gt;count()) {
+            $collection[&apos;value&apos;] = strval($xml);
+            return $collection;
+        }
+
+        foreach ($nodes as $nodeName =&gt; $nodeValue) {
+            if (count($nodeValue-&gt;xpath(&apos;../&apos; . $nodeName)) &lt; 2) {
+                $collection[$nodeName] = $parser($nodeValue);
+                continue;
+            }
+
+            $collection[$nodeName][] = $parser($nodeValue);
+        }
+
+        return $collection;
+    };
+
+    return [
+        $xml-&gt;getName() =&gt; $parser($xml)
+    ];
+}?>
+```
+  
 
 #
 

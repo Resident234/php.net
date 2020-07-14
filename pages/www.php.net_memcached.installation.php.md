@@ -9,14 +9,14 @@ Do not lose your time to install it on Ubuntu just trying "sudo apt-get install 
 error_reporting(E_ALL &amp; ~E_NOTICE);
 
 $mc = new Memcached();
-$mc-&gt;addServer("localhost", 11211);
+$mc->addServer("localhost", 11211);
 
-$mc-&gt;set("foo", "Hello!");
-$mc-&gt;set("bar", "Memcached...");
+$mc->set("foo", "Hello!");
+$mc->set("bar", "Memcached...");
 
 $arr = array(
-    $mc-&gt;get("foo"),
-    $mc-&gt;get("bar")
+    $mc->get("foo"),
+    $mc->get("bar")
 );
 var_dump($arr);
 ?>

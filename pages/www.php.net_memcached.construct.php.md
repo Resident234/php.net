@@ -6,11 +6,11 @@ When using persistent connections, it is important to not re-add servers.<br><br
 
 ```
 <?php
-$mc = new Memcached(&apos;mc&apos;);
-$mc-&gt;setOption(Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
-$mc-&gt;addServers(array(
-    array(&apos;mc1.example.com&apos;,11211),
-    array(&apos;mc2.example.com&apos;,11211),
+$mc = new Memcached('mc');
+$mc->setOption(Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
+$mc->addServers(array(
+    array('mc1.example.com',11211),
+    array('mc2.example.com',11211),
 ));
 ?>
 ```
@@ -22,12 +22,12 @@ A better approach is something like:
 
 ```
 <?php
-$mc = new Memcached(&apos;mc&apos;);
-$mc-&gt;setOption(Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
-if (!count($mc-&gt;getServerList())) {
-    $mc-&gt;addServers(array(
-        array(&apos;mc1.example.com&apos;,11211),
-        array(&apos;mc2.example.com&apos;,11211),
+$mc = new Memcached('mc');
+$mc->setOption(Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
+if (!count($mc->getServerList())) {
+    $mc->addServers(array(
+        array('mc1.example.com',11211),
+        array('mc2.example.com',11211),
     ));
 }
 ?>

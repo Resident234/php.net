@@ -176,7 +176,12 @@ function arrayRecursiveDiff($aArray1, $aArray2) {
 
 #
 
-There is more fast implementation of array_diff, but with some limitations. If you need compare two arrays of integers or strings you can use such function:<br><br>    public static function arrayDiffEmulation($arrayFrom, $arrayAgainst)<br>    {<br>        $arrayAgainst = array_flip($arrayAgainst);<br>        <br>        foreach ($arrayFrom as $key =&gt; $value) {<br>            if(isset($arrayAgainst[$value])) {<br>                unset($arrayFrom[$key]);<br>            }<br>        }<br>        <br>        return $arrayFrom;<br>    }<br><br>It is ~10x faster than array_diff<br><br>php &gt; $t = microtime(true);$a = range(0,25000); $b = range(15000,500000); $c = array_diff($a, $b);echo microtime(true) - $t;<br>4.4335179328918<br>php &gt; $t = microtime(true);$a = range(0,25000); $b = range(15000,500000); $c = arrayDiffEmulation($a, $b);echo microtime(true) - $t;<br>0.37219095230103  
+There is more fast implementation of array_diff, but with some limitations. If you need compare two arrays of integers or strings you can use such function:<br><br>    public static function arrayDiffEmulation($arrayFrom, $arrayAgainst)<br>    {<br>        $arrayAgainst = array_flip($arrayAgainst);<br>        <br>        foreach ($arrayFrom as $key =&gt; $value) {<br>            if(isset($arrayAgainst[$value])) {<br>                unset($arrayFrom[$key]);<br>            }<br>        }<br>        <br>        return $arrayFrom;<br>    }<br><br>It is ~10x faster than array_diff<br><br>php &gt; $t = microtime(true);$a = range(0,25000); $b = range(15000,500000); $c = array_diff($a, $b);echo microtime(true) - $t;
+4.4335179328918
+php &gt; $t = microtime(true);$a = range(0,25000); $b = range(15000,500000); $c = arrayDiffEmulation($a, $b);echo microtime(true) - $t;
+0.37219095230103?>
+```
+  
 
 #
 

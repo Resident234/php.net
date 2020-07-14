@@ -39,7 +39,7 @@ for ($i = 0; $i &lt; $c; ++$i) {
 }
 $memcached = new \Memcached();
 call_user_func_array([ $memcached, "addServers" ], $servers);
-print_r($memcached-&gt;getAllKeys());
+print_r($memcached->getAllKeys());
 
 ?>
 ```
