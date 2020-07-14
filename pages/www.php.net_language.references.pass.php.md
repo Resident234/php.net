@@ -12,7 +12,7 @@ By removing the ability to include the reference sign on function calls where pa
 <?php 
 // PHP &gt;= 5.6
 
-// Here we use the &apos;use&apos; operator to create a variable within the scope of the function. Although it may seem that the newly created variable has something to do with &apos;$x&apos; that is outside the function, we are actually creating a &apos;$x&apos; variable within the function that has nothing to do with the &apos;$x&apos; variable outside the function. We are talking about the same names but different content locations in memory.
+// Here we use the 'use' operator to create a variable within the scope of the function. Although it may seem that the newly created variable has something to do with '$x' that is outside the function, we are actually creating a '$x' variable within the function that has nothing to do with the '$x' variable outside the function. We are talking about the same names but different content locations in memory.
 $x = 10;
 (function() use ($x){
     $x = $x*$x;
@@ -20,7 +20,7 @@ $x = 10;
 })();
 var_dump($x); // 10
 
-// Now the magic happens with using the reference (&amp;). Now we are actually accessing the contents of the &apos;$y&apos; variable that is outside the scope of the function. All the actions that we perform with the variable &apos;$y&apos; within the function will be reflected outside the scope of this same function. Remembering this would be an impure function in the functional paradigm, since we are changing the value of a variable by reference.
+// Now the magic happens with using the reference (&amp;). Now we are actually accessing the contents of the '$y' variable that is outside the scope of the function. All the actions that we perform with the variable '$y' within the function will be reflected outside the scope of this same function. Remembering this would be an impure function in the functional paradigm, since we are changing the value of a variable by reference.
 $y = 10;
 (function() use (&amp;$y){
     $y = $y*$y;

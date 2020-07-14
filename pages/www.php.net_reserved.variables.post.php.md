@@ -6,11 +6,11 @@ One feature of PHP&apos;s processing of POST and GET variables is that it automa
 
 ```
 <?php
-var_dump($_POST[&apos;person&apos;]);
+var_dump($_POST['person']);
 //will get you something like:
 array (
-0 =&gt; array(&apos;first_name&apos;=&gt;&apos;john&apos;,&apos;last_name&apos;=&gt;&apos;smith&apos;),
-1 =&gt; array(&apos;first_name&apos;=&gt;&apos;jane&apos;,&apos;last_name&apos;=&gt;&apos;jones&apos;),
+0 => array('first_name'=>'john','last_name'=>'smith'),
+1 => array('first_name'=>'jane','last_name'=>'jones'),
 )
 ?>
 ```
@@ -38,7 +38,7 @@ For a page with multiple forms here is one way of processing the different POST 
  if (!empty($_POST))
  {
     // Array of post values for each different form on your page.
-    $postNameArr = array(&apos;F1_Submit&apos;, &apos;F2_Submit&apos;, &apos;F3_Submit&apos;);        
+    $postNameArr = array('F1_Submit', 'F2_Submit', 'F3_Submit');        
 
     // Find all of the post identifiers within $_POST
     $postIdentifierArr = array();
@@ -66,15 +66,15 @@ For a page with multiple forms here is one way of processing the different POST 
          
     switch ($postIdentifierArr[0])
     {
-    case &apos;F1_Submit&apos;:
+    case 'F1_Submit':
        echo "Perform actual code for F1_Submit.";
        break;
 
-    case &apos;Modify&apos;:
+    case 'Modify':
        echo "Perform actual code for F2_Submit.";
        break;
            
-    case &apos;Delete&apos;:
+    case 'Delete':
        echo "Perform actual code for F3_Submit.";
        break;
     }

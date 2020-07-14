@@ -11,17 +11,17 @@ This is the simplest form I found to do a Basic authorization with retries.<br><
 ```
 <?php
 
-$valid_passwords = array ("mario" =&gt; "carbonell");
+$valid_passwords = array ("mario" => "carbonell");
 $valid_users = array_keys($valid_passwords);
 
-$user = $_SERVER[&apos;PHP_AUTH_USER&apos;];
-$pass = $_SERVER[&apos;PHP_AUTH_PW&apos;];
+$user = $_SERVER['PHP_AUTH_USER'];
+$pass = $_SERVER['PHP_AUTH_PW'];
 
 $validated = (in_array($user, $valid_users)) &amp;&amp; ($pass == $valid_passwords[$user]);
 
 if (!$validated) {
-  header(&apos;WWW-Authenticate: Basic realm="My Realm"&apos;);
-  header(&apos;HTTP/1.0 401 Unauthorized&apos;);
+  header('WWW-Authenticate: Basic realm="My Realm"');
+  header('HTTP/1.0 401 Unauthorized');
   die ("Not authorized");
 }
 

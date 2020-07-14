@@ -8,7 +8,7 @@ Actually, this method can be useful to test a generator before iterating, as it 
 <?php
 
 function getLines($file) {
-    $f = fopen($file, &apos;r&apos;);
+    $f = fopen($file, 'r');
     try {
         while ($line = fgets($f)) {
             yield $line;
@@ -18,13 +18,13 @@ function getLines($file) {
     }
 }
 
-$getLines = getLines(&apos;no_such_file.txt&apos;);
-$getLines-&gt;rewind(); // with -&gt;rewind(), a file read error will be thrown here and a log file will not be cleared
+$getLines = getLines('no_such_file.txt');
+$getLines->rewind(); // with ->rewind(), a file read error will be thrown here and a log file will not be cleared
 
 openAndClearLogFile();
 
-foreach ($getLines as $n =&gt; $line) { // without -&gt;rewind(), the script will die here and your log file will be cleared
-    writeToLogFile(&apos;reading: &apos; . $line . "\n");
+foreach ($getLines as $n => $line) { // without ->rewind(), the script will die here and your log file will be cleared
+    writeToLogFile('reading: ' . $line . "\n");
 }
 
 closeLogFile();

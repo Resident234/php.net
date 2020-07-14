@@ -6,7 +6,7 @@ Manual defines "expression is anything that has value", Therefore, parser will g
 
 ```
 <?php
-($val) ? echo(&apos;true&apos;) : echo(&apos;false&apos;);
+($val) ? echo('true') : echo('false');
 Note: "? : " operator has this syntax  "expr ? expr : expr;"
 ?>
 ```
@@ -25,7 +25,7 @@ For example,
 
 ```
 <?php
-($val) ? include(&apos;true.inc&apos;) : include(&apos;false.inc&apos;);
+($val) ? include('true.inc') : include('false.inc');
 ?>
 ```
 <br><br>is valid, since "include" returns value.<br><br>The fact "echo" does not return value(="echo" is not a expression), is less obvious to me. <br><br>Print() and Echo() is NOT identical since print() has/returns value and can be a valid expression.  
@@ -100,45 +100,45 @@ $my_numbers = array(double(5), $triple(5));
 $my_numbers is now an array containing 10 and 15, which are the return values of
 double and $triple when applied to the number 5.
 
-Importantly, if we *don&apos;t* call a function, ie. we don&apos;t put () after its name,
+Importantly, if we *don't* call a function, ie. we don't put () after its name,
 then we still get expressions. For example:
 
 
 
 ```
 <?php
-$my_functions = array(&apos;double&apos;, $triple);
+$my_functions = array('double', $triple);
 ?>
 ```
 
 
 $my_functions is now an array containing these two functions. Notice that named
 functions are more awkward than anonymous functions. PHP treats them differently
-because it didn&apos;t use to have anonymous functions, and the way named functions
-were implemented didn&apos;t work for anonymous functions when they were eventually
+because it didn't use to have anonymous functions, and the way named functions
+were implemented didn't work for anonymous functions when they were eventually
 added.
 
 This means that instead of using a named function literally, like we can with
 anonymous functions, we have to use a string containing its name instead. PHP
-makes sure that these strings will be treated as functions when it&apos;s
+makes sure that these strings will be treated as functions when it's
 appropriate. For example:
 
 
 
 ```
 <?php
-$temp      = &apos;double&apos;;
+$temp      = 'double';
 $my_number = $temp(5);
 ?>
 ```
 
 
-$my_number will be 10, since PHP has spotted that we&apos;re treating a string as if
+$my_number will be 10, since PHP has spotted that we're treating a string as if
 it were a function, so it has looked up that named function for us.
 
-Unfortunately PHP&apos;s parser is very quirky; rather than looking for generic
+Unfortunately PHP's parser is very quirky; rather than looking for generic
 patterns like "x(y)" and seeing if "x" is a function, it has lots of
-special-cases like "$x(y)". This makes code like "&apos;double&apos;(5)" invalid, so we
+special-cases like "$x(y)". This makes code like "'double'(5)" invalid, so we
 have to do tricks like using temporary variables. There is another way around
 this restriction though, and that is to pass our functions to the
 "call_user_func" or "call_user_func_array" functions when we want to call them.
@@ -148,13 +148,13 @@ For example:
 
 ```
 <?php
-$my_numbers = array(call_user_func(&apos;double&apos;, 5), call_user_func($triple, 5));
+$my_numbers = array(call_user_func('double', 5), call_user_func($triple, 5));
 ?>
 ```
 
 
 $my_numbers contains 10 and 15 because "call_user_func" called our functions for
-us. This is possible because the string &apos;double&apos; and the anonymous function
+us. This is possible because the string 'double' and the anonymous function
 $triple are expressions. Note that we can even use this technique to call an
 anonymous function without ever giving it a name:
 

@@ -6,8 +6,8 @@ If you&apos;re trying to check whether the version of PHP you&apos;re running on
 
 ```
 <?php
-if (version_compare(phpversion(), &apos;5.3.10&apos;, &apos;&lt;&apos;)) {
-    // php version isn&apos;t high enough
+if (version_compare(phpversion(), '5.3.10', '&lt;')) {
+    // php version isn't high enough
 }
 ?>
 ```
@@ -23,9 +23,9 @@ To know, what are the {php} extensions loaded &amp; version of extensions :<br><
 
 ```
 <?php
-foreach (get_loaded_extensions() as $i =&gt; $ext)
+foreach (get_loaded_extensions() as $i => $ext)
 {
-   echo $ext .&apos; =&gt; &apos;. phpversion($ext). &apos;&lt;br/&gt;&apos;;
+   echo $ext .' => '. phpversion($ext). '&lt;br/&gt;';
 }
 ?>
 ```

@@ -5,7 +5,7 @@
 Using <br>
 
 ```
-<?php ini_set(&apos;display_errors&apos;, 1); ?>
+<?php ini_set('display_errors', 1); ?>
 ```
  
 at the top of your script will not catch any parse errors. A missing ")" or ";" will still lead to a blank page.

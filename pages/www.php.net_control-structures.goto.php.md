@@ -7,7 +7,7 @@ Remember if you are not a fan of wild labels hanging around you are free to use 
 ```
 <?php
 
-$headers = Array(&apos;subject&apos;, &apos;bcc&apos;, &apos;to&apos;, &apos;cc&apos;, &apos;date&apos;, &apos;sender&apos;);
+$headers = Array('subject', 'bcc', 'to', 'cc', 'date', 'sender');
 $position = 0;
 
 hIterator: {
@@ -16,7 +16,7 @@ hIterator: {
     echo $headers[$position] . PHP_EOL;
 
     cIterator: {
-        echo &apos; &apos; . $headers[$position][$c] . PHP_EOL;
+        echo ' ' . $headers[$position][$c] . PHP_EOL;
 
         if(!isset($headers[$position][++$c])) {
             goto cIteratorExit;
@@ -45,19 +45,19 @@ error_reporting(E_ALL);
 // DEMONSTRATE THAT THE GOTO LABEL IS CASE-SENSITIVE
 
 goto a;
-echo &apos;Foo&apos;;
-a: echo &apos;Bar&apos;;
+echo 'Foo';
+a: echo 'Bar';
 
 goto A;
-echo &apos;Foo&apos;;
-A: echo &apos;Baz&apos;;
+echo 'Foo';
+A: echo 'Baz';
 
 // CAN THE GOTO LABEL BE A VARIABLE?
 
-$a = &apos;abc&apos;;
+$a = 'abc';
 goto $a; // NOPE: PARSE ERROR
-echo &apos;Foo&apos;;
-abc: echo &apos;Boom&apos;;
+echo 'Foo';
+abc: echo 'Boom';
 ?>
 ```
   
@@ -92,7 +92,7 @@ The goto operator CAN be evaluated with eval, provided the label is in the eval&
 
 ```
 <?php
-a: eval("goto a;"); // undefined label &apos;a&apos;
+a: eval("goto a;"); // undefined label 'a'
 eval("a: goto a;"); // works
 ?>
 ```
@@ -119,15 +119,15 @@ You are also allowed to jump backwards with a goto statement. To run a block of 
     
     
     if (false) iw_link_begin:
-        echo &apos;&lt;a href="#"&gt;&apos;;
+        echo '&lt;a href="#"&gt;';
     goto iw__link_begin;
     
     if (false) iw_link_text:
-        echo &apos;Sample Text&apos;;
+        echo 'Sample Text';
     goto iw__link_text;
     
     if (false) iw_link_end:
-        echo &apos;&lt;/a&gt;&apos;;
+        echo '&lt;/a&gt;';
     goto iw__link_end;
     
     iw_end_gt:

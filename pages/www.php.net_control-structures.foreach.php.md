@@ -19,11 +19,11 @@ endforeach;
 
 ```
 <?php
-$arr1 = array("a" =&gt; 1, "b" =&gt; 2, "c" =&gt; 3);
-$arr2 = array("x" =&gt; 4, "y" =&gt; 5, "z" =&gt; 6);
+$arr1 = array("a" => 1, "b" => 2, "c" => 3);
+$arr2 = array("x" => 4, "y" => 5, "z" => 6);
 
-foreach ($arr1 as $key =&gt; &amp;$val) {}
-foreach ($arr2 as $key =&gt; $val) {}
+foreach ($arr1 as $key => &amp;$val) {}
+foreach ($arr2 as $key => $val) {}
 
 var_dump($arr1);
 var_dump($arr2);
@@ -38,10 +38,10 @@ Even though it is not mentioned in this article, you can use "break" control str
 ```
 <?php
 
-$array = [ &apos;one&apos;, &apos;two&apos;, &apos;three&apos;, &apos;four&apos;, &apos;five&apos; ];
+$array = [ 'one', 'two', 'three', 'four', 'five' ];
 
 foreach( $array as $value ){
-    if( $value == &apos;three&apos; ){
+    if( $value == 'three' ){
         echo "Number three was found!";
         break;
     }
@@ -59,7 +59,7 @@ foreach and the while/list/each methods are not completely identical, and there 
 <?php
 $arr = array(1,2,3,4,5,6,7,8,9);
 
-foreach($arr as $key=&gt;$value)
+foreach($arr as $key=>$value)
 {
     unset($arr[$key + 1]);
     echo $value . PHP_EOL;
@@ -104,7 +104,7 @@ function two($arr) {
     }
 }
 
-$a = array( &apos;a&apos;, &apos;b&apos;, &apos;c&apos; );
+$a = array( 'a', 'b', 'c' );
 one($a);
 two($a);
 
@@ -114,32 +114,32 @@ two($a);
 
 Which do you think is faster?
 
-Lots of people think the answer is two() because it uses "reference to value, which it doesn&apos;t have to copy each value when it loops".
+Lots of people think the answer is two() because it uses "reference to value, which it doesn't have to copy each value when it loops".
 
-Well, that&apos;s totally wrong!
+Well, that's totally wrong!
 
-Here&apos;s what actually happens:
+Here's what actually happens:
 
 * one():
 
 - This function takes an array as argument ($arr).
-- The array function argument itself isn&apos;t passed by reference, so the function knows it isn&apos;t allowed to modify the original at all.
-- Then the foreach loop happens. The array itself wasn&apos;t passed by reference to the function, so PHP knows that it isn&apos;t allowed to modify the outside array, so it therefore makes a copy of the array&apos;s internal iteration offset state (that&apos;s just a simple number which says which item you are currently at during things like foreach()), which costs almost no performance or memory at all since it&apos;s just a small number.
+- The array function argument itself isn't passed by reference, so the function knows it isn't allowed to modify the original at all.
+- Then the foreach loop happens. The array itself wasn't passed by reference to the function, so PHP knows that it isn't allowed to modify the outside array, so it therefore makes a copy of the array's internal iteration offset state (that's just a simple number which says which item you are currently at during things like foreach()), which costs almost no performance or memory at all since it's just a small number.
 - Next, it uses that copied iteration offset to loop through all key/value pairs of the array (ie 0th key, 1st key, 2nd key, etc...). And the value at the current offset (a PHP "zval") is assigned to a variable called $val.
-- Does $val make a COPY of the value? That&apos;s what MANY people think. But the answer is NO. It DOESN&apos;T. It re-uses the existing value in memory. With zero performance cost. It&apos;s called "copy-on-write" and means that PHP doesn&apos;t make any copies unless you try to MODIFY the value.
-- If you try to MODIFY $val, THEN it will allocate a NEW zval in memory and store $val there instead (but it still won&apos;t modify the original array, so you can rest assured).
+- Does $val make a COPY of the value? That's what MANY people think. But the answer is NO. It DOESN'T. It re-uses the existing value in memory. With zero performance cost. It's called "copy-on-write" and means that PHP doesn't make any copies unless you try to MODIFY the value.
+- If you try to MODIFY $val, THEN it will allocate a NEW zval in memory and store $val there instead (but it still won't modify the original array, so you can rest assured).
 
-Alright, so what&apos;s the second version doing? The beloved "iterate values by reference"?
+Alright, so what's the second version doing? The beloved "iterate values by reference"?
 
 * two():
 
 - This function takes an array as argument ($arr).
-- The array function argument itself isn&apos;t passed by reference, so the function knows it isn&apos;t allowed to modify the original at all.
-- Then the foreach loop happens. The array itself wasn&apos;t passed by reference to the function, so PHP knows that it isn&apos;t allowed to modify the outside array.
-- But it also sees that you want to look at all VALUES by reference (&amp;$val), so PHP says "Uh oh, this is dangerous. If we just give them references to the original array&apos;s values, and they assign some new value to their reference, they would destroy the original array which they aren&apos;t allowed to touch!".
+- The array function argument itself isn't passed by reference, so the function knows it isn't allowed to modify the original at all.
+- Then the foreach loop happens. The array itself wasn't passed by reference to the function, so PHP knows that it isn't allowed to modify the outside array.
+- But it also sees that you want to look at all VALUES by reference (&amp;$val), so PHP says "Uh oh, this is dangerous. If we just give them references to the original array's values, and they assign some new value to their reference, they would destroy the original array which they aren't allowed to touch!".
 - So PHP makes a FULL COPY of the ENTIRE array and ALL VALUES before it starts iterating. YIKES!
 
-Therefore: STOP using the old, mythological "&amp;$val" iteration method! It&apos;s almost always BAD! With worse performance, and risks of bugs and quirks as is demonstrated in the manual.
+Therefore: STOP using the old, mythological "&amp;$val" iteration method! It's almost always BAD! With worse performance, and risks of bugs and quirks as is demonstrated in the manual.
 
 You can always manually write array assignments explicitly, without references, like this:
 
@@ -149,7 +149,7 @@ You can always manually write array assignments explicitly, without references, 
 <?php
 
 $a = array(1, 2, 3);
-foreach($a as $key =&gt; $val) {
+foreach($a as $key => $val) {
    $a[$key] = $val * 10;
 }
 // $a is now [10, 20, 30]
@@ -215,14 +215,14 @@ For those who&apos;d like to traverse an array including just added elements (wi
 
 ```
 <?php
-$values = array(1 =&gt; &apos;a&apos;, 2 =&gt; &apos;b&apos;, 3 =&gt; &apos;c&apos;);
+$values = array(1 => 'a', 2 => 'b', 3 => 'c');
 while (list($key, $value) = each($values)) {
-    echo "$key =&gt; $value \r\n";
+    echo "$key => $value \r\n";
     if ($key == 3) {
-        $values[4] = &apos;d&apos;; 
+        $values[4] = 'd'; 
     }
     if ($key == 4) {
-        $values[5] = &apos;e&apos;;
+        $values[5] = 'e';
     }
 }
 ?>

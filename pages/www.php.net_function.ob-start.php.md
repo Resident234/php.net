@@ -15,7 +15,7 @@ You can use PHP to generate a static HTML page.  Useful if you have a complex sc
    $page = ob_get_contents();
    ob_end_clean();
    $cwd = getcwd();
-   $file = "$cwd" .&apos;/&apos;. "index.html";
+   $file = "$cwd" .'/'. "index.html";
    @chmod($file,0755);
    $fw = fopen($file, "w");
    fputs($fw,$page, strlen($page));
@@ -30,7 +30,7 @@ You can use PHP to generate a static HTML page.  Useful if you have a complex sc
 If you&apos;re using object-orientated code in PHP you may, like me, want to use a call-back function that is inside an object (i.e. a class function). In this case you send ob_start a two-element array as its single argument. The first element is the name of the object (without the $ at the start), and the second is the function to call. So to use a function &apos;indent&apos; in an object called &apos;$template&apos; you would use 
 
 ```
-<?php ob_start(array(&apos;template&apos;, &apos;indent&apos;)); ?>
+<?php ob_start(array('template', 'indent')); ?>
 ```
 .  
 

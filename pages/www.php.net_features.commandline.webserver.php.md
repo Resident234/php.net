@@ -2,11 +2,7 @@
 
 
 
-In order to set project specific configuration options, simply add a php.ini file to your project, and then run the built-in server with this flag:<br><br>php -S localhost:8000 -c php.ini
-
-This is especially helpful for settings that cannot be set at runtime (ini_set()).?>
-```
-  
+In order to set project specific configuration options, simply add a php.ini file to your project, and then run the built-in server with this flag:<br><br>php -S localhost:8000 -c php.ini<br><br>This is especially helpful for settings that cannot be set at runtime (ini_set()).  
 
 #
 

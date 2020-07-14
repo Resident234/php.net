@@ -58,11 +58,11 @@ print "$name_first\n$name_last\n$name_company\n";
 
 ```
 <?php
-// $variable-name = &apos;parse error&apos;;
-// You can&apos;t do that but you can do this:
-$a = &apos;variable-name&apos;;
-$a = &apos;hello&apos;;
-echo $variable-name . &apos; &apos; . $a; // Gives     0 hello
+// $variable-name = 'parse error';
+// You can't do that but you can do this:
+$a = 'variable-name';
+$a = 'hello';
+echo $variable-name . ' ' . $a; // Gives     0 hello
 ?>
 ```
 <br><br>For a particular reason I had been using some variable names with hyphens for ages. There was no problem because they were only referenced via a variable variable. I only saw a parse error much later, when I tried to reference one directly. It took a while to realise that illegal hyphens were the cause because the parse error only occurs on assignment.  
@@ -75,12 +75,12 @@ PHP actually supports invoking a new instance of a class using a variable class 
 <?php
 class Foo {
    public function hello() {
-      echo &apos;Hello world!&apos;;
+      echo 'Hello world!';
    }
 }
-$my_foo = &apos;Foo&apos;;
+$my_foo = 'Foo';
 $a = new $my_foo();
-$a-&gt;hello(); //prints &apos;Hello world!&apos;
+$a->hello(); //prints 'Hello world!'
 ?>
 ```
 
@@ -93,11 +93,11 @@ Additionally, you can access static methods and properties using variable class 
 <?php
 class Foo {
    public static function hello() {
-      echo &apos;Hello world!&apos;;
+      echo 'Hello world!';
    }
 }
-$my_foo = &apos;Foo&apos;;
-$my_foo::hello(); //prints &apos;Hello world!&apos;
+$my_foo = 'Foo';
+$my_foo::hello(); //prints 'Hello world!'
 ?>
 ```
   
@@ -108,7 +108,7 @@ You may think of using variable variables to dynamically generate variables from
 
 ```
 <?php
- foreach ($array as $key =&gt; $value) 
+ foreach ($array as $key => $value) 
  {
   $key= $value;
  }
@@ -138,9 +138,9 @@ EXTR_PREFIX_ALL
 
 ```
 <?php
-$array =array("one" =&gt; "First Value",
-"two" =&gt; "2nd Value",
-"three" =&gt; "8"
+$array =array("one" => "First Value",
+"two" => "2nd Value",
+"three" => "8"
                 );
            
 extract( $array, EXTR_PREFIX_ALL, "my_prefix_");
@@ -159,9 +159,9 @@ $price_for_monday = 10;
 $price_for_tuesday = 20;
 $price_for_wednesday = 30;
 
-$today = &apos;tuesday&apos;;
+$today = 'tuesday';
 
-$price_for_today = ${ &apos;price_for_&apos; . $today};
+$price_for_today = ${ 'price_for_' . $today};
 echo $price_for_today; // will return 20
 ?>
 ```
@@ -179,7 +179,7 @@ Another use for this feature in PHP is dynamic parsing..  <br><br>Due to the rat
    $object_array = array();
 
    // assume the $input array has tokens for parsing.
-   foreach ($input_array as $key=&gt;$value){
+   foreach ($input_array as $key=>$value){
       // test to ensure the $value is what we need.
          $obj = "obj".$key;
          $obj = new Obj($value, $other_var);
@@ -193,7 +193,7 @@ Another use for this feature in PHP is dynamic parsing..  <br><br>Due to the rat
 
 Now, we can use basic array manipulation to get these objects out in the particular order we need, and the objects no longer are dependant on the previous ones.
 
-I haven&apos;t fully tested the implimentation of the objects.  The  scope of a variable-variable&apos;s object attributes (get all that?) is a little tough to crack.  Regardless, this is another example of the manner in which the var-vars can be used with precision where tedious, extra hard-coding is the only alternative.
+I haven't fully tested the implimentation of the objects.  The  scope of a variable-variable's object attributes (get all that?) is a little tough to crack.  Regardless, this is another example of the manner in which the var-vars can be used with precision where tedious, extra hard-coding is the only alternative.
 
 Then, we can easily pull everything back out again using a basic array function: foreach.
 
@@ -202,9 +202,9 @@ Then, we can easily pull everything back out again using a basic array function:
 ```
 <?php
 //...
-   foreach($array as $key=&gt;$object){
+   foreach($array as $key=>$object){
 
-      echo $key." -- ".$object-&gt;print_fcn()." &lt;br/&gt;\n";
+      echo $key." -- ".$object->print_fcn()." &lt;br/&gt;\n";
 
    } // end foreach   
 
@@ -219,13 +219,13 @@ While not relevant in everyday PHP programming, it seems to be possible to inser
 ```
 <?php
 
-    $foo = &apos;bar&apos;;
+    $foo = 'bar';
     $
 
     /*
         I am complete legal and will compile without notices or error as a variable variable.
     */
-        $foo = &apos;magic&apos;;
+        $foo = 'magic';
 
     echo $bar; // Outputs magic.
 

@@ -7,27 +7,27 @@ Don&apos;t forget, because $_REQUEST is a different variable than $_GET and $_PO
 ```
 <?php
 
-$_GET[&apos;foo&apos;] = &apos;a&apos;;
-$_POST[&apos;bar&apos;] = &apos;b&apos;;
-var_dump($_GET); // Element &apos;foo&apos; is string(1) "a"
-var_dump($_POST); // Element &apos;bar&apos; is string(1) "b"
-var_dump($_REQUEST); // Does not contain elements &apos;foo&apos; or &apos;bar&apos;
+$_GET['foo'] = 'a';
+$_POST['bar'] = 'b';
+var_dump($_GET); // Element 'foo' is string(1) "a"
+var_dump($_POST); // Element 'bar' is string(1) "b"
+var_dump($_REQUEST); // Does not contain elements 'foo' or 'bar'
 
 ?>
 ```
 
 
-If you want to evaluate $_GET and $_POST variables by a single token without including $_COOKIE in the mix, use  $_SERVER[&apos;REQUEST_METHOD&apos;] to identify the method used and set up a switch block accordingly, e.g:
+If you want to evaluate $_GET and $_POST variables by a single token without including $_COOKIE in the mix, use  $_SERVER['REQUEST_METHOD'] to identify the method used and set up a switch block accordingly, e.g:
 
 
 
 ```
 <?php
 
-switch($_SERVER[&apos;REQUEST_METHOD&apos;])
+switch($_SERVER['REQUEST_METHOD'])
 {
-case &apos;GET&apos;: $the_request = &amp;$_GET; break;
-case &apos;POST&apos;: $the_request = &amp;$_POST; break;
+case 'GET': $the_request = &amp;$_GET; break;
+case 'POST': $the_request = &amp;$_POST; break;
 .
 . // Etc.
 .

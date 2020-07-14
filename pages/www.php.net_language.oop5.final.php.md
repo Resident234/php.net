@@ -40,12 +40,12 @@ final class FooDecorator
     
     public function __construct(Foo $foo)
     {
-        $this-&gt;foo = $foo;
+        $this->foo = $foo;
     }
     
     public function doFoo()
     {
-          $result = $this-&gt;foo-&gt;doFoo();
+          $result = $this->foo->doFoo();
           // ... customize result ...
           return $result;
     }

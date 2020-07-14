@@ -7,21 +7,21 @@ The command line interface data in STDIN is not made available until return is p
 ```
 <?php
 
-// Demo WITHOUT readline_callback_handler_install(&apos;&apos;, function(){});
+// Demo WITHOUT readline_callback_handler_install('', function(){});
     $resSTDIN=fopen("php://stdin","r");
-    echo("Type &apos;x&apos;. Then press return.");
+    echo("Type 'x'. Then press return.");
     $strChar = stream_get_contents($resSTDIN, 1);
 
     echo("\nYou typed: ".$strChar."\n\n");
     fclose($resSTDIN);
     
-// Demo WITH readline_callback_handler_install(&apos;&apos;, function(){});
+// Demo WITH readline_callback_handler_install('', function(){});
 // This line removes the wait for &lt;CR&gt; on STDIN
-    readline_callback_handler_install(&apos;&apos;, function(){});
+    readline_callback_handler_install('', function(){});
     
     $resSTDIN=fopen("php://stdin","r");
-    echo("We have now run: readline_callback_handler_install(&apos;&apos;, function(){});\n");
-    echo("Press the &apos;y&apos; key");
+    echo("We have now run: readline_callback_handler_install('', function(){});\n");
+    echo("Press the 'y' key");
     $strChar = stream_get_contents($resSTDIN, 1);
     echo("\nYou pressed: ".$strChar."\nBut did not have to press &lt;cr&gt;\n");
     fclose($resSTDIN);
@@ -38,10 +38,10 @@ eg
 
 ```
 <?php
-    readline_callback_handler_install(&apos;&apos;, function(){});
+    readline_callback_handler_install('', function(){});
     echo("Enter password followed by return. (Do not use a real one!)\n");
     echo("Password: ");
-    $strObscured=&apos;&apos;;
+    $strObscured='';
     while(true)
     {
     $strChar = stream_get_contents(STDIN, 1);

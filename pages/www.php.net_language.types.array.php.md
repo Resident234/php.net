@@ -21,7 +21,7 @@ Beware that if you&apos;re using strings as indices in the $_POST array, that pe
 &lt;form method="post" action="
 
 ```
-<?php echo $_SERVER[&apos;PHP_SELF&apos;]; ?>
+<?php echo $_SERVER['PHP_SELF']; ?>
 ```
 "&gt;<br>    &lt;input type="hidden" name="Windows3.1" value="Sux"&gt;<br>    &lt;input type="submit" value="Click" /&gt;<br>&lt;/form&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br><br>Once you click on the button, the page displays the following:<br><br>POST: Array ( [Windows3_1] =&gt; Sux )  
 
@@ -31,11 +31,11 @@ Note that array value buckets are reference-safe, even through serialization.<br
 
 ```
 <?php
-$x=&apos;initial&apos;;
-$test=array(&apos;A&apos;=&gt;&amp;$x,&apos;B&apos;=&gt;&amp;$x);
+$x='initial';
+$test=array('A'=>&amp;$x,'B'=>&amp;$x);
 $test=unserialize(serialize($test));
-$test[&apos;A&apos;]=&apos;changed&apos;;
-echo $test[&apos;B&apos;]; // Outputs "changed"
+$test['A']='changed';
+echo $test['B']; // Outputs "changed"
 ?>
 ```
 <br><br>This can be useful in some cases, for example saving RAM within complex structures.  
@@ -76,18 +76,18 @@ Used to creating arrays like this in Perl?<br><br>@array = ("All", "A".."Z");<br
 
 ```
 <?php
-$array = array_merge(array(&apos;All&apos;), range(&apos;A&apos;, &apos;Z&apos;));
+$array = array_merge(array('All'), range('A', 'Z'));
 ?>
 ```
 
 
-You don&apos;t need to array_merge if it&apos;s just one range:
+You don't need to array_merge if it's just one range:
 
 
 
 ```
 <?php
-$array = range(&apos;A&apos;, &apos;Z&apos;);
+$array = range('A', 'Z');
 ?>
 ```
   
@@ -98,7 +98,7 @@ Regarding the previous comment, beware of the fact that reference to the last va
 
 ```
 <?php
-foreach ( $arr as $key =&gt; &amp;$value )
+foreach ( $arr as $key => &amp;$value )
 {
     $value = 1;
 }
@@ -111,7 +111,7 @@ $value = 159;
 ```
 
 
-Now the last element of $arr has the value of &apos;159&apos;. If we remove the comment in the unset() line, everything works as expected ($arr has all values of &apos;1&apos;).
+Now the last element of $arr has the value of '159'. If we remove the comment in the unset() line, everything works as expected ($arr has all values of '1').
 
 Bad results can also appear in nested foreach loops (the same reason as above).
 
@@ -121,7 +121,7 @@ So either unset $value after each foreach or better use the longer form:
 
 ```
 <?php
-foreach ( $arr as $key =&gt; $value )
+foreach ( $arr as $key => $value )
 {
     $arr[ $key ] = 1;
 }
@@ -140,8 +140,8 @@ When creating arrays , if we have an element with the same value as another elem
 ```
 <?php
 
-$a1 = array( "a" =&gt; 0, "b" =&gt; 1 );
-$a2 = array( "aa" =&gt; 00, "bb" =&gt; 11 );
+$a1 = array( "a" => 0, "b" => 1 );
+$a2 = array( "aa" => 00, "bb" => 11 );
 
 $together = array( $a1, $a2 );
 
@@ -153,19 +153,19 @@ print_r( $together );
 /* nothing changed result is:
 Array
 (
-    [0] =&gt; Array
+    [0] => Array
         (
-            [a] =&gt; 0
-            [b] =&gt; 1
+            [a] => 0
+            [b] => 1
         )
-    [1] =&gt; Array
+    [1] => Array
         (
-            [aa] =&gt; 0
-            [bb] =&gt; 11
+            [aa] => 0
+            [bb] => 11
         )
 ) */
 
-foreach( $together as $key =&gt; $value ) {
+foreach( $together as $key => $value ) {
     $together[$key]["c"] = 3 ;
 }
 
@@ -174,17 +174,17 @@ print_r( $together );
 /* now it works, this prints
 Array
 (
-    [0] =&gt; Array
+    [0] => Array
         (
-            [a] =&gt; 0
-            [b] =&gt; 1
-            [c] =&gt; 3
+            [a] => 0
+            [b] => 1
+            [c] => 3
         )
-    [1] =&gt; Array
+    [1] => Array
         (
-            [aa] =&gt; 0
-            [bb] =&gt; 11
-            [c] =&gt; 3
+            [aa] => 0
+            [bb] => 11
+            [c] => 3
         )
 )
 */

@@ -10,8 +10,8 @@ If you include a file that does not exist with include_once, the return result w
 
 ```
 <?php
-var_dump(include_once &apos;fakefile.ext&apos;); // bool(false)
-var_dump(include_once &apos;fakefile.ext&apos;); // bool(true)
+var_dump(include_once 'fakefile.ext'); // bool(false)
+var_dump(include_once 'fakefile.ext'); // bool(true)
 ?>
 ```
 <br><br>This is because according to php the file was already included once (even though it does not exist).  

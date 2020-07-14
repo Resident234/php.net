@@ -26,7 +26,7 @@ function is_ref(&amp;$var1, &amp;$var2) {
             $key = uniqid("is_ref_", true);
         } while(array_key_exists($key, $var1));
 
-        //The two variables differ in content ... They can&apos;t be the same
+        //The two variables differ in content ... They can't be the same
         if(array_key_exists($key, $var2)) {
             return false;
         }
@@ -57,23 +57,23 @@ function is_ref(&amp;$var1, &amp;$var2) {
             $key = uniqid("is_ref_", true);
         } while(in_array($key, $obj1));
 
-        //The two variables differ in content ... They can&apos;t be the same
+        //The two variables differ in content ... They can't be the same
         if(in_array($key, $obj2)) {
             return false;
         }
 
         //The arrays point to the same data if changes are reflected in $var2
         $data = uniqid("is_ref_data_", true);
-        $var1-&gt;$key =&amp; $data;
+        $var1->$key =&amp; $data;
         //There seems to be a modification ...
-        if(isset($var2-&gt;$key)) {
+        if(isset($var2->$key)) {
             if($var2[$key] === $data) {
                 $same = true;
             }
         }
 
         //Undo our changes ...
-        unset($var1-&gt;$key);
+        unset($var1->$key);
     } elseif (is_resource($var1)) {
         if(get_resource_type($var1) !== get_resource_type($var2)) {
             return false;
@@ -83,7 +83,7 @@ function is_ref(&amp;$var1, &amp;$var2) {
     } else {
         //Simple variables ...
         if($var1!==$var2) {
-            //Data mismatch ... They can&apos;t be the same ...
+            //Data mismatch ... They can't be the same ...
             return false;
         }
 
@@ -107,7 +107,7 @@ function is_ref(&amp;$var1, &amp;$var2) {
 ```
 
 
-Although this implementation is quite complete, it can&apos;t handle function references and some other minor stuff ATM.
+Although this implementation is quite complete, it can't handle function references and some other minor stuff ATM.
 This function is especially useful if you want to serialize a recursive array by hand.
 
 The usage is something like:

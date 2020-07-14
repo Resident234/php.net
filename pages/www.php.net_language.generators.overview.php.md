@@ -11,7 +11,7 @@ Bear in mind that execution of a generator function is postponed until iteration
 ```
 <?php
 
-$some_state = &apos;initial&apos;;
+$some_state = 'initial';
 
 function gen() {
     global $some_state; 
@@ -44,7 +44,7 @@ foreach ($result as $val) {
 ```
 
 
-If you need to perform some action when the function is called and before the result is used, you&apos;ll have to wrap your generator in another function.
+If you need to perform some action when the function is called and before the result is used, you'll have to wrap your generator in another function.
 
 
 
@@ -106,7 +106,7 @@ Abstract test.<br>
 
 $start_time=microtime(true);
 $array = array();
-$result = &apos;&apos;;
+$result = '';
 for($count=1000000; $count--;)
 {
   $array[]=$count/2;
@@ -131,7 +131,7 @@ echo "memory (byte): ", memory_get_peak_usage(true), "\n";
 <?php
 
 $start_time=microtime(true);
-$result = &apos;&apos;;
+$result = '';
 function it()
 {
   for($count=1000000; $count--;)

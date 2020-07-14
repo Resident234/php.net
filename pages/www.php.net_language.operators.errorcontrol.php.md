@@ -76,9 +76,7 @@ function myErrorHandler($errno, $errstr, $errfile, $errline)
 }
 ?>
 ```
-
-
-For more info on setting a custom error handler see: http://php.net/manual/en/function.set-error-handler.php<br>For more info on error_reporting see: http://www.php.net/manual/en/function.error-reporting.php  
+<br><br>For more info on setting a custom error handler see: http://php.net/manual/en/function.set-error-handler.php<br>For more info on error_reporting see: http://www.php.net/manual/en/function.error-reporting.php  
 
 #
 

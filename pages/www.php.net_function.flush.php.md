@@ -12,7 +12,7 @@ if (ob_get_level() == 0) ob_start();
 for ($i = 0; $i&lt;10; $i++){
 
         echo "&lt;br&gt; Line to show.";
-        echo str_pad(&apos;&apos;,4096)."\n";    
+        echo str_pad('',4096)."\n";    
 
         ob_flush();
         flush();
@@ -38,9 +38,9 @@ This is what I use to turn off pretty much anything that could cause unwanted ou
 ```
 <?php
 
-    @apache_setenv(&apos;no-gzip&apos;, 1);
-    @ini_set(&apos;zlib.output_compression&apos;, 0);
-    @ini_set(&apos;implicit_flush&apos;, 1);
+    @apache_setenv('no-gzip', 1);
+    @ini_set('zlib.output_compression', 0);
+    @ini_set('implicit_flush', 1);
     for ($i = 0; $i &lt; ob_get_level(); $i++) { ob_end_flush(); }
     ob_implicit_flush(1);
 
@@ -50,7 +50,9 @@ This is what I use to turn off pretty much anything that could cause unwanted ou
 
 #
 
-For a Windows system using IIS, the ResponseBufferLimit takes precedence over PHP&apos;s output_buffering settings. So you must also set the ResponseBufferLimit to be something lower than its default value.<br><br>For IIS versions older than 7, the setting can be found in the %windir%\System32\inetsrv\fcgiext.ini file (the FastCGI config file). You can set the appropriate line to:<br>  ResponseBufferLimit=0<br><br>For IIS 7+, the settings are stored in %windir%\System32\inetsrv\config. Edit the applicationHost.config file and search for PHP_via_FastCGI (assuming that you have installed PHP as a FastCGI module, as per the installation instructions, with the name PHP_via_FastCGI). Within the add tag, place the following setting at the end:<br>  responseBufferLimit="0"<br>So the entire line will look something like:<br>  &lt;add name="PHP_via_FastCGI" path="*.php" verb="*" modules="FastCgiModule" scriptProcessor="C:\PHP\php-cgi.exe" resourceType="Either" responseBufferLimit="0" /&gt;<br>Alternatively you can insert the setting using the following command:<br>  %windir%\system32\inetsrv\appcmd.exe set config /section:handlers "/[name=&apos;PHP_via_FastCGI&apos;].ResponseBufferLimit:0"  
+For a Windows system using IIS, the ResponseBufferLimit takes precedence over PHP&apos;s output_buffering settings. So you must also set the ResponseBufferLimit to be something lower than its default value.<br><br>For IIS versions older than 7, the setting can be found in the %windir%\System32\inetsrv\fcgiext.ini file (the FastCGI config file). You can set the appropriate line to:<br>  ResponseBufferLimit=0<br><br>For IIS 7+, the settings are stored in %windir%\System32\inetsrv\config. Edit the applicationHost.config file and search for PHP_via_FastCGI (assuming that you have installed PHP as a FastCGI module, as per the installation instructions, with the name PHP_via_FastCGI). Within the add tag, place the following setting at the end:<br>  responseBufferLimit="0"<br>So the entire line will look something like:<br>  &lt;add name="PHP_via_FastCGI" path="*.php" verb="*" modules="FastCgiModule" scriptProcessor="C:\PHP\?>
+```
+cgi.exe" resourceType="Either" responseBufferLimit="0" /&gt;<br>Alternatively you can insert the setting using the following command:<br>  %windir%\system32\inetsrv\appcmd.exe set config /section:handlers "/[name=&apos;PHP_via_FastCGI&apos;].ResponseBufferLimit:0"  
 
 #
 

@@ -16,12 +16,12 @@ $reference =&amp; $objectVar;
 $assignment = $objectVar
 
 //
-// $objectVar ---&gt;+---------+
+// $objectVar --->+---------+
 //                |(handle1)----+
-// $reference ---&gt;+---------+   |
+// $reference --->+---------+   |
 //                              |
 //                +---------+   |
-// $assignment --&gt;|(handle1)----+
+// $assignment -->|(handle1)----+
 //                +---------+   |
 //                              |
 //                              v
@@ -37,18 +37,18 @@ $assignment has a different data slot from $objectVar, but its data slot holds a
 
 ```
 <?php
-$objectVar-&gt;foo = "qux";
+$objectVar->foo = "qux";
 print_r( $objectVar );
 print_r( $reference );
 print_r( $assignment );
 
 //
-// $objectVar ---&gt;+---------+
+// $objectVar --->+---------+
 //                |(handle1)----+
-// $reference ---&gt;+---------+   |
+// $reference --->+---------+   |
 //                              |
 //                +---------+   |
-// $assignment --&gt;|(handle1)----+
+// $assignment -->|(handle1)----+
 //                +---------+   |
 //                              |
 //                              v
@@ -70,12 +70,12 @@ print_r($reference);
 print_r($assignment);
 
 //
-// $objectVar ---&gt;+---------+
+// $objectVar --->+---------+
 //                |  NULL   | 
-// $reference ---&gt;+---------+
+// $reference --->+---------+
 //                           
 //                +---------+
-// $assignment --&gt;|(handle1)----+
+// $assignment -->|(handle1)----+
 //                +---------+   |
 //                              |
 //                              v
@@ -96,30 +96,30 @@ What is the difference between  $this  and  self ?<br><br>Inside a class definit
 <?php
 class Classy {
 
-const       STAT = &apos;S&apos; ; // no dollar sign for constants (they are always static)
-static     $stat = &apos;Static&apos; ;
-public     $publ = &apos;Public&apos; ;
-private    $priv = &apos;Private&apos; ;
-protected  $prot = &apos;Protected&apos; ;
+const       STAT = 'S' ; // no dollar sign for constants (they are always static)
+static     $stat = 'Static' ;
+public     $publ = 'Public' ;
+private    $priv = 'Private' ;
+protected  $prot = 'Protected' ;
 
 function __construct( ){  }
 
 public function showMe( ){
-    print &apos;&lt;br&gt; self::STAT: &apos;  .  self::STAT ; // refer to a (static) constant like this
-    print &apos;&lt;br&gt; self::$stat: &apos; . self::$stat ; // static variable
-    print &apos;&lt;br&gt;$this-&gt;stat: &apos;  . $this-&gt;stat ; // legal, but not what you might think: empty result
-    print &apos;&lt;br&gt;$this-&gt;publ: &apos;  . $this-&gt;publ ; // refer to an object variable like this
-    print &apos;&lt;br&gt;&apos; ;
+    print '&lt;br&gt; self::STAT: '  .  self::STAT ; // refer to a (static) constant like this
+    print '&lt;br&gt; self::$stat: ' . self::$stat ; // static variable
+    print '&lt;br&gt;$this->stat: '  . $this->stat ; // legal, but not what you might think: empty result
+    print '&lt;br&gt;$this->publ: '  . $this->publ ; // refer to an object variable like this
+    print '&lt;br&gt;' ;
 }
 }
 $me = new Classy( ) ;
-$me-&gt;showMe( ) ;
+$me->showMe( ) ;
 
 /* Produces this output:
 self::STAT: S
 self::$stat: Static
-$this-&gt;stat:
-$this-&gt;publ: Public
+$this->stat:
+$this->publ: Public
 */
 ?>
 ```
@@ -149,9 +149,9 @@ class Point3D
      */
     public function __construct($xCoord=0, $yCoord=0, $zCoord=0)
     {
-        $this-&gt;x = $xCoord;
-    $this-&gt;y = $yCoord;
-        $this-&gt;z = $zCoord;
+        $this->x = $xCoord;
+    $this->y = $yCoord;
+        $this->z = $zCoord;
     }
 
     /*
@@ -159,7 +159,7 @@ class Point3D
      */
     public function __toString()
     {
-        return &apos;Point3D(x=&apos; . $this-&gt;x . &apos;, y=&apos; . $this-&gt;y . &apos;, z=&apos; . $this-&gt;z . &apos;)&apos;;
+        return 'Point3D(x=' . $this->x . ', y=' . $this->y . ', z=' . $this->z . ')';
     }
 }
 
@@ -175,8 +175,8 @@ class Line3D
 
     public function __construct($xCoord1=0, $yCoord1=0, $zCoord1=0, $xCoord2=1, $yCoord2=1, $zCoord2=1)
     {
-        $this-&gt;start = new Point3D($xCoord1, $yCoord1, $zCoord1);
-        $this-&gt;end = new Point3D($xCoord2, $yCoord2, $zCoord2);
+        $this->start = new Point3D($xCoord1, $yCoord1, $zCoord1);
+        $this->end = new Point3D($xCoord2, $yCoord2, $zCoord2);
     }
 
     /*
@@ -185,9 +185,9 @@ class Line3D
     public function getLength()
     {
         return sqrt(
-            pow($this-&gt;start-&gt;x - $this-&gt;end-&gt;x, 2) +
-            pow($this-&gt;start-&gt;y - $this-&gt;end-&gt;y, 2) +
-            pow($this-&gt;start-&gt;z - $this-&gt;end-&gt;z, 2)
+            pow($this->start->x - $this->end->x, 2) +
+            pow($this->start->y - $this->end->y, 2) +
+            pow($this->start->z - $this->end->z, 2)
         );
     }
 
@@ -196,18 +196,18 @@ class Line3D
      */
     public function __toString()
     {
-        return &apos;Line3D[start=&apos; . $this-&gt;start .
-            &apos;, end=&apos; . $this-&gt;end .
-            &apos;, length=&apos; . $this-&gt;getLength() . &apos;]&apos;;
+        return 'Line3D[start=' . $this->start .
+            ', end=' . $this->end .
+            ', length=' . $this->getLength() . ']';
     }
 }
 
 /*
  * create and display objects of type Line3D.
  */
-echo &apos;&lt;p&gt;&apos; . (new Line3D()) . "&lt;/p&gt;\n";
-echo &apos;&lt;p&gt;&apos; . (new Line3D(0, 0, 0, 100, 100, 0)) . "&lt;/p&gt;\n";
-echo &apos;&lt;p&gt;&apos; . (new Line3D(0, 0, 0, 100, 100, 100)) . "&lt;/p&gt;\n";
+echo '&lt;p&gt;' . (new Line3D()) . "&lt;/p&gt;\n";
+echo '&lt;p&gt;' . (new Line3D(0, 0, 0, 100, 100, 0)) . "&lt;/p&gt;\n";
+echo '&lt;p&gt;' . (new Line3D(0, 0, 0, 100, 100, 100)) . "&lt;/p&gt;\n";
 
 ?>
 ```
@@ -222,8 +222,8 @@ stdClass is the default PHP object. stdClass has no properties, methods or paren
 // ways of creating stdClass instances
 $x = new stdClass;
 $y = (object) null;        // same as above
-$z = (object) &apos;a&apos;;         // creates property &apos;scalar&apos; = &apos;a&apos;
-$a = (object) array(&apos;property1&apos; =&gt; 1, &apos;property2&apos; =&gt; &apos;b&apos;);
+$z = (object) 'a';         // creates property 'scalar' = 'a'
+$a = (object) array('property1' => 1, 'property2' => 'b');
 ?>
 ```
 
@@ -239,8 +239,8 @@ class CTest {
 }
 $t = new CTest;
 var_dump($t instanceof stdClass);            // false
-var_dump(is_subclass_of($t, &apos;stdClass&apos;));    // false
-echo get_class($t) . "\n";                   // &apos;CTest&apos;
+var_dump(is_subclass_of($t, 'stdClass'));    // false
+echo get_class($t) . "\n";                   // 'CTest'
 echo get_parent_class($t) . "\n";            // false (no parent)
 ?>
 ```
@@ -254,7 +254,7 @@ Some thing that may be obvious to the seasoned PHP programmer, but may surprise 
 <?php
 class Foo
 {
-$bar = &apos;Hi There&apos;;
+$bar = 'Hi There';
 
 public function Print(){
     echo $bar;
@@ -267,7 +267,7 @@ public function Print(){
 Gives an error saying Print used undefined variable. One has to explicitly use (notice the use of 
 
 ```
-<?php $this-&gt;bar ?>
+<?php $this->bar ?>
 ```
 ):
 
@@ -277,10 +277,10 @@ Gives an error saying Print used undefined variable. One has to explicitly use (
 <?php
 class Foo
 {
-$bar = &apos;Hi There&apos;;
+$bar = 'Hi There';
 
 public function Print(){
-    echo this-&gt;$bar;
+    echo this->$bar;
 }
 }
 ?>
@@ -290,7 +290,7 @@ public function Print(){
  
 
 ```
-<?php echo $this-&gt;bar; ?>
+<?php echo $this->bar; ?>
 ```
  refers to the class member, while using $bar means using an uninitialized variable in the local context of the member function.  
 
@@ -303,26 +303,26 @@ I hope that this will help to understand how to work with static variables insid
 
 class a {
 
-    public static $foo = &apos;I am foo&apos;;
-    public $bar = &apos;I am bar&apos;;
+    public static $foo = 'I am foo';
+    public $bar = 'I am bar';
     
     public static function getFoo() { echo self::$foo;    }
-    public static function setFoo() { self::$foo = &apos;I am a new foo&apos;; }
-    public function getBar() { echo $this-&gt;bar;    }            
+    public static function setFoo() { self::$foo = 'I am a new foo'; }
+    public function getBar() { echo $this->bar;    }            
 }
 
 $ob = new a();
 a::getFoo();     // output: I am foo    
-$ob-&gt;getFoo();    // output: I am foo
+$ob->getFoo();    // output: I am foo
 //a::getBar();     // fatal error: using $this not in object context
-$ob-&gt;getBar();    // output: I am bar
+$ob->getBar();    // output: I am bar
                 // If you keep $bar non static this will work
-                // but if bar was static, then var_dump($this-&gt;bar) will output null 
+                // but if bar was static, then var_dump($this->bar) will output null 
 
 // unset($ob);
-a::setFoo();    // The same effect as if you called $ob-&gt;setFoo(); because $foo is static
+a::setFoo();    // The same effect as if you called $ob->setFoo(); because $foo is static
 $ob = new a();     // This will have no effects on $foo
-$ob-&gt;getFoo();    // output: I am a new foo 
+$ob->getFoo();    // output: I am a new foo 
 
 ?>
 ```
@@ -365,7 +365,7 @@ class Item {
 ```
 
 
-Now here&apos;s what I mean by "dealing" with the data. Note: The data is already organized, so that in itself makes writing new functions extremely easy.
+Now here's what I mean by "dealing" with the data. Note: The data is already organized, so that in itself makes writing new functions extremely easy.
 
 
 
@@ -376,7 +376,7 @@ class Customer {
 
   // function to deal with user-input / validation
   // function to build string for output
-  // function to write -&gt; database
+  // function to write -> database
   // function to  read &lt;- database
   // etc, etc
 }
@@ -388,7 +388,7 @@ class Item {
   // function to format numbers
   // function to deal with user-input / validation
   // function to build string for output
-  // function to write -&gt; database
+  // function to write -> database
   // function to  read &lt;- database
   // etc, etc
 }
@@ -415,26 +415,26 @@ class Bear {
 
     // constructor
     public function __construct() {
-        $this-&gt;age = 0;
-        $this-&gt;weight = 100;
+        $this->age = 0;
+        $this->weight = 100;
     }
 
     // define methods
     public function eat($units) {
-        echo $this-&gt;name." is eating ".$units." units of food... ";
-        $this-&gt;weight += $units;
+        echo $this->name." is eating ".$units." units of food... ";
+        $this->weight += $units;
     }
 
     public function run() {
-        echo $this-&gt;name." is running... ";
+        echo $this->name." is running... ";
     }
 
     public function kill() {
-        echo $this-&gt;name." is killing prey... ";
+        echo $this->name." is killing prey... ";
     }
 
     public function sleep() {
-        echo $this-&gt;name." is sleeping... ";
+        echo $this->name." is sleeping... ";
     }
 }
 
@@ -444,13 +444,13 @@ class PolarBear extends Bear {
     // constructor
     public function __construct() {
         parent::__construct();
-        $this-&gt;colour = "white";
-        $this-&gt;weight = 600;
+        $this->colour = "white";
+        $this->weight = 600;
     }
 
     // define methods
     public function swim() {
-        echo $this-&gt;name." is swimming... ";
+        echo $this->name." is swimming... ";
     }
 }
 

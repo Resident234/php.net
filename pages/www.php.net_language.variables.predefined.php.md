@@ -13,11 +13,11 @@ I have this function in my main files, it allows for easier SEO for some pages w
     function long_to_GET(){
         /**
         * This function converts info.php/a/1/b/2/c?d=4 TO
-        * Array ( [d] =&gt; 4 [a] =&gt; 1 [b] =&gt; 2 [c] =&gt; ) 
+        * Array ( [d] => 4 [a] => 1 [b] => 2 [c] => ) 
         **/
-        if(isset($_SERVER[&apos;PATH_INFO&apos;]) &amp;&amp; $_SERVER[&apos;PATH_INFO&apos;] != &apos;&apos;){
+        if(isset($_SERVER['PATH_INFO']) &amp;&amp; $_SERVER['PATH_INFO'] != ''){
             //Split it out.
-            $tmp = explode(&apos;/&apos;,$_SERVER[&apos;PATH_INFO&apos;]);
+            $tmp = explode('/',$_SERVER['PATH_INFO']);
             //Remove first empty item
             unset($tmp[0]);
             //Loop through and apend it into the $_GET superglobal.

@@ -17,7 +17,7 @@ class foo
     
     public function __construct()
     {
-        $this-&gt;say = "bar";
+        $this->say = "bar";
     }
     
 }
@@ -25,7 +25,7 @@ class foo
 ```
 
 
--&gt; loader.php
+-> loader.php
 
 
 
@@ -42,11 +42,11 @@ class foo extends ns\foo // ns\foo is loaded here
     public function __construct()
     {
         parent::__construct();
-        echo "&lt;br /&gt;foo" . $this-&gt;say;
+        echo "&lt;br /&gt;foo" . $this->say;
     }
 }
 $a = new ns\foo(); // ns\foo also loads ns/foo.php just fine here.
-echo $a-&gt;say;   // prints bar as expected.
+echo $a->say;   // prints bar as expected.
 $b = new foo;  // prints foobar just fine.
 ?>
 ```

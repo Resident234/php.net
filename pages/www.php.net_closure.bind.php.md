@@ -14,18 +14,18 @@ trait MetaTrait
     public function addMethod($methodName, $methodCallable)
     {
         if (!is_callable($methodCallable)) {
-            throw new InvalidArgumentException(&apos;Second param must be callable&apos;);
+            throw new InvalidArgumentException('Second param must be callable');
         }
-        $this-&gt;methods[$methodName] = Closure::bind($methodCallable, $this, get_class());
+        $this->methods[$methodName] = Closure::bind($methodCallable, $this, get_class());
     }
  
     public function __call($methodName, array $args)
     {
-        if (isset($this-&gt;methods[$methodName])) {
-            return call_user_func_array($this-&gt;methods[$methodName], $args);
+        if (isset($this->methods[$methodName])) {
+            return call_user_func_array($this->methods[$methodName], $args);
         }
  
-        throw RunTimeException(&apos;There is no method with the given name to call&apos;);
+        throw RunTimeException('There is no method with the given name to call');
     }
  
 }
@@ -38,21 +38,21 @@ test.php
 
 ```
 <?php
-require &apos;MetaTrait.php&apos;;
+require 'MetaTrait.php';
  
 class HackThursday {
     use MetaTrait;
  
-    private $dayOfWeek = &apos;Thursday&apos;;
+    private $dayOfWeek = 'Thursday';
  
 }
  
 $test = new HackThursday();
-$test-&gt;addMethod(&apos;when&apos;, function () {
-    return $this-&gt;dayOfWeek;
+$test->addMethod('when', function () {
+    return $this->dayOfWeek;
 });
  
-echo $test-&gt;when();
+echo $test->when();
 
 ?>
 ```

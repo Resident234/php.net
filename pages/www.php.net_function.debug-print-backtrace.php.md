@@ -8,7 +8,7 @@ Another way to manipulate and print a backtrace, without using output buffering:
 <?php
 // print backtrace, getting rid of repeated absolute path on each file
 $e = new Exception();
-print_r(str_replace(&apos;/path/to/code/&apos;, &apos;&apos;, $e-&gt;getTraceAsString()));
+print_r(str_replace('/path/to/code/', '', $e->getTraceAsString()));
 ?>
 ```
   
@@ -25,12 +25,12 @@ I like the output of debug_print_backtrace() but I sometimes want it as a string
         $trace = ob_get_contents();
         ob_end_clean();
 
-        // Remove first item from backtrace as it&apos;s this function which
+        // Remove first item from backtrace as it's this function which
         // is redundant.
-        $trace = preg_replace (&apos;/^#0\s+&apos; . __FUNCTION__ . "[^\n]*\n/", &apos;&apos;, $trace, 1);
+        $trace = preg_replace ('/^#0\s+' . __FUNCTION__ . "[^\n]*\n/", '', $trace, 1);
 
         // Renumber backtrace items.
-        $trace = preg_replace (&apos;/^#(\d+)/me&apos;, &apos;\&apos;#\&apos; . ($1 - 1)&apos;, $trace);
+        $trace = preg_replace ('/^#(\d+)/me', '\'#\' . ($1 - 1)', $trace);
 
         return $trace;
     }

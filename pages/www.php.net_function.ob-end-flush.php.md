@@ -21,19 +21,19 @@ best way to compress a css code:<br><br>
 
 ```
 <?php
-  header(&apos;Content-type: text/css&apos;);
+  header('Content-type: text/css');
 
   ob_start("compress");
   function compress($buffer) {
     // remove comments
-    $buffer = preg_replace(&apos;!/\*[^*]*\*+([^/][^*]*\*+)*/!&apos;, &apos;&apos;, $buffer);
+    $buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
     // remove tabs, spaces, newlines, etc.
-    $buffer = str_replace(array("\r\n", "\r", "\n", "\t", &apos;  &apos;, &apos;    &apos;, &apos;    &apos;), &apos;&apos;, $buffer);
+    $buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
     return $buffer;
   }
 
-  include(&apos;./template/main.css&apos;);
-  include(&apos;./template/classes.css&apos;);
+  include('./template/main.css');
+  include('./template/classes.css');
 
 &lt;?php
   ob_end_flush();

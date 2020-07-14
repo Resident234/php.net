@@ -36,7 +36,7 @@ Some E_STRICT errors seem to be thrown during the page&apos;s compilation proces
 ```
 <?php
 error_reporting(E_ALL &amp; ~(E_STRICT|E_NOTICE));
-require(&apos;index.inc.php&apos;);
+require('index.inc.php');
 ?>
 ```
 <br><br>That allows you to alter the error reporting prior to the file being compiled.<br><br>I discovered this recently when I was given code from another development firm that triggered several E_STRICT errors and I wanted to disable E_STRICT on a per-page basis.  

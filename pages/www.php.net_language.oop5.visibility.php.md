@@ -20,18 +20,18 @@ class Item
  * This is OUTSIDE CODE because it is written OUTSIDE the class.
  */
 $item = new Item();
-$item-&gt;label = &apos;Ink-Jet Tatoo Gun&apos;;
-$item-&gt;price = 49.99;
+$item->label = 'Ink-Jet Tatoo Gun';
+$item->price = 49.99;
 
 ?>
 ```
 
 
-Ok, that&apos;s simple enough... I got it inside and out. The big problem with this is that the Item class is COMPLETELY IGNORANT in the following ways:
+Ok, that's simple enough... I got it inside and out. The big problem with this is that the Item class is COMPLETELY IGNORANT in the following ways:
 * It REQUIRES OUTSIDE CODE to do all the work AND to know what and how to do it -- huge mistake.
 * OUTSIDE CODE can cast Item properties to any other PHP types (booleans, integers, floats, strings, arrays, and objects etc.) -- another huge mistake.
 
-Note: we did it correctly above, but what if someone made an array for $price? FYI: PHP has no clue what we mean by an Item, especially by the terms of our class definition above. To PHP, our Item is something with two properties (mutable in every way) and that&apos;s it. As far as PHP is concerned, we can pack the entire set of Britannica Encyclopedias into the price slot. When that happens, we no longer have what we expect an Item to be.
+Note: we did it correctly above, but what if someone made an array for $price? FYI: PHP has no clue what we mean by an Item, especially by the terms of our class definition above. To PHP, our Item is something with two properties (mutable in every way) and that's it. As far as PHP is concerned, we can pack the entire set of Britannica Encyclopedias into the price slot. When that happens, we no longer have what we expect an Item to be.
 
 INSIDE CODE should keep the integrity of the object. For example, our class definition should keep $label a string and $price a float -- which means only strings can come IN and OUT of the class for label, and only floats can come IN and OUT of the class for price.
 
@@ -43,9 +43,9 @@ INSIDE CODE should keep the integrity of the object. For example, our class defi
 class Item
 {
   /**
-   * Here&apos;s the new INSIDE CODE and the Rules to follow:
+   * Here's the new INSIDE CODE and the Rules to follow:
    *
-   * 1. STOP ACCESS to properties via $item-&gt;label and $item-&gt;price,
+   * 1. STOP ACCESS to properties via $item->label and $item->price,
    *    by using the protected keyword.
    * 2. FORCE the use of public functions.
    * 3. ONLY strings are allowed IN &amp; OUT of this class for $label
@@ -54,22 +54,22 @@ class Item
    *    via the getPrice and setPrice functions.
    */
 
-  protected $label = &apos;Unknown Item&apos;; // Rule 1 - protected.
+  protected $label = 'Unknown Item'; // Rule 1 - protected.
   protected $price = 0.0;            // Rule 1 - protected.
 
   public function getLabel() {       // Rule 2 - public function.
-    return $this-&gt;label;             // Rule 3 - string OUT for $label.
+    return $this->label;             // Rule 3 - string OUT for $label.
   }
 
   public function getPrice() {       // Rule 2 - public function.    
-    return $this-&gt;price;             // Rule 4 - float OUT for $price.
+    return $this->price;             // Rule 4 - float OUT for $price.
   }
 
   public function setLabel($label)   // Rule 2 - public function.
   {
     /**
      * Make sure $label is a PHP string that can be used in a SORTING
-     * alogorithm, NOT a boolean, number, array, or object that can&apos;t
+     * alogorithm, NOT a boolean, number, array, or object that can't
      * properly sort -- AND to make sure that the getLabel() function
      * ALWAYS returns a genuine PHP string.
      *
@@ -79,7 +79,7 @@ class Item
 
     if(is_string($label))
     {
-      $this-&gt;label = (string)$label; // Rule 3 - string IN for $label.
+      $this->label = (string)$label; // Rule 3 - string IN for $label.
     }
   }
 
@@ -88,7 +88,7 @@ class Item
     /**
      * Make sure $price is a PHP float so that it can be used in a
      * NUMERICAL CALCULATION. Do not accept boolean, string, array or
-     * some other object that can&apos;t be included in a simple calculation.
+     * some other object that can't be included in a simple calculation.
      * This will ensure that the getPrice() function ALWAYS returns an
      * authentic, genuine, full-flavored PHP number and nothing but.
      *
@@ -98,7 +98,7 @@ class Item
 
     if(is_numeric($price))
     {
-      $this-&gt;price = (float)$price; // Rule 4 - float IN for $price.
+      $this->price = (float)$price; // Rule 4 - float IN for $price.
     }
   }
 }
@@ -115,28 +115,28 @@ If you have problems with overriding private methods in extended classes, read t
 <?php
 abstract class base {
     public function inherited() {
-        $this-&gt;overridden();
+        $this->overridden();
     }
     private function overridden() {
-        echo &apos;base&apos;;
+        echo 'base';
     }
 }
 
 class child extends base {
     private function overridden() {
-        echo &apos;child&apos;;
+        echo 'child';
     }
 }
 
 $test = new child();
-$test-&gt;inherited();
+$test->inherited();
 ?>
 ```
 
 
 Output will be "base".
 
-If you want the inherited methods to use overridden functionality in extended classes but public sounds too loose, use protected. That&apos;s what it is for:)
+If you want the inherited methods to use overridden functionality in extended classes but public sounds too loose, use protected. That's what it is for:)
 
 A sample that works as intended:
 
@@ -146,21 +146,21 @@ A sample that works as intended:
 <?php
 abstract class base {
     public function inherited() {
-        $this-&gt;overridden();
+        $this->overridden();
     }
     protected function overridden() {
-        echo &apos;base&apos;;
+        echo 'base';
     }
 }
 
 class child extends base {
     protected function overridden() {
-        echo &apos;child&apos;;
+        echo 'child';
     }
 }
 
 $test = new child();
-$test-&gt;inherited();
+$test->inherited();
 ?>
 ```
 <br>Output will be "child".  
@@ -197,7 +197,7 @@ class A {
 
     static public function bar($a)
     {
-        $a-&gt;foo();
+        $a->foo();
     }
 }
 
@@ -221,32 +221,32 @@ class Foo
     public function debugBar(Foo $object)
     {
         // this does NOT violate visibility although $bar is private
-        echo $object-&gt;bar, "\n";
+        echo $object->bar, "\n";
     }
 
     public function setBar($value)
     {
         // Neccessary method, for $bar is invisible outside the class
-        $this-&gt;bar = $value;
+        $this->bar = $value;
     }
     
     public function setForeignBar(Foo $object, $value)
     {
         // this does NOT violate visibility!
-        $object-&gt;bar = $value;
+        $object->bar = $value;
     }
 }
 
 $a = new Foo();
 $b = new Foo();
-$a-&gt;setBar(1);
-$b-&gt;setBar(2);
-$a-&gt;debugBar($b);        // 2
-$b-&gt;debugBar($a);        // 1
-$a-&gt;setForeignBar($b, 3);
-$b-&gt;setForeignBar($a, 4);
-$a-&gt;debugBar($b);        // 3
-$b-&gt;debugBar($a);        // 4
+$a->setBar(1);
+$b->setBar(2);
+$a->debugBar($b);        // 2
+$b->debugBar($a);        // 1
+$a->setForeignBar($b, 3);
+$b->setForeignBar($a, 4);
+$a->debugBar($b);        // 3
+$b->debugBar($a);        // 4
 ?>
 ```
   
@@ -267,18 +267,18 @@ class Bar extends Base {
     
     public function TestFoo() {
         $c = new Foo();
-        $c-&gt;_test();
+        $c->_test();
     }
 }
  
 class Foo extends Base {
     protected function _test() {
-        echo &apos;Foo&apos;;
+        echo 'Foo';
     }
 }
  
 $bar = new Bar();
-$bar-&gt;TestFoo(); // result: Foo
+$bar->TestFoo(); // result: Foo
 ?>
 ```
   
@@ -293,7 +293,7 @@ This has already been noted here, but there was no clear example. Methods define
 class ParentClass {
 
     public function execute($method) {
-        $this-&gt;$method();
+        $this->$method();
     }
     
 }
@@ -301,20 +301,20 @@ class ParentClass {
 class ChildClass extends ParentClass {
 
     private function privateMethod() {
-        echo "hi, i&apos;m private";
+        echo "hi, i'm private";
     }
     
     protected function protectedMethod() {
-        echo "hi, i&apos;m protected";
+        echo "hi, i'm protected";
     }
     
 }
 
 $object = new ChildClass();
 
-$object-&gt;execute(&apos;protectedMethod&apos;);
+$object->execute('protectedMethod');
 
-$object-&gt;execute(&apos;privateMethod&apos;);
+$object->execute('privateMethod');
 
 ?>
 ```

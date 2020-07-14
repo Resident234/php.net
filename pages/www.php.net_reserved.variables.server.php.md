@@ -6,57 +6,57 @@ Just a PHP file to put on your local server (as I don&apos;t have enough memory)
 
 ```
 <?php
- $indicesServer = array(&apos;PHP_SELF&apos;,
-&apos;argv&apos;,
-&apos;argc&apos;,
-&apos;GATEWAY_INTERFACE&apos;,
-&apos;SERVER_ADDR&apos;,
-&apos;SERVER_NAME&apos;,
-&apos;SERVER_SOFTWARE&apos;,
-&apos;SERVER_PROTOCOL&apos;,
-&apos;REQUEST_METHOD&apos;,
-&apos;REQUEST_TIME&apos;,
-&apos;REQUEST_TIME_FLOAT&apos;,
-&apos;QUERY_STRING&apos;,
-&apos;DOCUMENT_ROOT&apos;,
-&apos;HTTP_ACCEPT&apos;,
-&apos;HTTP_ACCEPT_CHARSET&apos;,
-&apos;HTTP_ACCEPT_ENCODING&apos;,
-&apos;HTTP_ACCEPT_LANGUAGE&apos;,
-&apos;HTTP_CONNECTION&apos;,
-&apos;HTTP_HOST&apos;,
-&apos;HTTP_REFERER&apos;,
-&apos;HTTP_USER_AGENT&apos;,
-&apos;HTTPS&apos;,
-&apos;REMOTE_ADDR&apos;,
-&apos;REMOTE_HOST&apos;,
-&apos;REMOTE_PORT&apos;,
-&apos;REMOTE_USER&apos;,
-&apos;REDIRECT_REMOTE_USER&apos;,
-&apos;SCRIPT_FILENAME&apos;,
-&apos;SERVER_ADMIN&apos;,
-&apos;SERVER_PORT&apos;,
-&apos;SERVER_SIGNATURE&apos;,
-&apos;PATH_TRANSLATED&apos;,
-&apos;SCRIPT_NAME&apos;,
-&apos;REQUEST_URI&apos;,
-&apos;PHP_AUTH_DIGEST&apos;,
-&apos;PHP_AUTH_USER&apos;,
-&apos;PHP_AUTH_PW&apos;,
-&apos;AUTH_TYPE&apos;,
-&apos;PATH_INFO&apos;,
-&apos;ORIG_PATH_INFO&apos;) ;
+ $indicesServer = array('PHP_SELF',
+'argv',
+'argc',
+'GATEWAY_INTERFACE',
+'SERVER_ADDR',
+'SERVER_NAME',
+'SERVER_SOFTWARE',
+'SERVER_PROTOCOL',
+'REQUEST_METHOD',
+'REQUEST_TIME',
+'REQUEST_TIME_FLOAT',
+'QUERY_STRING',
+'DOCUMENT_ROOT',
+'HTTP_ACCEPT',
+'HTTP_ACCEPT_CHARSET',
+'HTTP_ACCEPT_ENCODING',
+'HTTP_ACCEPT_LANGUAGE',
+'HTTP_CONNECTION',
+'HTTP_HOST',
+'HTTP_REFERER',
+'HTTP_USER_AGENT',
+'HTTPS',
+'REMOTE_ADDR',
+'REMOTE_HOST',
+'REMOTE_PORT',
+'REMOTE_USER',
+'REDIRECT_REMOTE_USER',
+'SCRIPT_FILENAME',
+'SERVER_ADMIN',
+'SERVER_PORT',
+'SERVER_SIGNATURE',
+'PATH_TRANSLATED',
+'SCRIPT_NAME',
+'REQUEST_URI',
+'PHP_AUTH_DIGEST',
+'PHP_AUTH_USER',
+'PHP_AUTH_PW',
+'AUTH_TYPE',
+'PATH_INFO',
+'ORIG_PATH_INFO') ;
 
-echo &apos;&lt;table cellpadding="10"&gt;&apos; ;
+echo '&lt;table cellpadding="10"&gt;' ;
 foreach ($indicesServer as $arg) {
     if (isset($_SERVER[$arg])) {
-        echo &apos;&lt;tr&gt;&lt;td&gt;&apos;.$arg.&apos;&lt;/td&gt;&lt;td&gt;&apos; . $_SERVER[$arg] . &apos;&lt;/td&gt;&lt;/tr&gt;&apos; ;
+        echo '&lt;tr&gt;&lt;td&gt;'.$arg.'&lt;/td&gt;&lt;td&gt;' . $_SERVER[$arg] . '&lt;/td&gt;&lt;/tr&gt;' ;
     }
     else {
-        echo &apos;&lt;tr&gt;&lt;td&gt;&apos;.$arg.&apos;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;&apos; ;
+        echo '&lt;tr&gt;&lt;td&gt;'.$arg.'&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;' ;
     }
 }
-echo &apos;&lt;/table&gt;&apos; ;
+echo '&lt;/table&gt;' ;
 
 /*
 
@@ -143,7 +143,7 @@ You have missed &apos;REDIRECT_STATUS&apos;<br><br>Very useful if you point all 
   if($HttpStatus==401) {print "Unauthorized - Iinvalid password";}
   if($HttpStatus==403) {print "Forbidden";}
   if($HttpStatus==500) {print "Internal Server Error";}
-  if($HttpStatus==418) {print "I&apos;m a teapot! - This is a real value, defined in 1998";}
+  if($HttpStatus==418) {print "I'm a teapot! - This is a real value, defined in 1998";}
 
 ?>
 ```
@@ -167,7 +167,7 @@ It&apos;s worth noting that $_SERVER variables get created for any HTTP request 
 
 ```
 <?php
-$_SERVER[&apos;HTTP_X_DEBUG_CUSTOM&apos;]; // "some string"
+$_SERVER['HTTP_X_DEBUG_CUSTOM']; // "some string"
 ?>
 ```
 <br><br>There are better ways to identify the HTTP request headers sent by the browser, but this is convenient if you know what to expect from, for example, an AJAX script with custom headers.<br><br>Works in PHP5 on Apache with mod_php.  Don&apos;t know if this is true from other environments.  

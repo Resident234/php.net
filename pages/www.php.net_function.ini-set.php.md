@@ -13,12 +13,12 @@ When checking for the success of ini_set(), keep in mind that it will return the
 
 // This will NOT determine the success of ini_set(), instead
 // it only tests if the old value had been equivalent to false
-if ( !ini_set( &apos;display_errors&apos;, &apos;1&apos; ) ) 
-    throw new \Exception( &apos;Unable to set display_errors.&apos; );
+if ( !ini_set( 'display_errors', '1' ) ) 
+    throw new \Exception( 'Unable to set display_errors.' );
 
 // This is the CORRECT way to determine success
-if ( ini_set( &apos;display_errors&apos;, &apos;1&apos; ) === false ) 
-    throw new \Exception( &apos;Unable to set display_errors.&apos; );    
+if ( ini_set( 'display_errors', '1' ) === false ) 
+    throw new \Exception( 'Unable to set display_errors.' );    
 
 ?>
 ```
@@ -34,20 +34,15 @@ Be careful with setting an output_handler, as you can&apos;t use ini_set() to ch
 
 ```
 <?php
-ini_set(&apos;output_handler&apos;, &apos;mb_output_handler&apos;);
-echo "\noutput_handler =&gt; " . ini_get(&apos;output_handler&apos;) . "\n";
+ini_set('output_handler', 'mb_output_handler');
+echo "\noutput_handler => " . ini_get('output_handler') . "\n";
 ?>
 ```
-
-
-root@# ./myscript.php<br>output_handler =&gt; ob_gzhandler<br><br>Apparently (acording to Richard Lynch):<br><br>&gt; TOO LATE!<br>&gt; The ob_start() has already kicked in by this point.<br>&gt; ob_flush() until there are no more buffers.  
+<br><br>root@# ./myscript.php<br>output_handler =&gt; ob_gzhandler<br><br>Apparently (acording to Richard Lynch):<br><br>&gt; TOO LATE!<br>&gt; The ob_start() has already kicked in by this point.<br>&gt; ob_flush() until there are no more buffers.  
 
 #
 
-set PHP_INI_PERDIR settings in a .htaccess file with &apos;php_flag&apos; like this:<br><br>php_flag register_globals off
-php_flag magic_quotes_gpc on?>
-```
-  
+set PHP_INI_PERDIR settings in a .htaccess file with &apos;php_flag&apos; like this:<br><br>php_flag register_globals off<br>php_flag magic_quotes_gpc on  
 
 #
 

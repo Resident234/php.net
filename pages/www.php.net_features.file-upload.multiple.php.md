@@ -10,7 +10,7 @@ When uploading multiple files, the $_FILES variable is created in the form:<br><
 function reArrayFiles(&amp;$file_post) {
 
     $file_ary = array();
-    $file_count = count($file_post[&apos;name&apos;]);
+    $file_count = count($file_post['name']);
     $file_keys = array_keys($file_post);
 
     for ($i=0; $i&lt;$file_count; $i++) {
@@ -33,13 +33,13 @@ Now I can do the following:
 ```
 <?php
 
-if ($_FILES[&apos;upload&apos;]) {
-    $file_ary = reArrayFiles($_FILES[&apos;ufile&apos;]);
+if ($_FILES['upload']) {
+    $file_ary = reArrayFiles($_FILES['ufile']);
 
     foreach ($file_ary as $file) {
-        print &apos;File Name: &apos; . $file[&apos;name&apos;];
-        print &apos;File Type: &apos; . $file[&apos;type&apos;];
-        print &apos;File Size: &apos; . $file[&apos;size&apos;];
+        print 'File Name: ' . $file['name'];
+        print 'File Type: ' . $file['type'];
+        print 'File Size: ' . $file['size'];
     }
 }
 
@@ -58,8 +58,8 @@ The cleanest way to rearrange the $_FILES<br><br>
 ```
 <?php
 function rearrange( $arr ){
-    foreach( $arr as $key =&gt; $all ){
-        foreach( $all as $i =&gt; $val ){
+    foreach( $arr as $key => $all ){
+        foreach( $all as $i => $val ){
             $new[$i][$key] = $val;    
         }    
     }

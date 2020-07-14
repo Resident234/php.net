@@ -21,16 +21,16 @@ class sample_class
 $a = new sample_class();
 $b = new sample_class();
 
-echo $a-&gt;func_having_static_var()."\n";
-echo $b-&gt;func_having_static_var()."\n";
+echo $a->func_having_static_var()."\n";
+echo $b->func_having_static_var()."\n";
 // this will output (as expected):
 //  0
 //  0
 
-$a-&gt;func_having_static_var(3);
+$a->func_having_static_var(3);
 
-echo $a-&gt;func_having_static_var()."\n";
-echo $b-&gt;func_having_static_var()."\n";
+echo $a->func_having_static_var()."\n";
+echo $b->func_having_static_var()."\n";
 // this will output:
 //  3
 //  3
@@ -42,9 +42,9 @@ echo $b-&gt;func_having_static_var()."\n";
 ```
 
 
-One could expect "3 0" to be outputted, as you might think that $a-&gt;func_having_static_var(3); only alters the value of the static $var of the function "in" $a - but as the name says, these are class-methods. Having an object is just a collection of properties, the functions remain at the class. So if you declare a variable as static inside a function, it&apos;s static for the whole class and all of its instances, not for each object.
+One could expect "3 0" to be outputted, as you might think that $a->func_having_static_var(3); only alters the value of the static $var of the function "in" $a - but as the name says, these are class-methods. Having an object is just a collection of properties, the functions remain at the class. So if you declare a variable as static inside a function, it's static for the whole class and all of its instances, not for each object.
 
-Maybe it&apos;s senseless to post that.. cause if you want to have the behaviour that I expected, you can simply use a variable of the object itself:
+Maybe it's senseless to post that.. cause if you want to have the behaviour that I expected, you can simply use a variable of the object itself:
 
 
 
@@ -53,7 +53,7 @@ Maybe it&apos;s senseless to post that.. cause if you want to have the behaviour
 class sample_class
 { protected $var = 0; 
   function func($x = NULL)
-  { $this-&gt;var = $x; }
+  { $this->var = $x; }
 } ?>
 ```
 <br><br>I believe that all normal-thinking people would never even try to make this work with the static-keyword, for those who try (like me), this note maybe helpfull.  
@@ -81,15 +81,15 @@ Please note for using global variable in child functions:<br><br>This won&apos;t
 ```
 <?php
 function foo(){
-    $f_a = &apos;a&apos;;
+    $f_a = 'a';
     
     function bar(){
         global $f_a;
-        echo &apos;"f_a" in BAR is: &apos; . $f_a . &apos;&lt;br /&gt;&apos;;  // doesn&apos;t work, var is empty!
+        echo '"f_a" in BAR is: ' . $f_a . '&lt;br /&gt;';  // doesn't work, var is empty!
     }
     
     bar();
-    echo &apos;"f_a" in FOO is: &apos; . $f_a . &apos;&lt;br /&gt;&apos;;
+    echo '"f_a" in FOO is: ' . $f_a . '&lt;br /&gt;';
 }
 ?>
 ```
@@ -103,15 +103,15 @@ This will...
 <?php
 function foo(){
     global $f_a;   // &lt;- Notice to this
-    $f_a = &apos;a&apos;;
+    $f_a = 'a';
     
     function bar(){
         global $f_a;
-        echo &apos;"f_a" in BAR is: &apos; . $f_a . &apos;&lt;br /&gt;&apos;;  // work!, var is &apos;a&apos;
+        echo '"f_a" in BAR is: ' . $f_a . '&lt;br /&gt;';  // work!, var is 'a'
     }
     
     bar();
-    echo &apos;"f_a" in FOO is: &apos; . $f_a . &apos;&lt;br /&gt;&apos;;
+    echo '"f_a" in FOO is: ' . $f_a . '&lt;br /&gt;';
 }
 ?>
 ```
@@ -134,10 +134,10 @@ class B extends A {}
 
 $a = new A();
 $b = new B();
-$a-&gt;Z();
-$a-&gt;Z();
-$b-&gt;Z();
-$a-&gt;Z();
+$a->Z();
+$a->Z();
+$b->Z();
+$a->Z();
 ?>
 ```
 <br><br>This code returns:<br><br>A: 1<br>A: 2<br>B: 1<br>A: 3<br><br>As you can see, class A and B are using different static variables even though the same function was being used.  
@@ -151,12 +151,12 @@ Took me longer than I expected to figure this out, and thought others might find
 //declare this before include
 global $myVar;
 //or declare this inside the include file
-$nowglobal = $GLOBALS[&apos;myVar&apos;];
+$nowglobal = $GLOBALS['myVar'];
 ?>
 ```
 
 
-But, to make this work in this situation (where a standard PHP file is included within a function, being called from another PHP script; where it is important to have access to whatever global variables there may be)... it is not practical to employ the above method for EVERY variable in every PHP file being included by &apos;safeinclude&apos;, nor is it practical to staticly name every possible variable in the "global $this" approach. (namely because the code is modulized, and &apos;safeinclude&apos; is meant to be generic)
+But, to make this work in this situation (where a standard PHP file is included within a function, being called from another PHP script; where it is important to have access to whatever global variables there may be)... it is not practical to employ the above method for EVERY variable in every PHP file being included by 'safeinclude', nor is it practical to staticly name every possible variable in the "global $this" approach. (namely because the code is modulized, and 'safeinclude' is meant to be generic)
 
 My solution: Thus, to make all my global variables available to the files included with my safeinclude function, I had to add the following code to my safeinclude function (before variables are used or file is included)
 
@@ -164,7 +164,7 @@ My solution: Thus, to make all my global variables available to the files includ
 
 ```
 <?php
-foreach ($GLOBALS as $key =&gt; $val) { global $key; }
+foreach ($GLOBALS as $key => $val) { global $key; }
 ?>
 ```
 
@@ -178,7 +178,7 @@ Thus, complete code looks something like the following (very basic model):
 function safeinclude($filename)
 {
     //This line takes all the global variables, and sets their scope within the function:
-    foreach ($GLOBALS as $key =&gt; $val) { global $key; }
+    foreach ($GLOBALS as $key => $val) { global $key; }
     /* Pre-Processing here: validate filename input, determine full path
         of file, check that file exists, etc. This is obviously not
         necessary, but steps I found useful. */
@@ -194,7 +194,39 @@ function safeinclude($filename)
 If you have a static variable in a method of a class, all DIRECT instances of that class share that one static variable.<br><br>However if you create a derived class, all DIRECT instances of that derived class will share one, but DISTINCT, copy of that static variable in method.<br><br>To put it the other way around, a static variable in a method is bound to a class (not to instance). Each subclass has own copy of that variable, to be shared among its instances.<br><br>To put it yet another way around, when you create a derived class, it &apos;seems  to&apos; create a copy of methods from the base class, and thusly create copy of the static variables in those methods.<br><br>Tested with PHP 7.0.16.<br><br>
 
 ```
-<?php<br><br>require &apos;libs.php&apos;;<br>require &apos;setup.php&apos;;<br><br>class Base {<br>    function test($delta = 0) {<br>        static $v = 0;<br>        $v += $delta;<br>        return $v;<br>    }<br>}<br><br>class Derived extends Base {}<br><br>$base1 = new Base();<br>$base2 = new Base();<br>$derived1 = new Derived();<br>$derived2 = new Derived();<br><br>$base1-&gt;test(3);<br>$base2-&gt;test(4);<br>$derived1-&gt;test(5);<br>$derived2-&gt;test(6);<br><br>var_dump([ $base1-&gt;test(), $base2-&gt;test(), $derived1-&gt;test(), $derived2-&gt;test() ]);<br><br># =&gt; array(4) { [0]=&gt; int(7) [1]=&gt; int(7) [2]=&gt; int(11) [3]=&gt; int(11) }<br><br># $base1 and $base2 share one copy of static variable $v<br># derived1 and $derived2 share another copy of static variable $v  
+<?php
+
+require 'libs.php';
+require 'setup.php';
+
+class Base {
+    function test($delta = 0) {
+        static $v = 0;
+        $v += $delta;
+        return $v;
+    }
+}
+
+class Derived extends Base {}
+
+$base1 = new Base();
+$base2 = new Base();
+$derived1 = new Derived();
+$derived2 = new Derived();
+
+$base1->test(3);
+$base2->test(4);
+$derived1->test(5);
+$derived2->test(6);
+
+var_dump([ $base1->test(), $base2->test(), $derived1->test(), $derived2->test() ]);
+
+# => array(4) { [0]=> int(7) [1]=> int(7) [2]=> int(11) [3]=> int(11) }
+
+# $base1 and $base2 share one copy of static variable $v
+# derived1 and $derived2 share another copy of static variable $v?>
+```
+  
 
 #
 
@@ -240,17 +272,17 @@ It will be obvious for most of you: changing value of a static in one instance c
 <?php
 
     class example {
-        public static $s = &apos;unchanged&apos;;
+        public static $s = 'unchanged';
         
         public function set() {
-            $this::$s = &apos;changed&apos;;
+            $this::$s = 'changed';
         }
     }
 
     $o = new example;
     $p = new example;
 
-    $o-&gt;set();
+    $o->set();
 
     print "$o static: {$o::$i}\n$p static: {$p::$i}";
 

@@ -9,7 +9,7 @@
 function stripslashes_deep($value)
 {
     $value = is_array($value) ?
-                array_map(&apos;stripslashes_deep&apos;, $value) :
+                array_map('stripslashes_deep', $value) :
                 stripslashes($value);
 
     return $value;
@@ -24,7 +24,7 @@ This gives:
 
 ```
 <?php
-if((function_exists("get_magic_quotes_gpc") &amp;&amp; get_magic_quotes_gpc())    || (ini_get(&apos;magic_quotes_sybase&apos;) &amp;&amp; (strtolower(ini_get(&apos;magic_quotes_sybase&apos;))!="off")) ){
+if((function_exists("get_magic_quotes_gpc") &amp;&amp; get_magic_quotes_gpc())    || (ini_get('magic_quotes_sybase') &amp;&amp; (strtolower(ini_get('magic_quotes_sybase'))!="off")) ){
     stripslashes_deep($_GET);
     stripslashes_deep($_POST);
     stripslashes_deep($_COOKIE);

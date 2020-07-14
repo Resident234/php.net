@@ -17,8 +17,8 @@ Another example of something to watch out for when using references with arrays.
 Produces:
     Array
     (
-    [0] =&gt; 1
-    [1] =&gt; 22    // var_dump() will show the &amp; here
+    [0] => 1
+    [1] => 22    // var_dump() will show the &amp; here
     )
 
 I fixed my bug by rewriting the code without references, but it can also be fixed with the unset() function:
@@ -46,7 +46,7 @@ A little gotcha (be careful with references!):<br><br>
 
 ```
 <?php
-$arr = array(&apos;a&apos;=&gt;&apos;first&apos;, &apos;b&apos;=&gt;&apos;second&apos;, &apos;c&apos;=&gt;&apos;third&apos;);
+$arr = array('a'=>'first', 'b'=>'second', 'c'=>'third');
 foreach ($arr as &amp;$a); // do nothing. maybe?
 foreach ($arr as $a);  // do nothing. maybe?
 print_r($arr);
@@ -56,7 +56,12 @@ print_r($arr);
 
 #
 
-Here is a good magazine article (PDF format) that explains the internals of PHP&apos;s reference mechanism in detail: http://derickrethans.nl/files/phparch-php-variables-article.pdf<br><br>It should explain some of the odd behavior PHP sometimes seems to exhibit, as well as why you can&apos;t create "references to references" (unlike in C++), and why you should never attempt to use references to speed up passing of large strings or arrays (it will make no difference, or it will slow things down).<br><br>It was written for PHP 4 but it still applies. The only difference is in how PHP 5 handles objects: passing object variables by value only copies an internal pointer to the object. Objects in PHP 5 are only ever duplicated if you explicitly use the clone keyword.  
+Here is a good magazine article (PDF format) that explains the internals of PHP&apos;s reference mechanism in detail: http://derickrethans.nl/files/phparch
+
+```
+<??>
+```
+variables-article.pdf<br><br>It should explain some of the odd behavior PHP sometimes seems to exhibit, as well as why you can&apos;t create "references to references" (unlike in C++), and why you should never attempt to use references to speed up passing of large strings or arrays (it will make no difference, or it will slow things down).<br><br>It was written for PHP 4 but it still applies. The only difference is in how PHP 5 handles objects: passing object variables by value only copies an internal pointer to the object. Objects in PHP 5 are only ever duplicated if you explicitly use the clone keyword.  
 
 #
 
@@ -64,18 +69,18 @@ in addition to what &apos;jw at jwscripts dot com&apos; wrote about unset; it ca
 
 ```
 <?php
-define(&apos;NL&apos;, "\r\n");
+define('NL', "\r\n");
 
-$v1 = &apos;shared&apos;;
+$v1 = 'shared';
 $v2 = &amp;$v1;
 $v3 = &amp;$v2;
 $v4 = &amp;$v3;
 
-echo &apos;before:&apos;.NL;
-echo &apos;v1=&apos; . $v1 . NL;
-echo &apos;v2=&apos; . $v2 . NL;
-echo &apos;v3=&apos; . $v3 . NL;
-echo &apos;v4=&apos; . $v4 . NL;
+echo 'before:'.NL;
+echo 'v1=' . $v1 . NL;
+echo 'v2=' . $v2 . NL;
+echo 'v3=' . $v3 . NL;
+echo 'v4=' . $v4 . NL;
 
 // detach messy
 $detach = $v1;
@@ -83,23 +88,23 @@ unset($v1);
 $v1 = $detach;
 
 // detach pretty, but slower
-eval(detach(&apos;$v2&apos;));
+eval(detach('$v2'));
 
-$v1 .= &apos;?&apos;;
-$v2 .= &apos; no more&apos;;
-$v3 .= &apos; sti&apos;;
-$v4 .= &apos;ll&apos;;
+$v1 .= '?';
+$v2 .= ' no more';
+$v3 .= ' sti';
+$v4 .= 'll';
 
-echo NL.&apos;after:&apos;.NL;
-echo &apos;v1=&apos; . $v1 . NL;
-echo &apos;v2=&apos; . $v2 . NL;
-echo &apos;v3=&apos; . $v3 . NL;
-echo &apos;v4=&apos; . $v4 . NL;
+echo NL.'after:'.NL;
+echo 'v1=' . $v1 . NL;
+echo 'v2=' . $v2 . NL;
+echo 'v3=' . $v3 . NL;
+echo 'v4=' . $v4 . NL;
 
 function detach($v) {
-    $e = &apos;$detach = &apos; . $v . &apos;;&apos;;
-    $e .= &apos;unset(&apos;.$v.&apos;);&apos;;
-    $e .= $v . &apos; = $detach;&apos;;
+    $e = '$detach = ' . $v . ';';
+    $e .= 'unset('.$v.');';
+    $e .= $v . ' = $detach;';
     return $e;
 }
 ?>

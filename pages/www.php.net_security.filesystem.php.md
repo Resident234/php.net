@@ -5,7 +5,22 @@
 (A) Better not to create files or folders with user-supplied names. If you do not validate enough, you can have trouble. Instead create files and folders with randomly generated names like fg3754jk3h and store the username and this file or folder name in a table named, say, user_objects. This will ensure that whatever the user may type, the command going to the shell will contain values from a specific set only and no mischief can be done.<br><br>(B) The same applies to commands executed based on an operation that the user chooses. Better not to allow any part of the user&apos;s input to go to the command that you will execute. Instead, keep a fixed set of commands and based on what the user has input, and run those only. <br><br>For example,<br>(A) Keep a table named, say, user_objects with values like:<br>username|chosen_name   |actual_name|file_or_dir<br>--------|--------------|-----------|-----------<br>jdoe    |trekphotos    |m5fg767h67 |D<br>jdoe    |notes.txt     |nm4b6jh756 |F<br>tim1997 |_imp_ folder  |45jkh64j56 |D<br><br>and always use the actual_name in the filesystem operations rather than the user supplied names.<br><br>(B)<br>
 
 ```
-<?php<br>$op = $_POST[&apos;op&apos;];//after a lot of validations <br>$dir = $_POST[&apos;dirname&apos;];//after a lot of validations or maybe you can use technique (A)<br>switch($op){<br>    case "cd":<br>        chdir($dir);<br>        break;<br>    case "rd":<br>        rmdir($dir);<br>        break;<br>    .....<br>    default:<br>        mail("webmaster@example.com", "Mischief", $_SERVER[&apos;REMOTE_ADDR&apos;]." is probably attempting an attack.");<br>}  
+<?php
+$op = $_POST['op'];//after a lot of validations 
+$dir = $_POST['dirname'];//after a lot of validations or maybe you can use technique (A)
+switch($op){
+    case "cd":
+        chdir($dir);
+        break;
+    case "rd":
+        rmdir($dir);
+        break;
+    .....
+    default:
+        mail("webmaster@example.com", "Mischief", $_SERVER['REMOTE_ADDR']." is probably attempting an attack.");
+}?>
+```
+  
 
 #
 

@@ -5,7 +5,150 @@
 Below three examples describe anonymous class with very simple and basic but quite understandable example<br><br>
 
 ```
-<?php<br>// First way - anonymous class assigned directly to variable<br>$ano_class_obj = new class{<br>    public $prop1 = &apos;hello&apos;;<br>    public $prop2 = 754;<br>    const SETT = &apos;some config&apos;;<br><br>    public function getValue()<br>    {<br>        // do some operation<br>        return &apos;some returned value&apos;;<br>    }<br><br>    public function getValueWithArgu($str)<br>    {<br>        // do some operation<br>        return &apos;returned value is &apos;.$str;<br>    }<br>};<br><br>echo "\n";<br><br>var_dump($ano_class_obj);<br>echo "\n";<br><br>echo $ano_class_obj-&gt;prop1;<br>echo "\n";<br><br>echo $ano_class_obj-&gt;prop2;<br>echo "\n";<br><br>echo $ano_class_obj::SETT;<br>echo "\n";<br><br>echo $ano_class_obj-&gt;getValue();<br>echo "\n";<br><br>echo $ano_class_obj-&gt;getValueWithArgu(&apos;OOP&apos;);<br>echo "\n";<br><br>echo "\n";<br><br>// Second way - anonymous class assigned to variable via defined function<br>$ano_class_obj_with_func = ano_func();<br><br>function ano_func()<br>{<br>    return new class {<br>        public $prop1 = &apos;hello&apos;;<br>        public $prop2 = 754;<br>        const SETT = &apos;some config&apos;;<br><br>        public function getValue()<br>        {<br>            // do some operation<br>            return &apos;some returned value&apos;;<br>        }<br><br>        public function getValueWithArgu($str)<br>        {<br>            // do some operation<br>            return &apos;returned value is &apos;.$str;<br>        }<br>    };<br>}<br><br>echo "\n";<br><br>var_dump($ano_class_obj_with_func);<br>echo "\n";<br><br>echo $ano_class_obj_with_func-&gt;prop1;<br>echo "\n";<br><br>echo $ano_class_obj_with_func-&gt;prop2;<br>echo "\n";<br><br>echo $ano_class_obj_with_func::SETT;<br>echo "\n";<br><br>echo $ano_class_obj_with_func-&gt;getValue();<br>echo "\n";<br><br>echo $ano_class_obj_with_func-&gt;getValueWithArgu(&apos;OOP&apos;);<br>echo "\n";<br><br>echo "\n";<br><br>// Third way - passing argument to anonymous class via constructors<br>$arg = 1; // we got it by some operation<br>$config = [2, false]; // we got it by some operation<br>$ano_class_obj_with_arg = ano_func_with_arg($arg, $config);<br><br>function ano_func_with_arg($arg, $config)<br>{<br>    return new class($arg, $config) {<br>        public $prop1 = &apos;hello&apos;;<br>        public $prop2 = 754;<br>        public $prop3, $config;<br>        const SETT = &apos;some config&apos;;<br><br>        public function __construct($arg, $config)<br>        {<br>            $this-&gt;prop3 = $arg;<br>            $this-&gt;config =$config;<br>        }<br><br>        public function getValue()<br>        {<br>            // do some operation<br>            return &apos;some returned value&apos;;<br>        }<br><br>        public function getValueWithArgu($str)<br>        {<br>            // do some operation<br>            return &apos;returned value is &apos;.$str;<br>        }<br>    };<br>}<br><br>echo "\n";<br><br>var_dump($ano_class_obj_with_arg);<br>echo "\n";<br><br>echo $ano_class_obj_with_arg-&gt;prop1;<br>echo "\n";<br><br>echo $ano_class_obj_with_arg-&gt;prop2;<br>echo "\n";<br><br>echo $ano_class_obj_with_arg::SETT;<br>echo "\n";<br><br>echo $ano_class_obj_with_arg-&gt;getValue();<br>echo "\n";<br><br>echo $ano_class_obj_with_arg-&gt;getValueWithArgu(&apos;OOP&apos;);<br>echo "\n";<br><br>echo "\n";  
+<?php
+// First way - anonymous class assigned directly to variable
+$ano_class_obj = new class{
+    public $prop1 = 'hello';
+    public $prop2 = 754;
+    const SETT = 'some config';
+
+    public function getValue()
+    {
+        // do some operation
+        return 'some returned value';
+    }
+
+    public function getValueWithArgu($str)
+    {
+        // do some operation
+        return 'returned value is '.$str;
+    }
+};
+
+echo "\n";
+
+var_dump($ano_class_obj);
+echo "\n";
+
+echo $ano_class_obj->prop1;
+echo "\n";
+
+echo $ano_class_obj->prop2;
+echo "\n";
+
+echo $ano_class_obj::SETT;
+echo "\n";
+
+echo $ano_class_obj->getValue();
+echo "\n";
+
+echo $ano_class_obj->getValueWithArgu('OOP');
+echo "\n";
+
+echo "\n";
+
+// Second way - anonymous class assigned to variable via defined function
+$ano_class_obj_with_func = ano_func();
+
+function ano_func()
+{
+    return new class {
+        public $prop1 = 'hello';
+        public $prop2 = 754;
+        const SETT = 'some config';
+
+        public function getValue()
+        {
+            // do some operation
+            return 'some returned value';
+        }
+
+        public function getValueWithArgu($str)
+        {
+            // do some operation
+            return 'returned value is '.$str;
+        }
+    };
+}
+
+echo "\n";
+
+var_dump($ano_class_obj_with_func);
+echo "\n";
+
+echo $ano_class_obj_with_func->prop1;
+echo "\n";
+
+echo $ano_class_obj_with_func->prop2;
+echo "\n";
+
+echo $ano_class_obj_with_func::SETT;
+echo "\n";
+
+echo $ano_class_obj_with_func->getValue();
+echo "\n";
+
+echo $ano_class_obj_with_func->getValueWithArgu('OOP');
+echo "\n";
+
+echo "\n";
+
+// Third way - passing argument to anonymous class via constructors
+$arg = 1; // we got it by some operation
+$config = [2, false]; // we got it by some operation
+$ano_class_obj_with_arg = ano_func_with_arg($arg, $config);
+
+function ano_func_with_arg($arg, $config)
+{
+    return new class($arg, $config) {
+        public $prop1 = 'hello';
+        public $prop2 = 754;
+        public $prop3, $config;
+        const SETT = 'some config';
+
+        public function __construct($arg, $config)
+        {
+            $this->prop3 = $arg;
+            $this->config =$config;
+        }
+
+        public function getValue()
+        {
+            // do some operation
+            return 'some returned value';
+        }
+
+        public function getValueWithArgu($str)
+        {
+            // do some operation
+            return 'returned value is '.$str;
+        }
+    };
+}
+
+echo "\n";
+
+var_dump($ano_class_obj_with_arg);
+echo "\n";
+
+echo $ano_class_obj_with_arg->prop1;
+echo "\n";
+
+echo $ano_class_obj_with_arg->prop2;
+echo "\n";
+
+echo $ano_class_obj_with_arg::SETT;
+echo "\n";
+
+echo $ano_class_obj_with_arg->getValue();
+echo "\n";
+
+echo $ano_class_obj_with_arg->getValueWithArgu('OOP');
+echo "\n";
+
+echo "\n";?>
+```
+  
 
 #
 
@@ -22,7 +165,7 @@ function return_anon(){
 $test=return_anon();
 echo $test::$str; //ouputs foo
 
-//we can still access the &apos;anon&apos; class directly in the global scope! 
+//we can still access the 'anon' class directly in the global scope! 
 $another=get_class($test); //get the auto assigned name
 echo $another::$str;    //outputs foo
 ?>
@@ -38,7 +181,7 @@ class I_named_this_one{
     public static $str="foo";
 }
 function return_not_anon(){
-    return &apos;I_named_this_one&apos;;
+    return 'I_named_this_one';
 }
 $clzz=return_not_anon();//get class name
 echo $clzz::$str;

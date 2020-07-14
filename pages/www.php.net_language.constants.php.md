@@ -7,16 +7,16 @@
 ```
 <?php
 
-define(&apos;MIN_VALUE&apos;, &apos;0.0&apos;);   // RIGHT - Works OUTSIDE of a class definition.
-define(&apos;MAX_VALUE&apos;, &apos;1.0&apos;);   // RIGHT - Works OUTSIDE of a class definition.
+define('MIN_VALUE', '0.0');   // RIGHT - Works OUTSIDE of a class definition.
+define('MAX_VALUE', '1.0');   // RIGHT - Works OUTSIDE of a class definition.
 
 //const MIN_VALUE = 0.0;         RIGHT - Works both INSIDE and OUTSIDE of a class definition.
 //const MAX_VALUE = 1.0;         RIGHT - Works both INSIDE and OUTSIDE of a class definition.
 
 class Constants
 {
-  //define(&apos;MIN_VALUE&apos;, &apos;0.0&apos;);  WRONG - Works OUTSIDE of a class definition.
-  //define(&apos;MAX_VALUE&apos;, &apos;1.0&apos;);  WRONG - Works OUTSIDE of a class definition.
+  //define('MIN_VALUE', '0.0');  WRONG - Works OUTSIDE of a class definition.
+  //define('MAX_VALUE', '1.0');  WRONG - Works OUTSIDE of a class definition.
 
   const MIN_VALUE = 0.0;      // RIGHT - Works INSIDE of a class definition.
   const MAX_VALUE = 1.0;      // RIGHT - Works INSIDE of a class definition.
@@ -98,15 +98,15 @@ I find using the concatenation operator helps disambiguate value assignments wit
 
 ```
 <?php
-define(&apos;LOCATOR&apos;,   "/locator");
-define(&apos;CLASSES&apos;,   LOCATOR."/code/classes");
-define(&apos;FUNCTIONS&apos;, LOCATOR."/code/functions");
-define(&apos;USERDIR&apos;,   LOCATOR."/user");
+define('LOCATOR',   "/locator");
+define('CLASSES',   LOCATOR."/code/classes");
+define('FUNCTIONS', LOCATOR."/code/functions");
+define('USERDIR',   LOCATOR."/user");
 ?>
 ```
 
 
-Later, I can use the same convention when invoking a constant&apos;s value for static constructs such as require() calls:
+Later, I can use the same convention when invoking a constant's value for static constructs such as require() calls:
 
 
 
@@ -124,7 +124,7 @@ as well as dynamic constructs, typical of value assignment to variables:
 
 ```
 <?php
-$userid  = randchar(8,&apos;anc&apos;,&apos;u&apos;);
+$userid  = randchar(8,'anc','u');
 $usermap = USERDIR."/".$userid.".png";
 ?>
 ```

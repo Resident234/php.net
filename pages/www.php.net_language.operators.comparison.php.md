@@ -69,9 +69,9 @@ I was interested about the following two uses of the ternary operator (PHP &gt;=
 
 ```
 <?php
-(isset($some_variable) &amp;&amp; $some_variable) ? $some_variable : &apos;default_value&apos;;
+(isset($some_variable) &amp;&amp; $some_variable) ? $some_variable : 'default_value';
 
-$some_variable ?: &apos;default_value&apos;;
+$some_variable ?: 'default_value';
 ?>
 ```
 <br><br>The second is more readable, but will throw an ERR_NOTICE is $some_variable is not set. Of course, this could be overcome by suppressing the notice using the @ operator.<br><br>Performance-wise, though, comparing 1 million iterations of the three statements<br><br>  (isset($foo) &amp;&amp; $foo) ? $foo : &apos;&apos;<br>  ($foo) ?: &apos;&apos;<br>  (@$foo) ?: &apos;&apos;<br><br>results in the following:<br><br>  $foo is NOT SET.<br>    [isset] 0.18222403526306<br>    [?:]    0.57496404647827<br>    [@ ?:]  0.64780592918396<br>  $foo is NULL.<br>    [isset] 0.17995285987854<br>    [?:]    0.15304207801819<br>    [@ ?:]  0.20394206047058<br>  $foo is FALSE.<br>    [isset] 0.19388508796692<br>    [?:]    0.15359902381897<br>    [@ ?:]  0.20741701126099<br>  $foo is TRUE.<br>    [isset] 0.17265486717224<br>    [?:]    0.11773896217346<br>    [@ ?:]  0.16193103790283<br><br>In other words, using the long-form ternary operator with isset($some_variable) is preferable overall if $some_variable may not be set.<br><br>(error_reporting was set to zero for the benchmark, to avoid printing a million notices...)  
@@ -82,7 +82,7 @@ Be careful when using the ternary operator!<br><br>The following will not evalua
 
 ```
 <?php
-echo "a string that has a " . (true) ? &apos;true&apos; : &apos;false&apos; . " condition in. ";
+echo "a string that has a " . (true) ? 'true' : 'false' . " condition in. ";
 ?>
 ```
 
@@ -95,7 +95,7 @@ Instead, use this:
 
 ```
 <?php
-echo "a string that has a " . ((true) ? &apos;true&apos; : &apos;false&apos;) . " condition in. ";
+echo "a string that has a " . ((true) ? 'true' : 'false') . " condition in. ";
 ?>
 ```
 <br><br>This will evaluate to the expected result: "a string that has a true condition in. "<br><br>I hope this helps.  
@@ -105,7 +105,20 @@ echo "a string that has a " . ((true) ? &apos;true&apos; : &apos;false&apos;) . 
 Be careful with the "==" operator when both operands are strings:<br>
 
 ```
-<?php<br>var_dump(&apos;123&apos; == &apos;       123&apos;); // true<br>var_dump(&apos;1e3&apos; == &apos;1000&apos;); // true<br>var_dump(&apos;+74951112233&apos; == &apos;74951112233&apos;); // true<br>var_dump(&apos;00000020&apos; == &apos;0000000000000000020&apos;); // true<br>var_dump(&apos;0X1D&apos; == &apos;29E0&apos;); // true<br>var_dump(&apos;0xafebac&apos; == &apos;11529132&apos;); // true<br>var_dump(&apos;0xafebac&apos; == &apos;0XAFEBAC&apos;); // true<br>var_dump(&apos;0xeb&apos; == &apos;+235e-0&apos;); // true<br>var_dump(&apos;0.235&apos; == &apos;+.235&apos;); // true<br>var_dump(&apos;0.2e-10&apos; == &apos;2.0E-11&apos;); // true<br>var_dump(&apos;61529519452809720693702583126814&apos; == &apos;61529519452809720000000000000000&apos;); // true in php &lt; 5.4.4  
+<?php
+var_dump('123' == '       123'); // true
+var_dump('1e3' == '1000'); // true
+var_dump('+74951112233' == '74951112233'); // true
+var_dump('00000020' == '0000000000000000020'); // true
+var_dump('0X1D' == '29E0'); // true
+var_dump('0xafebac' == '11529132'); // true
+var_dump('0xafebac' == '0XAFEBAC'); // true
+var_dump('0xeb' == '+235e-0'); // true
+var_dump('0.235' == '+.235'); // true
+var_dump('0.2e-10' == '2.0E-11'); // true
+var_dump('61529519452809720693702583126814' == '61529519452809720000000000000000'); // true in php &lt; 5.4.4?>
+```
+  
 
 #
 
@@ -125,7 +138,7 @@ function trinaryTest($foo){
                 : $foo &gt; 5
                     ? "greater than 5"
                     : "not worthy of consideration";    
-    echo $foo." =&gt;  ".$bar."\n";
+    echo $foo." =>  ".$bar."\n";
 }
 
 echo "----trinaryTest\n\n";
@@ -143,7 +156,7 @@ function trinaryTestParens($foo){
                 : ($foo &gt; 5
                     ? "greater than 5"
                     : "not worthy of consideration"));    
-    echo $foo." =&gt;  ".$bar."\n";
+    echo $foo." =>  ".$bar."\n";
 }
 
 echo "----trinaryTestParens\n\n";
@@ -162,18 +175,18 @@ if you want to use the ?: operator, you should be careful with the precedence.<b
 
 ```
 <?php
-echo &apos;Hello, &apos; . isset($i) ? &apos;my friend: &apos; . $username . &apos;, how are you doing?&apos; : &apos;my guest, &apos; . $guestusername . &apos;, please register&apos;;
+echo 'Hello, ' . isset($i) ? 'my friend: ' . $username . ', how are you doing?' : 'my guest, ' . $guestusername . ', please register';
 ?>
 ```
 
 
-This make "&apos;Hello, &apos; . isset($i)" the sentence to evaluate. So, if you think to mix more sentences with the ?: operator, please use always parentheses to force the proper evaluation of the sentence.
+This make "'Hello, ' . isset($i)" the sentence to evaluate. So, if you think to mix more sentences with the ?: operator, please use always parentheses to force the proper evaluation of the sentence.
 
 
 
 ```
 <?php
-echo &apos;Hello, &apos; . (isset($i) ? &apos;my friend: &apos; . $username . &apos;, how are you doing?&apos; : &apos;my guest, &apos; . $guestusername . &apos;, please register&apos;);
+echo 'Hello, ' . (isset($i) ? 'my friend: ' . $username . ', how are you doing?' : 'my guest, ' . $guestusername . ', please register');
 ?>
 ```
 <br><br>for general rule, if you mix ?: with other sentences, always close it with parentheses.  
@@ -188,23 +201,23 @@ For converted Perl programmers: use strict comparison operators (===, !==) in pl
 echo ("007" == "7" ? "EQUAL" : "not equal");
 // Prints: EQUAL
 
-// Surrounding the strings with single quotes (&apos;) instead of double
-// quotes (") to ensure the contents aren&apos;t evaluated, and forcing
+// Surrounding the strings with single quotes (') instead of double
+// quotes (") to ensure the contents aren't evaluated, and forcing
 // string types has no effect.
-echo ( (string)&apos;0001&apos; == (string)&apos;+1.&apos; ? "EQUAL" : "not equal");
+echo ( (string)'0001' == (string)'+1.' ? "EQUAL" : "not equal");
 // Prints: EQUAL
 
 // Including non-digit characters (like leading spaces, "e", the plus
 // or minus sign, period, ...) can still result in this behavior, if
 // a string happens to be valid scientific notation.
-echo (&apos;  131e-2&apos; == &apos;001.3100&apos; ? "EQUAL" : "not equal");
+echo ('  131e-2' == '001.3100' ? "EQUAL" : "not equal");
 // Prints: EQUAL
 
 ?>
 ```
 
 
-If you&apos;re comparing passwords (or anything else for which "near" precision isn&apos;t good enough) this confusion could be detrimental. Stick with strict comparisons...
+If you're comparing passwords (or anything else for which "near" precision isn't good enough) this confusion could be detrimental. Stick with strict comparisons...
 
 
 
@@ -216,10 +229,10 @@ If you&apos;re comparing passwords (or anything else for which "near" precision 
 echo ("007" === "7" ? "EQUAL" : "not equal");
 // Prints: not equal
 
-echo ( (string)&apos;0001&apos; === (string)&apos;+1.&apos; ? "EQUAL" : "not equal");
+echo ( (string)'0001' === (string)'+1.' ? "EQUAL" : "not equal");
 // Prints: not equal
 
-echo (&apos;  131e-2&apos; === &apos;001.3100&apos; ? "EQUAL" : "not equal");
+echo ('  131e-2' === '001.3100' ? "EQUAL" : "not equal");
 // Prints: not equal
 
 ?>
@@ -232,10 +245,10 @@ A quick way to do mysql bit comparison in php is to use the special character it
 
 ```
 <?php
-                                        if ($AvailableRequests[&apos;OngoingService&apos;] == &apos;&apos;)
-                                            echo &apos;&lt;td&gt;Yes&lt;/td&gt;&apos;;
+                                        if ($AvailableRequests['OngoingService'] == '')
+                                            echo '&lt;td&gt;Yes&lt;/td&gt;';
                                         else
-                                            echo &apos;&lt;td&gt;No&lt;/td&gt;&apos;;
+                                            echo '&lt;td&gt;No&lt;/td&gt;';
 
 ?>
 ```
@@ -282,13 +295,13 @@ function array_compare_recursive($a1, $a2)
     
    if (!count($a1) == count($a2)) 
       {
-       return FALSE; // arrays don&apos;t have same number of entries
+       return FALSE; // arrays don't have same number of entries
       }
       
-   foreach ($a1 as $key =&gt; $val) 
+   foreach ($a1 as $key => $val) 
    {
        if (!array_key_exists($key, $a2)) 
-           {return FALSE; // uncomparable array keys don&apos;t match
+           {return FALSE; // uncomparable array keys don't match
               } 
        elseif (is_array($val) and is_array($a2[$key]))  // if both entries are arrays then compare recursive 
            {if (!array_compare_recursive($val,$a2[$key])) return FALSE;
@@ -335,7 +348,7 @@ function array_equal($a, $b) {
 ```
 
 
-A related, but more strict problem, is if you need to ensure that two arrays contain the same key=&gt;value pairs, regardless of the order of the pairs.  In that case, use:
+A related, but more strict problem, is if you need to ensure that two arrays contain the same key=>value pairs, regardless of the order of the pairs.  In that case, use:
 
 
 
@@ -358,8 +371,8 @@ $b = array (1, 2);
 // true === array_equal($a, $b);
 // false === array_identical($a, $b);
 
-$a = array (&apos;a&apos; =&gt; 2, &apos;b&apos; =&gt; 1);
-$b = array (&apos;b&apos; =&gt; 1, &apos;a&apos; =&gt; 2);
+$a = array ('a' => 2, 'b' => 1);
+$b = array ('b' => 1, 'a' => 2);
 // true === array_identical($a, $b)
 // true === array_equal($a, $b)
 ?>
@@ -376,10 +389,10 @@ Note that typecasting will NOT prevent the default behavior for converting two n
 
 ```
 <?php
-if ((string) &apos;0123&apos; == (string) &apos;123&apos;)
-    print &apos;equals&apos;;
+if ((string) '0123' == (string) '123')
+    print 'equals';
 else
-    print &apos;doesn\&apos;t equal&apos;;
+    print 'doesn\'t equal';
 ?>
 ```
 <br><br>Still prints &apos;equals&apos;<br><br>As far as I can tell the only way to avoid this is to use the identity comparison operators (=== and !==).  
@@ -390,7 +403,7 @@ Note: The ternary shortcut currently seems to be of no use in dealing with unexi
 
 ```
 <?php
-$_POST[&apos;Unexisting&apos;] = $_POST[&apos;Unexisting&apos;] ?: false;
+$_POST['Unexisting'] = $_POST['Unexisting'] ?: false;
 ?>
 ```
 <br><br>PHP will throw an error that the "Unexisting" key does not exist. The @ operator does not work here to suppress this error.  
@@ -406,7 +419,7 @@ a function to help settings default values, it returns its own first non-empty a
  * Either Or
  *
  * usage:  $foo = eor(test1(),test2(),"default");
- * usage:  $foo = eor($_GET[&apos;foo&apos;], foogen(), $foo, "bar");
+ * usage:  $foo = eor($_GET['foo'], foogen(), $foo, "bar");
  */
 
 function eor() {
@@ -429,10 +442,10 @@ If you need nested ifs on I var its important to group the if so it works.<br>Ex
 ```
 <?php
 //Dont Works
-//Parse error: parse error, unexpected &apos;:&apos; 
- $var=&apos;&lt;option value="1" &apos;.$status == "1" ? &apos;selected="selected"&apos; :&apos;&apos;.&apos;&gt;Value 1&lt;/option&gt;&apos;;
+//Parse error: parse error, unexpected ':' 
+ $var='&lt;option value="1" '.$status == "1" ? 'selected="selected"' :''.'&gt;Value 1&lt;/option&gt;';
  //Works:
- $var=&apos;&lt;option value="1" &apos;.($status == "1" ? &apos;selected="selected"&apos; :&apos;&apos;).&apos;&gt;Value 1&lt;/option&gt;&apos;;
+ $var='&lt;option value="1" '.($status == "1" ? 'selected="selected"' :'').'&gt;Value 1&lt;/option&gt;';
 
 echo $var;
 ?>
@@ -466,7 +479,7 @@ $tally[$index] = isset($tally[$index])?$tally[$index]:0+1;
 # These three lines output:
 Array
 (
-    [1] =&gt; 1
+    [1] => 1
 )
 */
 

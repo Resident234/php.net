@@ -55,7 +55,7 @@ Note that because PHP processes the file before running it, any functions define
 
 ```
 <?php
-include &apos;b.php&apos;;
+include 'b.php';
 
 foo();
 ?>
@@ -70,7 +70,7 @@ b.php
 return;
 
 function foo() {
-     echo &apos;foo&apos;;
+     echo 'foo';
 }
 ?>
 ```

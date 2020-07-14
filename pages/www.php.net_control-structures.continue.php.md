@@ -9,14 +9,14 @@ The remark "in PHP the switch statement is considered a looping structure for th
 
     for( $i = 0; $i &lt; 3; ++ $i )
     {
-        echo &apos; [&apos;, $i, &apos;] &apos;;
+        echo ' [', $i, '] ';
         switch( $i )
         {
-            case 0: echo &apos;zero&apos;; break;
-            case 1: echo &apos;one&apos; ; XXXX;
-            case 2: echo &apos;two&apos; ; break;
+            case 0: echo 'zero'; break;
+            case 1: echo 'one' ; XXXX;
+            case 2: echo 'two' ; break;
         }
-        echo &apos; &lt;&apos; , $i, &apos;&gt; &apos;;
+        echo ' &lt;' , $i, '&gt; ';
     }
 
 ?>
@@ -29,12 +29,12 @@ Using continue and break:<br><br>
 
 ```
 <?php
-$stack = array(&apos;first&apos;, &apos;second&apos;, &apos;third&apos;, &apos;fourth&apos;, &apos;fifth&apos;);
+$stack = array('first', 'second', 'third', 'fourth', 'fifth');
 
 foreach($stack AS $v){
-    if($v == &apos;second&apos;)continue;
-    if($v == &apos;fourth&apos;)break;
-    echo $v.&apos;&lt;br&gt;&apos;;
+    if($v == 'second')continue;
+    if($v == 'fourth')break;
+    echo $v.'&lt;br&gt;';
 }
 /*
 
@@ -43,12 +43,12 @@ third
 
 */
 
-$stack2 = array(&apos;one&apos;=&gt;&apos;first&apos;, &apos;two&apos;=&gt;&apos;second&apos;, &apos;three&apos;=&gt;&apos;third&apos;, &apos;four&apos;=&gt;&apos;fourth&apos;, &apos;five&apos;=&gt;&apos;fifth&apos;);
-foreach($stack2 AS $k=&gt;$v){
-    if($v == &apos;second&apos;)continue;
-    if($k == &apos;three&apos;)continue;
-    if($v == &apos;fifth&apos;)break;
-    echo $k.&apos; ::: &apos;.$v.&apos;&lt;br&gt;&apos;;
+$stack2 = array('one'=>'first', 'two'=>'second', 'three'=>'third', 'four'=>'fourth', 'five'=>'fifth');
+foreach($stack2 AS $k=>$v){
+    if($v == 'second')continue;
+    if($k == 'three')continue;
+    if($v == 'fifth')break;
+    echo $k.' ::: '.$v.'&lt;br&gt;';
 }
 /*
 

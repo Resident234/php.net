@@ -12,8 +12,8 @@ You don&apos;t need exceptions to figure out if a class can be autoloaded. This 
 <?php
 //Define autoloader
 function __autoload($className) {
-      if (file_exists($className . &apos;.php&apos;)) {
-          require_once $className . &apos;.php&apos;;
+      if (file_exists($className . '.php')) {
+          require_once $className . '.php';
           return true;
       }
       return false;
@@ -31,14 +31,58 @@ function canClassBeAutloaded($className) {
 This is my autoloader for my PSR-4 clases. I prefer to use composer&apos;s autoloader, but this works for legacy projects that can&apos;t use composer.<br><br>
 
 ```
-<?php<br>/**<br> * Simple autoloader, so we don&apos;t need Composer just for this.<br> */<br>class Autoloader<br>{<br>    public static function register()<br>    {<br>        spl_autoload_register(function ($class) {<br>            $file = str_replace(&apos;\\&apos;, DIRECTORY_SEPARATOR, $class).&apos;.php&apos;;<br>            if (file_exists($file)) {<br>                require $file;<br>                return true;<br>            }<br>            return false;<br>        });<br>    }<br>}<br>Autoloader::register();  
+<?php
+/**
+ * Simple autoloader, so we don't need Composer just for this.
+ */
+class Autoloader
+{
+    public static function register()
+    {
+        spl_autoload_register(function ($class) {
+            $file = str_replace('\\', DIRECTORY_SEPARATOR, $class).'.php';
+            if (file_exists($file)) {
+                require $file;
+                return true;
+            }
+            return false;
+        });
+    }
+}
+Autoloader::register();?>
+```
+  
 
 #
 
 Andrew: 03-Nov-2006 12:26<br><br>That seems a bit messy to me, this is a bit neater:<br>
 
 ```
-<?php<br>    function __autoload($class_name) <br>    {<br>        //class directories<br>        $directorys = array(<br>            &apos;classes/&apos;,<br>            &apos;classes/otherclasses/&apos;,<br>            &apos;classes2/&apos;,<br>            &apos;module1/classes/&apos;<br>        );<br>        <br>        //for each directory<br>        foreach($directorys as $directory)<br>        {<br>            //see if the file exsists<br>            if(file_exists($directory.$class_name . &apos;.php&apos;))<br>            {<br>                require_once($directory.$class_name . &apos;.php&apos;);<br>                //only require the class once, so quit after to save effort (if you got more, then name them something else <br>                return;<br>            }            <br>        }<br>    }  
+<?php
+    function __autoload($class_name) 
+    {
+        //class directories
+        $directorys = array(
+            'classes/',
+            'classes/otherclasses/',
+            'classes2/',
+            'module1/classes/'
+        );
+        
+        //for each directory
+        foreach($directorys as $directory)
+        {
+            //see if the file exsists
+            if(file_exists($directory.$class_name . '.php'))
+            {
+                require_once($directory.$class_name . '.php');
+                //only require the class once, so quit after to save effort (if you got more, then name them something else 
+                return;
+            }            
+        }
+    }?>
+```
+  
 
 #
 
@@ -96,7 +140,7 @@ class ServiceLocator
         self::$locators[$key] = $locator;
     }
     /**
-     * Remove a locator that&apos;s been added
+     * Remove a locator that's been added
      * @param string key
      * @return bool
      */
@@ -124,11 +168,11 @@ class ServiceLocator
      */
     public function load($class)
     {
-        foreach (self::$locators as $key =&gt; $obj)
+        foreach (self::$locators as $key => $obj)
         {
-            if ($obj-&gt;canLocate($class))
+            if ($obj->canLocate($class))
             {
-                require_once $obj-&gt;getPath($class);
+                require_once $obj->getPath($class);
                 if (class_exists($class)) return;
             }
         }
@@ -145,7 +189,7 @@ class ServiceLocator
 function __autoload($class)
 {
     $locator = new ServiceLocator();
-    $locator-&gt;load($class);
+    $locator->load($class);
 }
 
 ?>
@@ -158,33 +202,33 @@ An example Use Case:
 ```
 <?php
 
-require &apos;ServiceLocator.php&apos;;
+require 'ServiceLocator.php';
 
 //Define some sort of service locator to attach...
 class PearLocator implements Locator
 {
-    protected $base = &apos;.&apos;;
+    protected $base = '.';
     
-    public function __construct($directory=&apos;.&apos;)
+    public function __construct($directory='.')
     {
-        $this-&gt;base = (string) $directory;
+        $this->base = (string) $directory;
     }
     
     public function canLocate($class)
     {
-        $path = $this-&gt;getPath($class);
+        $path = $this->getPath($class);
         if (file_exists($path)) return true;
         else return false;
     }
     
     public function getPath($class)
     {
-        return $this-&gt;base . &apos;/&apos; . str_replace(&apos;_&apos;, &apos;/&apos;, $class) . &apos;.php&apos;;
+        return $this->base . '/' . str_replace('_', '/', $class) . '.php';
     }
 }
 
 // ... attach it ...
-ServiceLocator::attachLocator(new PearLocator(), &apos;PEAR&apos;);
+ServiceLocator::attachLocator(new PearLocator(), 'PEAR');
 
 // ... and code away....
 $foo = new Foo_Test();
@@ -213,43 +257,43 @@ class autoloader {
 
     public function __construct()
     {
-        spl_autoload_register(array($this,&apos;model&apos;));
-        spl_autoload_register(array($this,&apos;helper&apos;));
-        spl_autoload_register(array($this,&apos;controller&apos;));
-        spl_autoload_register(array($this,&apos;library&apos;));
+        spl_autoload_register(array($this,'model'));
+        spl_autoload_register(array($this,'helper'));
+        spl_autoload_register(array($this,'controller'));
+        spl_autoload_register(array($this,'library'));
     }
 
     public function library($class)
     {
-        set_include_path(get_include_path().PATH_SEPARATOR.&apos;/lib/&apos;);
-        spl_autoload_extensions(&apos;.library.php&apos;);
+        set_include_path(get_include_path().PATH_SEPARATOR.'/lib/');
+        spl_autoload_extensions('.library.php');
         spl_autoload($class);
     }
 
     public function controller($class)
     {
-        $class = preg_replace(&apos;/_controller$/ui&apos;,&apos;&apos;,$class);
+        $class = preg_replace('/_controller$/ui','',$class);
         
-        set_include_path(get_include_path().PATH_SEPARATOR.&apos;/controller/&apos;);
-        spl_autoload_extensions(&apos;.controller.php&apos;);
+        set_include_path(get_include_path().PATH_SEPARATOR.'/controller/');
+        spl_autoload_extensions('.controller.php');
         spl_autoload($class);
     }
 
     public function model($class)
     {
-        $class = preg_replace(&apos;/_model$/ui&apos;,&apos;&apos;,$class);
+        $class = preg_replace('/_model$/ui','',$class);
         
-        set_include_path(get_include_path().PATH_SEPARATOR.&apos;/model/&apos;);
-        spl_autoload_extensions(&apos;.model.php&apos;);
+        set_include_path(get_include_path().PATH_SEPARATOR.'/model/');
+        spl_autoload_extensions('.model.php');
         spl_autoload($class);
     }
 
     public function helper($class)
     {
-        $class = preg_replace(&apos;/_helper$/ui&apos;,&apos;&apos;,$class);
+        $class = preg_replace('/_helper$/ui','',$class);
 
-        set_include_path(get_include_path().PATH_SEPARATOR.&apos;/helper/&apos;);
-        spl_autoload_extensions(&apos;.helper.php&apos;);
+        set_include_path(get_include_path().PATH_SEPARATOR.'/helper/');
+        spl_autoload_extensions('.helper.php');
         spl_autoload($class);
     }
 

@@ -9,7 +9,30 @@ As of PHP 5.4 $GLOBALS is now initialized just-in-time. This means there now is 
 Watch out when you are trying to set $GLOBALS to the local variable.<br><br>Even without reference operator "&amp;" your variable seems to be referenced to the $GLOBALS<br><br>You can test this behaviour using below code<br><br>
 
 ```
-<?php<br>/**<br> * Result:<br> * POST: B, Variable: C<br> * GLOBALS: C, Variable: C<br> */<br> <br>// Testing $_POST<br>$_POST[&apos;A&apos;] = &apos;B&apos;;<br> <br>$nonReferencedPostVar = $_POST;<br>$nonReferencedPostVar[&apos;A&apos;] = &apos;C&apos;;<br> <br>echo &apos;POST: &apos;.$_POST[&apos;A&apos;].&apos;, Variable: &apos;.$nonReferencedPostVar[&apos;A&apos;]."\n\n";<br> <br>// Testing Globals<br>$GLOBALS[&apos;A&apos;] = &apos;B&apos;;<br> <br>$nonReferencedGlobalsVar = $GLOBALS;<br>$nonReferencedGlobalsVar[&apos;A&apos;] = &apos;C&apos;;<br> <br>echo &apos;GLOBALS: &apos;.$GLOBALS[&apos;A&apos;].&apos;, Variable: &apos;.$nonReferencedGlobalsVar[&apos;A&apos;]."\n\n";  
+<?php
+/**
+ * Result:
+ * POST: B, Variable: C
+ * GLOBALS: C, Variable: C
+ */
+ 
+// Testing $_POST
+$_POST['A'] = 'B';
+ 
+$nonReferencedPostVar = $_POST;
+$nonReferencedPostVar['A'] = 'C';
+ 
+echo 'POST: '.$_POST['A'].', Variable: '.$nonReferencedPostVar['A']."\n\n";
+ 
+// Testing Globals
+$GLOBALS['A'] = 'B';
+ 
+$nonReferencedGlobalsVar = $GLOBALS;
+$nonReferencedGlobalsVar['A'] = 'C';
+ 
+echo 'GLOBALS: '.$GLOBALS['A'].', Variable: '.$nonReferencedGlobalsVar['A']."\n\n";?>
+```
+  
 
 #
 

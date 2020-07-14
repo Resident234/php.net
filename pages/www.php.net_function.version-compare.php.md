@@ -7,9 +7,9 @@
 ```
 <?php
 if (version_compare(phpversion(), "4.3.0", "&gt;=")) {
-  // you&apos;re on 4.3.0 or later
+  // you're on 4.3.0 or later
 } else {
-  // you&apos;re not
+  // you're not
 }
 ?>
 ```
@@ -27,7 +27,7 @@ function version_compare2($a, $b)
 {
     $a = explode(".", rtrim($a, ".0")); //Split version into pieces and remove trailing .0
     $b = explode(".", rtrim($b, ".0")); //Split version into pieces and remove trailing .0
-    foreach ($a as $depth =&gt; $aVal)
+    foreach ($a as $depth => $aVal)
     { //Iterate over each piece of A
         if (isset($b[$depth]))
         { //If B matches A to this depth, compare the values

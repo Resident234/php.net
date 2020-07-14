@@ -7,7 +7,7 @@ Creating New Session<br>==========================<br>
 ```
 <?php 
 session_start();
-/*session is started if you don&apos;t write this line can&apos;t use $_Session  global variable*/
+/*session is started if you don't write this line can't use $_Session  global variable*/
 $_SESSION["newsession"]=$value;
 ?>
 ```
@@ -19,7 +19,7 @@ Getting Session
 ```
 <?php 
 session_start();
-/*session is started if you don&apos;t write this line can&apos;t use $_Session  global variable*/
+/*session is started if you don't write this line can't use $_Session  global variable*/
 $_SESSION["newsession"]=$value;
 /*session created*/
 echo $_SESSION["newsession"];
@@ -34,7 +34,7 @@ Updating Session
 ```
 <?php 
 session_start();
-/*session is started if you don&apos;t write this line can&apos;t use $_Session  global variable*/
+/*session is started if you don't write this line can't use $_Session  global variable*/
 $_SESSION["newsession"]=$value;
 /*it is my new session*/
 $_SESSION["newsession"]=$updatedvalue;
@@ -49,13 +49,17 @@ Deleting Session
 ```
 <?php 
 session_start();
-/*session is started if you don&apos;t write this line can&apos;t use $_Session  global variable*/
+/*session is started if you don't write this line can't use $_Session  global variable*/
 $_SESSION["newsession"]=$value;
 unset($_SESSION["newsession"]);
-/*session deleted. if you try using this you&apos;ve got an error*/
+/*session deleted. if you try using this you've got an error*/
 ?>
 ```
-<br><br>Reference: http://gencbilgin.net/php-session-kullanimi.html  
+
+
+Reference: http://gencbilgin.net/?>
+```
+session-kullanimi.html  
 
 #
 
@@ -66,9 +70,9 @@ Please note that if you have register_globals to On, global variables associated
 
 session_start();
 
-$_SESSION[&apos;test&apos;] = 42;
+$_SESSION['test'] = 42;
 $test = 43;
-echo $_SESSION[&apos;test&apos;];
+echo $_SESSION['test'];
 
 ?>
 ```
@@ -83,9 +87,9 @@ The solution is to do this after each time you do a session_start() :
 ```
 <?php
 
-if (ini_get(&apos;register_globals&apos;))
+if (ini_get('register_globals'))
 {
-    foreach ($_SESSION as $key=&gt;$value)
+    foreach ($_SESSION as $key=>$value)
     {
         if (isset($GLOBALS[$key]))
             unset($GLOBALS[$key]);

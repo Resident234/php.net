@@ -9,9 +9,9 @@ Note if an invalid number of arguments are passed to a built-in function an Argu
 declare(strict_types = 1);
 
 try {
-    echo strlen(&apos;ahmed&apos;, 4);
+    echo strlen('ahmed', 4);
 } catch (ArgumentCountError $e) {
-    echo $e-&gt;getMessage()&apos;;
+    echo $e->getMessage()';
 }
 ?>
 ```

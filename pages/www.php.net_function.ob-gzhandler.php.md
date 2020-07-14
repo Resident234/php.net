@@ -9,7 +9,7 @@ I&apos;ve just spent 5 hours fighting a bug in my application and outcome is:<br
 // do not use
 ob_start("ob_gzhandler");
 // along with
-header(&apos;HTTP/1.1 304 Not Modified&apos;);
+header('HTTP/1.1 304 Not Modified');
 
 // or in the end use
 ob_end_clean();

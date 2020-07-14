@@ -7,26 +7,26 @@ This is an example of how to allow fopen() to overwrite a file on an FTP site. I
 ```
 <?php
 // The path to the FTP file, including login arguments
-$ftp_path = &apos;ftp://username:password@example.com/example.txt&apos;;
+$ftp_path = 'ftp://username:password@example.com/example.txt';
 
 // Allows overwriting of existing files on the remote FTP server
-$stream_options = array(&apos;ftp&apos; =&gt; array(&apos;overwrite&apos; =&gt; true));
+$stream_options = array('ftp' => array('overwrite' => true));
 
 // Creates a stream context resource with the defined options
 $stream_context = stream_context_create($stream_options);
 
 // Opens the file for writing and truncates it to zero length 
-if ($fh = fopen($ftp_path, &apos;w&apos;, 0, $stream_context))
+if ($fh = fopen($ftp_path, 'w', 0, $stream_context))
 {
     // Writes contents to the file
-    fputs($fh, &apos;example contents&apos;);
+    fputs($fh, 'example contents');
     
     // Closes the file handle
     fclose($fh);
 }
 else
 {
-    die(&apos;Could not open file.&apos;);
+    die('Could not open file.');
 }
 ?>
 ```

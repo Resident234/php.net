@@ -48,8 +48,8 @@ As of PHP 5.4, we can create stdClass objects with some properties and values us
 ```
 <?php
   $object = (object) [
-    &apos;propertyOne&apos; =&gt; &apos;foo&apos;,
-    &apos;propertyTwo&apos; =&gt; 42,
+    'propertyOne' => 'foo',
+    'propertyTwo' => 42,
   ];
 ?>
 ```
@@ -64,16 +64,16 @@ Here a new updated version of &apos;stdObject&apos; class. It&apos;s very useful
 class stdObject {
     public function __construct(array $arguments = array()) {
         if (!empty($arguments)) {
-            foreach ($arguments as $property =&gt; $argument) {
-                $this-&gt;{$property} = $argument;
+            foreach ($arguments as $property => $argument) {
+                $this->{$property} = $argument;
             }
         }
     }
 
     public function __call($method, $arguments) {
-        $arguments = array_merge(array("stdObject" =&gt; $this), $arguments); // Note: method argument 0 will always referred to the main class ($this).
-        if (isset($this-&gt;{$method}) &amp;&amp; is_callable($this-&gt;{$method})) {
-            return call_user_func_array($this-&gt;{$method}, $arguments);
+        $arguments = array_merge(array("stdObject" => $this), $arguments); // Note: method argument 0 will always referred to the main class ($this).
+        if (isset($this->{$method}) &amp;&amp; is_callable($this->{$method})) {
+            return call_user_func_array($this->{$method}, $arguments);
         } else {
             throw new Exception("Fatal error: Call to undefined method stdObject::{$method}()");
         }
@@ -83,42 +83,42 @@ class stdObject {
 // Usage.
 
 $obj = new stdObject();
-$obj-&gt;name = "Nick";
-$obj-&gt;surname = "Doe";
-$obj-&gt;age = 20;
-$obj-&gt;adresse = null;
+$obj->name = "Nick";
+$obj->surname = "Doe";
+$obj->age = 20;
+$obj->adresse = null;
 
-$obj-&gt;getInfo = function($stdObject) { // $stdObject referred to this object (stdObject).
-    echo $stdObject-&gt;name . " " . $stdObject-&gt;surname . " have " . $stdObject-&gt;age . " yrs old. And live in " . $stdObject-&gt;adresse;
+$obj->getInfo = function($stdObject) { // $stdObject referred to this object (stdObject).
+    echo $stdObject->name . " " . $stdObject->surname . " have " . $stdObject->age . " yrs old. And live in " . $stdObject->adresse;
 };
 
 $func = "setAge";
-$obj-&gt;{$func} = function($stdObject, $age) { // $age is the first parameter passed when calling this method.
-    $stdObject-&gt;age = $age;
+$obj->{$func} = function($stdObject, $age) { // $age is the first parameter passed when calling this method.
+    $stdObject->age = $age;
 };
 
-$obj-&gt;setAge(24); // Parameter value 24 is passing to the $age argument in method &apos;setAge()&apos;.
+$obj->setAge(24); // Parameter value 24 is passing to the $age argument in method 'setAge()'.
 
-// Create dynamic method. Here i&apos;m generating getter and setter dynimically
+// Create dynamic method. Here i'm generating getter and setter dynimically
 // Beware: Method name are case sensitive.
-foreach ($obj as $func_name =&gt; $value) {
+foreach ($obj as $func_name => $value) {
     if (!$value instanceOf Closure) {
 
-        $obj-&gt;{"set" . ucfirst($func_name)} = function($stdObject, $value) use ($func_name) {  // Note: you can also use keyword &apos;use&apos; to bind parent variables.
-            $stdObject-&gt;{$func_name} = $value;
+        $obj->{"set" . ucfirst($func_name)} = function($stdObject, $value) use ($func_name) {  // Note: you can also use keyword 'use' to bind parent variables.
+            $stdObject->{$func_name} = $value;
         };
 
-        $obj-&gt;{"get" . ucfirst($func_name)} = function($stdObject) use ($func_name) {  // Note: you can also use keyword &apos;use&apos; to bind parent variables.
-            return $stdObject-&gt;{$func_name};
+        $obj->{"get" . ucfirst($func_name)} = function($stdObject) use ($func_name) {  // Note: you can also use keyword 'use' to bind parent variables.
+            return $stdObject->{$func_name};
         };
 
     }
 }
 
-$obj-&gt;setName("John");
-$obj-&gt;setAdresse("Boston");
+$obj->setName("John");
+$obj->setAdresse("Boston");
 
-$obj-&gt;getInfo();
+$obj->getInfo();
 ?>
 ```
   
@@ -136,9 +136,9 @@ echo "&lt;pre&gt;";
 print_r($obj); //stdClass Object created by casting of array 
 
 $newobj = new stdClass();//create a new 
-$newobj-&gt;name = "India";
-$newobj-&gt;work = "Development";
-$newobj-&gt;address="patna";
+$newobj->name = "India";
+$newobj->work = "Development";
+$newobj->address="patna";
 
 $new = (array)$newobj;//convert stdClass to array
 echo "&lt;pre&gt;";
@@ -146,7 +146,7 @@ print_r($new); //print new object
 
 ##How deals with Associative Array
 
-$test = [Details=&gt;[&apos;name&apos;,&apos;roll number&apos;,&apos;college&apos;,&apos;mobile&apos;],values=&gt;[&apos;Naman Kumar&apos;,&apos;100790310868&apos;,&apos;Pune college&apos;,&apos;9988707202&apos;]];
+$test = [Details=>['name','roll number','college','mobile'],values=>['Naman Kumar','100790310868','Pune college','9988707202']];
 $val = json_decode(json_encode($test),false);//convert array into stdClass object
 
 echo "&lt;pre&gt;";
@@ -164,17 +164,17 @@ CAUTION:<br>"Arrays convert to an object with properties named by keys, and corr
 
 ```
 <?php
-$x = (object) array(&apos;a&apos;=&gt;&apos;A&apos;, &apos;b&apos;=&gt;&apos;B&apos;, &apos;C&apos;);
-echo &apos;&lt;pre&gt;&apos;.print_r($x, true).&apos;&lt;/pre&gt;&apos;;
+$x = (object) array('a'=>'A', 'b'=>'B', 'C');
+echo '&lt;pre&gt;'.print_r($x, true).'&lt;/pre&gt;';
 ?>
 ```
 
 works and displays:
 stdClass Object
 (
-    [a] =&gt; A
-    [b] =&gt; B
-    [0] =&gt; C
+    [a] => A
+    [b] => B
+    [0] => C
 )
 
 But this:
@@ -182,9 +182,9 @@ But this:
 
 ```
 <?php
-echo &apos;&lt;br /&gt;&apos;.$x-&gt;a;
-echo &apos;&lt;br /&gt;&apos;.$x-&gt;b;
-echo &apos;&lt;br /&gt;&apos;.$x-&gt;{0}; # (don&apos;t use $x-&gt;0, which is obviously a syntax error)
+echo '&lt;br /&gt;'.$x->a;
+echo '&lt;br /&gt;'.$x->b;
+echo '&lt;br /&gt;'.$x->{0}; # (don't use $x->0, which is obviously a syntax error)
 ?>
 ```
 <br>fails and displays:<br>A<br>B<br>Notice: Undefined property: stdClass::$0 in...  

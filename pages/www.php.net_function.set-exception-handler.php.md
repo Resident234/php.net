@@ -2,7 +2,9 @@
 
 
 
-Things you should be aware of:<br><br>An exception handler handles exceptions that were not caught before. It is the nature of an exception that it discontinues execution of your program - since it declares an exceptional situation in which the program cannot continue (except you catch it).<br><br>Since it has not been catched your code signals it is not being aware of the situation and cant go on.<br><br>This implies: returning to the script is simply impossible when the exception handler has already been called, since an uncaught exception is not a notice. use your own debug- or notice-log-system for things like that.<br><br>Furthermore: While is is still possible to call functions from your script, since the exception handler has already been called exceptions bubbling from that piece of code won&apos;t trigger the exception handler again. php will die without leaving any information apart form "uncaught exception with unknown stack frame". So if you call functions from your script, make sure that you catch any exceptions that possibly occur via try..catch inside the exception handler.<br><br>For those of you who misinterpreted the essential meaning of the exception handler: it&apos;s only use is to handle the abortion of your script gracefully, e.g. in a project like facebook or wikipedia: render a nice error page, eventually hiding information which shall not leak into the public (instead you may want to write to your log or mail the sys-admin or stuff like that).<br><br>In other words: Redirecting all php-errors form an error-handler using exceptions - including notices - is a very dumb idea, if you do not intend having your script aborted everytime you didn&apos;t set a variable (for example).<br><br>my 2 cents.  
+Things you should be aware of:<br><br>An exception handler handles exceptions that were not caught before. It is the nature of an exception that it discontinues execution of your program - since it declares an exceptional situation in which the program cannot continue (except you catch it).<br><br>Since it has not been catched your code signals it is not being aware of the situation and cant go on.<br><br>This implies: returning to the script is simply impossible when the exception handler has already been called, since an uncaught exception is not a notice. use your own debug- or notice-log-system for things like that.<br><br>Furthermore: While is is still possible to call functions from your script, since the exception handler has already been called exceptions bubbling from that piece of code won&apos;t trigger the exception handler again. php will die without leaving any information apart form "uncaught exception with unknown stack frame". So if you call functions from your script, make sure that you catch any exceptions that possibly occur via try..catch inside the exception handler.<br><br>For those of you who misinterpreted the essential meaning of the exception handler: it&apos;s only use is to handle the abortion of your script gracefully, e.g. in a project like facebook or wikipedia: render a nice error page, eventually hiding information which shall not leak into the public (instead you may want to write to your log or mail the sys-admin or stuff like that).<br><br>In other words: Redirecting all ?>
+```
+errors form an error-handler using exceptions - including notices - is a very dumb idea, if you do not intend having your script aborted everytime you didn&apos;t set a variable (for example).<br><br>my 2 cents.  
 
 #
 
@@ -12,12 +14,12 @@ If you want a class instance to handle the exception, this is how you do it :<br
 <?php
 class example {
    public function __construct() {
-       @set_exception_handler(array($this, &apos;exception_handler&apos;));
-       throw new Exception(&apos;DOH!!&apos;);
+       @set_exception_handler(array($this, 'exception_handler'));
+       throw new Exception('DOH!!');
    }
 
    public function exception_handler($exception) {
-       print "Exception Caught: ". $exception-&gt;getMessage() ."\n";
+       print "Exception Caught: ". $exception->getMessage() ."\n";
    }
 }
 

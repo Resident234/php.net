@@ -9,8 +9,8 @@ You can do pretty Javascript-like things with objects using closure binding:<br>
 trait DynamicDefinition {
     
     public function __call($name, $args) {
-        if (is_callable($this-&gt;$name)) {
-            return call_user_func($this-&gt;$name, $args);
+        if (is_callable($this->$name)) {
+            return call_user_func($this->$name, $args);
         }
         else {
             throw new \RuntimeException("Method {$name} does not exist");
@@ -18,24 +18,24 @@ trait DynamicDefinition {
     }
     
     public function __set($name, $value) {
-        $this-&gt;$name = is_callable($value)? 
-            $value-&gt;bindTo($this, $this): 
+        $this->$name = is_callable($value)? 
+            $value->bindTo($this, $this): 
             $value;
     }
 }
 
 class Foo {
     use DynamicDefinition;
-    private $privateValue = &apos;I am private&apos;;
+    private $privateValue = 'I am private';
 }
 
 $foo = new Foo;
-$foo-&gt;bar = function() {
-    return $this-&gt;privateValue;
+$foo->bar = function() {
+    return $this->privateValue;
 };
 
-// prints &apos;I am private&apos;
-print $foo-&gt;bar();
+// prints 'I am private'
+print $foo->bar();
 
 ?>
 ```
@@ -66,7 +66,7 @@ class Template{
             return ob_end_flush();
         };
 
-        $closure = $closure-&gt;bindTo($context, $context);
+        $closure = $closure->bindTo($context, $context);
         $closure($tpl);
 
     }
@@ -77,8 +77,8 @@ $art = new Article();
 $post = new Post();
 $template = new Template();
 
-$template-&gt;render($art, &apos;tpl.php&apos;);
-$template-&gt;render($post, &apos;tpl.php&apos;);
+$template->render($art, 'tpl.php');
+$template->render($post, 'tpl.php');
 ?>
 ```
 
@@ -89,7 +89,7 @@ tpl.php
 &lt;h1&gt;
 
 ```
-<?php echo $this-&gt;title;?>
+<?php echo $this->title;?>
 ```
 &lt;/h1&gt;  
 
@@ -98,7 +98,24 @@ tpl.php
 Private/protected members are accessible if you set the "newscope" argument (as the manual says).<br><br>
 
 ```
-<?php<br>$fn = function(){<br>    return ++$this-&gt;foo; // increase the value<br>};<br><br>class Bar{<br>    private $foo = 1; // initial value<br>}<br><br>$bar = new Bar();<br><br>$fn1 = $fn-&gt;bindTo($bar, &apos;Bar&apos;); // specify class name<br>$fn2 = $fn-&gt;bindTo($bar,  $bar); // or object<br><br>echo $fn1(); // 2<br>echo $fn2(); // 3  
+<?php
+$fn = function(){
+    return ++$this->foo; // increase the value
+};
+
+class Bar{
+    private $foo = 1; // initial value
+}
+
+$bar = new Bar();
+
+$fn1 = $fn->bindTo($bar, 'Bar'); // specify class name
+$fn2 = $fn->bindTo($bar,  $bar); // or object
+
+echo $fn1(); // 2
+echo $fn2(); // 3?>
+```
+  
 
 #
 

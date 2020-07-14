@@ -9,14 +9,47 @@ using of global namespaces and multiple namespaces in one PHP file increase the 
 
 
 ```
-<?php<br><br>// You cannot mix bracketed namespace declarations with unbracketed namespace declarations - will result in a Fatal error<br><br>namespace a;<br><br>echo "I belong to namespace a";<br><br>namespace b {<br>    echo "I&apos;m from namespace b";<br>}  
+<?php
+
+// You cannot mix bracketed namespace declarations with unbracketed namespace declarations - will result in a Fatal error
+
+namespace a;
+
+echo "I belong to namespace a";
+
+namespace b {
+    echo "I'm from namespace b";
+}?>
+```
+  
 
 #
 
 
 
 ```
-<?php<br>//Namespace can be used in this way also<br>namespace MyProject {<br><br>function connect() { echo "ONE";  }<br>    Sub\Level\connect();<br>}<br><br>namespace MyProject\Sub {<br>    <br>function connect() { echo "TWO";  }<br>    Level\connect();<br>}<br><br>namespace MyProject\Sub\Level {<br>    <br>    function connect() { echo "THREE";  }    <br>    \MyProject\Sub\Level\connect(); // OR we can use this as below<br>    connect();<br>}  
+<?php
+//Namespace can be used in this way also
+namespace MyProject {
+
+function connect() { echo "ONE";  }
+    Sub\Level\connect();
+}
+
+namespace MyProject\Sub {
+    
+function connect() { echo "TWO";  }
+    Level\connect();
+}
+
+namespace MyProject\Sub\Level {
+    
+    function connect() { echo "THREE";  }    
+    \MyProject\Sub\Level\connect(); // OR we can use this as below
+    connect();
+}?>
+```
+  
 
 #
 

@@ -41,7 +41,7 @@ case "physics": echo "You won the Nobel Prize in Physics!"; break;
 case "chemistry": echo "You won the Nobel Prize in Chemistry!"; break;
 case "medicine": echo "You won the Nobel Prize in Medicine!"; break;
 case "literature": echo "You won the Nobel Prize in Literature!"; break;
-default: echo "You bought a rusty iron medal from a shady guy who insists it&apos;s a Nobel Prize..."; break;
+default: echo "You bought a rusty iron medal from a shady guy who insists it's a Nobel Prize..."; break;
 }
 ?>
 ```
@@ -141,7 +141,7 @@ switch($string)
     case (string) 2:
         echo "this is 2";
         break;
-    case &apos;2string&apos;:
+    case '2string':
         echo "this is a string";
         break;
 }
@@ -167,7 +167,7 @@ switch($string)
     case 2:
         echo "this is 2";
         break;
-    case &apos;2string&apos;:
+    case '2string':
         echo "this is a string";
         break;
 }
@@ -182,19 +182,19 @@ Remember, that you also could use functions in a switch.<br>For example, if you 
 
 ```
 <?php
-$browserName = &apos;mozilla&apos;;
+$browserName = 'mozilla';
 switch ($browserName) {
-  case &apos;opera&apos;:
-    echo &apos;opera&apos;;
+  case 'opera':
+    echo 'opera';
   break;
   case (preg_match("/Mozilla( Firebird)?|phoenix/i", $browserName)?$browserName:!$browserName):
     echo "Mozilla or Mozilla Firebird";
   break;
-  case &apos;konqueror&apos;:
-    echo &apos;Konqueror&apos;;
+  case 'konqueror':
+    echo 'Konqueror';
   break;
   default:
-    echo &apos;Default&apos;;
+    echo 'Default';
   break;
 }
 ?>
@@ -207,16 +207,16 @@ or you could just use a regular expression for everything:
 
 ```
 <?php
-$uri = &apos;http://www.example.com&apos;;
+$uri = 'http://www.example.com';
 switch (true) {
   case preg_match("/$http(s)?/i", $uri, $matches):
-    echo $uri . &apos; is an http/https uri...&apos;;
+    echo $uri . ' is an http/https uri...';
   break;
   case preg_match("/$ftp(s)?/i", $uri, $matches):
-    echo $uri . &apos; is an ftp/ftps uri...&apos;;
+    echo $uri . ' is an ftp/ftps uri...';
   break;
   default:
-    echo &apos;default&apos;;
+    echo 'default';
   break;
 }
 ?>
@@ -279,7 +279,7 @@ for($i=0; $i&lt;8; ++$i)
 ?>
 ```
 
-Outputs what you&apos;d expect, namely
+Outputs what you'd expect, namely
 0       Thingy
 1       One
 2       Thingy

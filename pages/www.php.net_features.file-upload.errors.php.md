@@ -5,7 +5,20 @@
 Update to Adams old comment.<br><br>This is probably useful to someone.<br><br>
 
 ```
-<?php<br><br>$phpFileUploadErrors = array(<br>    0 =&gt; &apos;There is no error, the file uploaded with success&apos;,<br>    1 =&gt; &apos;The uploaded file exceeds the upload_max_filesize directive in php.ini&apos;,<br>    2 =&gt; &apos;The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form&apos;,<br>    3 =&gt; &apos;The uploaded file was only partially uploaded&apos;,<br>    4 =&gt; &apos;No file was uploaded&apos;,<br>    6 =&gt; &apos;Missing a temporary folder&apos;,<br>    7 =&gt; &apos;Failed to write file to disk.&apos;,<br>    8 =&gt; &apos;A PHP extension stopped the file upload.&apos;,<br>);  
+<?php
+
+$phpFileUploadErrors = array(
+    0 => 'There is no error, the file uploaded with success',
+    1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+    2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+    3 => 'The uploaded file was only partially uploaded',
+    4 => 'No file was uploaded',
+    6 => 'Missing a temporary folder',
+    7 => 'Failed to write file to disk.',
+    8 => 'A PHP extension stopped the file upload.',
+);?>
+```
+  
 
 #
 
@@ -17,7 +30,7 @@ Update to Adams old comment.<br><br>This is probably useful to someone.<br><br>
 class UploadException extends Exception
 {
     public function __construct($code) {
-        $message = $this-&gt;codeToMessage($code);
+        $message = $this->codeToMessage($code);
         parent::__construct($message, $code);
     }
 
@@ -55,10 +68,10 @@ class UploadException extends Exception
 }
 
 // Use
- if ($_FILES[&apos;file&apos;][&apos;error&apos;] === UPLOAD_ERR_OK) {
+ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
 //uploading successfully done
 } else {
-throw new UploadException($_FILES[&apos;file&apos;][&apos;error&apos;]);
+throw new UploadException($_FILES['file']['error']);
 }
 ?>
 ```
@@ -71,12 +84,12 @@ This is probably useful to someone.<br><br>
 ```
 <?php
 array(
-        0=&gt;"There is no error, the file uploaded with success", 
-        1=&gt;"The uploaded file exceeds the upload_max_filesize directive in php.ini", 
-        2=&gt;"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form"
-        3=&gt;"The uploaded file was only partially uploaded",
-        4=&gt;"No file was uploaded",
-        6=&gt;"Missing a temporary folder" 
+        0=>"There is no error, the file uploaded with success", 
+        1=>"The uploaded file exceeds the upload_max_filesize directive in php.ini", 
+        2=>"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form"
+        3=>"The uploaded file was only partially uploaded",
+        4=>"No file was uploaded",
+        6=>"Missing a temporary folder" 
 );
 ?>
 ```
@@ -92,7 +105,7 @@ One thing that is annoying is that the way these constant values are handled req
 
 ```
 <?php
-if($_FILES[&apos;userfile&apos;][&apos;error&apos;]) {
+if($_FILES['userfile']['error']) {
   // handle the error
 } else {
   // process
@@ -107,7 +120,7 @@ You have to do this:
 
 ```
 <?php
-if($_FILES[&apos;userfile&apos;][&apos;error&apos;]==0) {
+if($_FILES['userfile']['error']==0) {
   // process
 } else {
   // handle the error
@@ -116,7 +129,7 @@ if($_FILES[&apos;userfile&apos;][&apos;error&apos;]==0) {
 ```
 
 -----
-Also, ctype_digit fails, but is_int works.  If you&apos;re wondering... no, it doesn&apos;t make any sense.
+Also, ctype_digit fails, but is_int works.  If you're wondering... no, it doesn't make any sense.
 
 To Schoschie:
 
@@ -128,34 +141,34 @@ You ask the question:  Why make stuff complicated when you can make it easy?  I 
 ```
 <?php
 $error_types = array(
-1=&gt;&apos;The uploaded file exceeds the upload_max_filesize directive in php.ini.&apos;,
-&apos;The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.&apos;,
-&apos;The uploaded file was only partially uploaded.&apos;,
-&apos;No file was uploaded.&apos;,
-6=&gt;&apos;Missing a temporary folder.&apos;,
-&apos;Failed to write file to disk.&apos;,
-&apos;A PHP extension stopped the file upload.&apos;
+1=>'The uploaded file exceeds the upload_max_filesize directive in php.ini.',
+'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.',
+'The uploaded file was only partially uploaded.',
+'No file was uploaded.',
+6=>'Missing a temporary folder.',
+'Failed to write file to disk.',
+'A PHP extension stopped the file upload.'
 );
 
 // Outside a loop...
-if($_FILES[&apos;userfile&apos;][&apos;error&apos;]==0) {
+if($_FILES['userfile']['error']==0) {
   // process
 } else {
-  $error_message = $error_types[$_FILES[&apos;userfile&apos;][&apos;error&apos;]];
+  $error_message = $error_types[$_FILES['userfile']['error']];
   // do whatever with the error message
 }
 
 // In a loop...
-for($x=0,$y=count($_FILES[&apos;userfile&apos;][&apos;error&apos;]);$x&lt;$y;++$x) {
-  if($_FILES[&apos;userfile&apos;][&apos;error&apos;][$x]==0) {
+for($x=0,$y=count($_FILES['userfile']['error']);$x&lt;$y;++$x) {
+  if($_FILES['userfile']['error'][$x]==0) {
     // process
   } else {
-    $error_message = $error_types[$_FILES[&apos;userfile&apos;][&apos;error&apos;][$x]];
+    $error_message = $error_types[$_FILES['userfile']['error'][$x]];
     // Do whatever with the error message
   }
 }
 
-// When you&apos;re done... if you aren&apos;t doing all of this in a function that&apos;s about to end / complete all the processing and want to reclaim the memory
+// When you're done... if you aren't doing all of this in a function that's about to end / complete all the processing and want to reclaim the memory
 unset($error_types);
 ?>
 ```

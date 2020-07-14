@@ -8,7 +8,7 @@
 <?php
 
 // var_dump or anything else, as this will never be called because of the 0
-set_error_handler(&apos;var_dump&apos;, 0);
+set_error_handler('var_dump', 0);
 @$undef_var;
 restore_error_handler();
 
@@ -36,11 +36,11 @@ The error_get_last() function will give you the most recent error even when that
 ```
 <?php
 
-register_shutdown_function(&apos;handleFatalPhpError&apos;);
+register_shutdown_function('handleFatalPhpError');
 
 function handleFatalPhpError() {
    $last_error = error_get_last();
-   if($last_error[&apos;type&apos;] === E_ERROR) {
+   if($last_error['type'] === E_ERROR) {
       echo "Can do custom output and/or logging for fatal error here...";
    }
 }

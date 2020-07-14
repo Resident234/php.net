@@ -9,7 +9,7 @@ It&apos;s amazing how many people didn&apos;t grasp the concept here. Note the w
 Note that in PHP 7 
 
 ```
-<?php declare(encoding=&apos;...&apos;); ?>
+<?php declare(encoding='...'); ?>
 ```
  throws an E_WARNING if Zend Multibyte is turned off.  
 

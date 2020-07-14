@@ -56,12 +56,12 @@ Beware of certain control behavior with boolean and non boolean values :<br><br>
 <?php
 // Consider that the 0 could by any parameters including itself
 var_dump(0 == 1); // false
-var_dump(0 == (bool)&apos;all&apos;); // false
-var_dump(0 == &apos;all&apos;); // TRUE, take care
-var_dump(0 === &apos;all&apos;); // false
+var_dump(0 == (bool)'all'); // false
+var_dump(0 == 'all'); // TRUE, take care
+var_dump(0 === 'all'); // false
 
 // To avoid this behavior, you need to cast your parameter as string like that :
-var_dump((string)0 == &apos;all&apos;); // false
+var_dump((string)0 == 'all'); // false
 ?>
 ```
   
@@ -81,22 +81,16 @@ function remove_element($element, $array)
    return $array; 
 }
 
-// this will remove element &apos;A&apos;
-$array = [&apos;A&apos;, &apos;B&apos;, &apos;C&apos;];
-$array = remove_element(&apos;A&apos;, $array);
+// this will remove element 'A'
+$array = ['A', 'B', 'C'];
+$array = remove_element('A', $array);
 
-//but any non-existent element will also remove &apos;A&apos;!
-$array = [&apos;A&apos;, &apos;B&apos;, &apos;C&apos;];
-$array = remove_element(&apos;X&apos;, $array);
+//but any non-existent element will also remove 'A'!
+$array = ['A', 'B', 'C'];
+$array = remove_element('X', $array);
 ?>
 ```
-
-
-The problem here is, although array_search returns boolean false when it doesn&apos;t find specific element, it is interpreted as zero when used as array index.
-
-So you have to explicitly check for FALSE, otherwise you&apos;ll probably loose some elements:
-
-
+<br><br>The problem here is, although array_search returns boolean false when it doesn&apos;t find specific element, it is interpreted as zero when used as array index.<br><br>So you have to explicitly check for FALSE, otherwise you&apos;ll probably loose some elements:<br><br>
 
 ```
 <?php<br>//correct<br>function remove_element($element, $array)<br>{<br>   $index = array_search($element, $array);<br>   if ($index !== FALSE) <br>   {<br>       unset ($array[$index]);<br>   }<br>   return $array; <br>}  
@@ -151,14 +145,14 @@ Example:
 ```
 <?php
 $a = !array();      // This will === true;
-$a = !array(&apos;a&apos;);   // This will === false;
+$a = !array('a');   // This will === false;
 $s = !"";           // This will === true;
 $s = !"hello";      // This will === false;
 ?>
 ```
 
 
-To cast as if using a (bool) you can NOT the NOT with "!!" (double &apos;!&apos;), then you are casting to the correct (bool).
+To cast as if using a (bool) you can NOT the NOT with "!!" (double '!'), then you are casting to the correct (bool).
 
 Example:
 
@@ -171,7 +165,7 @@ $a = !!array();   // This will === false; (as expected)
 This can be a substitute for count($array) &gt; 0 or !(empty($array)) to check to see if an array is empty or not  (you would use: !!$array).
 */
 
-$status = (!!$array ? &apos;complete&apos; : &apos;incomplete&apos;);
+$status = (!!$array ? 'complete' : 'incomplete');
 
 $s = !!"testing"; // This will === true; (as expected)
 /* 

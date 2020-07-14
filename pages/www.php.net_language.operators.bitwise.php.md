@@ -15,24 +15,24 @@ abstract class BitwiseFlag
 
   /*
    * Note: these functions are protected to prevent outside code
-   * from falsely setting BITS. See how the extending class &apos;User&apos;
+   * from falsely setting BITS. See how the extending class 'User'
    * handles this.
    *
    */
   protected function isFlagSet($flag)
   {
-    return (($this-&gt;flags &amp; $flag) == $flag);
+    return (($this->flags &amp; $flag) == $flag);
   }
 
   protected function setFlag($flag, $value)
   {
     if($value)
     {
-      $this-&gt;flags |= $flag;
+      $this->flags |= $flag;
     }
     else
     {
-      $this-&gt;flags &amp;= ~$flag;
+      $this->flags &amp;= ~$flag;
     }
   }
 }
@@ -50,7 +50,7 @@ The class above is abstract and cannot be instantiated, so an extension is requi
 
 # User.php
 
-require(&apos;BitwiseFlag.php&apos;);
+require('BitwiseFlag.php');
 
 class User extends BitwiseFlag
 {
@@ -60,44 +60,44 @@ class User extends BitwiseFlag
   const FLAG_ADMIN = 8;      // BIT #4 of $flags has the value 8
 
   public function isRegistered(){
-    return $this-&gt;isFlagSet(self::FLAG_REGISTERED);
+    return $this->isFlagSet(self::FLAG_REGISTERED);
   }
 
   public function isActive(){
-    return $this-&gt;isFlagSet(self::FLAG_ACTIVE);
+    return $this->isFlagSet(self::FLAG_ACTIVE);
   }
 
   public function isMember(){
-    return $this-&gt;isFlagSet(self::FLAG_MEMBER);
+    return $this->isFlagSet(self::FLAG_MEMBER);
   }
 
   public function isAdmin(){
-    return $this-&gt;isFlagSet(self::FLAG_ADMIN);
+    return $this->isFlagSet(self::FLAG_ADMIN);
   }
 
   public function setRegistered($value){
-    $this-&gt;setFlag(self::FLAG_REGISTERED, $value);
+    $this->setFlag(self::FLAG_REGISTERED, $value);
   }
 
   public function setActive($value){
-    $this-&gt;setFlag(self::FLAG_ACTIVE, $value);
+    $this->setFlag(self::FLAG_ACTIVE, $value);
   }
 
   public function setMember($value){
-    $this-&gt;setFlag(self::FLAG_MEMBER, $value);
+    $this->setFlag(self::FLAG_MEMBER, $value);
   }
 
   public function setAdmin($value){
-    $this-&gt;setFlag(self::FLAG_ADMIN, $value);
+    $this->setFlag(self::FLAG_ADMIN, $value);
   }
 
   public function __toString(){
-    return &apos;User [&apos; .
-      ($this-&gt;isRegistered() ? &apos;REGISTERED&apos; : &apos;&apos;) .
-      ($this-&gt;isActive() ? &apos; ACTIVE&apos; : &apos;&apos;) .
-      ($this-&gt;isMember() ? &apos; MEMBER&apos; : &apos;&apos;) .
-      ($this-&gt;isAdmin() ? &apos; ADMIN&apos; : &apos;&apos;) .
-    &apos;]&apos;;
+    return 'User [' .
+      ($this->isRegistered() ? 'REGISTERED' : '') .
+      ($this->isActive() ? ' ACTIVE' : '') .
+      ($this->isMember() ? ' MEMBER' : '') .
+      ($this->isAdmin() ? ' ADMIN' : '') .
+    ']';
   }
 }
 
@@ -112,13 +112,13 @@ This seems like a lot of work, but we have addressed many issues, for example, u
 ```
 <?php
 
-require(&apos;User.php&apos;)
+require('User.php')
 
 $user = new User();
-$user-&gt;setRegistered(true);
-$user-&gt;setActive(true);
-$user-&gt;setMember(true);
-$user-&gt;setAdmin(true);
+$user->setRegistered(true);
+$user->setActive(true);
+$user->setMember(true);
+$user->setAdmin(true);
 
 echo $user;  // outputs: User [REGISTERED ACTIVE MEMBER ADMIN]
 
@@ -144,7 +144,7 @@ Initially, I found bitmasking to be a confusing concept and found no use for it.
     $ford          = $hasFourWheels | $hasDoors;
     $ferrari       = $hasFourWheels | $hasDoors | $hasRedColour;
 
-    $isBike        = $hasFourWheels &amp; $bike; # False, because $bike doens&apos;t have four wheels
+    $isBike        = $hasFourWheels &amp; $bike; # False, because $bike doens't have four wheels
     $isGolfBuggy   = $hasFourWheels &amp; $golfBuggy; # True, because $golfBuggy has four wheels
     $isFord        = $hasFourWheels &amp; $ford; # True, because $ford $hasFourWheels
 
@@ -203,7 +203,7 @@ A bitwise operators practical case :<br><br>
     $green = ($color &amp; 0x00FF00) &gt;&gt; 8 ;
     $blue = $color &amp; 0x0000FF ;
 
-    printf(&apos;Red : %X (%d), Green : %X (%d), Blue : %X (%d)&apos;,
+    printf('Red : %X (%d), Green : %X (%d), Blue : %X (%d)',
         $red, $red, $green, $green, $blue, $blue) ;
 
     // Will display...

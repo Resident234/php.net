@@ -7,7 +7,7 @@ The keyword &apos;use&apos; has two different applications, but the reserved wor
 ```
 <?php namespace foo;
   class Cat { 
-    static function says() {echo &apos;meoow&apos;;}  } ?>
+    static function says() {echo 'meoow';}  } ?>
 ```
 
 
@@ -17,7 +17,7 @@ file2:
 ```
 <?php namespace bar;
   class Dog {
-    static function says() {echo &apos;ruff&apos;;}  } ?>
+    static function says() {echo 'ruff';}  } ?>
 ```
 
 
@@ -27,7 +27,7 @@ file3:
 ```
 <?php namespace animate;
   class Animal {
-    static function breathes() {echo &apos;air&apos;;}  } ?>
+    static function breathes() {echo 'air';}  } ?>
 ```
 
 
@@ -36,9 +36,9 @@ file4:
 
 ```
 <?php namespace fub;
-  include &apos;file1.php&apos;;
-  include &apos;file2.php&apos;;
-  include &apos;file3.php&apos;;
+  include 'file1.php';
+  include 'file2.php';
+  include 'file3.php';
   use foo as feline;
   use bar as canine;
   use animate;
@@ -55,7 +55,7 @@ should be
 (and similar for the others)
 but this comment form deletes the backslash (why???) 
 
-The &apos;use&apos; keyword also applies to closure constructs:
+The 'use' keyword also applies to closure constructs:
 
 
 
@@ -85,7 +85,7 @@ Tested on PHP 7.0.5, Windows<br>The line "use animate;" equals the line "use ani
 ```
 <?php namespace foo;
   class Cat { 
-    static function says() {echo &apos;meoow&apos;;}  } ?>
+    static function says() {echo 'meoow';}  } ?>
 ```
 
 
@@ -95,7 +95,7 @@ file2:
 ```
 <?php namespace bar;
   class Dog {
-    static function says() {echo &apos;ruff&apos;;}  } ?>
+    static function says() {echo 'ruff';}  } ?>
 ```
 
 
@@ -105,7 +105,7 @@ file3:
 ```
 <?php namespace other\animate;
   class Animal {
-    static function breathes() {echo &apos;air&apos;;}  } ?>
+    static function breathes() {echo 'air';}  } ?>
 ```
 
 
@@ -114,9 +114,9 @@ file4:
 
 ```
 <?php namespace fub;
-  include &apos;file1.php&apos;;
-  include &apos;file2.php&apos;;
-  include &apos;file3.php&apos;;
+  include 'file1.php';
+  include 'file2.php';
+  include 'file3.php';
   use foo as feline;
   use bar as canine;
   use other\animate;       //use other\animate as animate;

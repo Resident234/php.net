@@ -6,7 +6,7 @@ Remember, when using require that it is a statement, not a function. It&apos;s n
 
 ```
 <?php
- require(&apos;somefile.php&apos;);
+ require('somefile.php');
 ?>
 ```
 
@@ -16,7 +16,7 @@ The following:
 
 ```
 <?php
-require &apos;somefile.php&apos;;
+require 'somefile.php';
 ?>
 ```
 <br><br>Is preferred, it will prevent your peers from giving you a hard time and a trivial conversation about what require really is.  

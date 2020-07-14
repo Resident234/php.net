@@ -37,10 +37,10 @@ echo "Time: ".($end - $start)." s\n";
 Conclusions:
 
 1. PHP is already smart about zero-copy / copy-on-write. A function call does NOT copy the data unless it needs to; the data is
-   only copied on write. That&apos;s why  #1 and #2 take similar times, whereas #3 takes 2 million times longer than #4.
+   only copied on write. That's why  #1 and #2 take similar times, whereas #3 takes 2 million times longer than #4.
    [You never need to use &amp;$array to ask the compiler to do a zero-copy optimisation; it can work that out for itself.]
 
-2. You do use &amp;$array  to tell the compiler "it is OK for the function to over-write my argument in place, I don&apos;t need the original
+2. You do use &amp;$array  to tell the compiler "it is OK for the function to over-write my argument in place, I don't need the original
    any more." This can make a huge difference to performance when we have large amounts of memory to copy.
    (This is the only way it is done in C, arrays are always passed as pointers)
 
@@ -48,13 +48,13 @@ Conclusions:
    (This is a C-like way of passing pointers for outputs, whereas PHP functions normally return complex types, or multiple answers
    in an array)
 
-4. It&apos;s  unhelpful that only the function definition has &amp;. The caller should have it, at least as syntactic sugar. Otherwise
-   it leads to unreadable code: because the person reading the function call doesn&apos;t expect it to pass by reference. At the moment,
-   it&apos;s necessary to write a by-reference function call with a comment, thus:
+4. It's  unhelpful that only the function definition has &amp;. The caller should have it, at least as syntactic sugar. Otherwise
+   it leads to unreadable code: because the person reading the function call doesn't expect it to pass by reference. At the moment,
+   it's necessary to write a by-reference function call with a comment, thus:
     $sum = sum($data,$max);  //warning, $data passed by reference, and may be modified.
 
-5. Sometimes, pass by reference could be at the choice of the caller, NOT the function definitition. PHP doesn&apos;t allow it, but it
-   would be meaningful for the caller to decide to pass data in as a reference. i.e. "I&apos;m done with the variable, it&apos;s OK to stomp
+5. Sometimes, pass by reference could be at the choice of the caller, NOT the function definitition. PHP doesn't allow it, but it
+   would be meaningful for the caller to decide to pass data in as a reference. i.e. "I'm done with the variable, it's OK to stomp
    on it in memory".
 */
 ?>
@@ -68,16 +68,16 @@ A function&apos;s argument that is an object, will have its properties modified 
 ```
 <?php
 $x = new stdClass();
-$x-&gt;prop = 1;
+$x->prop = 1;
 
 function f ( $o ) // Notice the absence of &amp;
 {
-  $o-&gt;prop ++;
+  $o->prop ++;
 }
 
 f($x);
 
-echo $x-&gt;prop; // shows: 2
+echo $x->prop; // shows: 2
 ?>
 ```
 
@@ -88,17 +88,17 @@ This is different for arrays:
 
 ```
 <?php
-$y = [ &apos;prop&apos; =&gt; 1 ];
+$y = [ 'prop' => 1 ];
 
 function g( $a )
 {
-  $a[&apos;prop&apos;] ++;
-  echo $a[&apos;prop&apos;];  // shows: 2
+  $a['prop'] ++;
+  echo $a['prop'];  // shows: 2
 }
 
 g($y);
 
-echo $y[&apos;prop&apos;];  // shows: 1
+echo $y['prop'];  // shows: 1
 ?>
 ```
   
@@ -125,7 +125,7 @@ The utility of the optional argument feature is thus somewhat diminished.  Suppo
 <?php
 function f( $x = 4 ) {echo $x . "\\n"; }
 
-// option 1: cut and paste the default value from f&apos;s interface into g&apos;s
+// option 1: cut and paste the default value from f's interface into g's
 function g( $x = 4 ) { f( $x ); f( $x ); }
 
 // option 2: branch based on input to g
@@ -136,7 +136,7 @@ function g( $x = null ) { if ( !isset( $x ) ) { f(); f() } else { f( $x ); f( $x
 
 Both options suck.
 
-The best approach, it seems to me, is to always use a sentinel like null as the default value of an optional argument.  This way, callers like g and g&apos;s clients have many options, and furthermore, callers always know how to omit arguments so they can omit one in the middle of the parameter list.
+The best approach, it seems to me, is to always use a sentinel like null as the default value of an optional argument.  This way, callers like g and g's clients have many options, and furthermore, callers always know how to omit arguments so they can omit one in the middle of the parameter list.
 
 
 

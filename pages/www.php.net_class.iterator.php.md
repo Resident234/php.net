@@ -6,16 +6,16 @@ Order of operations when using a foreach loop:<br><br>1. Before the first iterat
 
 ```
 <?php
-$it-&gt;rewind();
+$it->rewind();
 
-while ($it-&gt;valid())
+while ($it->valid())
 {
-    $key = $it-&gt;key();
-    $value = $it-&gt;current();
+    $key = $it->key();
+    $value = $it->current();
 
     // ...
 
-    $it-&gt;next();
+    $it->next();
 }
 ?>
 ```
@@ -43,22 +43,22 @@ class tIterator_array implements Iterator {
   private $myArray;
 
   public function __construct( $givenArray ) {
-    $this-&gt;myArray = $givenArray;
+    $this->myArray = $givenArray;
   }
   function rewind() {
-    return reset($this-&gt;myArray);
+    return reset($this->myArray);
   }
   function current() {
-    return current($this-&gt;myArray);
+    return current($this->myArray);
   }
   function key() {
-    return key($this-&gt;myArray);
+    return key($this->myArray);
   }
   function next() {
-    return next($this-&gt;myArray);
+    return next($this->myArray);
   }
   function valid() {
-    return key($this-&gt;myArray) !== null;
+    return key($this->myArray) !== null;
   }
 }
 
@@ -72,9 +72,9 @@ If you have a custom iterator that may throw an exception in it&apos;s current()
 
 ```
 <?php
-for ($iterator-&gt;rewind(); $iterator-&gt;valid(); $iterator-&gt;next()) {
+for ($iterator->rewind(); $iterator->valid(); $iterator->next()) {
     try {
-        $value = $iterator-&gt;current();
+        $value = $iterator->current();
     } catch (Exception $exception) {
         continue;
     }
@@ -93,20 +93,20 @@ It&apos;s important to note that following won&apos;t work if you have null valu
 <?php
     function valid() {
         var_dump(__METHOD__);
-        return isset($this-&gt;array[$this-&gt;position]);
+        return isset($this->array[$this->position]);
     }
 ?>
 ```
 
 
-Other examples have shown the following which won&apos;t work if you have false values:
+Other examples have shown the following which won't work if you have false values:
 
 
 
 ```
 <?php
     function valid() {
-        return $this-&gt;current() !== false;
+        return $this->current() !== false;
     }
 ?>
 ```
@@ -119,7 +119,7 @@ Instead use:
 ```
 <?php
     function valid() {
-        return array_key_exists($this-&gt;array, $this-&gt;position);
+        return array_key_exists($this->array, $this->position);
     }
 ?>
 ```
@@ -132,7 +132,7 @@ Or the following if you do not store the position.
 ```
 <?php
     public function valid() {
-        return !is_null(key($this-&gt;array));
+        return !is_null(key($this->array));
     }
 ?>
 ```

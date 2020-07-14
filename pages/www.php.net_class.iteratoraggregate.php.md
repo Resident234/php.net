@@ -16,24 +16,24 @@ class Collection implements IteratorAggregate
 
     public function __construct($items = [])
     {
-        $this-&gt;items = $items;
+        $this->items = $items;
     }
 
     public function getIterator()
     {
         return (function () {
-            while(list($key, $val) = each($this-&gt;items)) {
-                yield $key =&gt; $val;
+            while(list($key, $val) = each($this->items)) {
+                yield $key => $val;
             }
         })();
     }
 }
 
-$data = [ &apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos; ];
+$data = [ 'A', 'B', 'C', 'D' ];
 $collection = new Collection($data);
 
-foreach ($collection as $key =&gt; $val) {
-    echo sprintf("[%s] =&gt; %s\n", $key, $val);
+foreach ($collection as $key => $val) {
+    echo sprintf("[%s] => %s\n", $key, $val);
 }
 ?>
 ```
@@ -58,20 +58,20 @@ class myData implements IteratorAggregate {
         reset($data);
         while( list($k, $v) = each($data) ) {
             $type == self::TYPE_INDEXED ?
-            $this-&gt;array[] = $v :
-            $this-&gt;array[$k] = $v;
+            $this->array[] = $v :
+            $this->array[$k] = $v;
         }
     }
 
     public function getIterator() {
-        return new ArrayIterator($this-&gt;array);
+        return new ArrayIterator($this->array);
     }
 
 }
 
-$obj = new myData([&apos;one&apos;=&gt;&apos;php&apos;,&apos;javascript&apos;,&apos;three&apos;=&gt;&apos;c#&apos;,&apos;java&apos;,], /*TYPE 1 or 2*/ );
+$obj = new myData(['one'=>'php','javascript','three'=>'c#','java',], /*TYPE 1 or 2*/ );
 
-foreach($obj as $key =&gt; $value) {
+foreach($obj as $key => $value) {
     var_dump($key, $value);
     echo PHP_EOL;
 }

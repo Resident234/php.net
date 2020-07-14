@@ -9,12 +9,12 @@ A class constant, class property (static), and class function (static) can all s
 
 class A {
 
-    public static $B = &apos;1&apos;; # Static class variable.
+    public static $B = '1'; # Static class variable.
 
-    const B = &apos;2&apos;; # Class constant.
+    const B = '2'; # Class constant.
     
     public static function B() { # Static class function.
-        return &apos;3&apos;;
+        return '3';
     }
     
 }
@@ -41,30 +41,30 @@ Just found out that using the class name may also work to call similar function 
 
 class Anchestor {
    
-   public $Prefix = &apos;&apos;;
+   public $Prefix = '';
 
-   private $_string =  &apos;Bar&apos;;
+   private $_string =  'Bar';
     public function Foo() {
-        return $this-&gt;Prefix.$this-&gt;_string;
+        return $this->Prefix.$this->_string;
     }
 }
 
 class MyParent extends Anchestor {
     public function Foo() {
-         $this-&gt;Prefix = null;
-        return parent::Foo().&apos;Baz&apos;;
+         $this->Prefix = null;
+        return parent::Foo().'Baz';
     }
 }
 
 class Child extends MyParent {
     public function Foo() {
-        $this-&gt;Prefix = &apos;Foo&apos;;
+        $this->Prefix = 'Foo';
         return Anchestor::Foo();
     }
 }
 
 $c = new Child();
-echo $c-&gt;Foo(); //return FooBar, because Prefix, as in Anchestor::Foo()
+echo $c->Foo(); //return FooBar, because Prefix, as in Anchestor::Foo()
 
 ?>
 ```

@@ -11,9 +11,9 @@ class TestClass {
 }
 class Foo1 extends TestClass { }
 class Foo2 extends TestClass { }
-Foo1::$_bar = &apos;Hello&apos;;
-Foo2::$_bar = &apos;World&apos;;
-echo Foo1::$_bar . &apos; &apos; . Foo2::$_bar; // Prints: World World
+Foo1::$_bar = 'Hello';
+Foo2::$_bar = 'World';
+echo Foo1::$_bar . ' ' . Foo2::$_bar; // Prints: World World
 ?>
 ```
 
@@ -32,9 +32,9 @@ class Foo1 {
 class Foo2 {
     use TestTrait;
 }
-Foo1::$_bar = &apos;Hello&apos;;
-Foo2::$_bar = &apos;World&apos;;
-echo Foo1::$_bar . &apos; &apos; . Foo2::$_bar; // Prints: Hello World
+Foo1::$_bar = 'Hello';
+Foo2::$_bar = 'World';
+echo Foo1::$_bar . ' ' . Foo2::$_bar; // Prints: Hello World
 ?>
 ```
   
@@ -90,10 +90,10 @@ class World {
 }
 
 $a = new Hello;
-$a-&gt;whereAmI(); //Hello
+$a->whereAmI(); //Hello
 
 $b = new World;
-$b-&gt;whereAmI(); //World
+$b->whereAmI(); //World
 ?>
 ```
 <br><br>The magic constant __TRAIT__ will giev you the name of the trait  
@@ -103,7 +103,29 @@ $b-&gt;whereAmI(); //World
 add to "chris dot rutledge at gmail dot com":<br>__CLASS__ will return the name of the class in which the trait is being used (!) not the class in which trait method is being called:<br><br>
 
 ```
-<?php<br>trait TestTrait {<br>    public function testMethod() {<br>        echo "Class: " . __CLASS__ . PHP_EOL;<br>        echo "Trait: " . __TRAIT__ . PHP_EOL;<br>    }<br>}<br><br>class BaseClass {<br>    use TestTrait;<br>}<br><br>class TestClass extends BaseClass {<br><br>}<br><br>$t = new TestClass();<br>$t-&gt;testMethod();<br><br>//Class: BaseClass<br>//Trait: TestTrait  
+<?php
+trait TestTrait {
+    public function testMethod() {
+        echo "Class: " . __CLASS__ . PHP_EOL;
+        echo "Trait: " . __TRAIT__ . PHP_EOL;
+    }
+}
+
+class BaseClass {
+    use TestTrait;
+}
+
+class TestClass extends BaseClass {
+
+}
+
+$t = new TestClass();
+$t->testMethod();
+
+//Class: BaseClass
+//Trait: TestTrait?>
+```
+  
 
 #
 
@@ -161,7 +183,7 @@ trait MyTrait
 {
   protected function accessVar()
   {
-    return $this-&gt;var;
+    return $this->var;
   }
 
 }
@@ -170,16 +192,16 @@ class TraitUser
 {
   use MyTrait;
 
-  private $var = &apos;var&apos;;
+  private $var = 'var';
 
   public function getVar()
   {
-    return $this-&gt;accessVar();
+    return $this->accessVar();
   }
 }
 
 $t = new TraitUser();
-echo $t-&gt;getVar(); // -&gt; &apos;var&apos;                                                                                                                                                                                                                          
+echo $t->getVar(); // -> 'var'                                                                                                                                                                                                                          
 
 ?>
 ```
@@ -193,7 +215,7 @@ As already noted, static properties and methods in trait could be accessed direc
 <?php
 
 trait Beer {
-    protected static $type = &apos;Light&apos;;
+    protected static $type = 'Light';
     public static function printed(){
         echo static::$type.PHP_EOL;
     }
@@ -235,9 +257,9 @@ class TestClass {
 }
 class Foo1 extends TestClass { }
 class Foo2 extends TestClass { }
-Foo1::$_bar = &apos;Hello&apos;;
-Foo2::$_bar = &apos;World&apos;;
-echo Foo1::$_bar . &apos; &apos; . Foo2::$_bar; // Prints: World World
+Foo1::$_bar = 'Hello';
+Foo2::$_bar = 'World';
+echo Foo1::$_bar . ' ' . Foo2::$_bar; // Prints: World World
 ?>
 ```
 
@@ -256,15 +278,12 @@ class Foo1 {
 class Foo2 {
     use TestTrait;
 }
-Foo1::$_bar = &apos;Hello&apos;;
-Foo2::$_bar = &apos;World&apos;;
-echo Foo1::$_bar . &apos; &apos; . Foo2::$_bar; // Prints: Hello World
+Foo1::$_bar = 'Hello';
+Foo2::$_bar = 'World';
+echo Foo1::$_bar . ' ' . Foo2::$_bar; // Prints: Hello World
 ?>
 ```
-"
-
-shows a correct example, simply adding
-
+"<br><br>shows a correct example, simply adding<br>
 
 ```
 <?php<br>require_once(&apos;above&apos;);<br>class Foo3 extends Foo2 {<br>}<br>Foo3::$_bar = &apos;news&apos;;<br>echo Foo1::$_bar . &apos; &apos; . Foo2::$_bar . &apos; &apos; . Foo3::$_bar; <br><br>// Prints: Hello news news<br><br>I think the best conceptual model of an incorporated trait is an advanced insertion of text, or as someone put it "language assisted copy and paste." If Foo1 and Foo2 were defined with $_bar, you would not expect them to share the instance. Similarly, you would expect Foo3 to share with Foo2, and it does.<br><br>Viewing this way explains away a lot of  the &apos;quirks&apos; that are observed above with final, or subsequently declared private vars,  
@@ -277,7 +296,7 @@ Not very obvious but trait methods can be called as if they were defined as stat
 <?php
 trait Foo {
     function bar() {
-        return &apos;baz&apos;;
+        return 'baz';
     }
 }
 
@@ -295,7 +314,42 @@ Traits can not implement interfaces.<br>(should be obvious, but tested is tested
 
 
 ```
-<?php<br>trait A<br>{<br>    public function bar()<br>    {<br>        echo &apos;A::bar&apos;;<br>    }<br>}<br><br>trait B<br>{<br>    public function bar()<br>    {<br>        echo &apos;B::bar&apos;;<br>    }<br>}<br><br>trait C<br>{<br>    public function bar()<br>    {<br>        echo &apos;C::bar&apos;;<br>    }<br>}<br><br>class Foo<br>{<br>    use A, B, C {<br>        C::bar insteadof A, B;<br>    }<br>}<br><br>$foo = new Foo();<br>$foo-&gt;bar(); //C::bar  
+<?php
+trait A
+{
+    public function bar()
+    {
+        echo 'A::bar';
+    }
+}
+
+trait B
+{
+    public function bar()
+    {
+        echo 'B::bar';
+    }
+}
+
+trait C
+{
+    public function bar()
+    {
+        echo 'C::bar';
+    }
+}
+
+class Foo
+{
+    use A, B, C {
+        C::bar insteadof A, B;
+    }
+}
+
+$foo = new Foo();
+$foo->bar(); //C::bar?>
+```
+  
 
 #
 
@@ -315,7 +369,7 @@ class Foo{
 }
 
 $foo = new Foo();
-echo $foo-&gt;go(1,2,3,4); // echoes 4?>
+echo $foo->go(1,2,3,4); // echoes 4?>
 ```
   
 
@@ -324,7 +378,56 @@ echo $foo-&gt;go(1,2,3,4); // echoes 4?>
 Simple singleton trait.<br><br>
 
 ```
-<?php<br><br>trait singleton {    <br>    /**<br>     * private construct, generally defined by using class<br>     */<br>    //private function __construct() {}<br>    <br>    public static function getInstance() {<br>        static $_instance = NULL;<br>        $class = __CLASS__;<br>        return $_instance ?: $_instance = new $class;<br>    }<br>    <br>    public function __clone() {<br>        trigger_error(&apos;Cloning &apos;.__CLASS__.&apos; is not allowed.&apos;,E_USER_ERROR);<br>    }<br>    <br>    public function __wakeup() {<br>        trigger_error(&apos;Unserializing &apos;.__CLASS__.&apos; is not allowed.&apos;,E_USER_ERROR);<br>    }<br>}<br><br>/**<br> * Example Usage<br> */<br><br>class foo {<br>    use singleton;<br>    <br>    private function __construct() {<br>        $this-&gt;name = &apos;foo&apos;;<br>    }<br>}<br><br>class bar {<br>    use singleton;<br>    <br>    private function __construct() {<br>        $this-&gt;name = &apos;bar&apos;;<br>    }<br>}<br><br>$foo = foo::getInstance();<br>echo $foo-&gt;name;<br><br>$bar = bar::getInstance();<br>echo $bar-&gt;name;  
+<?php
+
+trait singleton {    
+    /**
+     * private construct, generally defined by using class
+     */
+    //private function __construct() {}
+    
+    public static function getInstance() {
+        static $_instance = NULL;
+        $class = __CLASS__;
+        return $_instance ?: $_instance = new $class;
+    }
+    
+    public function __clone() {
+        trigger_error('Cloning '.__CLASS__.' is not allowed.',E_USER_ERROR);
+    }
+    
+    public function __wakeup() {
+        trigger_error('Unserializing '.__CLASS__.' is not allowed.',E_USER_ERROR);
+    }
+}
+
+/**
+ * Example Usage
+ */
+
+class foo {
+    use singleton;
+    
+    private function __construct() {
+        $this->name = 'foo';
+    }
+}
+
+class bar {
+    use singleton;
+    
+    private function __construct() {
+        $this->name = 'bar';
+    }
+}
+
+$foo = foo::getInstance();
+echo $foo->name;
+
+$bar = bar::getInstance();
+echo $bar->name;?>
+```
+  
 
 #
 
@@ -340,24 +443,24 @@ Note that you can omit a method&apos;s inclusion by excluding it from one trait 
 trait A {
     public function sayHello()
     {
-        echo &apos;Hello from A&apos;;
+        echo 'Hello from A';
     }
 
     public function sayWorld()
     {
-        echo &apos;World from A&apos;;
+        echo 'World from A';
     }
 }
 
 trait B {
     public function sayHello()
     {
-        echo &apos;Hello from B&apos;;
+        echo 'Hello from B';
     }
 
     public function sayWorld()
     {
-        echo &apos;World from B&apos;;
+        echo 'World from B';
     }
 }
 
@@ -370,8 +473,8 @@ class Talker {
 }
 
 $talker = new Talker();
-$talker-&gt;sayHello();
-$talker-&gt;sayWorld();
+$talker->sayHello();
+$talker->sayWorld();
 
 ?>
 ```
@@ -476,28 +579,28 @@ Traits are useful for strategies, when you want the same data to be handled (fil
 trait SortStrategy {
     private $sort_field = null;
     private function string_asc($item1, $item2) {
-        return strnatcmp($item1[$this-&gt;sort_field], $item2[$this-&gt;sort_field]);
+        return strnatcmp($item1[$this->sort_field], $item2[$this->sort_field]);
     }
     private function string_desc($item1, $item2) {
-        return strnatcmp($item2[$this-&gt;sort_field], $item1[$this-&gt;sort_field]);
+        return strnatcmp($item2[$this->sort_field], $item1[$this->sort_field]);
     }
     private function num_asc($item1, $item2) {
-        if ($item1[$this-&gt;sort_field] == $item2[$this-&gt;sort_field]) return 0;
-        return ($item1[$this-&gt;sort_field] &lt; $item2[$this-&gt;sort_field] ? -1 : 1 );
+        if ($item1[$this->sort_field] == $item2[$this->sort_field]) return 0;
+        return ($item1[$this->sort_field] &lt; $item2[$this->sort_field] ? -1 : 1 );
     }
     private function num_desc($item1, $item2) {
-        if ($item1[$this-&gt;sort_field] == $item2[$this-&gt;sort_field]) return 0;
-        return ($item1[$this-&gt;sort_field] &gt; $item2[$this-&gt;sort_field] ? -1 : 1 );
+        if ($item1[$this->sort_field] == $item2[$this->sort_field]) return 0;
+        return ($item1[$this->sort_field] &gt; $item2[$this->sort_field] ? -1 : 1 );
     }
     private function date_asc($item1, $item2) {
-        $date1 = intval(str_replace(&apos;-&apos;, &apos;&apos;, $item1[$this-&gt;sort_field]));
-        $date2 = intval(str_replace(&apos;-&apos;, &apos;&apos;, $item2[$this-&gt;sort_field]));
+        $date1 = intval(str_replace('-', '', $item1[$this->sort_field]));
+        $date2 = intval(str_replace('-', '', $item2[$this->sort_field]));
         if ($date1 == $date2) return 0;
         return ($date1 &lt; $date2 ? -1 : 1 );
     }
     private function date_desc($item1, $item2) {
-        $date1 = intval(str_replace(&apos;-&apos;, &apos;&apos;, $item1[$this-&gt;sort_field]));
-        $date2 = intval(str_replace(&apos;-&apos;, &apos;&apos;, $item2[$this-&gt;sort_field]));
+        $date1 = intval(str_replace('-', '', $item1[$this->sort_field]));
+        $date2 = intval(str_replace('-', '', $item2[$this->sort_field]));
         if ($date1 == $date2) return 0;
         return ($date1 &gt; $date2 ? -1 : 1 );
     }
@@ -510,37 +613,37 @@ class Product {
     
     public function get() {
         // do something to get the data, for this ex. I just included an array
-        $this-&gt;data = array(
-            101222 =&gt; array(&apos;label&apos; =&gt; &apos;Awesome product&apos;, &apos;price&apos; =&gt; 10.50, &apos;date_added&apos; =&gt; &apos;2012-02-01&apos;),
-            101232 =&gt; array(&apos;label&apos; =&gt; &apos;Not so awesome product&apos;, &apos;price&apos; =&gt; 5.20, &apos;date_added&apos; =&gt; &apos;2012-03-20&apos;),
-            101241 =&gt; array(&apos;label&apos; =&gt; &apos;Pretty neat product&apos;, &apos;price&apos; =&gt; 9.65, &apos;date_added&apos; =&gt; &apos;2012-04-15&apos;),
-            101256 =&gt; array(&apos;label&apos; =&gt; &apos;Freakishly cool product&apos;, &apos;price&apos; =&gt; 12.55, &apos;date_added&apos; =&gt; &apos;2012-01-11&apos;),
-            101219 =&gt; array(&apos;label&apos; =&gt; &apos;Meh product&apos;, &apos;price&apos; =&gt; 3.69, &apos;date_added&apos; =&gt; &apos;2012-06-11&apos;),
+        $this->data = array(
+            101222 => array('label' => 'Awesome product', 'price' => 10.50, 'date_added' => '2012-02-01'),
+            101232 => array('label' => 'Not so awesome product', 'price' => 5.20, 'date_added' => '2012-03-20'),
+            101241 => array('label' => 'Pretty neat product', 'price' => 9.65, 'date_added' => '2012-04-15'),
+            101256 => array('label' => 'Freakishly cool product', 'price' => 12.55, 'date_added' => '2012-01-11'),
+            101219 => array('label' => 'Meh product', 'price' => 3.69, 'date_added' => '2012-06-11'),
         );
     }
     
-    public function sort_by($by = &apos;price&apos;, $type = &apos;asc&apos;) {
-        if (!preg_match(&apos;/^(asc|desc)$/&apos;, $type)) $type = &apos;asc&apos;;
+    public function sort_by($by = 'price', $type = 'asc') {
+        if (!preg_match('/^(asc|desc)$/', $type)) $type = 'asc';
         switch ($by) {
-            case &apos;name&apos;:
-                $this-&gt;sort_field = &apos;label&apos;;
-                uasort($this-&gt;data, array(&apos;Product&apos;, &apos;string_&apos;.$type));
+            case 'name':
+                $this->sort_field = 'label';
+                uasort($this->data, array('Product', 'string_'.$type));
             break;
-            case &apos;date&apos;:
-                $this-&gt;sort_field = &apos;date_added&apos;;
-                uasort($this-&gt;data, array(&apos;Product&apos;, &apos;date_&apos;.$type));
+            case 'date':
+                $this->sort_field = 'date_added';
+                uasort($this->data, array('Product', 'date_'.$type));
             break;
             default:
-                $this-&gt;sort_field = &apos;price&apos;;
-                uasort($this-&gt;data, array(&apos;Product&apos;, &apos;num_&apos;.$type));
+                $this->sort_field = 'price';
+                uasort($this->data, array('Product', 'num_'.$type));
         }
     }
 }
 
 $product = new Product();
-$product-&gt;get();
-$product-&gt;sort_by(&apos;name&apos;);
-echo &apos;&lt;pre&gt;&apos;.print_r($product-&gt;data, true).&apos;&lt;/pre&gt;&apos;;
+$product->get();
+$product->sort_by('name');
+echo '&lt;pre&gt;'.print_r($product->data, true).'&lt;/pre&gt;';
 ?>
 ```
   

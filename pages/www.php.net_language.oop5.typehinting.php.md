@@ -7,17 +7,17 @@ People often ask about scalar/basic typehints.  Here is a drop in class that I u
 ```
 <?php
 
-define(&apos;TYPEHINT_PCRE&apos;              ,&apos;/^Argument (\d)+ passed to (?:(\w+)::)?(\w+)\(\) must be an instance of (\w+), (\w+) given/&apos;);
+define('TYPEHINT_PCRE'              ,'/^Argument (\d)+ passed to (?:(\w+)::)?(\w+)\(\) must be an instance of (\w+), (\w+) given/');
 
 class Typehint
 {
 
     private static $Typehints = array(
-        &apos;boolean&apos;   =&gt; &apos;is_bool&apos;,
-        &apos;integer&apos;   =&gt; &apos;is_int&apos;,
-        &apos;float&apos;     =&gt; &apos;is_float&apos;,
-        &apos;string&apos;    =&gt; &apos;is_string&apos;,
-        &apos;resrouce&apos;  =&gt; &apos;is_resource&apos;
+        'boolean'   => 'is_bool',
+        'integer'   => 'is_int',
+        'float'     => 'is_float',
+        'string'    => 'is_string',
+        'resrouce'  => 'is_resource'
     );
 
     private function __Constrct() {}
@@ -25,7 +25,7 @@ class Typehint
     public static function initializeHandler()
     {
 
-        set_error_handler(&apos;Typehint::handleTypehint&apos;);
+        set_error_handler('Typehint::handleTypehint');
 
         return TRUE;
     }
@@ -37,10 +37,10 @@ class Typehint
         {
 
             // Match the function; Note we could do more defensive error checking.
-            if (isset($ThTrace[&apos;function&apos;]) &amp;&amp; $ThTrace[&apos;function&apos;] == $ThFunction)
+            if (isset($ThTrace['function']) &amp;&amp; $ThTrace['function'] == $ThFunction)
             {
 
-                $ThArgValue = $ThTrace[&apos;args&apos;][$ThArgIndex - 1];
+                $ThArgValue = $ThTrace['args'][$ThArgIndex - 1];
 
                 return TRUE;
             }
@@ -115,17 +115,17 @@ The scalar type hinting solutions are all overthinking it. I provided the optimi
 function optimized_strpos($ErrLevel, $ErrMessage) {
         if ($ErrLevel == E_RECOVERABLE_ERROR
             // order this according to what your app uses most
-            return strpos($ErrMessage, &apos;must be an instance of string, string&apos;)
-                || strpos($ErrMessage, &apos;must be an instance of integer, integer&apos;)
-                || strpos($ErrMessage, &apos;must be an instance of float, double&apos;)
-                || strpos($ErrMessage, &apos;must be an instance of boolean, boolean&apos;)
-                || strpos($ErrMessage, &apos;must be an instance of resource, resource&apos;);
+            return strpos($ErrMessage, 'must be an instance of string, string')
+                || strpos($ErrMessage, 'must be an instance of integer, integer')
+                || strpos($ErrMessage, 'must be an instance of float, double')
+                || strpos($ErrMessage, 'must be an instance of boolean, boolean')
+                || strpos($ErrMessage, 'must be an instance of resource, resource');
 }
 
 function optimized_regex($ErrLevel, $ErrMessage) {
         if ($ErrLevel == E_RECOVERABLE_ERROR) {
-            if(preg_match(&apos;/^Argument \d+ passed to (?:\w+::)?\w+\(\) must be an instance of (\w+), (\w+) given/&apos;, $ErrMessage, $matches))
-                return $matches[1] == ($matches[2] == &apos;double&apos; ? &apos;float&apos; : $matches[2]);
+            if(preg_match('/^Argument \d+ passed to (?:\w+::)?\w+\(\) must be an instance of (\w+), (\w+) given/', $ErrMessage, $matches))
+                return $matches[1] == ($matches[2] == 'double' ? 'float' : $matches[2]);
         }
 }
 ?>
@@ -142,7 +142,7 @@ Daniel&apos;s typehint implementation was just what I was looking for but perfor
         {
             if($level == E_RECOVERABLE_ERROR)
             {
-                if(preg_match(&apos;/^Argument (\d)+ passed to (?:(\w+)::)?(\w+)\(\) must be an instance of (\w+), (\w+) given/&apos;, $message, $match))
+                if(preg_match('/^Argument (\d)+ passed to (?:(\w+)::)?(\w+)\(\) must be an instance of (\w+), (\w+) given/', $message, $match))
                 {
                     if($match[4] == $match[5])
                         return true;

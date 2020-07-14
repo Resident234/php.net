@@ -7,12 +7,12 @@ In order to understand better how APC caching works you can do the following:<br
 ```
 <?php
 var_dump(apc_fetch(array(
-    &apos;CUR_DATE_5s_1&apos;,
-    &apos;CUR_DATE_5s_2&apos;,
-    &apos;CUR_DATE_5s_3&apos;,
-    &apos;CUR_DATE_0s_1&apos;,
-    &apos;CUR_DATE_0s_2&apos;,
-    &apos;CUR_DATE_0s_3&apos;,
+    'CUR_DATE_5s_1',
+    'CUR_DATE_5s_2',
+    'CUR_DATE_5s_3',
+    'CUR_DATE_0s_1',
+    'CUR_DATE_0s_2',
+    'CUR_DATE_0s_3',
 )));
 ?>
 ```
@@ -25,34 +25,34 @@ var_dump(apc_fetch(array(
 <?php
 $ttl = 5;
 
-$key = &apos;CUR_DATE_5s_1&apos;;
-$var = date(&apos;c&apos;);
+$key = 'CUR_DATE_5s_1';
+$var = date('c');
 $result = apc_add($key, $var, $ttl);
 var_dump($result);
 echo "\n";
 
-$var = date(&apos;c&apos;);
+$var = date('c');
 $result = apc_add($key, $var, $ttl);
 var_dump($result);
 echo "\n";
 
-$key = &apos;CUR_DATE_0s_1&apos;;
-$var = date(&apos;c&apos;);
+$key = 'CUR_DATE_0s_1';
+$var = date('c');
 $result = apc_add($key, $var);
 var_dump($result);
 echo "\n";
 
 $values = array(
-    &apos;CUR_DATE_5s_2&apos; =&gt; date(&apos;c&apos;),
-    &apos;CUR_DATE_5s_3&apos; =&gt; rand(),
+    'CUR_DATE_5s_2' => date('c'),
+    'CUR_DATE_5s_3' => rand(),
 );
 $result = apc_add($values, null, $ttl);
 var_dump($result);
 echo "\n";
 
 $values = array(
-    &apos;CUR_DATE_0s_2&apos; =&gt; date(&apos;c&apos;),
-    &apos;CUR_DATE_0s_3&apos; =&gt; rand(),
+    'CUR_DATE_0s_2' => date('c'),
+    'CUR_DATE_0s_3' => rand(),
 );
 $result = apc_add($values, null);
 var_dump($result);

@@ -7,7 +7,7 @@ When the documentation says that the PHP parser ignores everything outside the
 ```
 <?php ... ?>
 ```
- tags, it means literally EVERYTHING. Including things you normally wouldn&apos;t consider "valid", such as the following:
+ tags, it means literally EVERYTHING. Including things you normally wouldn't consider "valid", such as the following:
 
 &lt;html&gt;&lt;body&gt;
 &lt;p
@@ -20,10 +20,10 @@ When the documentation says that the PHP parser ignores everything outside the
 ```
 <?php endif;?>
 ```
-&gt;This is a paragraph.&lt;/p&gt;
+>This is a paragraph.&lt;/p&gt;
 &lt;/body&gt;&lt;/html&gt;
 
-Notice how the PHP code is embedded in the middle of an HTML opening tag. The PHP parser doesn&apos;t care that it&apos;s in the middle of an opening tag, and doesn&apos;t require that it be closed. It also doesn&apos;t care that after the closing ?>
+Notice how the PHP code is embedded in the middle of an HTML opening tag. The PHP parser doesn't care that it's in the middle of an opening tag, and doesn't require that it be closed. It also doesn't care that after the closing ?>
 ```
  tag is the end of the HTML opening tag. So, if $highlight is true, then the output will be:<br><br>&lt;html&gt;&lt;body&gt;<br>&lt;p class="highlight"&gt;This is a paragraph.&lt;/p&gt;<br>&lt;/body&gt;&lt;/html&gt;<br><br>Otherwise, it will be:<br><br>&lt;html&gt;&lt;body&gt;<br>&lt;p&gt;This is a paragraph.&lt;/p&gt;<br>&lt;/body&gt;&lt;/html&gt;<br><br>Using this method, you can have HTML tags with optional attributes, depending on some PHP condition. Extremely flexible and useful!  
 
@@ -35,12 +35,12 @@ One aspect of PHP that you need to be careful of, is that ?>
 
 ```
 <?php
-  $file_contents  = &apos;
+  $file_contents  = '
 
 ```
 <?php die(); ?>
 ```
-&apos; . "\n";
+' . "\n";
 ?>
 ```
 
@@ -51,17 +51,17 @@ If you try to remove it by turning it into a comment, you get this:
 
 ```
 <?php
-//  $file_contents  = &apos;
+//  $file_contents  = '
 
 ```
 <?php die(); ?>
 ```
-&apos; . "\n";
+' . "\n";
 ?>
 ```
 
 
-Which results in &apos; . "\n"; (and whatever is in the lines following it) to be output to your HTML page.
+Which results in ' . "\n"; (and whatever is in the lines following it) to be output to your HTML page.
 
 The cure is to either comment it out using /* */ tags, or re-write the line as:
 
@@ -69,7 +69,7 @@ The cure is to either comment it out using /* */ tags, or re-write the line as:
 
 ```
 <?php
-  $file_contents  = &apos;&lt;&apos; . &apos;?php die(); ?&apos; . &apos;&gt;&apos; . "\n";
+  $file_contents  = '&lt;' . '?php die(); ?' . '&gt;' . "\n";
 ?>
 ```
   

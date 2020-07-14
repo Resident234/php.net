@@ -6,7 +6,7 @@ I think the way an array of attachments works is kind of cumbersome. Usually the
 
 ```
 <?php
-foreach ($_FILES["attachment"]["error"] as $key =&gt; $error)
+foreach ($_FILES["attachment"]["error"] as $key => $error)
 {
        $tmp_name = $_FILES["attachment"]["tmp_name"][$key];
        if (!$tmp_name) continue;
@@ -16,11 +16,11 @@ foreach ($_FILES["attachment"]["error"] as $key =&gt; $error)
     if ($error == UPLOAD_ERR_OK)
     {
         if ( move_uploaded_file($tmp_name, "/tmp/".$name) )
-            $uploaded_array[] .= "Uploaded file &apos;".$name."&apos;.&lt;br/&gt;\n";
+            $uploaded_array[] .= "Uploaded file '".$name."'.&lt;br/&gt;\n";
         else
-            $errormsg .= "Could not move uploaded file &apos;".$tmp_name."&apos; to &apos;".$name."&apos;&lt;br/&gt;\n";
+            $errormsg .= "Could not move uploaded file '".$tmp_name."' to '".$name."'&lt;br/&gt;\n";
     }
-    else $errormsg .= "Upload error. [".$error."] on file &apos;".$name."&apos;&lt;br/&gt;\n";
+    else $errormsg .= "Upload error. [".$error."] on file '".$name."'&lt;br/&gt;\n";
 }
 ?>
 ```
@@ -38,29 +38,29 @@ use Zend\Diactoros\ServerRequestFactory;
 
 $request = ServerRequestFactory::fromGlobals();
 
-if ($request-&gt;getMethod() !== &apos;POST&apos;) {
+if ($request->getMethod() !== 'POST') {
     http_response_code(405);
-    exit(&apos;Use POST method.&apos;);
+    exit('Use POST method.');
 }
 
-$uploaded_files = $request-&gt;getUploadedFiles();
+$uploaded_files = $request->getUploadedFiles();
 
 if (
-    !isset($uploaded_files[&apos;files&apos;][&apos;x&apos;][&apos;y&apos;][&apos;z&apos;]) ||
-    !$uploaded_files[&apos;files&apos;][&apos;x&apos;][&apos;y&apos;][&apos;z&apos;] instanceof UploadedFileInterface
+    !isset($uploaded_files['files']['x']['y']['z']) ||
+    !$uploaded_files['files']['x']['y']['z'] instanceof UploadedFileInterface
 ) {
     http_response_code(400);
-    exit(&apos;Invalid request body.&apos;);
+    exit('Invalid request body.');
 }
 
-$file = $uploaded_files[&apos;files&apos;][&apos;x&apos;][&apos;y&apos;][&apos;z&apos;];
+$file = $uploaded_files['files']['x']['y']['z'];
 
-if ($file-&gt;getError() !== UPLOAD_ERR_OK) {
+if ($file->getError() !== UPLOAD_ERR_OK) {
     http_response_code(400);
-    exit(&apos;File uploading failed.&apos;);
+    exit('File uploading failed.');
 }
 
-$file-&gt;moveTo(&apos;/path/to/new/file&apos;);
+$file->moveTo('/path/to/new/file');
 
 ?>
 ```
@@ -77,20 +77,20 @@ The documentation doesn&apos;t have any details about how the HTML array feature
 
         $normalized_array = [];
 
-        foreach($files as $index =&gt; $file) {
+        foreach($files as $index => $file) {
 
-            if (!is_array($file[&apos;name&apos;])) {
+            if (!is_array($file['name'])) {
                 $normalized_array[$index][] = $file;
                 continue;
             }
 
-            foreach($file[&apos;name&apos;] as $idx =&gt; $name) {
+            foreach($file['name'] as $idx => $name) {
                 $normalized_array[$index][$idx] = [
-                    &apos;name&apos; =&gt; $name,
-                    &apos;type&apos; =&gt; $file[&apos;type&apos;][$idx],
-                    &apos;tmp_name&apos; =&gt; $file[&apos;tmp_name&apos;][$idx],
-                    &apos;error&apos; =&gt; $file[&apos;error&apos;][$idx],
-                    &apos;size&apos; =&gt; $file[&apos;size&apos;][$idx]
+                    'name' => $name,
+                    'type' => $file['type'][$idx],
+                    'tmp_name' => $file['tmp_name'][$idx],
+                    'error' => $file['error'][$idx],
+                    'size' => $file['size'][$idx]
                 ];
             }
 

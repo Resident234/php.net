@@ -5,11 +5,11 @@
 Do not mis interpret<br><br>
 
 ```
-<?php echo &apos;Ending tag excluded&apos;; 
+<?php echo 'Ending tag excluded'; 
 
 with
 
-&lt;?php echo &apos;Ending tag excluded&apos;;
+&lt;?php echo 'Ending tag excluded';
 &lt;p&gt;But html is still visible&lt;/p&gt;
 
 The second one would give error. Exclude ?>

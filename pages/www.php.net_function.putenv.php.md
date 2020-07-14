@@ -26,8 +26,8 @@ The other problem with the code from av01 at bugfix dot cc is that<br>the behavi
 
 ```
 <?php
-putenv(&apos;MYVAR=&apos;); // set MYVAR to an empty value.  It is in the environment
-putenv(&apos;MYVAR&apos;); // unset MYVAR.  It is removed from the environment
+putenv('MYVAR='); // set MYVAR to an empty value.  It is in the environment
+putenv('MYVAR'); // unset MYVAR.  It is removed from the environment
 ?>
 ```
   

@@ -26,8 +26,8 @@ bradlis7 at bradlis7 dot com&apos;s description is a bit confusing. Here it is r
 
 ```
 <?php
-$a = &apos;a&apos;;
-$b = &apos;b&apos;;
+$a = 'a';
+$b = 'b';
 
 $a .= $b .= "foo";
 

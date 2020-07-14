@@ -28,46 +28,46 @@ class BadPractice {
   public function __call($n, $v) {}
 }
 
-// Let&apos;s see our BadPractice in a production environment!
+// Let's see our BadPractice in a production environment!
 $UnexpectedBehaviour = new BadPractice;
 
-// No syntax highlighting on most IDE&apos;s
-$UnexpectedBehaviour-&gt;SynTaxHighlighting = false;
+// No syntax highlighting on most IDE's
+$UnexpectedBehaviour->SynTaxHighlighting = false;
 
-// No autocompletion on most IDE&apos;s
-$UnexpectedBehaviour-&gt;AutoCompletion = false;
+// No autocompletion on most IDE's
+$UnexpectedBehaviour->AutoCompletion = false;
 
 // Which will lead to problems waiting to happen
-$UnexpectedBehaviour-&gt;DontAllowVariableNameWithTyphos = false; // see if below
+$UnexpectedBehaviour->DontAllowVariableNameWithTyphos = false; // see if below
 
 // Get, Set and Call anything you want!
-$UnexpectedBehaviour-&gt;EveryPosibleMethodCallAllowed(true, &apos;Why Not?&apos;);
+$UnexpectedBehaviour->EveryPosibleMethodCallAllowed(true, 'Why Not?');
 
 // And sure, why not use the most illegal property names you can think off
-$UnexpectedBehaviour-&gt;{&apos;100%Illegal+Names&apos;} = &apos;allowed&apos;;
+$UnexpectedBehaviour->{'100%Illegal+Names'} = 'allowed';
 
 // This Very confusing syntax seems to allow access to $Number but because of
 // the lowered visibility it goes to __set()
-$UnexpectedBehaviour-&gt;Number = 10;
+$UnexpectedBehaviour->Number = 10;
 
-// We can SEEM to increment it too! (that&apos;s really dynamic! :-) NULL++ LMAO
-$UnexpectedBehaviour-&gt;Number++;
+// We can SEEM to increment it too! (that's really dynamic! :-) NULL++ LMAO
+$UnexpectedBehaviour->Number++;
 
 // this ofcourse outputs NULL (through __get) and not the PERHAPS expected 11
-var_dump($UnexpectedBehaviour-&gt;Number);
+var_dump($UnexpectedBehaviour->Number);
 
 // and sure, private method calls LOOK valid now!
 // (this goes to __call, so no fatal error)
-$UnexpectedBehaviour-&gt;veryPrivateMethod();
+$UnexpectedBehaviour->veryPrivateMethod();
 
 // Because the previous was __set to false, next expression is true
-// if we didn&apos;t had __set, the previous assignment would have failed
+// if we didn't had __set, the previous assignment would have failed
 // then you would have corrected the typho and this code will not have
 // been executed. (This can really be a BIG PAIN)
-if ($UnexpectedBehaviour-&gt;DontAllowVariableNameWithTypos) {
+if ($UnexpectedBehaviour->DontAllowVariableNameWithTypos) {
   // if this code block would have deleted a file, or do a deletion on
   // a database, you could really be VERY SAD for a long time!
-  $UnexpectedBehaviour-&gt;executeStuffYouDontWantHere(true);
+  $UnexpectedBehaviour->executeStuffYouDontWantHere(true);
 }
 ?>
 ```
@@ -99,7 +99,7 @@ echo foo(5, 2); // Prints "7"
 ```
 
 
-Overriding: Replacing the parent class&apos;s method(s) with a new method by redeclaring it like this:
+Overriding: Replacing the parent class's method(s) with a new method by redeclaring it like this:
 
 
 ```
@@ -169,37 +169,37 @@ Example of usage __call() to have implicit getters and setters<br><br>
 <?php
 class Entity {
     public function __call($methodName, $args) {
-        if (preg_match(&apos;~^(set|get)([A-Z])(.*)$~&apos;, $methodName, $matches)) {
+        if (preg_match('~^(set|get)([A-Z])(.*)$~', $methodName, $matches)) {
             $property = strtolower($matches[2]) . $matches[3];
             if (!property_exists($this, $property)) {
-                throw new MemberAccessException(&apos;Property &apos; . $property . &apos; not exists&apos;);
+                throw new MemberAccessException('Property ' . $property . ' not exists');
             }
             switch($matches[1]) {
-                case &apos;set&apos;:
-                    $this-&gt;checkArguments($args, 1, 1, $methodName);
-                    return $this-&gt;set($property, $args[0]);
-                case &apos;get&apos;:
-                    $this-&gt;checkArguments($args, 0, 0, $methodName);
-                    return $this-&gt;get($property);
-                case &apos;default&apos;:
-                    throw new MemberAccessException(&apos;Method &apos; . $methodName . &apos; not exists&apos;);
+                case 'set':
+                    $this->checkArguments($args, 1, 1, $methodName);
+                    return $this->set($property, $args[0]);
+                case 'get':
+                    $this->checkArguments($args, 0, 0, $methodName);
+                    return $this->get($property);
+                case 'default':
+                    throw new MemberAccessException('Method ' . $methodName . ' not exists');
             }
         }
     }
 
     public function get($property) {
-        return $this-&gt;$property;
+        return $this->$property;
     }
 
     public function set($property, $value) {
-        $this-&gt;$property = $value;
+        $this->$property = $value;
         return $this;
     }
 
     protected function checkArguments(array $args, $min, $max, $methodName) {
         $argc = count($args);
         if ($argc &lt; $min || $argc &gt; $max) {
-            throw new MemberAccessException(&apos;Method &apos; . $methodName . &apos; needs minimaly &apos; . $min . &apos; and maximaly &apos; . $max . &apos; arguments. &apos; . $argc . &apos; arguments given.&apos;);
+            throw new MemberAccessException('Method ' . $methodName . ' needs minimaly ' . $min . ' and maximaly ' . $max . ' arguments. ' . $argc . ' arguments given.');
         }
     }
 }
@@ -211,8 +211,8 @@ class Foo extends Entity {
 }
 
 $foo = new Foo();
-$foo-&gt;setA(&apos;some&apos;); // outputs some
-echo $foo-&gt;getA();
+$foo->setA('some'); // outputs some
+echo $foo->getA();
 
 class Bar extends Entity {
     protected $a;
@@ -220,17 +220,17 @@ class Bar extends Entity {
      * Custom setter.
      */
     public function setA($a) {
-        if (!preg_match(&apos;~^[0-9a-z]+$~i&apos;, $a)) {
-            throw new MemberAccessException(&apos;A can be only alphanumerical&apos;);
+        if (!preg_match('~^[0-9a-z]+$~i', $a)) {
+            throw new MemberAccessException('A can be only alphanumerical');
         }
-        $this-&gt;a = $a;
+        $this->a = $a;
         return $this;
     }
 }
 
 $bar = new Bar();
-$bar-&gt;setA(&apos;abc123&apos;); // ok
-$bar-&gt;setA(&apos;[]/*@...&apos;); // throws exception
+$bar->setA('abc123'); // ok
+$bar->setA('[]/*@...'); // throws exception
 ?>
 ```
   
@@ -255,9 +255,9 @@ class foo
 }
 
 $test = new foo;
-$varname = &apos;invalid,variable+name&apos;;
-$test-&gt;$varname;
-$test-&gt;$varname();
+$varname = 'invalid,variable+name';
+$test->$varname;
+$test->$varname();
 
 ?>
 ```

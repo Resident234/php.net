@@ -24,8 +24,8 @@ A nice trick to reorder the $_FILES array when you use a input name as array is:
 <?php
 function diverse_array($vector) {
     $result = array();
-    foreach($vector as $key1 =&gt; $value1)
-        foreach($value1 as $key2 =&gt; $value2)
+    foreach($vector as $key1 => $value1)
+        foreach($value1 as $key2 => $value2)
             $result[$key2][$key1] = $value2;
     return $result;
 }
@@ -36,14 +36,14 @@ function diverse_array($vector) {
 will transform this:
 
 array(1) {
-    ["upload"]=&gt;array(2) {
-        ["name"]=&gt;array(2) {
-            [0]=&gt;string(9)"file0.txt"
-            [1]=&gt;string(9)"file1.txt"
+    ["upload"]=>array(2) {
+        ["name"]=>array(2) {
+            [0]=>string(9)"file0.txt"
+            [1]=>string(9)"file1.txt"
         }
-        ["type"]=&gt;array(2) {
-            [0]=&gt;string(10)"text/plain"
-            [1]=&gt;string(10)"text/html"
+        ["type"]=>array(2) {
+            [0]=>string(10)"text/plain"
+            [1]=>string(10)"text/html"
         }
     }
 }
@@ -51,14 +51,14 @@ array(1) {
 into:
 
 array(1) {
-    ["upload"]=&gt;array(2) {
-        [0]=&gt;array(2) {
-            ["name"]=&gt;string(9)"file0.txt"
-            ["type"]=&gt;string(10)"text/plain"
+    ["upload"]=>array(2) {
+        [0]=>array(2) {
+            ["name"]=>string(9)"file0.txt"
+            ["type"]=>string(10)"text/plain"
         },
-        [1]=&gt;array(2) {
-            ["name"]=&gt;string(9)"file1.txt"
-            ["type"]=&gt;string(10)"text/html"
+        [1]=>array(2) {
+            ["name"]=>string(9)"file1.txt"
+            ["type"]=>string(10)"text/html"
         }
     }
 }

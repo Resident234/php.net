@@ -5,7 +5,39 @@
 Notes on reference:<br>A reference is not a pointer. However, an object handle IS a pointer. Example:<br>
 
 ```
-<?php<br>class Foo {<br>  private static $used;<br>  private $id;<br>  public function __construct() {<br>    $id = $used++;<br>  }<br>  public function __clone() {<br>    $id = $used++;<br>  }<br>}<br><br>$a = new Foo; // $a is a pointer pointing to Foo object 0<br>$b = $a; // $b is a pointer pointing to Foo object 0, however, $b is a copy of $a<br>$c = &amp;$a; // $c and $a are now references of a pointer pointing to Foo object 0<br>$a = new Foo; // $a and $c are now references of a pointer pointing to Foo object 1, $b is still a pointer pointing to Foo object 0<br>unset($a); // A reference with reference count 1 is automatically converted back to a value. Now $c is a pointer to Foo object 1<br>$a = &amp;$b; // $a and $b are now references of a pointer pointing to Foo object 0<br>$a = NULL; // $a and $b now become a reference to NULL. Foo object 0 can be garbage collected now<br>unset($b); // $b no longer exists and $a is now NULL<br>$a = clone $c; // $a is now a pointer to Foo object 2, $c remains a pointer to Foo object 1<br>unset($c); // Foo object 1 can be garbage collected now.<br>$c = $a; // $c and $a are pointers pointing to Foo object 2<br>unset($a); // Foo object 2 is still pointed by $c<br>$a = &amp;$c; // Foo object 2 has 1 pointers pointing to it only, that pointer has 2 references: $a and $c;<br>const ABC = TRUE;<br>if(ABC) {<br>  $a = NULL; // Foo object 2 can be garbage collected now because $a and $c are now a reference to the same NULL value<br>} else {<br>  unset($a); // Foo object 2 is still pointed to $c<br>}  
+<?php
+class Foo {
+  private static $used;
+  private $id;
+  public function __construct() {
+    $id = $used++;
+  }
+  public function __clone() {
+    $id = $used++;
+  }
+}
+
+$a = new Foo; // $a is a pointer pointing to Foo object 0
+$b = $a; // $b is a pointer pointing to Foo object 0, however, $b is a copy of $a
+$c = &amp;$a; // $c and $a are now references of a pointer pointing to Foo object 0
+$a = new Foo; // $a and $c are now references of a pointer pointing to Foo object 1, $b is still a pointer pointing to Foo object 0
+unset($a); // A reference with reference count 1 is automatically converted back to a value. Now $c is a pointer to Foo object 1
+$a = &amp;$b; // $a and $b are now references of a pointer pointing to Foo object 0
+$a = NULL; // $a and $b now become a reference to NULL. Foo object 0 can be garbage collected now
+unset($b); // $b no longer exists and $a is now NULL
+$a = clone $c; // $a is now a pointer to Foo object 2, $c remains a pointer to Foo object 1
+unset($c); // Foo object 1 can be garbage collected now.
+$c = $a; // $c and $a are pointers pointing to Foo object 2
+unset($a); // Foo object 2 is still pointed by $c
+$a = &amp;$c; // Foo object 2 has 1 pointers pointing to it only, that pointer has 2 references: $a and $c;
+const ABC = TRUE;
+if(ABC) {
+  $a = NULL; // Foo object 2 can be garbage collected now because $a and $c are now a reference to the same NULL value
+} else {
+  unset($a); // Foo object 2 is still pointed to $c
+}?>
+```
+  
 
 #
 
@@ -50,7 +82,7 @@ function swapByRef(&amp;$x, &amp;$y){
  $temp=$x;
  $x=$y;
  $y=$temp;
- //Note the parameter list: now we switched &apos;em REAL good.
+ //Note the parameter list: now we switched 'em REAL good.
 }
 
 ?>
@@ -70,7 +102,7 @@ class A {
 class B {
     public function foo(A $bar)
     {
-        $bar-&gt;foo = 42;
+        $bar->foo = 42;
     }
     
     public function bar(A $bar)
@@ -81,19 +113,19 @@ class B {
 
 $f = new A;
 $g = new B;
-echo $f-&gt;foo . "\n";
+echo $f->foo . "\n";
 
-$g-&gt;foo($f);
-echo $f-&gt;foo . "\n";
+$g->foo($f);
+echo $f->foo . "\n";
 
-$g-&gt;bar($f);
-echo $f-&gt;foo . "\n";
+$g->bar($f);
+echo $f->foo . "\n";
 
 ?>
 ```
 
 
-If object variables were always references, we&apos;d expect the following output:
+If object variables were always references, we'd expect the following output:
 1
 42
 1
@@ -103,7 +135,7 @@ However, we get:
 42
 42
 
-The reason for this is simple.  In the bar function of the B class, we replace the identifier you passed in, which identified the same instance of the A class as your $f variable, with a brand new A class identifier.  Creating a new instance of A doesn&apos;t mutate $f because $f wasn&apos;t passed as a reference.
+The reason for this is simple.  In the bar function of the B class, we replace the identifier you passed in, which identified the same instance of the A class as your $f variable, with a brand new A class identifier.  Creating a new instance of A doesn't mutate $f because $f wasn't passed as a reference.
 
 To get the reference behavior, one would have to enter the following for class B:
 
@@ -114,7 +146,7 @@ To get the reference behavior, one would have to enter the following for class B
 class B {
     public function foo(A $bar)
     {
-        $bar-&gt;foo = 42;
+        $bar->foo = 42;
     }
     
     public function bar(A &amp;$bar)
@@ -138,15 +170,15 @@ class A {
 
 $a = new A;
 $b = $a;
-$a-&gt;foo = 2;
+$a->foo = 2;
 $a = NULL;
-echo $b-&gt;foo."\n"; // 2
+echo $b->foo."\n"; // 2
 
 $c = new A;
 $d = &amp;$c;
-$c-&gt;foo = 2;
+$c->foo = 2;
 $c = NULL;
-echo $d-&gt;foo."\n"; // Notice:  Trying to get property of non-object...
+echo $d->foo."\n"; // Notice:  Trying to get property of non-object...
 ?>
 ```
   
@@ -162,7 +194,7 @@ $a2 = $a1;     // $a2 == handle1-2 to A(1) - assigned by value (copy)
 $a3 = &amp;$a1;  // $a3 points to $a1 (handle1-1)
 $a3 = null;      // makes $a1==null, $a3 (still) points to $a1, $a2 == handle1-2 (same object instance A(1))
 $a2 = null;      // makes $a2 == null
-$a1 = new A(2); //makes $a1 == handle2-1 to new object and $a3 (still) points to $a1 =&gt; handle2-1 (new object), so value of $a1 and $a3 is the new object and $a2 == null
+$a1 = new A(2); //makes $a1 == handle2-1 to new object and $a3 (still) points to $a1 => handle2-1 (new object), so value of $a1 and $a3 is the new object and $a2 == null
 //By reference:
 $a4 = &amp;new A(4);  //$a4 points to handle4-1 to A(4)
 $a5 = $a4;   // $a5 == handle4-2 to A(4) (copy)

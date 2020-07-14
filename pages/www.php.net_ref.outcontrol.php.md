@@ -8,7 +8,7 @@ It seems that while using output buffering, an included file which calls die() b
 <?php
 // a.php (this file should never display anything)
 ob_start();
-include(&apos;b.php&apos;);
+include('b.php');
 ob_end_clean();
 ?>
 ```

@@ -15,15 +15,15 @@ class CachedGenerator {
     protected $generator = null;
 
     public function __construct($generator) {
-        $this-&gt;generator = $generator;
+        $this->generator = $generator;
     }
 
     public function generator() {
-        foreach($this-&gt;cache as $item) yield $item;
+        foreach($this->cache as $item) yield $item;
 
-        while( $this-&gt;generator-&gt;valid() ) {
-            $this-&gt;cache[] = $current = $this-&gt;generator-&gt;current();
-            $this-&gt;generator-&gt;next();
+        while( $this->generator->valid() ) {
+            $this->cache[] = $current = $this->generator->current();
+            $this->generator->next();
             yield $current;
         }
     }
@@ -39,8 +39,8 @@ class Foobar {
     }
 
     public function getItems() {
-        $this-&gt;loader = $this-&gt;loader ?: new CachedGenerator($this-&gt;loadItems());
-        return $this-&gt;loader-&gt;generator();
+        $this->loader = $this->loader ?: new CachedGenerator($this->loadItems());
+        return $this->loader->generator();
     }
 }
 
@@ -48,7 +48,7 @@ $f = new Foobar;
 
 # First
 print "First\n";
-foreach($f-&gt;getItems() as $i) {
+foreach($f->getItems() as $i) {
     print $i . "\n";
     if( $i == 5 ) {
         break;
@@ -57,13 +57,13 @@ foreach($f-&gt;getItems() as $i) {
 
 # Second (items 1-5 are cached, 6-10 are loaded)
 print "Second\n";
-foreach($f-&gt;getItems() as $i) {
+foreach($f->getItems() as $i) {
     print $i . "\n";
 }
 
 # Third (all items are cached and returned instantly)
 print "Third\n";
-foreach($f-&gt;getItems() as $i) {
+foreach($f->getItems() as $i) {
     print $i . "\n";
 }
 ?>
@@ -83,14 +83,14 @@ function gndn()
 
 foreach(gndn() as $it)
 {
-    echo &apos;FNORD&apos;;
+    echo 'FNORD';
 }
 
 ?>
 ```
 
 
- But it&apos;s enough to have the yield syntactically present even if it&apos;s not reachable:
+ But it's enough to have the yield syntactically present even if it's not reachable:
 
 
 
@@ -104,7 +104,7 @@ function gndn()
 
 foreach(gndn() as $it)
 {
-    echo &apos;FNORD&apos;;
+    echo 'FNORD';
 }
 
 ?>

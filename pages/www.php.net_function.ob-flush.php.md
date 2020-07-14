@@ -6,16 +6,16 @@ some problems with ob_flush() and flush() could be resolved by defining content 
 
 ```
 <?php
-header( &apos;Content-type: text/html; charset=utf-8&apos; );
-echo &apos;Begin ...&lt;br /&gt;&apos;;
+header( 'Content-type: text/html; charset=utf-8' );
+echo 'Begin ...&lt;br /&gt;';
 for( $i = 0 ; $i &lt; 10 ; $i++ )
 {
-    echo $i . &apos;&lt;br /&gt;&apos;;
+    echo $i . '&lt;br /&gt;';
     flush();
     ob_flush();
     sleep(1);
 }
-echo &apos;End ...&lt;br /&gt;&apos;;
+echo 'End ...&lt;br /&gt;';
 ?>
 ```
   
@@ -26,7 +26,9 @@ As of August 2012, all browsers seem to show an all-or-nothing approach to buffe
 
 #
 
-Although browsers now have an all or none buffering strategy, the arguments are not moot.<br><br>If you are not using ob_flush, you run this risk of exceeding socket timeouts (commonly seen in php-fpm/nginx combos).<br><br>Basically, flushing solves the infamous 504 Gateway Time-out error.  
+Although browsers now have an all or none buffering strategy, the arguments are not moot.<br><br>If you are not using ob_flush, you run this risk of exceeding socket timeouts (commonly seen in ?>
+```
+fpm/nginx combos).<br><br>Basically, flushing solves the infamous 504 Gateway Time-out error.  
 
 #
 

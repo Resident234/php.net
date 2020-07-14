@@ -12,29 +12,29 @@ class A
     {
         $a = func_get_args();
         $i = func_num_args();
-        if (method_exists($this,$f=&apos;__construct&apos;.$i)) {
+        if (method_exists($this,$f='__construct'.$i)) {
             call_user_func_array(array($this,$f),$a);
         }
     }
     
     function __construct1($a1)
     {
-        echo(&apos;__construct with 1 param called: &apos;.$a1.PHP_EOL);
+        echo('__construct with 1 param called: '.$a1.PHP_EOL);
     }
     
     function __construct2($a1,$a2)
     {
-        echo(&apos;__construct with 2 params called: &apos;.$a1.&apos;,&apos;.$a2.PHP_EOL);
+        echo('__construct with 2 params called: '.$a1.','.$a2.PHP_EOL);
     }
     
     function __construct3($a1,$a2,$a3)
     {
-        echo(&apos;__construct with 3 params called: &apos;.$a1.&apos;,&apos;.$a2.&apos;,&apos;.$a3.PHP_EOL);
+        echo('__construct with 3 params called: '.$a1.','.$a2.','.$a3.PHP_EOL);
     }
 }
-$o = new A(&apos;sheep&apos;);
-$o = new A(&apos;sheep&apos;,&apos;cat&apos;);
-$o = new A(&apos;sheep&apos;,&apos;cat&apos;,&apos;dog&apos;);
+$o = new A('sheep');
+$o = new A('sheep','cat');
+$o = new A('sheep','cat','dog');
 
 // results:
 // __construct with 1 param called: sheep
@@ -67,25 +67,25 @@ class Foo {
     private $link;
 
     public function __construct($name) {
-        $this-&gt;name = $name;
+        $this->name = $name;
     }
 
     public function setLink(Foo $link){
-        $this-&gt;link = $link;
+        $this->link = $link;
     }
 
     public function __destruct() {
-        echo &apos;Destroying: &apos;, $this-&gt;name, PHP_EOL;
+        echo 'Destroying: ', $this->name, PHP_EOL;
     }
 }
 
 // create two Foo objects:
-$foo = new Foo(&apos;Foo 1&apos;);
-$bar = new Foo(&apos;Foo 2&apos;);
+$foo = new Foo('Foo 1');
+$bar = new Foo('Foo 2');
 
 // make them point to each other
-$foo-&gt;setLink($bar);
-$bar-&gt;setLink($foo);
+$foo->setLink($bar);
+$bar->setLink($foo);
 
 // destroy the global references to them
 $foo = null;
@@ -102,8 +102,8 @@ $bar = null;
 
 // create two more Foo objects, but DO NOT set their internal Foo references
 // so nothing except the vars $foo and $bar point to them:
-$foo = new Foo(&apos;Foo 3&apos;);
-$bar = new Foo(&apos;Foo 4&apos;);
+$foo = new Foo('Foo 3');
+$bar = new Foo('Foo 4');
 
 // destroy the global references to them
 $foo = null;
@@ -113,7 +113,7 @@ $bar = null;
 // to them anywhere, their __destruct() methods are automatically called here,
 // BEFORE the next line is executed:
 
-echo &apos;End of script&apos;, PHP_EOL;
+echo 'End of script', PHP_EOL;
 
 ?>
 ```
@@ -148,9 +148,9 @@ abstract class Animal
    */
   public function __construct($aType, $aName, $aSound)
   {
-    $this-&gt;type = $aType;
-    $this-&gt;name = $aName;
-    $this-&gt;sound = $aSound;
+    $this->type = $aType;
+    $this->name = $aName;
+    $this->sound = $aSound;
   }
 
   /*
@@ -158,8 +158,8 @@ abstract class Animal
    */ 
   public static function compare($a, $b)
   {
-    if($a-&gt;name &lt; $b-&gt;name) return -1;
-    else if($a-&gt;name == $b-&gt;name) return 0;
+    if($a->name &lt; $b->name) return -1;
+    else if($a->name == $b->name) return 0;
     else return 1;
   }
 
@@ -168,7 +168,7 @@ abstract class Animal
    */
   public function __toString()
   {
-    return "$this-&gt;name the $this-&gt;type goes $this-&gt;sound";
+    return "$this->name the $this->type goes $this->sound";
   }
 }
 
@@ -218,10 +218,10 @@ $animals = array(
   new Dog("Jawbone")
 );
 
-# sort $animals with PHP&apos;s usort - calls Animal::compare() many many times.
+# sort $animals with PHP's usort - calls Animal::compare() many many times.
 usort($animals, array("Animal", "compare"));
 
-# print out the sorted results - calls Animal-&gt;__toString().
+# print out the sorted results - calls Animal->__toString().
 foreach($animals as $animal) echo "$animal&lt;br&gt;\n";
 
 ?>

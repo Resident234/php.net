@@ -10,7 +10,7 @@ You can use variables within a pair of backticks (``).<br><br>
 
 ```
 <?php
-    $host = &apos;www.wuxiancheng.cn&apos;;
+    $host = 'www.wuxiancheng.cn';
     echo `ping -n 3 {$host}`;
 ?>
 ```

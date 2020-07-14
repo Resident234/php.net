@@ -7,7 +7,7 @@ Watch out for the difference of priority between &apos;and vs &amp;&amp;&apos; o
 ```
 <?php
 $bool = true &amp;&amp; false;
-var_dump($bool); // false, that&apos;s expected
+var_dump($bool); // false, that's expected
 
 $bool = true and false;
 var_dump($bool); // true, ouch!

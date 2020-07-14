@@ -19,12 +19,12 @@ vlad at vlad dot neosurge dot net wrote on 04-Jan-2003 04:21<br><br>&gt; Just an
 
 ```
 <?php
-$a = &apos;Apple&apos;;
+$a = 'Apple';
 switch ($a) {
     default:
-        echo &apos;$a is not an orange&lt;br&gt;&apos;;
-    case &apos;Orange&apos;:
-        echo &apos;$a is an orange&apos;;
+        echo '$a is not an orange&lt;br&gt;';
+    case 'Orange':
+        echo '$a is an orange';
 }
 ?>
 ```

@@ -14,33 +14,33 @@ Honestly, Exception::getTraceAsString() simply sucks, listing only the called me
  * @return array of strings, one entry per trace line
  */
 function jTraceEx($e, $seen=null) {
-    $starter = $seen ? &apos;Caused by: &apos; : &apos;&apos;;
+    $starter = $seen ? 'Caused by: ' : '';
     $result = array();
     if (!$seen) $seen = array();
-    $trace  = $e-&gt;getTrace();
-    $prev   = $e-&gt;getPrevious();
-    $result[] = sprintf(&apos;%s%s: %s&apos;, $starter, get_class($e), $e-&gt;getMessage());
-    $file = $e-&gt;getFile();
-    $line = $e-&gt;getLine();
+    $trace  = $e->getTrace();
+    $prev   = $e->getPrevious();
+    $result[] = sprintf('%s%s: %s', $starter, get_class($e), $e->getMessage());
+    $file = $e->getFile();
+    $line = $e->getLine();
     while (true) {
         $current = "$file:$line";
         if (is_array($seen) &amp;&amp; in_array($current, $seen)) {
-            $result[] = sprintf(&apos; ... %d more&apos;, count($trace)+1);
+            $result[] = sprintf(' ... %d more', count($trace)+1);
             break;
         }
-        $result[] = sprintf(&apos; at %s%s%s(%s%s%s)&apos;,
-                                    count($trace) &amp;&amp; array_key_exists(&apos;class&apos;, $trace[0]) ? str_replace(&apos;\\&apos;, &apos;.&apos;, $trace[0][&apos;class&apos;]) : &apos;&apos;,
-                                    count($trace) &amp;&amp; array_key_exists(&apos;class&apos;, $trace[0]) &amp;&amp; array_key_exists(&apos;function&apos;, $trace[0]) ? &apos;.&apos; : &apos;&apos;,
-                                    count($trace) &amp;&amp; array_key_exists(&apos;function&apos;, $trace[0]) ? str_replace(&apos;\\&apos;, &apos;.&apos;, $trace[0][&apos;function&apos;]) : &apos;(main)&apos;,
+        $result[] = sprintf(' at %s%s%s(%s%s%s)',
+                                    count($trace) &amp;&amp; array_key_exists('class', $trace[0]) ? str_replace('\\', '.', $trace[0]['class']) : '',
+                                    count($trace) &amp;&amp; array_key_exists('class', $trace[0]) &amp;&amp; array_key_exists('function', $trace[0]) ? '.' : '',
+                                    count($trace) &amp;&amp; array_key_exists('function', $trace[0]) ? str_replace('\\', '.', $trace[0]['function']) : '(main)',
                                     $line === null ? $file : basename($file),
-                                    $line === null ? &apos;&apos; : &apos;:&apos;,
-                                    $line === null ? &apos;&apos; : $line);
+                                    $line === null ? '' : ':',
+                                    $line === null ? '' : $line);
         if (is_array($seen))
             $seen[] = "$file:$line";
         if (!count($trace))
             break;
-        $file = array_key_exists(&apos;file&apos;, $trace[0]) ? $trace[0][&apos;file&apos;] : &apos;Unknown Source&apos;;
-        $line = array_key_exists(&apos;file&apos;, $trace[0]) &amp;&amp; array_key_exists(&apos;line&apos;, $trace[0]) &amp;&amp; $trace[0][&apos;line&apos;] ? $trace[0][&apos;line&apos;] : null;
+        $file = array_key_exists('file', $trace[0]) ? $trace[0]['file'] : 'Unknown Source';
+        $line = array_key_exists('file', $trace[0]) &amp;&amp; array_key_exists('line', $trace[0]) &amp;&amp; $trace[0]['line'] ? $trace[0]['line'] : null;
         array_shift($trace);
     }
     $result = join("\n", $result);
@@ -53,14 +53,14 @@ function jTraceEx($e, $seen=null) {
 ```
 
 
-Here&apos;s the example code:
+Here's the example code:
 
 
 ```
 <?php
 class A {
     public function exc() {
-        throw new \Exception(&apos;Thrown from class A&apos;);    // &lt;-- line 46
+        throw new \Exception('Thrown from class A');    // &lt;-- line 46
     }
 }
 
@@ -68,31 +68,31 @@ class B {
     public function exc() {
         try {
             $a = new A;
-            $a-&gt;exc();    // &lt;-- line 61
+            $a->exc();    // &lt;-- line 61
         }
         catch(\Exception $e1) {
-            throw new \Exception(&apos;Thrown from class B&apos;, 0, $e1);    // &lt;-- line 64
+            throw new \Exception('Thrown from class B', 0, $e1);    // &lt;-- line 64
         }
     }
 }
 class C {
     public function doexc() {
-        $this-&gt;exc();    // &lt;-- line 70
+        $this->exc();    // &lt;-- line 70
     }
     public function exc() {
         try {
             $b = new B;
-            $b-&gt;exc();    // &lt;-- line 75
+            $b->exc();    // &lt;-- line 75
         }
         catch(\Exception $e1) {
-            throw new \Exception(&apos;Thrown from class C&apos;, 0, $e1);    // &lt;-- line 78
+            throw new \Exception('Thrown from class C', 0, $e1);    // &lt;-- line 78
         }
     }
 }
 
 function fail2() {
     $c = new C;
-    $c-&gt;doexc();    // &lt;-- line 85
+    $c->doexc();    // &lt;-- line 85
 }
 
 function fail1() {

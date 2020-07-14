@@ -15,24 +15,24 @@ class MyClass {
 
     private $myArray = array();
     function pushSomethingToArray($var) {
-        array_push($this-&gt;myArray, $var);
+        array_push($this->myArray, $var);
     }
     function getArray() {
-        return $this-&gt;myArray;
+        return $this->myArray;
     }
 
 }
 
 //push some values to the myArray of Mainclass
 $myObj = new MyClass();
-$myObj-&gt;pushSomethingToArray(&apos;blue&apos;);
-$myObj-&gt;pushSomethingToArray(&apos;orange&apos;);
+$myObj->pushSomethingToArray('blue');
+$myObj->pushSomethingToArray('orange');
 $myObjClone = clone $myObj;
-$myObj-&gt;pushSomethingToArray(&apos;pink&apos;);
+$myObj->pushSomethingToArray('pink');
 
 //testing
-print_r($myObj-&gt;getArray());     //Array([0] =&gt; blue,[1] =&gt; orange,[2] =&gt; pink)
-print_r($myObjClone-&gt;getArray());//Array([0] =&gt; blue,[1] =&gt; orange)
+print_r($myObj->getArray());     //Array([0] => blue,[1] => orange,[2] => pink)
+print_r($myObjClone->getArray());//Array([0] => blue,[1] => orange)
 //so array  cloned 
 
 ?>

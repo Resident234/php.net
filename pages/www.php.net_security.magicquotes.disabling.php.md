@@ -2,16 +2,7 @@
 
 
 
-I have discovered that my host doesn&apos;t like either of the following directives in the .htaccess file:<br><br>php_flag magic_quotes_gpc Off
-php_value magic_quotes_gpc Off
-
-However, there is another way to disable this setting even if you don&apos;t have access to the server configuration - you can put a php.ini file in the directory where your scripts are with the directive:
-
-magic_quotes_gpc = Off
-
-However, these does not propogate unlike  .htaccess rules, so if you launch from a sub-directory, you need the php.ini file in each directory you have as script entry points.?>
-```
-  
+I have discovered that my host doesn&apos;t like either of the following directives in the .htaccess file:<br><br>php_flag magic_quotes_gpc Off<br>php_value magic_quotes_gpc Off<br><br>However, there is another way to disable this setting even if you don&apos;t have access to the server configuration - you can put a php.ini file in the directory where your scripts are with the directive:<br><br>magic_quotes_gpc = Off<br><br>However, these does not propogate unlike  .htaccess rules, so if you launch from a sub-directory, you need the php.ini file in each directory you have as script entry points.  
 
 #
 
@@ -28,10 +19,10 @@ if (get_magic_quotes_gpc()) {
     {
         $value = stripslashes($value);
     }
-    array_walk_recursive($_GET, &apos;stripslashes_gpc&apos;);
-    array_walk_recursive($_POST, &apos;stripslashes_gpc&apos;);
-    array_walk_recursive($_COOKIE, &apos;stripslashes_gpc&apos;);
-    array_walk_recursive($_REQUEST, &apos;stripslashes_gpc&apos;);
+    array_walk_recursive($_GET, 'stripslashes_gpc');
+    array_walk_recursive($_POST, 'stripslashes_gpc');
+    array_walk_recursive($_COOKIE, 'stripslashes_gpc');
+    array_walk_recursive($_REQUEST, 'stripslashes_gpc');
 }
 ?>
 ```

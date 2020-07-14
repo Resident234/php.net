@@ -41,7 +41,7 @@ class Foo {
    public function &amp;next() {
       // ...
       if (!$end) return $bar;
-      else return $this-&gt;nullGuard;
+      else return $this->nullGuard;
    }
 }
 ?>
@@ -56,7 +56,7 @@ by doing this you can do smth like this without notices:
 <?php
 $f = new Foo();
 // ...
-while (($item = $f-&gt;next()) != NULL) {
+while (($item = $f->next()) != NULL) {
 // ...
 }
 ?>
@@ -75,13 +75,13 @@ class Foo {
     protected $bar;
 
     public function __construct() {
-        $this-&gt;bar = new Bar();
+        $this->bar = new Bar();
 
         print "Foo\n";
     }    
     
     public function getBar() {
-        return $this-&gt;bar;
+        return $this->bar;
     }
 }
 
@@ -100,7 +100,7 @@ function test() {
     return new Foo();
 }
 
-test()-&gt;getBar()-&gt;helloWorld();
+test()->getBar()->helloWorld();
 
 ?>
 ```

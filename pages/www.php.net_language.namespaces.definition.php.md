@@ -18,7 +18,7 @@ Regarding constants defined with define() inside namespaces...<br><br>define() w
 ```
 <?php
 namespace test;
-define(&apos;MESSAGE&apos;, &apos;Hello world!&apos;);
+define('MESSAGE', 'Hello world!');
 ?>
 ```
 
@@ -30,8 +30,8 @@ The following code will define two constants in the "test" namespace.
 ```
 <?php
 namespace test;
-define(&apos;test\HELLO&apos;, &apos;Hello world!&apos;);
-define(__NAMESPACE__ . &apos;\GOODBYE&apos;, &apos;Goodbye cruel world!&apos;);
+define('test\HELLO', 'Hello world!');
+define(__NAMESPACE__ . '\GOODBYE', 'Goodbye cruel world!');
 ?>
 ```
   
@@ -44,8 +44,8 @@ Expanding on @danbettles note, it is better to always be explicit about which co
 <?php
     namespace NS;
 
-    define(__NAMESPACE__ .&apos;\foo&apos;,&apos;111&apos;);
-    define(&apos;foo&apos;,&apos;222&apos;);
+    define(__NAMESPACE__ .'\foo','111');
+    define('foo','222');
 
     echo foo;  // 111.
     echo \foo;  // 222.

@@ -11,7 +11,7 @@ You can use "php://input" to accept and parse "PUT", "DELETE", etc. requests.<br
 ```
 <?php
 // Example to parse "PUT" requests 
-parse_str(file_get_contents(&apos;php://input&apos;), $_PUT);
+parse_str(file_get_contents('php://input'), $_PUT);
 
 // The result
 print_r($_PUT);

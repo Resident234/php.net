@@ -74,7 +74,26 @@ $whatever = new whatever();
 Note the code `use ns1\c1` may refer to importing class `c1` from namespace `ns1` as well as importing whole namespace `ns1\c1` or even import both of them in one line. Example:<br><br>
 
 ```
-<?php<br>namespace ns1;<br><br>class c1{}<br><br>namespace ns1\c1;<br><br>class c11{}<br><br>namespace main;<br><br>use ns1\c1;<br><br>$c1 = new c1();<br>$c11 = new c1\c11();<br><br>var_dump($c1); // object(ns1\c1)#1 (0) { }<br>var_dump($c11); // object(ns1\c1\c11)#2 (0) { }  
+<?php
+namespace ns1;
+
+class c1{}
+
+namespace ns1\c1;
+
+class c11{}
+
+namespace main;
+
+use ns1\c1;
+
+$c1 = new c1();
+$c11 = new c1\c11();
+
+var_dump($c1); // object(ns1\c1)#1 (0) { }
+var_dump($c11); // object(ns1\c1\c11)#2 (0) { }?>
+```
+  
 
 #
 
@@ -92,8 +111,8 @@ class myclass {
 
 and you then go into the CLI to test it. You would like to think that this would work, as you type it line by line:
 
-require &apos;myclass.php&apos;;
-use my%space%myclass; // should set &apos;myclass&apos; as alias for &apos;my%space%myclass&apos;
+require 'myclass.php';
+use my%space%myclass; // should set 'myclass' as alias for 'my%space%myclass'
 $x = new myclass; // FATAL ERROR
 
 I believe that this is because aliases are only resolved at compile time, whereas the CLI simply evaluates statements; so use statements are ineffective in the CLI.
@@ -103,7 +122,7 @@ If you put your test code into test.php:
 
 ```
 <?php
-require &apos;myclass.php&apos;;
+require 'myclass.php';
 use my%space%myclass;
 $x = new myclass;
 //...

@@ -32,7 +32,47 @@ $lastObj = new C(); // still no problems
 I think the best way for beginners to understand inheritance is through a real example so here is a simple example I can gave to you <br><br>
 
 ```
-<?php<br><br>class Person<br>{<br>    public $name;<br>    protected $age;<br>    private $phone;<br><br>    public function talk(){<br>        //Do stuff here<br>    }<br><br>    protected function walk(){<br>        //Do stuff here<br>    }<br><br>    private function swim(){<br>        //Do stuff here<br>    }<br>}<br><br>class Tom extends Person<br>{<br>    /*Since Tom class extends Person class this means <br>        that class Tom is a child class and class person is <br>        the parent class and child class will inherit all public <br>        and protected members(properties and methods) from<br>        the parent class*/<br><br>     /*So class Tom will have these properties and methods*/<br><br>     //public $name;<br>     //protected $age;<br>     //public function talk(){}<br>     //protected function walk(){}<br><br>     //but it will not inherit the private members <br>     //this is all what Object inheritance means<br>}  
+<?php
+
+class Person
+{
+    public $name;
+    protected $age;
+    private $phone;
+
+    public function talk(){
+        //Do stuff here
+    }
+
+    protected function walk(){
+        //Do stuff here
+    }
+
+    private function swim(){
+        //Do stuff here
+    }
+}
+
+class Tom extends Person
+{
+    /*Since Tom class extends Person class this means 
+        that class Tom is a child class and class person is 
+        the parent class and child class will inherit all public 
+        and protected members(properties and methods) from
+        the parent class*/
+
+     /*So class Tom will have these properties and methods*/
+
+     //public $name;
+     //protected $age;
+     //public function talk(){}
+     //protected function walk(){}
+
+     //but it will not inherit the private members 
+     //this is all what Object inheritance means
+}?>
+```
+  
 
 #
 
@@ -65,7 +105,7 @@ class inheritsCustom
 }
 
 $obj = new inheritsCustom();
-$obj-&gt;hello();
+$obj->hello();
 ?>
 ```
   
@@ -113,7 +153,7 @@ class foo_bar_baz extends foo_bar
 error_reporting(-1);
 
 $obj = new foo_bar_baz();
-$obj-&gt;call();
+$obj->call();
 
 // Output similar to:
 // foo_bar_baz

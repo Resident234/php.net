@@ -17,7 +17,7 @@ class A
     public static function __set_state($an_array)
     {
         $obj = new A;
-        $obj-&gt;var1 = $an_array[&apos;var1&apos;];  
+        $obj->var1 = $an_array['var1'];  
         return $obj;
     }
 }
@@ -26,13 +26,13 @@ class B extends A {
 }
 
 $b = new B;
-$b-&gt;var1 = 5;
+$b->var1 = 5;
 
-eval(&apos;$new_b = &apos; . var_export($b, true) . &apos;;&apos;); 
+eval('$new_b = ' . var_export($b, true) . ';'); 
 var_dump($new_b);
 /*
 object(A)#2 (1) {
-  ["var1"]=&gt;
+  ["var1"]=>
   int(5)
 }
 */
@@ -47,7 +47,7 @@ Ever wondered why you can&apos;t throw exceptions from __toString()? Yeah me too
 ```
 <?php
 
-set_error_handler(array(&apos;My_ToStringFixer&apos;, &apos;errorHandler&apos;));
+set_error_handler(array('My_ToStringFixer', 'errorHandler'));
 error_reporting(E_ALL | E_STRICT);
 
 class My_ToStringFixer
@@ -59,9 +59,9 @@ class My_ToStringFixer
         if (isset(self::$_toStringException))
         {
             $exception = self::$_toStringException;
-            // Always unset &apos;_toStringException&apos;, we don&apos;t want a straggler to be found later if something came between the setting and the error
+            // Always unset '_toStringException', we don't want a straggler to be found later if something came between the setting and the error
             self::$_toStringException = null;
-            if (preg_match(&apos;~^Method .*::__toString\(\) must return a string value$~&apos;, $errorMessage))
+            if (preg_match('~^Method .*::__toString\(\) must return a string value$~', $errorMessage))
                 throw $exception;
         }
         return false;
@@ -73,7 +73,7 @@ class My_ToStringFixer
         if (isset(self::$_toStringException))
         {
             self::$_toStringException = null;
-            return &apos;&apos;;
+            return '';
         }
 
         self::$_toStringException = $exception;
@@ -86,7 +86,7 @@ class My_Class
 {
     public function doComplexStuff()
     {
-        throw new Exception(&apos;Oh noes!&apos;);
+        throw new Exception('Oh noes!');
     }
 
     public function __toString()
@@ -94,11 +94,11 @@ class My_Class
         try
         {
             // do your complex thing which might trigger an exception
-            return $this-&gt;doComplexStuff();
+            return $this->doComplexStuff();
         }
         catch (Exception $e)
         {
-            // The &apos;return&apos; is required to trigger the trick
+            // The 'return' is required to trigger the trick
             return My_ToStringFixer::throwToStringException($e);
         }
     }
@@ -112,7 +112,7 @@ try
 }
 catch (Exception $e)
 {
-    echo &apos;Caught Exception! : &apos;. $e;
+    echo 'Caught Exception! : '. $e;
 }
 ?>
 ```

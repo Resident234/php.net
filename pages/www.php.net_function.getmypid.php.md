@@ -7,13 +7,13 @@ The lock-file mechanism in Kevin Trass&apos;s note is incorrect because it is su
 ```
 <?php
 
-define(&apos;LOCK_FILE&apos;, "/var/run/" . basename($argv[0], ".php") . ".lock");
+define('LOCK_FILE', "/var/run/" . basename($argv[0], ".php") . ".lock");
 
 if (!tryLock())
     die("Already running.\n");
 
-# remove the lock on exit (Control+C doesn&apos;t count as &apos;exit&apos;?)
-register_shutdown_function(&apos;unlink&apos;, LOCK_FILE);
+# remove the lock on exit (Control+C doesn't count as 'exit'?)
+register_shutdown_function('unlink', LOCK_FILE);
 
 # The rest of your script goes here....
 echo "Hello world!\n";
@@ -26,11 +26,11 @@ function tryLock()
     # If lock file exists, check if stale.  If exists and is not stale, return TRUE
     # Else, create lock file and return FALSE.
 
-    if (@symlink("/proc/" . getmypid(), LOCK_FILE) !== FALSE) # the @ in front of &apos;symlink&apos; is to suppress the NOTICE you get if the LOCK_FILE exists
+    if (@symlink("/proc/" . getmypid(), LOCK_FILE) !== FALSE) # the @ in front of 'symlink' is to suppress the NOTICE you get if the LOCK_FILE exists
         return true;
 
     # link already exists
-    # check if it&apos;s stale
+    # check if it's stale
     if (is_link(LOCK_FILE) &amp;&amp; !is_dir(LOCK_FILE))
     {
         unlink(LOCK_FILE);

@@ -13,7 +13,7 @@ when raising an Exception with no error code explicitly defined, getCode() retur
 try {
   throw new Exception("no code!!");
 } catch (Exception $e) {
-  print("Code=&apos;" . $e-&gt;getCode() . "&apos;");
+  print("Code='" . $e->getCode() . "'");
 }
 ?>
 ```

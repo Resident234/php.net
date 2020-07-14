@@ -32,7 +32,7 @@ will be equivalent to this one:
 ```
 
 
-That script will not output anything until the end, if &apos;output_buffering&apos; is set to &apos;on&apos; in php.ini. Unfortunately, there is no way to do an implicit ob_flush() after each output, that I am aware of.
+That script will not output anything until the end, if 'output_buffering' is set to 'on' in php.ini. Unfortunately, there is no way to do an implicit ob_flush() after each output, that I am aware of.
 
 If you want the output to come out as it is generated, one solution is to *also* add ob_end_clean() or ob_end_flush() to the beginning of the script:
 
@@ -51,7 +51,7 @@ If you want the output to come out as it is generated, one solution is to *also*
 ```
 
 
-This will output as it goes. This is only a problem if you only want one part of the output to come out in real time, and want the rest buffered. In that case, since there&apos;s no function to do an implicit ob_flush() every time, you need to call it explicitly. For example, this works:
+This will output as it goes. This is only a problem if you only want one part of the output to come out in real time, and want the rest buffered. In that case, since there's no function to do an implicit ob_flush() every time, you need to call it explicitly. For example, this works:
 
 
 

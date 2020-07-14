@@ -23,7 +23,7 @@ Isolde is kind of wrong. The error handlers are stacked with set_error_handler()
     mysql_connect("inexistent"); 
     restore_error_handler();        //now current error handler: default handler
     mysql_connect("inexistent");
-    restore_error_handler();        //now current error handler: default handler (The stack can&apos;t pop more)
+    restore_error_handler();        //now current error handler: default handler (The stack can't pop more)
 ?>
 ```
   

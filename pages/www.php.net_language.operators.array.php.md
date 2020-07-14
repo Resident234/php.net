@@ -6,14 +6,14 @@ The union operator did not behave as I thought it would on first glance. It impl
 
 ```
 <?php
-$a = array(&apos;one&apos;,&apos;two&apos;);
-$b=array(&apos;three&apos;,&apos;four&apos;,&apos;five&apos;);
+$a = array('one','two');
+$b=array('three','four','five');
 
-//not a union of arrays&apos; values
-echo &apos;$a + $b : &apos;;
+//not a union of arrays' values
+echo '$a + $b : ';
 print_r ($a + $b);
 
-//a union of arrays&apos; values
+//a union of arrays' values
 echo "array_unique(array_merge($a,$b)):";
 // cribbed from http://oreilly.com/catalog/progphp/chapter/ch05.html
 print_r (array_unique(array_merge($a,$b)));
@@ -27,12 +27,12 @@ The example may get u into thinking that the identical operator returns true bec
 
 ```
 <?php
-$a = array (0 =&gt; "apple", 1 =&gt; "banana");
-$b = array (1 =&gt; "banana", 0 =&gt; "apple");
+$a = array (0 => "apple", 1 => "banana");
+$b = array (1 => "banana", 0 => "apple");
 
 var_dump($a === $b); // prints bool(false) as well
 
-$b = array ("0" =&gt; "apple", "1" =&gt; "banana");
+$b = array ("0" => "apple", "1" => "banana");
 
 var_dump($a === $b); // prints bool(true)
 ?>

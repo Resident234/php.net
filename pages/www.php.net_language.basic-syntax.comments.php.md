@@ -136,7 +136,7 @@ Be careful when commenting out regular expressions.<br><br>E.g. the following ca
 
 /*
 
- $f-&gt;setPattern(&apos;/^\d.*/&apos;);
+ $f->setPattern('/^\d.*/');
 
 */
 
@@ -153,7 +153,7 @@ it&apos;s perhaps not obvious to some, but the following code will cause a parse
  is not treated as commented text, this is a result of having to handle code on one line such as 
 
 ```
-<?php echo &apos;something&apos;; //comment ?>
+<?php echo 'something'; //comment ?>
 ```
 
 
@@ -174,7 +174,7 @@ if(1==1)
 i discovered this "anomally" when i commented out a line of code containing a regex which itself contained ?>
 ```
 , with the // style comment.
-e.g. //preg_match(&apos;/^(?>
+e.g. //preg_match('/^(?>
 ```
 c|b)at$/&apos;, &apos;cat&apos;, $matches);<br>will cause an error while commented! using /**/ style comments provides a solution. i don&apos;t know about # style comments, i don&apos;t ever personally use them.  
 

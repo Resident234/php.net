@@ -11,15 +11,15 @@ $objs[] = new TestClass();
 $objs[] = new TestClass();
 $objs[] = new TestClass();
 
-//Doesn&apos;t work
-apc_store(&apos;objs&apos;,$objs,60);
-$tmp = apc_fetch(&apos;objs&apos;); 
+//Doesn't work
+apc_store('objs',$objs,60);
+$tmp = apc_fetch('objs'); 
 print_r($tmp);
 
 //Works
-apc_store(&apos;objs&apos;,new ArrayObject($objs),60);
-$tmp = apc_fetch(&apos;objs&apos;); 
-print_r($tmp-&gt;getArrayCopy());
+apc_store('objs',new ArrayObject($objs),60);
+$tmp = apc_fetch('objs'); 
+print_r($tmp->getArrayCopy());
 
 ?>
 ```

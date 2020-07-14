@@ -9,7 +9,7 @@ It would make this whole issue a lot less confusing for less-experienced PHP pro
 Beware that all the solutions given in the comments below for emulating register_global being off are bogus, because they can destroy predefined variables you should not unset. For example, suppose that you have<br><br>
 
 ```
-<?php $_GET[&apos;_COOKIE&apos;] == &apos;foo&apos;; ?>
+<?php $_GET['_COOKIE'] == 'foo'; ?>
 ```
 <br><br>Then the simplistic solutions of the previous comments let you lose all the cookies registered in the superglobal "$_COOKIE"! (Note that in this situation, even with register_global set to "on", PHP is smart enough to not mess predefined variables such as  $_COOKIE.)<br><br>A proper solution for emulating register_global being off is given in the FAQ, as stated in the documentation above.  
 

@@ -7,11 +7,11 @@ Note that if you set the protocol_version option to 1.1 and the server you are r
 ```
 <?php
 // php 5.4 : array syntax and header option with array value
-$data = file_get_contents(&apos;http://www.example.com/&apos;, null, stream_context_create([
-    &apos;http&apos; =&gt; [
-        &apos;protocol_version&apos; =&gt; 1.1,
-        &apos;header&apos;           =&gt; [
-            &apos;Connection: close&apos;,
+$data = file_get_contents('http://www.example.com/', null, stream_context_create([
+    'http' => [
+        'protocol_version' => 1.1,
+        'header'           => [
+            'Connection: close',
         ],
     ],
 ]));

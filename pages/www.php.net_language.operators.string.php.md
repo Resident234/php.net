@@ -7,14 +7,14 @@ As for me, curly braces serve good substitution for concatenation, and they are 
 ```
 <?php
 
- $a = &apos;12345&apos;;
+ $a = '12345';
 
 // This works:
  echo "qwe{$a}rty"; // qwe12345rty, using braces
  echo "qwe" . $a . "rty"; // qwe12345rty, concatenation used
 
 // Does not work:
- echo &apos;qwe{$a}rty&apos;; // qwe{$a}rty, single quotes are not parsed
+ echo 'qwe{$a}rty'; // qwe{$a}rty, single quotes are not parsed
  echo "qwe$arty"; // qwe, because $a became $arty, which is undefined
 
 ?>
@@ -25,17 +25,7 @@ As for me, curly braces serve good substitution for concatenation, and they are 
 
 A word of caution - the dot operator has the same precedence as + and -, which can yield unexpected results. <br><br>Example:<br><br>&lt;php<br>$var = 3;<br><br>echo "Result: " . $var + 3;<br>?>
 ```
-
-
-The above will print out "3" instead of "Result: 6", since first the string "Result3" is created and this is then added to 3 yielding 3, non-empty non-numeric strings being converted to 0.
-
-To print "Result: 6", use parantheses to alter precedence:
-
-&lt;php
-$var = 3;
-
-echo "Result: " . ($var + 3); 
-?>
+<br><br>The above will print out "3" instead of "Result: 6", since first the string "Result3" is created and this is then added to 3 yielding 3, non-empty non-numeric strings being converted to 0.<br><br>To print "Result: 6", use parantheses to alter precedence:<br><br>&lt;php<br>$var = 3;<br><br>echo "Result: " . ($var + 3); <br>?>
 ```
   
 

@@ -12,9 +12,9 @@ When catching an exception inside a namespace it is important that you escape to
 
   function SomeFunction() {
    try {
-    throw new Exception(&apos;Some Error Message&apos;);
+    throw new Exception('Some Error Message');
    } catch (\Exception $e) {
-    var_dump($e-&gt;getMessage());
+    var_dump($e->getMessage());
    }
   }
 
@@ -32,7 +32,7 @@ If a TRY has a FINALLY, a RETURN either in the TRY or a CATCH won&apos;t termina
     function foo(){
         $bar = 1;
         try{
-            throw new Exception(&apos;I am Wu Xiancheng.&apos;);
+            throw new Exception('I am Wu Xiancheng.');
         }catch(Exception $e){
             return $bar;
             $bar--; // this line will be ignored
@@ -54,7 +54,7 @@ code 2
     function foo(){
         $bar = 1;
         try{
-            throw new Exception(&apos;I am Wu Xiancheng.&apos;);
+            throw new Exception('I am Wu Xiancheng.');
         }catch(Exception $e){
             return $bar;
             $bar--; // this line will be ignored
@@ -77,7 +77,7 @@ code 3
     function foo(){
         $bar = 1;
         try{
-            throw new Exception(&apos;I am Wu Xiancheng.&apos;);
+            throw new Exception('I am Wu Xiancheng.');
         }catch(Exception $e){
             return $bar;
             $bar--; // this line will be ignored
@@ -113,7 +113,7 @@ interface IException
 
 abstract class CustomException extends Exception implements IException
 {
-    protected $message = &apos;Unknown exception&apos;;     // Exception message
+    protected $message = 'Unknown exception';     // Exception message
     private   $string;                            // Unknown
     protected $code    = 0;                       // User-defined exception code
     protected $file;                              // Source filename of exception
@@ -123,15 +123,15 @@ abstract class CustomException extends Exception implements IException
     public function __construct($message = null, $code = 0)
     {
         if (!$message) {
-            throw new $this(&apos;Unknown &apos;. get_class($this));
+            throw new $this('Unknown '. get_class($this));
         }
         parent::__construct($message, $code);
     }
     
     public function __toString()
     {
-        return get_class($this) . " &apos;{$this-&gt;message}&apos; in {$this-&gt;file}({$this-&gt;line})\n"
-                                . "{$this-&gt;getTraceAsString()}";
+        return get_class($this) . " '{$this->message}' in {$this->file}({$this->line})\n"
+                                . "{$this->getTraceAsString()}";
     }
 }
 ?>
@@ -149,7 +149,7 @@ class TestException extends CustomException {}
 ```
 
 
-Here&apos;s a test that shows that all information is properly preserved throughout the backtrace.
+Here's a test that shows that all information is properly preserved throughout the backtrace.
 
 
 
@@ -161,14 +161,14 @@ function exceptionTest()
         throw new TestException();
     }
     catch (TestException $e) {
-        echo "Caught TestException (&apos;{$e-&gt;getMessage()}&apos;)\n{$e}\n";
+        echo "Caught TestException ('{$e->getMessage()}')\n{$e}\n";
     }
     catch (Exception $e) {
-        echo "Caught Exception (&apos;{$e-&gt;getMessage()}&apos;)\n{$e}\n";
+        echo "Caught Exception ('{$e->getMessage()}')\n{$e}\n";
     }
 }
 
-echo &apos;&lt;pre&gt;&apos; . exceptionTest() . &apos;&lt;/pre&gt;&apos;;
+echo '&lt;pre&gt;' . exceptionTest() . '&lt;/pre&gt;';
 ?>
 ```
 <br><br>Here&apos;s a sample output:<br><br>Caught TestException (&apos;Unknown TestException&apos;)<br>TestException &apos;Unknown TestException&apos; in C:\xampp\htdocs\CustomException\CustomException.php(31)<br>#0 C:\xampp\htdocs\CustomException\ExceptionTest.php(19): CustomException-&gt;__construct()<br>#1 C:\xampp\htdocs\CustomException\ExceptionTest.php(43): exceptionTest()<br>#2 {main}  
@@ -209,7 +209,7 @@ try {
     ...
 } catch (Exception $e) {
   ob_end_clean();
-  displayErrorPage($e-&gt;getMessage());
+  displayErrorPage($e->getMessage());
 }
 ?>
 ```
@@ -225,7 +225,7 @@ Using a return statement inside a finally block will override any other return s
 function asdf()
 {
     try {
-        throw new Exception(&apos;error&apos;);
+        throw new Exception('error');
     }
     catch(Exception $e) {
         echo "An error occurred";
@@ -241,7 +241,7 @@ try {
     echo asdf();
 }
 catch(Exception $e) {
-    echo "\nResult: " . $e-&gt;getMessage();
+    echo "\nResult: " . $e->getMessage();
 }
 ?>
 ```
@@ -258,7 +258,7 @@ Type declarations will trigger Uncaught TypeError when a different type is passe
     try{
         xc(4);
     }catch (Exception $e){ // failed to catch it
-        echo $e-&gt;getMessage();
+        echo $e->getMessage();
     }
 ?>
 ```
@@ -275,7 +275,7 @@ You should use TypeError instead for PHP 7+,
     try{
         xc(4);
     }catch (TypeError $e){
-        echo $e-&gt;getMessage();
+        echo $e->getMessage();
     }
 ?>
 ```
@@ -290,13 +290,13 @@ In php version prior to 7.0, you should translate Catchable fatal errors to an e
     function exceptionErrorHandler($errNumber, $errStr, $errFile, $errLine ) {
         throw new ErrorException($errStr, 0, $errNumber, $errFile, $errLine);
     }
-    set_error_handler(&apos;exceptionErrorHandler&apos;);
+    set_error_handler('exceptionErrorHandler');
     function s(array $a){        
     }
     try{
         s(4);
     }catch (Exception $e){
-        echo $e-&gt;getMessage();
+        echo $e->getMessage();
     }
 ?>
 ```
@@ -319,11 +319,11 @@ try {
   if(!user_has_access_to_file($someuser, $somefile))
      throw new AccessControl("Permission denied!");
   if(!display_file($somefile))
-     throw new DisplayException("Couldn&apos;t display file!");
+     throw new DisplayException("Couldn't display file!");
 
 } catch (FileException $e) {
   // This block will catch FileException, AccessControl or IOError exceptions, but not Exceptions or DisplayExceptions.
-  echo "File error: ".$e-&gt;getMessage();
+  echo "File error: ".$e->getMessage();
   exit(1);
 }
 ?>
@@ -400,14 +400,14 @@ try{
         try {
                 throw new \Exception("Hello");
         } catch(\Exception $e) {
-                echo $e-&gt;getMessage()." catch in\n";
+                echo $e->getMessage()." catch in\n";
                 throw $e;
         } finally {
-                echo $e-&gt;getMessage()." finally \n";
+                echo $e->getMessage()." finally \n";
                 throw new \Exception("Bye");
         }
 } catch (\Exception $e) {
-        echo $e-&gt;getMessage()." catch out\n";
+        echo $e->getMessage()." catch out\n";
 }
 ?>
 ```

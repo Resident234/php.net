@@ -38,7 +38,7 @@ A simple alternative to an if statement, which is almost like a ternary operator
 
 ```
 <?php
-     $value = &apos;Jesus&apos;;
+     $value = 'Jesus';
 
      // This is a simple if statement
      if( isset( $value ) )
@@ -46,7 +46,7 @@ A simple alternative to an if statement, which is almost like a ternary operator
           print $value;
      }
 
-     print &apos;&lt;br /&gt;&apos;;
+     print '&lt;br /&gt;';
 
      // This is an alternative
      isset( $value ) AND print( $value );
@@ -64,21 +64,21 @@ Consider the following hypothetical PHP example:<br><br>
 
 ```
 <?php
-$bar = &apos;bar&apos;;
-$foo = &apos;foo&apos;;
+$bar = 'bar';
+$foo = 'foo';
 
 if (isset($bar)):
    if (isset($foo)) echo "Both are set.";
 elseif (isset($foo)):
-   echo "Only &apos;foo&apos; is set.";
+   echo "Only 'foo' is set.";
 else:
-   echo "Only &apos;bar&apos; is set.";
+   echo "Only 'bar' is set.";
 endif;
 ?>
 ```
 
 
-Disconsider the dumb logic and focus on the elseif line. If you try it yourself you will get a PHP EXCEPTION error saying: syntax error, unexpected &apos;:&apos; .
+Disconsider the dumb logic and focus on the elseif line. If you try it yourself you will get a PHP EXCEPTION error saying: syntax error, unexpected ':' .
 
 Now, you may think the fix is to have the sub-if enclosed in between { } instead of being a single line statement, like this:
 
@@ -86,17 +86,17 @@ Now, you may think the fix is to have the sub-if enclosed in between { } instead
 
 ```
 <?php
-$foo = &apos;foo&apos;;
-$bar = &apos;bar&apos;;
+$foo = 'foo';
+$bar = 'bar';
 
 if (isset($bar)):
    if (isset($foo)) {
      echo "Both are set.";
    }
 elseif (isset($foo)):
-   echo "Only &apos;foo&apos; is set.";
+   echo "Only 'foo' is set.";
 else:
-   echo "Only &apos;bar&apos; is set.";
+   echo "Only 'bar' is set.";
 endif;
 ?>
 ```
@@ -110,17 +110,17 @@ Well, here is what I found: if you put a semicolon (;) AFTER the curly bracket (
 
 ```
 <?php
-$foo = &apos;foo&apos;;
-$bar = &apos;bar&apos;;
+$foo = 'foo';
+$bar = 'bar';
 
 if (isset($bar)):
    if (isset($foo)) {
      echo "Both are set.";
    };
 elseif (isset($foo)):
-   echo "Only &apos;foo&apos; is set.";
+   echo "Only 'foo' is set.";
 else:
-   echo "Only &apos;bar&apos; is set.";
+   echo "Only 'bar' is set.";
 endif;
 ?>
 ```
@@ -132,35 +132,35 @@ Weird enough, if you go back to the first example and DOUBLE the semicolon immed
 
 ```
 <?php
-$foo = &apos;foo&apos;;
-$bar = &apos;bar&apos;;
+$foo = 'foo';
+$bar = 'bar';
 
 if (isset($bar)):
   if (isset($foo)) echo "Both are set.";;
 elseif (isset($foo)):
-  echo "Only &apos;foo&apos; is set.";
+  echo "Only 'foo' is set.";
 else:
-  echo "Only &apos;bar&apos; is set.";
+  echo "Only 'bar' is set.";
 endif;
 ?>
 ```
 
 
-But, it doesn&apos;t end there. You can also do this:
+But, it doesn't end there. You can also do this:
 
 
 
 ```
 <?php
-$foo = &apos;foo&apos;;
-$bar = &apos;bar&apos;;
+$foo = 'foo';
+$bar = 'bar';
 
 if (isset($bar)):
   if (isset($foo)): echo "Both are set.";
 elseif (isset($foo)):
-  echo "Only &apos;foo&apos; is set.";
+  echo "Only 'foo' is set.";
 else:
-  echo "Only &apos;bar&apos; is set.";
+  echo "Only 'bar' is set.";
 endif;
 ?>
 ```
@@ -168,7 +168,7 @@ endif;
 
 However, in this last example, the logic gets totally scrambled! The elseif will now belong to the sub-if instead of the first if, and the rest of the logic will all behave as a "one single statement" in response to the first if only. Very confusing and error prone (be careful).
 
-The differences are very subtle and can deceive the eyes (especially while debugging). For this reason, I strongly suggest the first example from this answer: when using IF-ELSEIF blocks (AKA "Alternative Syntax"), if another IF is required inside it, enclose it in between {} and don&apos;t forget to add a semicolon after the last }. Example:
+The differences are very subtle and can deceive the eyes (especially while debugging). For this reason, I strongly suggest the first example from this answer: when using IF-ELSEIF blocks (AKA "Alternative Syntax"), if another IF is required inside it, enclose it in between {} and don't forget to add a semicolon after the last }. Example:
 
 
 

@@ -32,7 +32,7 @@ class String extends com\rsumilang\common\Object{
 ```
 
 
-Now if you class String was defined in the same namespace as Object then you don&apos;t have to specify a full namespace path:
+Now if you class String was defined in the same namespace as Object then you don't have to specify a full namespace path:
 
 
 

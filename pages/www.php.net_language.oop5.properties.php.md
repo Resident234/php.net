@@ -11,7 +11,7 @@ You can access property names with dashes in them (for example, because you conv
 ```
 <?php
 $ref = new StdClass();
-$ref-&gt;{&apos;ref-type&apos;} = &apos;Journal Article&apos;;
+$ref->{'ref-type'} = 'Journal Article';
 var_dump($ref);
 ?>
 ```
@@ -38,15 +38,15 @@ class test
 }
 
 $t = new test;
-print_r($t-&gt;toArray());
+print_r($t->toArray());
 
 /* outputs:
 
 Array
 (
-    [var1] =&gt; 1
-    [ * var2] =&gt; 2
-    [ test var3] =&gt; 3
+    [var1] => 1
+    [ * var2] => 2
+    [ test var3] => 3
 )
 
 */
@@ -69,35 +69,35 @@ abstract class PropertyObject
 {
   public function __get($name)
   {
-    if (method_exists($this, ($method = &apos;get_&apos;.$name)))
+    if (method_exists($this, ($method = 'get_'.$name)))
     {
-      return $this-&gt;$method();
+      return $this->$method();
     }
     else return;
   }
   
   public function __isset($name)
   {
-    if (method_exists($this, ($method = &apos;isset_&apos;.$name)))
+    if (method_exists($this, ($method = 'isset_'.$name)))
     {
-      return $this-&gt;$method();
+      return $this->$method();
     }
     else return;
   }
   
   public function __set($name, $value)
   {
-    if (method_exists($this, ($method = &apos;set_&apos;.$name)))
+    if (method_exists($this, ($method = 'set_'.$name)))
     {
-      $this-&gt;$method($value);
+      $this->$method($value);
     }
   }
   
   public function __unset($name)
   {
-    if (method_exists($this, ($method = &apos;unset_&apos;.$name)))
+    if (method_exists($this, ($method = 'unset_'.$name)))
     {
-      $this-&gt;$method();
+      $this->$method();
     }
   }
 }

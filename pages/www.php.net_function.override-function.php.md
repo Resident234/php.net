@@ -6,7 +6,7 @@ I thought the example was not very helpful, because it doesn&apos;t even overrid
 
 ```
 <?php
-override_function(&apos;strlen&apos;, &apos;$string&apos;, &apos;return override_strlen($string);&apos;);
+override_function('strlen', '$string', 'return override_strlen($string);');
 function override_strlen($string){
         return strlen($string);  
 }
@@ -20,8 +20,8 @@ HOWEVER, if you use rename_function to rename the original function to a third n
 
 ```
 <?php
-rename_function(&apos;strlen&apos;, &apos;new_strlen&apos;);
-override_function(&apos;strlen&apos;, &apos;$string&apos;, &apos;return override_strlen($string);&apos;);
+rename_function('strlen', 'new_strlen');
+override_function('strlen', '$string', 'return override_strlen($string);');
 
 function override_strlen($string){
         return new_strlen($string);  

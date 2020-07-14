@@ -10,8 +10,8 @@ trigger_error always reports the line and file that trigger_error was called on.
 
 ```
 <?php
-include(&apos;functions.php&apos;);
-$x = &apos;test&apos;;
+include('functions.php');
+$x = 'test';
 doFunction($x);
 ?>
 ```
@@ -26,7 +26,7 @@ function doFunction($var) {
 if(is_numeric($var)) {
  /* do some stuff*/
 } else {
- trigger_error(&apos;var must be numeric&apos;);
+ trigger_error('var must be numeric');
 }
 }
 ?>
@@ -36,7 +36,7 @@ if(is_numeric($var)) {
 will output "Notice: var must be numeric in functions.php on line 6"
 whereas "Notice: var must be numeric in main.php on line 4" would be more useful
 
-here&apos;s a function to do that:
+here's a function to do that:
 
 
 
@@ -45,7 +45,7 @@ here&apos;s a function to do that:
 
 function error($message, $level=E_USER_NOTICE) {
 $caller = next(debug_backtrace());
-trigger_error($message.&apos; in &lt;strong&gt;&apos;.$caller[&apos;function&apos;].&apos;&lt;/strong&gt; called from &lt;strong&gt;&apos;.$caller[&apos;file&apos;].&apos;&lt;/strong&gt; on line &lt;strong&gt;&apos;.$caller[&apos;line&apos;].&apos;&lt;/strong&gt;&apos;."\n&lt;br /&gt;error handler", $level);
+trigger_error($message.' in &lt;strong&gt;'.$caller['function'].'&lt;/strong&gt; called from &lt;strong&gt;'.$caller['file'].'&lt;/strong&gt; on line &lt;strong&gt;'.$caller['line'].'&lt;/strong&gt;'."\n&lt;br /&gt;error handler", $level);
 }
 ?>
 ```
@@ -58,8 +58,8 @@ main.php:
 
 ```
 <?php
-include(&apos;functions.php&apos;);
-$x = &apos;test&apos;;
+include('functions.php');
+$x = 'test';
 doFunction($x);
 ?>
 ```
@@ -74,13 +74,13 @@ function doFunction($var) {
     if(is_numeric($var)) {
          /* do some stuff*/
     } else {
-         error(&apos;var must be numeric&apos;);
+         error('var must be numeric');
     }
 }
 
 function error($message, $level=E_USER_NOTICE) {
     $caller = next(debug_backtrace());
-    trigger_error($message.&apos; in &lt;strong&gt;&apos;.$caller[&apos;function&apos;].&apos;&lt;/strong&gt; called from &lt;strong&gt;&apos;.$caller[&apos;file&apos;].&apos;&lt;/strong&gt; on line &lt;strong&gt;&apos;.$caller[&apos;line&apos;].&apos;&lt;/strong&gt;&apos;."\n&lt;br /&gt;error handler", $level);
+    trigger_error($message.' in &lt;strong&gt;'.$caller['function'].'&lt;/strong&gt; called from &lt;strong&gt;'.$caller['file'].'&lt;/strong&gt; on line &lt;strong&gt;'.$caller['line'].'&lt;/strong&gt;'."\n&lt;br /&gt;error handler", $level);
 }
 ?>
 ```

@@ -9,7 +9,7 @@ As noted below, it&apos;s important to realize that unless caught, any Exception
 function custom_error_handler($number, $string, $file, $line, $context) 
 {
     // Determine if this error is one of the enabled ones in php config (php.ini, .htaccess, etc)
-    $error_is_enabled = (bool)($number &amp; ini_get(&apos;error_reporting&apos;) );
+    $error_is_enabled = (bool)($number &amp; ini_get('error_reporting') );
     
     // -- FATAL ERROR
     // throw an Error Exception, to be handled by whatever Exception handling logic is available in this context
@@ -18,7 +18,7 @@ function custom_error_handler($number, $string, $file, $line, $context)
     }
     
     // -- NON-FATAL ERROR/WARNING/NOTICE
-    // Log the error if it&apos;s enabled, otherwise just ignore it
+    // Log the error if it's enabled, otherwise just ignore it
     else if( $error_is_enabled ) {
         error_log( $string, 0 );
         return false; // Make sure this ends up in $php_errormsg, if appropriate
@@ -36,15 +36,15 @@ E_USER_WARNING, E_USER_NOTICE, and any other non-terminating error codes, are us
 <?php
     
     error_reporting(E_ALL);
-    define(&apos;DEBUG&apos;, true);
-    define(&apos;LINEBREAK&apos;, "\r\n");
+    define('DEBUG', true);
+    define('LINEBREAK', "\r\n");
     
-    error::initiate(&apos;./error_backtrace.log&apos;);
+    error::initiate('./error_backtrace.log');
     
     try
         trigger_error("First error", E_USER_NOTICE);
     catch ( ErrorException $e )
-        print("Caught the error: ".$e-&gt;getMessage."&lt;br /&gt;\r\n" );
+        print("Caught the error: ".$e->getMessage."&lt;br /&gt;\r\n" );
     
     trigger_error("This event WILL fire", E_USER_NOTICE);
     
@@ -57,13 +57,13 @@ E_USER_WARNING, E_USER_NOTICE, and any other non-terminating error codes, are us
         private function __construct() {}
         
         public static function initiate( $log = false ) {
-            set_error_handler( &apos;error::err_handler&apos; );
-            set_exception_handler( &apos;error::exc_handler&apos; );
+            set_error_handler( 'error::err_handler' );
+            set_exception_handler( 'error::exc_handler' );
             if ( $log !== false ) {
-                if ( ! ini_get(&apos;log_errors&apos;) )
-                    ini_set(&apos;log_errors&apos;, true);
-                if ( ! ini_get(&apos;error_log&apos;) )
-                    ini_set(&apos;error_log&apos;, $log);
+                if ( ! ini_get('log_errors') )
+                    ini_set('log_errors', true);
+                if ( ! ini_get('error_log') )
+                    ini_set('error_log', $log);
             }
         }
         
@@ -74,28 +74,28 @@ E_USER_WARNING, E_USER_NOTICE, and any other non-terminating error codes, are us
                 $exit = false;
                 switch ( $errno ) {
                     case E_USER_ERROR:
-                        $type = &apos;Fatal Error&apos;;
+                        $type = 'Fatal Error';
                         $exit = true;
                     break;
                     case E_USER_WARNING:
                     case E_WARNING:
-                        $type = &apos;Warning&apos;;
+                        $type = 'Warning';
                     break;
                     case E_USER_NOTICE:
                     case E_NOTICE:
                     case @E_STRICT:
-                        $type = &apos;Notice&apos;;
+                        $type = 'Notice';
                     break;
                     case @E_RECOVERABLE_ERROR:
-                        $type = &apos;Catchable&apos;;
+                        $type = 'Catchable';
                     break;
                     default:
-                        $type = &apos;Unknown Error&apos;;
+                        $type = 'Unknown Error';
                         $exit = true;
                     break;
                 }
                 
-                $exception = new \ErrorException($type.&apos;: &apos;.$errstr, 0, $errno, $errfile, $errline);
+                $exception = new \ErrorException($type.': '.$errstr, 0, $errno, $errfile, $errline);
                 
                 if ( $exit ) {
                     exc_handler($exception);
@@ -108,10 +108,10 @@ E_USER_WARNING, E_USER_NOTICE, and any other non-terminating error codes, are us
         }
         
         function exc_handler($exception) {
-            $log = $exception-&gt;getMessage() . "\n" . $exception-&gt;getTraceAsString() . LINEBREAK;
-            if ( ini_get(&apos;log_errors&apos;) )
+            $log = $exception->getMessage() . "\n" . $exception->getTraceAsString() . LINEBREAK;
+            if ( ini_get('log_errors') )
                 error_log($log, 0);
-            print("Unhandled Exception" . (DEBUG ? " - $log" : &apos;&apos;));
+            print("Unhandled Exception" . (DEBUG ? " - $log" : ''));
         }
         
     }

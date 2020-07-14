@@ -9,7 +9,81 @@ It seems like many contributors are missing the point of using an INTERFACE. An 
 Just wrote some examples of duck-typing in PHP. Sharing here.<br><br>
 
 ```
-<?php<br><br>/**<br> * An example of duck typing in PHP<br> */<br><br>interface CanFly {<br>  public function fly();<br>}<br><br>interface CanSwim {<br>  public function swim();<br>}<br><br>class Bird {<br>  public function info() {<br>    echo "I am a {$this-&gt;name}\n";<br>    echo "I am an bird\n";<br>  }<br>}<br><br>/**<br> * some implementations of birds<br> */<br>class Dove extends Bird implements CanFly {<br>  var $name = "Dove";<br>  public function fly() {<br>    echo "I fly\n";<br>  } <br>}<br><br>class Penguin extends Bird implements CanSwim {<br>  var $name = "Penguin";<br>  public function swim() {<br>    echo "I swim\n";<br>  } <br>}<br><br>class Duck extends Bird implements CanFly, CanSwim {<br>  var $name = "Duck";<br>  public function fly() {<br>    echo "I fly\n";<br>  }<br>  public function swim() {<br>    echo "I swim\n";<br>  }<br>}<br><br>/**<br> * a simple function to describe a bird<br> */<br>function describe($bird) {<br>  if ($bird instanceof Bird) {<br>    $bird-&gt;info();<br>    if ($bird instanceof CanFly) {<br>      $bird-&gt;fly();<br>    }<br>    if ($bird instanceof CanSwim) {<br>      $bird-&gt;swim();<br>    }<br>  } else {<br>    die("This is not a bird. I cannot describe it.");<br>  }<br>}<br><br>// describe these birds please<br>describe(new Penguin);<br>echo "---\n";<br><br>describe(new Dove);<br>echo "---\n";<br><br>describe(new Duck);  
+<?php
+
+/**
+ * An example of duck typing in PHP
+ */
+
+interface CanFly {
+  public function fly();
+}
+
+interface CanSwim {
+  public function swim();
+}
+
+class Bird {
+  public function info() {
+    echo "I am a {$this->name}\n";
+    echo "I am an bird\n";
+  }
+}
+
+/**
+ * some implementations of birds
+ */
+class Dove extends Bird implements CanFly {
+  var $name = "Dove";
+  public function fly() {
+    echo "I fly\n";
+  } 
+}
+
+class Penguin extends Bird implements CanSwim {
+  var $name = "Penguin";
+  public function swim() {
+    echo "I swim\n";
+  } 
+}
+
+class Duck extends Bird implements CanFly, CanSwim {
+  var $name = "Duck";
+  public function fly() {
+    echo "I fly\n";
+  }
+  public function swim() {
+    echo "I swim\n";
+  }
+}
+
+/**
+ * a simple function to describe a bird
+ */
+function describe($bird) {
+  if ($bird instanceof Bird) {
+    $bird->info();
+    if ($bird instanceof CanFly) {
+      $bird->fly();
+    }
+    if ($bird instanceof CanSwim) {
+      $bird->swim();
+    }
+  } else {
+    die("This is not a bird. I cannot describe it.");
+  }
+}
+
+// describe these birds please
+describe(new Penguin);
+echo "---\n";
+
+describe(new Dove);
+echo "---\n";
+
+describe(new Duck);?>
+```
+  
 
 #
 
@@ -104,7 +178,7 @@ class oof implements isStuffed {
 
 $oof = new oof;
 
-echo $oof-&gt;getStuff();
+echo $oof->getStuff();
 ?>
 ```
 <br><br>Implementations that try to declare the method as getStuff(), getStuff($a), or getStuff($a,$b) will all trigger a fatal error.  
@@ -130,7 +204,7 @@ class T805 implements Auxiliary_Platform {
         var_dump(__CLASS__ . "::" . __FUNCTION__);
     }
     public function Shields() {
-        var_dump(__CLASS__ . "-&gt;" . __FUNCTION__);
+        var_dump(__CLASS__ . "->" . __FUNCTION__);
     }
 }
 
@@ -139,38 +213,38 @@ class T806 extends T805 implements Auxiliary_Platform {
         var_dump(__CLASS__);
     }
     public function Shields() {
-        var_dump(__CLASS__ . "-&gt;" . __FUNCTION__);
+        var_dump(__CLASS__ . "->" . __FUNCTION__);
     }
 }
 
 $T805 = new T805();
-$T805-&gt;Weapon();
-$T805-&gt;Health();
-$T805-&gt;Shields();
+$T805->Weapon();
+$T805->Health();
+$T805->Shields();
 
 echo "&lt;hr /&gt;";
 
 $T806 = new T806();
-$T806-&gt;Weapon();
-$T806-&gt;Health();
-$T806-&gt;Shields();
+$T806->Weapon();
+$T806->Health();
+$T806->Shields();
 
 /* Output:
 string(4) "T805"
 string(12) "T805::Health"
-string(13) "T805-&gt;Shields"
+string(13) "T805->Shields"
 &lt;hr /&gt;string(4) "T806"
 string(12) "T805::Health"
-string(13) "T806-&gt;Shields"
+string(13) "T806->Shields"
 */
 
 ?>
 ```
 
 
-Class T805 implements the interface Auxiliary_Platform. T806 does the same thing, but the method Health() is inherited from T805 (not the exact case, but you get the idea). PHP seems to be fine with this and everything still works fine. Do note that the rules for class inheritance doesn&apos;t change in this scenario.
+Class T805 implements the interface Auxiliary_Platform. T806 does the same thing, but the method Health() is inherited from T805 (not the exact case, but you get the idea). PHP seems to be fine with this and everything still works fine. Do note that the rules for class inheritance doesn't change in this scenario.
 
-If the code were to be the same, but instead T805 (or T806) DOES NOT implement Auxiliary_Platform, then it&apos;ll still work. Since T805 already follows the interface, everything that inherits T805 will also be valid. I would be careful about that. Personally, I don&apos;t consider this a bug.
+If the code were to be the same, but instead T805 (or T806) DOES NOT implement Auxiliary_Platform, then it'll still work. Since T805 already follows the interface, everything that inherits T805 will also be valid. I would be careful about that. Personally, I don't consider this a bug.
 
 This seems to work in PHP5.2.9-2, PHP5.3 and PHP5.3.1 (my current versions).
 
@@ -192,25 +266,25 @@ class T806 extends T805 implements Auxiliary_Platform {
         var_dump(__CLASS__ . "::" . __FUNCTION__);
     }
     public function Shields() {
-        var_dump(__CLASS__ . "-&gt;" . __FUNCTION__);
+        var_dump(__CLASS__ . "->" . __FUNCTION__);
     }
 }
 
 $T805 = new T805();
-$T805-&gt;Weapon();
+$T805->Weapon();
 
 echo "&lt;hr /&gt;";
 
 $T806 = new T806();
-$T806-&gt;Weapon();
-$T806-&gt;Health();
-$T806-&gt;Shields();
+$T806->Weapon();
+$T806->Health();
+$T806->Shields();
 
 /* Output:
 string(4) "T805"
 &lt;hr /&gt;string(4) "T805"
 string(12) "T806::Health"
-string(13) "T806-&gt;Shields"
+string(13) "T806->Shields"
 */
 
 ?>
@@ -226,7 +300,7 @@ PHP prevents interface a contant to be overridden by a class/interface that DIRE
 
 interface a
 {
-    const b = &apos;Interface constant&apos;;
+    const b = 'Interface constant';
 }
 
 // Prints: Interface constant
@@ -239,7 +313,7 @@ class b implements a
 // This works!!!
 class c extends b
 {
-    const b = &apos;Class constant&apos;;
+    const b = 'Class constant';
 }
 
 echo c::b;
@@ -328,18 +402,18 @@ class String implements Comparable
 {
     private $string;
     function __construct($string)
-    {$this-&gt;string = $string;}
+    {$this->string = $string;}
     function compare(self $compare)
-    {return $this-&gt;string == $compare-&gt;string;}
+    {return $this->string == $compare->string;}
 }
 
 class Integer implements Comparable
 {
     private $integer;
     function __construct($int)
-    {$this-&gt;integer = $int;}
+    {$this->integer = $int;}
     function compare(self $compare)
-    {return $this-&gt;integer == $compare-&gt;integer;}
+    {return $this->integer == $compare->integer;}
 }
 
 ?>
@@ -357,9 +431,9 @@ $second_int = new Integer(3);
 $first_string = new String("foo");
 $second_string = new String("bar");
 
-var_dump($first_int-&gt;compare($second_int)); // bool(true)
-var_dump($first_string-&gt;compare($second_string)); // bool(false)
-var_dump($first_string-&gt;compare($second_int)); // Fatal Error
+var_dump($first_int->compare($second_int)); // bool(true)
+var_dump($first_string->compare($second_string)); // bool(false)
+var_dump($first_string->compare($second_int)); // Fatal Error
 ?>
 ```
   

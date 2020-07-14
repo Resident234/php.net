@@ -27,58 +27,28 @@ Both set_time_limit(...) and  ini_set(&apos;max_execution_time&apos;,...); won&a
 ```
 <?php
 function my_background_exec($function_name, $params, $str_requires, $timeout=600)
-         {$map=array(&apos;"&apos;=&gt;&apos;\"&apos;, &apos;
-
-```
-<?php<br>function my_background_exec($function_name, $params, $str_requires, $timeout=600)<br>         {$map=array(&apos;"&apos;=&gt;&apos;\"&apos;, &apos;$&apos;=&gt;&apos;\$&apos;, &apos;`&apos;=&gt;&apos;\`&apos;, &apos;\\&apos;=&gt;&apos;\\\\&apos;, &apos;!&apos;=&gt;&apos;\!&apos;);<br>          $str_requires=strtr($str_requires, $map);<br>          $path_run=dirname($_SERVER[&apos;SCRIPT_FILENAME&apos;]);<br>          $my_target_exec="/usr/bin/php -r \"chdir(&apos;{$path_run}&apos;);{$str_requires} \\\$params=json_decode(file_get_contents(&apos;php://stdin&apos;),true);call_user_func_array(&apos;{$function_name}&apos;, \\\$params);\"";<br>          $my_target_exec=strtr(strtr($my_target_exec, $map), $map);<br>          $my_background_exec="(/usr/bin/php -r \"chdir(&apos;{$path_run}&apos;);{$str_requires} my_timeout_exec(\\\"{$my_target_exec}\\\", file_get_contents(&apos;php://stdin&apos;), {$timeout});\" &lt;&amp;3 &amp;) 3&lt;&amp;0";//php by default use "sh", and "sh" don&apos;t support "&lt;&amp;0"<br>          my_timeout_exec($my_background_exec, json_encode($params), 2);<br>         }<br><br>function my_timeout_exec($cmd, $stdin=&apos;&apos;, $timeout)<br>         {$start=time();<br>          $stdout=&apos;&apos;;<br>          $stderr=&apos;&apos;;<br>          //file_put_contents(&apos;debug.txt&apos;, time().&apos;:cmd:&apos;.$cmd."\n", FILE_APPEND);<br>          //file_put_contents(&apos;debug.txt&apos;, time().&apos;:stdin:&apos;.$stdin."\n", FILE_APPEND);<br><br>          $process=proc_open($cmd, [[&apos;pipe&apos;, &apos;r&apos;], [&apos;pipe&apos;, &apos;w&apos;], [&apos;pipe&apos;, &apos;w&apos;]], $pipes);<br>          if (!is_resource($process))<br>             {return array(&apos;return&apos;=&gt;&apos;1&apos;, &apos;stdout&apos;=&gt;$stdout, &apos;stderr&apos;=&gt;$stderr);<br>             }<br>          $status=proc_get_status($process);<br>          posix_setpgid($status[&apos;pid&apos;], $status[&apos;pid&apos;]);    //seperate pgid(process group id) from parent&apos;s pgid<br><br>          stream_set_blocking($pipes[0], 0);<br>          stream_set_blocking($pipes[1], 0);<br>          stream_set_blocking($pipes[2], 0);<br>          fwrite($pipes[0], $stdin);<br>          fclose($pipes[0]);<br><br>          while (1)<br>                {$stdout.=stream_get_contents($pipes[1]);<br>                 $stderr.=stream_get_contents($pipes[2]);<br><br>                 if (time()-$start&gt;$timeout)<br>                    {//proc_terminate($process, 9);    //only terminate subprocess, won&apos;t terminate sub-subprocess<br>                     posix_kill(-$status[&apos;pid&apos;], 9);    //sends SIGKILL to all processes inside group(negative means GPID, all subprocesses share the top process group, except nested my_timeout_exec)<br>                     //file_put_contents(&apos;debug.txt&apos;, time().":kill group {$status[&apos;pid&apos;]}\n", FILE_APPEND);<br>                     return array(&apos;return&apos;=&gt;&apos;1&apos;, &apos;stdout&apos;=&gt;$stdout, &apos;stderr&apos;=&gt;$stderr);<br>                    }<br><br>                 $status=proc_get_status($process);<br>                 //file_put_contents(&apos;debug.txt&apos;, time().&apos;:status:&apos;.var_export($status, true)."\n";<br>                 if (!$status[&apos;running&apos;])<br>                    {fclose($pipes[1]);<br>                     fclose($pipes[2]);<br>                     proc_close($process);<br>                     return $status[&apos;exitcode&apos;];<br>                    }<br><br>                 usleep(100000); <br>                }<br>         }<br>?>
-```
-<br><br>a_class.php:<br>
-
-```
-<?php<br>class A<br>{<br>    static function jack($a, $b)<br>           {sleep(4);<br>            file_put_contents(&apos;debug.txt&apos;, time().":A::jack:".$a.&apos; &apos;.$b."\n", FILE_APPEND);<br>            sleep(15);<br>           }<br>}<br>?>
-```
-<br><br>test.php:<br>
-
-```
-<?php<br>require &apos;my_exec.php&apos;;<br><br>my_background_exec(&apos;A::jack&apos;, array(&apos;hello&apos;, &apos;jack&apos;), &apos;require "my_exec.php";require "a_class.php";&apos;, 8);<br>?>
-```
-apos;=&gt;&apos;\
-
-```
-<?php<br>function my_background_exec($function_name, $params, $str_requires, $timeout=600)<br>         {$map=array(&apos;"&apos;=&gt;&apos;\"&apos;, &apos;$&apos;=&gt;&apos;\$&apos;, &apos;`&apos;=&gt;&apos;\`&apos;, &apos;\\&apos;=&gt;&apos;\\\\&apos;, &apos;!&apos;=&gt;&apos;\!&apos;);<br>          $str_requires=strtr($str_requires, $map);<br>          $path_run=dirname($_SERVER[&apos;SCRIPT_FILENAME&apos;]);<br>          $my_target_exec="/usr/bin/php -r \"chdir(&apos;{$path_run}&apos;);{$str_requires} \\\$params=json_decode(file_get_contents(&apos;php://stdin&apos;),true);call_user_func_array(&apos;{$function_name}&apos;, \\\$params);\"";<br>          $my_target_exec=strtr(strtr($my_target_exec, $map), $map);<br>          $my_background_exec="(/usr/bin/php -r \"chdir(&apos;{$path_run}&apos;);{$str_requires} my_timeout_exec(\\\"{$my_target_exec}\\\", file_get_contents(&apos;php://stdin&apos;), {$timeout});\" &lt;&amp;3 &amp;) 3&lt;&amp;0";//php by default use "sh", and "sh" don&apos;t support "&lt;&amp;0"<br>          my_timeout_exec($my_background_exec, json_encode($params), 2);<br>         }<br><br>function my_timeout_exec($cmd, $stdin=&apos;&apos;, $timeout)<br>         {$start=time();<br>          $stdout=&apos;&apos;;<br>          $stderr=&apos;&apos;;<br>          //file_put_contents(&apos;debug.txt&apos;, time().&apos;:cmd:&apos;.$cmd."\n", FILE_APPEND);<br>          //file_put_contents(&apos;debug.txt&apos;, time().&apos;:stdin:&apos;.$stdin."\n", FILE_APPEND);<br><br>          $process=proc_open($cmd, [[&apos;pipe&apos;, &apos;r&apos;], [&apos;pipe&apos;, &apos;w&apos;], [&apos;pipe&apos;, &apos;w&apos;]], $pipes);<br>          if (!is_resource($process))<br>             {return array(&apos;return&apos;=&gt;&apos;1&apos;, &apos;stdout&apos;=&gt;$stdout, &apos;stderr&apos;=&gt;$stderr);<br>             }<br>          $status=proc_get_status($process);<br>          posix_setpgid($status[&apos;pid&apos;], $status[&apos;pid&apos;]);    //seperate pgid(process group id) from parent&apos;s pgid<br><br>          stream_set_blocking($pipes[0], 0);<br>          stream_set_blocking($pipes[1], 0);<br>          stream_set_blocking($pipes[2], 0);<br>          fwrite($pipes[0], $stdin);<br>          fclose($pipes[0]);<br><br>          while (1)<br>                {$stdout.=stream_get_contents($pipes[1]);<br>                 $stderr.=stream_get_contents($pipes[2]);<br><br>                 if (time()-$start&gt;$timeout)<br>                    {//proc_terminate($process, 9);    //only terminate subprocess, won&apos;t terminate sub-subprocess<br>                     posix_kill(-$status[&apos;pid&apos;], 9);    //sends SIGKILL to all processes inside group(negative means GPID, all subprocesses share the top process group, except nested my_timeout_exec)<br>                     //file_put_contents(&apos;debug.txt&apos;, time().":kill group {$status[&apos;pid&apos;]}\n", FILE_APPEND);<br>                     return array(&apos;return&apos;=&gt;&apos;1&apos;, &apos;stdout&apos;=&gt;$stdout, &apos;stderr&apos;=&gt;$stderr);<br>                    }<br><br>                 $status=proc_get_status($process);<br>                 //file_put_contents(&apos;debug.txt&apos;, time().&apos;:status:&apos;.var_export($status, true)."\n";<br>                 if (!$status[&apos;running&apos;])<br>                    {fclose($pipes[1]);<br>                     fclose($pipes[2]);<br>                     proc_close($process);<br>                     return $status[&apos;exitcode&apos;];<br>                    }<br><br>                 usleep(100000); <br>                }<br>         }<br>?>
-```
-<br><br>a_class.php:<br>
-
-```
-<?php<br>class A<br>{<br>    static function jack($a, $b)<br>           {sleep(4);<br>            file_put_contents(&apos;debug.txt&apos;, time().":A::jack:".$a.&apos; &apos;.$b."\n", FILE_APPEND);<br>            sleep(15);<br>           }<br>}<br>?>
-```
-<br><br>test.php:<br>
-
-```
-<?php<br>require &apos;my_exec.php&apos;;<br><br>my_background_exec(&apos;A::jack&apos;, array(&apos;hello&apos;, &apos;jack&apos;), &apos;require "my_exec.php";require "a_class.php";&apos;, 8);<br>?>
-```
-apos;, &apos;`&apos;=&gt;&apos;\`&apos;, &apos;\\&apos;=&gt;&apos;\\\\&apos;, &apos;!&apos;=&gt;&apos;\!&apos;);
+         {$map=array('"'=>'\"', '  =>'\  , '`'=>'\`', '\\'=>'\\\\', '!'=>'\!');
           $str_requires=strtr($str_requires, $map);
-          $path_run=dirname($_SERVER[&apos;SCRIPT_FILENAME&apos;]);
-          $my_target_exec="/usr/bin/php -r \"chdir(&apos;{$path_run}&apos;);{$str_requires} \\\$params=json_decode(file_get_contents(&apos;php://stdin&apos;),true);call_user_func_array(&apos;{$function_name}&apos;, \\\$params);\"";
+          $path_run=dirname($_SERVER['SCRIPT_FILENAME']);
+          $my_target_exec="/usr/bin/php -r \"chdir('{$path_run}');{$str_requires} \\\$params=json_decode(file_get_contents('php://stdin'),true);call_user_func_array('{$function_name}', \\\$params);\"";
           $my_target_exec=strtr(strtr($my_target_exec, $map), $map);
-          $my_background_exec="(/usr/bin/php -r \"chdir(&apos;{$path_run}&apos;);{$str_requires} my_timeout_exec(\\\"{$my_target_exec}\\\", file_get_contents(&apos;php://stdin&apos;), {$timeout});\" &lt;&amp;3 &amp;) 3&lt;&amp;0";//php by default use "sh", and "sh" don&apos;t support "&lt;&amp;0"
+          $my_background_exec="(/usr/bin/php -r \"chdir('{$path_run}');{$str_requires} my_timeout_exec(\\\"{$my_target_exec}\\\", file_get_contents('php://stdin'), {$timeout});\" &lt;&amp;3 &amp;) 3&lt;&amp;0";//php by default use "sh", and "sh" don't support "&lt;&amp;0"
           my_timeout_exec($my_background_exec, json_encode($params), 2);
          }
 
-function my_timeout_exec($cmd, $stdin=&apos;&apos;, $timeout)
+function my_timeout_exec($cmd, $stdin='', $timeout)
          {$start=time();
-          $stdout=&apos;&apos;;
-          $stderr=&apos;&apos;;
-          //file_put_contents(&apos;debug.txt&apos;, time().&apos;:cmd:&apos;.$cmd."\n", FILE_APPEND);
-          //file_put_contents(&apos;debug.txt&apos;, time().&apos;:stdin:&apos;.$stdin."\n", FILE_APPEND);
+          $stdout='';
+          $stderr='';
+          //file_put_contents('debug.txt', time().':cmd:'.$cmd."\n", FILE_APPEND);
+          //file_put_contents('debug.txt', time().':stdin:'.$stdin."\n", FILE_APPEND);
 
-          $process=proc_open($cmd, [[&apos;pipe&apos;, &apos;r&apos;], [&apos;pipe&apos;, &apos;w&apos;], [&apos;pipe&apos;, &apos;w&apos;]], $pipes);
+          $process=proc_open($cmd, [['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']], $pipes);
           if (!is_resource($process))
-             {return array(&apos;return&apos;=&gt;&apos;1&apos;, &apos;stdout&apos;=&gt;$stdout, &apos;stderr&apos;=&gt;$stderr);
+             {return array('return'=>'1', 'stdout'=>$stdout, 'stderr'=>$stderr);
              }
           $status=proc_get_status($process);
-          posix_setpgid($status[&apos;pid&apos;], $status[&apos;pid&apos;]);    //seperate pgid(process group id) from parent&apos;s pgid
+          posix_setpgid($status['pid'], $status['pid']);    //seperate pgid(process group id) from parent's pgid
 
           stream_set_blocking($pipes[0], 0);
           stream_set_blocking($pipes[1], 0);
@@ -91,19 +61,19 @@ function my_timeout_exec($cmd, $stdin=&apos;&apos;, $timeout)
                  $stderr.=stream_get_contents($pipes[2]);
 
                  if (time()-$start&gt;$timeout)
-                    {//proc_terminate($process, 9);    //only terminate subprocess, won&apos;t terminate sub-subprocess
-                     posix_kill(-$status[&apos;pid&apos;], 9);    //sends SIGKILL to all processes inside group(negative means GPID, all subprocesses share the top process group, except nested my_timeout_exec)
-                     //file_put_contents(&apos;debug.txt&apos;, time().":kill group {$status[&apos;pid&apos;]}\n", FILE_APPEND);
-                     return array(&apos;return&apos;=&gt;&apos;1&apos;, &apos;stdout&apos;=&gt;$stdout, &apos;stderr&apos;=&gt;$stderr);
+                    {//proc_terminate($process, 9);    //only terminate subprocess, won't terminate sub-subprocess
+                     posix_kill(-$status['pid'], 9);    //sends SIGKILL to all processes inside group(negative means GPID, all subprocesses share the top process group, except nested my_timeout_exec)
+                     //file_put_contents('debug.txt', time().":kill group {$status['pid']}\n", FILE_APPEND);
+                     return array('return'=>'1', 'stdout'=>$stdout, 'stderr'=>$stderr);
                     }
 
                  $status=proc_get_status($process);
-                 //file_put_contents(&apos;debug.txt&apos;, time().&apos;:status:&apos;.var_export($status, true)."\n";
-                 if (!$status[&apos;running&apos;])
+                 //file_put_contents('debug.txt', time().':status:'.var_export($status, true)."\n";
+                 if (!$status['running'])
                     {fclose($pipes[1]);
                      fclose($pipes[2]);
                      proc_close($process);
-                     return $status[&apos;exitcode&apos;];
+                     return $status['exitcode'];
                     }
 
                  usleep(100000); 
@@ -122,7 +92,7 @@ class A
 {
     static function jack($a, $b)
            {sleep(4);
-            file_put_contents(&apos;debug.txt&apos;, time().":A::jack:".$a.&apos; &apos;.$b."\n", FILE_APPEND);
+            file_put_contents('debug.txt', time().":A::jack:".$a.' '.$b."\n", FILE_APPEND);
             sleep(15);
            }
 }
@@ -135,9 +105,9 @@ test.php:
 
 ```
 <?php
-require &apos;my_exec.php&apos;;
+require 'my_exec.php';
 
-my_background_exec(&apos;A::jack&apos;, array(&apos;hello&apos;, &apos;jack&apos;), &apos;require "my_exec.php";require "a_class.php";&apos;, 8);
+my_background_exec('A::jack', array('hello', 'jack'), 'require "my_exec.php";require "a_class.php";', 8);
 ?>
 ```
   
@@ -159,28 +129,28 @@ I was having trouble with script timeouts in applications where the user prompte
    Use at your own risk. No warranties expressed or implied.
 
    Include this file at the top of any script to run it in the background
-   with no time limitations ... e.g., include(&apos;background_cli.php&apos;);
+   with no time limitations ... e.g., include('background_cli.php');
    
    The script that calls this file should not return output to the browser. 
 */
 #  REQUIREMENTS - cURL and CLI
-   if ( !function_exists(&apos;curl_setopt&apos;) OR !function_exists(&apos;curl_setopt&apos;)  ) {
-      echo &apos;Requires cURL and CLI installations.&apos; ; exit ; 
+   if ( !function_exists('curl_setopt') OR !function_exists('curl_setopt')  ) {
+      echo 'Requires cURL and CLI installations.' ; exit ; 
    }
    
 #  BUILD PATHS
-   $script = array_pop(explode(&apos;/&apos;,$SCRIPT_NAME)) ; 
+   $script = array_pop(explode('/',$SCRIPT_NAME)) ; 
    $script_dir = substr($SCRIPT_NAME,0,strlen($SCRIPT_NAME)-strlen($script)) ;
-   $scriptURL = &apos;http://&apos;. $HTTP_HOST . $script_dir . "$script" ;
-   $curlURL = &apos;http://&apos;. $HTTP_HOST . $script_dir . "$script?runscript=curl" ;
+   $scriptURL = 'http://'. $HTTP_HOST . $script_dir . "$script" ;
+   $curlURL = 'http://'. $HTTP_HOST . $script_dir . "$script?runscript=curl" ;
 
 #  Indicate that script is being called by CLI 
-   if ( php_sapi_name() == &apos;cli&apos; ) {
+   if ( php_sapi_name() == 'cli' ) {
       $CLI = true ;
    }
 
 #  Action if script is being called by cURL_prompt()
-   if ( $runscript == &apos;curl&apos; ) {
+   if ( $runscript == 'curl' ) {
       $cmd = "/usr/local/bin/php ".$PATH_TRANSLATED ; // server location of script to run
       exec($cmd) ;
       exit;
@@ -190,19 +160,19 @@ I was having trouble with script timeouts in applications where the user prompte
    // User answer after submission.
    if ( $post ) {
       cURL_prompt($curlURL) ;
-      echo &apos;&lt;div style="margin:25px;"&gt;&lt;title&gt;Background CLI&lt;/title&gt;&apos;;
-      echo &apos;O.K. If all goes well, &lt;b&gt;&apos;.$script.&apos;&lt;/b&gt; is working hard in the background with no &apos; ;
-      echo &apos;timeout limitations. &lt;br&gt;&lt;br&gt;&lt;form action=&apos;.$scriptURL.&apos; method=GET&gt;&apos; ;
-      echo &apos;&lt;input type=submit value=" RESET BACKGROUND CLI "&gt;&lt;/form&gt;&lt;/div&gt;&apos; ;
+      echo '&lt;div style="margin:25px;"&gt;&lt;title&gt;Background CLI&lt;/title&gt;';
+      echo 'O.K. If all goes well, &lt;b&gt;'.$script.'&lt;/b&gt; is working hard in the background with no ' ;
+      echo 'timeout limitations. &lt;br&gt;&lt;br&gt;&lt;form action='.$scriptURL.' method=GET&gt;' ;
+      echo '&lt;input type=submit value=" RESET BACKGROUND CLI "&gt;&lt;/form&gt;&lt;/div&gt;' ;
       exit ;
    }
    // Start screen.
    if ( !$CLI AND !$runscript ) {
-      echo &apos;&lt;title&gt;Background CLI&lt;/title&gt;&lt;div style="margin:25px;"&gt;&apos; ;
-      echo &apos;&lt;form action=&apos;.$scriptURL.&apos; method=POST&gt;&apos; ;
-      echo &apos;Click to run &lt;b&gt;&apos;.$script.&apos;&lt;/b&gt; from the PHP CLI command line, in the background.&lt;br&gt;&lt;br&gt;&apos; ;
-      echo &apos;&lt;input type=hidden value=1 name=post&gt;&apos; ;
-      echo &apos;&lt;input type=submit value=" RUN IN BACKGROUND "&gt;&lt;/form&gt;&lt;/div&gt;&apos; ;
+      echo '&lt;title&gt;Background CLI&lt;/title&gt;&lt;div style="margin:25px;"&gt;' ;
+      echo '&lt;form action='.$scriptURL.' method=POST&gt;' ;
+      echo 'Click to run &lt;b&gt;'.$script.'&lt;/b&gt; from the PHP CLI command line, in the background.&lt;br&gt;&lt;br&gt;' ;
+      echo '&lt;input type=hidden value=1 name=post&gt;' ;
+      echo '&lt;input type=submit value=" RUN IN BACKGROUND "&gt;&lt;/form&gt;&lt;/div&gt;' ;
       exit ;
    }
 

@@ -39,7 +39,7 @@ class ArrayAndObjectAccess implements ArrayAccess {
      * @access public
      */
     public function &amp;__get ($key) {
-        return $this-&gt;data[$key];
+        return $this->data[$key];
     }
 
     /**
@@ -50,7 +50,7 @@ class ArrayAndObjectAccess implements ArrayAccess {
      * @access public 
      */
     public function __set($key,$value) {
-        $this-&gt;data[$key] = $value;
+        $this->data[$key] = $value;
     }
 
     /**
@@ -62,7 +62,7 @@ class ArrayAndObjectAccess implements ArrayAccess {
      * @abstracting ArrayAccess
      */
     public function __isset ($key) {
-        return isset($this-&gt;data[$key]);
+        return isset($this->data[$key]);
     }
 
     /**
@@ -72,7 +72,7 @@ class ArrayAndObjectAccess implements ArrayAccess {
      * @access public
      */
     public function __unset($key) {
-        unset($this-&gt;data[$key]);
+        unset($this->data[$key]);
     }
 
     /**
@@ -85,9 +85,9 @@ class ArrayAndObjectAccess implements ArrayAccess {
      */
     public function offsetSet($offset,$value) {
         if (is_null($offset)) {
-            $this-&gt;data[] = $value;
+            $this->data[] = $value;
         } else {
-            $this-&gt;data[$offset] = $value;
+            $this->data[$offset] = $value;
         }
     }
 
@@ -100,7 +100,7 @@ class ArrayAndObjectAccess implements ArrayAccess {
      * @abstracting ArrayAccess
      */
     public function offsetExists($offset) {
-        return isset($this-&gt;data[$offset]);
+        return isset($this->data[$offset]);
     }
 
     /**
@@ -111,8 +111,8 @@ class ArrayAndObjectAccess implements ArrayAccess {
      * @abstracting ArrayAccess
      */
     public function offsetUnset($offset) {
-        if ($this-&gt;offsetExists($offset)) {
-            unset($this-&gt;data[$offset]);
+        if ($this->offsetExists($offset)) {
+            unset($this->data[$offset]);
         }
     }
 
@@ -125,7 +125,7 @@ class ArrayAndObjectAccess implements ArrayAccess {
      * @abstracting ArrayAccess
      */
     public function offsetGet($offset) {
-        return $this-&gt;offsetExists($offset) ? $this-&gt;data[$offset] : null;
+        return $this->offsetExists($offset) ? $this->data[$offset] : null;
     }
 
 }
@@ -142,15 +142,15 @@ Usage
 <?php
 $foo = new ArrayAndObjectAccess();
 // Set data as array and object
-$foo-&gt;fname = &apos;Yousef&apos;;
-$foo-&gt;lname = &apos;Ismaeil&apos;;
+$foo->fname = 'Yousef';
+$foo->lname = 'Ismaeil';
 // Call as object
-echo &apos;fname as object &apos;.$foo-&gt;fname."\n";
+echo 'fname as object '.$foo->fname."\n";
 // Call as array
-echo &apos;lname as array &apos;.$foo[&apos;lname&apos;]."\n";
+echo 'lname as array '.$foo['lname']."\n";
 // Reset as array
-$foo[&apos;fname&apos;] = &apos;Cliprz&apos;;
-echo $foo[&apos;fname&apos;]."\n";
+$foo['fname'] = 'Cliprz';
+echo $foo['fname']."\n";
 
 /** Outputs
 fname as object Yousef

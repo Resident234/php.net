@@ -68,14 +68,14 @@ Any variables defined inside the if block will be available outside the block. R
 <?php
 $bool = true;
 if ($bool) {
-    $hi = &apos;Hello to all people!&apos;;
+    $hi = 'Hello to all people!';
 }
 echo $hi;
 ?>
 ```
 
 
-It will print &apos;Hello to all people!&apos;
+It will print 'Hello to all people!'
 
 On the other hand, this will have no output:
 
@@ -84,7 +84,7 @@ On the other hand, this will have no output:
 ```
 <?php
 if (false) {
-    $hi = &apos;Hello to all people!&apos;;
+    $hi = 'Hello to all people!';
 }
 echo $hi;
 ?>
@@ -99,17 +99,17 @@ An other way for controls is the ternary operator (see Comparison Operators) tha
 <?php
 $v = 1;
 
-$r = (1 == $v) ? &apos;Yes&apos; : &apos;No&apos;; // $r is set to &apos;Yes&apos;
-$r = (3 == $v) ? &apos;Yes&apos; : &apos;No&apos;; // $r is set to &apos;No&apos;
+$r = (1 == $v) ? 'Yes' : 'No'; // $r is set to 'Yes'
+$r = (3 == $v) ? 'Yes' : 'No'; // $r is set to 'No'
 
-echo (1 == $v) ? &apos;Yes&apos; : &apos;No&apos;; // &apos;Yes&apos; will be printed
+echo (1 == $v) ? 'Yes' : 'No'; // 'Yes' will be printed
 
 // and since PHP 5.3
-$v = &apos;My Value&apos;;
-$r = ($v) ?: &apos;No Value&apos;; // $r is set to &apos;My Value&apos; because $v is evaluated to TRUE
+$v = 'My Value';
+$r = ($v) ?: 'No Value'; // $r is set to 'My Value' because $v is evaluated to TRUE
 
-$v = &apos;&apos;;
-echo ($v) ?: &apos;No Value&apos;; // &apos;No Value&apos; will be printed because $v is evaluated to FALSE
+$v = '';
+echo ($v) ?: 'No Value'; // 'No Value' will be printed because $v is evaluated to FALSE
 ?>
 ```
 <br><br>Parentheses can be left out in all examples above.  

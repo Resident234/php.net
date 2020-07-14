@@ -6,8 +6,8 @@ If your code is running on multiple servers with different environments (locatio
 
 ```
 <?php
-define(&apos;__ROOT__&apos;, dirname(dirname(__FILE__)));
-require_once(__ROOT__.&apos;/config.php&apos;);
+define('__ROOT__', dirname(dirname(__FILE__)));
+require_once(__ROOT__.'/config.php');
 ?>
 ```
 
@@ -16,7 +16,7 @@ instead of:
 
 
 ```
-<?php require_once(&apos;/var/www/public_html/config.php&apos;); ?>
+<?php require_once('/var/www/public_html/config.php'); ?>
 ```
 <br><br>After this, if you copy paste your codes to another servers, it will still run, without requiring any further re-configurations.<br><br>[EDIT BY danbrown AT php DOT net: Contains a typofix (missing &apos;)&apos;) provided by &apos;JoeB&apos; on 09-JUN-2011.]  
 
@@ -26,51 +26,13 @@ require_once may not work correctly inside repetitive function when storing vari
 
 ```
 <?php
-$foo = &apos;bar&apos;;
+$foo = 'bar';
 ?>
 ```
-
-
-file: check.php
-
+<br><br>file: check.php<br>
 
 ```
-<?php
-
-function foo(){
-    require_once(&apos;var.php&apos;);
-    return $foo;
-}
-
-for($a=1;$a&lt;=5;$a++){
-    echo foo()."&lt;br&gt;";
-}
-
-&gt; php check.php
-result: 
-bar
-&lt;empty line&gt;
-&lt;empty line&gt;
-&lt;empty line&gt;
-&lt;empty line&gt;
-
-to make sure variable bar available at each function call, replace require once with require. eg situation: https://stackoverflow.com/questions/29898199/variables-not-defined-inside-function-on-second-time-at-foreach
-
-Solution:
-
-file: check2.php
-&lt;?php
-
-function foo(){
-    require(&apos;var.php&apos;);
-    return $foo;
-}
-
-for($a=1;$a&lt;=5;$a++){
-    echo foo()."&lt;br&gt;";
-}
-
-&gt; php check2.php<br>result:<br>bar<br>bar<br>bar<br>bar<br>bar  
+<?php<br><br>function foo(){<br>    require_once(&apos;var.php&apos;);<br>    return $foo;<br>}<br><br>for($a=1;$a&lt;=5;$a++){<br>    echo foo()."&lt;br&gt;";<br>}<br><br>&gt; php check.php<br>result: <br>bar<br>&lt;empty line&gt;<br>&lt;empty line&gt;<br>&lt;empty line&gt;<br>&lt;empty line&gt;<br><br>to make sure variable bar available at each function call, replace require once with require. eg situation: https://stackoverflow.com/questions/29898199/variables-not-defined-inside-function-on-second-time-at-foreach<br><br>Solution:<br><br>file: check2.php<br>&lt;?php<br><br>function foo(){<br>    require(&apos;var.php&apos;);<br>    return $foo;<br>}<br><br>for($a=1;$a&lt;=5;$a++){<br>    echo foo()."&lt;br&gt;";<br>}<br><br>&gt; php check2.php<br>result:<br>bar<br>bar<br>bar<br>bar<br>bar  
 
 #
 

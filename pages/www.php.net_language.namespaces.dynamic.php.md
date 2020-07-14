@@ -43,8 +43,8 @@ class C {
 include "File1.php";
 include "File2.php";
 $b = new bar\B;
-$c = $b-&gt;factory();
-$c-&gt;tell(); // "foo" but you want "bar"
+$c = $b->factory();
+$c->tell(); // "foo" but you want "bar"
 ?>
 ```
 
@@ -61,7 +61,7 @@ namespace foo;
 class A {
     protected $namespace = __NAMESPACE__;
     public function factory() {
-        $c = $this-&gt;namespace . &apos;\C&apos;;
+        $c = $this->namespace . '\C';
         return new $c;
     }
 }
@@ -98,8 +98,8 @@ class C {
 include "File1.php";
 include "File2.php";
 $b = new bar\B;
-$c = $b-&gt;factory();
-$c-&gt;tell(); // "bar"
+$c = $b->factory();
+$c->tell(); // "bar"
 ?>
 ```
 <br><br>(it seems that the namespace-backslashes are stripped from the source code in the preview, maybe it works in the main view. If not: fooA was written as \foo\A and barB as bar\B)  
@@ -121,7 +121,7 @@ function factory($class) {
 }
 
 // File2.php
-$bar = \foo\factory(&apos;Bar&apos;); // Will try to instantiate \Bar, not \foo\Bar
+$bar = \foo\factory('Bar'); // Will try to instantiate \Bar, not \foo\Bar
 
 ?>
 ```
@@ -138,18 +138,18 @@ To fix that, and also incorporate a 2 step namespace resolution, you can check f
 namespace foo;
 
 function factory($class) {
-    if ($class[0] != &apos;\\&apos;) {
-        echo &apos;-&gt;&apos;;
-         $class = &apos;\\&apos; . __NAMESPACE__ . &apos;\\&apos; . $class;
+    if ($class[0] != '\\') {
+        echo '->';
+         $class = '\\' . __NAMESPACE__ . '\\' . $class;
     }
 
     return new $class();
 }
 
 // File2.php
-$bar = \foo\factory(&apos;Bar&apos;); // Will correctly instantiate \foo\Bar
+$bar = \foo\factory('Bar'); // Will correctly instantiate \foo\Bar
 
-$bar2 = \foo\factory(&apos;\anotherfoo\Bar&apos;); // Wil correctly instantiate \anotherfoo\Bar
+$bar2 = \foo\factory('\anotherfoo\Bar'); // Wil correctly instantiate \anotherfoo\Bar
 
 ?>
 ```

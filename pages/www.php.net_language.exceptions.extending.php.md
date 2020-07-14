@@ -17,13 +17,13 @@ class SystemException extends Exception
         
         if (!is_null($previous))
         {
-            $this -&gt; previous = $previous;
+            $this -> previous = $previous;
         }
     }
     
     public function getPrevious()
     {
-        return $this -&gt; previous;
+        return $this -> previous;
     }
 }
 

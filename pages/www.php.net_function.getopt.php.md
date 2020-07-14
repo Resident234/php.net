@@ -27,7 +27,7 @@ Sometimes you will want to run a script from both the command line and as a web 
  */
 function getoptreq ($options, $longopts)
 {
-   if (PHP_SAPI === &apos;cli&apos; || empty($_SERVER[&apos;REMOTE_ADDR&apos;]))  // command line
+   if (PHP_SAPI === 'cli' || empty($_SERVER['REMOTE_ADDR']))  // command line
    {
       return getopt($options, $longopts);
    }
@@ -35,12 +35,12 @@ function getoptreq ($options, $longopts)
    {
       $found = array();
 
-      $shortopts = preg_split(&apos;@([a-z0-9][:]{0,2})@i&apos;, $options, 0, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+      $shortopts = preg_split('@([a-z0-9][:]{0,2})@i', $options, 0, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
       $opts = array_merge($shortopts, $longopts);
 
       foreach ($opts as $opt)
       {
-         if (substr($opt, -2) === &apos;::&apos;)  // optional
+         if (substr($opt, -2) === '::')  // optional
          {
             $key = substr($opt, 0, -2);
 
@@ -49,7 +49,7 @@ function getoptreq ($options, $longopts)
             else if (isset($_REQUEST[$key]))
                $found[$key] = false;
          }
-         else if (substr($opt, -1) === &apos;:&apos;)  // required value
+         else if (substr($opt, -1) === ':')  // required value
          {
             $key = substr($opt, 0, -1);
 
@@ -81,19 +81,19 @@ Example
 // php script.php -a -c=XXX -e=YYY -f --two --four=ZZZ --five=5
 // script.php?a&amp;c=XXX&amp;e=YYY&amp;f&amp;two&amp;four=ZZZ&amp;five=5
 
-$opts = getoptreq(&apos;abc:d:e::f::&apos;, array(&apos;one&apos;, &apos;two&apos;, &apos;three:&apos;, &apos;four:&apos;, &apos;five::&apos;));
+$opts = getoptreq('abc:d:e::f::', array('one', 'two', 'three:', 'four:', 'five::'));
 
 var_dump($opts);
 
 /**
 array(7) {
-  &apos;a&apos; =&gt; bool(false)
-  &apos;c&apos; =&gt; string(3) "XXX"
-  &apos;e&apos; =&gt; string(3) "YYY"
-  &apos;f&apos; =&gt; bool(false)
-  &apos;two&apos; =&gt; bool(false)
-  &apos;four&apos; =&gt; string(3) "ZZZ"
-  &apos;five&apos; =&gt; string(1) "5"
+  'a' => bool(false)
+  'c' => string(3) "XXX"
+  'e' => string(3) "YYY"
+  'f' => bool(false)
+  'two' => bool(false)
+  'four' => string(3) "ZZZ"
+  'five' => string(1) "5"
 }
 */
 ?>

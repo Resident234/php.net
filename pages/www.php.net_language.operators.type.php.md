@@ -70,18 +70,18 @@ class Foo2{ }
 
 ```
 <?php
-include(&apos;testinclude.php&apos;);
+include('testinclude.php');
 use Bar1\Foo1 as Foo;
-$foo1 = new Foo(); $className = &apos;Bar1\Foo1&apos;;
+$foo1 = new Foo(); $className = 'Bar1\Foo1';
 var_dump($foo1 instanceof Bar1\Foo1);
 var_dump($foo1 instanceof $className);
-$className = &apos;Foo&apos;;
+$className = 'Foo';
 var_dump($foo1 instanceof $className);
 use Bar2\Foo2;
-$foo2 = new Foo2(); $className = &apos;Bar2\Foo2&apos;;
+$foo2 = new Foo2(); $className = 'Bar2\Foo2';
 var_dump($foo2 instanceof Bar2\Foo2);
 var_dump($foo2 instanceof $className);
-$className = &apos;Foo2&apos;;
+$className = 'Foo2';
 var_dump($foo2 instanceof $className);
 ?>
 ```
@@ -96,14 +96,14 @@ You can use "self" to reference to the current class:<br><br>
 class myclass {
     function mymethod($otherObject) {
         if ($otherObject instanceof self) {
-            $otherObject-&gt;mymethod(null);
+            $otherObject->mymethod(null);
         }
-        return &apos;works!&apos;;
+        return 'works!';
     }
 }
 
 $a = new myclass();
-print $a-&gt;mymethod($a);
+print $a->mymethod($a);
 ?>
 ```
   

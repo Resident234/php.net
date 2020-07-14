@@ -11,7 +11,7 @@ header("Connection: close\r\n");
 header("Content-Encoding: none\r\n");
 ignore_user_abort(true); // optional
 ob_start();
-echo (&apos;Text user will see&apos;);
+echo ('Text user will see');
 $size = ob_get_length();
 header("Content-Length: $size");
 ob_end_flush();     // Strange behaviour, will not work
@@ -21,7 +21,7 @@ ob_end_clean();
 //do processing here
 sleep(5);
 
-echo(&apos;Text user will never see&apos;);
+echo('Text user will never see');
 //do some processing
 ?>
 ```
@@ -47,7 +47,7 @@ error_log("do something in the background");
 
 
 Which works fine until you substitute phpinfo() for 
-echo (&apos;text I want user to see&apos;); in which case the headers are never sent!
+echo ('text I want user to see'); in which case the headers are never sent!
 
 The solution is to explicitly turn off output buffering and clear the buffer prior to sending your header information.
 
@@ -61,14 +61,14 @@ example:
  header("Connection: close");
  ignore_user_abort(); // optional
  ob_start();
- echo (&apos;Text the user will see&apos;);
+ echo ('Text the user will see');
  $size = ob_get_length();
  header("Content-Length: $size");
  ob_end_flush(); // Strange behaviour, will not work
  flush();            // Unless both are called !
  // Do processing here 
  sleep(30);
- echo(&apos;Text user will never see&apos;);
+ echo('Text user will never see');
 ?>
 ```
 <br> <br>Just spent 3 hours trying to figure this one out, hope it helps someone :)<br><br>Tested in:<br>IE 7.5730.11<br>Mozilla Firefox 1.81  
@@ -110,14 +110,14 @@ PHP changes directory on connection abort so code like this will not do what you
 function abort()
 {
      if(connection_aborted())
-           unlink(&apos;file.ini&apos;);
+           unlink('file.ini');
 }
-register_shutdown_function(&apos;abort&apos;);
+register_shutdown_function('abort');
 ?>
 ```
 
 
-actually it will delete file in apaches&apos;s root dir so if you want to unlink file in your script&apos;s dir on abort or write to it you have to store directory
+actually it will delete file in apaches's root dir so if you want to unlink file in your script's dir on abort or write to it you have to store directory
 
 
 ```
@@ -126,9 +126,9 @@ function abort()
 {
      global $dsd;
      if(connection_aborted())
-           unlink($dsd.&apos;/file.ini&apos;);
+           unlink($dsd.'/file.ini');
 }
-register_shutdown_function(&apos;abort&apos;);
+register_shutdown_function('abort');
 $dsd=getcwd();
 ?>
 ```

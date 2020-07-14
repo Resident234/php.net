@@ -8,7 +8,7 @@ it&apos;s possible to declare constant in base class, and override it in child, 
 <?php
 abstract class dbObject
 {    
-    const TABLE_NAME=&apos;undefined&apos;;
+    const TABLE_NAME='undefined';
     
     public static function GetAll()
     {
@@ -19,12 +19,12 @@ abstract class dbObject
 
 class dbPerson extends dbObject
 {
-    const TABLE_NAME=&apos;persons&apos;;
+    const TABLE_NAME='persons';
 }
 
 class dbAdmin extends dbPerson
 {
-    const TABLE_NAME=&apos;admins&apos;;
+    const TABLE_NAME='admins';
 }
 
 echo dbPerson::GetAll()."&lt;br&gt;";//output: "SELECT * FROM `persons`"
@@ -59,13 +59,13 @@ Most people miss the point in declaring constants and confuse then things by try
  * Constants that deal only with the database
  */
 class DbConstant extends aClassConstant {
-    protected $host = &apos;localhost&apos;;
-    protected $user = &apos;user&apos;;
-    protected $password = &apos;pass&apos;;
-    protected $database = &apos;db&apos;;
+    protected $host = 'localhost';
+    protected $user = 'user';
+    protected $password = 'pass';
+    protected $database = 'db';
     protected $time;
     function __construct() {
-        $this-&gt;time = time() + 1; // dynamic assignment
+        $this->time = time() + 1; // dynamic assignment
     }
 }
 ?>
@@ -91,9 +91,9 @@ const BAR = 1;
 ```
 <?php
 # bar.php
-require &apos;foo.php&apos;;
+require 'foo.php';
 
-var_dump(Foo\BAR); // =&gt; int(1)
+var_dump(Foo\BAR); // => int(1)
 ?>
 ```
   
@@ -119,8 +119,8 @@ class B extends A {
 }
 
 $b = new B();
-echo $b-&gt;my_const_self ? &apos;yes&apos; : &apos;no&apos;; // output: no
-echo $b-&gt;my_const_static ? &apos;yes&apos; : &apos;no&apos;; // output: yes
+echo $b->my_const_self ? 'yes' : 'no'; // output: no
+echo $b->my_const_static ? 'yes' : 'no'; // output: yes
 ?>
 ```
   
@@ -176,8 +176,8 @@ When child call method in parent class, there is different output between self a
 <?php
 $b = new b();
 
-print_r($b-&gt;getSelf());     //10
-print_r($b-&gt;getThis());     //20
+print_r($b->getSelf());     //10
+print_r($b->getThis());     //20
 
 ?>
 ```
@@ -191,10 +191,10 @@ print_r($b-&gt;getThis());     //20
 <?php
 class MyClass
 {
-    const ABC = array(&apos;A&apos;, &apos;B&apos;, &apos;C&apos;);
-    const A = &apos;1&apos;;
-    const B = &apos;2&apos;;
-    const C = &apos;3&apos;;
+    const ABC = array('A', 'B', 'C');
+    const A = '1';
+    const B = '2';
+    const C = '3';
     const NUMBERS = array(
         self::A,
         self::B,
@@ -207,19 +207,19 @@ var_dump(MyClass::NUMBERS);
 // Result:
 /*
 array(3) {
-    [0]=&gt;
+    [0]=>
   string(1) "A"
-    [1]=&gt;
+    [1]=>
   string(1) "B"
-    [2]=&gt;
+    [2]=>
   string(1) "C"
 }
 array(3) {
-    [0]=&gt;
+    [0]=>
   string(1) "1"
-    [1]=&gt;
+    [1]=>
   string(1) "2"
-    [2]=&gt;
+    [2]=>
   string(1) "3"
 }
 */
@@ -241,12 +241,12 @@ class Dimension
   public $width, $height;
 
   public function __construct($w = 0, $h = 0){
-    $this-&gt;width  = self::clamp($w);
-    $this-&gt;height = self::clamp($h);
+    $this->width  = self::clamp($w);
+    $this->height = self::clamp($h);
   }
 
   public function __toString(){
-    return "Dimension [width=$this-&gt;width, height=$this-&gt;height]";
+    return "Dimension [width=$this->width, height=$this->height]";
   }
 
   protected static function clamp($value){
@@ -256,10 +256,10 @@ class Dimension
   }
 }
 
-echo (new Dimension()) . &apos;&lt;br&gt;&apos;;
-echo (new Dimension(1500, 97)) . &apos;&lt;br&gt;&apos;;
-echo (new Dimension(14, -20)) . &apos;&lt;br&gt;&apos;;
-echo (new Dimension(240, 80)) . &apos;&lt;br&gt;&apos;;
+echo (new Dimension()) . '&lt;br&gt;';
+echo (new Dimension(1500, 97)) . '&lt;br&gt;';
+echo (new Dimension(14, -20)) . '&lt;br&gt;';
+echo (new Dimension(240, 80)) . '&lt;br&gt;';
 
 ?>
 ```

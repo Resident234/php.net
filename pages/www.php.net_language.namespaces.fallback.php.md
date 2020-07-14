@@ -15,7 +15,13 @@ function time() {
 assert (1234 == time());
 ?>
 ```
-<br><br>However there&apos;s a restriction that you have to define the mock function before the first usage in the tested class method. This is documented in Bug #68541.<br><br>You can find the mock library php-mock at GitHub.  
+
+
+However there's a restriction that you have to define the mock function before the first usage in the tested class method. This is documented in Bug #68541.
+
+You can find the mock library ?>
+```
+mock at GitHub.  
 
 #
 

@@ -15,7 +15,7 @@ This works similar to javascripts short-curcuit assignments and setting defaults
 ```
 <?php
 
-($a = $_GET[&apos;var&apos;]) || ($a = &apos;a default&apos;);
+($a = $_GET['var']) || ($a = 'a default');
 
 ?>
 ```

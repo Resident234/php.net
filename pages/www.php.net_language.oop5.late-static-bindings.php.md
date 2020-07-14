@@ -17,7 +17,7 @@ class Model
 
 class Product extends Model
 {
-    protected static $name = &apos;Product&apos;;
+    protected static $name = 'Product';
 }
 
 Product::find();

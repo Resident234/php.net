@@ -7,8 +7,8 @@ This hardly seems a fair comparison between the two examples, size-for-size. As 
 ```
 <?php
 function getLinesFromFile($fileName) {
-    if (!$fileHandle = fopen($fileName, &apos;r&apos;)) {
-        throw new RuntimeException(&apos;Couldn\&apos;t open file "&apos; . $fileName . &apos;"&apos;);
+    if (!$fileHandle = fopen($fileName, 'r')) {
+        throw new RuntimeException('Couldn\'t open file "' . $fileName . '"');
     }
  
     while (false !== $line = fgets($fileHandle)) {
@@ -27,34 +27,34 @@ class LineIterator implements Iterator {
     protected $i;
  
     public function __construct($fileName) {
-        if (!$this-&gt;fileHandle = fopen($fileName, &apos;r&apos;)) {
-            throw new RuntimeException(&apos;Couldn\&apos;t open file "&apos; . $fileName . &apos;"&apos;);
+        if (!$this->fileHandle = fopen($fileName, 'r')) {
+            throw new RuntimeException('Couldn\'t open file "' . $fileName . '"');
         }
     }
  
     public function rewind() { }
  
     public function valid() {
-        return false !== $this-&gt;line;
+        return false !== $this->line;
     }
  
     public function current() {
-        return $this-&gt;line;
+        return $this->line;
     }
  
     public function key() {
-        return $this-&gt;i;
+        return $this->i;
     }
  
     public function next() {
-        if (false !== $this-&gt;line) {
-            $this-&gt;line = fgets($this-&gt;fileHandle);
-            $this-&gt;i++;
+        if (false !== $this->line) {
+            $this->line = fgets($this->fileHandle);
+            $this->i++;
         }
     }
  
     public function __destruct() {
-        fclose($this-&gt;fileHandle);
+        fclose($this->fileHandle);
     }
 }
 ?>
@@ -73,7 +73,7 @@ function getLinesFromFile($fileHandle) {
     }
 }
 
-if ($fileHandle = fopen($fileName, &apos;r&apos;)) {
+if ($fileHandle = fopen($fileName, 'r')) {
     /*
     something with getLinesFromFile
     */

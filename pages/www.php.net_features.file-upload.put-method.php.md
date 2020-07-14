@@ -10,7 +10,7 @@ $CHUNK = 8192;
 
         try {
             if (!($putData = fopen("php://input", "r")))
-                throw new Exception("Can&apos;t get PUT data.");
+                throw new Exception("Can't get PUT data.");
 
             // now the params can be used like any other variable
             // see below after input has finished
@@ -22,37 +22,37 @@ $CHUNK = 8192;
                 fclose(fopen($tmpFileName, "x")); //create the file and close it
                 // Open the file for writing
                 if (!($fp = fopen($tmpFileName, "w")))
-                    throw new Exception("Can&apos;t write to tmp file");
+                    throw new Exception("Can't write to tmp file");
 
                 // Read the data a chunk at a time and write to the file
                 while ($data = fread($putData, $CHUNK)) {
                     $chunk_read = strlen($data);
                     if (($block_write = fwrite($fp, $data)) != $chunk_read)
-                        throw new Exception("Can&apos;t write more to tmp file");
+                        throw new Exception("Can't write more to tmp file");
 
                     $tot_write += $block_write;
                 }
 
                 if (!fclose($fp))
-                    throw new Exception("Can&apos;t close tmp file");
+                    throw new Exception("Can't close tmp file");
 
                 unset($putData);
             } else {
                 // Open the file for writing
                 if (!($fp = fopen($tmpFileName, "a")))
-                    throw new Exception("Can&apos;t write to tmp file");
+                    throw new Exception("Can't write to tmp file");
 
                 // Read the data a chunk at a time and write to the file
                 while ($data = fread($putData, $CHUNK)) {
                     $chunk_read = strlen($data);
                     if (($block_write = fwrite($fp, $data)) != $chunk_read)
-                        throw new Exception("Can&apos;t write more to tmp file");
+                        throw new Exception("Can't write more to tmp file");
 
                     $tot_write += $block_write;
                 }
 
                 if (!fclose($fp))
-                    throw new Exception("Can&apos;t close tmp file");
+                    throw new Exception("Can't close tmp file");
 
                 unset($putData);
             }
@@ -61,12 +61,12 @@ $CHUNK = 8192;
             if ($tot_write != $file_size)
                 throw new Exception("Wrong file size");
 
-            $md5_arr = explode(&apos; &apos;, exec("md5sum $tmpFileName"));
+            $md5_arr = explode(' ', exec("md5sum $tmpFileName"));
             $md5 = $md5sum_arr[0];
             if ($md5 != $md5sum)
                 throw new Exception("Wrong md5");
         } catch (Exception $e) {
-            echo &apos;&apos;, $e-&gt;getMessage(), "\n";
+            echo '', $e->getMessage(), "\n";
         }
 ?>
 ```

@@ -22,7 +22,7 @@ the first thing is
 the second
 a and (b or c)
 
-&apos;cause || has got a higher priority than and, but less than &amp;&amp;
+'cause || has got a higher priority than and, but less than &amp;&amp;
 
 of course, using always [ &amp;&amp; and || ] or [ AND and OR ] would be okay, but than you should at least respect the following:
 
@@ -46,7 +46,7 @@ Other Language books&apos; operator precedence section usually include "(" and "
 ```
 <?php
 $bar = true;
-$str = "TEST". ($bar ? &apos;true&apos; : &apos;false&apos;) ."TEST";
+$str = "TEST". ($bar ? 'true' : 'false') ."TEST";
 ?>
 ```
 <br><br>Without "(" and ")" you will get only "true" in $str. <br>(PHP4.0.4pl1/Apache DSO/Linux, PHP4.0.5RC1/Apache DSO/W2K Server)<br>It&apos;s due to precedence, probably.  

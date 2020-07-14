@@ -16,35 +16,35 @@ function FriendlyErrorType($type)
     switch($type)
     {
         case E_ERROR: // 1 //
-            return &apos;E_ERROR&apos;;
+            return 'E_ERROR';
         case E_WARNING: // 2 //
-            return &apos;E_WARNING&apos;;
+            return 'E_WARNING';
         case E_PARSE: // 4 //
-            return &apos;E_PARSE&apos;;
+            return 'E_PARSE';
         case E_NOTICE: // 8 //
-            return &apos;E_NOTICE&apos;;
+            return 'E_NOTICE';
         case E_CORE_ERROR: // 16 //
-            return &apos;E_CORE_ERROR&apos;;
+            return 'E_CORE_ERROR';
         case E_CORE_WARNING: // 32 //
-            return &apos;E_CORE_WARNING&apos;;
+            return 'E_CORE_WARNING';
         case E_COMPILE_ERROR: // 64 //
-            return &apos;E_COMPILE_ERROR&apos;;
+            return 'E_COMPILE_ERROR';
         case E_COMPILE_WARNING: // 128 //
-            return &apos;E_COMPILE_WARNING&apos;;
+            return 'E_COMPILE_WARNING';
         case E_USER_ERROR: // 256 //
-            return &apos;E_USER_ERROR&apos;;
+            return 'E_USER_ERROR';
         case E_USER_WARNING: // 512 //
-            return &apos;E_USER_WARNING&apos;;
+            return 'E_USER_WARNING';
         case E_USER_NOTICE: // 1024 //
-            return &apos;E_USER_NOTICE&apos;;
+            return 'E_USER_NOTICE';
         case E_STRICT: // 2048 //
-            return &apos;E_STRICT&apos;;
+            return 'E_STRICT';
         case E_RECOVERABLE_ERROR: // 4096 //
-            return &apos;E_RECOVERABLE_ERROR&apos;;
+            return 'E_RECOVERABLE_ERROR';
         case E_DEPRECATED: // 8192 //
-            return &apos;E_DEPRECATED&apos;;
+            return 'E_DEPRECATED';
         case E_USER_DEPRECATED: // 16384 //
-            return &apos;E_USER_DEPRECATED&apos;;
+            return 'E_USER_DEPRECATED';
     }
     return "";
 }

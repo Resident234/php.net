@@ -30,7 +30,7 @@ static protected $test="class b";
 }
 
 $obj = new b();
-$obj-&gt;static_test();
+$obj->static_test();
 ?>
 ```
   
@@ -52,8 +52,8 @@ class staticparent {
     static    $both_distinct;
     
     function __construct() {
-        static::$parent_only = &apos;fromparent&apos;;
-        static::$both_distinct = &apos;fromparent&apos;;
+        static::$parent_only = 'fromparent';
+        static::$both_distinct = 'fromparent';
     }
 }
 
@@ -62,17 +62,17 @@ class staticchild extends staticparent {
     static    $both_distinct;
     
     function __construct() {
-        static::$parent_only = &apos;fromchild&apos;;
-        static::$both_distinct = &apos;fromchild&apos;;
-        static::$child_only = &apos;fromchild&apos;;
+        static::$parent_only = 'fromchild';
+        static::$both_distinct = 'fromchild';
+        static::$child_only = 'fromchild';
     }
 }
 
 $a = new staticparent;
 $a = new staticchild;
 
-echo &apos;Parent: parent_only=&apos;, staticparent::$parent_only, &apos;, both_distinct=&apos;, staticparent::$both_distinct, "&lt;br/&gt;\r\n";
-echo &apos;Child:  parent_only=&apos;, staticchild::$parent_only, &apos;, both_distinct=&apos;, staticchild::$both_distinct, &apos;, child_only=&apos;, staticchild::$child_only, "&lt;br/&gt;\r\n";
+echo 'Parent: parent_only=', staticparent::$parent_only, ', both_distinct=', staticparent::$both_distinct, "&lt;br/&gt;\r\n";
+echo 'Child:  parent_only=', staticchild::$parent_only, ', both_distinct=', staticchild::$both_distinct, ', child_only=', staticchild::$child_only, "&lt;br/&gt;\r\n";
 ?>
 ```
 <br><br>will output:<br>Parent: parent_only=fromchild, both_distinct=fromparent<br>Child: parent_only=fromchild, both_distinct=fromchild, child_only=fromchild  
@@ -105,9 +105,9 @@ class Child2 extends MyParent {
 }
 
 $c1 = new Child1();
-$c1-&gt;set();
+$c1->set();
 $c2 = new Child2();
-$c2-&gt;show(); // prints 2
+$c2->show(); // prints 2
 ?>
 ```
   
@@ -145,8 +145,8 @@ class B extends A {
     public static function getA() { return self::$a; }
 }
 
-B::init(&apos;lala&apos;);
-echo &apos;A::$a = &apos;.A::getA().&apos;; B::$a = &apos;.B::getA();
+B::init('lala');
+echo 'A::$a = '.A::getA().'; B::$a = '.B::getA();
 ?>
 ```
 
@@ -160,7 +160,7 @@ Solution 1:
 Turn everything into non-static. BUT: This would produce redundant data on every object of the class.
 
 Solution 2:
-Turn static $a on class A into an array, use classnames of subclasses as indeces. By doing so you also don&apos;t have to redefine $a for the subclasses and the superclass&apos; $a can be private.
+Turn static $a on class A into an array, use classnames of subclasses as indeces. By doing so you also don't have to redefine $a for the subclasses and the superclass' $a can be private.
 
 Short example on a DataRecord class without error checking:
 
@@ -183,7 +183,7 @@ abstract class DataRecord {
 
 class UserDataRecord extends DataRecord {
     public static function fetchFromDB() {
-        $result = parent::getDB()-&gt;query(&apos;select * from &apos;.parent::getTable(&apos;UserDataRecord&apos;).&apos;;&apos;);
+        $result = parent::getDB()->query('select * from '.parent::getTable('UserDataRecord').';');
         
         // and so on ...
         return $result; // An array of UserDataRecord objects
@@ -191,7 +191,7 @@ class UserDataRecord extends DataRecord {
 }
 
 $db = new MySQLi(...);
-UserDataRecord::init(&apos;UserDataRecord&apos;, &apos;users&apos;, $db);
+UserDataRecord::init('UserDataRecord', 'users', $db);
 $users = UserDataRecord::fetchFromDB();
 ?>
 ```

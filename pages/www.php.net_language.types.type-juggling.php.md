@@ -9,7 +9,13 @@ Uneven division of an integer variable by another integer variable will result i
 "An example of PHP&apos;s automatic type conversion is the multiplication operator &apos;*&apos;. If either operand is a float, then both operands are evaluated as floats, and the result will be a float. Otherwise, the operands will be interpreted as integers, and the result will also be an integer. Note that this does not change the types of the operands themselves; the only change is in how the operands are evaluated and what the type of the expression itself is."<br><br>I understand what the doc is trying to say here, but this sentence is not correct as stated, other types can be coerced into floats.<br><br>e.g.<br><br>
 
 ```
-<?php<br>$a = "1.5"; // $a is a string<br>$b = 100; // $b is an int<br>$c = $a * $b; // $c is a float, value is 150<br>// multiplication resulted in a float despite fact that neither operand was a float  
+<?php
+$a = "1.5"; // $a is a string
+$b = 100; // $b is an int
+$c = $a * $b; // $c is a float, value is 150
+// multiplication resulted in a float despite fact that neither operand was a float?>
+```
+  
 
 #
 
@@ -24,24 +30,24 @@ Casting objects to arrays is a pain. Example:<br><br>
 
 class MyClass {
 
-    private $priv = &apos;priv_value&apos;;
-    protected $prot = &apos;prot_value&apos;;
-    public $pub = &apos;pub_value&apos;;
-    public $MyClasspriv = &apos;second_pub_value&apos;;
+    private $priv = 'priv_value';
+    protected $prot = 'prot_value';
+    public $pub = 'pub_value';
+    public $MyClasspriv = 'second_pub_value';
 
 }
 
 $test = new MyClass();
-echo &apos;&lt;pre&gt;&apos;;
+echo '&lt;pre&gt;';
 print_r((array) $test);
 
 /*
 Array
 (
-    [MyClasspriv] =&gt; priv_value
-    [*prot] =&gt; prot_value
-    [pub] =&gt; pub_value
-    [MyClasspriv] =&gt; second_pub_value
+    [MyClasspriv] => priv_value
+    [*prot] => prot_value
+    [pub] => pub_value
+    [MyClasspriv] => second_pub_value
 )
  */
 
@@ -49,30 +55,30 @@ Array
 ```
 
 
-Yes, that looks like an array with two keys with the same name and it looks like the protected field was prepended with an asterisk. But that&apos;s not true:
+Yes, that looks like an array with two keys with the same name and it looks like the protected field was prepended with an asterisk. But that's not true:
 
 
 
 ```
 <?php
 
-foreach ((array) $test as $key =&gt; $value) {
+foreach ((array) $test as $key => $value) {
     $len = strlen($key);
-    echo "{$key} ({$len}) =&gt; {$value}&lt;br /&gt;";
+    echo "{$key} ({$len}) => {$value}&lt;br /&gt;";
     for ($i = 0; $i &lt; $len; ++$i) {
-        echo ord($key[$i]) . &apos; &apos;;
+        echo ord($key[$i]) . ' ';
     }
-    echo &apos;&lt;hr /&gt;&apos;;
+    echo '&lt;hr /&gt;';
 }
 
 /*
-MyClasspriv (13) =&gt; priv_value
+MyClasspriv (13) => priv_value
 0 77 121 67 108 97 115 115 0 112 114 105 118
-*prot (7) =&gt; prot_value
+*prot (7) => prot_value
 0 42 0 112 114 111 116
-pub (3) =&gt; pub_value
+pub (3) => pub_value
 112 117 98
-MyClasspriv (11) =&gt; second_pub_value
+MyClasspriv (11) => second_pub_value
 77 121 67 108 97 115 115 112 114 105 118
  */
 
@@ -94,7 +100,7 @@ There are some shorter and faster (at least on my machine) ways to perform a typ
 
 ```
 <?php
-$string=&apos;12345.678&apos;;
+$string='12345.678';
 $float=+$string; 
 $integer=0|$string;
 $boolean=!!$string;

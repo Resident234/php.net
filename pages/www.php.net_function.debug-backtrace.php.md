@@ -9,7 +9,7 @@ Here&apos;s a function I just wrote for getting a nice and comprehensible call t
 function generateCallTrace()
 {
     $e = new Exception();
-    $trace = explode("\n", $e-&gt;getTraceAsString());
+    $trace = explode("\n", $e->getTraceAsString());
     // reverse array to make steps line up chronologically
     $trace = array_reverse($trace);
     array_shift($trace); // remove {main}
@@ -19,7 +19,7 @@ function generateCallTrace()
     
     for ($i = 0; $i &lt; $length; $i++)
     {
-        $result[] = ($i + 1)  . &apos;)&apos; . substr($trace[$i], strpos($trace[$i], &apos; &apos;)); // replace &apos;#someNum&apos; with &apos;$i)&apos;, set the right ordering
+        $result[] = ($i + 1)  . ')' . substr($trace[$i], strpos($trace[$i], ' ')); // replace '#someNum' with '$i)', set the right ordering
     }
     
     return "\t" . implode("\n\t", $result);

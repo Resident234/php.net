@@ -9,7 +9,7 @@ Add this method to your class definition if you want an array of class constants
 public function get_class_constants()
 {
     $reflect = new ReflectionClass(get_class($this));
-    return $reflect-&gt;getConstants());
+    return $reflect->getConstants());
 }
 ?>
 ```

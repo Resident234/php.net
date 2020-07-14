@@ -27,7 +27,7 @@ class Fruit {
     }
     
     public function setColor($c) {
-        $this-&gt;color = $c;
+        $this->color = $c;
     }
 }
 
@@ -54,7 +54,7 @@ Now I give you an apple and you eat it.
 ```
 <?php
 $apple = new Apple();
-$apple-&gt;eat();
+$apple->eat();
 ?>
 ```
 
@@ -66,12 +66,12 @@ What does it taste like? It tastes like an apple. Now I give you a fruit.
 ```
 <?php
 $fruit = new Fruit();
-$fruit-&gt;eat();
+$fruit->eat();
 ?>
 ```
 
 
-What does that taste like??? Well, it doesn&apos;t make much sense, so you shouldn&apos;t be able to do that. This is accomplished by making the Fruit class abstract as well as the eat method inside of it.
+What does that taste like??? Well, it doesn't make much sense, so you shouldn't be able to do that. This is accomplished by making the Fruit class abstract as well as the eat method inside of it.
 
 
 
@@ -83,7 +83,7 @@ abstract class Fruit {
     abstract public function eat();
     
     public function setColor($c) {
-        $this-&gt;color = $c;
+        $this->color = $c;
     }
 }
 ?>
@@ -135,12 +135,12 @@ abstract class defaultProductAbstraction implements productInterface {
     abstract public function doMore();
     public function doSell() {
         /* the default implementation */
-        $this-&gt;_sold = true;
-        echo "defaultProductAbstraction doSell: {$this-&gt;_sold}".&#xB6;;
+        $this->_sold = true;
+        echo "defaultProductAbstraction doSell: {$this->_sold}".&#xB6;;
     }
     public function doBuy() {
-        $this-&gt;_bought = true;
-        echo "defaultProductAbstraction doBuy: {$this-&gt;_bought}".&#xB6;;
+        $this->_bought = true;
+        echo "defaultProductAbstraction doBuy: {$this->_bought}".&#xB6;;
     }
 }
 
@@ -155,7 +155,7 @@ class myProductImplementation extends defaultProductAbstraction {
         echo "myProductImplementation doMore() does more!".&#xB6;;
     }
     public function doBuy() {
-        echo "myProductImplementation&apos;s doBuy() and also my parent&apos;s dubai()".&#xB6;;
+        echo "myProductImplementation's doBuy() and also my parent's dubai()".&#xB6;;
         parent::doBuy();
     }
 }
@@ -163,12 +163,12 @@ class myProductImplementation extends defaultProductAbstraction {
 class myProduct extends defaultProductImplementation {
     private $_bought=true;
     public function __construct() {
-        var_dump($this-&gt;_bought);
+        var_dump($this->_bought);
     }
     public function doBuy () {
         /* non-default doBuy implementation */
-        $this-&gt;_bought = true;
-        echo "myProduct overrides the defaultProductImplementation&apos;s doBuy() here {$this-&gt;_bought}".&#xB6;;
+        $this->_bought = true;
+        echo "myProduct overrides the defaultProductImplementation's doBuy() here {$this->_bought}".&#xB6;;
     }
 }
 
@@ -182,28 +182,28 @@ class myOtherProduct extends myProductImplementation {
 echo "new myProduct()".&#xB6;;
 $product = new myProduct();
 
-$product-&gt;doBuy();
-$product-&gt;doSell();
-$product-&gt;doMore();
+$product->doBuy();
+$product->doSell();
+$product->doMore();
 
 echo &#xB6;."new defaultProductImplementation()".&#xB6;;
 
 $newProduct = new defaultProductImplementation();
-$newProduct-&gt;doBuy();
-$newProduct-&gt;doSell();
-$newProduct-&gt;doMore();
+$newProduct->doBuy();
+$newProduct->doSell();
+$newProduct->doMore();
 
 echo &#xB6;."new myProductImplementation".&#xB6;;
 $lastProduct = new myProductImplementation();
-$lastProduct-&gt;doBuy();
-$lastProduct-&gt;doSell();
-$lastProduct-&gt;doMore();
+$lastProduct->doBuy();
+$lastProduct->doSell();
+$lastProduct->doMore();
 
 echo &#xB6;."new myOtherProduct".&#xB6;;
 $anotherNewProduct = new myOtherProduct();
-$anotherNewProduct-&gt;doBuy();
-$anotherNewProduct-&gt;doSell();
-$anotherNewProduct-&gt;doMore();
+$anotherNewProduct->doBuy();
+$anotherNewProduct->doSell();
+$anotherNewProduct->doMore();
 ?>
 ```
 
@@ -216,7 +216,7 @@ Will result in:
 /*
 new myProduct()
 bool(true)
-myProduct overrides the defaultProductImplementation&apos;s doBuy() here 1
+myProduct overrides the defaultProductImplementation's doBuy() here 1
 defaultProductAbstraction doSell: 1
 defaultProductImplementation doMore()
 
@@ -226,14 +226,14 @@ defaultProductAbstraction doSell: 1
 defaultProductImplementation doMore()
 
 new myProductImplementation
-myProductImplementation&apos;s doBuy() and also my parent&apos;s dubai()
+myProductImplementation's doBuy() and also my parent's dubai()
 defaultProductAbstraction doBuy: 1
 defaultProductAbstraction doSell: 1
 myProductImplementation doMore() does more!
 
 new myOtherProduct
 myOtherProduct overrides myProductImplementations doBuy() here but still calls parent too
-myProductImplementation&apos;s doBuy() and also my parent&apos;s dubai()
+myProductImplementation's doBuy() and also my parent's dubai()
 defaultProductAbstraction doBuy: 1
 defaultProductAbstraction doSell: 1
 myProductImplementation doMore() does more!
@@ -259,7 +259,7 @@ abstract class class2 extends class1 {
 ```
 
 
-Error: Fatal error: Can&apos;t inherit abstract function class1::someFunc() (previously declared abstract in class2) in /home/sneakyimp/public/chump.php on line 7
+Error: Fatal error: Can't inherit abstract function class1::someFunc() (previously declared abstract in class2) in /home/sneakyimp/public/chump.php on line 7
 
 However this does not:
 
@@ -283,7 +283,7 @@ Incidentally, abstract classes do not need to be base classes:<br><br>
 ```
 <?php
 class Foo {
-    public function sneeze() { echo &apos;achoooo&apos;; }
+    public function sneeze() { echo 'achoooo'; }
 }
 
 abstract class Bar extends Foo {
@@ -291,12 +291,12 @@ abstract class Bar extends Foo {
 }
 
 class Baz extends Bar {
-    public function hiccup() { echo &apos;hiccup!&apos;; }
+    public function hiccup() { echo 'hiccup!'; }
 }
 
 $baz = new Baz();
-$baz-&gt;sneeze();
-$baz-&gt;hiccup();
+$baz->sneeze();
+$baz->hiccup();
 ?>
 ```
   

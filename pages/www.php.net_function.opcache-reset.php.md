@@ -7,9 +7,7 @@ My workaround to clear cache via CLI is create a bash script like this:<br><br>#
 ```
 <?php opcache_reset(); ?>
 ```
-" &gt; ${WEBDIR}${RANDOM_NAME}.php
-curl http://localhost/${RANDOM_NAME}.php
-rm ${WEBDIR}${RANDOM_NAME}.php<br><br>put it in /usr/local/bin/opcache-clear and make it executable. <br>When I want to clear cache I simply run "opcache-clear" inside terminal.  
+" &gt; ${WEBDIR}${RANDOM_NAME}.php<br>curl http://localhost/${RANDOM_NAME}.php<br>rm ${WEBDIR}${RANDOM_NAME}.php<br><br>put it in /usr/local/bin/opcache-clear and make it executable. <br>When I want to clear cache I simply run "opcache-clear" inside terminal.  
 
 #
 

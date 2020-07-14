@@ -7,7 +7,7 @@ There is a way to define a namespaced constant that is a special, built-in const
 ```
 <?php
 namespace foo;
-define(__NAMESPACE__ . &apos;\NULL&apos;, 10); // defines the constant NULL in the current namespace
+define(__NAMESPACE__ . '\NULL', 10); // defines the constant NULL in the current namespace
 var_dump(NULL); // will show 10
 var_dump(null); // will show NULL
 ?>
@@ -20,12 +20,12 @@ var_dump(null); // will show NULL
 ```
 <?php
 namespace foo;
-define(INI_ALL, &apos;bar&apos;); // produces notice - Constant INI_ALL already defined. But:
+define(INI_ALL, 'bar'); // produces notice - Constant INI_ALL already defined. But:
 
-define(__NAMESPACE__ . &apos;\INI_ALL&apos;, &apos;bar&apos;); // defines the constant INI_ALL in the current namespace
+define(__NAMESPACE__ . '\INI_ALL', 'bar'); // defines the constant INI_ALL in the current namespace
 var_dump(INI_ALL); // will show string(3)"bar". Nothing unespected so far. But:
 
-define(&apos;NULL&apos;, 10); // defines the constant NULL in the current namespace...
+define('NULL', 10); // defines the constant NULL in the current namespace...
 var_dump(NULL); // will show 10
 var_dump(null); // will show NULL
 ?>
@@ -38,7 +38,7 @@ var_dump(null); // will show NULL
 ```
 <?php
 namespace foo;
-define (__NAMESPACE__ . &apos;\NULL&apos;, 10, true); // produces notice - Constant null already defined
+define (__NAMESPACE__ . '\NULL', 10, true); // produces notice - Constant null already defined
 ?>
 ```
   

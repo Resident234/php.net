@@ -11,7 +11,7 @@ Example on how to read an entry from a ZIP archive (file "bar.txt" inside "./foo
 ```
 <?php
 
-$fp = fopen(&apos;zip://./foo.zip#bar.txt&apos;, &apos;r&apos;);
+$fp = fopen('zip://./foo.zip#bar.txt', 'r');
 if( $fp ){
     while( !feof($fp) ){
         echo fread($fp, 8192);

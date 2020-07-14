@@ -18,13 +18,13 @@ function theDatabaseObj(){
 function updateProfile( $userInfo ){
      try{
          $db = theDatabaseObj();
-         $db-&gt;updateProfile();
+         $db->updateProfile();
      }
      catch( DatabaseException $e ){
-         $message = "The user :" . $userInfo-&gt;username . " could not update his profile information";
-         /* notice the &apos;$e&apos;. I&apos;m adding the previous exception  to this exception. I can later get a detailed view of 
-          where the problem began. Lastly, the number &apos;12&apos; is  an exception code. I can use this for categorizing my 
-         exceptions or don&apos;t use it at all. */ 
+         $message = "The user :" . $userInfo->username . " could not update his profile information";
+         /* notice the '$e'. I'm adding the previous exception  to this exception. I can later get a detailed view of 
+          where the problem began. Lastly, the number '12' is  an exception code. I can use this for categorizing my 
+         exceptions or don't use it at all. */ 
          throw new MemberSettingsException($message,12,$e);
      }
 }
@@ -34,7 +34,7 @@ try{
 }
 catch( MemberSettingsException $e ){
      // this will give all information we have collected above. 
-     echo $e-&gt;getTraceAsString();
+     echo $e->getTraceAsString();
 }
 ?>
 ```

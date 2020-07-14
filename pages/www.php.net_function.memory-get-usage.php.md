@@ -8,8 +8,8 @@ To get the memory usage in KB or MB<br><br>
 <?php
 function convert($size)
  {
-    $unit=array(&apos;b&apos;,&apos;kb&apos;,&apos;mb&apos;,&apos;gb&apos;,&apos;tb&apos;,&apos;pb&apos;);
-    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).&apos; &apos;.$unit[$i];
+    $unit=array('b','kb','mb','gb','tb','pb');
+    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
  }
 
 echo convert(memory_get_usage(true)); // 123 kb
@@ -108,8 +108,8 @@ memory_get_usage() is used to retrieve the memory allocated to PHP only (or your
                 return (100 - ($memoryFree * 100 / $memoryTotal));
             } else {
                 return array(
-                    "total" =&gt; $memoryTotal,
-                    "free" =&gt; $memoryFree,
+                    "total" => $memoryTotal,
+                    "free" => $memoryFree,
                 );
             }
         }
@@ -117,13 +117,13 @@ memory_get_usage() is used to retrieve the memory allocated to PHP only (or your
 
     function getNiceFileSize($bytes, $binaryPrefix=true) {
         if ($binaryPrefix) {
-            $unit=array(&apos;B&apos;,&apos;KiB&apos;,&apos;MiB&apos;,&apos;GiB&apos;,&apos;TiB&apos;,&apos;PiB&apos;);
-            if ($bytes==0) return &apos;0 &apos; . $unit[0];
-            return @round($bytes/pow(1024,($i=floor(log($bytes,1024)))),2) .&apos; &apos;. (isset($unit[$i]) ? $unit[$i] : &apos;B&apos;);
+            $unit=array('B','KiB','MiB','GiB','TiB','PiB');
+            if ($bytes==0) return '0 ' . $unit[0];
+            return @round($bytes/pow(1024,($i=floor(log($bytes,1024)))),2) .' '. (isset($unit[$i]) ? $unit[$i] : 'B');
         } else {
-            $unit=array(&apos;B&apos;,&apos;KB&apos;,&apos;MB&apos;,&apos;GB&apos;,&apos;TB&apos;,&apos;PB&apos;);
-            if ($bytes==0) return &apos;0 &apos; . $unit[0];
-            return @round($bytes/pow(1000,($i=floor(log($bytes,1000)))),2) .&apos; &apos;. (isset($unit[$i]) ? $unit[$i] : &apos;B&apos;);
+            $unit=array('B','KB','MB','GB','TB','PB');
+            if ($bytes==0) return '0 ' . $unit[0];
+            return @round($bytes/pow(1000,($i=floor(log($bytes,1000)))),2) .' '. (isset($unit[$i]) ? $unit[$i] : 'B');
         }
     }
 

@@ -8,8 +8,8 @@ Included files will default to the global namespace.<br>
 <?php
 //test.php
 namespace test {
-  include &apos;test1.inc&apos;;
-  echo &apos;-&apos;,__NAMESPACE__,&apos;-&lt;br /&gt;&apos;;
+  include 'test1.inc';
+  echo '-',__NAMESPACE__,'-&lt;br /&gt;';
 }
 ?>
 ```
@@ -20,7 +20,7 @@ namespace test {
 ```
 <?php
 //test1.inc
-  echo &apos;-&apos;,__NAMESPACE__,&apos;-&lt;br /&gt;&apos;;
+  echo '-',__NAMESPACE__,'-&lt;br /&gt;';
 ?>
 ```
 <br><br>Results of test.php:<br><br>--<br>-test-  
@@ -30,7 +30,33 @@ namespace test {
 In namespaced context the Exception class needs to be prefixed with global prefix operator.<br><br>
 
 ```
-<?php<br><br>namespace hey\ho\lets\go;<br><br>class MyClass<br>{<br>    public function failToCatch()<br>    {<br>        try {<br>            $thing = somethingThrowingAnException();<br>        } catch (Exception $ex) {<br>              // Not catched<br>        }<br>    }<br><br>    public function succeedToCatch()<br>    {<br>        try {<br>            $thing = somethingThrowingAnException();<br>        } catch (\Exception $ex) {<br>              // This is now catched<br>        }<br>    }<br><br>}  
+<?php
+
+namespace hey\ho\lets\go;
+
+class MyClass
+{
+    public function failToCatch()
+    {
+        try {
+            $thing = somethingThrowingAnException();
+        } catch (Exception $ex) {
+              // Not catched
+        }
+    }
+
+    public function succeedToCatch()
+    {
+        try {
+            $thing = somethingThrowingAnException();
+        } catch (\Exception $ex) {
+              // This is now catched
+        }
+    }
+
+}?>
+```
+  
 
 #
 

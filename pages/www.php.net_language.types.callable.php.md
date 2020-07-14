@@ -8,16 +8,16 @@ You can also use the $this variable to specify a callback:<br><br>
 <?php
 class MyClass {
 
-    public $property = &apos;Hello World!&apos;;
+    public $property = 'Hello World!';
 
     public function MyMethod()
     {
-        call_user_func(array($this, &apos;myCallbackMethod&apos;));
+        call_user_func(array($this, 'myCallbackMethod'));
     }
 
     public function MyCallbackMethod()
     {
-        echo $this-&gt;property;
+        echo $this->property;
     }
 
 }
@@ -34,20 +34,20 @@ Performance note: The callable type hint, like is_callable(), will trigger an au
 A note on differences when calling callbacks as "variable functions" without the use of call_user_func() (e.g. "
 
 ```
-<?php $callback = &apos;printf&apos;; $callback(&apos;Hello World!&apos;) ?>
+<?php $callback = 'printf'; $callback('Hello World!') ?>
 ```
 "):
 
 - Using the name of a function as string has worked since at least 4.3.0
 - Calling anonymous functions and invokable objects has worked since 5.3.0
-- Using the array structure [$object, &apos;method&apos;] has worked since 5.4.0
+- Using the array structure [$object, 'method'] has worked since 5.4.0
 
 Note, however, that the following are not supported when calling callbacks as variable functions, even though they are supported by call_user_func():
 
-- Calling static class methods via strings such as &apos;foo::doStuff&apos;
-- Calling parent method using the [$object, &apos;parent::method&apos;] array structure
+- Calling static class methods via strings such as 'foo::doStuff'
+- Calling parent method using the [$object, 'parent::method'] array structure
 
-All of these cases are correctly recognized as callbacks by the &apos;callable&apos; type hint, however. Thus, the following code will produce an error "Fatal error: Call to undefined function foo::doStuff() in /tmp/code.php on line 4":
+All of these cases are correctly recognized as callbacks by the 'callable' type hint, however. Thus, the following code will produce an error "Fatal error: Call to undefined function foo::doStuff() in /tmp/code.php on line 4":
 
 
 
@@ -63,7 +63,7 @@ class foo {
     }
 }
 
-foo::callIt(&apos;foo::doStuff&apos;);
+foo::callIt('foo::doStuff');
 ?>
 ```
 <br><br>The code would work fine, if we replaced the &apos;$callback()&apos; with &apos;call_user_func($callback)&apos; or if we used the array [&apos;foo&apos;, &apos;doStuff&apos;] as the callback instead.  
@@ -76,7 +76,7 @@ You can use &apos;self::methodName&apos; as a callable, but this is dangerous. C
 <?php
 class Foo {
     public static function doAwesomeThings() {
-        FunctionCaller::callIt(&apos;self::someAwesomeMethod&apos;);
+        FunctionCaller::callIt('self::someAwesomeMethod');
     }
 
     public static function someAwesomeMethod() {
@@ -96,14 +96,14 @@ Foo::doAwesomeThings();
 
 
 This results in an error:
-Warning: class &apos;FunctionCaller&apos; does not have a method &apos;someAwesomeMethod&apos;.
+Warning: class 'FunctionCaller' does not have a method 'someAwesomeMethod'.
 
 For this reason you should always use the full class name:
 
 
 ```
 <?php
-FunctionCaller::callIt(&apos;Foo::someAwesomeMethod&apos;);
+FunctionCaller::callIt('Foo::someAwesomeMethod');
 ?>
 ```
 <br><br>I believe this is because there is no way for FunctionCaller to know that the string &apos;self&apos; at one point referred to to `Foo`.  
@@ -125,16 +125,16 @@ class mc {
    }
 
     public function export() {
-        return array($this, &apos;walkIt&apos;);
+        return array($this, 'walkIt');
     }
 }
 
 $data = array(1,2,3,4);
 
 $m = new mc;
-$m-&gt;go($data); // valid
+$m->go($data); // valid
 
-array_walk($data, $m-&gt;export()); // will generate warning
+array_walk($data, $m->export()); // will generate warning
 
 ?>
 ```
@@ -160,18 +160,18 @@ I needed a function that would determine the type of callable being passed, and,
  *
  *  Callable                        | Normalization                   | Type
  * ---------------------------------+---------------------------------+--------------
- *  function (...) use (...) {...}  | function (...) use (...) {...}  | &apos;closure&apos;
- *  $object                         | $object                         | &apos;invocable&apos;
- *  "function"                      | "function"                      | &apos;function&apos;
- *  "class::method"                 | ["class", "method"]             | &apos;static&apos;
- *  ["class", "parent::method"]     | ["parent of class", "method"]   | &apos;static&apos;
- *  ["class", "self::method"]       | ["class", "method"]             | &apos;static&apos;
- *  ["class", "method"]             | ["class", "method"]             | &apos;static&apos;
- *  [$object, "parent::method"]     | [$object, "parent::method"]     | &apos;object&apos;
- *  [$object, "self::method"]       | [$object, "method"]             | &apos;object&apos;
- *  [$object, "method"]             | [$object, "method"]             | &apos;object&apos;
+ *  function (...) use (...) {...}  | function (...) use (...) {...}  | 'closure'
+ *  $object                         | $object                         | 'invocable'
+ *  "function"                      | "function"                      | 'function'
+ *  "class::method"                 | ["class", "method"]             | 'static'
+ *  ["class", "parent::method"]     | ["parent of class", "method"]   | 'static'
+ *  ["class", "self::method"]       | ["class", "method"]             | 'static'
+ *  ["class", "method"]             | ["class", "method"]             | 'static'
+ *  [$object, "parent::method"]     | [$object, "parent::method"]     | 'object'
+ *  [$object, "self::method"]       | [$object, "method"]             | 'object'
+ *  [$object, "method"]             | [$object, "method"]             | 'object'
  * ---------------------------------+---------------------------------+--------------
- *  other callable                  | idem                            | &apos;unknown&apos;
+ *  other callable                  | idem                            | 'unknown'
  * ---------------------------------+---------------------------------+--------------
  *  not a callable                  | null                            | false
  *
@@ -188,49 +188,49 @@ function callableType($callable, $strict = true, callable&amp; $norm = null) {
     switch (true) {
       case is_object($callable):
         $norm = $callable;
-        return &apos;Closure&apos; === get_class($callable) ? &apos;closure&apos; : &apos;invocable&apos;;
+        return 'Closure' === get_class($callable) ? 'closure' : 'invocable';
       case is_string($callable):
         $m    = null;
-        if (preg_match(&apos;~^(?&lt;class&gt;[a-z_][a-z0-9_]*)::(?&lt;method&gt;[a-z_][a-z0-9_]*)$~i&apos;, $callable, $m)) {
-          list($left, $right) = [$m[&apos;class&apos;], $m[&apos;method&apos;]];
-          if (!$strict || (new \ReflectionMethod($left, $right))-&gt;isStatic()) {
+        if (preg_match('~^(?&lt;class&gt;[a-z_][a-z0-9_]*)::(?&lt;method&gt;[a-z_][a-z0-9_]*)$~i', $callable, $m)) {
+          list($left, $right) = [$m['class'], $m['method']];
+          if (!$strict || (new \ReflectionMethod($left, $right))->isStatic()) {
             $norm = [$left, $right];
-            return &apos;static&apos;;
+            return 'static';
           }
         } else {
           $norm = $callable;
-          return &apos;function&apos;;
+          return 'function';
         }
         break;
       case is_array($callable):
         $m = null;
-        if (preg_match(&apos;~^(:?(?&lt;reference&gt;self|parent)::)?(?&lt;method&gt;[a-z_][a-z0-9_]*)$~i&apos;, $callable[1], $m)) {
+        if (preg_match('~^(:?(?&lt;reference&gt;self|parent)::)?(?&lt;method&gt;[a-z_][a-z0-9_]*)$~i', $callable[1], $m)) {
           if (is_string($callable[0])) {
-            if (&apos;parent&apos; === strtolower($m[&apos;reference&apos;])) {
-              list($left, $right) = [get_parent_class($callable[0]), $m[&apos;method&apos;]];
+            if ('parent' === strtolower($m['reference'])) {
+              list($left, $right) = [get_parent_class($callable[0]), $m['method']];
             } else {
-              list($left, $right) = [$callable[0], $m[&apos;method&apos;]];
+              list($left, $right) = [$callable[0], $m['method']];
             }
-            if (!$strict || (new \ReflectionMethod($left, $right))-&gt;isStatic()) {
+            if (!$strict || (new \ReflectionMethod($left, $right))->isStatic()) {
               $norm = [$left, $right];
-              return &apos;static&apos;;
+              return 'static';
             }
           } else {
-            if (&apos;self&apos; === strtolower($m[&apos;reference&apos;])) {
-              list($left, $right) = [$callable[0], $m[&apos;method&apos;]];
+            if ('self' === strtolower($m['reference'])) {
+              list($left, $right) = [$callable[0], $m['method']];
             } else {
               list($left, $right) = $callable;
             }
-            if (!$strict || !(new \ReflectionMethod($left, $right))-&gt;isStatic()) {
+            if (!$strict || !(new \ReflectionMethod($left, $right))->isStatic()) {
               $norm = [$left, $right];
-              return &apos;object&apos;;
+              return 'object';
             }
           }
         }
         break;
     }
     $norm = $callable;
-    return &apos;unknown&apos;;
+    return 'unknown';
   }
   $norm = null;
   return false;
@@ -245,7 +245,24 @@ function callableType($callable, $strict = true, callable&amp; $norm = null) {
 When trying to make a callable from a function name located in a namespace, you MUST give the fully qualified function name (regardless of the current namespace or use statements).<br><br>
 
 ```
-<?php<br><br>namespace MyNamespace;<br><br>function doSomethingFancy($arg1)<br>{<br>    // do something...<br>}<br><br>$values = [1, 2, 3];<br><br>array_map(&apos;doSomethingFancy&apos;, $values);<br>// array_map() expects parameter 1 to be a valid callback, function &apos;doSomethingFancy&apos; not found or invalid function name<br><br>array_map(&apos;MyNamespace\doSomethingFancy&apos;, $values);<br>// =&gt; [..., ..., ...]  
+<?php
+
+namespace MyNamespace;
+
+function doSomethingFancy($arg1)
+{
+    // do something...
+}
+
+$values = [1, 2, 3];
+
+array_map('doSomethingFancy', $values);
+// array_map() expects parameter 1 to be a valid callback, function 'doSomethingFancy' not found or invalid function name
+
+array_map('MyNamespace\doSomethingFancy', $values);
+// => [..., ..., ...]?>
+```
+  
 
 #
 

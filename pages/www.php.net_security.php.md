@@ -6,8 +6,8 @@ If a single file has to be included than I use the following<br><br>index.php ( 
 
 ```
 <?php
-    define(&apos;thefooter&apos;, TRUE);
-    include(&apos;folder/footer.inc.php&apos;);
+    define('thefooter', TRUE);
+    include('folder/footer.inc.php');
 ?>
 ```
 
@@ -20,8 +20,8 @@ ___________
 
 ```
 <?php
-    defined(&apos;thefooter&apos;) or die(&apos;Not with me my friend&apos;);
-    echo(&apos;Copyright to me in the year 2000&apos;);
+    defined('thefooter') or die('Not with me my friend');
+    echo('Copyright to me in the year 2000');
 ?>
 ```
 
@@ -32,8 +32,8 @@ So when someone tries to access the footer.php file directly he/she/it will get 
 
 ```
 <?php
-    defined(&apos;thefooter&apos;) or header(&apos;Location: http://www.location.com&apos;);
-    echo(&apos;Copyright to me in the year 2000&apos;);
+    defined('thefooter') or header('Location: http://www.location.com');
+    echo('Copyright to me in the year 2000');
 ?>
 ```
 <br><br>In normal case a redirection to an external site would be annoying to the visitor, but since this visitor is more interested in hacking the site than in reading the content, I think it&apos;s only fair to create such an redirection. We dont&apos; realy want someome like this on our sites.<br><br>For the file protection I use .htaccess in which I say to protect the file itself and every .inc file<br><br>&lt;Files ~ "^.*\.([Hh][Tt]|[Ii][Nn][Cc])"&gt;<br>Order allow,deny<br>Deny from all<br>Satisfy All<br>&lt;/Files&gt;<br><br>The .htaccess file should result an Error 403 if someone tries to access the files directly. If for some reason this shouldn&apos;t work, then the "Not with me my friend" text apears or a redirection (depending what is used)<br><br>In my eyes this looks o.k. and safe.  

@@ -11,7 +11,7 @@ function nums() {
                 //get a value from the caller
         $cmd = (yield $i);
         
-        if($cmd == &apos;stop&apos;)
+        if($cmd == 'stop')
             return;//exit the function
         }     
 }
@@ -20,7 +20,7 @@ $gen = nums();
 foreach($gen as $v)
 {
     if($v == 3)//we are satisfied
-        $gen-&gt;send(&apos;stop&apos;);
+        $gen->send('stop');
     
     echo "{$v}\n";
 }

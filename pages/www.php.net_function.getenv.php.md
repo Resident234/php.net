@@ -5,14 +5,19 @@
 Contrary to what eng.mrkto.com said, getenv() isn&apos;t always case-insensitive. On Linux it is not:<br><br>
 
 ```
-<?php<br>var_dump(getenv(&apos;path&apos;)); // bool(false)<br>var_dump(getenv(&apos;Path&apos;)); // bool(false)<br>var_dump(getenv(&apos;PATH&apos;)); // string(13) "/usr/bin:/bin"  
+<?php
+var_dump(getenv('path')); // bool(false)
+var_dump(getenv('Path')); // bool(false)
+var_dump(getenv('PATH')); // string(13) "/usr/bin:/bin"?>
+```
+  
 
 #
 
 This function is useful (compared to $_SERVER, $_ENV) because it searches $varname key in those array case-insensitive manner.<br>For example on Windows $_SERVER[&apos;Path&apos;] is like you see Capitalized, not &apos;PATH&apos; as you expected.<br>So just: 
 
 ```
-<?php getenv(&apos;path&apos;) ?>
+<?php getenv('path') ?>
 ```
   
 
