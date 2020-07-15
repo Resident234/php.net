@@ -6,21 +6,21 @@ When using the recursive parameter bear in mind that if you&apos;re using chmod(
 
 ```
 <?php
-mkdir(&apos;/test1/test2&apos;, 0777, true);
-chmod(&apos;/test1/test2&apos;, 0777);
+mkdir('/test1/test2', 0777, true);
+chmod('/test1/test2', 0777);
 ?>
 ```
  
 
-May result in "/test1/test2" having a mode of 0777 but "/test1" still having a mode of 0755 from the mkdir() call. You&apos;d need to do:
+May result in "/test1/test2" having a mode of 0777 but "/test1" still having a mode of 0755 from the mkdir() call. You'd need to do:
 
 
 
 ```
 <?php
-mkdir(&apos;/test1/test2&apos;, 0777, true);
-chmod(&apos;/test1&apos;, 0777);
-chmod(&apos;/test1/test2&apos;, 0777);
+mkdir('/test1/test2', 0777, true);
+chmod('/test1', 0777);
+chmod('/test1/test2', 0777);
 ?>
 ```
   
@@ -32,7 +32,7 @@ This is an annotation from Stig Bakken:<br><br>The mode on your directory is aff
 ```
 <?php
 $oldumask = umask(0);
-mkdir(&apos;mydir&apos;, 0777); // or even 01777 so you get the sticky bit set
+mkdir('mydir', 0777); // or even 01777 so you get the sticky bit set
 umask($oldumask);
 ?>
 ```

@@ -17,8 +17,8 @@ If you need negative indices:<br>
 
 ```
 <?php
-$b = array_fill(-2, 4, &apos;pear&apos;);//this is not what we want
-$c = array_fill_keys(range(-2,1),&apos;pear&apos;);//these are negative indices
+$b = array_fill(-2, 4, 'pear');//this is not what we want
+$c = array_fill_keys(range(-2,1),'pear');//these are negative indices
 print_r($b);
 print_r($c);
 ?>
@@ -41,33 +41,33 @@ $array = array_fill(0, 2, new Foo());
 var_dump($array);
 /*
 array(2) {
-  [0]=&gt;
+  [0]=>
   object(Foo)#1 (1) {
-    ["bar"]=&gt;
+    ["bar"]=>
     string(6) "banana"
   }
-  [1]=&gt;
+  [1]=>
   object(Foo)#1 (1) {
-    ["bar"]=&gt;
+    ["bar"]=>
     string(6) "banana"
   }
 } */
 
 //now we change the attribute of the object stored in index 0
 //this actually changes the attribute for EACH object in the ENTIRE array
-$array[0]-&gt;bar = "apple";
+$array[0]->bar = "apple";
 
 var_dump($array);
 /*
 array(2) {
-  [0]=&gt;
+  [0]=>
   object(Foo)#1 (1) {
-    ["bar"]=&gt;
+    ["bar"]=>
     string(5) "apple"
   }
-  [1]=&gt;
+  [1]=>
   object(Foo)#1 (1) {
-    ["bar"]=&gt;
+    ["bar"]=>
     string(5) "apple"
   }
 }

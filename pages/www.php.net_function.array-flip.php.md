@@ -21,7 +21,7 @@ $cols = array_flip(fgetcsv($f));
 while ($line = fgetcsv($f))
 {
     // Now we can reference CSV columns like so:
-    $status = $line[$cols[&apos;OrderStatus&apos;]];
+    $status = $line[$cols['OrderStatus']];
 }
 
 ?>
@@ -34,7 +34,7 @@ array_flip() does not retain the data type of values, when converting them into 
 
 ```
 <?php                                                                                                                                                                                                           
-$arr = array(&apos;one&apos; =&gt; &apos;1&apos;, &apos;two&apos; =&gt; &apos;2&apos;, &apos;three&apos; =&gt; &apos;3&apos;);
+$arr = array('one' => '1', 'two' => '2', 'three' => '3');
 var_dump($arr);
 $arr2 = array_flip($arr);
 var_dump($arr2);

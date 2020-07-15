@@ -6,7 +6,7 @@ To extract your portion of a string without the actual character you searched fo
 
 ```
 <?php
-$path = &apos;/www/public_html/index.html&apos;;
+$path = '/www/public_html/index.html';
 $filename = substr(strrchr($path, "/"), 1);
 echo $filename; // "index.html"
 ?>
@@ -26,11 +26,11 @@ echo $filename; // "index.html"
  * 
  * Example usage:
  * &lt;code&gt;
- * $example = &apos;http://example.com/path/file.php&apos;;
- * $cwd_relative[] = cut_string_using_last(&apos;/&apos;, $example, &apos;left&apos;, true);
- * $cwd_relative[] = cut_string_using_last(&apos;/&apos;, $example, &apos;left&apos;, false);
- * $cwd_relative[] = cut_string_using_last(&apos;/&apos;, $example, &apos;right&apos;, true);
- * $cwd_relative[] = cut_string_using_last(&apos;/&apos;, $example, &apos;right&apos;, false);
+ * $example = 'http://example.com/path/file.php';
+ * $cwd_relative[] = cut_string_using_last('/', $example, 'left', true);
+ * $cwd_relative[] = cut_string_using_last('/', $example, 'left', false);
+ * $cwd_relative[] = cut_string_using_last('/', $example, 'right', true);
+ * $cwd_relative[] = cut_string_using_last('/', $example, 'right', false);
  * foreach($cwd_relative as $string) {
  *     echo "$string &lt;br&gt;".PHP_EOL;
  * }
@@ -58,10 +58,10 @@ function cut_string_using_last($character, $string, $side, $keep_character=true)
     $right_length = (strlen(strrchr($string, $character)) - 1);
     $left_length = ($whole_length - $right_length - 1);
     switch($side) {
-        case &apos;left&apos;:
+        case 'left':
             $piece = substr($string, 0, ($left_length + $offset));
             break;
-        case &apos;right&apos;:
+        case 'right':
             $start = (0 - ($right_length + $offset));
             $piece = substr($string, $start);
             break;

@@ -15,21 +15,21 @@ class TestCallable
 
     public function __call($name, $args)
     {
-        if($name == &apos;testingOther&apos;) 
+        if($name == 'testingOther') 
         {
-                return call_user_func_array(array($this, &apos;testing&apos;), $args);
+                return call_user_func_array(array($this, 'testing'), $args);
         }
     }
 }
 
 $t = new TestCallable();
-echo $t-&gt;testing();      // Output: I am called.
-echo $t-&gt;testingOther(); // Output: I am called.
-echo $t-&gt;working();      // Output: (null)
+echo $t->testing();      // Output: I am called.
+echo $t->testingOther(); // Output: I am called.
+echo $t->working();      // Output: (null)
 
-echo is_callable(array($t, &apos;testing&apos;));       // Output: TRUE
-echo is_callable(array($t, &apos;testingOther&apos;));  // Output: TRUE
-echo is_callable(array($t, &apos;working&apos;));       // Output: TRUE, expected: FALSE
+echo is_callable(array($t, 'testing'));       // Output: TRUE
+echo is_callable(array($t, 'testingOther'));  // Output: TRUE
+echo is_callable(array($t, 'working'));       // Output: TRUE, expected: FALSE
 ?>
 ```
   
@@ -51,8 +51,8 @@ function something ()
     return (42);
 }
 
-var_dump (is_callable (&apos;something&apos;)); // false
-var_dump (is_callable (&apos;foo\bar\baz\something&apos;)); // true
+var_dump (is_callable ('something')); // false
+var_dump (is_callable ('foo\bar\baz\something')); // true
 ?>
 ```
 <br><br>It&apos;s easy to forget, but if you just prepend __NAMESPACE__ to your function name strings you should be fine in most cases.  

@@ -11,9 +11,9 @@ All these examples will not work if the php script has no write access within th
 ```
 <?php
         $zip = new ZipArchive;
-    $zip-&gt;open(&apos;teste.zip&apos;);
-    $zip-&gt;extractTo(&apos;./&apos;);
-    $zip-&gt;close();
+    $zip->open('teste.zip');
+    $zip->extractTo('./');
+    $zip->close();
         echo "Ok!";
 ?>
 ```

@@ -40,9 +40,9 @@ I was curious about hashes behavior (time and length), so i ran this code (yeah,
     $length = strlen($hash);
 
     $res["$time"][] = [
-      "algo"   =&gt; "HEX-$algo",
-      "length" =&gt; "$length",
-      "time"   =&gt; sprintf("%.8f", $time)
+      "algo"   => "HEX-$algo",
+      "length" => "$length",
+      "time"   => sprintf("%.8f", $time)
     ];
 
     $time = microtime(1);
@@ -50,9 +50,9 @@ I was curious about hashes behavior (time and length), so i ran this code (yeah,
     $time = (microtime(1) - $time) * 1000;
 
     $res["$time"][] = [
-      "algo"   =&gt; "RAW-$algo",
-      "length" =&gt; "$length",
-      "time"   =&gt; sprintf("%.8f", $time)
+      "algo"   => "RAW-$algo",
+      "length" => "$length",
+      "time"   => sprintf("%.8f", $time)
     ];
   }
 
@@ -64,7 +64,7 @@ I was curious about hashes behavior (time and length), so i ran this code (yeah,
 
   foreach($res as $sres){
     foreach($sres as $result){
-      echo sprintf("%5d. %12s ms    %-20s %-2d bytes", $i++, $result[&apos;time&apos;], $result[&apos;algo&apos;], $result[&apos;length&apos;]).PHP_EOL;
+      echo sprintf("%5d. %12s ms    %-20s %-2d bytes", $i++, $result['time'], $result['algo'], $result['length']).PHP_EOL;
     }
   }
 ?>
@@ -82,14 +82,14 @@ Performance test results on my laptop:<br>Results are here shorten to fit php we
 ```
 <?php
 
-echo &apos;Building random data ...&apos; . PHP_EOL; 
+echo 'Building random data ...' . PHP_EOL; 
 @ob_flush();flush();
 
-$data = &apos;&apos;;
+$data = '';
 for ($i = 0; $i &lt; 64000; $i++)
-    $data .= hash(&apos;md5&apos;, rand(), true);
+    $data .= hash('md5', rand(), true);
 
-echo strlen($data) . &apos; bytes of random data built !&apos; . PHP_EOL . PHP_EOL . &apos;Testing hash algorithms ...&apos; . PHP_EOL; 
+echo strlen($data) . ' bytes of random data built !' . PHP_EOL . PHP_EOL . 'Testing hash algorithms ...' . PHP_EOL; 
 @ob_flush();flush();
 
 $results = array();
@@ -108,12 +108,12 @@ foreach (hash_algos() as $v) {
 
 ksort($results);
 
-echo PHP_EOL . PHP_EOL . &apos;Results: &apos; . PHP_EOL; 
+echo PHP_EOL . PHP_EOL . 'Results: ' . PHP_EOL; 
 
 $i = 1;
-foreach ($results as $k =&gt; $v)
-    foreach ($v as $k1 =&gt; $v1)
-        echo &apos; &apos; . str_pad($i++ . &apos;.&apos;, 4, &apos; &apos;, STR_PAD_LEFT) . &apos;  &apos; . str_pad($v1, 30, &apos; &apos;) . ($k / 1000) . &apos; microseconds&apos; . PHP_EOL;
+foreach ($results as $k => $v)
+    foreach ($v as $k1 => $v1)
+        echo ' ' . str_pad($i++ . '.', 4, ' ', STR_PAD_LEFT) . '  ' . str_pad($v1, 30, ' ') . ($k / 1000) . ' microseconds' . PHP_EOL;
 
 ?>
 ```

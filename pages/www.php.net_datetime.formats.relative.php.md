@@ -10,7 +10,7 @@ April 1st, 2012 is Sunday. You might expect to get April 2nd, 2012 with &apos;Mo
 
 ```
 <?php
-    echo date(&apos;F jS, Y&apos;, strtotime(&apos;Monday next week 2012-04-01&apos;));
+    echo date('F jS, Y', strtotime('Monday next week 2012-04-01'));
 ?>
 ```
 
@@ -21,18 +21,18 @@ returns April 9th, 2012. To get April 2nd, you need to use this:
 
 ```
 <?php
-    echo date(&apos;F jS, Y&apos;, strtotime(&apos;next Monday 2012-04-01&apos;));
+    echo date('F jS, Y', strtotime('next Monday 2012-04-01'));
 ?>
 ```
 
 
-Apparently &apos;next week&apos; advances the week if and only if the day is Sunday. This:
+Apparently 'next week' advances the week if and only if the day is Sunday. This:
 
 
 
 ```
 <?php
-    echo date(&apos;F jS, Y&apos;, strtotime(&apos;Monday next week 2012-03-31&apos;));
+    echo date('F jS, Y', strtotime('Monday next week 2012-03-31'));
 ?>
 ```
 <br><br>would still return April 2nd.  

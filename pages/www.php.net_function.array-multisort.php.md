@@ -10,16 +10,16 @@ function array_orderby()
 {
     $args = func_get_args();
     $data = array_shift($args);
-    foreach ($args as $n =&gt; $field) {
+    foreach ($args as $n => $field) {
         if (is_string($field)) {
             $tmp = array();
-            foreach ($data as $key =&gt; $row)
+            foreach ($data as $key => $row)
                 $tmp[$key] = $row[$field];
             $args[$n] = $tmp;
             }
     }
     $args[] = &amp;$data;
-    call_user_func_array(&apos;array_multisort&apos;, $args);
+    call_user_func_array('array_multisort', $args);
     return array_pop($args);
 }
 ?>
@@ -32,15 +32,15 @@ The sorted array is now in the return value of the function instead of being pas
 
 ```
 <?php
-$data[] = array(&apos;volume&apos; =&gt; 67, &apos;edition&apos; =&gt; 2);
-$data[] = array(&apos;volume&apos; =&gt; 86, &apos;edition&apos; =&gt; 1);
-$data[] = array(&apos;volume&apos; =&gt; 85, &apos;edition&apos; =&gt; 6);
-$data[] = array(&apos;volume&apos; =&gt; 98, &apos;edition&apos; =&gt; 2);
-$data[] = array(&apos;volume&apos; =&gt; 86, &apos;edition&apos; =&gt; 6);
-$data[] = array(&apos;volume&apos; =&gt; 67, &apos;edition&apos; =&gt; 7);
+$data[] = array('volume' => 67, 'edition' => 2);
+$data[] = array('volume' => 86, 'edition' => 1);
+$data[] = array('volume' => 85, 'edition' => 6);
+$data[] = array('volume' => 98, 'edition' => 2);
+$data[] = array('volume' => 86, 'edition' => 6);
+$data[] = array('volume' => 67, 'edition' => 7);
 
 // Pass the array, followed by the column names and sort flags
-$sorted = array_orderby($data, &apos;volume&apos;, SORT_DESC, &apos;edition&apos;, SORT_ASC);
+$sorted = array_orderby($data, 'volume', SORT_DESC, 'edition', SORT_ASC);
 ?>
 ```
   
@@ -52,7 +52,7 @@ One-liner function to sort multidimensionnal array by key, thank&apos;s to array
 ```
 <?php
 
-array_multisort (array_column($array, &apos;key&apos;), SORT_DESC, $array);
+array_multisort (array_column($array, 'key'), SORT_DESC, $array);
 
 ?>
 ```
@@ -70,13 +70,13 @@ A more inuitive way of sorting multidimensional arrays using array_msort() in ju
 <?php
 
 $arr1 = array(
-    array(&apos;id&apos;=&gt;1,&apos;name&apos;=&gt;&apos;aA&apos;,&apos;cat&apos;=&gt;&apos;cc&apos;),
-    array(&apos;id&apos;=&gt;2,&apos;name&apos;=&gt;&apos;aa&apos;,&apos;cat&apos;=&gt;&apos;dd&apos;),
-    array(&apos;id&apos;=&gt;3,&apos;name&apos;=&gt;&apos;bb&apos;,&apos;cat&apos;=&gt;&apos;cc&apos;),
-    array(&apos;id&apos;=&gt;4,&apos;name&apos;=&gt;&apos;bb&apos;,&apos;cat&apos;=&gt;&apos;dd&apos;)
+    array('id'=>1,'name'=>'aA','cat'=>'cc'),
+    array('id'=>2,'name'=>'aa','cat'=>'dd'),
+    array('id'=>3,'name'=>'bb','cat'=>'cc'),
+    array('id'=>4,'name'=>'bb','cat'=>'dd')
 );
 
-$arr2 = array_msort($arr1, array(&apos;name&apos;=&gt;SORT_DESC, &apos;cat&apos;=&gt;SORT_ASC));
+$arr2 = array_msort($arr1, array('name'=>SORT_DESC, 'cat'=>SORT_ASC));
 
 debug($arr1, $arr2);
 
@@ -118,19 +118,19 @@ arr2:
 function array_msort($array, $cols)
 {
     $colarr = array();
-    foreach ($cols as $col =&gt; $order) {
+    foreach ($cols as $col => $order) {
         $colarr[$col] = array();
-        foreach ($array as $k =&gt; $row) { $colarr[$col][&apos;_&apos;.$k] = strtolower($row[$col]); }
+        foreach ($array as $k => $row) { $colarr[$col]['_'.$k] = strtolower($row[$col]); }
     }
-    $eval = &apos;array_multisort(&apos;;
-    foreach ($cols as $col =&gt; $order) {
-        $eval .= &apos;$colarr[\&apos;&apos;.$col.&apos;\&apos;],&apos;.$order.&apos;,&apos;;
+    $eval = 'array_multisort(';
+    foreach ($cols as $col => $order) {
+        $eval .= '$colarr[\''.$col.'\'],'.$order.',';
     }
-    $eval = substr($eval,0,-1).&apos;);&apos;;
+    $eval = substr($eval,0,-1).');';
     eval($eval);
     $ret = array();
-    foreach ($colarr as $col =&gt; $arr) {
-        foreach ($arr as $k =&gt; $v) {
+    foreach ($colarr as $col => $arr) {
+        foreach ($arr as $k => $v) {
             $k = substr($k,1);
             if (!isset($ret[$k])) $ret[$k] = $array[$k];
             $ret[$k][$col] = $array[$k][$col];
@@ -158,7 +158,7 @@ USort function can be used to sort multidimensional arrays with almost no work w
      usort($results, "custom_sort");
      // Define the custom sort function
      function custom_sort($a,$b) {
-          return $a[&apos;some_sub_var&apos;]&gt;$b[&apos;some_sub_var&apos;];
+          return $a['some_sub_var']&gt;$b['some_sub_var'];
      }
 ?>
 ```
@@ -171,10 +171,10 @@ Easiest way I find out to sort an entire multidimensional array by one element o
 ```
 <?php
 $multiArray = Array(
-    Array("id" =&gt; 1, "name" =&gt; "Defg"),
-    Array("id" =&gt; 2, "name" =&gt; "Abcd"),
-    Array("id" =&gt; 3, "name" =&gt; "Bcde"),
-    Array("id" =&gt; 4, "name" =&gt; "Cdef"));
+    Array("id" => 1, "name" => "Defg"),
+    Array("id" => 2, "name" => "Abcd"),
+    Array("id" => 3, "name" => "Bcde"),
+    Array("id" => 4, "name" => "Cdef"));
 $tmp = Array();
 foreach($multiArray as &amp;$ma)
     $tmp[] = &amp;$ma["name"];

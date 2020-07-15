@@ -6,24 +6,24 @@ Here is a simple backporting function, it works for PHP &gt;= 5.1<br><br>
 
 ```
 <?php
-if (!function_exists(&apos;random_int&apos;)) {
+if (!function_exists('random_int')) {
     function random_int($min, $max) {
-        if (!function_exists(&apos;mcrypt_create_iv&apos;)) {
+        if (!function_exists('mcrypt_create_iv')) {
             trigger_error(
-                &apos;mcrypt must be loaded for random_int to work&apos;, 
+                'mcrypt must be loaded for random_int to work', 
                 E_USER_WARNING
             );
             return null;
         }
         
         if (!is_int($min) || !is_int($max)) {
-            trigger_error(&apos;$min and $max must be integer values&apos;, E_USER_NOTICE);
+            trigger_error('$min and $max must be integer values', E_USER_NOTICE);
             $min = (int)$min;
             $max = (int)$max;
         }
         
         if ($min &gt; $max) {
-            trigger_error(&apos;$max can\&apos;t be lesser than $min&apos;, E_USER_WARNING);
+            trigger_error('$max can\'t be lesser than $min', E_USER_WARNING);
             return null;
         }
         
@@ -75,10 +75,10 @@ function arrayFormatResult(&amp;$item) {
     global $test, $max; // try to avoid this nowdays ;)
     
     $perc = ($item/($test/$max))-1;
-    $item .= &apos; &apos;. number_format($perc, 4, &apos;.&apos;, &apos;&apos;) .&apos;%&apos;;
+    $item .= ' '. number_format($perc, 4, '.', '') .'%';
 }
 
-array_walk($array, &apos;arrayFormatResult&apos;);
+array_walk($array, 'arrayFormatResult');
 
 print_r($array);
 ?>

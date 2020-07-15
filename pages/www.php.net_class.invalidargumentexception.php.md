@@ -9,14 +9,14 @@ In my opinion this exception is invaluable for validating arguments- for example
 function tripleInteger($int)
 {
   if(!is_int($int))
-    throw new InvalidArgumentException(&apos;tripleInteger function only accepts integers. Input was: &apos;.$int);
+    throw new InvalidArgumentException('tripleInteger function only accepts integers. Input was: '.$int);
   return $int * 3;
 }
 
 $x = tripleInteger(4); //$x == 12
 $x = tripleInteger(2.5); //exception will be thrown as 2.5 is a float
-$x = tripleInteger(&apos;foo&apos;); //exception will be thrown as &apos;foo&apos; is a string
-$x = tripleInteger(&apos;4&apos;); //exception will throw as &apos;4&apos; is also a string
+$x = tripleInteger('foo'); //exception will be thrown as 'foo' is a string
+$x = tripleInteger('4'); //exception will throw as '4' is also a string
 
 ?>
 ```

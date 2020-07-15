@@ -63,7 +63,7 @@ Have solved a "price problem":<br><br>
 
 ```
 <?php
-$peny = floor($row-&gt;price*1000) - floor($row-&gt;price)*1000)/10;
+$peny = floor($row->price*1000) - floor($row->price)*1000)/10;
 ?>
 ```
   

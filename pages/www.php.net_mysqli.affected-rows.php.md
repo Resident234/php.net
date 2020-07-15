@@ -10,7 +10,7 @@ If you need to know specifically whether the WHERE condition of an UPDATE operat
 
 ```
 <?php
-    preg_match_all (&apos;/(\S[^:]+): (\d+)/&apos;, $mysqli-&gt;info, $matches); 
+    preg_match_all ('/(\S[^:]+): (\d+)/', $mysqli->info, $matches); 
     $info = array_combine ($matches[1], $matches[2]);
 ?>
 ```
@@ -22,7 +22,7 @@ Procedural style:
 
 ```
 <?php
-    preg_match_all (&apos;/(\S[^:]+): (\d+)/&apos;, mysqli_info ($link), $matches); 
+    preg_match_all ('/(\S[^:]+): (\d+)/', mysqli_info ($link), $matches); 
     $info = array_combine ($matches[1], $matches[2]);
 ?>
 ```
@@ -34,14 +34,14 @@ You can then use the array to test for the different conditions
 
 ```
 <?php
-    if ($info [&apos;Rows matched&apos;] == 0) {
+    if ($info ['Rows matched'] == 0) {
         echo "This operation did not match any rows.\n";
-    } elseif ($info [&apos;Changed&apos;] == 0) {
+    } elseif ($info ['Changed'] == 0) {
         echo "This operation matched rows, but none required updating.\n";
     }
 
-    if ($info [&apos;Changed&apos;] &lt; $info [&apos;Rows matched&apos;]) {
-        echo ($info [&apos;Rows matched&apos;] - $info [&apos;Changed&apos;])." rows matched but were not changed.\n";
+    if ($info ['Changed'] &lt; $info ['Rows matched']) {
+        echo ($info ['Rows matched'] - $info ['Changed'])." rows matched but were not changed.\n";
     }
 ?>
 ```

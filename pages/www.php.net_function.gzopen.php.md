@@ -38,7 +38,7 @@ if ($fin !== FALSE) {
     // write the CRC32 value
     // hash_final is a string, not an integer
     $crc = hash_final($hctx, TRUE);
-    // need to reverse the hash_final string so it&apos;s little endian
+    // need to reverse the hash_final string so it's little endian
     fwrite($fout, $crc[3].$crc[2].$crc[1].$crc[0], 4);
     // write the original uncompressed file size
     fwrite($fout, pack("V", $fsize), 4);

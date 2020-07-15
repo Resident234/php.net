@@ -129,17 +129,17 @@ Here is another one that also works on windows. Note that this method is not fas
 <?php
 function get_server_load() {
     
-        if (stristr(PHP_OS, &apos;win&apos;)) {
+        if (stristr(PHP_OS, 'win')) {
         
             $wmi = new COM("Winmgmts://");
-            $server = $wmi-&gt;execquery("SELECT LoadPercentage FROM Win32_Processor");
+            $server = $wmi->execquery("SELECT LoadPercentage FROM Win32_Processor");
             
             $cpu_num = 0;
             $load_total = 0;
             
             foreach($server as $cpu){
                 $cpu_num++;
-                $load_total += $cpu-&gt;loadpercentage;
+                $load_total += $cpu->loadpercentage;
             }
             
             $load = round($load_total/$cpu_num);

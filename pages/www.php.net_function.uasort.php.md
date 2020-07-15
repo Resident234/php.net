@@ -8,13 +8,13 @@ a quick reminder on the syntax if you want to use uasort in a Class or Object:<b
 <?php
 
 // procedural:
-uasort($collection, &apos;my_sort_function&apos;);
+uasort($collection, 'my_sort_function');
 
 // Object Oriented
-uasort($collection, array($this, &apos;mySortMethod&apos;));
+uasort($collection, array($this, 'mySortMethod'));
 
 // Objet Oriented with static method
-uasort($collection, array(&apos;self&apos;, &apos;myStaticSortMethod&apos;));
+uasort($collection, array('self', 'myStaticSortMethod'));
 
 ?>
 ```
@@ -65,24 +65,24 @@ function stable_uasort(&amp;$array, $cmp_function) {
 }
 
 function cmp($a, $b) {
-    if($a[&apos;n&apos;] == $b[&apos;n&apos;]) {
+    if($a['n'] == $b['n']) {
         return 0;
     }
-    return ($a[&apos;n&apos;] &gt; $b[&apos;n&apos;]) ? -1 : 1;
+    return ($a['n'] &gt; $b['n']) ? -1 : 1;
 }
 
 $a = $b = array(
-    &apos;a&apos; =&gt; array("l" =&gt; "A", "n" =&gt; 1),
-    &apos;b&apos; =&gt; array("l" =&gt; "B", "n" =&gt; 2),
-    &apos;c&apos; =&gt; array("l" =&gt; "C", "n" =&gt; 1),
-    &apos;d&apos; =&gt; array("l" =&gt; "D", "n" =&gt; 2),
-    &apos;e&apos; =&gt; array("l" =&gt; "E", "n" =&gt; 2),
+    'a' => array("l" => "A", "n" => 1),
+    'b' => array("l" => "B", "n" => 2),
+    'c' => array("l" => "C", "n" => 1),
+    'd' => array("l" => "D", "n" => 2),
+    'e' => array("l" => "E", "n" => 2),
 );
 
-uasort($a, &apos;cmp&apos;);
+uasort($a, 'cmp');
 print_r($a);
 
-stable_uasort($b, &apos;cmp&apos;);
+stable_uasort($b, 'cmp');
 print_r($b);
 ?>
 ```
@@ -94,7 +94,7 @@ An Example using anonymous function.<br>Anonymous functions make some time the c
 
 ```
 <?php
-$fruits = array(&apos;Orange9&apos;,&apos;Orange11&apos;,&apos;Orange10&apos;,&apos;Orange6&apos;,&apos;Orange15&apos;);
+$fruits = array('Orange9','Orange11','Orange10','Orange6','Orange15');
 uasort ( $fruits , function ($a, $b) {
             return strnatcmp($a,$b); // or other function/code
         }

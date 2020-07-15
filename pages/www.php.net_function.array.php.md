@@ -15,18 +15,18 @@ As of PHP 5.4.x you can now use &apos;short syntax arrays&apos; which eliminates
 The above example will output:
 Array
 (
-    [0] =&gt; 1
-    [1] =&gt; 2
-    [2] =&gt; 3
-    [3] =&gt; 4
+    [0] => 1
+    [1] => 2
+    [2] => 3
+    [3] => 4
 )
 
-Example #2 &apos;short syntax associative array&apos;
+Example #2 'short syntax associative array'
 
 
 ```
 <?php
-    $a = [&apos;one&apos; =&gt; 1, &apos;two&apos; =&gt; 2, &apos;three&apos; =&gt; 3, &apos;four&apos; =&gt; 4];
+    $a = ['one' => 1, 'two' => 2, 'three' => 3, 'four' => 4];
     print_r($a);
 ?>
 ```

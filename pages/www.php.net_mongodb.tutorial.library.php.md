@@ -6,10 +6,10 @@ To test your connection string, you can do something like this:<br><br>
 
 ```
 <?php
-$mongo = new MongoDB\Client(&apos;mongodb://my_server_does_not_exist_here:27017&apos;);
+$mongo = new MongoDB\Client('mongodb://my_server_does_not_exist_here:27017');
 try 
 {
-    $dbs = $mongo-&gt;listDatabases();
+    $dbs = $mongo->listDatabases();
 }
 catch (MongoDB\Driver\Exception\ConnectionTimeoutException $e)
 {
@@ -30,11 +30,11 @@ Well most of the tutorials didn&apos;t explained well, So i hope this might help
 use MongoDB\Client as Mongo;
 
 $user = "admin";
-$pwd = &apos;password&apos;;
+$pwd = 'password';
 
 $mongo = new Mongo("mongodb://${user}:${pwd}@127.0.0.1:27017");
-$collection = $mongo-&gt;db_name-&gt;collection;
-$result = $collection-&gt;find()-&gt;toArray();
+$collection = $mongo->db_name->collection;
+$result = $collection->find()->toArray();
 
 print_r($result);
 

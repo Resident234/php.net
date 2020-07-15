@@ -6,8 +6,8 @@ Please note that the function does not check the live array, it actually checks 
 
 ```
 <?php
-$_GET[&apos;test&apos;] = 1;
-echo filter_has_var(INPUT_GET, &apos;test&apos;) ? &apos;Yes&apos; : &apos;No&apos;;
+$_GET['test'] = 1;
+echo filter_has_var(INPUT_GET, 'test') ? 'Yes' : 'No';
 ?>
 ```
 <br><br>would say "No", unless the parameter was actually in the querystring.<br><br>Also, if the input var is empty, it will say Yes.  

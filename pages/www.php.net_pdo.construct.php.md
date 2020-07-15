@@ -14,7 +14,7 @@ To specify a database connection port use the following DSN string<br><br>
 
 ```
 <?php
-$dsn = &apos;mysql:dbname=testdb;host=127.0.0.1;port=3333&apos;;
+$dsn = 'mysql:dbname=testdb;host=127.0.0.1;port=3333';
 ?>
 ```
   
@@ -25,7 +25,7 @@ To connect throught unix socket you need to use <br>
 
 ```
 <?php
-$dsn = &apos;mysql:dbname=testdb;unix_socket=/path/to/socket&apos;;
+$dsn = 'mysql:dbname=testdb;unix_socket=/path/to/socket';
 ?>
 ```
 <br><br>You musn&apos;t specify host when using socket.  
@@ -36,7 +36,7 @@ If you use the UTF-8 encoding, you have to use the fourth parameter :<br><br>
 
 ```
 <?php
-$db = new PDO(&apos;mysql:host=myhost;dbname=mydb&apos;, &apos;login&apos;, &apos;password&apos;, array(PDO::MYSQL_ATTR_INIT_COMMAND =&gt; &apos;SET NAMES \&apos;UTF8\&apos;&apos;));
+$db = new PDO('mysql:host=myhost;dbname=mydb', 'login', 'password', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
 ?>
 ```
   
@@ -48,9 +48,9 @@ Sqlite:<br><br>
 ```
 <?php
 try{     
-    $pdo = new PDO(&apos;sqlite:example.db&apos;);
+    $pdo = new PDO('sqlite:example.db');
 }catch (PDOException $e){
-     die (&apos;DB Error&apos;);
+     die ('DB Error');
 }
 ?>
 ```

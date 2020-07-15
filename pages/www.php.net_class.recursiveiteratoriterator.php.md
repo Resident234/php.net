@@ -6,14 +6,14 @@ Some speed tests<br>
 
 ```
 <?php
-$timer = function ($name = &apos;default&apos;, $unset_timer = TRUE)
+$timer = function ($name = 'default', $unset_timer = TRUE)
 {
     static $timers = array();
     
     if ( isset( $timers[ $name ] ) )
     {
-        list($s_sec, $s_mic) = explode(&apos; &apos;, $timers[ $name ]);
-        list($e_sec, $e_mic) = explode(&apos; &apos;, microtime());
+        list($s_sec, $s_mic) = explode(' ', $timers[ $name ]);
+        list($e_sec, $e_mic) = explode(' ', microtime());
         
         if ( $unset_timer )
             unset( $timers[ $name ] );
@@ -27,14 +27,14 @@ $timer = function ($name = &apos;default&apos;, $unset_timer = TRUE)
 function f1 ($array) {
     $iterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($array), RecursiveIteratorIterator::SELF_FIRST);
 
-    foreach ( $iterator as $key =&gt; $value ) {
+    foreach ( $iterator as $key => $value ) {
         if ( is_array($value) )
             continue;
     }
 }
 
 function f2($array) {
-    foreach ( $array as $key =&gt; $value ) {
+    foreach ( $array as $key => $value ) {
         if ( is_array($value) )
             f2($value);
     }
@@ -45,15 +45,15 @@ foreach ( [100, 1000, 10000, 100000, 1000000] as $num )
     $array = [];
     
     for ( $i = 0; ++$i &lt; $num; )
-        $array[] = [1,2,3=&gt;[4,5,6=&gt;[7,8,9=&gt;10,11,12=&gt;[13,14,15=&gt;[16,17,18]]]]];
+        $array[] = [1,2,3=>[4,5,6=>[7,8,9=>10,11,12=>[13,14,15=>[16,17,18]]]]];
     
     $timer();
     f1($array);
-    printf("RecursiveIteratorIterator: %7d elements -&gt; %.3f sec\n", $num, $timer());
+    printf("RecursiveIteratorIterator: %7d elements -> %.3f sec\n", $num, $timer());
     
     $timer();
     f2($array);
-    printf("Recursive function       : %7d elements -&gt; %.3f sec\n", $num, $timer());
+    printf("Recursive function       : %7d elements -> %.3f sec\n", $num, $timer());
 }
 
 ?>
@@ -67,18 +67,18 @@ A very useful use case for RecusiveIteratorIterator in combination with Recursiv
 ```
 <?php
 $array = [
-    &apos;test&apos; =&gt; &apos;value&apos;,
-    &apos;level_one&apos; =&gt; [
-        &apos;level_two&apos; =&gt; [
-            &apos;level_three&apos; =&gt; [
-                &apos;replace_this_array&apos; =&gt; [
-                    &apos;special_key&apos; =&gt; &apos;replacement_value&apos;,
-                    &apos;key_one&apos; =&gt; &apos;testing&apos;,
-                    &apos;key_two&apos; =&gt; &apos;value&apos;,
-                    &apos;four&apos; =&gt; &apos;another value&apos;
+    'test' => 'value',
+    'level_one' => [
+        'level_two' => [
+            'level_three' => [
+                'replace_this_array' => [
+                    'special_key' => 'replacement_value',
+                    'key_one' => 'testing',
+                    'key_two' => 'value',
+                    'four' => 'another value'
                 ]
             ],
-            &apos;ordinary_key&apos; =&gt; &apos;value&apos;
+            'ordinary_key' => 'value'
         ]
     ]
 ];
@@ -86,40 +86,40 @@ $array = [
 $arrayIterator = new \RecursiveArrayIterator($array);
 $recursiveIterator = new \RecursiveIteratorIterator($arrayIterator, \RecursiveIteratorIterator::SELF_FIRST);
 
-foreach ($recursiveIterator as $key =&gt; $value) {
-    if (is_array($value) &amp;&amp; array_key_exists(&apos;special_key&apos;, $value)) {
-        // Here we replace ALL keys with the same value from &apos;special_key&apos;
-        $replaced = array_fill(0, count($value), $value[&apos;special_key&apos;]);
+foreach ($recursiveIterator as $key => $value) {
+    if (is_array($value) &amp;&amp; array_key_exists('special_key', $value)) {
+        // Here we replace ALL keys with the same value from 'special_key'
+        $replaced = array_fill(0, count($value), $value['special_key']);
         $value = array_combine(array_keys($value), $replaced);
         // set a new key
-        $value[&apos;new_key&apos;] = &apos;new value&apos;;
+        $value['new_key'] = 'new value';
 
         // Get the current depth and traverse back up the tree, saving the modifications
-        $currentDepth = $recursiveIterator-&gt;getDepth();
+        $currentDepth = $recursiveIterator->getDepth();
         for ($subDepth = $currentDepth; $subDepth &gt;= 0; $subDepth--) {
             // Get the current level iterator
-            $subIterator = $recursiveIterator-&gt;getSubIterator($subDepth); 
+            $subIterator = $recursiveIterator->getSubIterator($subDepth); 
             // If we are on the level we want to change, use the replacements ($value) other wise set the key to the parent iterators value
-            $subIterator-&gt;offsetSet($subIterator-&gt;key(), ($subDepth === $currentDepth ? $value : $recursiveIterator-&gt;getSubIterator(($subDepth+1))-&gt;getArrayCopy())); 
+            $subIterator->offsetSet($subIterator->key(), ($subDepth === $currentDepth ? $value : $recursiveIterator->getSubIterator(($subDepth+1))->getArrayCopy())); 
        }
     }
 }
-return $recursiveIterator-&gt;getArrayCopy();
+return $recursiveIterator->getArrayCopy();
 // return:
 $array = [
-    &apos;test&apos; =&gt; &apos;value&apos;,
-    &apos;level_one&apos; =&gt; [
-        &apos;level_two&apos; =&gt; [
-            &apos;level_three&apos; =&gt; [
-                &apos;replace_this_array&apos; =&gt; [
-                    &apos;special_key&apos; =&gt; &apos;replacement_value&apos;,
-                    &apos;key_one&apos; =&gt; &apos;replacement_value&apos;,
-                    &apos;key_two&apos; =&gt; &apos;replacement_value&apos;,
-                    &apos;four&apos; =&gt; &apos;replacement_value&apos;,
-                    &apos;new_key&apos; =&gt; &apos;new value&apos;
+    'test' => 'value',
+    'level_one' => [
+        'level_two' => [
+            'level_three' => [
+                'replace_this_array' => [
+                    'special_key' => 'replacement_value',
+                    'key_one' => 'replacement_value',
+                    'key_two' => 'replacement_value',
+                    'four' => 'replacement_value',
+                    'new_key' => 'new value'
                 ]
             ],
-            &apos;ordinary_key&apos; =&gt; &apos;value&apos;
+            'ordinary_key' => 'value'
         ]
     ]
 ];
@@ -134,19 +134,19 @@ This example demonstrates using the getDepth() method with a RecursiveArrayItera
 ```
 <?php
 $tree = array();
-$tree[1][2][3] = &apos;lemon&apos;;
-$tree[1][4] = &apos;melon&apos;;
-$tree[2][3] = &apos;orange&apos;;
-$tree[2][5] = &apos;grape&apos;;
-$tree[3] = &apos;pineapple&apos;;
+$tree[1][2][3] = 'lemon';
+$tree[1][4] = 'melon';
+$tree[2][3] = 'orange';
+$tree[2][5] = 'grape';
+$tree[3] = 'pineapple';
 
 print_r($tree);
  
 $arrayiter = new RecursiveArrayIterator($tree);
 $iteriter = new RecursiveIteratorIterator($arrayiter);
  
-foreach ($iteriter as $key =&gt; $value) {
-  $d = $iteriter-&gt;getDepth();
+foreach ($iteriter as $key => $value) {
+  $d = $iteriter->getDepth();
   echo "depth=$d k=$key v=$value\n";
 }
 ?>
@@ -159,7 +159,7 @@ A very important thing to note about \RecursiveIteratorIterator is that it retur
 
 ```
 <?php
-$arr = array(&apos;Zero&apos;, &apos;name&apos;=&gt;&apos;Adil&apos;, &apos;address&apos; =&gt; array( &apos;city&apos;=&gt;&apos;Dubai&apos;, &apos;tel&apos; =&gt; array(&apos;int&apos; =&gt; 971, &apos;tel&apos;=&gt;12345487)), &apos;&apos; =&gt; &apos;nothing&apos;);
+$arr = array('Zero', 'name'=>'Adil', 'address' => array( 'city'=>'Dubai', 'tel' => array('int' => 971, 'tel'=>12345487)), '' => 'nothing');
 
 $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($arr));
 var_dump(iterator_to_array($iterator,true));
@@ -179,8 +179,8 @@ $fileSPLObjects =  new RecursiveIteratorIterator(
                 RecursiveIteratorIterator::CHILD_FIRST
             );
 try {
-    foreach( $fileSPLObjects as $fullFileName =&gt; $fileSPLObject ) {
-        print $fullFileName . " " . $fileSPLObject-&gt;getFilename() . "\n";
+    foreach( $fileSPLObjects as $fullFileName => $fileSPLObject ) {
+        print $fullFileName . " " . $fileSPLObject->getFilename() . "\n";
     }
 }
 catch (UnexpectedValueException $e) {

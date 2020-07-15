@@ -7,20 +7,20 @@ Be careful when loading multiple images by passing an array to a new Imagick obj
 ```
 <?php
 
-$images = new Imagick(glob(&apos;images/*.JPG&apos;));
+$images = new Imagick(glob('images/*.JPG'));
 
 ?>
 ```
 
 
-If you have lots of images inside the images folder, PHP will consume a lot of memory, ergo it is not recommended. I personally think it&apos;s a better idea to loop each image separately:
+If you have lots of images inside the images folder, PHP will consume a lot of memory, ergo it is not recommended. I personally think it's a better idea to loop each image separately:
 
 
 
 ```
 <?php
 
-$image_files = glob(&apos;images/*.JPG&apos;);
+$image_files = glob('images/*.JPG');
 
 foreach ($image_files as $image_file) {
     $image = new Imagick($image_file);

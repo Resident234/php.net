@@ -6,8 +6,8 @@ After operations that change the crop of the image, like trimImage does, IM pres
 
 ```
 <?php
-$im-&gt;trimImage(0);
-$im-&gt;setImagePage(0, 0, 0, 0);
+$im->trimImage(0);
+$im->setImagePage(0, 0, 0, 0);
 ?>
 ```
   

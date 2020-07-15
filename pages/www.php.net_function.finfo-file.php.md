@@ -8,7 +8,7 @@ The way HOWTO get MIME-type of remote file.<br><br>
 <?php
 class MimeStreamWrapper
 {
-    const WRAPPER_NAME = &apos;mime&apos;;
+    const WRAPPER_NAME = 'mime';
     public $context;
     private static $isRegistered = false;
     private $callBackFunction;
@@ -18,44 +18,44 @@ class MimeStreamWrapper
     private $fileStat;
     private function getStat()
     {
-        if ($fStat = fstat($this-&gt;fp)) {
+        if ($fStat = fstat($this->fp)) {
             return $fStat;
         }
 
         $size = 100;
-        if ($headers = get_headers($this-&gt;path, true)) {
+        if ($headers = get_headers($this->path, true)) {
             $head = array_change_key_case($headers, CASE_LOWER);
-            $size = (int)$head[&apos;content-length&apos;];
+            $size = (int)$head['content-length'];
         }
         $blocks = ceil($size / 512);
         return array(
-            &apos;dev&apos; =&gt; 16777220,
-            &apos;ino&apos; =&gt; 15764,
-            &apos;mode&apos; =&gt; 33188,
-            &apos;nlink&apos; =&gt; 1,
-            &apos;uid&apos; =&gt; 10000,
-            &apos;gid&apos; =&gt; 80,
-            &apos;rdev&apos; =&gt; 0,
-            &apos;size&apos; =&gt; $size,
-            &apos;atime&apos; =&gt; 0,
-            &apos;mtime&apos; =&gt; 0,
-            &apos;ctime&apos; =&gt; 0,
-            &apos;blksize&apos; =&gt; 4096,
-            &apos;blocks&apos; =&gt; $blocks,
+            'dev' => 16777220,
+            'ino' => 15764,
+            'mode' => 33188,
+            'nlink' => 1,
+            'uid' => 10000,
+            'gid' => 80,
+            'rdev' => 0,
+            'size' => $size,
+            'atime' => 0,
+            'mtime' => 0,
+            'ctime' => 0,
+            'blksize' => 4096,
+            'blocks' => $blocks,
         );
     }
     public function setPath($path)
     {
-        $this-&gt;path = $path;
-        $this-&gt;fp = fopen($this-&gt;path, &apos;rb&apos;) or die(&apos;Cannot open file:  &apos; . $this-&gt;path);
-        $this-&gt;fileStat = $this-&gt;getStat();
+        $this->path = $path;
+        $this->fp = fopen($this->path, 'rb') or die('Cannot open file:  ' . $this->path);
+        $this->fileStat = $this->getStat();
     }
     public function read($count) {
-        return fread($this-&gt;fp, $count);
+        return fread($this->fp, $count);
     }
     public function getStreamPath()
     {
-        return str_replace(array(&apos;ftp://&apos;, &apos;http://&apos;, &apos;https://&apos;), self::WRAPPER_NAME . &apos;://&apos;, $this-&gt;path);
+        return str_replace(array('ftp://', 'http://', 'https://'), self::WRAPPER_NAME . '://', $this->path);
     }
     public function getContext()
     {
@@ -65,47 +65,47 @@ class MimeStreamWrapper
         }
         return stream_context_create(
             array(
-                self::WRAPPER_NAME =&gt; array(
-                    &apos;cb&apos; =&gt; array($this, &apos;read&apos;),
-                    &apos;fileStat&apos; =&gt; $this-&gt;fileStat,
+                self::WRAPPER_NAME => array(
+                    'cb' => array($this, 'read'),
+                    'fileStat' => $this->fileStat,
                 )
             )
         );
     }
     public function stream_open($path, $mode, $options, &amp;$opened_path)
     {
-        if (!preg_match(&apos;/^r[bt]?$/&apos;, $mode) || !$this-&gt;context) {
+        if (!preg_match('/^r[bt]?$/', $mode) || !$this->context) {
             return false;
         }
-        $opt = stream_context_get_options($this-&gt;context);
+        $opt = stream_context_get_options($this->context);
         if (!is_array($opt[self::WRAPPER_NAME]) ||
-            !isset($opt[self::WRAPPER_NAME][&apos;cb&apos;]) ||
-            !is_callable($opt[self::WRAPPER_NAME][&apos;cb&apos;])
+            !isset($opt[self::WRAPPER_NAME]['cb']) ||
+            !is_callable($opt[self::WRAPPER_NAME]['cb'])
         ) {
             return false;
         }
-        $this-&gt;callBackFunction = $opt[self::WRAPPER_NAME][&apos;cb&apos;];
-        $this-&gt;fileStat = $opt[self::WRAPPER_NAME][&apos;fileStat&apos;];
+        $this->callBackFunction = $opt[self::WRAPPER_NAME]['cb'];
+        $this->fileStat = $opt[self::WRAPPER_NAME]['fileStat'];
 
         return true;
     }
     public function stream_read($count)
     {
-        if ($this-&gt;eof || !$count) {
-            return &apos;&apos;;
+        if ($this->eof || !$count) {
+            return '';
         }
-        if (($s = call_user_func($this-&gt;callBackFunction, $count)) == &apos;&apos;) {
-            $this-&gt;eof = true;
+        if (($s = call_user_func($this->callBackFunction, $count)) == '') {
+            $this->eof = true;
         }
         return $s;
     }
     public function stream_eof()
     {
-        return $this-&gt;eof;
+        return $this->eof;
     }
     public function stream_stat()
     {
-        return $this-&gt;fileStat;
+        return $this->fileStat;
     }
     public function stream_cast($castAs)
     {
@@ -115,13 +115,13 @@ class MimeStreamWrapper
         return @stream_select($read, $write, $except, $castAs);
     }
 }
-$path = &apos;http://fc04.deviantart.net/fs71/f/2010/227/4/6/PNG_Test_by_Destron23.png&apos;;
+$path = 'http://fc04.deviantart.net/fs71/f/2010/227/4/6/PNG_Test_by_Destron23.png';
 echo "File: ", $path, "\n";
 $wrapper = new MimeStreamWrapper();
-$wrapper-&gt;setPath($path);
+$wrapper->setPath($path);
 
 $fInfo = new finfo(FILEINFO_MIME);
-echo "MIME-type: ", $fInfo-&gt;file($wrapper-&gt;getStreamPath(), FILEINFO_MIME_TYPE, $wrapper-&gt;getContext()), "\n";
+echo "MIME-type: ", $fInfo->file($wrapper->getStreamPath(), FILEINFO_MIME_TYPE, $wrapper->getContext()), "\n";
 ?>
 ```
   

@@ -6,13 +6,13 @@ Nice that this function finally found its was to the PHP core! If you want to us
 
 ```
 <?php
-if (!function_exists(&apos;array_replace_recursive&apos;))
+if (!function_exists('array_replace_recursive'))
 {
   function array_replace_recursive($array, $array1)
   {
     function recurse($array, $array1)
     {
-      foreach ($array1 as $key =&gt; $value)
+      foreach ($array1 as $key => $value)
       {
         // create new key in $array, if it is empty or not an array
         if (!isset($array[$key]) || (isset($array[$key]) &amp;&amp; !is_array($array[$key])))
@@ -53,16 +53,16 @@ if (!function_exists(&apos;array_replace_recursive&apos;))
 
 I called this function array_merge_recursive_overwrite() in my older projects, but array_replace_recursive() sounds quite better while they do the same.
 
-If you implemented such a compatible function before and don&apos;t want to refactor all your code, you can update it with the following snippet to use the native (and hopefully faster) implementation of PHP 5.3.0, if available. Just start your function with these lines:
+If you implemented such a compatible function before and don't want to refactor all your code, you can update it with the following snippet to use the native (and hopefully faster) implementation of PHP 5.3.0, if available. Just start your function with these lines:
 
 
 
 ```
 <?php
   // as of PHP 5.3.0 array_replace_recursive() does the work for us
-  if (function_exists(&apos;array_replace_recursive&apos;))
+  if (function_exists('array_replace_recursive'))
   {
-    return call_user_func_array(&apos;array_replace_recursive&apos;, func_get_args());
+    return call_user_func_array('array_replace_recursive', func_get_args());
   }
 ?>
 ```

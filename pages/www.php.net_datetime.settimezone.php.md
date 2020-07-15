@@ -7,20 +7,20 @@ In response to the other comments expressing surprise that changing the timezone
 ```
 <?php
 // A time in London.
-$datetime = new DateTime(&apos;2015-06-22T10:40:25&apos;, new DateTimeZone(&apos;Europe/London&apos;));
+$datetime = new DateTime('2015-06-22T10:40:25', new DateTimeZone('Europe/London'));
 
 // I wonder how that SAME moment-in-time would 
 // be described in other places around the world.
-$datetime-&gt;setTimezone(new DateTimeZone(&apos;Australia/Sydney&apos;));
-print $datetime-&gt;format(&apos;Y-m-d H:i:s (e)&apos;);
+$datetime->setTimezone(new DateTimeZone('Australia/Sydney'));
+print $datetime->format('Y-m-d H:i:s (e)');
   // 2015-06-22 19:40:25 (Australia/Sydney)
 
-$datetime-&gt;setTimezone(new DateTimeZone(&apos;America/New_York&apos;));
-print $datetime-&gt;format(&apos;Y-m-d H:i:s (e)&apos;);
+$datetime->setTimezone(new DateTimeZone('America/New_York'));
+print $datetime->format('Y-m-d H:i:s (e)');
   // 2015-06-22 05:40:25 (America/New_York)
 
-$datetime-&gt;setTimezone(new DateTimeZone(&apos;Asia/Calcutta&apos;));
-print $datetime-&gt;format(&apos;Y-m-d H:i:s (e)&apos;);
+$datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
+print $datetime->format('Y-m-d H:i:s (e)');
   // 2015-06-22 15:10:25 (Asia/Calcutta)
 ?>
 ```
@@ -32,7 +32,7 @@ Please note that ALL of these date strings unambiguously represent the exact sam
 
 ```
 <?php
-$datetime-&gt;getTimestamp();
+$datetime->getTimestamp();
   // 1434966025
 ?>
 ```

@@ -11,13 +11,13 @@ function utf8_wordwrap($string, $width=75, $break="\n", $cut=false)
   if($cut) {
     // Match anything 1 to $width chars long followed by whitespace or EOS,
     // otherwise match anything $width chars long
-    $search = &apos;/(.{1,&apos;.$width.&apos;})(?:\s|$)|(.{&apos;.$width.&apos;})/uS&apos;;
-    $replace = &apos;$1$2&apos;.$break;
+    $search = '/(.{1,'.$width.'})(?:\s|$)|(.{'.$width.'})/uS';
+    $replace = '$1$2'.$break;
   } else {
     // Anchor the beginning of the pattern with a lookahead
     // to avoid crazy backtracking when words are longer than $width
-    $pattern = &apos;/(?=\s)(.{1,&apos;.$width.&apos;})(?:\s|$)/uS&apos;;
-    $replace = &apos;$1&apos;.$break;
+    $pattern = '/(?=\s)(.{1,'.$width.'})(?:\s|$)/uS';
+    $replace = '$1'.$break;
   }
   return preg_replace($search, $replace, $string);
 }
@@ -35,13 +35,13 @@ For those interested in wrapping text to fit a width in *pixels* (instead of cha
     /**
      * Wraps a string to a given number of pixels.
      * 
-     * This function operates in a similar fashion as PHP&apos;s native wordwrap function; however,
+     * This function operates in a similar fashion as PHP's native wordwrap function; however,
      * it calculates wrapping based on font and point-size, rather than character count. This
      * can generate more even wrapping for sentences with a consider number of thin characters.
      * 
      * @static $mult;
      * @param string $text - Input string.
-     * @param float $width - Width, in pixels, of the text&apos;s wrapping area.
+     * @param float $width - Width, in pixels, of the text's wrapping area.
      * @param float $size - Size of the font, expressed in pixels.
      * @param string $font - Path to the typeface to measure the text with.
      * @return string The original string with line-breaks manually inserted at detected wrapping points.
@@ -53,17 +53,17 @@ For those interested in wrapping text to fit a width in *pixels* (instead of cha
 
         #    Check if imagettfbbox is expecting font-size to be declared in points or pixels.
         static $mult;
-        $mult    =    $mult ?: version_compare(GD_VERSION, &apos;2.0&apos;, &apos;&gt;=&apos;) ? .75 : 1;
+        $mult    =    $mult ?: version_compare(GD_VERSION, '2.0', '&gt;=') ? .75 : 1;
 
         #    Text already fits the designated space without wrapping.
         $box    =    imagettfbbox($size * $mult, 0, $font, $text);
         if($box[2] - $box[0] / $mult &lt; $width)    return $text;
 
-        #    Start measuring each line of our input and inject line-breaks when overflow&apos;s detected.
-        $output        =    &apos;&apos;;
+        #    Start measuring each line of our input and inject line-breaks when overflow's detected.
+        $output        =    '';
         $length        =    0;
 
-        $words        =    preg_split(&apos;/\b(?=\S)|(?=\s)/&apos;, $text);
+        $words        =    preg_split('/\b(?=\S)|(?=\s)/', $text);
         $word_count    =    count($words);
         for($i = 0; $i &lt; $word_count; ++$i){
 
@@ -72,18 +72,18 @@ For those interested in wrapping text to fit a width in *pixels* (instead of cha
                 $length    =    0;
 
             #    Strip any leading tabs.
-            if(!$length) $words[$i]    =    preg_replace(&apos;/^\t+/&apos;, &apos;&apos;, $words[$i]);
+            if(!$length) $words[$i]    =    preg_replace('/^\t+/', '', $words[$i]);
 
             $box    =    imagettfbbox($size * $mult, 0, $font, $words[$i]);
             $m        =    $box[2] - $box[0] / $mult;
 
-            #    This is one honkin&apos; long word, so try to hyphenate it.
+            #    This is one honkin' long word, so try to hyphenate it.
             if(($diff = $width - $m) &lt;= 0){
                 $diff    =    abs($diff);
 
                 #    Figure out which end of the word to start measuring from. Saves a few extra cycles in an already heavy-duty function.
                 if($diff - $width &lt;= 0)    for($s = strlen($words[$i]); $s; --$s){
-                    $box    =    imagettfbbox($size * $mult, 0, $font, substr($words[$i], 0, $s) . &apos;-&apos;);
+                    $box    =    imagettfbbox($size * $mult, 0, $font, substr($words[$i], 0, $s) . '-');
                     if($width &gt; ($box[2] - $box[0] / $mult) + $size){
                         $breakpoint    =    $s;
                         break;
@@ -93,7 +93,7 @@ For those interested in wrapping text to fit a width in *pixels* (instead of cha
                 else{
                     $word_length    =    strlen($words[$i]);
                     for($s = 0; $s &lt; $word_length; ++$s){
-                        $box    =    imagettfbbox($size * $mult, 0, $font, substr($words[$i], 0, $s+1) . &apos;-&apos;);
+                        $box    =    imagettfbbox($size * $mult, 0, $font, substr($words[$i], 0, $s+1) . '-');
                         if($width &lt; ($box[2] - $box[0] / $mult) + $size){
                             $breakpoint    =    $s;
                             break;
@@ -102,7 +102,7 @@ For those interested in wrapping text to fit a width in *pixels* (instead of cha
                 }
 
                 if($breakpoint){
-                    $w_l    =    substr($words[$i], 0, $s+1) . &apos;-&apos;;
+                    $w_l    =    substr($words[$i], 0, $s+1) . '-';
                     $w_r    =    substr($words[$i],     $s+1);
 
                     $words[$i]    =    $w_l;
@@ -113,13 +113,13 @@ For those interested in wrapping text to fit a width in *pixels* (instead of cha
                 }
             }
 
-            #    If there&apos;s no more room on the current line to fit the next word, start a new line.
+            #    If there's no more room on the current line to fit the next word, start a new line.
             if($length &gt; 0 &amp;&amp; $length + $m &gt;= $width){
                 $output    .=    PHP_EOL;
                 $length    =    0;
 
-                #    If the current word is just a space, don&apos;t bother. Skip (saves a weird-looking gap in the text).
-                if(&apos; &apos; === $words[$i]) continue;
+                #    If the current word is just a space, don't bother. Skip (saves a weird-looking gap in the text).
+                if(' ' === $words[$i]) continue;
             }
 
             #    Write another word and increase the total length of the current line.
@@ -141,16 +141,16 @@ If you&apos;d like to break long strings of text but avoid breaking html you may
 ```
 <?php
     function textWrap($text) {
-        $new_text = &apos;&apos;;
-        $text_1 = explode(&apos;&gt;&apos;,$text);
+        $new_text = '';
+        $text_1 = explode('&gt;',$text);
         $sizeof = sizeof($text_1);
         for ($i=0; $i&lt;$sizeof; ++$i) {
-            $text_2 = explode(&apos;&lt;&apos;,$text_1[$i]);
+            $text_2 = explode('&lt;',$text_1[$i]);
             if (!empty($text_2[0])) {
-                $new_text .= preg_replace(&apos;#([^\n\r .]{25})#i&apos;, &apos;\\1  &apos;, $text_2[0]);
+                $new_text .= preg_replace('#([^\n\r .]{25})#i', '\\1  ', $text_2[0]);
             }
             if (!empty($text_2[1])) {
-                $new_text .= &apos;&lt;&apos; . $text_2[1] . &apos;&gt;&apos;;    
+                $new_text .= '&lt;' . $text_2[1] . '&gt;';    
             }
         }
         return $new_text;

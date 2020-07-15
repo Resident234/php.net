@@ -8,7 +8,7 @@ The array_diff_assoc_array from "chinello at gmail dot com" (and others) will no
 <?php
 function array_diff_assoc_recursive($array1, $array2) {
     $difference=array();
-    foreach($array1 as $key =&gt; $value) {
+    foreach($array1 as $key => $value) {
         if( is_array($value) ) {
             if( !isset($array2[$key]) || !is_array($array2[$key]) ) {
                 $difference[$key] = $value;
@@ -27,13 +27,13 @@ function array_diff_assoc_recursive($array1, $array2) {
 ```
 
 
-And here an example (note index &apos;b&apos; in the output):
+And here an example (note index 'b' in the output):
 
 
 ```
 <?php
-$a1=array( &apos;a&apos; =&gt; 0, &apos;b&apos; =&gt; null, &apos;c&apos; =&gt; array( &apos;d&apos; =&gt; null ) );
-$a2=array( &apos;a&apos; =&gt; 0, &apos;b&apos; =&gt; null );
+$a1=array( 'a' => 0, 'b' => null, 'c' => array( 'd' => null ) );
+$a2=array( 'a' => 0, 'b' => null );
 
 var_dump( array_diff_assoc_recursive( $a1, $a2 ) );
 var_dump( chinello_array_diff_assoc_recursive( $a1, $a2 ) );
@@ -52,18 +52,18 @@ The direction of the arguments does actually make a difference:<br><br>
 ```
 <?php
 $a = array(
-    &apos;x&apos; =&gt; &apos;x&apos;,
-    &apos;y&apos; =&gt; &apos;y&apos;,
-    &apos;z&apos; =&gt; &apos;z&apos;,
-    &apos;t&apos; =&gt; &apos;t&apos;,
+    'x' => 'x',
+    'y' => 'y',
+    'z' => 'z',
+    't' => 't',
 );
 
 $b = array(
-    &apos;x&apos; =&gt; &apos;x&apos;,
-    &apos;y&apos; =&gt; &apos;y&apos;,
-    &apos;z&apos; =&gt; &apos;z&apos;,
-    &apos;t&apos; =&gt; &apos;t&apos;,
-    &apos;g&apos; =&gt; &apos;g&apos;,
+    'x' => 'x',
+    'y' => 'y',
+    'z' => 'z',
+    't' => 't',
+    'g' => 'g',
 );
 
 print_r(array_diff_assoc($a, $b));
@@ -80,7 +80,7 @@ The following will recursively do an array_diff_assoc, which will calculate diff
 <?php
 function array_diff_assoc_recursive($array1, $array2)
 {
-    foreach($array1 as $key =&gt; $value)
+    foreach($array1 as $key => $value)
     {
         if(is_array($value))
         {

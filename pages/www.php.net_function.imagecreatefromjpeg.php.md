@@ -10,9 +10,9 @@ This function does not honour EXIF orientation data.  Pictures that are rotated 
     {
         $img = imagecreatefromjpeg($filename);
         $exif = exif_read_data($filename);
-        if ($img &amp;&amp; $exif &amp;&amp; isset($exif[&apos;Orientation&apos;]))
+        if ($img &amp;&amp; $exif &amp;&amp; isset($exif['Orientation']))
         {
-            $ort = $exif[&apos;Orientation&apos;];
+            $ort = $exif['Orientation'];
 
             if ($ort == 6 || $ort == 5)
                 $img = imagerotate($img, 270, null);
@@ -37,7 +37,7 @@ This little function allows you to create an image based on the popular image ty
 ```
 <?php
 function imageCreateFromAny($filepath) {
-    $type = exif_imagetype($filepath); // [] if you don&apos;t have exif you could use getImageSize()
+    $type = exif_imagetype($filepath); // [] if you don't have exif you could use getImageSize()
     $allowedTypes = array(
         1,  // [] gif
         2,  // [] jpg

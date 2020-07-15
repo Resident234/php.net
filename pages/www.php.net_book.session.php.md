@@ -6,8 +6,8 @@ There is a nuance we found with session timing out although the user is still ac
 
 ```
 <?php
-if( !isset($_SESSION[&apos;last_access&apos;]) || (time() - $_SESSION[&apos;last_access&apos;]) &gt; 60 )
-  $_SESSION[&apos;last_access&apos;] = time();
+if( !isset($_SESSION['last_access']) || (time() - $_SESSION['last_access']) &gt; 60 )
+  $_SESSION['last_access'] = time();
 ?>
 ```
 <br><br>This will update the session every 60s to ensure that the modification date is altered.  

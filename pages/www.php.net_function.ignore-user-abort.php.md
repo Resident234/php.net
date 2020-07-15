@@ -9,9 +9,9 @@ Comment from Anonymous is not 100% valid. Time from sleep function is not counte
 
 set_time_limit(2);
 sleep(4);
-echo &apos;hi!&apos;;
+echo 'hi!';
 sleep(4);
-echo &apos;bye bye!&apos;;
+echo 'bye bye!';
 
 ?>
 ```

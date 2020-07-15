@@ -17,8 +17,8 @@ you can fix it by
 
 ```
 <?php
-echo htmlspecialchars($string, ENT_COMPAT,&apos;ISO-8859-1&apos;, true);
-echo htmlentities($string, ENT_COMPAT,&apos;ISO-8859-1&apos;, true);
+echo htmlspecialchars($string, ENT_COMPAT,'ISO-8859-1', true);
+echo htmlentities($string, ENT_COMPAT,'ISO-8859-1', true);
 ?>
 ```
  <br><br>On linux you can find the scripts you need to fix by<br><br>grep -Rl "htmlspecialchars\\|htmlentities" /path/to/php/scripts/  
@@ -29,7 +29,7 @@ Unfortunately, as far as I can tell, the PHP devs did not provide ANY way to set
 
 ```
 <?php
-ini_set(&apos;default_charset&apos;, $charset); // doesn&apos;t work.
+ini_set('default_charset', $charset); // doesn't work.
 ?>
 ```
 
@@ -40,8 +40,8 @@ Unfortunately, the only way to not have to explicitly provide the second and thi
 
 ```
 <?php
-define(&apos;CHARSET&apos;, &apos;ISO-8859-1&apos;);
-define(&apos;REPLACE_FLAGS&apos;, ENT_COMPAT | ENT_XHTML);
+define('CHARSET', 'ISO-8859-1');
+define('REPLACE_FLAGS', ENT_COMPAT | ENT_XHTML);
 
 function html($string) {
     return htmlspecialchars($string, REPLACE_FLAGS, CHARSET);

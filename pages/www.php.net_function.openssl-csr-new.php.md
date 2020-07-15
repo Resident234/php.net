@@ -6,14 +6,14 @@ Not sure whether the "bug" (undocumented behavior) I encountered is common to ot
 
 ```
 <?php
-$SSLcnf = array(&apos;config&apos; =&gt; &apos;/usr/local/nessy2/share/ssl/openssl.cnf&apos;,
-        &apos;encrypt_key&apos; =&gt; true,
-        &apos;private_key_type&apos; =&gt; OPENSSL_KEYTYPE_RSA,
-        &apos;digest_alg&apos; =&gt; &apos;sha1&apos;,
-        &apos;x509_extensions&apos; =&gt; &apos;v3_ca&apos;,
-        &apos;private_key_bits&apos; =&gt; $someVariable // ---&gt; bad
-        &apos;private_key_bits&apos; =&gt; (int)$someVariable // ---&gt; good
-        &apos;private_key_bits&apos; =&gt; 512 // ---&gt; obviously good
+$SSLcnf = array('config' => '/usr/local/nessy2/share/ssl/openssl.cnf',
+        'encrypt_key' => true,
+        'private_key_type' => OPENSSL_KEYTYPE_RSA,
+        'digest_alg' => 'sha1',
+        'x509_extensions' => 'v3_ca',
+        'private_key_bits' => $someVariable // ---> bad
+        'private_key_bits' => (int)$someVariable // ---> good
+        'private_key_bits' => 512 // ---> obviously good
         );
 ?>
 ```

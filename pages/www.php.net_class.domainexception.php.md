@@ -9,17 +9,17 @@
 function renderImage($imageResource, $imageType)
 {
   switch ($imageType) {
-  case &apos;jpg&apos;:
-  case &apos;jpeg&apos;:
-    header(&apos;Content-type: image/jpeg&apos;);
+  case 'jpg':
+  case 'jpeg':
+    header('Content-type: image/jpeg');
     imagejpeg($imageResource);
     break;
-  case &apos;png&apos;:
-    header(&apos;Content-type: image/png&apos;);
+  case 'png':
+    header('Content-type: image/png');
     imagepng($imageResource);
     break;
   default:
-    throw new DomainException(&apos;Unknown image type: &apos; . $imageType);
+    throw new DomainException('Unknown image type: ' . $imageType);
     break;
   }
   imagedestroy($imageResource);
@@ -38,10 +38,10 @@ I think this kind of exception is perfect to throw when expected the  type of pa
 function media($x) {
     switch ($x) {
         case image:
-            return &apos;PNG&apos;;
+            return 'PNG';
         break;
         case video:
-            return &apos;MP4&apos;;
+            return 'MP4';
         break;
         default:
             throw new InvalidArgumentException ("Invalid media type!");
@@ -57,7 +57,7 @@ This is completly diffirent situation than this:
 // Here, use DomainException
 $object = new Library ();
 try {
-    $object-&gt;allocate($x);
+    $object->allocate($x);
 } catch (toFewMin $e) {
     throw new DomainException ("Minimal value to allocate is too high").
 }
@@ -84,7 +84,19 @@ class library {
 
 
 ```
-<?php<br><br>function divide($divident, $divisor) {<br>    if(!is_numeric($divident) || !is_numeric($divisor)) {<br>        throw new InvalidArgumentException("Function accepts only numeric values");<br>    }<br>    if($divisor == 0) {<br>        throw new DomainException("Divisor must not be zero");<br>    }<br>    return $divident / $divisor;<br>}  
+<?php
+
+function divide($divident, $divisor) {
+    if(!is_numeric($divident) || !is_numeric($divisor)) {
+        throw new InvalidArgumentException("Function accepts only numeric values");
+    }
+    if($divisor == 0) {
+        throw new DomainException("Divisor must not be zero");
+    }
+    return $divident / $divisor;
+}?>
+```
+  
 
 #
 

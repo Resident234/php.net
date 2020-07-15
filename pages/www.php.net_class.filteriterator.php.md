@@ -13,13 +13,13 @@ class UserFilter extends FilterIterator
     public function __construct(Iterator $iterator , $filter )
     {
         parent::__construct($iterator);
-        $this-&gt;userFilter = $filter;
+        $this->userFilter = $filter;
     }
     
     public function accept()
     {
-        $user = $this-&gt;getInnerIterator()-&gt;current();
-        if( strcasecmp($user[&apos;name&apos;],$this-&gt;userFilter) == 0) {
+        $user = $this->getInnerIterator()->current();
+        if( strcasecmp($user['name'],$this->userFilter) == 0) {
             return false;
         }        
         return true;
@@ -27,17 +27,17 @@ class UserFilter extends FilterIterator
 }
 
 $array = array(
-array(&apos;name&apos; =&gt; &apos;Jonathan&apos;,&apos;id&apos; =&gt; &apos;5&apos;),
-array(&apos;name&apos; =&gt; &apos;Abdul&apos; ,&apos;id&apos; =&gt; &apos;22&apos;)
+array('name' => 'Jonathan','id' => '5'),
+array('name' => 'Abdul' ,'id' => '22')
 );
 
 $object = new ArrayObject($array);
 
 // Note it is case insensitive check in our example due the usage of strcasecmp function
-$iterator = new UserFilter($object-&gt;getIterator(),&apos;abdul&apos;);
+$iterator = new UserFilter($object->getIterator(),'abdul');
 
 foreach ($iterator as $result) {
-    echo $result[&apos;name&apos;];
+    echo $result['name'];
 }
 
 /* Outputs Jonathan */

@@ -6,12 +6,12 @@ StripImage also delete ICC image profile by default.<br>The resulting images see
 
 ```
 <?php
-$profiles = $img-&gt;getImageProfiles("icc", true);
+$profiles = $img->getImageProfiles("icc", true);
 
-$img-&gt;stripImage();
+$img->stripImage();
 
 if(!empty($profiles))
-    $img-&gt;profileImage("icc", $profiles[&apos;icc&apos;]);
+    $img->profileImage("icc", $profiles['icc']);
 ?>
 ```
   

@@ -57,7 +57,7 @@ echo "sz == ps = ".($sz == $ps ? "true" : "false")."&lt;br /&gt;";
 echo "strcmp(sz,ps) = ".strcmp($sz,$ps);
 echo "&lt;br /&gt;&lt;br /&gt;";
 
-echo "Comparison with trim()&apos;d zero-terminated string:&lt;br /&gt;";
+echo "Comparison with trim()'d zero-terminated string:&lt;br /&gt;";
 echo "trim(sz) = ".trim($sz)."&lt;br /&gt;";
 echo "str_split(trim(sz)) = "; print_r(str_split(trim($sz))); echo "&lt;br /&gt;";
 echo "trim(sz) == ps = ".(trim($sz) == $ps ? "true" : "false")."&lt;br /&gt;";

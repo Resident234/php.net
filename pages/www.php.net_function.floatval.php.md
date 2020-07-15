@@ -17,7 +17,7 @@ To view the very large and very small numbers (eg from a database DECIMAL), with
 function floattostr( $val )
 {
     preg_match( "#^([\+\-]|)([0-9]*)(\.([0-9]*?)|)(0*)$#", trim($val), $o );
-    return $o[1].sprintf(&apos;%d&apos;,$o[2]).($o[3]!=&apos;.&apos;?$o[3]:&apos;&apos;);
+    return $o[1].sprintf('%d',$o[2]).($o[3]!='.'?$o[3]:'');
 }
 ?>
 ```
@@ -57,10 +57,10 @@ Easier-to-grasp-function for the &apos;,&apos; problem.<br><br>
 function Getfloat($str) {
   if(strstr($str, ",")) {
     $str = str_replace(".", "", $str); // replace dots (thousand seps) with blancs
-    $str = str_replace(",", ".", $str); // replace &apos;,&apos; with &apos;.&apos;
+    $str = str_replace(",", ".", $str); // replace ',' with '.'
   }
   
-  if(preg_match("#([0-9\.]+)#", $str, $match)) { // search for number that may contain &apos;.&apos;
+  if(preg_match("#([0-9\.]+)#", $str, $match)) { // search for number that may contain '.'
     return floatval($match[0]);
   } else {
     return floatval($str); // take some last chances with floatval

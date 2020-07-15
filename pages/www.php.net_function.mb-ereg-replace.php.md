@@ -27,23 +27,23 @@ I got a pretty nasty error while trying to parse table rows(all contents were se
 mb_internal_encoding("UTF-8");
 mb_regex_encoding("UTF-8");
 
-$rows = $db-&gt;getRows();
+$rows = $db->getRows();
 
 $contents = array();
 foreach ($rows as $eachRow)
 {
-    $cleared = str_replace($commonWords, &apos; &apos;, mb_strtolower(stripslashes($eachRow[&apos;bulgarian&apos;]), &apos;UTF-8&apos; ));
-    if (trim($cleared) != &apos;&apos;) $contents[] = trim($cleared);
+    $cleared = str_replace($commonWords, ' ', mb_strtolower(stripslashes($eachRow['bulgarian']), 'UTF-8' ));
+    if (trim($cleared) != '') $contents[] = trim($cleared);
 }    
 
 $list = array();
 foreach ($contents as $eachRow)
 {
-    $exploded = explode(&apos; &apos;, $eachRow);
+    $exploded = explode(' ', $eachRow);
     foreach ($exploded as $eachExpl)
     {
-        $eachExpl = mb_ereg_replace(&apos;[^&#x430;-&#x44F; ]&apos;,&apos; &apos;, $eachExpl);
-        if (trim($eachExpl) != &apos;&apos;) 
+        $eachExpl = mb_ereg_replace('[^&#x430;-&#x44F; ]',' ', $eachExpl);
+        if (trim($eachExpl) != '') 
             if (!in_array($eachExpl, $list, true))    $list[] = trim($eachExpl);
     }
 }

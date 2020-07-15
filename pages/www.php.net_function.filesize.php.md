@@ -7,7 +7,7 @@ Extremely simple function to get human filesize.<br>
 ```
 <?php
 function human_filesize($bytes, $decimals = 2) {
-  $sz = &apos;BKMGTP&apos;;
+  $sz = 'BKMGTP';
   $factor = floor((strlen($bytes) - 1) / 3);
   return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
 }
@@ -47,25 +47,25 @@ function FileSizeConvert($bytes)
 {
     $bytes = floatval($bytes);
         $arBytes = array(
-            0 =&gt; array(
-                "UNIT" =&gt; "TB",
-                "VALUE" =&gt; pow(1024, 4)
+            0 => array(
+                "UNIT" => "TB",
+                "VALUE" => pow(1024, 4)
             ),
-            1 =&gt; array(
-                "UNIT" =&gt; "GB",
-                "VALUE" =&gt; pow(1024, 3)
+            1 => array(
+                "UNIT" => "GB",
+                "VALUE" => pow(1024, 3)
             ),
-            2 =&gt; array(
-                "UNIT" =&gt; "MB",
-                "VALUE" =&gt; pow(1024, 2)
+            2 => array(
+                "UNIT" => "MB",
+                "VALUE" => pow(1024, 2)
             ),
-            3 =&gt; array(
-                "UNIT" =&gt; "KB",
-                "VALUE" =&gt; 1024
+            3 => array(
+                "UNIT" => "KB",
+                "VALUE" => 1024
             ),
-            4 =&gt; array(
-                "UNIT" =&gt; "B",
-                "VALUE" =&gt; 1
+            4 => array(
+                "UNIT" => "B",
+                "VALUE" => 1
             ),
         );
 
@@ -90,7 +90,55 @@ function FileSizeConvert($bytes)
 
 
 ```
-<?php<br>/**<br> * Return file size (even for file &gt; 2 Gb)<br> * For file size over PHP_INT_MAX (2 147 483 647), PHP filesize function loops from -PHP_INT_MAX to PHP_INT_MAX.<br> *<br> * @param string $path Path of the file<br> * @return mixed File size or false if error<br> */<br>function realFileSize($path)<br>{<br>    if (!file_exists($path))<br>        return false;<br><br>    $size = filesize($path);<br>    <br>    if (!($file = fopen($path, &apos;rb&apos;)))<br>        return false;<br>    <br>    if ($size &gt;= 0)<br>    {//Check if it really is a small file (&lt; 2 GB)<br>        if (fseek($file, 0, SEEK_END) === 0)<br>        {//It really is a small file<br>            fclose($file);<br>            return $size;<br>        }<br>    }<br>    <br>    //Quickly jump the first 2 GB with fseek. After that fseek is not working on 32 bit php (it uses int internally)<br>    $size = PHP_INT_MAX - 1;<br>    if (fseek($file, PHP_INT_MAX - 1) !== 0)<br>    {<br>        fclose($file);<br>        return false;<br>    }<br>    <br>    $length = 1024 * 1024;<br>    while (!feof($file))<br>    {//Read the file until end<br>        $read = fread($file, $length);<br>        $size = bcadd($size, $length);<br>    }<br>    $size = bcsub($size, $length);<br>    $size = bcadd($size, strlen($read));<br>    <br>    fclose($file);<br>    return $size;<br>}  
+<?php
+/**
+ * Return file size (even for file &gt; 2 Gb)
+ * For file size over PHP_INT_MAX (2 147 483 647), PHP filesize function loops from -PHP_INT_MAX to PHP_INT_MAX.
+ *
+ * @param string $path Path of the file
+ * @return mixed File size or false if error
+ */
+function realFileSize($path)
+{
+    if (!file_exists($path))
+        return false;
+
+    $size = filesize($path);
+    
+    if (!($file = fopen($path, 'rb')))
+        return false;
+    
+    if ($size &gt;= 0)
+    {//Check if it really is a small file (&lt; 2 GB)
+        if (fseek($file, 0, SEEK_END) === 0)
+        {//It really is a small file
+            fclose($file);
+            return $size;
+        }
+    }
+    
+    //Quickly jump the first 2 GB with fseek. After that fseek is not working on 32 bit php (it uses int internally)
+    $size = PHP_INT_MAX - 1;
+    if (fseek($file, PHP_INT_MAX - 1) !== 0)
+    {
+        fclose($file);
+        return false;
+    }
+    
+    $length = 1024 * 1024;
+    while (!feof($file))
+    {//Read the file until end
+        $read = fread($file, $length);
+        $size = bcadd($size, $length);
+    }
+    $size = bcsub($size, $length);
+    $size = bcadd($size, strlen($read));
+    
+    fclose($file);
+    return $size;
+}?>
+```
+  
 
 #
 
@@ -99,8 +147,8 @@ The simplest and most efficient implemention for getting remote filesize:<br><br
 ```
 <?php
 function remote_filesize($url) {
-    static $regex = &apos;/^Content-Length: *+\K\d++$/im&apos;;
-    if (!$fp = @fopen($url, &apos;rb&apos;)) {
+    static $regex = '/^Content-Length: *+\K\d++$/im';
+    if (!$fp = @fopen($url, 'rb')) {
         return false;
     }
     if (
@@ -125,7 +173,7 @@ function find_filesize($file)
 {
     if(substr(PHP_OS, 0, 3) == "WIN")
     {
-        exec(&apos;for %I in ("&apos;.$file.&apos;") do @echo %~zI&apos;, $output);
+        exec('for %I in ("'.$file.'") do @echo %~zI', $output);
         $return = $output[0];
     }
     else

@@ -10,7 +10,7 @@ function foo ($a, $b) {
      return $a + $b;
 }
 
-$func = &apos;foo&apos;;
+$func = 'foo';
 $values = array(1, 2);
 call_user_func_array($func, $values); 
 //returns 3
@@ -26,7 +26,7 @@ $func(...$values);
 Just hope this note helps someone (I killed the whole day on issue).<br><br>If you use something like this in PHP &lt; 5.3:<br>
 
 ```
-<?php call_user_func_array(array($this, &apos;parent::func&apos;), $args); ?>
+<?php call_user_func_array(array($this, 'parent::func'), $args); ?>
 ```
 
 Such a script will cause segmentation fault in your webserver.
@@ -35,7 +35,7 @@ In 5.3 you should write it:
 
 
 ```
-<?php call_user_func_array(&apos;parent::func&apos;, $args); ?>
+<?php call_user_func_array('parent::func', $args); ?>
 ```
   
 

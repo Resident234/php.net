@@ -16,22 +16,22 @@ Some other use-cases for the password_needs_rehash function is when you have spe
 <?php
 
 $new = [
-    &apos;options&apos; =&gt; [&apos;cost&apos; =&gt; 11],
-    &apos;algo&apos; =&gt; PASSWORD_DEFAULT,
-    &apos;hash&apos; =&gt; null
+    'options' => ['cost' => 11],
+    'algo' => PASSWORD_DEFAULT,
+    'hash' => null
 ];
 
-$password = &apos;rasmuslerdorf&apos;;
+$password = 'rasmuslerdorf';
 
 //stored hash of password
-$oldHash = &apos;$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq&apos;;
+$oldHash = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq';
 
 //verify stored hash against plain-text password
 if (true === password_verify($password, $oldHash)) {
     //verify legacy password to new password_hash options
-    if (true === password_needs_rehash($oldHash, $new[&apos;algo&apos;], $new[&apos;options&apos;])) {
+    if (true === password_needs_rehash($oldHash, $new['algo'], $new['options'])) {
         //rehash/store plain-text password using new hash
-        $newHash = password_hash($password, $new[&apos;algo&apos;], $new[&apos;options&apos;]);
+        $newHash = password_hash($password, $new['algo'], $new['options']);
         echo $newHash;
     }
 }

@@ -6,54 +6,54 @@ imap_thread() returns threads, but are confined to the current open mailbox you 
 
 ```
 <?php 
-$imap         = imap_open(&apos;{imap.gmail.com:993/imap/ssl}INBOX&apos;, &apos;youremail@gmail.com&apos;, &apos;yourpassword&apos;);
-$subject     = &apos;Item b&apos;;
+$imap         = imap_open('{imap.gmail.com:993/imap/ssl}INBOX', 'youremail@gmail.com', 'yourpassword');
+$subject     = 'Item b';
 $threads     = array();
 
 //remove re: and fwd:
-$subject = trim(preg_replace("/Re\:|re\:|RE\:|Fwd\:|fwd\:|FWD\:/i", &apos;&apos;, $subject));
+$subject = trim(preg_replace("/Re\:|re\:|RE\:|Fwd\:|fwd\:|FWD\:/i", '', $subject));
 
 //search for subject in current mailbox
-$results = imap_search($imap, &apos;SUBJECT "&apos;.$subject.&apos;"&apos;, SE_UID);
+$results = imap_search($imap, 'SUBJECT "'.$subject.'"', SE_UID);
 
 //because results can be false
 if(is_array($results)) {
     //now get all the emails details that were found 
-    $emails = imap_fetch_overview($imap, implode(&apos;,&apos;, $results), FT_UID);
+    $emails = imap_fetch_overview($imap, implode(',', $results), FT_UID);
     
     //foreach email 
     foreach ($emails as $email) {
         //add to threads
         //we date date as the key because later we will sort it
-        $threads[strtotime($email-&gt;date)] = $email;
+        $threads[strtotime($email->date)] = $email;
     }    
 }
 
 //now reopen sent messages
-imap_reopen($imap, &apos;{imap.gmail.com:993/imap/ssl}Sent Messages&apos;);
+imap_reopen($imap, '{imap.gmail.com:993/imap/ssl}Sent Messages');
 
 //and do the same thing
 
 //search for subject in current mailbox
-$results = imap_search($imap, &apos;SUBJECT "&apos;.$subject.&apos;"&apos;, SE_UID);
+$results = imap_search($imap, 'SUBJECT "'.$subject.'"', SE_UID);
 
 //because results can be false
 if(is_array($results)) {
     //now get all the emails details that were found 
-    $emails = imap_fetch_overview($imap, implode(&apos;,&apos;, $results), FT_UID);
+    $emails = imap_fetch_overview($imap, implode(',', $results), FT_UID);
     
     //foreach email 
     foreach ($emails as $email) {
         //add to threads
         //we date date as the key because later we will sort it
-        $threads[strtotime($email-&gt;date)] = $email;
+        $threads[strtotime($email->date)] = $email;
     }    
 }
 
 //sort keys so we get threads in chronological order 
 ksort($threads);
 
-echo &apos;&lt;pre&gt;&apos;.print_r($threads, true).&apos;&lt;/pre&gt;&apos;;
+echo '&lt;pre&gt;'.print_r($threads, true).'&lt;/pre&gt;';
 exit;
 ?>
 ```
@@ -65,7 +65,7 @@ so if you are going to use imap_thread() for something useful. This is probably 
 
 ```
 <?php 
-$imap = imap_open(&apos;{imap.gmail.com:993/imap/ssl}INBOX&apos;, &apos;youremail@gmail.com&apos;, &apos;password&apos;);
+$imap = imap_open('{imap.gmail.com:993/imap/ssl}INBOX', 'youremail@gmail.com', 'password');
 $threads = $rootValues = array();
 
 $thread = imap_thread($imap);
@@ -79,13 +79,13 @@ $root = 0;
 //all emails on one call rather than individual calls ( for performance )
 
 //foreach thread
-foreach ($thread as $i =&gt; $messageId) {
+foreach ($thread as $i => $messageId) {
     //get sequence and type
-    list($sequence, $type) = explode(&apos;.&apos;, $i);
+    list($sequence, $type) = explode('.', $i);
     
     //if type is not num or messageId is 0 or (start of a new thread and no next) or is already set 
-    if($type != &apos;num&apos; || $messageId == 0 
-       || ($root == 0 &amp;&amp; $thread[$sequence.&apos;.next&apos;] == 0)
+    if($type != 'num' || $messageId == 0 
+       || ($root == 0 &amp;&amp; $thread[$sequence.'.next'] == 0)
        || isset($rootValues[$messageId])) {
         //ignore it
         continue;
@@ -98,11 +98,11 @@ foreach ($thread as $i =&gt; $messageId) {
     }
     
     //at this point this will be part of a thread
-    //let&apos;s remember the root for this email
+    //let's remember the root for this email
     $rootValues[$messageId] = $root;
     
     //if there is no next
-    if($thread[$sequence.&apos;.next&apos;] == 0) {
+    if($thread[$sequence.'.next'] == 0) {
         //reset root
         $root = 0;
     }
@@ -111,19 +111,19 @@ foreach ($thread as $i =&gt; $messageId) {
 //now get all the emails details in rootValues in one call
 //because one call for 1000 rows to a server is better 
 //than calling the server 1000 times  
-$emails = imap_fetch_overview($imap, implode(&apos;,&apos;, array_keys($rootValues)));
+$emails = imap_fetch_overview($imap, implode(',', array_keys($rootValues)));
 
 //foreach email 
 foreach ($emails as $email) {
     //get root
-    $root = $rootValues[$email-&gt;msgno];
+    $root = $rootValues[$email->msgno];
     
     //add to threads
     $threads[$root][] = $email;
 }    
 
 //there is no need to sort, the threads will automagically in chronological order
-echo &apos;&lt;pre&gt;&apos;.print_r($threads, true).&apos;&lt;/pre&gt;&apos;;
+echo '&lt;pre&gt;'.print_r($threads, true).'&lt;/pre&gt;';
 imap_close($imap);
 exit;
 ?>

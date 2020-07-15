@@ -17,7 +17,7 @@ The second argument is optional, and it allows you to check for  a specific resp
 
 ```
 <?php
-http_response($url,&apos;400&apos;); // returns true if http status is 400
+http_response($url,'400'); // returns true if http status is 400
 ?>
 ```
 
@@ -28,7 +28,7 @@ The third allows you to specify how long you are willing to wait for a response.
 
 ```
 <?php
-http_response($url,&apos;200&apos;,3); // returns true if the response takes less than 3 seconds and the response code is 200
+http_response($url,'200',3); // returns true if the response takes less than 3 seconds and the response code is 200
 ?>
 ```
 
@@ -42,10 +42,10 @@ function http_response($url, $status = null, $wait = 3)
         $time = microtime(true);
         $expire = $time + $wait;
 
-        // we fork the process so we don&apos;t have to wait for a timeout
+        // we fork the process so we don't have to wait for a timeout
         $pid = pcntl_fork();
         if ($pid == -1) {
-            die(&apos;could not fork&apos;);
+            die('could not fork');
         } else if ($pid) {
             // we are the parent
             $ch = curl_init();

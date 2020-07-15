@@ -6,9 +6,9 @@ Corrupted Attachments ???<br>I spent many hours with corrupted attachments (of a
 
 ```
 <?php # Is the OS Windows or Mac or Linux
-if (strtoupper(substr(PHP_OS,0,3)==&apos;WIN&apos;)) {
+if (strtoupper(substr(PHP_OS,0,3)=='WIN')) {
   $eol="\r\n";
-} elseif (strtoupper(substr(PHP_OS,0,3)==&apos;MAC&apos;)) {
+} elseif (strtoupper(substr(PHP_OS,0,3)=='MAC')) {
   $eol="\r"; 
 } else {
   $eol="\n"; 
@@ -22,7 +22,7 @@ if (strtoupper(substr(PHP_OS,0,3)==&apos;WIN&apos;)) {
 <?php
 # File for Attachment
 $f_name="../../letters/".$letter;    // use relative path OR ELSE big headaches. $letter is my file for attaching.
-$handle=fopen($f_name, &apos;rb&apos;);
+$handle=fopen($f_name, 'rb');
 $f_contents=fread($handle, filesize($f_name));
 $f_contents=chunk_split(base64_encode($f_contents));    //Encode The Data For Transition using base64_encode();
 $f_type=filetype($f_name);
@@ -37,20 +37,20 @@ ob_start();
 $body=ob_get_contents(); ob_end_clean();
 
 # Common Headers
-$headers .= &apos;From: Jonny &lt;jon@example.com&gt;&apos;.$eol;
-$headers .= &apos;Reply-To: Jonny &lt;jon@example.com&gt;&apos;.$eol; 
-$headers .= &apos;Return-Path: Jonny &lt;jon@example.com&gt;&apos;.$eol;     // these two to set reply address
-$headers .= "Message-ID:&lt;".$now." TheSystem@".$_SERVER[&apos;SERVER_NAME&apos;]."&gt;".$eol;
+$headers .= 'From: Jonny &lt;jon@example.com&gt;'.$eol;
+$headers .= 'Reply-To: Jonny &lt;jon@example.com&gt;'.$eol; 
+$headers .= 'Return-Path: Jonny &lt;jon@example.com&gt;'.$eol;     // these two to set reply address
+$headers .= "Message-ID:&lt;".$now." TheSystem@".$_SERVER['SERVER_NAME']."&gt;".$eol;
 $headers .= "X-Mailer: PHP v".phpversion().$eol;           // These two to help avoid spam-filters
 # Boundry for marking the split &amp; Multitype Headers
 $mime_boundary=md5(time());
-$headers .= &apos;MIME-Version: 1.0&apos;.$eol; 
+$headers .= 'MIME-Version: 1.0'.$eol; 
 $headers .= "Content-Type: multipart/related; boundary=\"".$mime_boundary."\"".$eol; 
 $msg = "";
 
 # Attachment
 $msg .= "--".$mime_boundary.$eol;
-$msg .= "Content-Type: application/pdf; name=\"".$letter."\"".$eol;   // sometimes i have to send MS Word, use &apos;msword&apos; instead of &apos;pdf&apos;
+$msg .= "Content-Type: application/pdf; name=\"".$letter."\"".$eol;   // sometimes i have to send MS Word, use 'msword' instead of 'pdf'
 $msg .= "Content-Transfer-Encoding: base64".$eol;
 $msg .= "Content-Disposition: attachment; filename=\"".$letter."\"".$eol.$eol; // !! This line needs TWO end of lines !! IMPORTANT !!
 $msg .= $f_contents.$eol.$eol;
@@ -72,10 +72,10 @@ $msg .= "Content-Transfer-Encoding: 8bit".$eol;
 $msg .= $body.$eol.$eol;
 
 # Finished
-$msg .= "--".$mime_boundary."--".$eol.$eol;   // finish with two eol&apos;s for better security. see Injection.
+$msg .= "--".$mime_boundary."--".$eol.$eol;   // finish with two eol's for better security. see Injection.
 
 # SEND THE EMAIL
-ini_set(sendmail_from,&apos;from@example.com&apos;);  // the INI lines are to force the From Address to be used !
+ini_set(sendmail_from,'from@example.com');  // the INI lines are to force the From Address to be used !
   mail($emailaddress, $emailsubject, $msg, $headers); 
 ini_restore(sendmail_from);
 ?>

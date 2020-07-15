@@ -6,7 +6,7 @@ I pretty much like the idea of hdogan, but there&apos;s at least one group of ch
 
 ```
 <?php
-var_dump(transliterator_transliterate(&apos;Any-Latin; Latin-ASCII; Lower()&apos;, "A &#xE6; &#xDC;b&#xE9;rmensch p&#xE5; h&#xF8;yeste niv&#xE5;! &#x418; &#x44F; &#x43B;&#x44E;&#x431;&#x43B;&#x44E; PHP! &#xFB01;"));
+var_dump(transliterator_transliterate('Any-Latin; Latin-ASCII; Lower()', "A &#xE6; &#xDC;b&#xE9;rmensch p&#xE5; h&#xF8;yeste niv&#xE5;! &#x418; &#x44F; &#x43B;&#x44E;&#x431;&#x43B;&#x44E; PHP! &#xFB01;"));
 // string(41) "a ae ubermensch pa hoyeste niva! i a lublu php! fi"
 ?>
 ```

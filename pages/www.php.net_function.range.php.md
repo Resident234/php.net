@@ -14,7 +14,7 @@ echo implode("",range(9,"Q"));
 // prints 9876543210
 
 echo implode("",range("9 ","Q"));  //space after the 9
-// prints 9:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQ
+// prints 9:;&lt;=>?@ABCDEFGHIJKLMNOPQ
 
 echo implode("",range("q","9 "));
 // prints qponmlkjihgfedcba`_^]\[ZYXWVUTSRQPONMLKJIHGFEDCBA@?>
@@ -26,9 +26,7 @@ echo implode("",range("q","9 "));
 
 #
 
-foreach(range()) whilst efficiant in other languages, such as python, it is not (compared to a for) in php*.<br><br>php is a C-inspired language and thus for is entirely in-keeping with the lanuage aethetic to use it
-
-
+foreach(range()) whilst efficiant in other languages, such as python, it is not (compared to a for) in php*.<br><br>php is a C-inspired language and thus for is entirely in-keeping with the lanuage aethetic to use it<br><br>
 
 ```
 <?php
@@ -53,7 +51,7 @@ So, I needed a quick and dirty way to create a dropdown select for hours, minute
 
 ```
 <?php
-$prepend = array(&apos;00&apos;,&apos;01&apos;,&apos;02&apos;,&apos;03&apos;,&apos;04&apos;,&apos;05&apos;,&apos;06&apos;,&apos;07&apos;,&apos;08&apos;,&apos;09&apos;);
+$prepend = array('00','01','02','03','04','05','06','07','08','09');
 $hours     = array_merge($prepend,range(10, 23));
 $minutes     = array_merge($prepend,range(10, 59));
 $seconds     = $minutes;

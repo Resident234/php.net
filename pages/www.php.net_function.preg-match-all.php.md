@@ -18,21 +18,7 @@ print_r($matches);
 
 The code that john at mccarthy dot net posted is not necessary. If you want your results grouped by individual match simply use:<br><br>&lt;?<br>preg_match_all($pattern, $string, $matches, PREG_SET_ORDER);<br>?>
 ```
-
-
-E.g.
-
-&lt;?
-preg_match_all(&apos;/([GH])([12])([!?])/&apos;, &apos;G1? H2!&apos;, $matches); // Default PREG_PATTERN_ORDER
-// $matches = array(0 =&gt; array(0 =&gt; &apos;G1?&apos;, 1 =&gt; &apos;H2!&apos;),
-//                  1 =&gt; array(0 =&gt; &apos;G&apos;, 1 =&gt; &apos;H&apos;),
-//                  2 =&gt; array(0 =&gt; &apos;1&apos;, 1 =&gt; &apos;2&apos;),
-//                  3 =&gt; array(0 =&gt; &apos;?&apos;, 1 =&gt; &apos;!&apos;))
-
-preg_match_all(&apos;/([GH])([12])([!?])/&apos;, &apos;G1? H2!&apos;, $matches, PREG_SET_ORDER);
-// $matches = array(0 =&gt; array(0 =&gt; &apos;G1?&apos;, 1 =&gt; &apos;G&apos;, 2 =&gt; &apos;1&apos;, 3 =&gt; &apos;?&apos;),
-//                  1 =&gt; array(0 =&gt; &apos;H2!&apos;, 1 =&gt; &apos;H&apos;, 2 =&gt; &apos;2&apos;, 3 =&gt; &apos;!&apos;))
-?>
+<br><br>E.g.<br><br>&lt;?<br>preg_match_all(&apos;/([GH])([12])([!?])/&apos;, &apos;G1? H2!&apos;, $matches); // Default PREG_PATTERN_ORDER<br>// $matches = array(0 =&gt; array(0 =&gt; &apos;G1?&apos;, 1 =&gt; &apos;H2!&apos;),<br>//                  1 =&gt; array(0 =&gt; &apos;G&apos;, 1 =&gt; &apos;H&apos;),<br>//                  2 =&gt; array(0 =&gt; &apos;1&apos;, 1 =&gt; &apos;2&apos;),<br>//                  3 =&gt; array(0 =&gt; &apos;?&apos;, 1 =&gt; &apos;!&apos;))<br><br>preg_match_all(&apos;/([GH])([12])([!?])/&apos;, &apos;G1? H2!&apos;, $matches, PREG_SET_ORDER);<br>// $matches = array(0 =&gt; array(0 =&gt; &apos;G1?&apos;, 1 =&gt; &apos;G&apos;, 2 =&gt; &apos;1&apos;, 3 =&gt; &apos;?&apos;),<br>//                  1 =&gt; array(0 =&gt; &apos;H2!&apos;, 1 =&gt; &apos;H&apos;, 2 =&gt; &apos;2&apos;, 3 =&gt; &apos;!&apos;))<br>?>
 ```
   
 

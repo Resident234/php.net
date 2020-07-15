@@ -11,12 +11,12 @@ class MyClass {
 }
 
 $class = new ReflectionClass("MyClass");
-$property = $class-&gt;getProperty("myProperty");
-$property-&gt;setAccessible(true);
+$property = $class->getProperty("myProperty");
+$property->setAccessible(true);
 
 $obj = new MyClass();
-echo $property-&gt;getValue($obj); // Works
-echo $obj-&gt;myProperty; // Doesn&apos;t work (error)
+echo $property->getValue($obj); // Works
+echo $obj->myProperty; // Doesn't work (error)
 ?>
 ```
   

@@ -6,13 +6,13 @@ Would just like to point out for clarification that each call to fetchArray() re
 
 ```
 <?php 
-        $returned_set = $database-&gt;query("select query or whatever");
+        $returned_set = $database->query("select query or whatever");
         
         //Lets say the query returned 3 results
-        //Normally the following while loop would run 3 times then, as $result wouldn&apos;t be false until the fourth call to fetchArray()
-        while($result = $returned_set-&gt;fetchArray()) {
+        //Normally the following while loop would run 3 times then, as $result wouldn't be false until the fourth call to fetchArray()
+        while($result = $returned_set->fetchArray()) {
                 //HOWEVER HAVING AN ADDITIONAL CALL IN THE LOOP WILL CAUSE THE LOOP TO RUN AGAIN
-                $returned_set-&gt;fetchArray();
+                $returned_set->fetchArray();
         }
 ?>
 ```

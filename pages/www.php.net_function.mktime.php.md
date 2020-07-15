@@ -14,19 +14,19 @@ Be careful passing zeros into mktime, in most cases a zero will count as the pre
 
 ```
 <?php
-echo date(&apos;F jS, Y g:i:s a&apos;, mktime(0, 0, 0, 0, 0, 2013)); 
+echo date('F jS, Y g:i:s a', mktime(0, 0, 0, 0, 0, 2013)); 
 // November 30th, 2012 12:00:00 am
 ?>
 ```
 
 
-Instead of using 0&apos;s, try 1&apos;s. This makes more sense (except for minutes/seconds). Maybe not as obvious of a purpose as zeroes to other programmers, though.
+Instead of using 0's, try 1's. This makes more sense (except for minutes/seconds). Maybe not as obvious of a purpose as zeroes to other programmers, though.
 
 
 
 ```
 <?php
-echo date(&apos;F jS, Y g:i:s a&apos;, mktime(1, 1, 1, 1, 1, 2013));
+echo date('F jS, Y g:i:s a', mktime(1, 1, 1, 1, 1, 2013));
 // January 1st, 2013 1:01:01 am
 ?>
 ```

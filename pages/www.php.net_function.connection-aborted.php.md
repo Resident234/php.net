@@ -7,7 +7,7 @@ A trick to detecting if a connection is closed without having to send data that 
 ```
 <?php
 ignore_user_abort(true);
-header(&apos;Transfer-Encoding:chunked&apos;);
+header('Transfer-Encoding:chunked');
 ob_flush();
 flush();
 $start = microtime(true);
@@ -31,12 +31,12 @@ do{
     flush();
     if(connection_aborted()){
         // This happens when connection is closed
-        file_put_contents(&apos;/tmp/test.tmp&apos;, sprintf("Conn Closed\nTime spent with connection open: %01.5f sec\nLoop itterations: %s\n\n", microtime(true) - $start, $i), FILE_APPEND);
+        file_put_contents('/tmp/test.tmp', sprintf("Conn Closed\nTime spent with connection open: %01.5f sec\nLoop itterations: %s\n\n", microtime(true) - $start, $i), FILE_APPEND);
         endPacket();
         exit;
     }
     usleep(50000);
-    vPrint("I get echo&apos;ed every itteration (every .5 second)&lt;br /&gt;\n");
+    vPrint("I get echo'ed every itteration (every .5 second)&lt;br /&gt;\n");
 }while($i++ &lt; 200);
 endPacket();
 ?>

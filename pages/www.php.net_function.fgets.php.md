@@ -6,7 +6,7 @@ A better example, to illustrate the differences in speed for large files, betwee
 
 ```
 <?php
-        $plaintext=file_get_contents(&apos;http://loripsum.net/api/60/verylong/plaintext&apos;);  # Should be around 90k characters
+        $plaintext=file_get_contents('http://loripsum.net/api/60/verylong/plaintext');  # Should be around 90k characters
         $plaintext=str_replace("\n"," ",$plaintext); # Get rid of newlines
 
         $fp=fopen("/tmp/SourceFile.txt","w");

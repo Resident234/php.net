@@ -57,7 +57,7 @@ Usage example:
 
 ```
 <?php
-$a = array("one" =&gt; "apple", "two" =&gt; "orange", "three" =&gt; "pear");
+$a = array("one" => "apple", "two" => "orange", "three" => "pear");
 echo endKey($a); // will output "three"
 ?>
 ```
@@ -72,7 +72,7 @@ If all you want is the last item of the array without affecting the internal arr
 
 function endc( $array ) { return end( $array ); }
 
-$items = array( &apos;one&apos;, &apos;two&apos;, &apos;three&apos; );
+$items = array( 'one', 'two', 'three' );
 $lastItem = endc( $items ); // three
 $current = current( $items ); // one
 ?>

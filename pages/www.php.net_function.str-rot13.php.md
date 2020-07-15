@@ -7,15 +7,15 @@ I was reminded again of the desire for a generic str_rot function. Character man
 ```
 <?php
 function str_rot($s, $n = 13) {
-    static $letters = &apos;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&apos;;
+    static $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $n = (int)$n % 26;
     if (!$n) return $s;
     if ($n == 13) return str_rot13($s);
     for ($i = 0, $l = strlen($s); $i &lt; $l; $i++) {
         $c = $s[$i];
-        if ($c &gt;= &apos;a&apos; &amp;&amp; $c &lt;= &apos;z&apos;) {
+        if ($c &gt;= 'a' &amp;&amp; $c &lt;= 'z') {
             $s[$i] = $letters[(ord($c) - 71 + $n) % 26];
-        } else if ($c &gt;= &apos;A&apos; &amp;&amp; $c &lt;= &apos;Z&apos;) {
+        } else if ($c &gt;= 'A' &amp;&amp; $c &lt;= 'Z') {
             $s[$i] = $letters[(ord($c) - 39 + $n) % 26 + 26];
         }
     }
@@ -32,7 +32,7 @@ But using strtr() you can get something 10 times as fast as the above :
 ```
 <?php
 function str_rot($s, $n = 13) {
-    static $letters = &apos;AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz&apos;;
+    static $letters = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz';
     $n = (int)$n % 26;
     if (!$n) return $s;
     if ($n &lt; 0) $n += 26;
@@ -44,7 +44,7 @@ function str_rot($s, $n = 13) {
 ```
 
 
-This technique is faster because PHP&apos;s strtr is implemented in C using a byte lookup table (it has O(m + n) complexity). However, PHP 6 will use Unicode, so I guess(?) strtr will then have to be implemented with a search for each character (O(m * n)). Using strtr might still be faster since it offloads the character manipulation to C rather than PHP, but I don&apos;t really know. Take your pick.
+This technique is faster because PHP's strtr is implemented in C using a byte lookup table (it has O(m + n) complexity). However, PHP 6 will use Unicode, so I guess(?) strtr will then have to be implemented with a search for each character (O(m * n)). Using strtr might still be faster since it offloads the character manipulation to C rather than PHP, but I don't really know. Take your pick.
 
 Happy coding!
 
@@ -55,7 +55,7 @@ Happy coding!
 ```
 <?php
 for ($k = 0; $k &lt; 10; $k++) {
-    $s = &apos;The quick brown fox jumps over the lazy dog.&apos;;
+    $s = 'The quick brown fox jumps over the lazy dog.';
     $t = microtime(1);
     for ($i = 0; $i &lt; 1000; $i++) $s = str_rot($s, $i);
     $t = microtime(1) - $t;

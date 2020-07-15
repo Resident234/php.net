@@ -10,9 +10,9 @@ This is an excellent method for returning a column count. For example:<br><br>
 
 ```
 <?php
-$db = new PDO(&apos;mysql:host=localhost;dbname=pictures&apos;,&apos;user&apos;,&apos;password&apos;);
-$pics = $db-&gt;query(&apos;SELECT COUNT(id) FROM pics&apos;);
-$this-&gt;totalpics = $pics-&gt;fetchColumn();
+$db = new PDO('mysql:host=localhost;dbname=pictures','user','password');
+$pics = $db->query('SELECT COUNT(id) FROM pics');
+$this->totalpics = $pics->fetchColumn();
 $db = null;
 ?>
 ```

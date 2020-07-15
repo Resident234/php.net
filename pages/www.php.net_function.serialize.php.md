@@ -25,7 +25,7 @@ I did some testing to see the speed differences between serialize and json_encod
 function fillArray($depth, $max){
     static $seed;
     if (is_null($seed)){
-        $seed = array(&apos;a&apos;, 2, &apos;c&apos;, 4, &apos;e&apos;, 6, &apos;g&apos;, 8, &apos;i&apos;, 10);
+        $seed = array('a', 2, 'c', 4, 'e', 6, 'g', 8, 'i', 10);
     }
     if ($depth &lt; $max){
         $node = array();
@@ -34,7 +34,7 @@ function fillArray($depth, $max){
         }
         return $node;
     }
-    return &apos;empty&apos;;
+    return 'empty';
 }
 
 function testSpeed($testArray, $iterations = 100){

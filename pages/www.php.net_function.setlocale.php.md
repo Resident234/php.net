@@ -61,8 +61,8 @@ It took me a while to figure out how to get a Finnish locale correctly set on Ub
 
 ```
 <?php
-date_default_timezone_set(&apos;Europe/Helsinki&apos;);
-setlocale(LC_ALL, array(&apos;fi_FI.UTF-8&apos;,&apos;fi_FI@euro&apos;,&apos;fi_FI&apos;,&apos;finnish&apos;));
+date_default_timezone_set('Europe/Helsinki');
+setlocale(LC_ALL, array('fi_FI.UTF-8','fi_FI@euro','fi_FI','finnish'));
 ?>
 ```
   
@@ -81,18 +81,18 @@ Pay attention to the syntax.<br>- UTF8 without dash (&apos;-&apos;)<br>- locale.
 
 ```
 <?php
-$codeset = "UTF8";  // warning ! not UTF-8 with dash &apos;-&apos;
+$codeset = "UTF8";  // warning ! not UTF-8 with dash '-'
         
 // for windows compatibility (e.g. xampp) : theses 3 lines are useless for linux systems 
 
-putenv(&apos;LANG=&apos;.$lang.&apos;.&apos;.$codeset);
-putenv(&apos;LANGUAGE=&apos;.$lang.&apos;.&apos;.$codeset);
-bind_textdomain_codeset(&apos;mydomain&apos;, $codeset);
+putenv('LANG='.$lang.'.'.$codeset);
+putenv('LANGUAGE='.$lang.'.'.$codeset);
+bind_textdomain_codeset('mydomain', $codeset);
 
 // set locale
-bindtextdomain(&apos;mydomain&apos;, ABSPATH.&apos;/locale/&apos;);
-setlocale(LC_ALL, $lang.&apos;.&apos;.$codeset);
-textdomain(&apos;mydomain&apos;);
+bindtextdomain('mydomain', ABSPATH.'/locale/');
+setlocale(LC_ALL, $lang.'.'.$codeset);
+textdomain('mydomain');
 ?>
 ```
 <br><br>where directory structure of locale is (for example) :<br>locale/fr_FR/LC_MESSAGES/mydomain.mo<br>locale/en_US/LC_MESSAGES/mydomain.mo<br><br>and ABSPATH is the absolute path to the locale dir<br><br>further note, under linux systems, it seems to be necessary to create the locale at os level using &apos;locale-gen&apos;.  

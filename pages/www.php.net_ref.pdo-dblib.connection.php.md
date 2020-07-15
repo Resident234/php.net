@@ -5,7 +5,7 @@
 Instead of specifying tds version and client charset in freetds.conf, you may pass it as a parameter.<br>
 
 ```
-<?php $dsn = &apos;dblib:version=7.0;charset=UTF-8;host=domain.example.com;dbname=example;&apos;; ?>
+<?php $dsn = 'dblib:version=7.0;charset=UTF-8;host=domain.example.com;dbname=example;'; ?>
 ```
   
 

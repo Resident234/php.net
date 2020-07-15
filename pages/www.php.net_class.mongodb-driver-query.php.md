@@ -29,17 +29,17 @@ Here is an example of Query to retrieve the records from MangoDB collection usin
 ```
 
 
-I&apos;m using the following code:
+I'm using the following code:
 
 
 ```
 <?php
-$filter = [&apos;id&apos; =&gt; 2];
+$filter = ['id' => 2];
 $options = [
-   &apos;projection&apos; =&gt; [&apos;_id&apos; =&gt; 0],
+   'projection' => ['_id' => 0],
 ];
 $query = new MongoDB\Driver\Query($filter, $options);
-$rows = $mongo-&gt;executeQuery(&apos;db_name.my_collection&apos;, $query); // $mongo contains the connection object to MongoDB
+$rows = $mongo->executeQuery('db_name.my_collection', $query); // $mongo contains the connection object to MongoDB
 foreach($rows as $r){
    print_($r);
 }

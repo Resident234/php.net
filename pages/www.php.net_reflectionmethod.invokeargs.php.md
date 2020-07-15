@@ -6,7 +6,7 @@ We can do black magic, which is useful in templating block calls:<br><br>
 
 ```
 <?php
-     $object-&gt;__named(&apos;methodNameHere&apos;, array(&apos;arg3&apos; =&gt; &apos;three&apos;, &apos;arg1&apos; =&gt; &apos;one&apos;));
+     $object->__named('methodNameHere', array('arg3' => 'three', 'arg1' => 'one'));
 
      ...
 
@@ -22,20 +22,20 @@ We can do black magic, which is useful in templating block calls:<br><br>
         $reflection = new ReflectionMethod($this, $method);
 
         $pass = array();
-        foreach($reflection-&gt;getParameters() as $param)
+        foreach($reflection->getParameters() as $param)
         {
           /* @var $param ReflectionParameter */
-          if(isset($args[$param-&gt;getName()]))
+          if(isset($args[$param->getName()]))
           {
-            $pass[] = $args[$param-&gt;getName()];
+            $pass[] = $args[$param->getName()];
           }
           else
           {
-            $pass[] = $param-&gt;getDefaultValue();
+            $pass[] = $param->getDefaultValue();
           }
         }
 
-        return $reflection-&gt;invokeArgs($this, $pass);
+        return $reflection->invokeArgs($this, $pass);
       }
 ?>
 ```

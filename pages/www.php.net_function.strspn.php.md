@@ -7,7 +7,7 @@ you can use this function with strlen to check illegal characters, string lenght
 ```
 <?php
 
-$digits=&apos;0123456789&apos;;
+$digits='0123456789';
 
 if (strlen($phone) != strspn($phone,$digits))
  echo "illegal characters";

@@ -13,7 +13,7 @@ Hi, <br>be aware, that imap_search() does NOT (as you may exspect) return an emp
 To set your own CHARSET, which is useful if you are dealing with Chinese Japanese and Korean queries.<br><br>
 
 ```
-<?php imap_search($inbox,&apos;BODY "&apos;.$keyword.&apos;"&apos;, SE_FREE, "UTF-8"); ?>
+<?php imap_search($inbox,'BODY "'.$keyword.'"', SE_FREE, "UTF-8"); ?>
 ```
   
 

@@ -6,10 +6,10 @@ lot of people don&apos;t like how bind_result works with prepared statements! it
 
 ```
 <?php
-$host = &apos;localhost&apos;;
-$user = &apos;root&apos;;
-$pass = &apos;1234&apos;;
-$data = &apos;test&apos;;
+$host = 'localhost';
+$user = 'root';
+$pass = '1234';
+$data = 'test';
 
 $mysqli = new mysqli($host, $user, $pass, $data);
 /* check connection */
@@ -18,31 +18,31 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-if ($stmt = $mysqli-&gt;prepare("SELECT * FROM sample WHERE t2 LIKE ?")) {
-    $tt2 = &apos;%&apos;;
+if ($stmt = $mysqli->prepare("SELECT * FROM sample WHERE t2 LIKE ?")) {
+    $tt2 = '%';
     
-    $stmt-&gt;bind_param("s", $tt2);
-    $stmt-&gt;execute();
+    $stmt->bind_param("s", $tt2);
+    $stmt->execute();
 
-    $meta = $stmt-&gt;result_metadata();
-    while ($field = $meta-&gt;fetch_field())
+    $meta = $stmt->result_metadata();
+    while ($field = $meta->fetch_field())
     {
-        $params[] = &amp;$row[$field-&gt;name];
+        $params[] = &amp;$row[$field->name];
     }
 
-    call_user_func_array(array($stmt, &apos;bind_result&apos;), $params);
+    call_user_func_array(array($stmt, 'bind_result'), $params);
 
-    while ($stmt-&gt;fetch()) {
-        foreach($row as $key =&gt; $val)
+    while ($stmt->fetch()) {
+        foreach($row as $key => $val)
         {
             $c[$key] = $val;
         }
         $result[] = $c;
     }
     
-    $stmt-&gt;close();
+    $stmt->close();
 }
-$mysqli-&gt;close();
+$mysqli->close();
 print_r($result);
 ?>
 ```
@@ -60,31 +60,31 @@ function fetch($result)
     
     if($result instanceof mysqli_stmt)
     {
-        $result-&gt;store_result();
+        $result->store_result();
         
         $variables = array();
         $data = array();
-        $meta = $result-&gt;result_metadata();
+        $meta = $result->result_metadata();
         
-        while($field = $meta-&gt;fetch_field())
-            $variables[] = &amp;$data[$field-&gt;name]; // pass by reference
+        while($field = $meta->fetch_field())
+            $variables[] = &amp;$data[$field->name]; // pass by reference
         
-        call_user_func_array(array($result, &apos;bind_result&apos;), $variables);
+        call_user_func_array(array($result, 'bind_result'), $variables);
         
         $i=0;
-        while($result-&gt;fetch())
+        while($result->fetch())
         {
             $array[$i] = array();
-            foreach($data as $k=&gt;$v)
+            foreach($data as $k=>$v)
                 $array[$i][$k] = $v;
             $i++;
             
-            // don&apos;t know why, but when I tried $array[] = $data, I got the same one result in all rows
+            // don't know why, but when I tried $array[] = $data, I got the same one result in all rows
         }
     }
     elseif($result instanceof mysqli_result)
     {
-        while($row = $result-&gt;fetch_assoc())
+        while($row = $result->fetch_assoc())
             $array[] = $row;
     }
     
@@ -109,7 +109,7 @@ A note to people to want to return an array of results - that is, an array of al
 call_user_func_array(array($mysqli_stmt_object, "bind_result"), $byref_array_for_fields);
 
 $results = array();
-while ($mysqli_stmt_object-&gt;fetch()) {
+while ($mysqli_stmt_object->fetch()) {
     $results[] = $byref_array_for_fields;
 }
 
@@ -118,11 +118,11 @@ while ($mysqli_stmt_object-&gt;fetch()) {
 
 This will NOT work. $results will have a bunch of arrays, but each one will have a reference to $byref.
 
-PHP is optimizing performance here: you aren&apos;t so much copying the $byref array into $results as you are *adding* it. That means $results will have a bunch of $byrefs - the same array repeated multiple times. (So what you see is that $results is all duplicates of the last item from the query.)
+PHP is optimizing performance here: you aren't so much copying the $byref array into $results as you are *adding* it. That means $results will have a bunch of $byrefs - the same array repeated multiple times. (So what you see is that $results is all duplicates of the last item from the query.)
 
 hamidhossain (01-Sep-2008) shows how to get around that: inside the loop that fetches results you also have to loop through the list of fields, copying them as you go. In effect, copying everything individually.
 
-Personally, I&apos;d rather use some kind of function that effectively duplicates an array than write my own code. Many of the built-in array functions don&apos;t work, apparently using references rather than copies, but a combination of array_map and create_function does.
+Personally, I'd rather use some kind of function that effectively duplicates an array than write my own code. Many of the built-in array functions don't work, apparently using references rather than copies, but a combination of array_map and create_function does.
 
 
 
@@ -133,10 +133,10 @@ Personally, I&apos;d rather use some kind of function that effectively duplicate
 call_user_func_array(array($mysqli_stmt_object, "bind_result"), $byref_array_for_fields);
 
 // returns a copy of a value
-$copy = create_function(&apos;$a&apos;, &apos;return $a;&apos;);
+$copy = create_function('$a', 'return $a;');
 
 $results = array();
-while ($mysqli_stmt_object-&gt;fetch()) {
+while ($mysqli_stmt_object->fetch()) {
     // array_map will preserve keys when done here and this way
     $results[] = array_map($copy, $byref_array_for_fields);
 }

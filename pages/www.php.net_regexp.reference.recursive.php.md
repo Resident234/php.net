@@ -18,14 +18,14 @@ $bracket_systems = "((?>
 ```
 [^()]+)?"; // (reuseable)
 $equation = "$bracket_systems=$bracket_systems"; // Both side of the equation must be contain valid bracket systems
-var_dump(preg_match("/^$equation\$/","a*(a-(2a+2))=4(a+3)-2(a-(a-2))")); // Outputs &apos;int(1)&apos;
-var_dump(preg_match("/^$equation\$/","a*(a-(2a+2)=4(a+3)-2(a-(a-2)))")); // Outputs &apos;int(0)&apos;
+var_dump(preg_match("/^$equation\$/","a*(a-(2a+2))=4(a+3)-2(a-(a-2))")); // Outputs 'int(1)'
+var_dump(preg_match("/^$equation\$/","a*(a-(2a+2)=4(a+3)-2(a-(a-2)))")); // Outputs 'int(0)'
 
 ?>
 ```
 
 
-You can also catch multibyte quotes with the &apos;u&apos; modifier (if you use UTF-8), eg:
+You can also catch multibyte quotes with the 'u' modifier (if you use UTF-8), eg:
 
 
 ```
@@ -35,7 +35,7 @@ $quoted = "(&#xBB;((?>
 ```
 [^&#xBB;&#xAB;]+)|(?-2))*&#xAB;)"; // (reuseable)
 $prompt = "[\\w ]+: $quoted";
-var_dump(preg_match("/^$prompt\$/u","Your name: &#xBB;write here&#xAB;")); // Outputs &apos;int(1)&apos;
+var_dump(preg_match("/^$prompt\$/u","Your name: &#xBB;write here&#xAB;")); // Outputs 'int(1)'
 
 ?>
 ```
@@ -51,18 +51,18 @@ The recursion in regular expressions is the only way to allow the parsing of HTM
 function parse($html) {
     // I have split the pattern in two lines not to have long lines alerts by the PHP.net form:
     $pattern = "/&lt;([\w]+)([^&gt;]*?)(([\s]*\/&gt;)|".
-    "(&gt;((([^&lt;]*?|&lt;\!\-\-.*?\-\-&gt;)|(?R))*)&lt;\/\\1[\s]*&gt;))/sm";
+    "(&gt;((([^&lt;]*?|&lt;\!\-\-.*?\-\->)|(?R))*)&lt;\/\\1[\s]*&gt;))/sm";
     preg_match_all($pattern, $html, $matches, PREG_OFFSET_CAPTURE);
     $elements = array();
     
-    foreach ($matches[0] as $key =&gt; $match) {
+    foreach ($matches[0] as $key => $match) {
         $elements[] = (object)array(
-            &apos;node&apos; =&gt; $match[0],
-            &apos;offset&apos; =&gt; $match[1],
-            &apos;tagname&apos; =&gt; $matches[1][$key][0],
-            &apos;attributes&apos; =&gt; isset($matches[2][$key][0]) ? $matches[2][$key][0] : &apos;&apos;,
-            &apos;omittag&apos; =&gt; ($matches[4][$key][1] &gt; -1), // boolean
-            &apos;inner_html&apos; =&gt; isset($matches[6][$key][0]) ? $matches[6][$key][0] : &apos;&apos;
+            'node' => $match[0],
+            'offset' => $match[1],
+            'tagname' => $matches[1][$key][0],
+            'attributes' => isset($matches[2][$key][0]) ? $matches[2][$key][0] : '',
+            'omittag' => ($matches[4][$key][1] &gt; -1), // boolean
+            'inner_html' => isset($matches[6][$key][0]) ? $matches[6][$key][0] : ''
         );
     }
     return $elements;
@@ -74,10 +74,10 @@ $html = &lt;&lt;&lt;EOD
     &lt;div geo:position="1.234324,3.455546" class="index"&gt;
         &lt;!-- comment test:
         &lt;div class="index_top" /&gt;
-        --&gt;
+        -->
         &lt;div class="element decorator"&gt;
                 &lt;ul class="lister"&gt;
-                    &lt;li onclick="javascript:item.showAttribute(&apos;desc&apos;);"&gt;
+                    &lt;li onclick="javascript:item.showAttribute('desc');"&gt;
                         &lt;h3 class="outline"&gt;
                             &lt;a href="http://php.net/manual/en/regexp.reference.recursive.php" onclick="openPopup()"&gt;Link&lt;/a&gt;
                         &lt;/h3&gt;
@@ -98,11 +98,11 @@ if (count($elements) &gt; 0) {
     echo "Elements found: &lt;b&gt;".count($elements)."&lt;/b&gt;&lt;br /&gt;";
     
     foreach ($elements as $element) {
-        echo "&lt;p&gt;Tpl node: &lt;pre&gt;".htmlentities($element-&gt;node)."&lt;/pre&gt;
-        Tagname: &lt;tt&gt;".$element-&gt;tagname."&lt;/tt&gt;&lt;br /&gt;
-        Attributes: &lt;tt&gt;".$element-&gt;attributes."&lt;/tt&gt;&lt;br /&gt;
-        Omittag: &lt;tt&gt;".($element-&gt;omittag ? &apos;true&apos; : &apos;false&apos;)."&lt;/tt&gt;&lt;br /&gt;
-        Inner HTML: &lt;pre&gt;".htmlentities($element-&gt;inner_html)."&lt;/pre&gt;&lt;/p&gt;";
+        echo "&lt;p&gt;Tpl node: &lt;pre&gt;".htmlentities($element->node)."&lt;/pre&gt;
+        Tagname: &lt;tt&gt;".$element->tagname."&lt;/tt&gt;&lt;br /&gt;
+        Attributes: &lt;tt&gt;".$element->attributes."&lt;/tt&gt;&lt;br /&gt;
+        Omittag: &lt;tt&gt;".($element->omittag ? 'true' : 'false')."&lt;/tt&gt;&lt;br /&gt;
+        Inner HTML: &lt;pre&gt;".htmlentities($element->inner_html)."&lt;/pre&gt;&lt;/p&gt;";
     }
 }
 ?>

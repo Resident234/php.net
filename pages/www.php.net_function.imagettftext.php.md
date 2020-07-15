@@ -7,7 +7,7 @@ If you&apos;re looking for easy text alignment, you need to use the imagettfbbox
 ```
 <?php
 
-$tb = imagettfbbox(17, 0, &apos;airlock.ttf&apos;, &apos;Hello world!&apos;);
+$tb = imagettfbbox(17, 0, 'airlock.ttf', 'Hello world!');
 
 ?>
 ```
@@ -17,17 +17,17 @@ $tb would contain:
 
 Array
 (
-    [0] =&gt; 0 // lower left X coordinate
-    [1] =&gt; -1 // lower left Y coordinate
-    [2] =&gt; 198 // lower right X coordinate
-    [3] =&gt; -1 // lower right Y coordinate
-    [4] =&gt; 198 // upper right X coordinate
-    [5] =&gt; -20 // upper right Y coordinate
-    [6] =&gt; 0 // upper left X coordinate
-    [7] =&gt; -20 // upper left Y coordinate
+    [0] => 0 // lower left X coordinate
+    [1] => -1 // lower left Y coordinate
+    [2] => 198 // lower right X coordinate
+    [3] => -1 // lower right Y coordinate
+    [4] => 198 // upper right X coordinate
+    [5] => -20 // upper right Y coordinate
+    [6] => 0 // upper left X coordinate
+    [7] => -20 // upper left Y coordinate
 )
 
-For horizontal alignment, we need to substract the "text box&apos;s" width { $tb[2] or $tb[4] } from the image&apos;s width and then substract by two.
+For horizontal alignment, we need to substract the "text box's" width { $tb[2] or $tb[4] } from the image's width and then substract by two.
 
 Saying you have a 200px wide image, you could do something like this:
 
@@ -37,7 +37,7 @@ Saying you have a 200px wide image, you could do something like this:
 <?php
 
 $x = ceil((200 - $tb[2]) / 2); // lower left X coordinate for text
-imagettftext($im, 17, 0, $x, $y, $tc, &apos;airlock.ttf&apos;, &apos;Hello world!&apos;); // write text to image
+imagettftext($im, 17, 0, $x, $y, $tc, 'airlock.ttf', 'Hello world!'); // write text to image
 
 ?>
 ```

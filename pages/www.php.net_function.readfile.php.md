@@ -10,17 +10,17 @@ if you need to limit download rate, use this code <br><br>
 
 ```
 <?php
-$local_file = &apos;file.zip&apos;;
-$download_file = &apos;name.zip&apos;;
+$local_file = 'file.zip';
+$download_file = 'name.zip';
 
-// set the download rate limit (=&gt; 20,5 kb/s)
+// set the download rate limit (=> 20,5 kb/s)
 $download_rate = 20.5;
 if(file_exists($local_file) &amp;&amp; is_file($local_file))
 {
-    header(&apos;Cache-control: private&apos;);
-    header(&apos;Content-Type: application/octet-stream&apos;);
-    header(&apos;Content-Length: &apos;.filesize($local_file));
-    header(&apos;Content-Disposition: filename=&apos;.$download_file);
+    header('Cache-control: private');
+    header('Content-Type: application/octet-stream');
+    header('Content-Length: '.filesize($local_file));
+    header('Content-Disposition: filename='.$download_file);
 
     flush();
     $file = fopen($local_file, "r");
@@ -35,7 +35,7 @@ if(file_exists($local_file) &amp;&amp; is_file($local_file))
     }
     fclose($file);}
 else {
-    die(&apos;Error: The file &apos;.$local_file.&apos; does not exist!&apos;);
+    die('Error: The file '.$local_file.' does not exist!');
 }
 
 ?>
@@ -44,16 +44,18 @@ else {
 
 #
 
-regarding php5:<br>i found out that there is already a disscussion @php-dev  about readfile() and fpassthru() where only exactly 2 MB will be delivered.<br><br>so you may use this on php5 to get lager files<br>
+regarding php5:<br>i found out that there is already a disscussion @?>
+```
+dev  about readfile() and fpassthru() where only exactly 2 MB will be delivered.<br><br>so you may use this on php5 to get lager files<br>
 
 ```
 <?php
 function readfile_chunked($filename,$retbytes=true) {
     $chunksize = 1*(1024*1024); // how many bytes per chunk
-    $buffer = &apos;&apos;;
+    $buffer = '';
     $cnt =0;
-    // $handle = fopen($filename, &apos;rb&apos;);
-    $handle = fopen($filename, &apos;rb&apos;);
+    // $handle = fopen($filename, 'rb');
+    $handle = fopen($filename, 'rb');
     if ($handle === false) {
         return false;
     }

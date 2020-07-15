@@ -13,22 +13,22 @@ function sqlite_open($location,$mode)
 }
 function sqlite_query($dbhandle,$query)
 {
-    $array[&apos;dbhandle&apos;] = $dbhandle;
-    $array[&apos;query&apos;] = $query;
-    $result = $dbhandle-&gt;query($query);
+    $array['dbhandle'] = $dbhandle;
+    $array['query'] = $query;
+    $result = $dbhandle->query($query);
     return $result;
 }
 function sqlite_fetch_array(&amp;$result,$type)
 {
     #Get Columns
     $i = 0;
-    while ($result-&gt;columnName($i))
+    while ($result->columnName($i))
     {
-        $columns[ ] = $result-&gt;columnName($i);
+        $columns[ ] = $result->columnName($i);
         $i++;
     }
     
-    $resx = $result-&gt;fetchArray(SQLITE3_ASSOC);
+    $resx = $result->fetchArray(SQLITE3_ASSOC);
     return $resx;
 }
 ?>

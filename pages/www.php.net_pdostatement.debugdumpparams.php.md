@@ -12,21 +12,21 @@ As noted, this doesn&#x2019;t actually simply print the prepared statement with 
 <?php
     function parms($string,$data) {
         $indexed=$data==array_values($data);
-        foreach($data as $k=&gt;$v) {
-            if(is_string($v)) $v="&apos;$v&apos;";
-            if($indexed) $string=preg_replace(&apos;/\?/&apos;,$v,$string,1);
+        foreach($data as $k=>$v) {
+            if(is_string($v)) $v="'$v'";
+            if($indexed) $string=preg_replace('/\?/',$v,$string,1);
             else $string=str_replace(":$k",$v,$string);
         }
         return $string;
     }
 
     //    Index Parameters
-        $string=&apos;INSERT INTO stuff(name,value) VALUES (?,?)&apos;;
-        $data=array(&apos;Fred&apos;,23);
+        $string='INSERT INTO stuff(name,value) VALUES (?,?)';
+        $data=array('Fred',23);
 
     //    Named Parameters
-        $string=&apos;INSERT INTO stuff(name,value) VALUES (:name,:value)&apos;;
-        $data=array(&apos;name&apos;=&gt;&apos;Fred&apos;,&apos;value&apos;=&gt;23);
+        $string='INSERT INTO stuff(name,value) VALUES (:name,:value)';
+        $data=array('name'=>'Fred','value'=>23);
 
     print parms($string,$data);
 ?>

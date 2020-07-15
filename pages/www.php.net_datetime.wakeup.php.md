@@ -10,16 +10,16 @@ class ExtendedDateTime extends DateTime {
     private $_date_time;
     
     public function __toString() {
-        return $this-&gt;format(&apos;c&apos;); // format as ISO 8601
+        return $this->format('c'); // format as ISO 8601
     }
     
     public function __sleep() {
-        $this-&gt;_date_time = $this-&gt;format(&apos;c&apos;);
-        return array(&apos;_date_time&apos;);
+        $this->_date_time = $this->format('c');
+        return array('_date_time');
     }
     
     public function __wakeup() {
-        $this-&gt;__construct($this-&gt;_date_time);
+        $this->__construct($this->_date_time);
     }
 }
 ?>

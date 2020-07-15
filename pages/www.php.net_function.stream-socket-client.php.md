@@ -7,9 +7,9 @@ For those wanting to use stream_socket_client() to connect to a local UNIX socke
 ```
 <?php
 
-$sock = stream_socket_client(&apos;unix:///full/path/to/my/socket.sock&apos;, $errno, $errstr);
+$sock = stream_socket_client('unix:///full/path/to/my/socket.sock', $errno, $errstr);
 
-fwrite($sock, &apos;SOME COMMAND&apos;."\r\n");
+fwrite($sock, 'SOME COMMAND'."\r\n");
 
 echo fread($sock, 4096)."\n";
 

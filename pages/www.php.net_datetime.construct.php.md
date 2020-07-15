@@ -12,13 +12,13 @@ The theoretical limits of the date range seem to be "-9999-01-01" through "9999-
 <?php
 
 $d = new DateTime("9999-12-31"); 
-$d-&gt;format("Y-m-d"); // "9999-12-31"
+$d->format("Y-m-d"); // "9999-12-31"
 
 $d = new DateTime("0000-12-31"); 
-$d-&gt;format("Y-m-d"); // "0000-12-31"
+$d->format("Y-m-d"); // "0000-12-31"
 
 $d = new DateTime("-9999-12-31"); 
-$d-&gt;format("Y-m-d"); // "-9999-12-31"
+$d->format("Y-m-d"); // "-9999-12-31"
 
 ?>
 ```
@@ -32,13 +32,13 @@ Dates above 10000 and below -10000 do not throw errors but produce weird results
 <?php
 
 $d = new DateTime("10019-01-01"); 
-$d-&gt;format("Y-m-d"); // "2009-01-01"
+$d->format("Y-m-d"); // "2009-01-01"
 
 $d = new DateTime("10009-01-01"); 
-$d-&gt;format("Y-m-d"); // "2009-01-01"
+$d->format("Y-m-d"); // "2009-01-01"
 
 $d = new DateTime("-10019-01-01"); 
-$d-&gt;format("Y-m-d"); // "2009-01-01"
+$d->format("Y-m-d"); // "2009-01-01"
 
 ?>
 ```
@@ -51,20 +51,20 @@ A definite "gotcha" (while documented) that exists in the __construct is that it
 ```
 <?php
 // New Timezone Object
-$timezone = new DateTimeZone(&apos;America/New_York&apos;);
+$timezone = new DateTimeZone('America/New_York');
 
 // New DateTime Object
-$date =  new DateTime(&apos;@1306123200&apos;, $timezone);    
+$date =  new DateTime('@1306123200', $timezone);    
 
 // You would expect the date to be 2011-05-23 00:00:00
 // But it actually outputs 2011-05-23 04:00:00
-echo $date-&gt;format(&apos;Y-m-d H:i:s&apos;);
+echo $date->format('Y-m-d H:i:s');
 
 // You can still set the timezone though like so...        
-$date-&gt;setTimezone($timezone);
+$date->setTimezone($timezone);
 
 // This will now output 2011-05-23 00:00:00
-echo $date-&gt;format(&apos;Y-m-d H:i:s&apos;);
+echo $date->format('Y-m-d H:i:s');
 ?>
 ```
   

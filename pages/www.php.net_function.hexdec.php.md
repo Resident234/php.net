@@ -14,18 +14,18 @@ Use this function to convert a hexa decimal color code to its RGB equivalent. Un
  * @param string $seperator (to separate RGB values. Applicable only if second parameter is true.)
  * @return array or string (depending on second parameter. Returns False if invalid hex color value)
  */                                                                                                 
-function hex2RGB($hexStr, $returnAsString = false, $seperator = &apos;,&apos;) {
-    $hexStr = preg_replace("/[^0-9A-Fa-f]/", &apos;&apos;, $hexStr); // Gets a proper hex string
+function hex2RGB($hexStr, $returnAsString = false, $seperator = ',') {
+    $hexStr = preg_replace("/[^0-9A-Fa-f]/", '', $hexStr); // Gets a proper hex string
     $rgbArray = array();
     if (strlen($hexStr) == 6) { //If a proper hex code, convert using bitwise operation. No overhead... faster
         $colorVal = hexdec($hexStr);
-        $rgbArray[&apos;red&apos;] = 0xFF &amp; ($colorVal &gt;&gt; 0x10);
-        $rgbArray[&apos;green&apos;] = 0xFF &amp; ($colorVal &gt;&gt; 0x8);
-        $rgbArray[&apos;blue&apos;] = 0xFF &amp; $colorVal;
+        $rgbArray['red'] = 0xFF &amp; ($colorVal &gt;&gt; 0x10);
+        $rgbArray['green'] = 0xFF &amp; ($colorVal &gt;&gt; 0x8);
+        $rgbArray['blue'] = 0xFF &amp; $colorVal;
     } elseif (strlen($hexStr) == 3) { //if shorthand notation, need some string manipulations
-        $rgbArray[&apos;red&apos;] = hexdec(str_repeat(substr($hexStr, 0, 1), 2));
-        $rgbArray[&apos;green&apos;] = hexdec(str_repeat(substr($hexStr, 1, 1), 2));
-        $rgbArray[&apos;blue&apos;] = hexdec(str_repeat(substr($hexStr, 2, 1), 2));
+        $rgbArray['red'] = hexdec(str_repeat(substr($hexStr, 0, 1), 2));
+        $rgbArray['green'] = hexdec(str_repeat(substr($hexStr, 1, 1), 2));
+        $rgbArray['blue'] = hexdec(str_repeat(substr($hexStr, 2, 1), 2));
     } else {
         return false; //Invalid hex color code
     }

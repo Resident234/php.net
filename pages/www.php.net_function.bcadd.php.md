@@ -8,16 +8,16 @@ I made this to add an unlimited size of numbers together..<br><br>This could be 
 <?php
 
 function Add($Num1,$Num2,$Scale=null) {
-  // check if they&apos;re valid positive numbers, extract the whole numbers and decimals
+  // check if they're valid positive numbers, extract the whole numbers and decimals
   if(!preg_match("/^\+?(\d+)(\.\d+)?$/",$Num1,$Tmp1)||
-     !preg_match("/^\+?(\d+)(\.\d+)?$/",$Num2,$Tmp2)) return(&apos;0&apos;);
+     !preg_match("/^\+?(\d+)(\.\d+)?$/",$Num2,$Tmp2)) return('0');
 
   // this is where the result is stored
   $Output=array();
 
   // remove ending zeroes from decimals and remove point
-  $Dec1=isset($Tmp1[2])?rtrim(substr($Tmp1[2],1),&apos;0&apos;):&apos;&apos;;
-  $Dec2=isset($Tmp2[2])?rtrim(substr($Tmp2[2],1),&apos;0&apos;):&apos;&apos;;
+  $Dec1=isset($Tmp1[2])?rtrim(substr($Tmp1[2],1),'0'):'';
+  $Dec2=isset($Tmp2[2])?rtrim(substr($Tmp2[2],1),'0'):'';
 
   // calculate the longest length of decimals
   $DLen=max(strlen($Dec1),strlen($Dec2));
@@ -26,15 +26,15 @@ function Add($Num1,$Num2,$Scale=null) {
   if($Scale==null) $Scale=$DLen;
 
   // remove leading zeroes and reverse the whole numbers, then append padded decimals on the end
-  $Num1=strrev(ltrim($Tmp1[1],&apos;0&apos;).str_pad($Dec1,$DLen,&apos;0&apos;));
-  $Num2=strrev(ltrim($Tmp2[1],&apos;0&apos;).str_pad($Dec2,$DLen,&apos;0&apos;));
+  $Num1=strrev(ltrim($Tmp1[1],'0').str_pad($Dec1,$DLen,'0'));
+  $Num2=strrev(ltrim($Tmp2[1],'0').str_pad($Dec2,$DLen,'0'));
 
   // calculate the longest length we need to process
   $MLen=max(strlen($Num1),strlen($Num2));
 
   // pad the two numbers so they are of equal length (both equal to $MLen)
-  $Num1=str_pad($Num1,$MLen,&apos;0&apos;);
-  $Num2=str_pad($Num2,$MLen,&apos;0&apos;);
+  $Num1=str_pad($Num1,$MLen,'0');
+  $Num2=str_pad($Num2,$MLen,'0');
 
   // process each digit, keep the ones, carry the tens (remainders)
   for($i=0;$i&lt;$MLen;$i++) {
@@ -48,11 +48,11 @@ function Add($Num1,$Num2,$Scale=null) {
   $Output=strrev(implode($Output));
 
   // substring the decimal digits from the result, pad if necessary (if $Scale &gt; amount of actual decimals)
-  // next, since actual zero values can cause a problem with the substring values, if so, just simply give &apos;0&apos;
+  // next, since actual zero values can cause a problem with the substring values, if so, just simply give '0'
   // next, append the decimal value, if $Scale is defined, and return result
-  $Decimal=str_pad(substr($Output,-$DLen,$Scale),$Scale,&apos;0&apos;);
-  $Output=(($MLen-$DLen&lt;1)?&apos;0&apos;:substr($Output,0,-$DLen));
-  $Output.=(($Scale&gt;0)?".{$Decimal}":&apos;&apos;);
+  $Decimal=str_pad(substr($Output,-$DLen,$Scale),$Scale,'0');
+  $Output=(($MLen-$DLen&lt;1)?'0':substr($Output,0,-$DLen));
+  $Output.=(($Scale&gt;0)?".{$Decimal}":'');
   return($Output);
 }
 

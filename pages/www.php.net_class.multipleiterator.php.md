@@ -12,10 +12,10 @@ $it2 = new ArrayIterator(array(4,5,6));
 
 $multipleIterator = new MultipleIterator(MultipleIterator::MIT_NEED_ALL|MultipleIterator::MIT_KEYS_ASSOC);
 
-$multipleIterator-&gt;attachIterator($it1, 1);
-$multipleIterator-&gt;attachIterator($it2, &apos;second&apos;);
+$multipleIterator->attachIterator($it1, 1);
+$multipleIterator->attachIterator($it2, 'second');
 
-foreach ($multipleIterator as $key =&gt; $value) {
+foreach ($multipleIterator as $key => $value) {
     echo "Key\n"; var_dump($key);
     echo "Value\n"; var_dump($value);
     echo "---next---\n";

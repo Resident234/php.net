@@ -8,13 +8,13 @@ Note, that the default autoload implementation is written in C land and is alway
 <?php
 
     // Your custom class dir
-    define(&apos;CLASS_DIR&apos;, &apos;class/&apos;)
+    define('CLASS_DIR', 'class/')
 
     // Add your class dir to include path
     set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
 
     // You can use this trick to make autoloader look for commonly used "My.class.php" type filenames
-    spl_autoload_extensions(&apos;.class.php&apos;);
+    spl_autoload_extensions('.class.php');
 
     // Use default autoload implementation
     spl_autoload_register();
@@ -67,16 +67,16 @@ One small example that shows how you can use spl_autoload function in your MVC, 
      
     public function __construct()
     {
-        $this-&gt;modelDirectoryPath      = MPATH;
-        $this-&gt;viewDirectoryPath        = VPATH;
-        $this-&gt;controllerDirectoryPath = CPATH;
-        $this-&gt;libraryDirectoryPath     = LPATH;
+        $this->modelDirectoryPath      = MPATH;
+        $this->viewDirectoryPath        = VPATH;
+        $this->controllerDirectoryPath = CPATH;
+        $this->libraryDirectoryPath     = LPATH;
         
-        spl_autoload_register(array($this,&apos;load_controller&apos;));
-        spl_autoload_register(array($this,&apos;load_model&apos;));
-        spl_autoload_register(array($this,&apos;load_library&apos;));
+        spl_autoload_register(array($this,'load_controller'));
+        spl_autoload_register(array($this,'load_model'));
+        spl_autoload_register(array($this,'load_library'));
    
-        log_message(&apos;debug&apos;,"Loader Class Initialized");
+        log_message('debug',"Loader Class Initialized");
     }
 
     /** 
@@ -93,11 +93,11 @@ One small example that shows how you can use spl_autoload function in your MVC, 
     public function load_library($library, $param = null)
     {
         if (is_string($library)) {
-            return $this-&gt;initialize_class($library);
+            return $this->initialize_class($library);
         }
         if (is_array($library)) {
             foreach ($library as $key) {
-                return $this-&gt;initialize_class($library);
+                return $this->initialize_class($library);
             }
         }                
     }
@@ -126,10 +126,10 @@ One small example that shows how you can use spl_autoload function in your MVC, 
             if (is_string($library)) {
                 $stringObject = new $library;
             }else {
-                throw new ISException(&apos;Class name must be string.&apos;);
+                throw new ISException('Class name must be string.');
             }
             if (null == $library) {
-                throw new ISException(&apos;You must enter the name of the class.&apos;);
+                throw new ISException('You must enter the name of the class.');
             }
         } catch(Exception $exception) {
             echo $exception;
@@ -146,8 +146,8 @@ One small example that shows how you can use spl_autoload function in your MVC, 
     public function load_controller($controller)
     {
         if ($controller) {
-            set_include_path($this-&gt;controllerDirectoryPath);
-            spl_autoload_extensions(&apos;.php&apos;);
+            set_include_path($this->controllerDirectoryPath);
+            spl_autoload_extensions('.php');
             spl_autoload($class);
         }
     }    
@@ -163,8 +163,8 @@ One small example that shows how you can use spl_autoload function in your MVC, 
     public function load_models($model)
     {
         if ($model) {
-            set_include_path($this-&gt;modelDirectoryPath);
-            spl_autoload_extensions(&apos;.php&apos;);
+            set_include_path($this->modelDirectoryPath);
+            spl_autoload_extensions('.php');
             spl_autoload($class);
         }
     }    
@@ -179,8 +179,8 @@ One small example that shows how you can use spl_autoload function in your MVC, 
     public function load_library($library)
     {
         if ($library) {
-            set_include_path($this-&gt;libraryDirectoryPath);
-            spl_autoload_extensions(&apos;.php&apos;);
+            set_include_path($this->libraryDirectoryPath);
+            spl_autoload_extensions('.php');
             spl_autoload($class);
         }
     }

@@ -18,10 +18,10 @@ I&apos;ve written a simple function to convert an UTF-8 string to URL encoded st
 ```
 <?php
 function mb_rawurlencode($url){
-$encoded=&apos;&apos;;
+$encoded='';
 $length=mb_strlen($url);
 for($i=0;$i&lt;$length;$i++){
-$encoded.=&apos;%&apos;.wordwrap(bin2hex(mb_substr($url,$i,1)),2,&apos;%&apos;,true);
+$encoded.='%'.wordwrap(bin2hex(mb_substr($url,$i,1)),2,'%',true);
 }
 return $encoded;
 }
@@ -34,8 +34,8 @@ Example:
 
 ```
 <?php
-echo &apos;http://example.com/&apos;,
-    mb_rawurlencode(&apos;&#x4F60;&#x597D;&apos;);
+echo 'http://example.com/',
+    mb_rawurlencode('&#x4F60;&#x597D;');
 ?>
 ```
 <br><br>The above example will output:<br>http://example.com/%e4%bd%a0%e5%a5%bd  

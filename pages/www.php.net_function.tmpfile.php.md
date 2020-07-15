@@ -5,7 +5,11 @@
 To get the underlying file path of a tmpfile file pointer:<br><br>
 
 ```
-<?php<br>$file = tmpfile();<br>$path = stream_get_meta_data($file)[&apos;uri&apos;]; // eg: /tmp/phpFx0513a  
+<?php
+$file = tmpfile();
+$path = stream_get_meta_data($file)['uri']; // eg: /tmp/phpFx0513a?>
+```
+  
 
 #
 

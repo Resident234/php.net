@@ -9,11 +9,11 @@ in (PHP 5 &gt;= 5.5.0) you don&apos;t have to write your own function to search 
 About searcing in multi-dimentional arrays; two notes on "xfoxawy at gmail dot com";<br><br>It perfectly searches through multi-dimentional arrays combined with array_column() (min php 5.5.0) but it may not return the values you&apos;d expect.<br><br>
 
 ```
-<?php array_search($needle, array_column($array, &apos;key&apos;)); ?>
+<?php array_search($needle, array_column($array, 'key')); ?>
 ```
 
 
-Since array_column() will produce a resulting array; it won&apos;t preserve your multi-dimentional array&apos;s keys. So if you check against your keys, it will fail.
+Since array_column() will produce a resulting array; it won't preserve your multi-dimentional array's keys. So if you check against your keys, it will fail.
 
 For example;
 
@@ -22,31 +22,31 @@ For example;
 ```
 <?php
 $people = array(
-  2 =&gt; array(
-    &apos;name&apos; =&gt; &apos;John&apos;,
-    &apos;fav_color&apos; =&gt; &apos;green&apos;
+  2 => array(
+    'name' => 'John',
+    'fav_color' => 'green'
   ),
-  5=&gt; array(
-    &apos;name&apos; =&gt; &apos;Samuel&apos;,
-    &apos;fav_color&apos; =&gt; &apos;blue&apos;
+  5=> array(
+    'name' => 'Samuel',
+    'fav_color' => 'blue'
   )
 );
 
-$found_key = array_search(&apos;blue&apos;, array_column($people, &apos;fav_color&apos;));
+$found_key = array_search('blue', array_column($people, 'fav_color'));
 ?>
 ```
 
 
-Here, you could expect that the $found_key would be "5" but it&apos;s NOT. It will be 1. Since it&apos;s the second element of the produced array by the array_column() function.
+Here, you could expect that the $found_key would be "5" but it's NOT. It will be 1. Since it's the second element of the produced array by the array_column() function.
 
-Secondly, if your array is big, I would recommend you to first assign a new variable so that it wouldn&apos;t call array_column() for each element it searches. For a better performance, you could do;
+Secondly, if your array is big, I would recommend you to first assign a new variable so that it wouldn't call array_column() for each element it searches. For a better performance, you could do;
 
 
 
 ```
 <?php
-$colors = array_column($people, &apos;fav_color&apos;);
-$found_key = array_search(&apos;blue&apos;, $colors);
+$colors = array_column($people, 'fav_color');
+$found_key = array_search('blue', $colors);
 ?>
 ```
   
@@ -62,7 +62,7 @@ the recursive function by tony have a small bug. it failes when a key is 0<br><b
 ```
 <?php
 function recursive_array_search($needle,$haystack) {
-    foreach($haystack as $key=&gt;$value) {
+    foreach($haystack as $key=>$value) {
         $current_key=$key;
         if($needle===$value OR (is_array($value) &amp;&amp; recursive_array_search($needle,$value) !== false)) {
             return $current_key;
@@ -105,7 +105,7 @@ for searching case insensitive better this:<br><br>
 
 ```
 <?php
-array_search(strtolower($element),array_map(&apos;strtolower&apos;,$array));
+array_search(strtolower($element),array_map('strtolower',$array));
 ?>
 ```
   
@@ -117,7 +117,7 @@ To expand on previous comments, here are some examples of<br>where using array_s
 ```
 <?php
 $fruit_array = array("apple", "pear", "orange");
-$fruit_array = array("a" =&gt; "apple", "b" =&gt; "pear", "c" =&gt; "orange");
+$fruit_array = array("a" => "apple", "b" => "pear", "c" => "orange");
 
 if ($i = array_search("apple", $fruit_array))
 //PROBLEM: the first array returns a key of 0 and IF treats it as FALSE
@@ -173,9 +173,9 @@ function multidimensional_search($parents, $searched) {
     return false;
   }
  
-  foreach ($parents as $key =&gt; $value) {
+  foreach ($parents as $key => $value) {
     $exists = true;
-    foreach ($searched as $skey =&gt; $svalue) {
+    foreach ($searched as $skey => $svalue) {
       $exists = ($exists &amp;&amp; IsSet($parents[$key][$skey]) &amp;&amp; $parents[$key][$skey] == $svalue);
     }
     if($exists){ return $key; }
@@ -185,11 +185,11 @@ function multidimensional_search($parents, $searched) {
 }
 
 $parents = array();
-$parents[] = array(&apos;date&apos;=&gt;1320883200, &apos;uid&apos;=&gt;3);
-$parents[] = array(&apos;date&apos;=&gt;1320883200, &apos;uid&apos;=&gt;5);
-$parents[] = array(&apos;date&apos;=&gt;1318204800, &apos;uid&apos;=&gt;5);
+$parents[] = array('date'=>1320883200, 'uid'=>3);
+$parents[] = array('date'=>1320883200, 'uid'=>5);
+$parents[] = array('date'=>1318204800, 'uid'=>5);
 
-echo multidimensional_search($parents, array(&apos;date&apos;=&gt;1320883200, &apos;uid&apos;=&gt;5)); // 1
+echo multidimensional_search($parents, array('date'=>1320883200, 'uid'=>5)); // 1
 ?>
 ```
   

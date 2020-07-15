@@ -6,22 +6,22 @@ Implementation for PHP &lt; 5.4:<br><br>
 
 ```
 <?php 
-if (!class_exists(&apos;CallbackFilterIterator&apos;)) {    
+if (!class_exists('CallbackFilterIterator')) {    
     class CallbackFilterIterator extends FilterIterator {
         protected $callback;
 
         // "Closure" type hint should be "callable" in PHP 5.4
         public function __construct(Iterator $iterator, Closure $callback = null) {
-            $this-&gt;callback = $callback;
+            $this->callback = $callback;
             parent::__construct($iterator);
         }
 
         public function accept() {
             return call_user_func(
-                $this-&gt;callback, 
-                $this-&gt;current(), 
-                $this-&gt;key(), 
-                $this-&gt;getInnerIterator()
+                $this->callback, 
+                $this->current(), 
+                $this->key(), 
+                $this->getInnerIterator()
             );
         }
     }

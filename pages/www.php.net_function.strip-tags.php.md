@@ -6,27 +6,27 @@ Hi. I made a function that removes the HTML tags along with their contents:<br><
 
 ```
 <?php
-function strip_tags_content($text, $tags = &apos;&apos;, $invert = FALSE) {
+function strip_tags_content($text, $tags = '', $invert = FALSE) {
 
-  preg_match_all(&apos;/&lt;(.+?)[\s]*\/?[\s]*&gt;/si&apos;, trim($tags), $tags);
+  preg_match_all('/&lt;(.+?)[\s]*\/?[\s]*&gt;/si', trim($tags), $tags);
   $tags = array_unique($tags[1]);
     
   if(is_array($tags) AND count($tags) &gt; 0) {
     if($invert == FALSE) {
-      return preg_replace(&apos;@&lt;(?!(?:&apos;. implode(&apos;|&apos;, $tags) .&apos;)\b)(\w+)\b.*?>
+      return preg_replace('@&lt;(?!(?:'. implode('|', $tags) .')\b)(\w+)\b.*?>
 ```
-.*?&lt;/\1&gt;@si&apos;, &apos;&apos;, $text);
+.*?&lt;/\1&gt;@si', '', $text);
     }
     else {
-      return preg_replace(&apos;@&lt;(&apos;. implode(&apos;|&apos;, $tags) .&apos;)\b.*?>
+      return preg_replace('@&lt;('. implode('|', $tags) .')\b.*?>
 ```
-.*?&lt;/\1&gt;@si&apos;, &apos;&apos;, $text);
+.*?&lt;/\1&gt;@si', '', $text);
     }
   }
   elseif($invert == FALSE) {
-    return preg_replace(&apos;@&lt;(\w+)\b.*?>
+    return preg_replace('@&lt;(\w+)\b.*?>
 ```
-.*?&lt;/\1&gt;@si&apos;, &apos;&apos;, $text);
+.*?&lt;/\1&gt;@si', '', $text);
   }
   return $text;
 }
@@ -49,20 +49,20 @@ function stripUnwantedTagsAndAttrs($html_str){
 //List the attributes you want to allow here
   $allowed_attrs = array ("class", "id", "style");
   if (!strlen($html_str)){return false;}
-  if ($xml-&gt;loadHTML($html_str, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD)){
-    foreach ($xml-&gt;getElementsByTagName("*") as $tag){
-      if (!in_array($tag-&gt;tagName, $allowed_tags)){
-        $tag-&gt;parentNode-&gt;removeChild($tag);
+  if ($xml->loadHTML($html_str, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD)){
+    foreach ($xml->getElementsByTagName("*") as $tag){
+      if (!in_array($tag->tagName, $allowed_tags)){
+        $tag->parentNode->removeChild($tag);
       }else{
-        foreach ($tag-&gt;attributes as $attr){
-          if (!in_array($attr-&gt;nodeName, $allowed_attrs)){
-            $tag-&gt;removeAttribute($attr-&gt;nodeName);
+        foreach ($tag->attributes as $attr){
+          if (!in_array($attr->nodeName, $allowed_attrs)){
+            $tag->removeAttribute($attr->nodeName);
           }
         }
       }
     }
   }
-  return $xml-&gt;saveHTML();
+  return $xml->saveHTML();
 }
 ?>
 ```
@@ -78,12 +78,12 @@ a HTML code like this: <br><br>
 
 ```
 <?php
-$html = &apos;
+$html = '
 &lt;div&gt;
 &lt;p style="color:blue;"&gt;color is blue&lt;/p&gt;&lt;p&gt;size is &lt;span style="font-size:200%;"&gt;huge&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;material is wood&lt;/p&gt;
 &lt;/div&gt;
-&apos;; 
+'; 
 ?>
 ```
 
@@ -96,10 +96,10 @@ with
 
 ... the result is:
 
-$str = &apos;color is bluesize is huge
-material is wood&apos;; 
+$str = 'color is bluesize is huge
+material is wood'; 
 
-notice: the words &apos;blue&apos; and &apos;size&apos; grow together :( 
+notice: the words 'blue' and 'size' grow together :( 
 and line-breaks are still in new string $str
 
 if you need a space between the words (and without line-break) 
@@ -111,7 +111,7 @@ use my function:
 
 ... the result is:
 
-$str = &apos;color is blue size is huge material is wood&apos;; 
+$str = 'color is blue size is huge material is wood'; 
 
 the function: 
 
@@ -124,15 +124,15 @@ the function:
 function rip_tags($string) { 
     
     // ----- remove HTML TAGs ----- 
-    $string = preg_replace (&apos;/&lt;[^&gt;]*&gt;/&apos;, &apos; &apos;, $string); 
+    $string = preg_replace ('/&lt;[^&gt;]*&gt;/', ' ', $string); 
     
     // ----- remove control characters ----- 
-    $string = str_replace("\r", &apos;&apos;, $string);    // --- replace with empty space
-    $string = str_replace("\n", &apos; &apos;, $string);   // --- replace with space
-    $string = str_replace("\t", &apos; &apos;, $string);   // --- replace with space
+    $string = str_replace("\r", '', $string);    // --- replace with empty space
+    $string = str_replace("\n", ' ', $string);   // --- replace with space
+    $string = str_replace("\t", ' ', $string);   // --- replace with space
     
     // ----- remove multiple spaces ----- 
-    $string = trim(preg_replace(&apos;/ {2,}/&apos;, &apos; &apos;, $string));
+    $string = trim(preg_replace('/ {2,}/', ' ', $string));
     
     return $string; 
 
@@ -153,18 +153,18 @@ Note the different outputs from different versions of the same tag:<br><br>
 
 ```
 <?php // striptags.php
-$data = &apos;&lt;br&gt;Each&lt;br/&gt;New&lt;br /&gt;Line&apos;;
-$new  = strip_tags($data, &apos;&lt;br&gt;&apos;);
+$data = '&lt;br&gt;Each&lt;br/&gt;New&lt;br /&gt;Line';
+$new  = strip_tags($data, '&lt;br&gt;');
 var_dump($new);  // OUTPUTS string(21) "&lt;br&gt;EachNew&lt;br /&gt;Line"
 
 &lt;?php // striptags.php
-$data = &apos;&lt;br&gt;Each&lt;br/&gt;New&lt;br /&gt;Line&apos;;
-$new  = strip_tags($data, &apos;&lt;br/&gt;&apos;);
+$data = '&lt;br&gt;Each&lt;br/&gt;New&lt;br /&gt;Line';
+$new  = strip_tags($data, '&lt;br/&gt;');
 var_dump($new); // OUTPUTS string(16) "Each&lt;br/&gt;NewLine"
 
 &lt;?php // striptags.php
-$data = &apos;&lt;br&gt;Each&lt;br/&gt;New&lt;br /&gt;Line&apos;;
-$new  = strip_tags($data, &apos;&lt;br /&gt;&apos;);
+$data = '&lt;br&gt;Each&lt;br/&gt;New&lt;br /&gt;Line';
+$new  = strip_tags($data, '&lt;br /&gt;');
 var_dump($new); // OUTPUTS string(11) "EachNewLine"
 ?>
 ```
@@ -176,41 +176,41 @@ Features:<br>* allowable tags (as in strip_tags),<br>* optional stripping attrib
 
 ```
 <?php
-function better_strip_tags( $str, $allowable_tags = &apos;&apos;, $strip_attrs = false, $preserve_comments = false, callable $callback = null ) {
-  $allowable_tags = array_map( &apos;strtolower&apos;, array_filter( // lowercase
-      preg_split( &apos;/(?:&gt;|^)\\s*(?:&lt;|$)/&apos;, $allowable_tags, -1, PREG_SPLIT_NO_EMPTY ), // get tag names
-      function( $tag ) { return preg_match( &apos;/^[a-z][a-z0-9_]*$/i&apos;, $tag ); } // filter broken
+function better_strip_tags( $str, $allowable_tags = '', $strip_attrs = false, $preserve_comments = false, callable $callback = null ) {
+  $allowable_tags = array_map( 'strtolower', array_filter( // lowercase
+      preg_split( '/(?:&gt;|^)\\s*(?:&lt;|$)/', $allowable_tags, -1, PREG_SPLIT_NO_EMPTY ), // get tag names
+      function( $tag ) { return preg_match( '/^[a-z][a-z0-9_]*$/i', $tag ); } // filter broken
   ) );
-  $comments_and_stuff = preg_split( &apos;/(&lt;!--.*?(?:--&gt;|$))/&apos;, $str, -1, PREG_SPLIT_DELIM_CAPTURE );
-  foreach ( $comments_and_stuff as $i =&gt; $comment_or_stuff ) {
+  $comments_and_stuff = preg_split( '/(&lt;!--.*?(?:-->|$))/', $str, -1, PREG_SPLIT_DELIM_CAPTURE );
+  foreach ( $comments_and_stuff as $i => $comment_or_stuff ) {
     if ( $i % 2 ) { // html comment
-      if ( !( $preserve_comments &amp;&amp; preg_match( &apos;/&lt;!--.*?--&gt;/&apos;, $comment_or_stuff ) ) ) {
-        $comments_and_stuff[$i] = &apos;&apos;;
+      if ( !( $preserve_comments &amp;&amp; preg_match( '/&lt;!--.*?-->/', $comment_or_stuff ) ) ) {
+        $comments_and_stuff[$i] = '';
       }
     } else { // stuff between comments
-      $tags_and_text = preg_split( "/(&lt;(?:[^&gt;\"&apos;]++|\"[^\"]*+(?:\"|$)|&apos;[^&apos;]*+(?:&apos;|$))*(?:&gt;|$))/", $comment_or_stuff, -1, PREG_SPLIT_DELIM_CAPTURE );
-      foreach ( $tags_and_text as $j =&gt; $tag_or_text ) {
+      $tags_and_text = preg_split( "/(&lt;(?:[^&gt;\"']++|\"[^\"]*+(?:\"|$)|'[^']*+(?:'|$))*(?:&gt;|$))/", $comment_or_stuff, -1, PREG_SPLIT_DELIM_CAPTURE );
+      foreach ( $tags_and_text as $j => $tag_or_text ) {
         $is_broken = false;
         $is_allowable = true;
         $result = $tag_or_text;
         if ( $j % 2 ) { // tag
-          if ( preg_match( "%^(&lt;/?)([a-z][a-z0-9_]*)\\b(?:[^&gt;\"&apos;/]++|/+?|\"[^\"]*\"|&apos;[^&apos;]*&apos;)*?(/?>
+          if ( preg_match( "%^(&lt;/?)([a-z][a-z0-9_]*)\\b(?:[^&gt;\"'/]++|/+?|\"[^\"]*\"|'[^']*')*?(/?>
 ```
 )%i", $tag_or_text, $matches ) ) {
             $tag = strtolower( $matches[2] );
             if ( in_array( $tag, $allowable_tags ) ) {
               if ( $strip_attrs ) {
                 $opening = $matches[1];
-                $closing = ( $opening === &apos;&lt;/&apos; ) ? &apos;&gt;&apos; : $closing;
+                $closing = ( $opening === '&lt;/' ) ? '&gt;' : $closing;
                 $result = $opening . $tag . $closing;
               }
             } else {
               $is_allowable = false;
-              $result = &apos;&apos;;
+              $result = '';
             }
           } else {
             $is_broken = true;
-            $result = &apos;&apos;;
+            $result = '';
           }
         } else { // text
           $tag = false;
@@ -221,10 +221,10 @@ function better_strip_tags( $str, $allowable_tags = &apos;&apos;, $strip_attrs =
         }
         $tags_and_text[$j] = $result;
       }
-      $comments_and_stuff[$i] = implode( &apos;&apos;, $tags_and_text );
+      $comments_and_stuff[$i] = implode( '', $tags_and_text );
     }
   }
-  $str = implode( &apos;&apos;, $comments_and_stuff );
+  $str = implode( '', $comments_and_stuff );
   return $str;
 }
 ?>

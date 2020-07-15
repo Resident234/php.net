@@ -45,8 +45,8 @@ There is a mistake in the note by egingell at sisna dot com 12 years ago. The to
 
 ```
 <?php
-$stack = array(&apos;a&apos;, &apos;b&apos;, &apos;c&apos;);
-array_push($stack, array(&apos;d&apos;, &apos;e&apos;, &apos;f&apos;));
+$stack = array('a', 'b', 'c');
+array_push($stack, array('d', 'e', 'f'));
 print_r($stack);
 ?>
 ```
@@ -65,38 +65,38 @@ class timer
 
         public function timer()
         {
-                $this-&gt;start = microtime(true);
+                $this->start = microtime(true);
         }
 
         public function Finish()
         {
-                $this-&gt;end = microtime(true);
+                $this->end = microtime(true);
         }
 
         private function GetStart()
         {
-                if (isset($this-&gt;start))
-                        return $this-&gt;start;
+                if (isset($this->start))
+                        return $this->start;
                 else
                         return false;
         }
 
         private function GetEnd()
         {
-                if (isset($this-&gt;end))
-                        return $this-&gt;end;
+                if (isset($this->end))
+                        return $this->end;
                 else
                         return false;
         }
 
         public function GetDiff()
         {
-                return $this-&gt;GetEnd() - $this-&gt;GetStart();
+                return $this->GetEnd() - $this->GetStart();
         }
 
         public function Reset()
         {
-                $this-&gt;start = microtime(true);
+                $this->start = microtime(true);
         }
 
 }
@@ -108,20 +108,20 @@ for ($i = 0; $i &lt; 100000; $i++)
 {
         $ta[] = $i;
 }
-$test-&gt;Finish();
-echo $test-&gt;GetDiff();
+$test->Finish();
+echo $test->GetDiff();
 
 echo "\n\nAdding 100k elements to array with array_push\n\n";
-$test-&gt;Reset();
+$test->Reset();
 for ($i = 0; $i &lt; 100000; $i++)
 {
         array_push($ta,$i);
 }
-$test-&gt;Finish();
-echo $test-&gt;GetDiff();
+$test->Finish();
+echo $test->GetDiff();
 
 echo "\n\nAdding 100k elements to array with [] 10 per iteration\n\n";
-$test-&gt;Reset();
+$test->Reset();
 for ($i = 0; $i &lt; 10000; $i++)
 {
         $ta[] = $i;
@@ -135,24 +135,20 @@ for ($i = 0; $i &lt; 10000; $i++)
         $ta[] = $i;
         $ta[] = $i;
 }
-$test-&gt;Finish();
-echo $test-&gt;GetDiff();
+$test->Finish();
+echo $test->GetDiff();
 
 echo "\n\nAdding 100k elements to array with array_push 10 per iteration\n\n";
-$test-&gt;Reset();
+$test->Reset();
 for ($i = 0; $i &lt; 10000; $i++)
 {
         array_push($ta,$i,$i,$i,$i,$i,$i,$i,$i,$i,$i);
 }
-$test-&gt;Finish();
-echo $test-&gt;GetDiff();
+$test->Finish();
+echo $test->GetDiff();
 ?>
 ```
-
-
-Output
-
-$ php5 arraypush.php<br>X-Powered-By: PHP/5.2.5<br>Content-type: text/html<br><br>Adding 100k elements to array with []<br><br>0.044686794281006<br><br>Adding 100k elements to array with array_push<br><br>0.072616100311279<br><br>Adding 100k elements to array with [] 10 per iteration<br><br>0.034690141677856<br><br>Adding 100k elements to array with array_push 10 per iteration<br><br>0.023932933807373  
+<br><br>Output<br><br>$ php5 arraypush.php<br>X-Powered-By: PHP/5.2.5<br>Content-type: text/html<br><br>Adding 100k elements to array with []<br><br>0.044686794281006<br><br>Adding 100k elements to array with array_push<br><br>0.072616100311279<br><br>Adding 100k elements to array with [] 10 per iteration<br><br>0.034690141677856<br><br>Adding 100k elements to array with array_push 10 per iteration<br><br>0.023932933807373  
 
 #
 
@@ -161,8 +157,8 @@ If you push an array onto the stack, PHP will add the whole array to the next el
 ```
 <?php
 
-$stack = array(&apos;a&apos;, &apos;b&apos;, &apos;c&apos;);
-array_push($stack, array(&apos;d&apos;, &apos;e&apos;, &apos;f&apos;));
+$stack = array('a', 'b', 'c');
+array_push($stack, array('d', 'e', 'f'));
 print_r($stack);
 
 ?>

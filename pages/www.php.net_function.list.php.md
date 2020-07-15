@@ -6,9 +6,9 @@ Since PHP 7.1, keys can be specified<br><br>exemple : <br>
 
 ```
 <?php 
-$array = [&apos;locality&apos; =&gt; &apos;Tunis&apos;, &apos;postal_code&apos; =&gt; &apos;1110&apos;];
+$array = ['locality' => 'Tunis', 'postal_code' => '1110'];
 
-list(&apos;postal_code&apos; =&gt; $zipCode, &apos;locality&apos; =&gt; $locality) = $array;
+list('postal_code' => $zipCode, 'locality' => $locality) = $array;
 
 print $zipCode; // will output 1110
 print $locality; // will output Tunis
@@ -22,7 +22,7 @@ In PHP 7.1 we can do the following:<br><br>
 
 ```
 <?php
-    [$a, $b, $c] = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;];
+    [$a, $b, $c] = ['a', 'b', 'c'];
 ?>
 ```
 
@@ -33,7 +33,7 @@ Before, we had to do:
 
 ```
 <?php
-    list($a, $b, $c) = [&apos;a&apos;, &apos;b&apos;,  &apos;c&apos;];
+    list($a, $b, $c) = ['a', 'b',  'c'];
 ?>
 ```
   
@@ -47,7 +47,44 @@ The example showing that:<br><br>$info = array(&apos;kawa&apos;, &apos;br&#x105;
 
 
 ```
-<?php<br>/**<br> * It seems you can skip listed values.<br> * Here&apos;s an example to show what I mean.<br> *<br> * FYI works just as well with PHP 7.1 shorthand list syntax.<br> * Tested against PHP 5.6.30, 7.1.5<br> */<br>$a = [ 1, 2, 3, 4 ];<br><br>// this is quite normal use case for list<br>echo "Unpack all values\n";<br>list($v1, $v2, $v3, $v4) = $a;<br>echo "$v1, $v2, $v3, $v4\n";<br>unset($v1, $v2, $v3, $v4);<br><br>// this is what I mean:<br>echo "Skip middle\n";<br>list($v1, , , $v4) = $a;<br>echo "$v1, $v2, $v3, $v4\n";<br>unset($v1, $v2, $v3, $v4);<br><br>echo "Skip beginning\n";<br>list( , , $v3, $v4) = $a;<br>echo "$v1, $v2, $v3, $v4\n";<br>unset($v1, $v2, $v3, $v4);<br><br>echo "Skip end\n";<br>list($v1, $v2, , ) = $a;<br>echo "$v1, $v2, $v3, $v4\n";<br>unset($v1, $v2, $v3, $v4);<br><br>echo "Leave middle\n";<br>list( , $v2, $v3, ) = $a;<br>echo "$v1, $v2, $v3, $v4\n";<br>unset($v1, $v2, $v3, $v4);  
+<?php
+/**
+ * It seems you can skip listed values.
+ * Here's an example to show what I mean.
+ *
+ * FYI works just as well with PHP 7.1 shorthand list syntax.
+ * Tested against PHP 5.6.30, 7.1.5
+ */
+$a = [ 1, 2, 3, 4 ];
+
+// this is quite normal use case for list
+echo "Unpack all values\n";
+list($v1, $v2, $v3, $v4) = $a;
+echo "$v1, $v2, $v3, $v4\n";
+unset($v1, $v2, $v3, $v4);
+
+// this is what I mean:
+echo "Skip middle\n";
+list($v1, , , $v4) = $a;
+echo "$v1, $v2, $v3, $v4\n";
+unset($v1, $v2, $v3, $v4);
+
+echo "Skip beginning\n";
+list( , , $v3, $v4) = $a;
+echo "$v1, $v2, $v3, $v4\n";
+unset($v1, $v2, $v3, $v4);
+
+echo "Skip end\n";
+list($v1, $v2, , ) = $a;
+echo "$v1, $v2, $v3, $v4\n";
+unset($v1, $v2, $v3, $v4);
+
+echo "Leave middle\n";
+list( , $v2, $v3, ) = $a;
+echo "$v1, $v2, $v3, $v4\n";
+unset($v1, $v2, $v3, $v4);?>
+```
+  
 
 #
 
@@ -55,8 +92,8 @@ As noted, list() will give an error if the input array is too short. This can be
 
 ```
 <?php
-$parameter = &apos;name&apos;;
-list( $a, $b ) = array_merge( explode( &apos;=&apos;, $parameter ), array( true ) );
+$parameter = 'name';
+list( $a, $b ) = array_merge( explode( '=', $parameter ), array( true ) );
 ?>
 ```
 
@@ -69,8 +106,8 @@ An alternate approach would be to use array_pad on the array to ensure its lengt
 
 ```
 <?php
-    $parameter = &apos;bob-12345&apos;;
-    list( $name, $id, $fav_color, $age ) = array_pad( explode( &apos;-&apos;, $parameter ), 4, &apos;&apos; );
+    $parameter = 'bob-12345';
+    list( $name, $id, $fav_color, $age ) = array_pad( explode( '-', $parameter ), 4, '' );
     var_dump($name, $id, $fav_color, $age);
 /* outputs
 string(3) "bob"
@@ -88,7 +125,7 @@ The example states the following:<br>
 
 ```
 <?php
-// list() doesn&apos;t work with strings
+// list() doesn't work with strings
 list($bar) = "abcde";
 var_dump($bar); 
 // output: NULL

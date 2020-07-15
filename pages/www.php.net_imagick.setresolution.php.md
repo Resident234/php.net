@@ -7,9 +7,9 @@ This method uses the "convert -density {$x_resolution}x{$y_resolution}" paramete
 ```
 <?php
 $im = new Imagick();
-$im-&gt;setResolution(144,144);
-$im-&gt;readImage("test.eps");
-$im-&gt;setImageFormat("png");
+$im->setResolution(144,144);
+$im->readImage("test.eps");
+$im->setImageFormat("png");
 header("Content-Type: image/png");
 echo $im;
 ?>
@@ -23,10 +23,10 @@ Use Imagick::setImageResolution() to alter the resolution of an already read ima
 ```
 <?php
 $im = new Imagick();
-$im-&gt;readImage("test.eps");
-$im-&gt;setImageResolution(144,144);
-$im-&gt;resampleImage  (288,288,imagick::FILTER_UNDEFINED,1);
-$im-&gt;setImageFormat("png");
+$im->readImage("test.eps");
+$im->setImageResolution(144,144);
+$im->resampleImage  (288,288,imagick::FILTER_UNDEFINED,1);
+$im->setImageFormat("png");
 header("Content-Type: image/png");
 echo $im;
 ?>
@@ -40,10 +40,10 @@ which actually does the same like
 ```
 <?php
 $im = new Imagick();
-$im-&gt;readImage("test.eps");
-$im-&gt;setImageResolution(72,72);
-$im-&gt;resampleImage  (144,144,imagick::FILTER_UNDEFINED,1);
-$im-&gt;setImageFormat("png");
+$im->readImage("test.eps");
+$im->setImageResolution(72,72);
+$im->resampleImage  (144,144,imagick::FILTER_UNDEFINED,1);
+$im->setImageFormat("png");
 header("Content-Type: image/png");
 echo $im;
 ?>

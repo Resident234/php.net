@@ -11,7 +11,7 @@ FYI - if you are trying to scan from a string which contains a filename with ext
 ```
 <?php
 
-$out = sscanf(&apos;file_name.gif&apos;, &apos;file_%s.%s&apos;, $fpart1, $fpart2);
+$out = sscanf('file_name.gif', 'file_%s.%s', $fpart1, $fpart2);
 
 ?>
 ```

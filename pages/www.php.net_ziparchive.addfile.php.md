@@ -7,7 +7,7 @@ It is not obvious, since there are no noticeable examples around, but you can us
 ```
 <?php
 
-$zip-&gt;addFile($abs_path, $relative_path);
+$zip->addFile($abs_path, $relative_path);
 
 ?>
 ```

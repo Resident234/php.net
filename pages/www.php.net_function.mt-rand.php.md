@@ -40,7 +40,7 @@ To quickly build a human-readable random string for a captcha per example :<br><
 
 function random($length = 8)
 {      
-    $chars = &apos;bcdfghjklmnprstvwxzaeiou&apos;;
+    $chars = 'bcdfghjklmnprstvwxzaeiou';
     
     for ($p = 0; $p &lt; $length; $p++)
     {

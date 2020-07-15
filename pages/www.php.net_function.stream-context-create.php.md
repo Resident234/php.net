@@ -7,7 +7,7 @@ Something to keep in mind when creating SSL streams (using https://):<br><br>
 ```
 <?php
 $context = context_create_stream($context_options)
-$fp = fopen(&apos;https://url&apos;, &apos;r&apos;, false, $context);
+$fp = fopen('https://url', 'r', false, $context);
 ?>
 ```
 
@@ -19,11 +19,11 @@ One would think - the proper way to create a stream options array, would be as f
 ```
 <?php
 $context_options = array (
-        &apos;https&apos; =&gt; array (
-            &apos;method&apos; =&gt; &apos;POST&apos;,
-            &apos;header&apos;=&gt; "Content-type: application/x-www-form-urlencoded\r\n"
+        'https' => array (
+            'method' => 'POST',
+            'header'=> "Content-type: application/x-www-form-urlencoded\r\n"
                 . "Content-Length: " . strlen($data) . "\r\n",
-            &apos;content&apos; =&gt; $data
+            'content' => $data
             )
         );
 ?>
@@ -31,7 +31,7 @@ $context_options = array (
 
 
 THAT IS THE WRONG WAY!!!
-Take notice to the 3rd line: &apos;https&apos; =&gt; array (
+Take notice to the 3rd line: 'https' => array (
 
 The CORRECT way, is as follows:
 
@@ -40,18 +40,18 @@ The CORRECT way, is as follows:
 ```
 <?php
 $context_options = array (
-        &apos;http&apos; =&gt; array (
-            &apos;method&apos; =&gt; &apos;POST&apos;,
-            &apos;header&apos;=&gt; "Content-type: application/x-www-form-urlencoded\r\n"
+        'http' => array (
+            'method' => 'POST',
+            'header'=> "Content-type: application/x-www-form-urlencoded\r\n"
                 . "Content-Length: " . strlen($data) . "\r\n",
-            &apos;content&apos; =&gt; $data
+            'content' => $data
             )
         );
 ?>
 ```
 
 
-Notice, the NEW 3rd line: &apos;http&apos; =&gt; array (
+Notice, the NEW 3rd line: 'http' => array (
 
 Now - keep this in mind - I spent several hours trying to trouble shoot my issue, when I finally stumbled upon this non-documented issue.
 
@@ -61,20 +61,20 @@ The complete code to post to a secure page is as follows:
 
 ```
 <?php
-$data = array (&apos;foo&apos; =&gt; &apos;bar&apos;, &apos;bar&apos; =&gt; &apos;baz&apos;);
+$data = array ('foo' => 'bar', 'bar' => 'baz');
 $data = http_build_query($data);
 
 $context_options = array (
-        &apos;http&apos; =&gt; array (
-            &apos;method&apos; =&gt; &apos;POST&apos;,
-            &apos;header&apos;=&gt; "Content-type: application/x-www-form-urlencoded\r\n"
+        'http' => array (
+            'method' => 'POST',
+            'header'=> "Content-type: application/x-www-form-urlencoded\r\n"
                 . "Content-Length: " . strlen($data) . "\r\n",
-            &apos;content&apos; =&gt; $data
+            'content' => $data
             )
         );
 
 $context = context_create_stream($context_options)
-$fp = fopen(&apos;https://url&apos;, &apos;r&apos;, false, $context);
+$fp = fopen('https://url', 'r', false, $context);
 ?>
 ```
   
@@ -86,9 +86,9 @@ I big NOTE that i hope will help some one. Something that is not mentioned in th
 ```
 <?php
 $opts = array(
-  &apos;http&apos;=&gt;array(
-    &apos;method&apos;=&gt;"GET",
-    &apos;header&apos;=&gt;"Accept-language: en\r\n" .
+  'http'=>array(
+    'method'=>"GET",
+    'header'=>"Accept-language: en\r\n" .
               "Cookie: foo=bar\r\n"
   )
 );
@@ -105,9 +105,9 @@ You would setup the header this way:
 ```
 <?php
 $opts = array(
-  &apos;http&apos;=&gt;array(
-    &apos;method&apos;=&gt;"GET",
-    &apos;header&apos;=&gt;array("Accept-language: en",
+  'http'=>array(
+    'method'=>"GET",
+    'header'=>array("Accept-language: en",
                            "Cookie: foo=bar",
                            "Custom-Header: value")
   )
@@ -124,10 +124,10 @@ I spent a good five hours trying to figure this out, so hopefully it will save s
 
 ```
 <?php
-$opts = array(&apos;ftp&apos; =&gt; array(
-    &apos;proxy&apos; =&gt; &apos;tcp://vbinprst10:8080&apos;,
-    &apos;request_fulluri&apos;=&gt;true,
-    &apos;header&apos; =&gt; array(
+$opts = array('ftp' => array(
+    'proxy' => 'tcp://vbinprst10:8080',
+    'request_fulluri'=>true,
+    'header' => array(
         "Proxy-Authorization: Basic $auth"
         )
     )
@@ -138,24 +138,24 @@ $s = file_get_contents("ftp://anonymous:anonymous@ftp.example.org",false,$contex
 ```
 
 
-Your proxy will respond that authentication is required. You may scratch your head and think "but I&apos;m providing authentication!"
+Your proxy will respond that authentication is required. You may scratch your head and think "but I'm providing authentication!"
 
-The issue is that the &apos;header&apos; value is only applicable to http connections. So to authenticate on a proxy, you first have to pull a file from HTTP, before the context is valid for using on FTP.
+The issue is that the 'header' value is only applicable to http connections. So to authenticate on a proxy, you first have to pull a file from HTTP, before the context is valid for using on FTP.
 
 
 ```
 <?php
-$opts = array(&apos;ftp&apos; =&gt; array(
-    &apos;proxy&apos; =&gt; &apos;tcp://vbinprst10:8080&apos;,
-    &apos;request_fulluri&apos;=&gt;true,
-    &apos;header&apos; =&gt; array(
+$opts = array('ftp' => array(
+    'proxy' => 'tcp://vbinprst10:8080',
+    'request_fulluri'=>true,
+    'header' => array(
         "Proxy-Authorization: Basic $auth"
         )
     ),
-    &apos;http&apos; =&gt; array(
-    &apos;proxy&apos; =&gt; &apos;tcp://vbinprst10:8080&apos;,
-    &apos;request_fulluri&apos;=&gt;true,
-    &apos;header&apos; =&gt; array(
+    'http' => array(
+    'proxy' => 'tcp://vbinprst10:8080',
+    'request_fulluri'=>true,
+    'header' => array(
         "Proxy-Authorization: Basic $auth"
         )
     )

@@ -7,23 +7,23 @@ I was trying to use a generic select * from table statment and have the results 
 ```
 <?php
     //Snip use normal methods to get to this point
-    $stmt-&gt;execute();
-    $metaResults = $stmt-&gt;result_metadata();
-    $fields = $metaResults-&gt;fetch_fields();
-    $statementParams=&apos;&apos;;
+    $stmt->execute();
+    $metaResults = $stmt->result_metadata();
+    $fields = $metaResults->fetch_fields();
+    $statementParams='';
      //build the bind_results statement dynamically so I can get the results in an array
      foreach($fields as $field){
          if(empty($statementParams)){
-             $statementParams.="\$column[&apos;".$field-&gt;name."&apos;]";
+             $statementParams.="\$column['".$field->name."']";
          }else{
-             $statementParams.=", \$column[&apos;".$field-&gt;name."&apos;]";
+             $statementParams.=", \$column['".$field->name."']";
          }
     }
-    $statment="\$stmt-&gt;bind_result($statementParams);";
+    $statment="\$stmt->bind_result($statementParams);";
     eval($statment);
-    while($stmt-&gt;fetch()){
+    while($stmt->fetch()){
         //Now the data is contained in the assoc array $column. Useful if you need to do a foreach, or 
-        //if your lazy and didn&apos;t want to write out each param to bind.
+        //if your lazy and didn't want to write out each param to bind.
     }
     // Continue on as usual.
 ?>

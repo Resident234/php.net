@@ -7,10 +7,10 @@ In memory sqlite has some limitations. The memory space could be the request, th
 ```
 <?php
 $pdo = new PDO(
-    &apos;sqlite::memory:&apos;,
+    'sqlite::memory:',
     null,
     null,
-    array(PDO::ATTR_PERSISTENT =&gt; true)
+    array(PDO::ATTR_PERSISTENT => true)
 );
 ?>
 ```

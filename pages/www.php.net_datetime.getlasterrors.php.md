@@ -6,8 +6,8 @@ DateTime::createFromFormat is smart to handle the cases where you input an inval
 
 ```
 <?php
-$date = DateTime::createFromFormat(&apos;Y-m-d&apos;, &apos;1999-04-31&apos;);
-print $date-&gt;format(&apos;Y-m-d&apos;) . PHP_EOL;
+$date = DateTime::createFromFormat('Y-m-d', '1999-04-31');
+print $date->format('Y-m-d') . PHP_EOL;
 print_r(DateTime::getLastErrors());
 ?>
 ```

@@ -13,7 +13,7 @@ Aoccdrnig to rseearch at an Elingsh uinervtisy, it deosn&apos;t mttaer in waht o
             return $word{0} . str_shuffle(substr($word, 1, -1)) . $word{strlen($word) - 1};
     }
 
-    echo preg_replace(&apos;/(\w+)/e&apos;, &apos;scramble_word("\1")&apos;, &apos;A quick brown fox jumped over the lazy dog.&apos;);
+    echo preg_replace('/(\w+)/e', 'scramble_word("\1")', 'A quick brown fox jumped over the lazy dog.');
 ?>
 ```
 <br><br>It may be ufseul if you wnat to cetare an aessblicce CTCPAHA.  
@@ -25,11 +25,11 @@ This function is affected by srand():<br><br>
 ```
 <?php
 srand(12345);
-echo str_shuffle(&apos;Randomize me&apos;) . &apos;&lt;br/&gt;&apos;; // "demmiezr aon"
-echo str_shuffle(&apos;Randomize me&apos;) . &apos;&lt;br/&gt;&apos;; // "izadmeo rmen"
+echo str_shuffle('Randomize me') . '&lt;br/&gt;'; // "demmiezr aon"
+echo str_shuffle('Randomize me') . '&lt;br/&gt;'; // "izadmeo rmen"
 
 srand(12345);
-echo str_shuffle(&apos;Randomize me&apos;) . &apos;&lt;br/&gt;&apos;; // "demmiezr aon" again
+echo str_shuffle('Randomize me') . '&lt;br/&gt;'; // "demmiezr aon" again
 ?>
 ```
   

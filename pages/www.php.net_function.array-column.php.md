@@ -15,10 +15,10 @@ This function does not preserve the original keys of the array (when not providi
 ```
 <?php
 // instead of
-array_column($array, &apos;column&apos;);
+array_column($array, 'column');
 
 // to preserve keys
-array_combine(array_keys($array), array_column($array, &apos;column&apos;));
+array_combine(array_keys($array), array_column($array, 'column'));
 ?>
 ```
   

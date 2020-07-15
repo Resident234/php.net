@@ -11,11 +11,11 @@ Here my solution how to do effective recursiv directory listing.<br><br>Have fun
  * example of use: 
  */
 $d = new RecDir("/etc/",false);
-echo "Path: " . $d-&gt;getRootPath() . "\n";
-while (false !== ($entry = $d-&gt;read())) {
+echo "Path: " . $d->getRootPath() . "\n";
+while (false !== ($entry = $d->read())) {
    echo $entry."\n";
 }
-$d-&gt;close();
+$d->close();
 
 class RecDir
 {
@@ -29,35 +29,35 @@ class RecDir
       switch($win)
       {
          case true:
-            $this-&gt;slash = &apos;\\&apos;;
+            $this->slash = '\\';
             break;
          default:
-            $this-&gt;slash = &apos;/&apos;;
+            $this->slash = '/';
       }
-      $this-&gt;rootPath = $rootPath;
-      $this-&gt;currentPath = $rootPath;
-      $this-&gt;recursiveTree = array(dir($this-&gt;rootPath));
-      $this-&gt;rewind();
+      $this->rootPath = $rootPath;
+      $this->currentPath = $rootPath;
+      $this->recursiveTree = array(dir($this->rootPath));
+      $this->rewind();
    }
 
    function __destruct()
    {
-      $this-&gt;close();
+      $this->close();
    }
 
    public function close()
    {
-      while(true === ($d = array_pop($this-&gt;recursiveTree)))
+      while(true === ($d = array_pop($this->recursiveTree)))
       {
-         $d-&gt;close();
+         $d->close();
       }
    }
 
    public function closeChildren()
    {
-      while(count($this-&gt;recursiveTree)&gt;1 &amp;&amp; false !== ($d = array_pop($this-&gt;recursiveTree)))
+      while(count($this->recursiveTree)&gt;1 &amp;&amp; false !== ($d = array_pop($this->recursiveTree)))
       {
-         $d-&gt;close();
+         $d->close();
          return true;
       }
       return false;
@@ -65,50 +65,50 @@ class RecDir
 
    public function getRootPath()
    {
-      if(isset($this-&gt;rootPath))
+      if(isset($this->rootPath))
       {
-         return $this-&gt;rootPath;
+         return $this->rootPath;
       }
       return false;
    }
 
    public function getCurrentPath()
    {
-      if(isset($this-&gt;currentPath))
+      if(isset($this->currentPath))
       {
-         return $this-&gt;currentPath;
+         return $this->currentPath;
       }
       return false;
    }
    
    public function read()
    {
-      while(count($this-&gt;recursiveTree)&gt;0)
+      while(count($this->recursiveTree)&gt;0)
       {
-         $d = end($this-&gt;recursiveTree);
-         if((false !== ($entry = $d-&gt;read())))
+         $d = end($this->recursiveTree);
+         if((false !== ($entry = $d->read())))
          {
-            if($entry!=&apos;.&apos; &amp;&amp; $entry!=&apos;..&apos;)
+            if($entry!='.' &amp;&amp; $entry!='..')
             {
-               $path = $d-&gt;path.$entry;
+               $path = $d->path.$entry;
                
                if(is_file($path))
                {
                   return $path;
                }
-               elseif(is_dir($path.$this-&gt;slash))
+               elseif(is_dir($path.$this->slash))
                {
-                  $this-&gt;currentPath = $path.$this-&gt;slash;
-                  if($child = @dir($path.$this-&gt;slash))
+                  $this->currentPath = $path.$this->slash;
+                  if($child = @dir($path.$this->slash))
                   {
-                     $this-&gt;recursiveTree[] = $child;
+                     $this->recursiveTree[] = $child;
                   }
                }
             }
          }
          else
          {
-            array_pop($this-&gt;recursiveTree)-&gt;close();
+            array_pop($this->recursiveTree)->close();
          }
       }
       return false;
@@ -116,13 +116,13 @@ class RecDir
 
    public function rewind()
    {
-      $this-&gt;closeChildren();
-      $this-&gt;rewindCurrent();
+      $this->closeChildren();
+      $this->rewindCurrent();
    }
 
    public function rewindCurrent()
    {
-      return end($this-&gt;recursiveTree)-&gt;rewind();
+      return end($this->recursiveTree)->rewind();
    }
 }
 ?>

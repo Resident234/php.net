@@ -49,7 +49,7 @@ How to use gettext on Windows.<br><br>If you use Linux start from the step 2 and
 
  $locale = "fr_FR";
 
-    if (defined(&apos;LC_MESSAGES&apos;)) {
+    if (defined('LC_MESSAGES')) {
         setlocale(LC_MESSAGES, $locale); // Linux
         bindtextdomain("messages", "./locale");
     } else {
@@ -75,12 +75,12 @@ And what about pgettext and npgettext? They are there in the gettext documentati
 
 ```
 <?php
-   if (!function_exists(&apos;pgettext&apos;)) {
+   if (!function_exists('pgettext')) {
       
       function pgettext($context, $msgid)
       {
          $contextString = "{$context}\004{$msgid}";
-         $translation = dcgettext(&apos;messages&apos;, contextString,LC_MESSAGES);
+         $translation = dcgettext('messages', contextString,LC_MESSAGES);
          if ($translation == $contextString)  return $msgid;
          else  return $translation;
       }
@@ -88,11 +88,7 @@ And what about pgettext and npgettext? They are there in the gettext documentati
    }
 ?>
 ```
-
-
-By default, xgettext doesn&apos;t support pgettext function for PHP source files. But there is a parameter which can work-around it. Here&apos;s how I call xgettext:
-
-   xgettext --force-po --keyword="pgettext:1c,2" -c -o messages.po sourceFile.php<br><br>In sourceFile.php I use the following test code:<br><br>   pgettext(&apos;menu&apos;, &apos;Open&apos;);  //Substitute "Otw&#xF3;rz"<br>   pgettext(&apos;forum&apos;, &apos;Open&apos;);  //Substitute "Otwarty", different context<br><br>Generated .po file fragment:<br><br>   msgctxt "menu"<br>   msgid "Open"<br>   msgstr "Otw&#xF3;rz"<br>   <br>   msgctxt "forum"<br>   msgctxt "Open"<br>   msgstr "Otwarty"<br><br>I&apos;ve tested it out and everything works fine :-) If anyone have some further suggestions or fixes, please write ;-)  
+<br><br>By default, xgettext doesn&apos;t support pgettext function for PHP source files. But there is a parameter which can work-around it. Here&apos;s how I call xgettext:<br><br>   xgettext --force-po --keyword="pgettext:1c,2" -c -o messages.po sourceFile.php<br><br>In sourceFile.php I use the following test code:<br><br>   pgettext(&apos;menu&apos;, &apos;Open&apos;);  //Substitute "Otw&#xF3;rz"<br>   pgettext(&apos;forum&apos;, &apos;Open&apos;);  //Substitute "Otwarty", different context<br><br>Generated .po file fragment:<br><br>   msgctxt "menu"<br>   msgid "Open"<br>   msgstr "Otw&#xF3;rz"<br>   <br>   msgctxt "forum"<br>   msgctxt "Open"<br>   msgstr "Otwarty"<br><br>I&apos;ve tested it out and everything works fine :-) If anyone have some further suggestions or fixes, please write ;-)  
 
 #
 
@@ -102,11 +98,11 @@ By default, xgettext doesn&apos;t support pgettext function for PHP source files
 <?php
 
 //this:
-setlocale( LC_MESSAGES, &apos;pt_BR&apos;)
+setlocale( LC_MESSAGES, 'pt_BR')
 //or this:
-setlocale( LC_MESSAGES, &apos;pt_BR.utf8&apos;)
+setlocale( LC_MESSAGES, 'pt_BR.utf8')
 //or this:
-setlocale( LC_MESSAGES, &apos;&apos;)
+setlocale( LC_MESSAGES, '')
 
 //this:
 putenv("LANG=pt_BR.utf8");
@@ -114,14 +110,14 @@ putenv("LANG=pt_BR.utf8");
 putenv("LANGUAGE=pt_BR.utf8");
 
 //this:
-bindtextdomain(&apos;mydomain&apos;, dirname(__FILE__).&apos;/locale&apos;);
+bindtextdomain('mydomain', dirname(__FILE__).'/locale');
 //or this:
-bindtextdomain("*", dirname(__FILE__).&apos;/locale&apos;);
+bindtextdomain("*", dirname(__FILE__).'/locale');
 //or this:
-bindtextdomain(&apos;*&apos;, dirname(__FILE__).&apos;/locale&apos;);
+bindtextdomain('*', dirname(__FILE__).'/locale');
 
 //setting or not "bind_textdomain_codeset()":
-bind_textdomain_codeset("mydomain", &apos;UTF-8&apos;);
+bind_textdomain_codeset("mydomain", 'UTF-8');
 ?>
 ```
 
@@ -140,16 +136,16 @@ Finally, the code which brought the right translated strings (also with the corr
 ```
 <?php
 
-$directory = dirname(__FILE__).&apos;/locale&apos;;
-$domain = &apos;mydomain&apos;;
+$directory = dirname(__FILE__).'/locale';
+$domain = 'mydomain';
 $locale ="pt_BR.utf8";
 
-//putenv("LANG=".$locale); //not needed for my tests, but people say it&apos;s useful for windows
+//putenv("LANG=".$locale); //not needed for my tests, but people say it's useful for windows
 
 setlocale( LC_MESSAGES, $locale);
 bindtextdomain($domain, $directory);
 textdomain($domain);
-bind_textdomain_codeset($domain, &apos;UTF-8&apos;);
+bind_textdomain_codeset($domain, 'UTF-8');
 ?>
 ```
 <br><br>And the three directory&apos;s names worked out, using the pt_BR.utf8 locale. (My tests were made restarting Apache then trying each directory).<br><br>I hope to help someone else not to waste as much time as I&apos;ve wasted... =P<br><br>Using:<br>Ubuntu 8.04 (hardy)<br>Apache 2.2.8<br>PHP 5.2.4-2ubuntu5.6  

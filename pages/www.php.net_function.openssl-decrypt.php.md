@@ -6,7 +6,7 @@ Parameters may seem obvius to some but not for everyone so:<br><br>- $data can b
 
 ```
 <?php
-    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length(&apos;your algorithm&apos;));// for example you algorithm = &apos;AES-256-CTR&apos;
+    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('your algorithm'));// for example you algorithm = 'AES-256-CTR'
 ?>
 ```
   

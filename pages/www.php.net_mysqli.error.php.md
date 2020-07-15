@@ -7,17 +7,17 @@ The mysqli_sql_exception class is not available to PHP 5.05<br><br>I used this c
 ```
 <?php
 $query = "SELECT XXname FROM customer_table ";
-$res = $mysqli-&gt;query($query);
+$res = $mysqli->query($query);
 
 if (!$res) {
-   printf("Errormessage: %s\n", $mysqli-&gt;error);
+   printf("Errormessage: %s\n", $mysqli->error);
 }
 
 ?>
 ```
 
 The problem with this is that valid values for $res are: a mysqli_result object , true or false
-This doesn&apos;t tell us that there has been an error with the sql used.
+This doesn't tell us that there has been an error with the sql used.
 If you pass an update statement, false is a valid result if the update fails.
 
 So, a better way is:
@@ -26,10 +26,10 @@ So, a better way is:
 ```
 <?php
 $query = "SELECT XXname FROM customer_table ";
-$res = $mysqli-&gt;query($query);
+$res = $mysqli->query($query);
 
-if (!$mysqli-&gt;error) {
-   printf("Errormessage: %s\n", $mysqli-&gt;error);
+if (!$mysqli->error) {
+   printf("Errormessage: %s\n", $mysqli->error);
 }
 
 ?>
@@ -37,7 +37,7 @@ if (!$mysqli-&gt;error) {
 
 
 This would output something like:
-Unexpected PHP error [mysqli::query() [&lt;a href=&apos;function.query&apos;&gt;function.query&lt;/a&gt;]: (42S22/1054): Unknown column &apos;XXname&apos; in &apos;field list&apos;] severity [E_WARNING] in [G:\database.php] line [249]
+Unexpected PHP error [mysqli::query() [&lt;a href='function.query'&gt;function.query&lt;/a&gt;]: (42S22/1054): Unknown column 'XXname' in 'field list'] severity [E_WARNING] in [G:\database.php] line [249]
 
 Very frustrating as I wanted to also catch the sql error and print out the stack trace. 
 
@@ -52,14 +52,14 @@ mysqli_report(MYSQLI_REPORT_OFF); //Turn off irritating default messages
 $mysqli = new mysqli("localhost", "my_user", "my_password", "world");
 
 $query = "SELECT XXname FROM customer_table ";
-$res = $mysqli-&gt;query($query);
+$res = $mysqli->query($query);
 
-if ($mysqli-&gt;error) {
+if ($mysqli->error) {
     try {    
-        throw new Exception("MySQL error $mysqli-&gt;error &lt;br&gt; Query:&lt;br&gt; $query", $msqli-&gt;errno);    
+        throw new Exception("MySQL error $mysqli->error &lt;br&gt; Query:&lt;br&gt; $query", $msqli->errno);    
     } catch(Exception $e ) {
-        echo "Error No: ".$e-&gt;getCode(). " - ". $e-&gt;getMessage() . "&lt;br &gt;";
-        echo nl2br($e-&gt;getTraceAsString());
+        echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "&lt;br &gt;";
+        echo nl2br($e->getTraceAsString());
     }
 }
 

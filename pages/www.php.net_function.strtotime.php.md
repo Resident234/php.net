@@ -34,7 +34,7 @@ echo date( "Y-m-d", strtotime( "2009-01-31 +2 month" ) ); // PHP:  2009-03-31
 
 ```
 <?php
-SELECT DATE_ADD( &apos;2009-01-31&apos;, INTERVAL 1 MONTH ); // MySQL:  2009-02-28
+SELECT DATE_ADD( '2009-01-31', INTERVAL 1 MONTH ); // MySQL:  2009-02-28
 ?>
 ```
   
@@ -45,7 +45,7 @@ UK dates (eg. 27/05/1990) won&apos;t work with strotime, even with timezone prop
 
 ```
 <?php
-$timestamp = strtotime(str_replace(&apos;/&apos;, &apos;-&apos;, &apos;27/05/1990&apos;));
+$timestamp = strtotime(str_replace('/', '-', '27/05/1990'));
 ?>
 ```
 
@@ -57,20 +57,25 @@ $timestamp = strtotime(str_replace(&apos;/&apos;, &apos;-&apos;, &apos;27/05/199
 
 ```
 <?php
-$date = date_create_from_format(&apos;d/m/y&apos;, &apos;27/05/1990&apos;);
+$date = date_create_from_format('d/m/y', '27/05/1990');
 ?>
 ```
 <br><br>That does not make it a timestamp, but a DateTime object, which is much more versatile instead.  
 
 #
 
-WARNING when using "next month", "last month", "+1 month",  "-1 month" or any combination of +/-X months. It will give non-intuitive results on Jan 30th and 31st. <br><br>As described at : http://derickrethans.nl/obtaining-the-next-month-in-php.html<br><br>
+WARNING when using "next month", "last month", "+1 month",  "-1 month" or any combination of +/-X months. It will give non-intuitive results on Jan 30th and 31st. <br><br>As described at : http://derickrethans.nl/obtaining-the-next-month-in
+
+```
+<?php.html
+
+
 
 ```
 <?php
-$d = new DateTime( &apos;2010-01-31&apos; );
-$d-&gt;modify( &apos;next month&apos; );
-echo $d-&gt;format( &apos;F&apos; ), "\n";
+$d = new DateTime( '2010-01-31' );
+$d->modify( 'next month' );
+echo $d->format( 'F' ), "\n";
 ?>
 ```
 
@@ -83,9 +88,9 @@ The way to get what people would generally be looking for when they say "next mo
 
 ```
 <?php
-$d = new DateTime( &apos;2010-01-08&apos; );
-$d-&gt;modify( &apos;first day of next month&apos; );
-echo $d-&gt;format( &apos;F&apos; ), "\n";
+$d = new DateTime( '2010-01-08' );
+$d->modify( 'first day of next month' );
+echo $d->format( 'F' ), "\n";
 ?>
 ```
 
@@ -94,9 +99,9 @@ echo $d-&gt;format( &apos;F&apos; ), "\n";
 
 ```
 <?php
-$d = new DateTime( &apos;2010-01-08&apos; );
-$d-&gt;modify( &apos;first day of +1 month&apos; );
-echo $d-&gt;format( &apos;F&apos; ), "\n";
+$d = new DateTime( '2010-01-08' );
+$d->modify( 'first day of +1 month' );
+echo $d->format( 'F' ), "\n";
 ?>
 ```
   
@@ -130,13 +135,13 @@ strtotime() also returns time by year and weeknumber. (I use PHP 5.2.8, PHP 4 do
 ```
 <?php
 // Get timestamp of 32nd week in 2009.
-strtotime(&apos;2009W32&apos;); // returns timestamp for Mon, 03 Aug 2009 00:00:00
+strtotime('2009W32'); // returns timestamp for Mon, 03 Aug 2009 00:00:00
 // Weeknumbers &lt; 10 must be padded with zero:
-strtotime(&apos;2009W01&apos;); // returns timestamp for Mon, 29 Dec 2008 00:00:00
-// strtotime(&apos;2009W1&apos;); // error! returns false
+strtotime('2009W01'); // returns timestamp for Mon, 29 Dec 2008 00:00:00
+// strtotime('2009W1'); // error! returns false
 
 // See timestamp for Tuesday in 5th week of 2008
-strtotime(&apos;2008-W05-2&apos;); // returns timestamp for Tue, 29 Jan 2008 00:00:00
+strtotime('2008-W05-2'); // returns timestamp for Tue, 29 Jan 2008 00:00:00
 ?>
 ```
 <br><br>Weeknumbers are (probably) computed according to ISO-8601 specification, so doing date(&apos;W&apos;) on given timestamps should return passed weeknumber.  

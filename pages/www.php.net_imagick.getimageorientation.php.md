@@ -8,24 +8,24 @@ Here&apos;s how you can use the getImageOrientation() information to auto-rotate
 <?php
 // Note: $image is an Imagick object, not a filename! See example use below.
 function autoRotateImage($image) {
-    $orientation = $image-&gt;getImageOrientation();
+    $orientation = $image->getImageOrientation();
 
     switch($orientation) {
         case imagick::ORIENTATION_BOTTOMRIGHT: 
-            $image-&gt;rotateimage("#000", 180); // rotate 180 degrees
+            $image->rotateimage("#000", 180); // rotate 180 degrees
         break;
 
         case imagick::ORIENTATION_RIGHTTOP:
-            $image-&gt;rotateimage("#000", 90); // rotate 90 degrees CW
+            $image->rotateimage("#000", 90); // rotate 90 degrees CW
         break;
 
         case imagick::ORIENTATION_LEFTBOTTOM: 
-            $image-&gt;rotateimage("#000", -90); // rotate 90 degrees CCW
+            $image->rotateimage("#000", -90); // rotate 90 degrees CCW
         break;
     }
 
-    // Now that it&apos;s auto-rotated, make sure the EXIF data is correct in case the EXIF gets saved with the image!
-    $image-&gt;setImageOrientation(imagick::ORIENTATION_TOPLEFT);
+    // Now that it's auto-rotated, make sure the EXIF data is correct in case the EXIF gets saved with the image!
+    $image->setImageOrientation(imagick::ORIENTATION_TOPLEFT);
 }
 ?>
 ```
@@ -37,10 +37,10 @@ Example use:
 
 ```
 <?php
-$image = new Imagick(&apos;my-image-file.jpg&apos;);
+$image = new Imagick('my-image-file.jpg');
 autoRotateImage($image);
 // - Do other stuff to the image here -
-$image-&gt;writeImage(&apos;result-image.jpg&apos;);
+$image->writeImage('result-image.jpg');
 ?>
 ```
   

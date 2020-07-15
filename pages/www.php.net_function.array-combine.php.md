@@ -6,15 +6,15 @@ If two keys are the same, the second one prevails. <br><br>Example:<br>
 
 ```
 <?php
-print_r(array_combine(Array(&apos;a&apos;,&apos;a&apos;,&apos;b&apos;), Array(1,2,3)));
+print_r(array_combine(Array('a','a','b'), Array(1,2,3)));
 ?>
 ```
 
 Returns:
 Array
 (
-    [a] =&gt; 2
-    [b] =&gt; 3
+    [a] => 2
+    [b] => 3
 )
 
 But if you need to keep all values, you can use the function below:
@@ -26,14 +26,14 @@ But if you need to keep all values, you can use the function below:
 function array_combine_($keys, $values)
 {
     $result = array();
-    foreach ($keys as $i =&gt; $k) {
+    foreach ($keys as $i => $k) {
         $result[$k][] = $values[$i];
     }
-    array_walk($result, create_function(&apos;&amp;$v&apos;, &apos;$v = (count($v) == 1)? array_pop($v): $v;&apos;));
+    array_walk($result, create_function('&amp;$v', '$v = (count($v) == 1)? array_pop($v): $v;'));
     return    $result;
 }
 
-print_r(array_combine_(Array(&apos;a&apos;,&apos;a&apos;,&apos;b&apos;), Array(1,2,3)));
+print_r(array_combine_(Array('a','a','b'), Array(1,2,3)));
 ?>
 ```
 <br>Returns:<br>Array<br>(<br>    [a] =&gt; Array<br>        (<br>            [0] =&gt; 1<br>            [1] =&gt; 2<br>        )<br><br>    [b] =&gt; 3<br>)  
@@ -48,7 +48,7 @@ Further to loreiorg&apos;s script <br>in order to preserve duplicate keys when c
 function array_combine_($keys, $values){
     $result = array();
 
-    foreach ($keys as $i =&gt; $k) {
+    foreach ($keys as $i => $k) {
      $result[$k][] = $values[$i];
      }
 

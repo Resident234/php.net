@@ -6,27 +6,27 @@ If you need to set auto_detect_line_endings to deal with Mac line endings, it ma
 
 ```
 <?php
-ini_set(&apos;auto_detect_line_endings&apos;,TRUE);
-$handle = fopen(&apos;/path/to/file&apos;,&apos;r&apos;);
+ini_set('auto_detect_line_endings',TRUE);
+$handle = fopen('/path/to/file','r');
 while ( ($data = fgetcsv($handle) ) !== FALSE ) {
 //process
 }
-ini_set(&apos;auto_detect_line_endings&apos;,FALSE);
+ini_set('auto_detect_line_endings',FALSE);
 ?>
 ```
 
 
-This won&apos;t, you will still get concatenated fields at the new line position:
+This won't, you will still get concatenated fields at the new line position:
 
 
 ```
 <?php
-$handle = fopen(&apos;/path/to/file&apos;,&apos;r&apos;);
-ini_set(&apos;auto_detect_line_endings&apos;,TRUE);
+$handle = fopen('/path/to/file','r');
+ini_set('auto_detect_line_endings',TRUE);
 while ( ($data = fgetcsv($handle) ) !== FALSE ) {
 //process
 }
-ini_set(&apos;auto_detect_line_endings&apos;,FALSE);
+ini_set('auto_detect_line_endings',FALSE);
 ?>
 ```
   
@@ -66,7 +66,7 @@ Here is a OOP based importer similar to the one posted earlier. However, this is
 ```
 <?php
 $importer = new CsvImporter("small.txt",true);
-$data = $importer-&gt;get();
+$data = $importer->get();
 print_r($data);
 ?>
 ```
@@ -80,7 +80,7 @@ Sample usage for large files:-
 ```
 <?php
 $importer = new CsvImporter("large.txt",true);
-while($data = $importer-&gt;get(2000))
+while($data = $importer->get(2000))
 {
 print_r($data);
 }
@@ -105,24 +105,24 @@ class CsvImporter
     //--------------------------------------------------------------------
     function __construct($file_name, $parse_header=false, $delimiter="\t", $length=8000)
     {
-        $this-&gt;fp = fopen($file_name, "r");
-        $this-&gt;parse_header = $parse_header;
-        $this-&gt;delimiter = $delimiter;
-        $this-&gt;length = $length;
-        $this-&gt;lines = $lines;
+        $this->fp = fopen($file_name, "r");
+        $this->parse_header = $parse_header;
+        $this->delimiter = $delimiter;
+        $this->length = $length;
+        $this->lines = $lines;
 
-        if ($this-&gt;parse_header)
+        if ($this->parse_header)
         {
-           $this-&gt;header = fgetcsv($this-&gt;fp, $this-&gt;length, $this-&gt;delimiter);
+           $this->header = fgetcsv($this->fp, $this->length, $this->delimiter);
         }
 
     }
     //--------------------------------------------------------------------
     function __destruct()
     {
-        if ($this-&gt;fp)
+        if ($this->fp)
         {
-            fclose($this-&gt;fp);
+            fclose($this->fp);
         }
     }
     //--------------------------------------------------------------------
@@ -137,11 +137,11 @@ class CsvImporter
         else
             $line_count = -1; // so loop limit is ignored
 
-        while ($line_count &lt; $max_lines &amp;&amp; ($row = fgetcsv($this-&gt;fp, $this-&gt;length, $this-&gt;delimiter)) !== FALSE)
+        while ($line_count &lt; $max_lines &amp;&amp; ($row = fgetcsv($this->fp, $this->length, $this->delimiter)) !== FALSE)
         {
-            if ($this-&gt;parse_header)
+            if ($this->parse_header)
             {
-                foreach ($this-&gt;header as $i =&gt; $heading_i)
+                foreach ($this->header as $i => $heading_i)
                 {
                     $row_new[$heading_i] = $row[$i];
                 }

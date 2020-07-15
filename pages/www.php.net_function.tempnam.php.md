@@ -6,7 +6,7 @@ Watch out using a blank $dir as a "trick" to create temporary files in the syste
 
 ```
 <?php
-$tmpfname = tempnam(&apos;&apos;, &apos;FOO&apos;); // not good
+$tmpfname = tempnam('', 'FOO'); // not good
 ?>
 ```
 
@@ -22,7 +22,7 @@ What works is this:
 
 ```
 <?php
-$tmpfname = tempnam(sys_get_temp_dir(), &apos;FOO&apos;); // good
+$tmpfname = tempnam(sys_get_temp_dir(), 'FOO'); // good
 ?>
 ```
   
@@ -55,20 +55,20 @@ tempnam() function does not support custom stream wrappers registered by stream_
 
 // &lt;&lt; ...custom stream wrapper goes somewhere here...&gt;&gt;
 
-echo &apos;&lt;pre&gt;&apos;;
+echo '&lt;pre&gt;';
 error_reporting(E_ALL);
-ini_set(&apos;display_errors&apos;, true);
+ini_set('display_errors', true);
 clearstatcache();
-stream_register_wrapper(&apos;test&apos;, &apos;MemoryStream&apos;);
+stream_register_wrapper('test', 'MemoryStream');
 
-mkdir(&apos;test://aaa&apos;);
-mkdir(&apos;test://aaa/cc&apos;);
-mkdir(&apos;test://aaa/dd&apos;); 
-echo &apos;PHP &apos;.PHP_VERSION;
-echo &apos;&lt;br /&gt;node exists: &apos;.file_exists(&apos;test://aaa/cc&apos;);
-echo &apos;&lt;br /&gt;node is writable: &apos;.is_writable(&apos;test://aaa/cc&apos;);
-echo &apos;&lt;br /&gt;node is dir: &apos;.is_dir(&apos;test://aaa/cc&apos;);
-echo &apos;&lt;br /&gt;tempnam in dir: &apos;.tempnam(&apos;test://aaa/cc&apos;, &apos;tmp&apos;);
+mkdir('test://aaa');
+mkdir('test://aaa/cc');
+mkdir('test://aaa/dd'); 
+echo 'PHP '.PHP_VERSION;
+echo '&lt;br /&gt;node exists: '.file_exists('test://aaa/cc');
+echo '&lt;br /&gt;node is writable: '.is_writable('test://aaa/cc');
+echo '&lt;br /&gt;node is dir: '.is_dir('test://aaa/cc');
+echo '&lt;br /&gt;tempnam in dir: '.tempnam('test://aaa/cc', 'tmp');
 echo "&lt;br /&gt;&lt;/pre&gt;";
 
 ?>

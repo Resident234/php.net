@@ -6,14 +6,14 @@ Here&apos;s a simple function that&apos;ll parse the data returned by ftp_rawlis
 
 ```
 <?php
-    function listDetailed($resource, $directory = &apos;.&apos;) {
+    function listDetailed($resource, $directory = '.') {
         if (is_array($children = @ftp_rawlist($resource, $directory))) {
             $items = array();
 
             foreach ($children as $child) {
                 $chunks = preg_split("/\s+/", $child);
-                list($item[&apos;rights&apos;], $item[&apos;number&apos;], $item[&apos;user&apos;], $item[&apos;group&apos;], $item[&apos;size&apos;], $item[&apos;month&apos;], $item[&apos;day&apos;], $item[&apos;time&apos;]) = $chunks;
-                $item[&apos;type&apos;] = $chunks[0]{0} === &apos;d&apos; ? &apos;directory&apos; : &apos;file&apos;;
+                list($item['rights'], $item['number'], $item['user'], $item['group'], $item['size'], $item['month'], $item['day'], $item['time']) = $chunks;
+                $item['type'] = $chunks[0]{0} === 'd' ? 'directory' : 'file';
                 array_splice($chunks, 0, 8);
                 $items[implode(" ", $chunks)] = $item;
             }

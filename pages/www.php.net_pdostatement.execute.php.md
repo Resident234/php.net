@@ -11,7 +11,7 @@ Note that you must<br>- EITHER pass all values to bind in an array to PDOStateme
 ```
 <?php
 function customExecute(PDOStatement &amp;$sth, $params = NULL) {
-    return $sth-&gt;execute($params);
+    return $sth->execute($params);
 }
 ?>
 ```
@@ -25,8 +25,8 @@ and should therefore be replaced by something like:
 <?php
 function customExecute(PDOStatement &amp;$sth, array $params = array()) {
     if (empty($params))
-        return $sth-&gt;execute();
-    return $sth-&gt;execute($params);
+        return $sth->execute();
+    return $sth->execute($params);
 }
 ?>
 ```
@@ -40,14 +40,14 @@ An array of insert values (named parameters) don&apos;t need the prefixed colon 
 <?php
 /* Execute a prepared statement by passing an array of insert values */
 $calories = 150;
-$colour = &apos;red&apos;;
-$sth = $dbh-&gt;prepare(&apos;SELECT name, colour, calories
+$colour = 'red';
+$sth = $dbh->prepare('SELECT name, colour, calories
    FROM fruit
-   WHERE calories &lt; :calories AND colour = :colour&apos;);
+   WHERE calories &lt; :calories AND colour = :colour');
 // instead of:
-//     $sth-&gt;execute(array(&apos;:calories&apos; =&gt; $calories, &apos;:colour&apos; =&gt; $colour));
+//     $sth->execute(array(':calories' => $calories, ':colour' => $colour));
 // this works fine, too:
-$sth-&gt;execute(array(&apos;calories&apos; =&gt; $calories, &apos;colour&apos; =&gt; $colour));
+$sth->execute(array('calories' => $calories, 'colour' => $colour));
 ?>
 ```
 <br><br>This allows to use "regular" assembled hash-tables (arrays).<br>That realy does make sense!  
@@ -57,7 +57,19 @@ $sth-&gt;execute(array(&apos;calories&apos; =&gt; $calories, &apos;colour&apos; 
 simplified $placeholder form <br><br>
 
 ```
-<?php<br><br>$data = [&apos;a&apos;=&gt;&apos;foo&apos;,&apos;b&apos;=&gt;&apos;bar&apos;];<br><br>$keys = array_keys($data);<br>$fields = &apos;`&apos;.implode(&apos;`, `&apos;,$keys).&apos;`&apos;;<br><br>#here is my way <br>$placeholder = substr(str_repeat(&apos;?,&apos;,count($keys)),0,-1);<br><br>$pdo-&gt;prepare("INSERT INTO `baz`($fields) VALUES($placeholder)")-&gt;execute(array_values($data));  
+<?php
+
+$data = ['a'=>'foo','b'=>'bar'];
+
+$keys = array_keys($data);
+$fields = '`'.implode('`, `',$keys).'`';
+
+#here is my way 
+$placeholder = substr(str_repeat('?,',count($keys)),0,-1);
+
+$pdo->prepare("INSERT INTO `baz`($fields) VALUES($placeholder)")->execute(array_values($data));?>
+```
+  
 
 #
 
@@ -66,29 +78,29 @@ When using a prepared statement to execute multiple inserts (such as in a loop e
 ```
 <?php
 $data = array(
-  array(&apos;name&apos; =&gt; &apos;John&apos;, &apos;age&apos; =&gt; &apos;25&apos;),
-  array(&apos;name&apos; =&gt; &apos;Wendy&apos;, &apos;age&apos; =&gt; &apos;32&apos;)
+  array('name' => 'John', 'age' => '25'),
+  array('name' => 'Wendy', 'age' => '32')
 );
 
 try {
-  $pdo = new PDO(&apos;sqlite:myfile.sqlite&apos;);
+  $pdo = new PDO('sqlite:myfile.sqlite');
 }
 
 catch(PDOException $e) {
-  die(&apos;Unable to open database connection&apos;);
+  die('Unable to open database connection');
 }
 
-$insertStatement = $pdo-&gt;prepare(&apos;insert into mytable (name, age) values (:name, :age)&apos;);
+$insertStatement = $pdo->prepare('insert into mytable (name, age) values (:name, :age)');
 
 // start transaction
-$pdo-&gt;beginTransaction();
+$pdo->beginTransaction();
 
 foreach($data as &amp;$row) {
-  $insertStatement-&gt;execute($row);
+  $insertStatement->execute($row);
 }
 
 // end transaction
-$pdo-&gt;commit();
+$pdo->commit();
 
 ?>
 ```
@@ -100,14 +112,14 @@ When passing an array of values to execute when your query contains question mar
 
 ```
 <?php
-$anarray = array(42 =&gt; "foo", 101 =&gt; "bar");
-$statement = $dbo-&gt;prepare("SELECT * FROM table WHERE col1 = ? AND col2 = ?");
+$anarray = array(42 => "foo", 101 => "bar");
+$statement = $dbo->prepare("SELECT * FROM table WHERE col1 = ? AND col2 = ?");
 
 //This will not work
-$statement-&gt;execute($anarray);
+$statement->execute($anarray);
 
 //Do this to make it work
-$statement-&gt;execute(array_values($anarray));
+$statement->execute(array_values($anarray));
 ?>
 ```
   

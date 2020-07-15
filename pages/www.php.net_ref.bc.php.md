@@ -18,7 +18,29 @@ echo bcadd("1", " 2"); // 1
 Here are some useful functions to convert large hex numbers from and to large decimal ones :<br><br>
 
 ```
-<?php<br>    public static function bchexdec($hex) {<br>        if(strlen($hex) == 1) {<br>            return hexdec($hex);<br>        } else {<br>            $remain = substr($hex, 0, -1);<br>            $last = substr($hex, -1);<br>            return bcadd(bcmul(16, bchexdec($remain)), hexdec($last));<br>        }<br>    }<br><br>    public static function bcdechex($dec) {<br>        $last = bcmod($dec, 16);<br>        $remain = bcdiv(bcsub($dec, $last), 16);<br><br>        if($remain == 0) {<br>            return dechex($last);<br>        } else {<br>            return bcdechex($remain).dechex($last);<br>        }<br>    }  
+<?php
+    public static function bchexdec($hex) {
+        if(strlen($hex) == 1) {
+            return hexdec($hex);
+        } else {
+            $remain = substr($hex, 0, -1);
+            $last = substr($hex, -1);
+            return bcadd(bcmul(16, bchexdec($remain)), hexdec($last));
+        }
+    }
+
+    public static function bcdechex($dec) {
+        $last = bcmod($dec, 16);
+        $remain = bcdiv(bcsub($dec, $last), 16);
+
+        if($remain == 0) {
+            return dechex($last);
+        } else {
+            return bcdechex($remain).dechex($last);
+        }
+    }?>
+```
+  
 
 #
 

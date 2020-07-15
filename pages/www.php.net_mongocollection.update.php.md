@@ -7,9 +7,9 @@ For anyone referencing records by the Mongo _id object, it&apos;s important to r
 ```
 <?php
 $m = new Mongo();
-$db = $m-&gt;selectDB(&apos;db&apos;);
-$collection = &apos;collection&apos;;
-$db-&gt;$collection-&gt;findOne(array(&apos;_id&apos;, &apos;4e519d5118617e88f27ea8cd&apos;));
+$db = $m->selectDB('db');
+$collection = 'collection';
+$db->$collection->findOne(array('_id', '4e519d5118617e88f27ea8cd'));
 ?>
 ```
 
@@ -22,10 +22,10 @@ Something like this will be far more reliable:
 ```
 <?php
 $m = new Mongo();
-$db = $m-&gt;selectDB(&apos;db&apos;);
-$collection = &apos;collection&apos;;
-$mongoID = new MongoID(&apos;4e519d5118617e88f27ea8cd&apos;);
-$db-&gt;$collection-&gt;findOne(array(&apos;_id&apos;, $mongoID));
+$db = $m->selectDB('db');
+$collection = 'collection';
+$mongoID = new MongoID('4e519d5118617e88f27ea8cd');
+$db->$collection->findOne(array('_id', $mongoID));
 ?>
 ```
 <br><br>This may prove useful for anyone using the ID object like an auto-increment database key would be used in MySQL or similar.  

@@ -19,7 +19,7 @@ Be careful when using a variable for the file name.<br>PHP behavior with $filena
 ```
 <?php
 $im = imagecreatetruecolor(10,10);
-imagepng($im,&apos;&apos;,9); # Warning: imagepng(): Filename cannot be empty
+imagepng($im,'',9); # Warning: imagepng(): Filename cannot be empty
 imagepng($im,NULL,9); # works as expected
 imagedestroy($im);
 ?>

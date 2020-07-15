@@ -17,8 +17,8 @@ function filter_input_array_with_default_flags($type, $filter, $flags, $add_empt
     }
    
     $args = array();
-    foreach ($loopThrough as $key=&gt;$value) {
-        $args[$key] = array(&apos;filter&apos;=&gt;$filter, &apos;flags&apos;=&gt;$flags);
+    foreach ($loopThrough as $key=>$value) {
+        $args[$key] = array('filter'=>$filter, 'flags'=>$flags);
     }
     
     return filter_input_array($type, $args, $add_empty);
@@ -43,9 +43,9 @@ function filter_input_array_with_default_flags($type, $filter, $flags, $add_empt
  *                                full-width and no-break space.
  * @return array            The value of the filtered super global var.
  */
-define(&apos;FILTER_STRUCT_FORCE_ARRAY&apos;, 1);
-define(&apos;FILTER_STRUCT_TRIM&apos;, 2);
-define(&apos;FILTER_STRUCT_FULL_TRIM&apos;, 4);
+define('FILTER_STRUCT_FORCE_ARRAY', 1);
+define('FILTER_STRUCT_TRIM', 2);
+define('FILTER_STRUCT_FULL_TRIM', 4);
 function filter_struct_utf8($type, array $default) {
     static $func = __FUNCTION__;
     static $trim = "[\\x0-\x20\x7f]";
@@ -53,13 +53,13 @@ function filter_struct_utf8($type, array $default) {
     static $recursive_static = false;
     if (!$recursive = $recursive_static) {
         $types = array(
-            INPUT_GET =&gt; $_GET,
-            INPUT_POST =&gt; $_POST,
-            INPUT_COOKIE =&gt; $_COOKIE,
-            INPUT_REQUEST =&gt; $_REQUEST,
+            INPUT_GET => $_GET,
+            INPUT_POST => $_POST,
+            INPUT_COOKIE => $_COOKIE,
+            INPUT_REQUEST => $_REQUEST,
         );
         if (!isset($types[(int)$type])) {
-            throw new LogicException(&apos;unknown super global var type&apos;);
+            throw new LogicException('unknown super global var type');
         }
         $var = $types[(int)$type];
         $recursive_static = true;
@@ -67,7 +67,7 @@ function filter_struct_utf8($type, array $default) {
         $var = $type;
     }
     $ret = array();
-    foreach ($default as $key =&gt; $value) {
+    foreach ($default as $key => $value) {
         if ($is_int = is_int($value)) {
             if (!($value | (
                 FILTER_STRUCT_FORCE_ARRAY |
@@ -75,17 +75,17 @@ function filter_struct_utf8($type, array $default) {
                 FILTER_STRUCT_TRIM
             ))) {
                 $recursive_static = false;
-                throw new LogicException(&apos;unknown bitmask&apos;);
+                throw new LogicException('unknown bitmask');
             }
             if ($value &amp; FILTER_STRUCT_FORCE_ARRAY) {
                 $tmp = array();
                 if (isset($var[$key])) {
-                    foreach ((array)$var[$key] as $k =&gt; $v) {
-                        if (!preg_match(&apos;//u&apos;, $k)){
+                    foreach ((array)$var[$key] as $k => $v) {
+                        if (!preg_match('//u', $k)){
                             continue;
                         }
                         $value &amp;= FILTER_STRUCT_FULL_TRIM | FILTER_STRUCT_TRIM;
-                        $tmp += array($k =&gt; $value ? $value : &apos;&apos;);
+                        $tmp += array($k => $value ? $value : '');
                     }
                 }
                 $value = $tmp;
@@ -96,14 +96,14 @@ function filter_struct_utf8($type, array $default) {
         } elseif (!$isset || is_array($var[$key])) {
             $ret[$key] = null;
         } elseif ($is_int &amp;&amp; $value &amp; FILTER_STRUCT_FULL_TRIM) {
-            $ret[$key] = preg_replace("/\A{$ftrim}++|{$ftrim}++\z/u", &apos;&apos;, $var[$key]);
+            $ret[$key] = preg_replace("/\A{$ftrim}++|{$ftrim}++\z/u", '', $var[$key]);
         } elseif ($is_int &amp;&amp; $value &amp; FILTER_STRUCT_TRIM) {
-            $ret[$key] = preg_replace("/\A{$trim}++|{$trim}++\z/u", &apos;&apos;, $var[$key]);
+            $ret[$key] = preg_replace("/\A{$trim}++|{$trim}++\z/u", '', $var[$key]);
         } else {
-            $ret[$key] = preg_replace(&apos;//u&apos;, &apos;&apos;, $var[$key]);
+            $ret[$key] = preg_replace('//u', '', $var[$key]);
         }
         if ($ret[$key] === null) {
-            $ret[$key] = $is_int ? &apos;&apos; : $value;
+            $ret[$key] = $is_int ? '' : $value;
         }
     }
     if (!$recursive) {

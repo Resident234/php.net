@@ -38,7 +38,7 @@ while (true)
 
     if (count($client))
     {
-        foreach ($client AS $k =&gt; $v)
+        foreach ($client AS $k => $v)
         {
             $read[$j] = $v;
 
@@ -64,7 +64,7 @@ while (true)
 
     if (count($client))
     {
-        foreach ($client AS $k =&gt; $v)
+        foreach ($client AS $k => $v)
         {
             if (@socket_recv($v, $string, 1024, MSG_DONTWAIT) === 0)
             {

@@ -20,21 +20,21 @@ function get_process_count() {
   
   // check if php version supports clearstatcache params, but only check once
   if ( is_null( $ver ) )
-    $ver = version_compare( PHP_VERSION, &apos;5.3.0&apos;, &apos;&gt;=&apos; );
+    $ver = version_compare( PHP_VERSION, '5.3.0', '&gt;=' );
  
   // Only call clearstatcache() if function called more than once */
   if ( $runs++ &gt; 0 ) { // checks if $runs &gt; 0, then increments $runs by one.
     
     // if php version is &gt;= 5.3.0
     if ( $ver ) {
-      clearstatcache( true, &apos;/proc&apos; );
+      clearstatcache( true, '/proc' );
     } else {
       // if php version is &lt; 5.3.0
       clearstatcache();
     }
   }
   
-  $stat = stat( &apos;/proc&apos; );
+  $stat = stat( '/proc' );
  
   // if stat succeeds and nlink value is present return it, otherwise return 0
   return ( ( false !== $stat &amp;&amp; isset( $stat[3] ) ) ? $stat[3] : 0 );
@@ -70,86 +70,86 @@ function alt_stat($file) {
  if(!$ss) return false; //Couldnt stat file
  
  $ts=array(
-  0140000=&gt;&apos;ssocket&apos;,
-  0120000=&gt;&apos;llink&apos;,
-  0100000=&gt;&apos;-file&apos;,
-  0060000=&gt;&apos;bblock&apos;,
-  0040000=&gt;&apos;ddir&apos;,
-  0020000=&gt;&apos;cchar&apos;,
-  0010000=&gt;&apos;pfifo&apos;
+  0140000=>'ssocket',
+  0120000=>'llink',
+  0100000=>'-file',
+  0060000=>'bblock',
+  0040000=>'ddir',
+  0020000=>'cchar',
+  0010000=>'pfifo'
  );
  
- $p=$ss[&apos;mode&apos;];
- $t=decoct($ss[&apos;mode&apos;] &amp; 0170000); // File Encoding Bit
+ $p=$ss['mode'];
+ $t=decoct($ss['mode'] &amp; 0170000); // File Encoding Bit
  
- $str =(array_key_exists(octdec($t),$ts))?$ts[octdec($t)]{0}:&apos;u&apos;;
- $str.=(($p&amp;0x0100)?&apos;r&apos;:&apos;-&apos;).(($p&amp;0x0080)?&apos;w&apos;:&apos;-&apos;);
- $str.=(($p&amp;0x0040)?(($p&amp;0x0800)?&apos;s&apos;:&apos;x&apos;):(($p&amp;0x0800)?&apos;S&apos;:&apos;-&apos;));
- $str.=(($p&amp;0x0020)?&apos;r&apos;:&apos;-&apos;).(($p&amp;0x0010)?&apos;w&apos;:&apos;-&apos;);
- $str.=(($p&amp;0x0008)?(($p&amp;0x0400)?&apos;s&apos;:&apos;x&apos;):(($p&amp;0x0400)?&apos;S&apos;:&apos;-&apos;));
- $str.=(($p&amp;0x0004)?&apos;r&apos;:&apos;-&apos;).(($p&amp;0x0002)?&apos;w&apos;:&apos;-&apos;);
- $str.=(($p&amp;0x0001)?(($p&amp;0x0200)?&apos;t&apos;:&apos;x&apos;):(($p&amp;0x0200)?&apos;T&apos;:&apos;-&apos;));
+ $str =(array_key_exists(octdec($t),$ts))?$ts[octdec($t)]{0}:'u';
+ $str.=(($p&amp;0x0100)?'r':'-').(($p&amp;0x0080)?'w':'-');
+ $str.=(($p&amp;0x0040)?(($p&amp;0x0800)?'s':'x'):(($p&amp;0x0800)?'S':'-'));
+ $str.=(($p&amp;0x0020)?'r':'-').(($p&amp;0x0010)?'w':'-');
+ $str.=(($p&amp;0x0008)?(($p&amp;0x0400)?'s':'x'):(($p&amp;0x0400)?'S':'-'));
+ $str.=(($p&amp;0x0004)?'r':'-').(($p&amp;0x0002)?'w':'-');
+ $str.=(($p&amp;0x0001)?(($p&amp;0x0200)?'t':'x'):(($p&amp;0x0200)?'T':'-'));
  
  $s=array(
- &apos;perms&apos;=&gt;array(
-  &apos;umask&apos;=&gt;sprintf("%04o",@umask()),
-  &apos;human&apos;=&gt;$str,
-  &apos;octal1&apos;=&gt;sprintf("%o", ($ss[&apos;mode&apos;] &amp; 000777)),
-  &apos;octal2&apos;=&gt;sprintf("0%o", 0777 &amp; $p),
-  &apos;decimal&apos;=&gt;sprintf("%04o", $p),
-  &apos;fileperms&apos;=&gt;@fileperms($file),
-  &apos;mode1&apos;=&gt;$p,
-  &apos;mode2&apos;=&gt;$ss[&apos;mode&apos;]),
+ 'perms'=>array(
+  'umask'=>sprintf("%04o",@umask()),
+  'human'=>$str,
+  'octal1'=>sprintf("%o", ($ss['mode'] &amp; 000777)),
+  'octal2'=>sprintf("0%o", 0777 &amp; $p),
+  'decimal'=>sprintf("%04o", $p),
+  'fileperms'=>@fileperms($file),
+  'mode1'=>$p,
+  'mode2'=>$ss['mode']),
  
- &apos;owner&apos;=&gt;array(
-  &apos;fileowner&apos;=&gt;$ss[&apos;uid&apos;],
-  &apos;filegroup&apos;=&gt;$ss[&apos;gid&apos;],
-  &apos;owner&apos;=&gt;
-  (function_exists(&apos;posix_getpwuid&apos;))?
-  @posix_getpwuid($ss[&apos;uid&apos;]):&apos;&apos;,
-  &apos;group&apos;=&gt;
-  (function_exists(&apos;posix_getgrgid&apos;))?
-  @posix_getgrgid($ss[&apos;gid&apos;]):&apos;&apos;
+ 'owner'=>array(
+  'fileowner'=>$ss['uid'],
+  'filegroup'=>$ss['gid'],
+  'owner'=>
+  (function_exists('posix_getpwuid'))?
+  @posix_getpwuid($ss['uid']):'',
+  'group'=>
+  (function_exists('posix_getgrgid'))?
+  @posix_getgrgid($ss['gid']):''
   ),
  
- &apos;file&apos;=&gt;array(
-  &apos;filename&apos;=&gt;$file,
-  &apos;realpath&apos;=&gt;(@realpath($file) != $file) ? @realpath($file) : &apos;&apos;,
-  &apos;dirname&apos;=&gt;@dirname($file),
-  &apos;basename&apos;=&gt;@basename($file)
+ 'file'=>array(
+  'filename'=>$file,
+  'realpath'=>(@realpath($file) != $file) ? @realpath($file) : '',
+  'dirname'=>@dirname($file),
+  'basename'=>@basename($file)
   ),
 
- &apos;filetype&apos;=&gt;array(
-  &apos;type&apos;=&gt;substr($ts[octdec($t)],1),
-  &apos;type_octal&apos;=&gt;sprintf("%07o", octdec($t)),
-  &apos;is_file&apos;=&gt;@is_file($file),
-  &apos;is_dir&apos;=&gt;@is_dir($file),
-  &apos;is_link&apos;=&gt;@is_link($file),
-  &apos;is_readable&apos;=&gt; @is_readable($file),
-  &apos;is_writable&apos;=&gt; @is_writable($file)
+ 'filetype'=>array(
+  'type'=>substr($ts[octdec($t)],1),
+  'type_octal'=>sprintf("%07o", octdec($t)),
+  'is_file'=>@is_file($file),
+  'is_dir'=>@is_dir($file),
+  'is_link'=>@is_link($file),
+  'is_readable'=> @is_readable($file),
+  'is_writable'=> @is_writable($file)
   ),
   
- &apos;device&apos;=&gt;array(
-  &apos;device&apos;=&gt;$ss[&apos;dev&apos;], //Device
-  &apos;device_number&apos;=&gt;$ss[&apos;rdev&apos;], //Device number, if device.
-  &apos;inode&apos;=&gt;$ss[&apos;ino&apos;], //File serial number
-  &apos;link_count&apos;=&gt;$ss[&apos;nlink&apos;], //link count
-  &apos;link_to&apos;=&gt;($s[&apos;type&apos;]==&apos;link&apos;) ? @readlink($file) : &apos;&apos;
+ 'device'=>array(
+  'device'=>$ss['dev'], //Device
+  'device_number'=>$ss['rdev'], //Device number, if device.
+  'inode'=>$ss['ino'], //File serial number
+  'link_count'=>$ss['nlink'], //link count
+  'link_to'=>($s['type']=='link') ? @readlink($file) : ''
   ),
  
- &apos;size&apos;=&gt;array(
-  &apos;size&apos;=&gt;$ss[&apos;size&apos;], //Size of file, in bytes.
-  &apos;blocks&apos;=&gt;$ss[&apos;blocks&apos;], //Number 512-byte blocks allocated
-  &apos;block_size&apos;=&gt; $ss[&apos;blksize&apos;] //Optimal block size for I/O.
+ 'size'=>array(
+  'size'=>$ss['size'], //Size of file, in bytes.
+  'blocks'=>$ss['blocks'], //Number 512-byte blocks allocated
+  'block_size'=> $ss['blksize'] //Optimal block size for I/O.
   ), 
  
- &apos;time&apos;=&gt;array(
-  &apos;mtime&apos;=&gt;$ss[&apos;mtime&apos;], //Time of last modification
-  &apos;atime&apos;=&gt;$ss[&apos;atime&apos;], //Time of last access.
-  &apos;ctime&apos;=&gt;$ss[&apos;ctime&apos;], //Time of last status change
-  &apos;accessed&apos;=&gt;@date(&apos;Y M D H:i:s&apos;,$ss[&apos;atime&apos;]),
-  &apos;modified&apos;=&gt;@date(&apos;Y M D H:i:s&apos;,$ss[&apos;mtime&apos;]),
-  &apos;created&apos;=&gt;@date(&apos;Y M D H:i:s&apos;,$ss[&apos;ctime&apos;])
+ 'time'=>array(
+  'mtime'=>$ss['mtime'], //Time of last modification
+  'atime'=>$ss['atime'], //Time of last access.
+  'ctime'=>$ss['ctime'], //Time of last status change
+  'accessed'=>@date('Y M D H:i:s',$ss['atime']),
+  'modified'=>@date('Y M D H:i:s',$ss['mtime']),
+  'created'=>@date('Y M D H:i:s',$ss['ctime'])
   ),
  );
  
@@ -159,48 +159,7 @@ function alt_stat($file) {
 
 ?>
 ```
-
-
-|=---------[ Example Output ]
-
-Array(
-[perms] =&gt; Array
-  (
-  [umask] =&gt; 0022
-  [human] =&gt; -rw-r--r--
-  [octal1] =&gt; 644
-  [octal2] =&gt; 0644
-  [decimal] =&gt; 100644
-  [fileperms] =&gt; 33188
-  [mode1] =&gt; 33188
-  [mode2] =&gt; 33188
-  )
- 
-[filetype] =&gt; Array
-  (
-  [type] =&gt; file
-  [type_octal] =&gt; 0100000
-  [is_file] =&gt; 1
-  [is_dir] =&gt;
-  [is_link] =&gt;
-  [is_readable] =&gt; 1
-  [is_writable] =&gt; 1
-  )
- 
-[owner] =&gt; Array
-  (
-  [fileowner] =&gt; 035483
-  [filegroup] =&gt; 23472
-  [owner_name] =&gt; askapache
-  [group_name] =&gt; grp22558
-  )
- 
-[file] =&gt; Array
-  (
-  [filename] =&gt; /home/askapache/askapache-stat/htdocs/ok/g.php
-  [realpath] =&gt;
-  [dirname] =&gt; /home/askapache/askapache-stat/htdocs/ok
-  [basename] =&gt; g.php<br>  )<br> <br>[device] =&gt; Array<br>  (<br>  [device] =&gt; 25<br>  [device_number] =&gt; 0<br>  [inode] =&gt; 92455020<br>  [link_count] =&gt; 1<br>  [link_to] =&gt;<br>  )<br> <br>[size] =&gt; Array<br>  (<br>  [size] =&gt; 2652<br>  [blocks] =&gt; 8<br>  [block_size] =&gt; 8192<br>  )<br> <br>[time] =&gt; Array<br>  (<br>  [mtime] =&gt; 1227685253<br>  [atime] =&gt; 1227685138<br>  [ctime] =&gt; 1227685253<br>  [accessed] =&gt; 2008 Nov Tue 23:38:58<br>  [modified] =&gt; 2008 Nov Tue 23:40:53<br>  [created] =&gt; 2008 Nov Tue 23:40:53<br>  )<br>)  
+<br><br>|=---------[ Example Output ]<br><br>Array(<br>[perms] =&gt; Array<br>  (<br>  [umask] =&gt; 0022<br>  [human] =&gt; -rw-r--r--<br>  [octal1] =&gt; 644<br>  [octal2] =&gt; 0644<br>  [decimal] =&gt; 100644<br>  [fileperms] =&gt; 33188<br>  [mode1] =&gt; 33188<br>  [mode2] =&gt; 33188<br>  )<br> <br>[filetype] =&gt; Array<br>  (<br>  [type] =&gt; file<br>  [type_octal] =&gt; 0100000<br>  [is_file] =&gt; 1<br>  [is_dir] =&gt;<br>  [is_link] =&gt;<br>  [is_readable] =&gt; 1<br>  [is_writable] =&gt; 1<br>  )<br> <br>[owner] =&gt; Array<br>  (<br>  [fileowner] =&gt; 035483<br>  [filegroup] =&gt; 23472<br>  [owner_name] =&gt; askapache<br>  [group_name] =&gt; grp22558<br>  )<br> <br>[file] =&gt; Array<br>  (<br>  [filename] =&gt; /home/askapache/askapache-stat/htdocs/ok/g.php<br>  [realpath] =&gt;<br>  [dirname] =&gt; /home/askapache/askapache-stat/htdocs/ok<br>  [basename] =&gt; g.php<br>  )<br> <br>[device] =&gt; Array<br>  (<br>  [device] =&gt; 25<br>  [device_number] =&gt; 0<br>  [inode] =&gt; 92455020<br>  [link_count] =&gt; 1<br>  [link_to] =&gt;<br>  )<br> <br>[size] =&gt; Array<br>  (<br>  [size] =&gt; 2652<br>  [blocks] =&gt; 8<br>  [block_size] =&gt; 8192<br>  )<br> <br>[time] =&gt; Array<br>  (<br>  [mtime] =&gt; 1227685253<br>  [atime] =&gt; 1227685138<br>  [ctime] =&gt; 1227685253<br>  [accessed] =&gt; 2008 Nov Tue 23:38:58<br>  [modified] =&gt; 2008 Nov Tue 23:40:53<br>  [created] =&gt; 2008 Nov Tue 23:40:53<br>  )<br>)  
 
 #
 

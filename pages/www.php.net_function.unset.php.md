@@ -44,11 +44,11 @@ class A {
 }
 
 $a = new A();
-$a -&gt; a = $a;
-#unset($a); # Just uncomment, and you&apos;ll see
+$a -> a = $a;
+#unset($a); # Just uncomment, and you'll see
 
 echo "No Message ... hm, what now?\n";
-unset($a -&gt; a);
+unset($a -> a);
 unset($a);
 
 echo "Finally that thing is gone\n";
@@ -63,12 +63,12 @@ A sample how to unset array elements from an array result coming from a mysql re
 
 ```
 <?php
-$db-&gt;set_query("select * from documents where document_in_user = 0"); //1  
-$documents = $db-&gt;result_to_array($db-&gt;get_result()); //1
+$db->set_query("select * from documents where document_in_user = 0"); //1  
+$documents = $db->result_to_array($db->get_result()); //1
 
-foreach ($documents as $key =&gt; $row) { //2
+foreach ($documents as $key => $row) { //2
 
-    $file     = "uploads/".rawurldecode($row[&apos;document_name&apos;]);
+    $file     = "uploads/".rawurldecode($row['document_name']);
   
     if ( file_exists ( $file ) == FALSE ) {
          unset($documents[$key]);  //3
@@ -116,11 +116,11 @@ Adding on to what bond at noellebond dot com said, if you want to remove an inde
 
 
 You would expect:
-Array([0] =&gt; 1, [1] =&gt; 4)
+Array([0] => 1, [1] => 4)
 as you want it to remove the last set key....
 
 but you actually get
-Array ( [0] =&gt; 1 [4] =&gt; 2 [5] =&gt; 3 [6] =&gt; 4 ) 
+Array ( [0] => 1 [4] => 2 [5] => 3 [6] => 4 ) 
 
 This is since even though the last key is removed, the auto indexing still keeps its previous value.
 
@@ -166,7 +166,7 @@ Note that PHP 4 will generate a warning if you try to unset an array index that 
 
   $foo = array();
 
-  unset($foo[&apos;Bar&apos;][&apos;Baz&apos;]);
+  unset($foo['Bar']['Baz']);
 
 ?>
 ```
@@ -234,30 +234,30 @@ function remove_element (&amp;$array, $key) // pass array by reference
     unset($array[$key]);
 }
 
-$scalar = &apos;Hello, there&apos;;
-echo &apos;Value of $scalar is: &apos;;
-print_r ($scalar); echo &apos;&lt;br /&gt;&apos;;
+$scalar = 'Hello, there';
+echo 'Value of $scalar is: ';
+print_r ($scalar); echo '&lt;br /&gt;';
 // Value of $scalar is: Hello, there
 
 remove_variable($scalar); // try to unset the variable
-echo &apos;Value of $scalar is: &apos;;
-print_r ($scalar); echo &apos;&lt;br /&gt;&apos;;
+echo 'Value of $scalar is: ';
+print_r ($scalar); echo '&lt;br /&gt;';
 // Value of $scalar is: Hello, there
 
-$array = array(&apos;one&apos; =&gt; 1, &apos;two&apos; =&gt; 2, &apos;three&apos; =&gt; 3);
-echo &apos;Value of $array is: &apos;;
-print_r ($array); echo &apos;&lt;br /&gt;&apos;;
-// Value of $array is: Array ( [one] =&gt; 1 [two] =&gt; 2 [three] =&gt; 3 )
+$array = array('one' => 1, 'two' => 2, 'three' => 3);
+echo 'Value of $array is: ';
+print_r ($array); echo '&lt;br /&gt;';
+// Value of $array is: Array ( [one] => 1 [two] => 2 [three] => 3 )
 
 remove_variable($array); // try to unset the array
-echo &apos;Value of $array is: &apos;;
-print_r ($array); echo &apos;&lt;br /&gt;&apos;;
-// Value of $array is: Array ( [one] =&gt; 1 [two] =&gt; 2 [three] =&gt; 3 )
+echo 'Value of $array is: ';
+print_r ($array); echo '&lt;br /&gt;';
+// Value of $array is: Array ( [one] => 1 [two] => 2 [three] => 3 )
 
-remove_element($array, &apos;two&apos;); // successfully remove an element from the array
-echo &apos;Value of $array is: &apos;;
-print_r ($array); echo &apos;&lt;br /&gt;&apos;;
-// Value of $array is: Array ( [one] =&gt; 1 [three] =&gt; 3 )
+remove_element($array, 'two'); // successfully remove an element from the array
+echo 'Value of $array is: ';
+print_r ($array); echo '&lt;br /&gt;';
+// Value of $array is: Array ( [one] => 1 [three] => 3 )
 
 ?>
 ```
@@ -274,8 +274,8 @@ Here&apos;s my variation on the slightly dull unset method. It throws in a bit o
  *
  * Completely and utterly destroys everything, returning the kill count of victims
  *
- * @param    It don&apos;t matter, it&#x2019;s Rambo baby
- * @return    Integer    Body count (but any less than 500 and it&apos;s not really worth mentioning)
+ * @param    It don't matter, it&#x2019;s Rambo baby
+ * @return    Integer    Body count (but any less than 500 and it's not really worth mentioning)
  */
 function rambo() {
 
@@ -324,7 +324,7 @@ The above example would output:
 2
 3
 
-And it does! But the variable is NOT deleted, that&apos;s why the value keeps on increasing, otherwise the output would be:
+And it does! But the variable is NOT deleted, that's why the value keeps on increasing, otherwise the output would be:
 
 1
 1
@@ -369,9 +369,9 @@ dh at argosign dot de - <br>it is possible to unset globals from within function
 $x = 10;
 
 function test() {
-    // don&apos;t need to do &apos; global $x; &apos;
-    unset ($GLOBALS[&apos;x&apos;]);
-    echo &apos;x: &apos; . $GLOBALS[&apos;x&apos;] . &apos;&lt;br /&gt;&apos;;
+    // don't need to do ' global $x; '
+    unset ($GLOBALS['x']);
+    echo 'x: ' . $GLOBALS['x'] . '&lt;br /&gt;';
 }
 
 test();

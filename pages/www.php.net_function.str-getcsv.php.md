@@ -7,7 +7,7 @@
 ```
 <?php
 
-$csv = array_map(&apos;str_getcsv&apos;, file(&apos;data.csv&apos;));
+$csv = array_map('str_getcsv', file('data.csv'));
 
 ?>
 ```
@@ -19,7 +19,7 @@ Based on James&apos; line, this will create an array of associative arrays with 
 
 ```
 <?php
-    $csv = array_map(&apos;str_getcsv&apos;, file($file));
+    $csv = array_map('str_getcsv', file($file));
     array_walk($csv, function(&amp;$a) use ($csv) {
       $a = array_combine($csv[0], $a);
     });
@@ -49,14 +49,14 @@ Here is a quick and easy way to convert a CSV file to an associated array:<br><b
 /**
  * @link http://gist.github.com/385876
  */
-function csv_to_array($filename=&apos;&apos;, $delimiter=&apos;,&apos;)
+function csv_to_array($filename='', $delimiter=',')
 {
     if(!file_exists($filename) || !is_readable($filename))
         return FALSE;
 
     $header = NULL;
     $data = array();
-    if (($handle = fopen($filename, &apos;r&apos;)) !== FALSE)
+    if (($handle = fopen($filename, 'r')) !== FALSE)
     {
         while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE)
         {
@@ -85,21 +85,21 @@ Like some other users here noted, str_getcsv() cannot be used if you want to com
 
 function parse_csv ($csv_string, $delimiter = ",", $skip_empty_lines = true, $trim_fields = true)
 {
-    $enc = preg_replace(&apos;/(?&lt;!")""/&apos;, &apos;!!Q!!&apos;, $csv_string);
+    $enc = preg_replace('/(?&lt;!")""/', '!!Q!!', $csv_string);
     $enc = preg_replace_callback(
-        &apos;/"(.*?)"/s&apos;,
+        '/"(.*?)"/s',
         function ($field) {
             return urlencode(utf8_encode($field[1]));
         },
         $enc
     );
-    $lines = preg_split($skip_empty_lines ? ($trim_fields ? &apos;/( *\R)+/s&apos; : &apos;/\R+/s&apos;) : &apos;/\R/s&apos;, $enc);
+    $lines = preg_split($skip_empty_lines ? ($trim_fields ? '/( *\R)+/s' : '/\R+/s') : '/\R/s', $enc);
     return array_map(
         function ($line) use ($delimiter, $trim_fields) {
-            $fields = $trim_fields ? array_map(&apos;trim&apos;, explode($delimiter, $line)) : explode($delimiter, $line);
+            $fields = $trim_fields ? array_map('trim', explode($delimiter, $line)) : explode($delimiter, $line);
             return array_map(
                 function ($field) {
-                    return str_replace(&apos;!!Q!!&apos;, &apos;"&apos;, utf8_decode(urldecode($field)));
+                    return str_replace('!!Q!!', '"', utf8_decode(urldecode($field)));
                 },
                 $fields
             );
@@ -114,7 +114,7 @@ function parse_csv ($csv_string, $delimiter = ",", $skip_empty_lines = true, $tr
 
 Since this is not using any loops, you can actually write it as a one-line statement (one-liner).
 
-Here&apos;s the function using just one line of code for the function body, formatted nicely though:
+Here's the function using just one line of code for the function body, formatted nicely though:
 
 
 
@@ -129,19 +129,19 @@ function parse_csv ($csv_string, $delimiter = ",", $skip_empty_lines = true, $tr
         function ($line) use ($delimiter, $trim_fields) {
             return array_map(
                 function ($field) {
-                    return str_replace(&apos;!!Q!!&apos;, &apos;"&apos;, utf8_decode(urldecode($field)));
+                    return str_replace('!!Q!!', '"', utf8_decode(urldecode($field)));
                 },
-                $trim_fields ? array_map(&apos;trim&apos;, explode($delimiter, $line)) : explode($delimiter, $line)
+                $trim_fields ? array_map('trim', explode($delimiter, $line)) : explode($delimiter, $line)
             );
         },
         preg_split(
-            $skip_empty_lines ? ($trim_fields ? &apos;/( *\R)+/s&apos; : &apos;/\R+/s&apos;) : &apos;/\R/s&apos;,
+            $skip_empty_lines ? ($trim_fields ? '/( *\R)+/s' : '/\R+/s') : '/\R/s',
             preg_replace_callback(
-                &apos;/"(.*?)"/s&apos;,
+                '/"(.*?)"/s',
                 function ($field) {
                     return urlencode(utf8_encode($field[1]));
                 },
-                $enc = preg_replace(&apos;/(?&lt;!")""/&apos;, &apos;!!Q!!&apos;, $csv_string)
+                $enc = preg_replace('/(?&lt;!")""/', '!!Q!!', $csv_string)
             )
         )
     );
@@ -158,11 +158,11 @@ I wanted the best of the 2 solutions by james at moss dot io and Jay Williams (c
 ```
 <?php
 
-$array = array_map(&apos;str_getcsv&apos;, file(&apos;data.csv&apos;));
+$array = array_map('str_getcsv', file('data.csv'));
 
 $header = array_shift($array);
 
-array_walk($array, &apos;_combine_array&apos;, $header);
+array_walk($array, '_combine_array', $header);
 
 function _combine_array(&amp;$row, $key, $header) {
   $row = array_combine($header, $row);

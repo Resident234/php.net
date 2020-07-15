@@ -7,7 +7,7 @@ An updated is_ani based on issues reported here and elsewhere<br><br>
 ```
 <?php
 function is_ani($filename) {
-    if(!($fh = @fopen($filename, &apos;rb&apos;)))
+    if(!($fh = @fopen($filename, 'rb')))
         return false;
     $count = 0;
     //an animated gif contains multiple "frames", with each frame having a 
@@ -16,11 +16,11 @@ function is_ani($filename) {
     // * 4 variable bytes
     // * a static 2-byte sequence (\x00\x2C) (some variants may use \x00\x21 ?)
     
-    // We read through the file til we reach the end of the file, or we&apos;ve found 
+    // We read through the file til we reach the end of the file, or we've found 
     // at least 2 frame headers
     while(!feof($fh) &amp;&amp; $count &lt; 2) {
         $chunk = fread($fh, 1024 * 100); //read 100kb at a time
-        $count += preg_match_all(&apos;#\x00\x21\xF9\x04.{4}\x00(\x2C|\x21)#s&apos;, $chunk, $matches);
+        $count += preg_match_all('#\x00\x21\xF9\x04.{4}\x00(\x2C|\x21)#s', $chunk, $matches);
    }
     
     fclose($fh);

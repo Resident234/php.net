@@ -7,21 +7,21 @@
 ```
 <?php
 
-$url = &apos;http://usr:pss@example.com:81/mypath/myfile.html?a=b&amp;b[]=2&amp;b[]=3#myfragment&apos;;
+$url = 'http://usr:pss@example.com:81/mypath/myfile.html?a=b&amp;b[]=2&amp;b[]=3#myfragment';
 if ($url === unparse_url(parse_url($url))) {
   print "YES, they match!\n";
 }
 
 function unparse_url($parsed_url) {
-  $scheme   = isset($parsed_url[&apos;scheme&apos;]) ? $parsed_url[&apos;scheme&apos;] . &apos;://&apos; : &apos;&apos;;
-  $host     = isset($parsed_url[&apos;host&apos;]) ? $parsed_url[&apos;host&apos;] : &apos;&apos;;
-  $port     = isset($parsed_url[&apos;port&apos;]) ? &apos;:&apos; . $parsed_url[&apos;port&apos;] : &apos;&apos;;
-  $user     = isset($parsed_url[&apos;user&apos;]) ? $parsed_url[&apos;user&apos;] : &apos;&apos;;
-  $pass     = isset($parsed_url[&apos;pass&apos;]) ? &apos;:&apos; . $parsed_url[&apos;pass&apos;]  : &apos;&apos;;
-  $pass     = ($user || $pass) ? "$pass@" : &apos;&apos;;
-  $path     = isset($parsed_url[&apos;path&apos;]) ? $parsed_url[&apos;path&apos;] : &apos;&apos;;
-  $query    = isset($parsed_url[&apos;query&apos;]) ? &apos;?&apos; . $parsed_url[&apos;query&apos;] : &apos;&apos;;
-  $fragment = isset($parsed_url[&apos;fragment&apos;]) ? &apos;#&apos; . $parsed_url[&apos;fragment&apos;] : &apos;&apos;;
+  $scheme   = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
+  $host     = isset($parsed_url['host']) ? $parsed_url['host'] : '';
+  $port     = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
+  $user     = isset($parsed_url['user']) ? $parsed_url['user'] : '';
+  $pass     = isset($parsed_url['pass']) ? ':' . $parsed_url['pass']  : '';
+  $pass     = ($user || $pass) ? "$pass@" : '';
+  $path     = isset($parsed_url['path']) ? $parsed_url['path'] : '';
+  $query    = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
+  $fragment = isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
   return "$scheme$user$pass$host$port$path$query$fragment";
 }
 
@@ -44,7 +44,7 @@ Here is utf-8 compatible parse_url() replacement function based on "laszlo dot j
     function mb_parse_url($url)
     {
         $enc_url = preg_replace_callback(
-            &apos;%[^:/@?&amp;=#]+%usD&apos;,
+            '%[^:/@?&amp;=#]+%usD',
             function ($matches)
             {
                 return urlencode($matches[0]);
@@ -56,10 +56,10 @@ Here is utf-8 compatible parse_url() replacement function based on "laszlo dot j
         
         if($parts === false)
         {
-            throw new \InvalidArgumentException(&apos;Malformed URL: &apos; . $url);
+            throw new \InvalidArgumentException('Malformed URL: ' . $url);
         }
         
-        foreach($parts as $name =&gt; $value)
+        foreach($parts as $name => $value)
         {
             $parts[$name] = urldecode($value);
         }
@@ -97,12 +97,12 @@ Here&apos;s a good way to using parse_url () gets the youtube link.<br>This func
 function youtube($url, $width=560, $height=315, $fullscreen=true)
 {
     parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-    $youtube= &apos;&lt;iframe allowtransparency="true" scrolling="no" width="&apos;.$width.&apos;" height="&apos;.$height.&apos;" src="//www.youtube.com/embed/&apos;.$my_array_of_vars[&apos;v&apos;].&apos;" frameborder="0"&apos;.($fullscreen?&apos; allowfullscreen&apos;:NULL).&apos;&gt;&lt;/iframe&gt;&apos;;
+    $youtube= '&lt;iframe allowtransparency="true" scrolling="no" width="'.$width.'" height="'.$height.'" src="//www.youtube.com/embed/'.$my_array_of_vars['v'].'" frameborder="0"'.($fullscreen?' allowfullscreen':NULL).'&gt;&lt;/iframe&gt;';
     return $youtube;
 }
 
 // show youtube on my page
-$url=&apos;http://www.youtube.com/watch?v=yvTd6XxgCBE&apos;;
+$url='http://www.youtube.com/watch?v=yvTd6XxgCBE';
  youtube($url, 560, 315, true);
 ?>
 ```

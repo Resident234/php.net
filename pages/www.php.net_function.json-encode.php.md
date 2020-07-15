@@ -6,7 +6,7 @@ This isn&apos;t mentioned in the documentation for either PHP or jQuery, but if 
 
 ```
 <?php
-header(&apos;Content-Type: application/json&apos;);
+header('Content-Type: application/json');
 ?>
 ```
   
@@ -18,7 +18,7 @@ Are you sure you want to use JSON_NUMERIC_CHECK, really really sure?<br><br>Just
 ```
 <?php
 // International phone number
-json_encode(array(&apos;phone_number&apos; =&gt; &apos;+33123456789&apos;), JSON_NUMERIC_CHECK);
+json_encode(array('phone_number' => '+33123456789'), JSON_NUMERIC_CHECK);
 ?>
 ```
 <br><br>And then you get this JSON:<br><br>{"phone_number":33123456789}<br><br>Maybe it makes sense for PHP (as is_numeric(&apos;+33123456789&apos;) returns true), but really, casting it as an int?!<br><br>So be careful when using JSON_NUMERIC_CHECK, it may mess up with your data!  
@@ -29,15 +29,15 @@ A note of caution: If you are wondering why json_encode() encodes your PHP array
 
 ```
 <?php
-$myarray = Array(&apos;isa&apos;, &apos;dalawa&apos;, &apos;tatlo&apos;);
+$myarray = Array('isa', 'dalawa', 'tatlo');
 var_dump($myarray);
 /* output
 array(3) {
-  [0]=&gt;
+  [0]=>
   string(3) "isa"
-  [1]=&gt;
+  [1]=>
   string(6) "dalawa"
-  [2]=&gt;
+  [2]=>
   string(5) "tatlo"
 }
 */
@@ -51,15 +51,15 @@ As you can see, the keys are sequential; $myarray will be correctly encoded as a
 
 ```
 <?php
-$myarray = Array(&apos;isa&apos;, &apos;dalawa&apos;, &apos;tatlo&apos;);
+$myarray = Array('isa', 'dalawa', 'tatlo');
 
 unset($myarray[1]);
 var_dump($myarray);
 /* output
 array(2) {
-  [0]=&gt;
+  [0]=>
   string(3) "isa"
-  [2]=&gt;
+  [2]=>
   string(5) "tatlo"
 }
 */
@@ -79,12 +79,12 @@ function json_readable_encode($in, $indent = 0, $from_array = false)
     $_myself = __FUNCTION__;
     $_escape = function ($str)
     {
-        return preg_replace("!([\b\t\n\r\f\"\\&apos;])!", "\\\\\\1", $str);
+        return preg_replace("!([\b\t\n\r\f\"\\'])!", "\\\\\\1", $str);
     };
 
-    $out = &apos;&apos;;
+    $out = '';
 
-    foreach ($in as $key=&gt;$value)
+    foreach ($in as $key=>$value)
     {
         $out .= str_repeat("\t", $indent + 1);
         $out .= "\"".$_escape((string)$key)."\": ";
@@ -96,11 +96,11 @@ function json_readable_encode($in, $indent = 0, $from_array = false)
         }
         elseif (is_bool($value))
         {
-            $out .= $value ? &apos;true&apos; : &apos;false&apos;;
+            $out .= $value ? 'true' : 'false';
         }
         elseif (is_null($value))
         {
-            $out .= &apos;null&apos;;
+            $out .= 'null';
         }
         elseif (is_string($value))
         {
@@ -138,8 +138,8 @@ For PHP5.3 users who want to emulate JSON_UNESCAPED_UNICODE, there is simple way
 function my_json_encode($arr)
 {
         //convmap since 0x80 char codes so it takes all multibyte codes (above ASCII 127). So such characters are being "hidden" from normal json_encoding
-        array_walk_recursive($arr, function (&amp;$item, $key) { if (is_string($item)) $item = mb_encode_numericentity($item, array (0x80, 0xffff, 0, 0xffff), &apos;UTF-8&apos;); });
-        return mb_decode_numericentity(json_encode($arr), array (0x80, 0xffff, 0, 0xffff), &apos;UTF-8&apos;);
+        array_walk_recursive($arr, function (&amp;$item, $key) { if (is_string($item)) $item = mb_encode_numericentity($item, array (0x80, 0xffff, 0, 0xffff), 'UTF-8'); });
+        return mb_decode_numericentity(json_encode($arr), array (0x80, 0xffff, 0, 0xffff), 'UTF-8');
 
 }
 ?>

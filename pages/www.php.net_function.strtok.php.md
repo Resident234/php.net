@@ -7,8 +7,8 @@
 ```
 <?php
 // strtok example
-$str = &apos;Hello to all of Ukraine&apos;;
-echo strtok($str, &apos; &apos;).&apos; &apos;.strtok(&apos; &apos;).&apos; &apos;.strtok(&apos; &apos;);
+$str = 'Hello to all of Ukraine';
+echo strtok($str, ' ').' '.strtok(' ').' '.strtok(' ');
 ?>
 ```
 <br>Result:<br>Hello to all  
@@ -19,13 +19,13 @@ echo strtok($str, &apos; &apos;).&apos; &apos;.strtok(&apos; &apos;).&apos; &apo
 
 ```
 <?php
-/** get leading, trailing, and embedded separator tokens that were &apos;skipped&apos;
+/** get leading, trailing, and embedded separator tokens that were 'skipped'
 if for some ungodly reason you are using php to implement a simple parser that 
 needs to detect nested clauses as it builds a parse tree */
 
 $str = "(((alpha(beta))(gamma))";
 
-$seps = &apos;()&apos;;
+$seps = '()';
 $tok = strtok( $str,$seps ); // return false on empty string or null
 $cur = 0;      
 $dumbDone = FALSE;
@@ -55,7 +55,7 @@ while (!$done) {
    if (!$dumbDone){
       $tok = strtok($seps);
       $dumbDone = (FALSE===$tok); 
-      // you&apos;re not really done till you check for trailing skipped
+      // you're not really done till you check for trailing skipped
    }
 };
 ?>

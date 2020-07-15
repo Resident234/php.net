@@ -8,7 +8,7 @@ If you want a quick way to remove NULL, FALSE and Empty Strings (""), but leave 
 <?php
 
 // removes all NULL, FALSE and Empty Strings but leaves 0 (zero) values
-$result = array_filter( $array, &apos;strlen&apos; );
+$result = array_filter( $array, 'strlen' );
 
 ?>
 ```
@@ -24,8 +24,8 @@ In case you are interested (like me) in filtering out elements with certain key-
 
 ```
 <?php
-$arr = array( &apos;element1&apos; =&gt; 1, &apos;element2&apos; =&gt; 2, &apos;element3&apos; =&gt; 3, &apos;element4&apos; =&gt; 4 );
-$filterOutKeys = array( &apos;element1&apos;, &apos;element4&apos; );
+$arr = array( 'element1' => 1, 'element2' => 2, 'element3' => 3, 'element4' => 4 );
+$filterOutKeys = array( 'element1', 'element4' );
 
 $filteredArr = array_diff_key( $arr, array_flip( $filterOutKeys ) )
 ?>
@@ -83,11 +83,11 @@ Example:
 ```
 <?php
 $results = array(
-   0 =&gt; array(&apos;key1&apos; =&gt; &apos;1&apos;, &apos;key2&apos; =&gt; 2, &apos;key3&apos; =&gt; 3),
-   1 =&gt; array(&apos;key1&apos; =&gt; &apos;12&apos;, &apos;key2&apos; =&gt; 22, &apos;key3&apos; =&gt; 32) 
+   0 => array('key1' => '1', 'key2' => 2, 'key3' => 3),
+   1 => array('key1' => '12', 'key2' => 22, 'key3' => 32) 
 );
 
-$nResults = filter_by_value($results, &apos;key2&apos;, &apos;2&apos;);
+$nResults = filter_by_value($results, 'key2', '2');
 ?>
 ```
 <br><br>Output :<br><br>array(<br>    0 =&gt; array(&apos;key1&apos; =&gt; &apos;1&apos;, &apos;key2&apos; =&gt; 2, &apos;key3&apos; =&gt; 3)<br>);  
@@ -102,7 +102,7 @@ class Test
 {
     public function doFilter($array)
     {
-        return array_filter($array, array($this, &apos;callbackMethodName&apos;));
+        return array_filter($array, array($this, 'callbackMethodName'));
     }
 
     protected function callbackMethodName($element)
@@ -112,7 +112,7 @@ class Test
 }
 
 $example = new Test;
-print_r($example-&gt;doFilter(range(1, 10)));
+print_r($example->doFilter(range(1, 10)));
 ?>
 ```
 <br><br>Will return even numbers.  
@@ -123,9 +123,9 @@ Some of PHP&apos;s array functions play a prominent role in so called functional
 
 ```
 <?php
-  array_filter() -&gt; filter(), 
-  array_map() -&gt; map(), 
-  array_reduce() -&gt; foldl() ("fold left")
+  array_filter() -> filter(), 
+  array_map() -> map(), 
+  array_reduce() -> foldl() ("fold left")
 ?>
 ```
 <br><br>Functional programming is a paradigm which centers around the side-effect free evaluation of functions. A program execution is a call of a function, which in turn might be defined by many other functions. One idea is to use functions to create special purpose functions from other functions.<br><br>The array functions mentioned above allow you compose new functions on arrays. <br><br>E.g. array_sum = array_map("sum", $arr).<br><br>This leads to a style of programming that looks much like algebra, e.g. the Bird/Meertens formalism.<br><br>E.g. a mathematician might state<br><br>  map(f o g) = map(f) o map(g)<br><br>the so called "loop fusion" law.<br><br>Many functions on arrays can be created by the use of the foldr() function (which works like foldl, but eating up array elements from the right).<br><br>I can&apos;t get into detail here, I just wanted to provide a hint about where this stuff also shows up and the theory behind it.  
@@ -180,9 +180,9 @@ You can access the current key of array by passing a reference to array into cal
 
 ```
 <?php
-$data = array(&apos;first&apos; =&gt; 1, &apos;second&apos; =&gt; 2, &apos;third&apos; =&gt; 3);
+$data = array('first' => 1, 'second' => 2, 'third' => 3);
 $data = array_filter($data, function ($item) use (&amp;$data) {
-    echo "Filtering key ", key($data), &apos;&lt;br&gt;&apos;, PHP_EOL;
+    echo "Filtering key ", key($data), '&lt;br&gt;', PHP_EOL;
     next($data);
     return false;
 });

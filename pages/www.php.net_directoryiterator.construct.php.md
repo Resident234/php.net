@@ -34,16 +34,16 @@ class AdvancedDirectoryIterator extends FilterIterator {
   private $regex;
   /**
    * Creates new AdvancedDirectoryIterator
-   * @param string $path, prefix with &apos;-R &apos; for recursive, postfix with /[wildcards] for matching
+   * @param string $path, prefix with '-R ' for recursive, postfix with /[wildcards] for matching
    * @param int $flags
    * @return DirectoryIterator
    */
   public function  __construct($path, $flags = 0) {
-    if (strpos($path, &apos;-R &apos;) === 0) { $recursive = true; $path = substr($path, 3); }
-    if (preg_match(&apos;~/?([^/]*\*[^/]*)$~&apos;, $path, $matches)) { // matched wildcards in filename
+    if (strpos($path, '-R ') === 0) { $recursive = true; $path = substr($path, 3); }
+    if (preg_match('~/?([^/]*\*[^/]*)$~', $path, $matches)) { // matched wildcards in filename
       $path = substr($path, 0, -strlen($matches[1]) - 1); // strip wildcards part from path
-      $this-&gt;regex = &apos;~^&apos; . str_replace(&apos;*&apos;, &apos;.*&apos;, str_replace(&apos;.&apos;, &apos;\.&apos;, $matches[1])) . &apos;$~&apos;; // convert wildcards to regex 
-      if (!$path) $path = &apos;.&apos;; // if no path given, we assume CWD
+      $this->regex = '~^' . str_replace('*', '.*', str_replace('.', '\.', $matches[1])) . '$~'; // convert wildcards to regex 
+      if (!$path) $path = '.'; // if no path given, we assume CWD
     }
     parent::__construct($recursive ? new RRDI($path, $flags) : new DirectoryIterator($path));
   }
@@ -52,7 +52,7 @@ class AdvancedDirectoryIterator extends FilterIterator {
    * @return bool
    */
   public function accept() { // FilterIterator method
-    return $this-&gt;regex === null ? true : preg_match($this-&gt;regex, $this-&gt;getInnerIterator()-&gt;getFilename());
+    return $this->regex === null ? true : preg_match($this->regex, $this->getInnerIterator()->getFilename());
   }
 }
 
@@ -69,14 +69,14 @@ Some examples:
 
 /* @var $i DirectoryIterator */
 
-foreach (new AdvancedDirectoryIterator(&apos;.&apos;) as $i) echo $i-&gt;getPathname() . &apos;&lt;br/&gt;&apos;;
+foreach (new AdvancedDirectoryIterator('.') as $i) echo $i->getPathname() . '&lt;br/&gt;';
 // will output all files and directories in CWD
 
-foreach (new AdvancedDirectoryIterator(&apos;-R *.php&apos;) as $i) echo $i-&gt;getPathname() . &apos;&lt;br/&gt;&apos;;
+foreach (new AdvancedDirectoryIterator('-R *.php') as $i) echo $i->getPathname() . '&lt;br/&gt;';
 // will output all php files in CWD and all subdirectories
 
-foreach (new AdvancedDirectoryIterator(&apos;-R js/jquery-*.js&apos;) as $i) echo $i-&gt;getPathname() . &apos;&lt;br/&gt;&apos;;
-// will output all jQuery versions in directory js, or throw an exception if directory js doesn&apos;t exist
+foreach (new AdvancedDirectoryIterator('-R js/jquery-*.js') as $i) echo $i->getPathname() . '&lt;br/&gt;';
+// will output all jQuery versions in directory js, or throw an exception if directory js doesn't exist
 
 ?>
 ```

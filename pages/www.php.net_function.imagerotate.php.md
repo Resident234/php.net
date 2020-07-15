@@ -6,9 +6,9 @@ After some INet searches and personal try-and-failures I succeed to rotate PNG i
 
 ```
 <?php
-    $filename = &apos;YourFile.png&apos;;
+    $filename = 'YourFile.png';
     $rotang = 20; // Rotation angle
-    $source = imagecreatefrompng($filename) or die(&apos;Error opening file &apos;.$filename);
+    $source = imagecreatefrompng($filename) or die('Error opening file '.$filename);
     imagealphablending($source, false);
     imagesavealpha($source, true);
 
@@ -16,7 +16,7 @@ After some INet searches and personal try-and-failures I succeed to rotate PNG i
     imagealphablending($rotation, false);
     imagesavealpha($rotation, true);
 
-    header(&apos;Content-type: image/png&apos;);
+    header('Content-type: image/png');
     imagepng($rotation);
     imagedestroy($source);
     imagedestroy($rotation);

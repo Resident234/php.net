@@ -6,27 +6,27 @@ Using PHP 5.4.26, pdo_pgsql with libpg 9.2.8 (self compiled). As usual PHP never
 
 ```
 <?php
-$pdo = new PDO(&apos;pgsql:host=192.168.137.1;port=5432;dbname=anydb&apos;, &apos;anyuser&apos;, &apos;pw&apos;);
+$pdo = new PDO('pgsql:host=192.168.137.1;port=5432;dbname=anydb', 'anyuser', 'pw');
 sleep(5);
-$stmt = $pdo-&gt;prepare(&apos;SELECT * FROM sometable&apos;);
-$stmt-&gt;execute();
+$stmt = $pdo->prepare('SELECT * FROM sometable');
+$stmt->execute();
 $pdo = null;
 sleep(60);
 ?>
 ```
 
 
-Now check your database. And what a surprise! Your connection hangs for another 60 seconds. Now that might be expectable because you haven&apos;t cleared the resultset.
+Now check your database. And what a surprise! Your connection hangs for another 60 seconds. Now that might be expectable because you haven't cleared the resultset.
 
 
 
 ```
 <?php
-$pdo = new PDO(&apos;pgsql:host=192.168.137.160;port=5432;dbname=platin&apos;, &apos;cappytoi&apos;, &apos;1111&apos;);
+$pdo = new PDO('pgsql:host=192.168.137.160;port=5432;dbname=platin', 'cappytoi', '1111');
 sleep(5);
-$stmt = $pdo-&gt;prepare(&apos;SELECT * FROM admin&apos;);
-$stmt-&gt;execute();
-$stmt-&gt;closeCursor();
+$stmt = $pdo->prepare('SELECT * FROM admin');
+$stmt->execute();
+$stmt->closeCursor();
 $pdo = null;
 sleep(60);
 ?>
@@ -39,11 +39,11 @@ What teh heck you say at this point? Still same? Here is what you need to do to 
 
 ```
 <?php
-$pdo = new PDO(&apos;pgsql:host=192.168.137.160;port=5432;dbname=platin&apos;, &apos;cappytoi&apos;, &apos;1111&apos;);
+$pdo = new PDO('pgsql:host=192.168.137.160;port=5432;dbname=platin', 'cappytoi', '1111');
 sleep(5);
-$stmt = $pdo-&gt;prepare(&apos;SELECT * FROM admin&apos;);
-$stmt-&gt;execute();
-$stmt-&gt;closeCursor(); // this is not even required
+$stmt = $pdo->prepare('SELECT * FROM admin');
+$stmt->execute();
+$stmt->closeCursor(); // this is not even required
 $stmt = null; // doing this is mandatory for connection to get closed
 $pdo = null;
 sleep(60);
@@ -51,7 +51,7 @@ sleep(60);
 ```
 
 
-PDO is just one of a kind because it saves you to depend on 3rd party abstraction layers. But it becomes annoying to see there is no implementation of a "disconnect" method even though there is a request for it for 2 years. Developers underestimate the requirement of such a method. First of all, doing $stmt = null  everywhere is annoying and what is most annoying is you cannot forcibly disconnect even when you set $pdo = null. It might get cleared on script&apos;s termination but this is not always possible because script termination may delayed due to slow client connection etc.
+PDO is just one of a kind because it saves you to depend on 3rd party abstraction layers. But it becomes annoying to see there is no implementation of a "disconnect" method even though there is a request for it for 2 years. Developers underestimate the requirement of such a method. First of all, doing $stmt = null  everywhere is annoying and what is most annoying is you cannot forcibly disconnect even when you set $pdo = null. It might get cleared on script's termination but this is not always possible because script termination may delayed due to slow client connection etc.
 
 Anyway here is how to disconnect forcibly using postgresql:
 
@@ -59,11 +59,11 @@ Anyway here is how to disconnect forcibly using postgresql:
 
 ```
 <?php
-$pdo = new PDO(&apos;pgsql:host=192.168.137.160;port=5432;dbname=platin&apos;, &apos;cappytoi&apos;, &apos;1111&apos;);
+$pdo = new PDO('pgsql:host=192.168.137.160;port=5432;dbname=platin', 'cappytoi', '1111');
 sleep(5);
-$stmt = $pdo-&gt;prepare(&apos;SELECT * FROM admin&apos;);
-$stmt-&gt;execute();
-$pdo-&gt;query(&apos;SELECT pg_terminate_backend(pg_backend_pid());&apos;);
+$stmt = $pdo->prepare('SELECT * FROM admin');
+$stmt->execute();
+$pdo->query('SELECT pg_terminate_backend(pg_backend_pid());');
 $pdo = null;
 sleep(60);
 ?>
@@ -84,7 +84,7 @@ As http://stackoverflow.com/questions/17630772/pdo-cannot-connect-remote-mysql-s
 
 ```
 <?php
-$conn = new PDO(&apos;mysql:host=123.4.5.6;dbname=test_db;port=3306&apos;,&apos;username&apos;,&apos;password&apos;);
+$conn = new PDO('mysql:host=123.4.5.6;dbname=test_db;port=3306','username','password');
 ?>
 ```
 
@@ -95,7 +95,7 @@ it will fail no matter what. However if you put a space between mysql: and host 
 
 ```
 <?php
-$conn = new PDO(&apos;mysql: host=123.4.5.6;dbname=test_db;port=3306&apos;,&apos;username&apos;,&apos;password&apos;);
+$conn = new PDO('mysql: host=123.4.5.6;dbname=test_db;port=3306','username','password');
 ?>
 ```
 <br><br>it will magically work. I&apos;m not sure if this applies in all cases or server setups. But I think it&apos;s worth mentioning in the docs.  
@@ -111,13 +111,13 @@ Class SafePDO extends PDO {
  
         public static function exception_handler($exception) {
             // Output the exception details
-            die(&apos;Uncaught exception: &apos;, $exception-&gt;getMessage());
+            die('Uncaught exception: ', $exception->getMessage());
         }
  
-        public function __construct($dsn, $username=&apos;&apos;, $password=&apos;&apos;, $driver_options=array()) {
+        public function __construct($dsn, $username='', $password='', $driver_options=array()) {
 
             // Temporarily change the PHP exception handler while we . . .
-            set_exception_handler(array(__CLASS__, &apos;exception_handler&apos;));
+            set_exception_handler(array(__CLASS__, 'exception_handler'));
 
             // . . . create a PDO object
             parent::__construct($dsn, $username, $password, $driver_options);

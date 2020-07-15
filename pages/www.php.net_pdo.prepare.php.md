@@ -19,24 +19,24 @@ Note on the SQL injection properties of prepared statements.<br><br>Prepared sta
 ```
 <?php
 $a=new PDO("mysql:host=localhost;dbname=database;","root","");
-$b=$a-&gt;prepare("UPDATE `users` SET user=&apos;$var&apos;");
-$b-&gt;execute();
+$b=$a->prepare("UPDATE `users` SET user='$var'");
+$b->execute();
 ?>
 ```
 
 
-and the user had entered  User&apos;, email=&apos;test for a test the injection would occur and the email would be updated to test as well as the user being updated to User.
+and the user had entered  User', email='test for a test the injection would occur and the email would be updated to test as well as the user being updated to User.
 
 Using bindParam as follows
  
 
 ```
 <?php
-$var="User&apos;, email=&apos;test";
+$var="User', email='test";
 $a=new PDO("mysql:host=localhost;dbname=database;","root","");
-$b=$a-&gt;prepare("UPDATE `users` SET user=:var");
-$b-&gt;bindParam(":var",$var);
-$b-&gt;execute();
+$b=$a->prepare("UPDATE `users` SET user=:var");
+$b->bindParam(":var",$var);
+$b->execute();
 ?>
 ```
 <br><br>The sql would be escaped and update the username to User&apos;, email=&apos;test&apos;  

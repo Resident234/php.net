@@ -18,8 +18,8 @@ class Test {
 
 $Tester = new Test();
 
-var_export(method_exists($Tester, &apos;anything&apos;)); // false
-var_export(is_callable(array($Tester, &apos;anything&apos;))); // true
+var_export(method_exists($Tester, 'anything')); // false
+var_export(is_callable(array($Tester, 'anything'))); // true
 ?>
 ```
   
@@ -35,12 +35,12 @@ This function is case-insensitive (as is PHP) and here is the proof:<br>
 ```
 <?php
 class A {
-    public function FUNC() { echo &apos;*****&apos;; }
+    public function FUNC() { echo '*****'; }
 }
 
 $a = new A();
-$a-&gt;func(); // *****
-var_dump(method_exists($a, &apos;func&apos;)); // bool(true)
+$a->func(); // *****
+var_dump(method_exists($a, 'func')); // bool(true)
 ?>
 ```
   
@@ -62,11 +62,11 @@ $p = new ParentClass();
 $c = new ChildClass();
 
 // all return true
-var_dump(method_exists($p, &apos;doParent&apos;));
-var_dump(method_exists($c, &apos;doParent&apos;));
+var_dump(method_exists($p, 'doParent'));
+var_dump(method_exists($c, 'doParent'));
 
-var_dump(is_callable(array($p, &apos;doParent&apos;)));
-var_dump(is_callable(array($c, &apos;doParent&apos;)));
+var_dump(is_callable(array($p, 'doParent')));
+var_dump(is_callable(array($c, 'doParent')));
 ?>
 ```
   
@@ -82,10 +82,10 @@ class a {
 
     function a() {
         
-        if(method_exists($this, &apos;test&apos;))
-            echo &apos;a::test() exists!&apos;;
+        if(method_exists($this, 'test'))
+            echo 'a::test() exists!';
         else
-            echo &apos;a::test() doesn\&apos;t exists&apos;;
+            echo 'a::test() doesn\'t exists';
 
     }
 

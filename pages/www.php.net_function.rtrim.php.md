@@ -10,7 +10,7 @@ I have an obsessive love for php&apos;s array functions given how extremely easy
 function strrtrim($message, $strip) {
     // break message apart by strip string
     $lines = explode($strip, $message);
-    $last  = &apos;&apos;;
+    $last  = '';
     // pop off empty strings at the end
     do {
         $last = array_pop($lines);
@@ -31,7 +31,7 @@ True, the Perl chomp() will only trim newline characters. There is, however, the
 <?php
 # Reads /etc/passwd file an trims newlines on each entry
 $aFileContent = file("/etc/passwd");
-foreach ($aFileContent as $sKey =&gt; $sValue) {
+foreach ($aFileContent as $sKey => $sValue) {
     $aFileContent[$sKey] = rtrim($sValue);
 }
 
@@ -47,14 +47,14 @@ This shows how rtrim works when using the optional charlist parameter:<br>rtrim 
 ```
 <?php
   // Example 1:
-  rtrim(&apos;This is a short short sentence&apos;, &apos;short sentence&apos;);
-  // returns &apos;This is a&apos;
-  // If you were expecting the result to be &apos;This is a short &apos;,
-  // then you&apos;re wrong; the exact string, &apos;short sentence&apos;,
-  // isn&apos;t matched.  Remember, character-by-character comparison!
+  rtrim('This is a short short sentence', 'short sentence');
+  // returns 'This is a'
+  // If you were expecting the result to be 'This is a short ',
+  // then you're wrong; the exact string, 'short sentence',
+  // isn't matched.  Remember, character-by-character comparison!
   // Example 2:
-  rtrim(&apos;This is a short short sentence&apos;, &apos;cents&apos;);
-  // returns &apos;This is a short short &apos;
+  rtrim('This is a short short sentence', 'cents');
+  // returns 'This is a short short '
 ?>
 ```
   
@@ -66,22 +66,22 @@ On the recurring subject of string-stripping instead of character-stripping rtri
 ```
 <?php
 
-echo basename(&apos;MooFoo&apos;, &apos;Foo&apos;);
+echo basename('MooFoo', 'Foo');
 
 ?>
 ```
 
 
-...outputs &apos;Moo&apos;.
+...outputs 'Moo'.
 
-Since it also strips anything that looks like a directory, it&apos;s not quite identical with hacking a string off the end:
+Since it also strips anything that looks like a directory, it's not quite identical with hacking a string off the end:
 
 
 
 ```
 <?php
 
-echo basename(&apos;Zoo/MooFoo&apos;, &apos;Foo&apos;);
+echo basename('Zoo/MooFoo', 'Foo');
 
 ?>
 ```
@@ -137,17 +137,17 @@ $pinfol = strlen($pinfo);
 }
 }
 
-$this-&gt;cleaner = $pinfo;
+$this->cleaner = $pinfo;
 }
 
 }
 
-$pinfo = "Well... I&apos;m really bored...&lt;br /&gt;&lt;br&gt;&amp;nbsp;    \n\t&amp;nbsp;&lt;br&gt;&lt;br /&gt;&lt;br&gt;&amp;nbsp;    \r\r&amp;nbsp;&lt;br&gt;\r&lt;br /&gt;&lt;br&gt;\r&amp;nbsp;    &amp;nbsp;\n&lt;br&gt;      &lt;br /&gt;\t";
+$pinfo = "Well... I'm really bored...&lt;br /&gt;&lt;br&gt;&amp;nbsp;    \n\t&amp;nbsp;&lt;br&gt;&lt;br /&gt;&lt;br&gt;&amp;nbsp;    \r\r&amp;nbsp;&lt;br&gt;\r&lt;br /&gt;&lt;br&gt;\r&amp;nbsp;    &amp;nbsp;\n&lt;br&gt;      &lt;br /&gt;\t";
 
-$cuts = array(&apos;\n&apos;,&apos;\r&apos;,&apos;\t&apos;,&apos; &apos;,&apos; &apos;,&apos;&amp;nbsp;&apos;,&apos;&lt;br /&gt;&apos;,&apos;&lt;br&gt;&apos;,&apos;&lt;br/&gt;&apos;);
+$cuts = array('\n','\r','\t',' ',' ','&amp;nbsp;','&lt;br /&gt;','&lt;br&gt;','&lt;br/&gt;');
 
 $pinfo = new cleaner($cuts,$pinfo);
-$pinfo = $pinfo-&gt;cleaner;
+$pinfo = $pinfo->cleaner;
 
 print $pinfo;
 

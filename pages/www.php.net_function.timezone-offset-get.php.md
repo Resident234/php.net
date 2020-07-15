@@ -21,7 +21,7 @@ function get_timezone_offset($remote_tz, $origin_tz = null) {
     $remote_dtz = new DateTimeZone($remote_tz);
     $origin_dt = new DateTime("now", $origin_dtz);
     $remote_dt = new DateTime("now", $remote_dtz);
-    $offset = $origin_dtz-&gt;getOffset($origin_dt) - $remote_dtz-&gt;getOffset($remote_dt);
+    $offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
     return $offset;
 }
 ?>
@@ -33,9 +33,9 @@ Examples:
 ```
 <?php
 // This will return 10800 (3 hours) ...
-$offset = get_timezone_offset(&apos;America/Los_Angeles&apos;,&apos;America/New_York&apos;);
-// or, if your server time is already set to &apos;America/New_York&apos;...
-$offset = get_timezone_offset(&apos;America/Los_Angeles&apos;);
+$offset = get_timezone_offset('America/Los_Angeles','America/New_York');
+// or, if your server time is already set to 'America/New_York'...
+$offset = get_timezone_offset('America/Los_Angeles');
 // You can then take $offset and adjust your timestamp.
 $offset_time = time() + $offset;
 ?>

@@ -20,12 +20,12 @@ Be careful when trying to validate using PDO::PARAM_INT. <br><br>Take this sampl
  * Zend Engine v2.6.0, Copyright (c) 1998-2016 Zend Technologies
  */
 
-$id = &apos;1a&apos;; 
-$stm = $pdo-&gt;prepare(&apos;select * from author where id = :id&apos;);
-$bind = $stm-&gt;bindValue(&apos;:id&apos;, $id, PDO::PARAM_INT);
+$id = '1a'; 
+$stm = $pdo->prepare('select * from author where id = :id');
+$bind = $stm->bindValue(':id', $id, PDO::PARAM_INT);
 
-$stm-&gt;execute();
-$authors = $stm-&gt;fetchAll();
+$stm->execute();
+$authors = $stm->fetchAll();
 
 var_dump($id);         // string(2)
 var_dump($bind);       // true
@@ -34,10 +34,10 @@ var_dump(is_int($id)); // false
 var_dump($authors);    // the author id=1  =(
 
 // remember
-var_dump(1 == &apos;1&apos;);    // true
-var_dump(1 === &apos;1&apos;);   // false
-var_dump(1 === &apos;1a&apos;);  // false
-var_dump(1 == &apos;1a&apos;);   // true
+var_dump(1 == '1');    // true
+var_dump(1 === '1');   // false
+var_dump(1 === '1a');  // false
+var_dump(1 == '1a');   // true
 ?>
 ```
 <br><br>My opinion: bindValue() should test is_int() internaly first of anything, <br>It is a bug? I&apos;m not sure.  
@@ -53,18 +53,18 @@ Note that the third parameter ($data_type) in the majority of cases will not typ
 ```
 <?php
 
-$query = &apos;SELECT * FROM `users` WHERE username = :username AND `password` = ENCRYPT( :password, `crypt_password`)&apos;;
+$query = 'SELECT * FROM `users` WHERE username = :username AND `password` = ENCRYPT( :password, `crypt_password`)';
 
-$sth= $dbh-&gt;prepare($query);
+$sth= $dbh->prepare($query);
 
 // First try passing a random numerical value as the third parameter
-var_dump($sth-&gt;bindValue(&apos;:username&apos;,&apos;bob&apos;, 12345.67)); // bool(true)
+var_dump($sth->bindValue(':username','bob', 12345.67)); // bool(true)
 
 // Next try passing a string using the boolean type
-var_dump($sth-&gt;bindValue(&apos;:password&apos;,&apos;topsecret_pw&apos;, PDO::PARAM_BOOL)); // bool(true)
+var_dump($sth->bindValue(':password','topsecret_pw', PDO::PARAM_BOOL)); // bool(true)
 
-$sth-&gt;execute(); // Query is executed successfully
-$result = $sth-&gt;fetchAll(); // Returns the result of the query
+$sth->execute(); // Query is executed successfully
+$result = $sth->fetchAll(); // Returns the result of the query
 
 ?>
 ```
@@ -85,10 +85,10 @@ function bindArrayValue($req, $array, $typeArray = false)
 {
     if(is_object($req) &amp;&amp; ($req instanceof PDOStatement))
     {
-        foreach($array as $key =&gt; $value)
+        foreach($array as $key => $value)
         {
             if($typeArray)
-                $req-&gt;bindValue(":$key",$value,$typeArray[$key]);
+                $req->bindValue(":$key",$value,$typeArray[$key]);
             else
             {
                 if(is_int($value))
@@ -103,7 +103,7 @@ function bindArrayValue($req, $array, $typeArray = false)
                     $param = FALSE;
                     
                 if($param)
-                    $req-&gt;bindValue(":$key",$value,$param);
+                    $req->bindValue(":$key",$value,$param);
             }
         }
     }
@@ -111,9 +111,9 @@ function bindArrayValue($req, $array, $typeArray = false)
 
 /**
  * ## EXEMPLE ##
- * $array = array(&apos;language&apos; =&gt; &apos;php&apos;,&apos;lines&apos; =&gt; 254, &apos;publish&apos; =&gt; true);
- * $typeArray = array(&apos;language&apos; =&gt; PDO::PARAM_STR,&apos;lines&apos; =&gt; PDO::PARAM_INT,&apos;publish&apos; =&gt; PDO::PARAM_BOOL);
- * $req = &apos;SELECT * FROM code WHERE language = :language AND lines = :lines AND publish = :publish&apos;;
+ * $array = array('language' => 'php','lines' => 254, 'publish' => true);
+ * $typeArray = array('language' => PDO::PARAM_STR,'lines' => PDO::PARAM_INT,'publish' => PDO::PARAM_BOOL);
+ * $req = 'SELECT * FROM code WHERE language = :language AND lines = :lines AND publish = :publish';
  * You can bind $array like that :
  * bindArrayValue($array,$req,$typeArray);
  * The function is more useful when you use limit clause because they need an integer.

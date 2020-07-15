@@ -11,7 +11,7 @@ function mysql_escape_mimic($inp) {
         return array_map(__METHOD__, $inp);
 
     if(!empty($inp) &amp;&amp; is_string($inp)) {
-        return str_replace(array(&apos;\\&apos;, "\0", "\n", "\r", "&apos;", &apos;"&apos;, "\x1a"), array(&apos;\\\\&apos;, &apos;\\0&apos;, &apos;\\n&apos;, &apos;\\r&apos;, "\\&apos;", &apos;\\"&apos;, &apos;\\Z&apos;), $inp);
+        return str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $inp);
     }
 
     return $inp;

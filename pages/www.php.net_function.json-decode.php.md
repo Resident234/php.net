@@ -26,19 +26,19 @@ function isValidJson($strJson) {
 ?>
 ```
 
-It&apos;s so simple, that there is no need to use it and slow down your script with extra delay for function call. Just do it manualy in you code while working with input data:
+It's so simple, that there is no need to use it and slow down your script with extra delay for function call. Just do it manualy in you code while working with input data:
 
 
 ```
 <?php
 //here is my initial string
-$sJson = $_POST[&apos;json&apos;];
+$sJson = $_POST['json'];
 //try to decode it
 $json = json_decode($sJson);
 if (json_last_error() === JSON_ERROR_NONE) {
-    //do something with $json. It&apos;s ready to use
+    //do something with $json. It's ready to use
 } else {
-    //yep, it&apos;s not JSON. Log error or alert someone or do nothing
+    //yep, it's not JSON. Log error or alert someone or do nothing
 }
 ?>
 ```
@@ -52,12 +52,12 @@ The function by 1franck to allow comments works except if there is a comment at 
 <?php
 function json_clean_decode($json, $assoc = false, $depth = 512, $options = 0) {
     // search and remove comments like /* */ and //
-    $json = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t]//.*)|(^//.*)#", &apos;&apos;, $json);
+    $json = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t]//.*)|(^//.*)#", '', $json);
     
-    if(version_compare(phpversion(), &apos;5.4.0&apos;, &apos;&gt;=&apos;)) {
+    if(version_compare(phpversion(), '5.4.0', '&gt;=')) {
         $json = json_decode($json, $assoc, $depth, $options);
     }
-    elseif(version_compare(phpversion(), &apos;5.3.0&apos;, &apos;&gt;=&apos;)) {
+    elseif(version_compare(phpversion(), '5.3.0', '&gt;=')) {
         $json = json_decode($json, $assoc, $depth);
     }
     else {
@@ -93,12 +93,12 @@ Sometime, i need to allow comments in json file. So i wrote a small func to clea
 function json_clean_decode($json, $assoc = false, $depth = 512, $options = 0) {
 
     // search and remove comments like /* */ and //
-    $json = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t](//).*)#", &apos;&apos;, $json);
+    $json = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t](//).*)#", '', $json);
 
-    if(version_compare(phpversion(), &apos;5.4.0&apos;, &apos;&gt;=&apos;)) { 
+    if(version_compare(phpversion(), '5.4.0', '&gt;=')) { 
         $json = json_decode($json, $assoc, $depth, $options);
     }
-    elseif(version_compare(phpversion(), &apos;5.3.0&apos;, &apos;&gt;=&apos;)) { 
+    elseif(version_compare(phpversion(), '5.3.0', '&gt;=')) { 
         $json = json_decode($json, $assoc, $depth);
     }
     else {
@@ -116,7 +116,23 @@ function json_clean_decode($json, $assoc = false, $depth = 512, $options = 0) {
 it seems, that some of the people are not aware, that if you are using json_decode to decode a string it HAS to be a propper json string:<br><br>
 
 ```
-<?php<br>var_dump(json_encode(&apos;Hello&apos;));<br><br>var_dump(json_decode(&apos;Hello&apos;));  // wrong<br>var_dump(json_decode("Hello")); // wrong<br>var_dump(json_decode(&apos;"Hello"&apos;)); // correct<br>var_dump(json_decode("&apos;Hello&apos;")); // wrong<br><br>result:<br><br>string(7) ""Hello""<br>NULL<br>NULL<br>string(5) "Hello"<br>NULL  
+<?php
+var_dump(json_encode('Hello'));
+
+var_dump(json_decode('Hello'));  // wrong
+var_dump(json_decode("Hello")); // wrong
+var_dump(json_decode('"Hello"')); // correct
+var_dump(json_decode("'Hello'")); // wrong
+
+result:
+
+string(7) ""Hello""
+NULL
+NULL
+string(5) "Hello"
+NULL?>
+```
+  
 
 #
 
@@ -126,7 +142,7 @@ If var_dump produces NULL, you may be experiencing JSONP aka JSON with padding, 
 <?php
 
 //remove padding
-$body=preg_replace(&apos;/.+?({.+}).+/&apos;,&apos;$1&apos;,$body);
+$body=preg_replace('/.+?({.+}).+/','$1',$body);
 
 // now, process the JSON string
 $result = json_decode($body);
@@ -142,7 +158,7 @@ Be aware, when decoding JSON strings, where an empty string is a key, this libra
 
 ```
 <?php
-var_dump(json_decode(&apos;{"":"arbitrary"}&apos;));
+var_dump(json_decode('{"":"arbitrary"}'));
 ?>
 ```
 <br><br>The result is as follows:<br>object(stdClass)#1 (1) {<br>  ["_empty_"]=&gt;<br>  string(6) "arbitrary"<br>}<br><br>Any subsequent key named "_empty_" (or "" [the empty string] again) will overwrite the value.  
@@ -156,8 +172,8 @@ I added a 3rd regex to the json_decode_nice function by "colin.mollenhour.com" t
 // http://www.php.net/manual/en/function.json-decode.php#95782
 function json_decode_nice($json, $assoc = FALSE){ 
     $json = str_replace(array("\n","\r"),"",$json); 
-    $json = preg_replace(&apos;/([{,]+)(\s*)([^"]+?)\s*:/&apos;,&apos;$1"$3":&apos;,$json);
-    $json = preg_replace(&apos;/(,)\s*}$/&apos;,&apos;}&apos;,$json);
+    $json = preg_replace('/([{,]+)(\s*)([^"]+?)\s*:/','$1"$3":',$json);
+    $json = preg_replace('/(,)\s*}$/','}',$json);
     return json_decode($json,$assoc); 
 }
 ?>
@@ -186,9 +202,9 @@ string(35) "{
     "bar"    : "baz",
 }"
 array(2) {
-  ["foo"]=&gt;
+  ["foo"]=>
   string(3) "bam"
-  ["bar"]=&gt;
+  ["bar"]=>
   string(3) "baz"
 }
 */
@@ -202,16 +218,7 @@ json_decode_nice + keep linebreaks:<br><br>function json_decode_nice($json, $ass
 
 #
 
-Noted in a comment below is that this function will return NULL when given a simple string.<br><br>This is new behavior - see the result in PHP 5.2.4 :<br>php &gt; var_dump(json_decode(&apos;this is a simple string&apos;));
-string(23) "this is a simple string"
-
-in PHP 5.3.2 :
-php &gt; var_dump(json_decode(&apos;this is a simple string&apos;));
-NULL
-
-I had several functions that relied on checking the value of a purported JSON string if it didn&apos;t decode into an object/array. If you do too, be sure to be aware of this when upgrading to PHP 5.3.?>
-```
-  
+Noted in a comment below is that this function will return NULL when given a simple string.<br><br>This is new behavior - see the result in PHP 5.2.4 :<br>php &gt; var_dump(json_decode(&apos;this is a simple string&apos;));<br>string(23) "this is a simple string"<br><br>in PHP 5.3.2 :<br>php &gt; var_dump(json_decode(&apos;this is a simple string&apos;));<br>NULL<br><br>I had several functions that relied on checking the value of a purported JSON string if it didn&apos;t decode into an object/array. If you do too, be sure to be aware of this when upgrading to PHP 5.3.  
 
 #
 
@@ -226,7 +233,7 @@ This function will remove trailing commas and encode in utf8, which might solve 
     
     function removeTrailingCommas($json)
     {
-        $json=preg_replace(&apos;/,\s*([\]}])/m&apos;, &apos;$1&apos;, $json);
+        $json=preg_replace('/,\s*([\]}])/m', '$1', $json);
         return $json;
     }
 ?>
@@ -241,7 +248,7 @@ For those of you wanting json_decode to be a little more lenient (more like Java
 <?php
 function json_decode_nice($json, $assoc = FALSE){
     $json = str_replace(array("\n","\r"),"",$json);
-    $json = preg_replace(&apos;/([{,]+)(\s*)([^"]+?)\s*:/&apos;,&apos;$1"$3":&apos;,$json);
+    $json = preg_replace('/([{,]+)(\s*)([^"]+?)\s*:/','$1"$3":',$json);
     return json_decode($json,$assoc);
 }
 ?>
@@ -254,14 +261,14 @@ Some examples of accepted syntax:
 
 ```
 <?php
-$json = &apos;{a:{b:"c",d:["e","f",0]}}&apos;;
+$json = '{a:{b:"c",d:["e","f",0]}}';
 $json = 
-&apos;{
+'{
    a : {
       b : "c",
       "d.e.f": "g"
    }
-}&apos;;
+}';
 ?>
 ```
 
@@ -276,7 +283,7 @@ $string = "This
 Text
 Has
 Newlines";
-$json = &apos;{withnewlines:&apos;.json_encode($string).&apos;}&apos;;
+$json = '{withnewlines:'.json_encode($string).'}';
 ?>
 ```
 <br><br>Note: This does not fix trailing commas or single quotes.<br><br>[EDIT BY danbrown AT php DOT net: Contains a bugfix provided by (sskaje AT gmail DOT com) on 05-DEC-2012 with the following note.]<br><br>Old regexp failed when json like<br>{aaa:[{a:1},{a:2}]}  
@@ -287,22 +294,22 @@ json_decode()&apos;s handling of invalid JSON is very flaky, and it is very hard
 
 ```
 <?php
-var_dump(json_decode(&apos;[&apos;));             // unmatched bracket
-var_dump(json_decode(&apos;{&apos;));             // unmatched brace
-var_dump(json_decode(&apos;{}}&apos;));           // unmatched brace
-var_dump(json_decode(&apos;{error error}&apos;)); // invalid object key/value
+var_dump(json_decode('['));             // unmatched bracket
+var_dump(json_decode('{'));             // unmatched brace
+var_dump(json_decode('{}}'));           // unmatched brace
+var_dump(json_decode('{error error}')); // invalid object key/value
 notation
-var_dump(json_decode(&apos;["\"]&apos;));         // unclosed string
-var_dump(json_decode(&apos;[" \x "]&apos;));      // invalid escape code
+var_dump(json_decode('["\"]'));         // unclosed string
+var_dump(json_decode('[" \x "]'));      // invalid escape code
 
 Yet the following each returns the literal string you passed to it:
 
-var_dump(json_decode(&apos; [&apos;)); // unmatched bracket
-var_dump(json_decode(&apos; {&apos;)); // unmatched brace
-var_dump(json_decode(&apos; {}}&apos;)); // unmatched brace
-var_dump(json_decode(&apos; {error error}&apos;)); // invalid object key/value notation
-var_dump(json_decode(&apos;"\"&apos;)); // unclosed string
-var_dump(json_decode(&apos;" \x "&apos;)); // invalid escape code
+var_dump(json_decode(' [')); // unmatched bracket
+var_dump(json_decode(' {')); // unmatched brace
+var_dump(json_decode(' {}}')); // unmatched brace
+var_dump(json_decode(' {error error}')); // invalid object key/value notation
+var_dump(json_decode('"\"')); // unclosed string
+var_dump(json_decode('" \x "')); // invalid escape code
 ?>
 ```
 <br><br>(this is on PHP 5.2.6)<br><br>Reported as a bug, but oddly enough, it was closed as not a bug.<br><br>[NOTE BY danbrown AT php DOT net: This was later re-evaluated and it was determined that an issue did in fact exist, and was patched by members of the Development Team.  See http://bugs.php.net/bug.php?id=45989 for details.]  

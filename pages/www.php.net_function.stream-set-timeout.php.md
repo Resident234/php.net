@@ -16,8 +16,8 @@ Use:
 
 ```
 <?php
-socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array(&apos;sec&apos;=&gt;$sec, &apos;usec&apos;=&gt;$usec));
-socket_set_option($socket, SOL_SOCKET, SO_SNDTIMEO, array(&apos;sec&apos;=&gt;$sec, &apos;usec&apos;=&gt;$usec));
+socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array('sec'=>$sec, 'usec'=>$usec));
+socket_set_option($socket, SOL_SOCKET, SO_SNDTIMEO, array('sec'=>$sec, 'usec'=>$usec));
 ?>
 ```
   

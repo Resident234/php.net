@@ -2,7 +2,14 @@
 
 
 
-An additional requirement might be pkg-config (on Ubuntu 14.04).<br><br>$ pecl install mongodb<br>...<br>configure: error: Cannot find OpenSSL&apos;s libraries<br>ERROR: `/tmp/pear/temp/mongodb/configure --with-php-config=/usr/bin/php-config&apos; failed<br><br>But:<br><br>$ apt-get install pkg-config<br>...<br>Setting up pkg-config (0.26-1ubuntu4) ...<br>$ pecl install mongodb<br>...<br>Build process completed successfully<br>Installing &apos;/usr/lib/php/20151012/mongodb.so&apos;<br>install ok: channel://pecl.php.net/mongodb-1.1.7<br>configuration option "php_ini" is not set to php.ini location<br>You should add "extension=mongodb.so" to php.ini  
+An additional requirement might be pkg-config (on Ubuntu 14.04).<br><br>$ pecl install mongodb<br>...<br>configure: error: Cannot find OpenSSL&apos;s libraries<br>ERROR: `/tmp/pear/temp/mongodb/configure --with
+
+```
+<??>
+```
+config=/usr/bin/?>
+```
+config&apos; failed<br><br>But:<br><br>$ apt-get install pkg-config<br>...<br>Setting up pkg-config (0.26-1ubuntu4) ...<br>$ pecl install mongodb<br>...<br>Build process completed successfully<br>Installing &apos;/usr/lib/php/20151012/mongodb.so&apos;<br>install ok: channel://pecl.php.net/mongodb-1.1.7<br>configuration option "php_ini" is not set to php.ini location<br>You should add "extension=mongodb.so" to php.ini  
 
 #
 

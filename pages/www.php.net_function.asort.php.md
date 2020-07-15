@@ -10,7 +10,7 @@ This function can be used to sort multidimensional arrays with almost no work wh
      usort($results, "custom_sort");
      // Define the custom sort function
      function custom_sort($a,$b) {
-          return $a[&apos;some_sub_var&apos;]&gt;$b[&apos;some_sub_var&apos;];
+          return $a['some_sub_var']&gt;$b['some_sub_var'];
      }
 ?>
 ```
@@ -25,7 +25,75 @@ This function can be used to sort multidimensional arrays with almost no work wh
 For a recent project I needed to sort an associative array by value first, and then by key if a particular value appeared multiple times. I wrote this function to accomplish the task. Note that the parameters default to sort ascending on both keys and values, but allow granular control over each.<br><br>
 
 ```
-<?php<br>function aksort(&amp;$array,$valrev=false,$keyrev=false) {<br>  if ($valrev) { arsort($array); } else { asort($array); }<br>    $vals = array_count_values($array);<br>    $i = 0;<br>    foreach ($vals AS $val=&gt;$num) {<br>        $first = array_splice($array,0,$i);<br>        $tmp = array_splice($array,0,$num);<br>        if ($keyrev) { krsort($tmp); } else { ksort($tmp); }<br>        $array = array_merge($first,$tmp,$array);<br>        unset($tmp);<br>        $i = $num;<br>    }<br>}<br><br>// Example<br>$tmp = array(&apos;ca&apos;=&gt;1,&apos;cb&apos;=&gt;2,&apos;ce&apos;=&gt;1,&apos;pa&apos;=&gt;2,&apos;pe&apos;=&gt;1);<br><br>// Standard asort<br>asort($tmp);<br>print_r($tmp);<br><br>// Sort value ASC, key ASC<br>aksort($tmp);<br>print_r($tmp);<br><br>// Sort value DESC, key ASC<br>aksort($tmp,true);<br>print_r($tmp);<br><br>// Sort value DESC, key DESC<br>aksort($tmp,true,true);<br>print_r($tmp);<br><br>// Results<br>Array<br>(<br>    [pe] =&gt; 1<br>    [ca] =&gt; 1<br>    [ce] =&gt; 1<br>    [cb] =&gt; 2<br>    [pa] =&gt; 2<br>)<br>Array<br>(<br>    [ca] =&gt; 1<br>    [ce] =&gt; 1<br>    [pe] =&gt; 1<br>    [cb] =&gt; 2<br>    [pa] =&gt; 2<br>)<br>Array<br>(<br>    [cb] =&gt; 2<br>    [pa] =&gt; 2<br>    [ca] =&gt; 1<br>    [ce] =&gt; 1<br>    [pe] =&gt; 1<br>)<br>Array<br>(<br>    [pa] =&gt; 2<br>    [cb] =&gt; 2<br>    [pe] =&gt; 1<br>    [ce] =&gt; 1<br>    [ca] =&gt; 1<br>)  
+<?php
+function aksort(&amp;$array,$valrev=false,$keyrev=false) {
+  if ($valrev) { arsort($array); } else { asort($array); }
+    $vals = array_count_values($array);
+    $i = 0;
+    foreach ($vals AS $val=>$num) {
+        $first = array_splice($array,0,$i);
+        $tmp = array_splice($array,0,$num);
+        if ($keyrev) { krsort($tmp); } else { ksort($tmp); }
+        $array = array_merge($first,$tmp,$array);
+        unset($tmp);
+        $i = $num;
+    }
+}
+
+// Example
+$tmp = array('ca'=>1,'cb'=>2,'ce'=>1,'pa'=>2,'pe'=>1);
+
+// Standard asort
+asort($tmp);
+print_r($tmp);
+
+// Sort value ASC, key ASC
+aksort($tmp);
+print_r($tmp);
+
+// Sort value DESC, key ASC
+aksort($tmp,true);
+print_r($tmp);
+
+// Sort value DESC, key DESC
+aksort($tmp,true,true);
+print_r($tmp);
+
+// Results
+Array
+(
+    [pe] => 1
+    [ca] => 1
+    [ce] => 1
+    [cb] => 2
+    [pa] => 2
+)
+Array
+(
+    [ca] => 1
+    [ce] => 1
+    [pe] => 1
+    [cb] => 2
+    [pa] => 2
+)
+Array
+(
+    [cb] => 2
+    [pa] => 2
+    [ca] => 1
+    [ce] => 1
+    [pe] => 1
+)
+Array
+(
+    [pa] => 2
+    [cb] => 2
+    [pe] => 1
+    [ce] => 1
+    [ca] => 1
+)?>
+```
+  
 
 #
 
@@ -59,8 +127,8 @@ function record_sort($records, $field, $reverse=false)
 
 $airports = array
 (
-    array( "code" =&gt; "LHR", "name" =&gt; "Heathrow" ),
-    array( "code" =&gt; "LGW", "name" =&gt; "Gatwick" ),
+    array( "code" => "LHR", "name" => "Heathrow" ),
+    array( "code" => "LGW", "name" => "Gatwick" ),
 );
 
 printf("Before: &lt;pre&gt;%s&lt;/pre&gt;", print_r($airports, true));

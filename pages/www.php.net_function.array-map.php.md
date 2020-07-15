@@ -8,13 +8,7 @@ I was miffed that array_map didn&apos;t have a way to pass values *and* keys to 
 
 If you need to call a static method from array_map, this will NOT work:<br><br>&lt;?PHP<br>array_map(&apos;myclass::myMethod&apos; , $value);<br>?>
 ```
-
-
-Instead, you need to do this:
-
-&lt;?PHP
-array_map( array(&apos;myclass&apos;,&apos;myMethod&apos;) , $value);
-?>
+<br><br>Instead, you need to do this:<br><br>&lt;?PHP<br>array_map( array(&apos;myclass&apos;,&apos;myMethod&apos;) , $value);<br>?>
 ```
 <br><br>It is helpful to remember that this will work with any PHP function which expects a callback argument.  
 
@@ -25,13 +19,13 @@ PHP 5.3 enables us to use inline anonymous functions with array_map, cleaning up
 ```
 <?php
 $data = array(
-        array(&apos;id&apos; =&gt; 1, &apos;name&apos; =&gt; &apos;Bob&apos;, &apos;position&apos; =&gt; &apos;Clerk&apos;),
-        array(&apos;id&apos; =&gt; 2, &apos;name&apos; =&gt; &apos;Alan&apos;, &apos;position&apos; =&gt; &apos;Manager&apos;),
-        array(&apos;id&apos; =&gt; 3, &apos;name&apos; =&gt; &apos;James&apos;, &apos;position&apos; =&gt; &apos;Director&apos;)
+        array('id' => 1, 'name' => 'Bob', 'position' => 'Clerk'),
+        array('id' => 2, 'name' => 'Alan', 'position' => 'Manager'),
+        array('id' => 3, 'name' => 'James', 'position' => 'Director')
 );
 
 $names = array_map(
-        function($person) { return $person[&apos;name&apos;]; },
+        function($person) { return $person['name']; },
         $data
 );
 
@@ -47,14 +41,14 @@ This was possible (although not recommended) in prior versions of PHP 5, via cre
 ```
 <?php
 $names = array_map(
-        create_function(&apos;$person&apos;, &apos;return $person["name"];&apos;),
+        create_function('$person', 'return $person["name"];'),
         $data
 );
 ?>
 ```
 
 
-You&apos;re less likely to catch errors in the latter version because the code is passed as string arguments.
+You're less likely to catch errors in the latter version because the code is passed as string arguments.
 
 These are alternatives to using a foreach:
 
@@ -65,7 +59,7 @@ These are alternatives to using a foreach:
 $names = array();
 
 foreach ($data as $row) {
-        $names[] = $row[&apos;name&apos;];
+        $names[] = $row['name'];
 }
 ?>
 ```
@@ -78,8 +72,8 @@ You can use array_map with PHP native functions as well as user functions.  This
 ```
 <?php
 
-$integers = array_map (&apos;intval&apos;, $integers);
-$safeStrings = array_map (&apos;mysql_real_escape_string&apos;, $unsafeStrings);
+$integers = array_map ('intval', $integers);
+$safeStrings = array_map ('mysql_real_escape_string', $unsafeStrings);
 
 ?>
 ```
@@ -108,7 +102,7 @@ Simplest array_map_recursive() implemention.<br><br>
 ```
 <?php
 function array_map_recursive(callable $func, array $array) {
-    return filter_var($array, \FILTER_CALLBACK, [&apos;options&apos; =&gt; $func]);
+    return filter_var($array, \FILTER_CALLBACK, ['options' => $func]);
 }
 ?>
 ```
@@ -123,13 +117,13 @@ Let&apos;s assume we have following situation:<br><br>
 class MyFilterClass {
     public function filter(array $arr) {
         return array_map(function($value) {
-            return $this-&gt;privateFilterMethod($value);
+            return $this->privateFilterMethod($value);
         });
     }
 
     private function privateFilterMethod($value) {
         if (is_numeric($value)) $value++;
-        else $value .= &apos;.&apos;;
+        else $value .= '.';
     }
 }
 ?>
@@ -143,14 +137,14 @@ Here is how to perform an operation on some of the elements of an array:<br><br>
 ```
 <?php
 $an_array = array(
-    &apos;item1&apos; =&gt; 0,
-    &apos;item2&apos; =&gt; 0,
-    &apos;item3&apos; =&gt; 0,
-    &apos;item4&apos; =&gt; 0,
-    &apos;item5&apos; =&gt; 0,
+    'item1' => 0,
+    'item2' => 0,
+    'item3' => 0,
+    'item4' => 0,
+    'item5' => 0,
 );
 
-$items_to_modify = array(&apos;item1&apos;, "item3");
+$items_to_modify = array('item1', "item3");
 
  array_map(function ($value) use (&amp;$an_array ) {
      $an_array [$value] = (boolean)$an_array [$value];   //example operation:
@@ -172,20 +166,20 @@ You may be looking for a method to extract values of a multidimensional array on
 <?php
 $data = [
     [
-        "name" =&gt; "John",
-        "smoker" =&gt; false
+        "name" => "John",
+        "smoker" => false
     ],
     [
-        "name" =&gt; "Mary",
-        "smoker" =&gt; true
+        "name" => "Mary",
+        "smoker" => true
     ],
     [
-        "name" =&gt; "Peter",
-        "smoker" =&gt; false
+        "name" => "Peter",
+        "smoker" => false
     ],
     [
-        "name" =&gt; "Tony",
-        "smoker" =&gt; true
+        "name" => "Tony",
+        "smoker" => true
     ]
 ];
 ?>
@@ -198,7 +192,7 @@ You can extract the names of all the non-smokers with the following one-liner:
 
 ```
 <?php
-$names = array_filter(array_map(function($n) { if(!$n[&apos;smoker&apos;]) return $n[&apos;name&apos;]; }, $data));
+$names = array_filter(array_map(function($n) { if(!$n['smoker']) return $n['name']; }, $data));
 ?>
 ```
 <br><br>It&apos;s not necessarily better than a for/foreach loop, but the occasional one-liner for trivial tasks can help keep your code cleaner.  
@@ -211,7 +205,7 @@ Find an interesting thing that in array_map&apos;s callable function, late stati
 <?php
 class A {
     public static function foo($name) {
-        return &apos;In A: &apos;.$name;
+        return 'In A: '.$name;
     }
 
     public static function test($names) {
@@ -221,11 +215,11 @@ class A {
 
 class B extends A{
     public static function foo($name) {
-        return &apos;In B: &apos;.$name;
+        return 'In B: '.$name;
     }
 }
 
-$result = B::test([&apos;alice&apos;, &apos;bob&apos;]);
+$result = B::test(['alice', 'bob']);
 var_dump($result);
 ?>
 ```
@@ -233,8 +227,8 @@ var_dump($result);
 
 the result is:
 array (size=2)
-  0 =&gt; string &apos;In A: alice&apos; (length=11)
-  1 =&gt; string &apos;In A: bob&apos; (length=9)
+  0 => string 'In A: alice' (length=11)
+  1 => string 'In A: bob' (length=9)
 
 if I change A::test to
 
@@ -242,7 +236,7 @@ if I change A::test to
 ```
 <?php
     public static function test($names) {
-        return array_map([get_called_class(), &apos;foo&apos;], $names);
+        return array_map([get_called_class(), 'foo'], $names);
     }
 ?>
 ```
@@ -255,7 +249,7 @@ In case of you need to recursively bypass a function over the itens of an array,
 ```
 <?php
     function array_map_recursive($callback, $array) {
-        foreach ($array as $key =&gt; $value) {
+        foreach ($array as $key => $value) {
             if (is_array($array[$key])) {
                 $array[$key] = array_map_recursive($callback, $array[$key]);
             }
@@ -276,21 +270,21 @@ In case of you need to recursively bypass a function over the itens of an array,
 ```
 <?php
     $strings = array(
-        &apos;The&apos;,
+        'The',
         array(
-            &apos;quick&apos;,
-            &apos;fox&apos;,
+            'quick',
+            'fox',
             array(
-                &apos;brown&apos;,
-                &apos;jumps&apos;,
+                'brown',
+                'jumps',
                 array(
-                    &apos;over&apos;,
+                    'over',
                     array(
-                        &apos;the&apos;,
+                        'the',
                         array(
-                            &apos;lazy&apos;,
+                            'lazy',
                             array(
-                                &apos;dog&apos;
+                                'dog'
                             )
                         )
                     )
@@ -300,14 +294,14 @@ In case of you need to recursively bypass a function over the itens of an array,
     );
 
     print_r($strings);
-    $hashedString = array_map_recursive(&apos;md5&apos;, $strings);
+    $hashedString = array_map_recursive('md5', $strings);
     print_r($hashedString);
 ?>
 ```
 
 
 ------------------------------------------------------------------------
-Testing it, you&apos;ll obtain
+Testing it, you'll obtain
 
 
 
@@ -317,27 +311,27 @@ Testing it, you&apos;ll obtain
 /* Original array */
 
 array (
-  0 =&gt; &apos;The&apos;,
-  1 =&gt;
+  0 => 'The',
+  1 =>
   array (
-    0 =&gt; &apos;quick&apos;,
-    1 =&gt; &apos;fox&apos;,
-    2 =&gt;
+    0 => 'quick',
+    1 => 'fox',
+    2 =>
     array (
-      0 =&gt; &apos;brown&apos;,
-      1 =&gt; &apos;jumps&apos;,
-      2 =&gt;
+      0 => 'brown',
+      1 => 'jumps',
+      2 =>
       array (
-        0 =&gt; &apos;over&apos;,
-        1 =&gt;
+        0 => 'over',
+        1 =>
         array (
-          0 =&gt; &apos;the&apos;,
-          1 =&gt;
+          0 => 'the',
+          1 =>
           array (
-            0 =&gt; &apos;lazy&apos;,
-            1 =&gt;
+            0 => 'lazy',
+            1 =>
             array (
-              0 =&gt; &apos;dog&apos;,
+              0 => 'dog',
             ),
           ),
         ),
@@ -348,27 +342,27 @@ array (
 
 /* Recursived array */
 array (
-  0 =&gt; &apos;a4704fd35f0308287f2937ba3eccf5fe&apos;,
-  1 =&gt;
+  0 => 'a4704fd35f0308287f2937ba3eccf5fe',
+  1 =>
   array (
-    0 =&gt; &apos;1df3746a4728276afdc24f828186f73a&apos;,
-    1 =&gt; &apos;2b95d1f09b8b66c5c43622a4d9ec9a04&apos;,
-    2 =&gt;
+    0 => '1df3746a4728276afdc24f828186f73a',
+    1 => '2b95d1f09b8b66c5c43622a4d9ec9a04',
+    2 =>
     array (
-      0 =&gt; &apos;6ff47afa5dc7daa42cc705a03fca8a9b&apos;,
-      1 =&gt; &apos;55947829059f255e4ba2f536a2ae99fe&apos;,
-      2 =&gt;
+      0 => '6ff47afa5dc7daa42cc705a03fca8a9b',
+      1 => '55947829059f255e4ba2f536a2ae99fe',
+      2 =>
       array (
-        0 =&gt; &apos;3b759a9ca80234563d87672350659b2b&apos;,
-        1 =&gt;
+        0 => '3b759a9ca80234563d87672350659b2b',
+        1 =>
         array (
-          0 =&gt; &apos;8fc42c6ddf9966db3b09e84365034357&apos;,
-          1 =&gt;
+          0 => '8fc42c6ddf9966db3b09e84365034357',
+          1 =>
           array (
-            0 =&gt; &apos;0ffe34b4e04c2b282c5a388b1ad8aa7a&apos;,
-            1 =&gt;
+            0 => '0ffe34b4e04c2b282c5a388b1ad8aa7a',
+            1 =>
             array (
-              0 =&gt; &apos;06d80eb0c50b49a509b49f2424e8c805&apos;,
+              0 => '06d80eb0c50b49a509b49f2424e8c805',
             ),
           ),
         ),

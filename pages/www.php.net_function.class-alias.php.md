@@ -8,7 +8,7 @@ class_alias() gives you the ability to do conditional imports.<br><br>Whereas th
 <?php
 namespace Component;
 
-if (version_compare(PHP_VERSION, &apos;5.4.0&apos;, &apos;gte&apos;)) {
+if (version_compare(PHP_VERSION, '5.4.0', 'gte')) {
     use My\ArrayObject;
 } else {
     use ArrayObject;
@@ -29,10 +29,10 @@ the following, using class_alias, will:
 <?php
 namespace Component;
 
-if (version_compare(PHP_VERSION, &apos;5.4.0&apos;, &apos;lt&apos;)) {
-    class_alias(&apos;My\ArrayObject&apos;, &apos;Component\ArrayObject&apos;);
+if (version_compare(PHP_VERSION, '5.4.0', 'lt')) {
+    class_alias('My\ArrayObject', 'Component\ArrayObject');
 } else {
-    class_alias(&apos;ArrayObject&apos;, &apos;Component\ArrayObject&apos;);
+    class_alias('ArrayObject', 'Component\ArrayObject');
 }
 
 class Container extends ArrayObject
@@ -52,9 +52,9 @@ namespace ns1\ns2\ns3;
 
 class A {}
 
-class_alias(&apos;ns1\ns2\ns3\A&apos;, &apos;B&apos;);
+class_alias('ns1\ns2\ns3\A', 'B');
 /* or if you want B to exist in ns1\ns2\ns3 */
-class_alias(&apos;ns1\ns2\ns3\A&apos;, &apos;ns1\ns2\ns3\B&apos;);
+class_alias('ns1\ns2\ns3\A', 'ns1\ns2\ns3\B');
 ?>
 ```
   
@@ -66,8 +66,8 @@ class_alias also works for interfaces!<br><br>
 ```
 <?php
 interface foo {}
-class_alias(&apos;foo&apos;, &apos;bar&apos;);
-echo interface_exists(&apos;bar&apos;) ? &apos;yes!&apos; : &apos;no&apos;; // prints yes!
+class_alias('foo', 'bar');
+echo interface_exists('bar') ? 'yes!' : 'no'; // prints yes!
 ?>
 ```
   

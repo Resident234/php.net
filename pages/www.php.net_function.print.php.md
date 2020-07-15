@@ -41,7 +41,7 @@ I wrote a println function that determines whether a \n or a &lt;br /&gt; should
 ```
 <?php
 function println ($string_message) {
-    $_SERVER[&apos;SERVER_PROTOCOL&apos;] ? print "$string_message&lt;br /&gt;" : print "$string_message\n";
+    $_SERVER['SERVER_PROTOCOL'] ? print "$string_message&lt;br /&gt;" : print "$string_message\n";
 }
 ?>
 ```

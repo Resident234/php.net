@@ -19,10 +19,10 @@ Note that when you use implementation of factorial that ClaudiuS made, you get r
 function bcfact($num)
 {
     if (!filter_var($num, FILTER_VALIDATE_INT) || $num &lt;= 0) {
-        throw new InvalidArgumentException(sprintf(&apos;Argument must be natural number, "%s" given.&apos;, $num));
+        throw new InvalidArgumentException(sprintf('Argument must be natural number, "%s" given.', $num));
     }
 
-    for ($result = &apos;1&apos;; $num &gt; 0; $num--) {
+    for ($result = '1'; $num &gt; 0; $num--) {
         $result = bcmul($result, $num);
     }
 

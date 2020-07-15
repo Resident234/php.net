@@ -24,12 +24,12 @@ class Registry
     protected $_items = array();
     public function __set($key, $value)
     {
-        $this-&gt;_items[$key] = $value;
+        $this->_items[$key] = $value;
     }
     public function __get($key)
     {
-        if (isset($this-&gt;_items[$key])) {
-            return $this-&gt;_items[$key];
+        if (isset($this->_items[$key])) {
+            return $this->_items[$key];
         } else {
             return null;
         }
@@ -37,19 +37,19 @@ class Registry
 }
 
 $registry = new Registry();
-$registry-&gt;empty = &apos;&apos;;
-$registry-&gt;notEmpty = &apos;not empty&apos;;
+$registry->empty = '';
+$registry->notEmpty = 'not empty';
 
-var_dump(empty($registry-&gt;notExisting)); // true, so far so good
-var_dump(empty($registry-&gt;empty)); // true, so far so good
-var_dump(empty($registry-&gt;notEmpty)); // true, .. say what?
-$tmp = $registry-&gt;notEmpty;
+var_dump(empty($registry->notExisting)); // true, so far so good
+var_dump(empty($registry->empty)); // true, so far so good
+var_dump(empty($registry->notEmpty)); // true, .. say what?
+$tmp = $registry->notEmpty;
 var_dump(empty($tmp)); // false as expected
 ?>
 ```
 
 
-The result for empty($registry-&gt;notEmpty) is a bit unexpeced as the value is obviously set and non-empty. This is due to the fact that the empty() function uses __isset() magic functin in these cases. Although it&apos;s noted in the documentation above, I think it&apos;s worth mentioning in more detail as the behaviour is not straightforward. In order to achieve desired (expexted?) results, you need to add  __isset() magic function to your class:
+The result for empty($registry->notEmpty) is a bit unexpeced as the value is obviously set and non-empty. This is due to the fact that the empty() function uses __isset() magic functin in these cases. Although it's noted in the documentation above, I think it's worth mentioning in more detail as the behaviour is not straightforward. In order to achieve desired (expexted?) results, you need to add  __isset() magic function to your class:
 
 
 
@@ -60,20 +60,20 @@ class Registry
     protected $_items = array();
     public function __set($key, $value)
     {
-        $this-&gt;_items[$key] = $value;
+        $this->_items[$key] = $value;
     }
     public function __get($key)
     {
-        if (isset($this-&gt;_items[$key])) {
-            return $this-&gt;_items[$key];
+        if (isset($this->_items[$key])) {
+            return $this->_items[$key];
         } else {
             return null;
         }
     }
     public function __isset($key)
     {
-        if (isset($this-&gt;_items[$key])) {
-            return (false === empty($this-&gt;_items[$key]));
+        if (isset($this->_items[$key])) {
+            return (false === empty($this->_items[$key]));
         } else {
             return null;
         }
@@ -81,12 +81,12 @@ class Registry
 }
 
 $registry = new Registry();
-$registry-&gt;empty = &apos;&apos;;
-$registry-&gt;notEmpty = &apos;not empty&apos;;
+$registry->empty = '';
+$registry->notEmpty = 'not empty';
 
-var_dump(empty($registry-&gt;notExisting)); // true, so far so good
-var_dump(empty($registry-&gt;empty)); // true, so far so good
-var_dump(empty($registry-&gt;notEmpty)); // false, finally!
+var_dump(empty($registry->notExisting)); // true, so far so good
+var_dump(empty($registry->empty)); // true, so far so good
+var_dump(empty($registry->notEmpty)); // false, finally!
 ?>
 ```
 <br><br>It actually seems that empty() is returning negation of the __isset() magic function result, hence the negation of the empty() result in the __isset() function above.  
@@ -98,27 +98,13 @@ I&apos;m summarising a few points on empty() with inaccessible properties, in th
 ```
 <?php
 class MyClass {
-    private $foo = &apos;foo&apos;;
+    private $foo = 'foo';
 }
 $myClass = new MyClass;
-echo $myClass-&gt;foo;
+echo $myClass->foo;
 ?>
 ```
-
-As expected, this gives "Fatal error: Cannot access private property MyClass::$foo".
-But substitute the line
-if (empty($myClass-&gt;foo)) echo &apos;foo is empty&apos;; else echo &apos;foo is not empty&apos;;
-and we get the misleading result "foo is empty". 
-There is NO ERROR OR WARNING, so this is a real gotcha. Your code will just go wrong silently, and I would say it amounts to a bug.
-If you add two magic functions to the class:
-public function __get($var) { return $this-&gt;$var; }
-public function __isset($var) { return isset($this-&gt;$var); }
-then we get the expected result. You need both functions.
-For empty($myClass-&gt;foo), I believe PHP calls __isset, and if that is true returns the result of empty on the result of __get. (Some earlier posts wrongly suggest PHP just returns the negation of __isset).
-BUT &#x2026;
-See the earlier post by php at lanar dot com. I confirm those results, and if you extend the test with isset($x-&gt;a-&gt;b-&gt;c) it appears that __isset is only called for the last property in the chain. Arguably another bug. empty() behaves in the same way. So things are not as clear as we might hope.
-See also the note on empty() at
-http://uk3.php.net/manual/en/language.oop5.overloading.php<br>Clear as mud!  
+<br>As expected, this gives "Fatal error: Cannot access private property MyClass::$foo".<br>But substitute the line<br>if (empty($myClass-&gt;foo)) echo &apos;foo is empty&apos;; else echo &apos;foo is not empty&apos;;<br>and we get the misleading result "foo is empty". <br>There is NO ERROR OR WARNING, so this is a real gotcha. Your code will just go wrong silently, and I would say it amounts to a bug.<br>If you add two magic functions to the class:<br>public function __get($var) { return $this-&gt;$var; }<br>public function __isset($var) { return isset($this-&gt;$var); }<br>then we get the expected result. You need both functions.<br>For empty($myClass-&gt;foo), I believe PHP calls __isset, and if that is true returns the result of empty on the result of __get. (Some earlier posts wrongly suggest PHP just returns the negation of __isset).<br>BUT &#x2026;<br>See the earlier post by php at lanar dot com. I confirm those results, and if you extend the test with isset($x-&gt;a-&gt;b-&gt;c) it appears that __isset is only called for the last property in the chain. Arguably another bug. empty() behaves in the same way. So things are not as clear as we might hope.<br>See also the note on empty() at<br>http://uk3.php.net/manual/en/language.oop5.overloading.php<br>Clear as mud!  
 
 #
 
@@ -130,7 +116,7 @@ To add on to what anon said, what&apos;s happening in john_jian&apos;s example s
 
 ```
 <?php
-$str = &apos;            &apos;;
+$str = '            ';
 var_dump(empty($str)); // boolean false
 ?>
 ```
@@ -142,7 +128,7 @@ So remember to trim your strings first!
 
 ```
 <?php
-$str = &apos;        &apos;;
+$str = '        ';
 $str = trim($str);
 var_dump(empty($str)); // boolean true
 ?>
@@ -170,22 +156,22 @@ function is_multiArrayEmpty($multiarray) {
 }
 
 $testCase = array (     
-0 =&gt; &apos;&apos;,
-1 =&gt; "",
-2 =&gt; null,
-3 =&gt; array(),
-4 =&gt; array(array()),
-5 =&gt; array(array(array(array(array())))),
-6 =&gt; array(array(), array(), array(), array(), array()),
-7 =&gt; array(array(array(), array()), array(array(array(array(array(array(), array())))))),
-8 =&gt; array(null),
-9 =&gt; &apos;not empty&apos;,
-10 =&gt; "not empty",
-11 =&gt; array(array("not empty")),
-12 =&gt; array(array(),array("not empty"),array(array()))
+0 => '',
+1 => "",
+2 => null,
+3 => array(),
+4 => array(array()),
+5 => array(array(array(array(array())))),
+6 => array(array(), array(), array(), array(), array()),
+7 => array(array(array(), array()), array(array(array(array(array(array(), array())))))),
+8 => array(null),
+9 => 'not empty',
+10 => "not empty",
+11 => array(array("not empty")),
+12 => array(array(),array("not empty"),array(array()))
 );
 
-foreach ($testCase as $key =&gt; $case ) {
+foreach ($testCase as $key => $case ) {
     echo "$key is_multiArrayEmpty= ".is_multiArrayEmpty($case)."&lt;br&gt;";
 }
 ?>

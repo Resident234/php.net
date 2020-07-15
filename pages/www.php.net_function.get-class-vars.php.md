@@ -23,7 +23,7 @@ class Foo {
 
 $Foo = new Foo;
 
-$class_vars = $Foo-&gt;GetClassVars();
+$class_vars = $Foo->GetClassVars();
 
 foreach ($class_vars as $cvar)
 {

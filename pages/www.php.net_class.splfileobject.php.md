@@ -7,18 +7,18 @@ Note that this class has a private (and thus, not documented) property that hold
 ```
 <?php
 print "Declaring file object\n";
-$file = new SplFileObject(&apos;example.txt&apos;);
+$file = new SplFileObject('example.txt');
 
 print "Trying to delete file...\n";
-unlink(&apos;example.txt&apos;);
+unlink('example.txt');
 
 print "Closing file object\n";
 $file = null;
 
 print "Deleting file...\n";
-unlink(&apos;example.txt&apos;);
+unlink('example.txt');
 
-print &apos;File deleted!&apos;;
+print 'File deleted!';
 ?>
 ```
 <br>---------------------------------------------------------------------<br><br>which will output:<br><br>---------------------------------------------------------------------<br>Declaring file object <br>Trying to delete file... <br><br>Warning: unlink(example.txt): Permission denied in file.php on line 6<br>Closing file object <br>Deleting file... <br>File deleted!<br>---------------------------------------------------------------------  

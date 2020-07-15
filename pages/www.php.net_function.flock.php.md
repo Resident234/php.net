@@ -9,7 +9,49 @@ The supplied documentation is vague, ambiguous and lacking, and the user comment
 Simple Helper for lock files creation<br><br>
 
 ```
-<?php<br><br>class FileLocker {<br>    protected static $loc_files = array();<br><br>    public static function lockFile($file_name, $wait = false) {<br>        $loc_file = fopen($file_name, &apos;c&apos;);<br>        if ( !$loc_file ) {<br>            throw new \Exception(&apos;Can\&apos;t create lock file!&apos;);<br>        }<br>        if ( $wait ) {<br>            $lock = flock($loc_file, LOCK_EX);<br>        } else {<br>            $lock = flock($loc_file, LOCK_EX | LOCK_NB);<br>        }<br>        if ( $lock ) {<br>            self::$loc_files[$file_name] = $loc_file;<br>            fprintf($loc_file, "%s\n", getmypid());<br>            return $loc_file;<br>        } else if ( $wait ) {<br>            throw new \Exception(&apos;Can\&apos;t lock file!&apos;);<br>        } else {<br>            return false;<br>        }<br>    }<br><br>    public static function unlockFile($file_name) {<br>        fclose(self::$loc_files[$file_name]);<br>        @unlink($file_name);<br>        unset(self::$loc_files[$file_name]);<br>    }<br><br>} <br><br>if ( !FileLocker::lockFile(&apos;/tmp/1.lock&apos;) ) {<br>    echo "Can&apos;t lock file\n";<br>    die();<br>}<br>sleep(10);<br>FileLocker::unlockFile(&apos;/tmp/1.lock&apos;);<br>echo "All Ok\n";  
+<?php
+
+class FileLocker {
+    protected static $loc_files = array();
+
+    public static function lockFile($file_name, $wait = false) {
+        $loc_file = fopen($file_name, 'c');
+        if ( !$loc_file ) {
+            throw new \Exception('Can\'t create lock file!');
+        }
+        if ( $wait ) {
+            $lock = flock($loc_file, LOCK_EX);
+        } else {
+            $lock = flock($loc_file, LOCK_EX | LOCK_NB);
+        }
+        if ( $lock ) {
+            self::$loc_files[$file_name] = $loc_file;
+            fprintf($loc_file, "%s\n", getmypid());
+            return $loc_file;
+        } else if ( $wait ) {
+            throw new \Exception('Can\'t lock file!');
+        } else {
+            return false;
+        }
+    }
+
+    public static function unlockFile($file_name) {
+        fclose(self::$loc_files[$file_name]);
+        @unlink($file_name);
+        unset(self::$loc_files[$file_name]);
+    }
+
+} 
+
+if ( !FileLocker::lockFile('/tmp/1.lock') ) {
+    echo "Can't lock file\n";
+    die();
+}
+sleep(10);
+FileLocker::unlockFile('/tmp/1.lock');
+echo "All Ok\n";?>
+```
+  
 
 #
 
@@ -23,10 +65,10 @@ I just spent some time (again) to understand why a reading with file_get_content
 <?php
 public static function getContents($path, $waitIfLocked = true) {
     if(!file_exists($path)) {
-        throw new Exception(&apos;File "&apos;.$path.&apos;" does not exists&apos;);
+        throw new Exception('File "'.$path.'" does not exists');
     }
     else {
-        $fo = fopen($path, &apos;r&apos;);
+        $fo = fopen($path, 'r');
         $locked = flock($fo, LOCK_SH, $waitIfLocked);
         
         if(!$locked) {
@@ -56,7 +98,7 @@ file.php :
 
 ```
 <?php
-$fo = fopen(&apos;abc.txt&apos;, &apos;r+&apos;);
+$fo = fopen('abc.txt', 'r+');
 
 flock($fo, LOCK_EX);
 sleep(10);
@@ -70,8 +112,8 @@ file2.php :
 
 ```
 <?php
-var_dump(file_get_contents(&apos;abc.txt&apos;));
-var_dump(file(&apos;abc.txt&apos;));
+var_dump(file_get_contents('abc.txt'));
+var_dump(file('abc.txt'));
 ?>
 ```
 <br><br>Then launch file.php and switch to file2.php during the 10 seconds and see the difference before/after  

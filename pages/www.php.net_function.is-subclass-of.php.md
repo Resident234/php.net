@@ -11,7 +11,7 @@ class B extends A {};
 class C extends B {};
 
 $foo=new C();
-echo ((is_subclass_of($foo,&apos;A&apos;)) ? &apos;true&apos; : &apos;false&apos;);
+echo ((is_subclass_of($foo,'A')) ? 'true' : 'false');
 ?>
 ```
 <br><br>echoes &apos;true&apos; .  

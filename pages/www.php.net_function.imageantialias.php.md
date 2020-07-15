@@ -24,7 +24,7 @@ $destImage = imagecreatetruecolor($realWidth,$realHeight);
 imagecopyresampled($destImage,$srcImage,0,0,0,0,
 $realWidth,$realHeight,$srcWidth,$srcHeight);
 
-// now just do whatever you want with &apos;$destImage&apos; (e.g. display or output to file!)
+// now just do whatever you want with '$destImage' (e.g. display or output to file!)
 ?>
 ```
   

@@ -10,10 +10,10 @@ When you want to format currency&apos;s without sub units and the currency is no
 
 ```
 <?php
-$fmt = new NumberFormatter(&apos;en_US&apos;, NumberFormatter::CURRENCY);
-$fmt-&gt;setTextAttribute(NumberFormatter::CURRENCY_CODE, &apos;EUR&apos;);
-$fmt-&gt;setAttribute(NumberFormatter::FRACTION_DIGITS, 0);
-$fmt-&gt;formatCurrency(100, &apos;EUR&apos;);
+$fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+$fmt->setTextAttribute(NumberFormatter::CURRENCY_CODE, 'EUR');
+$fmt->setAttribute(NumberFormatter::FRACTION_DIGITS, 0);
+$fmt->formatCurrency(100, 'EUR');
 ?>
 ```
   

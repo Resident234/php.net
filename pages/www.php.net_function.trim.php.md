@@ -14,7 +14,7 @@ When specifying the character mask, <br>make sure that you use double quotes<br>
       Hello World   "; //here is a string with some trailing and leading whitespace
 
   $trimmed_correct   = trim($hello, " \t\n\r"); //&lt;--------OKAY
-  $trimmed_incorrect = trim($hello, &apos; \t\n\r&apos;); //&lt;--------NOT AS EXPECTED
+  $trimmed_incorrect = trim($hello, ' \t\n\r'); //&lt;--------NOT AS EXPECTED
 
   print("----------------------------");
   print("TRIMMED OK:".PHP_EOL);
@@ -66,7 +66,7 @@ Another way to trim all the elements of an array<br>
 
 ```
 <?php
-$newarray = array_map(&apos;trim&apos;, $array);
+$newarray = array_map('trim', $array);
 ?>
 ```
   

@@ -10,7 +10,7 @@ Here&apos;s the correct code for making recursive directories:<br><br>
 // function
 function ftp_mksubdirs($ftpcon,$ftpbasedir,$ftpath){
    @ftp_chdir($ftpcon, $ftpbasedir); // /var/www/uploads
-   $parts = explode(&apos;/&apos;,$ftpath); // 2013/06/11/username
+   $parts = explode('/',$ftpath); // 2013/06/11/username
    foreach($parts as $part){
       if(!@ftp_chdir($ftpcon, $part)){
          ftp_mkdir($ftpcon, $part);
@@ -21,8 +21,8 @@ function ftp_mksubdirs($ftpcon,$ftpbasedir,$ftpath){
 }
 
 // usage
-$path_of_storage = &apos;/var/www/uploads&apos;;
-$newftpdir = &apos;2013/06/11/username&apos;;
+$path_of_storage = '/var/www/uploads';
+$newftpdir = '2013/06/11/username';
 
 $conn_id = ftp_connect($ftpserver);
 ftp_login($conn_id, $login, $pass);

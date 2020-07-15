@@ -8,7 +8,7 @@ This function is particularly necessary on VMs running on KVM, XEN (openstack, A
 <?php
 $time = -microtime(true);
 sleep(5);
-$end = sprintf(&apos;%f&apos;, $time += microtime(true));
+$end = sprintf('%f', $time += microtime(true));
 ?>
 ```
 

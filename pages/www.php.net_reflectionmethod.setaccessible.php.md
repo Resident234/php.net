@@ -12,10 +12,10 @@ class Foo {
   }
 }
 
-$method = new ReflectionMethod(&apos;Foo&apos;, &apos;myPrivateMethod&apos;);
-$method-&gt;setAccessible(true);
+$method = new ReflectionMethod('Foo', 'myPrivateMethod');
+$method->setAccessible(true);
  
-echo $method-&gt;invoke(new Foo);
+echo $method->invoke(new Foo);
 // echos "7"
 ?>
 ```

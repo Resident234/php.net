@@ -33,13 +33,13 @@ class Example
     }
 }
 
-$reflector = new ReflectionClass(&apos;Example&apos;);
+$reflector = new ReflectionClass('Example');
 
 // to get the Class DocBlock
-echo $reflector-&gt;getDocComment()
+echo $reflector->getDocComment()
 
 // to get the Method DocBlock
-$reflector-&gt;getMethod(&apos;fn&apos;)-&gt;getDocComment();
+$reflector->getMethod('fn')->getDocComment();
 
 ?>
 ```

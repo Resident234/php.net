@@ -33,7 +33,7 @@ function calculateBankHolidays($yr) {
 
     $bankHols = Array();
 
-    // New year&apos;s:
+    // New year's:
     switch ( date("w", strtotime("$yr-01-01 12:00:00")) ) {
         case 6:
             $bankHols[] = "$yr-01-03";

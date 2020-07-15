@@ -6,18 +6,18 @@ If you get incorrect false responses from password_verify when manually includin
 
 ```
 <?php
-// this will result in &apos;Invalid Password&apos; as the hash is parsed into 3 variables of
+// this will result in 'Invalid Password' as the hash is parsed into 3 variables of
 // $2y, $07 and $BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq
 // due to it being enclosed inside double quotes
 $hash = "$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq";
 
-// this will result in &apos;Password is valid&apos; as variables are not parsed inside single quotes
-$hash = &apos;$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq&apos;;
+// this will result in 'Password is valid' as variables are not parsed inside single quotes
+$hash = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq';
 
-if (password_verify(&apos;rasmuslerdorf&apos;, $hash)) {
-    echo &apos;Password is valid!&apos;;
+if (password_verify('rasmuslerdorf', $hash)) {
+    echo 'Password is valid!';
 } else {
-    echo &apos;Invalid password.&apos;;
+    echo 'Invalid password.';
 }
 ?>
 ```
@@ -30,12 +30,12 @@ This function can be used to verify hashes created with other functions like cry
 ```
 <?php
 
-$hash = &apos;$1$toHVx1uW$KIvW9yGZZSU/1YOidHeqJ/&apos;;
+$hash = '$1$toHVx1uW$KIvW9yGZZSU/1YOidHeqJ/';
 
-if (password_verify(&apos;rasmuslerdorf&apos;, $hash)) {
-    echo &apos;Password is valid!&apos;;
+if (password_verify('rasmuslerdorf', $hash)) {
+    echo 'Password is valid!';
 } else {
-    echo &apos;Invalid password.&apos;;
+    echo 'Invalid password.';
 }
 
 // Output: Password is valid!
@@ -56,16 +56,16 @@ This Is The Most Secure Way To Keep Your Password Safe With PHP 7 , <br>Even Whe
 <?php
 $hashed_password = password_hash($_POST["password"],PASSWORD_DEFAULT);
 
-// $_POST["password"] ---&gt; Is The User`s Input
-// $hashed_password ---&gt; Is The Hashed Password You Can Store In Your DataBase
+// $_POST["password"] ---> Is The User`s Input
+// $hashed_password ---> Is The Hashed Password You Can Store In Your DataBase
 ?>
 ```
 
 --------------------------------------------------------
 --- When A User Wants To Sign In ---
-1 ---&gt; Get Input From User Which Is The User`s Password
-2 ---&gt; Fetch The Hashed Password From Your Database
-3 ---&gt; Compare The User`s Input And The Hashed Password 
+1 ---> Get Input From User Which Is The User`s Password
+2 ---> Fetch The Hashed Password From Your Database
+3 ---> Compare The User`s Input And The Hashed Password 
 --------------------------------------------------------
 
 
@@ -77,8 +77,8 @@ $hashed_password = password_hash($_POST["password"],PASSWORD_DEFAULT);
     else
     echo "Wrong Password";
 
-// $_POST["password"] ---&gt; Is The User`s Input
-// $hashed_password ---&gt; Is The Hashed Password You Have Fetched From DataBase
+// $_POST["password"] ---> Is The User`s Input
+// $hashed_password ---> Is The Hashed Password You Have Fetched From DataBase
 ?>
 ```
   

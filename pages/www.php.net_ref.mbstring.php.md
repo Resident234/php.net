@@ -7,9 +7,9 @@ Please note that all the discussion about mb_str_replace in the comments is pret
 ```
 <?php
 
-$string  = &apos;&#x6F22;&#x5B57;&#x306F;&#x30E6;&#x30CB;&#x30B3;&#x30FC;&#x30C9;&apos;;
-$needle  = &apos;&#x306F;&apos;;
-$replace = &apos;Foo&apos;;
+$string  = '&#x6F22;&#x5B57;&#x306F;&#x30E6;&#x30CB;&#x30B3;&#x30FC;&#x30C9;';
+$needle  = '&#x306F;';
+$replace = 'Foo';
 
 echo str_replace($needle, $replace, $string);
 // outputs: &#x6F22;&#x5B57;Foo&#x30E6;&#x30CB;&#x30B3;&#x30FC;&#x30C9;

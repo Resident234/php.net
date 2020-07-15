@@ -14,7 +14,7 @@ function highlightStr($haystack, $needle, $highlightColorValue) {
     preg_match_all("/$needle+/i", $haystack, $matches);
     if (is_array($matches[0]) &amp;&amp; count($matches[0]) &gt;= 1) {
         foreach ($matches[0] as $match) {
-            $haystack = str_replace($match, &apos;&lt;span style="background-color:&apos;.$highlightColorValue.&apos;;"&gt;&apos;.$match.&apos;&lt;/span&gt;&apos;, $haystack);
+            $haystack = str_replace($match, '&lt;span style="background-color:'.$highlightColorValue.';"&gt;'.$match.'&lt;/span&gt;', $haystack);
         }
     }
     return $haystack;
@@ -42,59 +42,59 @@ here&apos;s a neat little function I whipped up to do HTML color coding of SQL s
  */
 function SQL_DEBUG( $query )
 {
-    if( $query == &apos;&apos; ) return 0;
+    if( $query == '' ) return 0;
 
     global $SQL_INT;
     if( !isset($SQL_INT) ) $SQL_INT = 0;
 
     //[dv] this has to come first or you will have goofy results later.
-    $query = preg_replace("/[&apos;\"]([^&apos;\"]*)[&apos;\"]/i", "&apos;&lt;FONT COLOR=&apos;#FF6600&apos;&gt;$1&lt;/FONT&gt;&apos;", $query, -1);
+    $query = preg_replace("/['\"]([^'\"]*)['\"]/i", "'&lt;FONT COLOR='#FF6600'&gt;$1&lt;/FONT&gt;'", $query, -1);
 
     $query = str_ireplace(
                             array (
-                                    &apos;*&apos;,
-                                    &apos;SELECT &apos;,
-                                    &apos;UPDATE &apos;,
-                                    &apos;DELETE &apos;,
-                                    &apos;INSERT &apos;,
-                                    &apos;INTO&apos;,
-                                    &apos;VALUES&apos;,
-                                    &apos;FROM&apos;,
-                                    &apos;LEFT&apos;,
-                                    &apos;JOIN&apos;,
-                                    &apos;WHERE&apos;,
-                                    &apos;LIMIT&apos;,
-                                    &apos;ORDER BY&apos;,
-                                    &apos;AND&apos;,
-                                    &apos;OR &apos;, //[dv] note the space. otherwise you match to &apos;COLOR&apos; ;-)
-                                    &apos;DESC&apos;,
-                                    &apos;ASC&apos;,
-                                    &apos;ON &apos;
+                                    '*',
+                                    'SELECT ',
+                                    'UPDATE ',
+                                    'DELETE ',
+                                    'INSERT ',
+                                    'INTO',
+                                    'VALUES',
+                                    'FROM',
+                                    'LEFT',
+                                    'JOIN',
+                                    'WHERE',
+                                    'LIMIT',
+                                    'ORDER BY',
+                                    'AND',
+                                    'OR ', //[dv] note the space. otherwise you match to 'COLOR' ;-)
+                                    'DESC',
+                                    'ASC',
+                                    'ON '
                                   ),
                             array (
-                                    "&lt;FONT COLOR=&apos;#FF6600&apos;&gt;&lt;B&gt;*&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#00AA00&apos;&gt;&lt;B&gt;SELECT&lt;/B&gt; &lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#00AA00&apos;&gt;&lt;B&gt;UPDATE&lt;/B&gt; &lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#00AA00&apos;&gt;&lt;B&gt;DELETE&lt;/B&gt; &lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#00AA00&apos;&gt;&lt;B&gt;INSERT&lt;/B&gt; &lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#00AA00&apos;&gt;&lt;B&gt;INTO&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#00AA00&apos;&gt;&lt;B&gt;VALUES&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#00AA00&apos;&gt;&lt;B&gt;FROM&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#00CC00&apos;&gt;&lt;B&gt;LEFT&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#00CC00&apos;&gt;&lt;B&gt;JOIN&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#00AA00&apos;&gt;&lt;B&gt;WHERE&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#AA0000&apos;&gt;&lt;B&gt;LIMIT&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#00AA00&apos;&gt;&lt;B&gt;ORDER BY&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#0000AA&apos;&gt;&lt;B&gt;AND&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#0000AA&apos;&gt;&lt;B&gt;OR&lt;/B&gt; &lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#0000AA&apos;&gt;&lt;B&gt;DESC&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#0000AA&apos;&gt;&lt;B&gt;ASC&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR=&apos;#00DD00&apos;&gt;&lt;B&gt;ON&lt;/B&gt; &lt;/FONT&gt;"
+                                    "&lt;FONT COLOR='#FF6600'&gt;&lt;B&gt;*&lt;/B&gt;&lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;SELECT&lt;/B&gt; &lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;UPDATE&lt;/B&gt; &lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;DELETE&lt;/B&gt; &lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;INSERT&lt;/B&gt; &lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;INTO&lt;/B&gt;&lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;VALUES&lt;/B&gt;&lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;FROM&lt;/B&gt;&lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#00CC00'&gt;&lt;B&gt;LEFT&lt;/B&gt;&lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#00CC00'&gt;&lt;B&gt;JOIN&lt;/B&gt;&lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;WHERE&lt;/B&gt;&lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#AA0000'&gt;&lt;B&gt;LIMIT&lt;/B&gt;&lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;ORDER BY&lt;/B&gt;&lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#0000AA'&gt;&lt;B&gt;AND&lt;/B&gt;&lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#0000AA'&gt;&lt;B&gt;OR&lt;/B&gt; &lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#0000AA'&gt;&lt;B&gt;DESC&lt;/B&gt;&lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#0000AA'&gt;&lt;B&gt;ASC&lt;/B&gt;&lt;/FONT&gt;",
+                                    "&lt;FONT COLOR='#00DD00'&gt;&lt;B&gt;ON&lt;/B&gt; &lt;/FONT&gt;"
                                   ),
                             $query
                           );
 
-    echo "&lt;FONT COLOR=&apos;#0000FF&apos;&gt;&lt;B&gt;SQL[".$SQL_INT."]:&lt;/B&gt; ".$query."&lt;FONT COLOR=&apos;#FF0000&apos;&gt;;&lt;/FONT&gt;&lt;/FONT&gt;&lt;BR&gt;\n";
+    echo "&lt;FONT COLOR='#0000FF'&gt;&lt;B&gt;SQL[".$SQL_INT."]:&lt;/B&gt; ".$query."&lt;FONT COLOR='#FF0000'&gt;;&lt;/FONT&gt;&lt;/FONT&gt;&lt;BR&gt;\n";
 
     $SQL_INT++;
 

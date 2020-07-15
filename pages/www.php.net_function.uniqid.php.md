@@ -15,10 +15,10 @@ class UUID {
     if(!self::is_valid($namespace)) return false;
 
     // Get hexadecimal components of namespace
-    $nhex = str_replace(array(&apos;-&apos;,&apos;{&apos;,&apos;}&apos;), &apos;&apos;, $namespace);
+    $nhex = str_replace(array('-','{','}'), '', $namespace);
 
     // Binary Value
-    $nstr = &apos;&apos;;
+    $nstr = '';
 
     // Convert Namespace UUID to bits
     for($i = 0; $i &lt; strlen($nhex); $i+=2) {
@@ -28,7 +28,7 @@ class UUID {
     // Calculate hash value
     $hash = md5($nstr . $name);
 
-    return sprintf(&apos;%08s-%04s-%04x-%04x-%12s&apos;,
+    return sprintf('%08s-%04s-%04x-%04x-%12s',
 
       // 32 bits for "time_low"
       substr($hash, 0, 8),
@@ -51,7 +51,7 @@ class UUID {
   }
 
   public static function v4() {
-    return sprintf(&apos;%04x%04x-%04x-%04x-%04x-%04x%04x%04x&apos;,
+    return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
 
       // 32 bits for "time_low"
       mt_rand(0, 0xffff), mt_rand(0, 0xffff),
@@ -77,10 +77,10 @@ class UUID {
     if(!self::is_valid($namespace)) return false;
 
     // Get hexadecimal components of namespace
-    $nhex = str_replace(array(&apos;-&apos;,&apos;{&apos;,&apos;}&apos;), &apos;&apos;, $namespace);
+    $nhex = str_replace(array('-','{','}'), '', $namespace);
 
     // Binary Value
-    $nstr = &apos;&apos;;
+    $nstr = '';
 
     // Convert Namespace UUID to bits
     for($i = 0; $i &lt; strlen($nhex); $i+=2) {
@@ -90,7 +90,7 @@ class UUID {
     // Calculate hash value
     $hash = sha1($nstr . $name);
 
-    return sprintf(&apos;%08s-%04s-%04x-%04x-%12s&apos;,
+    return sprintf('%08s-%04s-%04x-%04x-%12s',
 
       // 32 bits for "time_low"
       substr($hash, 0, 8),
@@ -113,16 +113,16 @@ class UUID {
   }
 
   public static function is_valid($uuid) {
-    return preg_match(&apos;/^\{?[0-9a-f]{8}\-?[0-9a-f]{4}\-?[0-9a-f]{4}\-?&apos;.
-                      &apos;[0-9a-f]{4}\-?[0-9a-f]{12}\}?$/i&apos;, $uuid) === 1;
+    return preg_match('/^\{?[0-9a-f]{8}\-?[0-9a-f]{4}\-?[0-9a-f]{4}\-?'.
+                      '[0-9a-f]{4}\-?[0-9a-f]{12}\}?$/i', $uuid) === 1;
   }
 }
 
 // Usage
 // Named-based UUID.
 
-$v3uuid = UUID::v3(&apos;1546058f-5a25-4334-85ae-e68f2a44bbaf&apos;, &apos;SomeRandomString&apos;);
-$v5uuid = UUID::v5(&apos;1546058f-5a25-4334-85ae-e68f2a44bbaf&apos;, &apos;SomeRandomString&apos;);
+$v3uuid = UUID::v3('1546058f-5a25-4334-85ae-e68f2a44bbaf', 'SomeRandomString');
+$v5uuid = UUID::v5('1546058f-5a25-4334-85ae-e68f2a44bbaf', 'SomeRandomString');
 
 // Pseudo-random UUID
 
@@ -167,7 +167,7 @@ Output:
 5819f3ad1c4b6
 5819f3ad1c4b6
 
-As you can see, using it w/ a DB can cause the creation of documents with repeated ID&apos;s. You should instead opt for:
+As you can see, using it w/ a DB can cause the creation of documents with repeated ID's. You should instead opt for:
 
 
 
@@ -215,7 +215,7 @@ class UUID {
    * Generates version 1: MAC address
    */
   public static function v1() {
-    if (!function_exists(&apos;uuid_create&apos;))
+    if (!function_exists('uuid_create'))
       return false;
 
     uuid_create(&amp;$context);
@@ -228,7 +228,7 @@ class UUID {
    * Generates version 3 UUID: MD5 hash of URL
    */
   public static function v3($i_url) {
-    if (!function_exists(&apos;uuid_create&apos;))
+    if (!function_exists('uuid_create'))
       return false;
 
     if (!strlen($i_url))
@@ -246,7 +246,7 @@ class UUID {
    * Generates version 4 UUID: random
    */
   public static function v4() {
-    if (!function_exists(&apos;uuid_create&apos;))
+    if (!function_exists('uuid_create'))
       return false;
 
     uuid_create(&amp;$context);
@@ -260,7 +260,7 @@ class UUID {
    * Generates version 5 UUID: SHA-1 hash of URL
    */
   public static function v5($i_url) {
-    if (!function_exists(&apos;uuid_create&apos;))
+    if (!function_exists('uuid_create'))
       return false;
 
     if (!strlen($i_url))
@@ -278,19 +278,19 @@ class UUID {
 ```
 
 
-And here&apos;s a demonstration:
+And here's a demonstration:
 
 
 
 ```
 <?php
 for ($i = 1; $i &lt;= 3; ++$i) {
-  echo &apos;microtime = &apos; . microtime(true) . &apos;&lt;br/&gt;&apos;;
-  echo "V1 UUID: " . UUID::v1() . &apos;&lt;br/&gt;&apos;;
-  echo "V3 UUID of URL=&apos;abc&apos;: " . UUID::v3(&apos;abc&apos;) . &apos;&lt;br/&gt;&apos;;
-  echo "V4 UUID: " . UUID::v4() . &apos;&lt;br/&gt;&apos;;
-  echo "V5 UUID of URL=null: " . UUID::v5(null) . &apos;&lt;br/&gt;&apos;;
-  echo &apos;&lt;hr/&gt;&apos;;
+  echo 'microtime = ' . microtime(true) . '&lt;br/&gt;';
+  echo "V1 UUID: " . UUID::v1() . '&lt;br/&gt;';
+  echo "V3 UUID of URL='abc': " . UUID::v3('abc') . '&lt;br/&gt;';
+  echo "V4 UUID: " . UUID::v4() . '&lt;br/&gt;';
+  echo "V5 UUID of URL=null: " . UUID::v5(null) . '&lt;br/&gt;';
+  echo '&lt;hr/&gt;';
 }
 ?>
 ```
@@ -302,7 +302,7 @@ Prefix can be useful, for instance, if you generate identifiers simultaneously o
 
 ```
 <?php
-echo uniqid(php_uname(&apos;n&apos;), true);
+echo uniqid(php_uname('n'), true);
 // Output: darkstar4dfa8c27aea106.40781203
 ?>
 ```
@@ -314,28 +314,28 @@ I use this function to generate microsoft-compatible GUID&apos;s.<br><br>
 
 ```
 <?php
- public function create_guid($namespace = &apos;&apos;) {     
-    static $guid = &apos;&apos;;
+ public function create_guid($namespace = '') {     
+    static $guid = '';
     $uid = uniqid("", true);
     $data = $namespace;
-    $data .= $_SERVER[&apos;REQUEST_TIME&apos;];
-    $data .= $_SERVER[&apos;HTTP_USER_AGENT&apos;];
-    $data .= $_SERVER[&apos;LOCAL_ADDR&apos;];
-    $data .= $_SERVER[&apos;LOCAL_PORT&apos;];
-    $data .= $_SERVER[&apos;REMOTE_ADDR&apos;];
-    $data .= $_SERVER[&apos;REMOTE_PORT&apos;];
-    $hash = strtoupper(hash(&apos;ripemd128&apos;, $uid . $guid . md5($data)));
-    $guid = &apos;{&apos; .   
+    $data .= $_SERVER['REQUEST_TIME'];
+    $data .= $_SERVER['HTTP_USER_AGENT'];
+    $data .= $_SERVER['LOCAL_ADDR'];
+    $data .= $_SERVER['LOCAL_PORT'];
+    $data .= $_SERVER['REMOTE_ADDR'];
+    $data .= $_SERVER['REMOTE_PORT'];
+    $hash = strtoupper(hash('ripemd128', $uid . $guid . md5($data)));
+    $guid = '{' .   
             substr($hash,  0,  8) . 
-            &apos;-&apos; .
+            '-' .
             substr($hash,  8,  4) .
-            &apos;-&apos; .
+            '-' .
             substr($hash, 12,  4) .
-            &apos;-&apos; .
+            '-' .
             substr($hash, 16,  4) .
-            &apos;-&apos; .
+            '-' .
             substr($hash, 20, 12) .
-            &apos;}&apos;;
+            '}';
     return $guid;
   }
 ?>

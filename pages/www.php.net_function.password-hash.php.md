@@ -12,7 +12,7 @@ Since 2017, NIST recommends using a secret input when hashing memorized secrets 
 <?php
 // register.php
 $pepper = getConfigVariable("pepper");
-$pwd = $_POST[&apos;password&apos;];
+$pwd = $_POST['password'];
 $pwd_peppered = hash_hmac("sha256", $pwd, $pepper);
 $pwd_hashed = password_hash($pwd_peppered, PASSWORD_ARGON2ID);
 add_user_to_database($username, $pwd_hashed);
@@ -26,7 +26,7 @@ add_user_to_database($username, $pwd_hashed);
 <?php
 // login.php
 $pepper = getConfigVariable("pepper");
-$pwd = $_POST[&apos;password&apos;];
+$pwd = $_POST['password'];
 $pwd_peppered = hash_hmac("sha256", $pwd, $pepper);
 $pwd_hashed = get_pwd_from_db($username);
 if (password_verify($pwd_peppered, $pwd_hashed)) {
@@ -52,18 +52,8 @@ You can produce the same hash in php 5.3.7+ with crypt() function:<br><br>
 
 $salt = mcrypt_create_iv(22, MCRYPT_DEV_URANDOM);
 $salt = base64_encode($salt);
-$salt = str_replace(&apos;+&apos;, &apos;.&apos;, $salt);
-$hash = crypt(&apos;rasmuslerdorf&apos;, &apos;$2y$10
-
-```
-<?php<br><br>$salt = mcrypt_create_iv(22, MCRYPT_DEV_URANDOM);<br>$salt = base64_encode($salt);<br>$salt = str_replace(&apos;+&apos;, &apos;.&apos;, $salt);<br>$hash = crypt(&apos;rasmuslerdorf&apos;, &apos;$2y$10$&apos;.$salt.&apos;$&apos;);<br><br>echo $hash;<br><br>?>
-```
-apos;.$salt.&apos;
-
-```
-<?php<br><br>$salt = mcrypt_create_iv(22, MCRYPT_DEV_URANDOM);<br>$salt = base64_encode($salt);<br>$salt = str_replace(&apos;+&apos;, &apos;.&apos;, $salt);<br>$hash = crypt(&apos;rasmuslerdorf&apos;, &apos;$2y$10$&apos;.$salt.&apos;$&apos;);<br><br>echo $hash;<br><br>?>
-```
-apos;);
+$salt = str_replace('+', '.', $salt);
+$hash = crypt('rasmuslerdorf', '$2y$10  .$salt.'  );
 
 echo $hash;
 

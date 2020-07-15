@@ -7,7 +7,7 @@ Glob function doesn&apos;t return the hidden files, therefore scandir can be mor
 ```
 <?php
 public static function delTree($dir) {
-   $files = array_diff(scandir($dir), array(&apos;.&apos;,&apos;..&apos;));
+   $files = array_diff(scandir($dir), array('.','..'));
     foreach ($files as $file) {
       (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
     }
@@ -23,7 +23,7 @@ Never ever use jurchiks101 at gmail dot com code!!! It contains command injectio
 
 ```
 <?php
-if (PHP_OS === &apos;Windows&apos;)
+if (PHP_OS === 'Windows')
 {
     exec(sprintf("rd /s /q %s", escapeshellarg($path)));
 }
@@ -49,8 +49,8 @@ some implementations of recursive folder delete don&apos;t work so well (some gi
 function rrmdir($src) {
     $dir = opendir($src);
     while(false !== ( $file = readdir($dir)) ) {
-        if (( $file != &apos;.&apos; ) &amp;&amp; ( $file != &apos;..&apos; )) {
-            $full = $src . &apos;/&apos; . $file;
+        if (( $file != '.' ) &amp;&amp; ( $file != '..' )) {
+            $full = $src . '/' . $file;
             if ( is_dir($full) ) {
                 rrmdir($full);
             }
@@ -100,13 +100,13 @@ I was working on some Dataoperation, and just wanted to share an OOP method with
       try{
         $iterator = new DirectoryIterator($path);
         foreach ( $iterator as $fileinfo ) {
-          if($fileinfo-&gt;isDot())continue;
-          if($fileinfo-&gt;isDir()){
-            if(deleteContent($fileinfo-&gt;getPathname()))
-              @rmdir($fileinfo-&gt;getPathname());
+          if($fileinfo->isDot())continue;
+          if($fileinfo->isDir()){
+            if(deleteContent($fileinfo->getPathname()))
+              @rmdir($fileinfo->getPathname());
           }
-          if($fileinfo-&gt;isFile()){
-            @unlink($fileinfo-&gt;getPathname());
+          if($fileinfo->isFile()){
+            @unlink($fileinfo->getPathname());
           }
         }
       } catch ( Exception $e ){
@@ -127,7 +127,7 @@ It is rather dangerous to recurse into symbolically linked directories. The delT
 ```
 <?php 
 public static function delTree($dir) { 
-   $files = array_diff(scandir($dir), array(&apos;.&apos;,&apos;..&apos;)); 
+   $files = array_diff(scandir($dir), array('.','..')); 
     foreach ($files as $file) { 
       (is_dir("$dir/$file") &amp;&amp; !is_link($dir)) ? delTree("$dir/$file") : unlink("$dir/$file"); 
     } 

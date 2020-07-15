@@ -13,9 +13,9 @@ Note that when you call an external script and retrieve large amounts of data fr
 $read_output = $read_error = false;
 $buffer_len  = $prev_buffer_len = 0; 
 $ms          = 10;
-$output      = &apos;&apos;;
+$output      = '';
 $read_output = true;
-$error       = &apos;&apos;;
+$error       = '';
 $read_error  = true;
 stream_set_blocking($pipes[1], 0);
 stream_set_blocking($pipes[2], 0);
@@ -102,7 +102,7 @@ print stream_get_contents($pipes[1]);
 prints:
 foo
 
-but this doesn&apos;t work:
+but this doesn't work:
 
 
 
@@ -127,12 +127,12 @@ It took me a long time (and three consecutive projects) to figure this out.  Bec
 ```
 <?php
 
-    $this-&gt;_proc = proc_open($command, $descriptorSpec, $pipes);
+    $this->_proc = proc_open($command, $descriptorSpec, $pipes);
     stream_set_blocking($pipes[2], 0);
     if ($err = stream_get_contents($pipes[2]))
     {
       throw new Swift_Transport_TransportException(
-        &apos;Process could not be started [&apos; . $err . &apos;]&apos;
+        'Process could not be started [' . $err . ']'
         );
     }
 
@@ -147,9 +147,9 @@ It seems that stream_get_contents() on STDOUT blocks infinitly under Windows whe
 ```
 <?php
 $descriptorspec = array(
-    0 =&gt; array(&apos;pipe&apos;, &apos;r&apos;), // stdin
-    1 =&gt; array(&apos;pipe&apos;, &apos;w&apos;), // stdout
-    2 =&gt; array(&apos;pipe&apos;, &apos;a&apos;) // stderr
+    0 => array('pipe', 'r'), // stdin
+    1 => array('pipe', 'w'), // stdout
+    2 => array('pipe', 'a') // stderr
 );
 ?>
 ```

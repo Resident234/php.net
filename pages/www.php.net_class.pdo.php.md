@@ -8,16 +8,16 @@
 <?php
 class MyPDO extends PDO
 {
-    public function __construct($file = &apos;my_setting.ini&apos;)
+    public function __construct($file = 'my_setting.ini')
     {
-        if (!$settings = parse_ini_file($file, TRUE)) throw new exception(&apos;Unable to open &apos; . $file . &apos;.&apos;);
+        if (!$settings = parse_ini_file($file, TRUE)) throw new exception('Unable to open ' . $file . '.');
         
-        $dns = $settings[&apos;database&apos;][&apos;driver&apos;] .
-        &apos;:host=&apos; . $settings[&apos;database&apos;][&apos;host&apos;] .
-        ((!empty($settings[&apos;database&apos;][&apos;port&apos;])) ? (&apos;;port=&apos; . $settings[&apos;database&apos;][&apos;port&apos;]) : &apos;&apos;) .
-        &apos;;dbname=&apos; . $settings[&apos;database&apos;][&apos;schema&apos;];
+        $dns = $settings['database']['driver'] .
+        ':host=' . $settings['database']['host'] .
+        ((!empty($settings['database']['port'])) ? (';port=' . $settings['database']['port']) : '') .
+        ';dbname=' . $settings['database']['schema'];
         
-        parent::__construct($dns, $settings[&apos;database&apos;][&apos;username&apos;], $settings[&apos;database&apos;][&apos;password&apos;]);
+        parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
     }
 }
 ?>
@@ -45,14 +45,14 @@ class VendorMapper extends DataMapper
 {
     public static function add($vendor)
     {
-        $st = self::$db-&gt;prepare(
+        $st = self::$db->prepare(
             "insert into vendors set
             first_name = :first_name,
             last_name = :last_name"
         );
-        $st-&gt;execute(array(
-            &apos;:first_name&apos; =&gt; $vendor-&gt;first_name,
-            &apos;:last_name&apos; =&gt; $vendor-&gt;last_name
+        $st->execute(array(
+            ':first_name' => $vendor->first_name,
+            ':last_name' => $vendor->last_name
         ));
     }
 }
@@ -62,7 +62,7 @@ $db = new PDO(...);
 DataMapper::init($db);
 
 // In your model logic
-$vendor = new Vendor(&apos;John&apos;, &apos;Doe&apos;);
+$vendor = new Vendor('John', 'Doe');
 VendorMapper::add($vendor);
 
 ?>

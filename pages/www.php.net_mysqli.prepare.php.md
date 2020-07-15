@@ -7,22 +7,22 @@ Just wanted to make sure that all were aware of get_result.<br><br>In the code s
 ```
 <?php
 
-// ... document&apos;s example code:
+// ... document's example code:
 
     /* bind parameters for markers */
-    $stmt-&gt;bind_param("s", $city);
+    $stmt->bind_param("s", $city);
 
     /* execute query */
-    $stmt-&gt;execute();
+    $stmt->execute();
 
     /* instead of bind_result: */
-    $result = $stmt-&gt;get_result();
+    $result = $stmt->get_result();
 
     /* now you can fetch the results into an array - NICE */
-    while ($myrow = $result-&gt;fetch_assoc()) {
+    while ($myrow = $result->fetch_assoc()) {
 
         // use your $myrow array as you would with any other fetch
-        printf("%s is in district %s\n", $city, $myrow[&apos;district&apos;]);
+        printf("%s is in district %s\n", $city, $myrow['district']);
 
     }
 ?>
@@ -48,17 +48,17 @@ function mysqli_prepared_query($link,$sql,$typeDef = FALSE,$params = FALSE){
       $bindParams = array();    
       $bindParamsReferences = array();
       $bindParams = array_pad($bindParams,(count($params,1)-count($params))/count($params),"");         
-      foreach($bindParams as $key =&gt; $value){
+      foreach($bindParams as $key => $value){
         $bindParamsReferences[$key] = &amp;$bindParams[$key];  
       }
       array_unshift($bindParamsReferences,$typeDef);
-      $bindParamsMethod = new ReflectionMethod(&apos;mysqli_stmt&apos;, &apos;bind_param&apos;);
-      $bindParamsMethod-&gt;invokeArgs($stmt,$bindParamsReferences);
+      $bindParamsMethod = new ReflectionMethod('mysqli_stmt', 'bind_param');
+      $bindParamsMethod->invokeArgs($stmt,$bindParamsReferences);
     }
     
     $result = array();
-    foreach($params as $queryKey =&gt; $query){
-      foreach($bindParams as $paramKey =&gt; $value){
+    foreach($params as $queryKey => $query){
+      foreach($bindParams as $paramKey => $value){
         $bindParams[$paramKey] = $query[$paramKey];
       }
       $queryResult = array();
@@ -68,14 +68,14 @@ function mysqli_prepared_query($link,$sql,$typeDef = FALSE,$params = FALSE){
           $stmtRow = array();   
           $rowReferences = array(); 
           while ($field = mysqli_fetch_field($resultMetaData)) { 
-            $rowReferences[] = &amp;$stmtRow[$field-&gt;name]; 
+            $rowReferences[] = &amp;$stmtRow[$field->name]; 
           }                                
           mysqli_free_result($resultMetaData);
-          $bindResultMethod = new ReflectionMethod(&apos;mysqli_stmt&apos;, &apos;bind_result&apos;); 
-          $bindResultMethod-&gt;invokeArgs($stmt, $rowReferences);
+          $bindResultMethod = new ReflectionMethod('mysqli_stmt', 'bind_result'); 
+          $bindResultMethod->invokeArgs($stmt, $rowReferences);
           while(mysqli_stmt_fetch($stmt)){
             $row = array();
-            foreach($stmtRow as $key =&gt; $value){
+            foreach($stmtRow as $key => $value){
               $row[$key] = $value;           
             }
             $queryResult[] = $row;
@@ -122,7 +122,7 @@ $params = array("Bob","Johnson");
 mysqli_prepared_query($link,$query,"ss",$params)
 /*
 returns array(
-0=&gt; array(&apos;firstName&apos; =&gt; &apos;Bob&apos;, &apos;lastName&apos; =&gt; &apos;Johnson&apos;)
+0=> array('firstName' => 'Bob', 'lastName' => 'Johnson')
 )
 */
 
@@ -133,8 +133,8 @@ $params = array("Smith");
 mysqli_prepared_query($link,$query,"s",$params)
 /*
 returns array(
-0=&gt; array(&apos;firstName&apos; =&gt; &apos;John&apos;, &apos;lastName&apos; =&gt; &apos;Smith&apos;)
-1=&gt; array(&apos;firstName&apos; =&gt; &apos;Mark&apos;, &apos;lastName&apos; =&gt; &apos;Smith&apos;)
+0=> array('firstName' => 'John', 'lastName' => 'Smith')
+1=> array('firstName' => 'Mark', 'lastName' => 'Smith')
 )
 */
 
@@ -145,15 +145,15 @@ $params = array(array("Smith"),array("Johnson"));
 mysqli_prepared_query($link,$query,"s",$params)
 /*
 returns array(
-0=&gt;
+0=>
 array(
-0=&gt; array(&apos;firstName&apos; =&gt; &apos;John&apos;, &apos;lastName&apos; =&gt; &apos;Smith&apos;)
-1=&gt; array(&apos;firstName&apos; =&gt; &apos;Mark&apos;, &apos;lastName&apos; =&gt; &apos;Smith&apos;)
+0=> array('firstName' => 'John', 'lastName' => 'Smith')
+1=> array('firstName' => 'Mark', 'lastName' => 'Smith')
 )
-1=&gt;
+1=>
 array(
-0=&gt; array(&apos;firstName&apos; =&gt; &apos;Jack&apos;, &apos;lastName&apos; =&gt; &apos;Johnson&apos;)
-1=&gt; array(&apos;firstName&apos; =&gt; &apos;Bob&apos;, &apos;lastName&apos; =&gt; &apos;Johnson&apos;)
+0=> array('firstName' => 'Jack', 'lastName' => 'Johnson')
+1=> array('firstName' => 'Bob', 'lastName' => 'Johnson')
 )
 )
 */

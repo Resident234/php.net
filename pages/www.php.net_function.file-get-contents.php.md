@@ -7,8 +7,8 @@ Setting the timeout properly without messing with ini values:<br><br>
 ```
 <?php
 $ctx = stream_context_create(array(
-    &apos;http&apos; =&gt; array(
-        &apos;timeout&apos; =&gt; 1
+    'http' => array(
+        'timeout' => 1
         )
     )
 );
@@ -32,8 +32,8 @@ make an http POST request and return the response content and headers
 @param string $url    url of the requested script
 @param array $data    hash array of request variables
 @return returns a hash array with response content and headers in the following form:
-    array (&apos;content&apos;=&gt;&apos;&lt;html&gt;&lt;/html&gt;&apos;
-        , &apos;headers&apos;=&gt;array (&apos;HTTP/1.1 200 OK&apos;, &apos;Connection: close&apos;, ...)
+    array ('content'=>'&lt;html&gt;&lt;/html&gt;'
+        , 'headers'=>array ('HTTP/1.1 200 OK', 'Connection: close', ...)
         )
 */
 function http_post ($url, $data)
@@ -41,11 +41,11 @@ function http_post ($url, $data)
     $data_url = http_build_query ($data);
     $data_len = strlen ($data_url);
 
-    return array (&apos;content&apos;=&gt;file_get_contents ($url, false, stream_context_create (array (&apos;http&apos;=&gt;array (&apos;method&apos;=&gt;&apos;POST&apos;
-            , &apos;header&apos;=&gt;"Connection: close\r\nContent-Length: $data_len\r\n"
-            , &apos;content&apos;=&gt;$data_url
+    return array ('content'=>file_get_contents ($url, false, stream_context_create (array ('http'=>array ('method'=>'POST'
+            , 'header'=>"Connection: close\r\nContent-Length: $data_len\r\n"
+            , 'content'=>$data_url
             ))))
-        , &apos;headers&apos;=&gt;$http_response_header
+        , 'headers'=>$http_response_header
         );
 }
 ?>
@@ -64,8 +64,8 @@ A UTF-8 issue I&apos;ve encountered is that of reading a URL with a non-UTF-8 en
 <?php
 function file_get_contents_utf8($fn) {
      $content = file_get_contents($fn);
-      return mb_convert_encoding($content, &apos;UTF-8&apos;, 
-          mb_detect_encoding($content, &apos;UTF-8, ISO-8859-1&apos;, true));
+      return mb_convert_encoding($content, 'UTF-8', 
+          mb_detect_encoding($content, 'UTF-8, ISO-8859-1', true));
 }
 ?>
 ```

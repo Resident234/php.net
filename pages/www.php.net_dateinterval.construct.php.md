@@ -13,7 +13,11 @@ Note that, while a DateInterval object has an $invert property, you cannot suppl
 I think it is easiest if you would just use the sub method on the DateTime class.<br><br>
 
 ```
-<?php<br>$date = new DateTime();<br>$date-&gt;sub(new DateInterval("P89D"));  
+<?php
+$date = new DateTime();
+$date->sub(new DateInterval("P89D"));?>
+```
+  
 
 #
 
@@ -21,8 +25,8 @@ It should be noted that this class will not calculate days/hours/minutes/seconds
 
 ```
 <?php
-    $di = new DateInterval(&apos;PT3600S&apos;);
-    echo $di-&gt;format(&apos;%H:%i:%s&apos;);
+    $di = new DateInterval('PT3600S');
+    echo $di->format('%H:%i:%s');
     
 ?>
 ```

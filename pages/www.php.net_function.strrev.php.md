@@ -7,7 +7,7 @@ This function support utf-8 encoding, Human Language and Character Encoding Supp
 ```
 <?php
 function mb_strrev($str){
-    $r = &apos;&apos;;
+    $r = '';
     for ($i = mb_strlen($str); $i&gt;=0; $i--) {
         $r .= mb_substr($str, $i, 1);
     }

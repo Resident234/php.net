@@ -11,10 +11,10 @@ You&apos;ll notice several notes on this page stating that isset() is significan
 ```
 <?php
 $foo = array();
-$foo[&apos;bar&apos;] = NULL;
+$foo['bar'] = NULL;
 
-var_dump(isset($foo[&apos;bar&apos;]));
-var_dump(array_key_exists(&apos;bar&apos;, $foo));
+var_dump(isset($foo['bar']));
+var_dump(array_key_exists('bar', $foo));
 ?>
 ```
 <br><br>will output:<br>bool(false)<br>bool(true)<br><br>Be aware of this!  
@@ -29,15 +29,15 @@ The way array_key_exists handles null, float, boolean, and &apos;integer-represe
 
 ```
 <?php
-$array = array(null =&gt; 1, false =&gt; 2, true =&gt; 3, 4.6 =&gt; 4, "08" =&gt; 5, "8" =&gt; 6);
+$array = array(null => 1, false => 2, true => 3, 4.6 => 4, "08" => 5, "8" => 6);
 var_export($array);
 
-echo "\nnull is " . (array_key_exists(null, $array) ? &apos;&apos; : &apos;not &apos;) . "a key.\n";
-echo &apos;false is &apos; . (array_key_exists(false, $array) ? &apos;&apos; : &apos;not &apos;) . "a key.\n";
-echo &apos;true is &apos; . (array_key_exists(true, $array) ? &apos;&apos; : &apos;not &apos;) . "a key.\n";
-echo &apos;4.6 is &apos; . (array_key_exists(4.6, $array) ? &apos;&apos; : &apos;not &apos;) . "a key.\n";
-echo &apos;"08" is &apos; . (array_key_exists("08", $array) ? &apos;&apos; : &apos;not &apos;) . "a key.\n";
-echo &apos;"8" is &apos; . (array_key_exists("8", $array) ? &apos;&apos; : &apos;not &apos;) . "a key.\n";
+echo "\nnull is " . (array_key_exists(null, $array) ? '' : 'not ') . "a key.\n";
+echo 'false is ' . (array_key_exists(false, $array) ? '' : 'not ') . "a key.\n";
+echo 'true is ' . (array_key_exists(true, $array) ? '' : 'not ') . "a key.\n";
+echo '4.6 is ' . (array_key_exists(4.6, $array) ? '' : 'not ') . "a key.\n";
+echo '"08" is ' . (array_key_exists("08", $array) ? '' : 'not ') . "a key.\n";
+echo '"8" is ' . (array_key_exists("8", $array) ? '' : 'not ') . "a key.\n";
 ?>
 ```
 <br><br>Output:<br><br>array (<br>  &apos;&apos; =&gt; 1,<br>  0 =&gt; 2,<br>  1 =&gt; 3,<br>  4 =&gt; 4,<br>  &apos;08&apos; =&gt; 5,<br>  8 =&gt; 6,<br>)<br>null is a key.<br>false is not a key.<br>true is not a key.<br>4.6 is not a key.<br>"08" is a key.<br>"8" is a key.<br><br>Well, and you get this warning three times (on the bools and the float, but not on the null):<br><br>Warning:  array_key_exists() [function.array-key-exists]: The first argument should be either a string or an integer in /var/www/php/test.php on line 6  
@@ -53,7 +53,7 @@ The argument of array_key_exists() vs. isset() came up in the workplace today, s
 ```
 <?php
     // one-dimensional arrays
-    $array = array_fill(0,50000,&apos;tommy is the best!&apos;);
+    $array = array_fill(0,50000,'tommy is the best!');
     $arraykeyexists_result = array();
 
     $start = microtime(true);

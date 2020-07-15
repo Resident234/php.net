@@ -56,7 +56,7 @@ $array1 = array( "red" , "green" , "blue" );
 $array2 = array( "green" , "red" , "blue" );
 $array3 = array( "red" , "green" , "blue" , "yellow" );
 $array4 = array( "red" , "yellow" , "blue" );
-$array5 = array( "x" =&gt; "red" , "y" =&gt;  "green" , "z" =&gt; "blue" );
+$array5 = array( "x" => "red" , "y" =>  "green" , "z" => "blue" );
 
 identical_values( $array1 , $array2 );  // true
 identical_values( $array1 , $array3 );  // false
@@ -120,10 +120,10 @@ Hello guys,<br><br>I&#xB4;ve been looking for a array_diff that works with recur
 
 ```
 <?php
-$aArray1[&apos;marcie&apos;] = array(&apos;banana&apos; =&gt; 1, &apos;orange&apos; =&gt; 1, &apos;pasta&apos; =&gt; 1);
-$aArray1[&apos;kenji&apos;] = array(&apos;apple&apos; =&gt; 1, &apos;pie&apos; =&gt; 1, &apos;pasta&apos; =&gt; 1);
+$aArray1['marcie'] = array('banana' => 1, 'orange' => 1, 'pasta' => 1);
+$aArray1['kenji'] = array('apple' => 1, 'pie' => 1, 'pasta' => 1);
 
-$aArray2[&apos;marcie&apos;] = array(&apos;banana&apos; =&gt; 1, &apos;orange&apos; =&gt; 1);
+$aArray2['marcie'] = array('banana' => 1, 'orange' => 1);
 ?>
 ```
 
@@ -134,14 +134,14 @@ As array_diff, this function returns all the items that is in aArray1 and IS NOT
 
 ```
 <?php
-$aDiff[&apos;marcie&apos;] = array(&apos;pasta&apos; =&gt; 1);
-$aDiff[&apos;kenji&apos;] = array(&apos;apple&apos; =&gt; 1, &apos;pie&apos; =&gt; 1, &apos;pasta&apos; =&gt; 1);
+$aDiff['marcie'] = array('pasta' => 1);
+$aDiff['kenji'] = array('apple' => 1, 'pie' => 1, 'pasta' => 1);
 ?>
 ```
 
 
 Ok, now some comments about this function:
- - Different from the PHP array_diff, this function DON&#xB4;T uses the === operator, but the ==, so 0 is equal to &apos;0&apos; or false, but this can be changed with no impacts.
+ - Different from the PHP array_diff, this function DON&#xB4;T uses the === operator, but the ==, so 0 is equal to '0' or false, but this can be changed with no impacts.
  - This function checks the keys of the arrays, array_diff only compares the values.
 
 I realy hopes that this could help some1 as I&#xB4;ve been helped a lot with some users experiences. (Just please double check if it would work for your case, as I sad I just tested to a scenario like the one I exposed)
@@ -153,7 +153,7 @@ I realy hopes that this could help some1 as I&#xB4;ve been helped a lot with som
 function arrayRecursiveDiff($aArray1, $aArray2) {
     $aReturn = array();
    
-    foreach ($aArray1 as $mKey =&gt; $mValue) {
+    foreach ($aArray1 as $mKey => $mValue) {
         if (array_key_exists($mKey, $aArray2)) {
             if (is_array($mValue)) {
                 $aRecursiveDiff = arrayRecursiveDiff($mValue, $aArray2[$mKey]);
@@ -176,12 +176,7 @@ function arrayRecursiveDiff($aArray1, $aArray2) {
 
 #
 
-There is more fast implementation of array_diff, but with some limitations. If you need compare two arrays of integers or strings you can use such function:<br><br>    public static function arrayDiffEmulation($arrayFrom, $arrayAgainst)<br>    {<br>        $arrayAgainst = array_flip($arrayAgainst);<br>        <br>        foreach ($arrayFrom as $key =&gt; $value) {<br>            if(isset($arrayAgainst[$value])) {<br>                unset($arrayFrom[$key]);<br>            }<br>        }<br>        <br>        return $arrayFrom;<br>    }<br><br>It is ~10x faster than array_diff<br><br>php &gt; $t = microtime(true);$a = range(0,25000); $b = range(15000,500000); $c = array_diff($a, $b);echo microtime(true) - $t;
-4.4335179328918
-php &gt; $t = microtime(true);$a = range(0,25000); $b = range(15000,500000); $c = arrayDiffEmulation($a, $b);echo microtime(true) - $t;
-0.37219095230103?>
-```
-  
+There is more fast implementation of array_diff, but with some limitations. If you need compare two arrays of integers or strings you can use such function:<br><br>    public static function arrayDiffEmulation($arrayFrom, $arrayAgainst)<br>    {<br>        $arrayAgainst = array_flip($arrayAgainst);<br>        <br>        foreach ($arrayFrom as $key =&gt; $value) {<br>            if(isset($arrayAgainst[$value])) {<br>                unset($arrayFrom[$key]);<br>            }<br>        }<br>        <br>        return $arrayFrom;<br>    }<br><br>It is ~10x faster than array_diff<br><br>php &gt; $t = microtime(true);$a = range(0,25000); $b = range(15000,500000); $c = array_diff($a, $b);echo microtime(true) - $t;<br>4.4335179328918<br>php &gt; $t = microtime(true);$a = range(0,25000); $b = range(15000,500000); $c = arrayDiffEmulation($a, $b);echo microtime(true) - $t;<br>0.37219095230103  
 
 #
 

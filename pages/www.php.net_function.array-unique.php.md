@@ -7,9 +7,9 @@ Create multidimensional array unique for any single key index.<br>e.g I want to 
 ```
 <?php
 $details = array(
-    0 =&gt; array("id"=&gt;"1", "name"=&gt;"Mike",    "num"=&gt;"9876543210"),
-    1 =&gt; array("id"=&gt;"2", "name"=&gt;"Carissa", "num"=&gt;"08548596258"),
-    2 =&gt; array("id"=&gt;"1", "name"=&gt;"Mathew",  "num"=&gt;"784581254"),
+    0 => array("id"=>"1", "name"=>"Mike",    "num"=>"9876543210"),
+    1 => array("id"=>"2", "name"=>"Carissa", "num"=>"08548596258"),
+    2 => array("id"=>"1", "name"=>"Mathew",  "num"=>"784581254"),
 );
 ?>
 ```
@@ -47,7 +47,7 @@ something like this,
 
 ```
 <?php
-$details = unique_multidim_array($details,&apos;id&apos;);
+$details = unique_multidim_array($details,'id');
 ?>
 ```
 
@@ -58,8 +58,8 @@ Output will be like this :
 ```
 <?php
 $details = array(
-    0 =&gt; array("id"=&gt;"1","name"=&gt;"Mike","num"=&gt;"9876543210"),
-    1 =&gt; array("id"=&gt;"2","name"=&gt;"Carissa","num"=&gt;"08548596258"),
+    0 => array("id"=>"1","name"=>"Mike","num"=>"9876543210"),
+    1 => array("id"=>"2","name"=>"Carissa","num"=>"08548596258"),
 );
 ?>
 ```
@@ -85,7 +85,7 @@ It&apos;s often faster to use a foreache and array_keys than array_unique:<br><b
 
     $time = -microtime(true);
     $res2 = array();
-    foreach($arr as $key=&gt;$val) {    
+    foreach($arr as $key=>$val) {    
         $res2[$val] = true;
     }
     $res2 = array_keys($res2);
@@ -108,7 +108,7 @@ $unique = array_keys(array_flip($array));
 ```
 
 
-It&apos;s marginally faster as:
+It's marginally faster as:
 
 
 ```
@@ -118,7 +118,7 @@ $unique = array_merge(array_flip(array_flip($array)));
 ```
 
 
-And it&apos;s marginally slower as:
+And it's marginally slower as:
 
 
 ```
@@ -142,7 +142,7 @@ function array_not_unique($raw_array) {
 
     $old_key    = NULL;
     $old_value    = NULL;
-    foreach ($raw_array as $key =&gt; $value) {
+    foreach ($raw_array as $key => $value) {
         if ($value === NULL) { continue; }
         if ($old_value == $value) {
             $dupes[$old_key]    = $old_value;
@@ -155,10 +155,10 @@ return $dupes;
 }
 
 $raw_array     = array();
-$raw_array[1]    = &apos;abc@xyz.com&apos;;
-$raw_array[2]    = &apos;def@xyz.com&apos;;
-$raw_array[3]    = &apos;ghi@xyz.com&apos;;
-$raw_array[4]    = &apos;abc@xyz.com&apos;; // Duplicate
+$raw_array[1]    = 'abc@xyz.com';
+$raw_array[2]    = 'def@xyz.com';
+$raw_array[3]    = 'ghi@xyz.com';
+$raw_array[4]    = 'abc@xyz.com'; // Duplicate
 
 $common_stuff    = array_not_unique($raw_array);
 var_dump($common_stuff);
@@ -174,7 +174,7 @@ Case insensitive; will keep first encountered value.<br><br>
 <?php
 
 function array_iunique($array) {
-    $lowered = array_map(&apos;strtolower&apos;, $array);
+    $lowered = array_map('strtolower', $array);
     return array_intersect_key($array, array_unique($lowered));
 }
 
@@ -192,7 +192,7 @@ function super_unique($array)
 {
   $result = array_map("unserialize", array_unique(array_map("serialize", $array)));
 
-  foreach ($result as $key =&gt; $value)
+  foreach ($result as $key => $value)
   {
     if ( is_array($value) )
     {

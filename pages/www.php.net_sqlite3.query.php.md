@@ -8,10 +8,10 @@ The recommended way to do a SQLite3 query is to use a statement. For a table cre
 <?php
 
 $db = new SQLite3;
-$statement = $db-&gt;prepare(&apos;SELECT * FROM table WHERE id = :id;&apos;);
-$statement-&gt;bindValue(&apos;:id&apos;, $id);
+$statement = $db->prepare('SELECT * FROM table WHERE id = :id;');
+$statement->bindValue(':id', $id);
 
-$result = $statement-&gt;execute();
+$result = $statement->execute();
 
 ?>
 ```

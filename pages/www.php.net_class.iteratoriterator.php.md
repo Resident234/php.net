@@ -14,11 +14,11 @@ class TrimIterator extends IteratorIterator
     }
 }
 
-$innerIterator = new ArrayIterator(array(&apos;normal&apos;, &apos; trimmable &apos;));
+$innerIterator = new ArrayIterator(array('normal', ' trimmable '));
 
 $trim = new TrimIterator($innerIterator);
 
-foreach ($trim as $key =&gt; $value) {
+foreach ($trim as $key => $value) {
     echo "Key:\n";
     var_dump($key);
     echo "Value:\n";

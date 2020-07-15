@@ -5,7 +5,26 @@
 How to easy recalculate carry over points:<br><br>
 
 ```
-<?php<br>class DateIntervalEnhanced extends DateInterval {<br><br>    public function recalculate()<br>    {<br>        $from = new DateTime;<br>        $to = clone $from;<br>        $to = $to-&gt;add($this);<br>        $diff = $from-&gt;diff($to);<br>        foreach ($diff as $k =&gt; $v) $this-&gt;$k = $v;<br>        return $this;<br>    }<br><br>}<br><br>$di = new DateIntervalEnhanced(&apos;PT3600S&apos;);<br>echo "Instead of " . $di-&gt;format(&apos;%h:%i:%s&apos;) . " it outputs " . $di-&gt;recalculate()-&gt;format(&apos;%h:%i:%s&apos;);<br># output will be: "Instead of 0:0:3600 it outputs 1:0:0"  
+<?php
+class DateIntervalEnhanced extends DateInterval {
+
+    public function recalculate()
+    {
+        $from = new DateTime;
+        $to = clone $from;
+        $to = $to->add($this);
+        $diff = $from->diff($to);
+        foreach ($diff as $k => $v) $this->$k = $v;
+        return $this;
+    }
+
+}
+
+$di = new DateIntervalEnhanced('PT3600S');
+echo "Instead of " . $di->format('%h:%i:%s') . " it outputs " . $di->recalculate()->format('%h:%i:%s');
+# output will be: "Instead of 0:0:3600 it outputs 1:0:0"?>
+```
+  
 
 #
 
@@ -36,30 +55,30 @@ public function formatDateDiff($start, $end=null) {
         $end = new DateTime($start);
     }
     
-    $interval = $end-&gt;diff($start);
-    $doPlural = function($nb,$str){return $nb&gt;1?$str.&apos;s&apos;:$str;}; // adds plurals
+    $interval = $end->diff($start);
+    $doPlural = function($nb,$str){return $nb&gt;1?$str.'s':$str;}; // adds plurals
     
     $format = array();
-    if($interval-&gt;y !== 0) {
-        $format[] = "%y ".$doPlural($interval-&gt;y, "year");
+    if($interval->y !== 0) {
+        $format[] = "%y ".$doPlural($interval->y, "year");
     }
-    if($interval-&gt;m !== 0) {
-        $format[] = "%m ".$doPlural($interval-&gt;m, "month");
+    if($interval->m !== 0) {
+        $format[] = "%m ".$doPlural($interval->m, "month");
     }
-    if($interval-&gt;d !== 0) {
-        $format[] = "%d ".$doPlural($interval-&gt;d, "day");
+    if($interval->d !== 0) {
+        $format[] = "%d ".$doPlural($interval->d, "day");
     }
-    if($interval-&gt;h !== 0) {
-        $format[] = "%h ".$doPlural($interval-&gt;h, "hour");
+    if($interval->h !== 0) {
+        $format[] = "%h ".$doPlural($interval->h, "hour");
     }
-    if($interval-&gt;i !== 0) {
-        $format[] = "%i ".$doPlural($interval-&gt;i, "minute");
+    if($interval->i !== 0) {
+        $format[] = "%i ".$doPlural($interval->i, "minute");
     }
-    if($interval-&gt;s !== 0) {
+    if($interval->s !== 0) {
         if(!count($format)) {
             return "less than a minute ago";
         } else {
-            $format[] = "%s ".$doPlural($interval-&gt;s, "second");
+            $format[] = "%s ".$doPlural($interval->s, "second");
         }
     }
     
@@ -70,8 +89,8 @@ public function formatDateDiff($start, $end=null) {
         $format = array_pop($format);
     }
     
-    // Prepend &apos;since &apos; or whatever you like
-    return $interval-&gt;format($format);
+    // Prepend 'since ' or whatever you like
+    return $interval->format($format);
 }
 ?>
 ```

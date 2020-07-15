@@ -20,34 +20,34 @@ class pdo_dblib_mssql{
 
     public function __construct($hostname, $port, $dbname, $username, $pwd){
 
-        $this-&gt;hostname = $hostname;
-        $this-&gt;port = $port;
-        $this-&gt;dbname = $dbname;
-        $this-&gt;username = $username;
-        $this-&gt;pwd = $pwd;
+        $this->hostname = $hostname;
+        $this->port = $port;
+        $this->dbname = $dbname;
+        $this->username = $username;
+        $this->pwd = $pwd;
 
-        $this-&gt;connect();
+        $this->connect();
         
     }
 
     public function beginTransaction(){
 
         $cAlphanum = "AaBbCc0Dd1EeF2fG3gH4hI5iJ6jK7kLlM8mN9nOoPpQqRrSsTtUuVvWwXxYyZz";
-        $this-&gt;cTransID = "T".substr(str_shuffle($cAlphanum), 0, 7);
+        $this->cTransID = "T".substr(str_shuffle($cAlphanum), 0, 7);
 
-        array_unshift($this-&gt;childTrans, $this-&gt;cTransID);
+        array_unshift($this->childTrans, $this->cTransID);
 
-        $stmt = $this-&gt;db-&gt;prepare("BEGIN TRAN [$this-&gt;cTransID];");
-        return $stmt-&gt;execute();
+        $stmt = $this->db->prepare("BEGIN TRAN [$this->cTransID];");
+        return $stmt->execute();
 
     }
 
     public function rollBack(){
         
-        while(count($this-&gt;childTrans) &gt; 0){
-            $cTmp = array_shift($this-&gt;childTrans);
-            $stmt = $this-&gt;db-&gt;prepare("ROLLBACK TRAN [$cTmp];");
-            $stmt-&gt;execute();
+        while(count($this->childTrans) &gt; 0){
+            $cTmp = array_shift($this->childTrans);
+            $stmt = $this->db->prepare("ROLLBACK TRAN [$cTmp];");
+            $stmt->execute();
         }
 
         return $stmt;
@@ -55,28 +55,28 @@ class pdo_dblib_mssql{
 
     public function commit(){
 
-        while(count($this-&gt;childTrans) &gt; 0){
-            $cTmp = array_shift($this-&gt;childTrans);
-            $stmt = $this-&gt;db-&gt;prepare("COMMIT TRAN [$cTmp];");
-            $stmt-&gt;execute();
+        while(count($this->childTrans) &gt; 0){
+            $cTmp = array_shift($this->childTrans);
+            $stmt = $this->db->prepare("COMMIT TRAN [$cTmp];");
+            $stmt->execute();
         }
 
         return  $stmt;
     }
 
     public function close(){
-        $this-&gt;db = null;
+        $this->db = null;
     }
 
     public function connect(){
 
         try {
-            $this-&gt;db = new PDO ("dblib:host=$this-&gt;hostname:$this-&gt;port;dbname=$this-&gt;dbname", "$this-&gt;username", "$this-&gt;pwd");
+            $this->db = new PDO ("dblib:host=$this->hostname:$this->port;dbname=$this->dbname", "$this->username", "$this->pwd");
 
            
 
         } catch (PDOException $e) {
-            $this-&gt;logsys .= "Failed to get DB handle: " . $e-&gt;getMessage() . "\n";
+            $this->logsys .= "Failed to get DB handle: " . $e->getMessage() . "\n";
         }
 
     }
@@ -101,12 +101,12 @@ There is currently little sybase related PDO docs out there. The ones that I fou
     $pw = "password";
     $dbh = new PDO ("dblib:host=$hostname:$port;dbname=$dbname","$username","$pw");
   } catch (PDOException $e) {
-    echo "Failed to get DB handle: " . $e-&gt;getMessage() . "\n";
+    echo "Failed to get DB handle: " . $e->getMessage() . "\n";
     exit;
   }
-  $stmt = $dbh-&gt;prepare("select name from master..sysdatabases where name = db_name()");
-  $stmt-&gt;execute();
-  while ($row = $stmt-&gt;fetch()) {
+  $stmt = $dbh->prepare("select name from master..sysdatabases where name = db_name()");
+  $stmt->execute();
+  while ($row = $stmt->fetch()) {
     print_r($row);
   }
   unset($dbh); unset($stmt);

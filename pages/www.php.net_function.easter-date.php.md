@@ -36,13 +36,13 @@ protected static function getHolidays($year = null)
 {
   if ($year === null)
   {
-    $year = intval(date(&apos;Y&apos;));
+    $year = intval(date('Y'));
   }
     
   $easterDate  = easter_date($year);
-  $easterDay   = date(&apos;j&apos;, $easterDate);
-  $easterMonth = date(&apos;n&apos;, $easterDate);
-  $easterYear   = date(&apos;Y&apos;, $easterDate);
+  $easterDay   = date('j', $easterDate);
+  $easterMonth = date('n', $easterDate);
+  $easterYear   = date('Y', $easterDate);
 
   $holidays = array(
     // These days have a fixed date

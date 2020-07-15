@@ -6,7 +6,7 @@ The simplest way to get around the fact that max() won&apos;t give the key is ar
 
 ```
 <?php
-$student_grades = array ("john" =&gt; 100, "sarah" =&gt; 90, "anne" =&gt; 100);
+$student_grades = array ("john" => 100, "sarah" => 90, "anne" => 100);
 $top_student = array_search(max($student_grades),$student_grades); // john
 ?>
 ```
@@ -45,10 +45,10 @@ max() (and min()) on DateTime objects compares them like dates (with timezone in
 
 ```
 <?php 
-$dt1 = new DateTime(&apos;2014-05-07 18:53&apos;, new DateTimeZone(&apos;Europe/Kiev&apos;));
-$dt2 = new DateTime(&apos;2014-05-07 16:53&apos;, new DateTimeZone(&apos;UTC&apos;));
-echo max($dt1,$dt2)-&gt;format(DateTime::RFC3339) . PHP_EOL; // 2014-05-07T16:53:00+00:00
-echo min($dt1,$dt2)-&gt;format(DateTime::RFC3339) . PHP_EOL; // 2014-05-07T18:53:00+03:00
+$dt1 = new DateTime('2014-05-07 18:53', new DateTimeZone('Europe/Kiev'));
+$dt2 = new DateTime('2014-05-07 16:53', new DateTimeZone('UTC'));
+echo max($dt1,$dt2)->format(DateTime::RFC3339) . PHP_EOL; // 2014-05-07T16:53:00+00:00
+echo min($dt1,$dt2)->format(DateTime::RFC3339) . PHP_EOL; // 2014-05-07T18:53:00+03:00
 ?>
 ```
 <br><br>It works at least 5.3.3-7+squeeze17  
@@ -60,8 +60,8 @@ Notice that whenever there is a Number in front of the String, it will be used f
 ```
 <?php
 
-  max(&apos;7iuwmssuxue&apos;, 1); //returns 7iuwmssuxu
-  max(&apos;-7suidha&apos;, -4); //returns -4
+  max('7iuwmssuxue', 1); //returns 7iuwmssuxu
+  max('-7suidha', -4); //returns -4
 
 ?>
 ```
@@ -74,7 +74,7 @@ But just if it is in front of the String
 ```
 <?php
 
-  max(&apos;sdihatewin7wduiw&apos;, 3); //returns 3
+  max('sdihatewin7wduiw', 3); //returns 3
 
 ?>
 ```

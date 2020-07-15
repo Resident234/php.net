@@ -16,13 +16,13 @@ I noticed that :<br><br>PHP ignored arguments type when using array_walk() even 
 <?php
 declare(strict_types=1);
 
-$fruits = array("butter" =&gt; 5.3, "meat" =&gt; 7, "banana" =&gt; 3);
+$fruits = array("butter" => 5.3, "meat" => 7, "banana" => 3);
 
 function test_print(int $item2, $key) {
     echo "$key: $item2&lt;br /&gt;\n";
 }
 
-array_walk($fruits, &apos;test_print&apos;);
+array_walk($fruits, 'test_print');
 
 ?>
 ```
@@ -38,18 +38,18 @@ Note that using array_walk with intval is inappropriate.<br>There are many examp
 
 ```
 <?php
-array_walk($_POST[&apos;something&apos;],&apos;intval&apos;); // does nothing in PHP 5.3.3
+array_walk($_POST['something'],'intval'); // does nothing in PHP 5.3.3
 ?>
 ```
 
-It works in _some_ older PHP versions (5.2), but is against specifications. Since intval() does not modify it&apos;s arguments, but returns modified result, the code above has no effect on the array and will leave security hole in your website.
+It works in _some_ older PHP versions (5.2), but is against specifications. Since intval() does not modify it's arguments, but returns modified result, the code above has no effect on the array and will leave security hole in your website.
 
 You can use following instead:
 
 
 ```
 <?php
-$_POST[&apos;something&apos;] = array_map(intval,$_POST[&apos;something&apos;]);
+$_POST['something'] = array_map(intval,$_POST['something']);
 ?>
 ```
   
@@ -67,11 +67,11 @@ function enumerate( &amp;$item1, $key, &amp;$startNum ) {
 $num = 1;
 
 $fruits = array( "lemon", "orange", "banana", "apple");
-array_walk($fruits, &apos;enumerate&apos;, $num );
+array_walk($fruits, 'enumerate', $num );
 
 print_r( $fruits );
 
-echo &apos;$num is: &apos;. $num ."\n";
+echo '$num is: '. $num ."\n";
 ?>
 ```
 
@@ -80,10 +80,10 @@ This outputs:
 
 Array
 (
-    [0] =&gt; 1 lemon
-    [1] =&gt; 2 orange
-    [2] =&gt; 3 banana
-    [3] =&gt; 4 apple
+    [0] => 1 lemon
+    [1] => 2 orange
+    [2] => 3 banana
+    [3] => 4 apple
 )
 $num is: 1
 
@@ -96,12 +96,12 @@ Notice at the last line of output that outside of array_walk() the $num paramete
 $num = 1;
 
 $fruits = array( "lemon", "orange", "banana", "apple");
-array_walk($fruits, &apos;enumerate&apos;, &amp;$num ); // reference here
+array_walk($fruits, 'enumerate', &amp;$num ); // reference here
 
 print_r( $fruits );
 
-echo &apos;$num is: &apos;. $num ."\n";
-echo "we&apos;ve got ". ($num - 1) ." fruits in the basket!";
+echo '$num is: '. $num ."\n";
+echo "we've got ". ($num - 1) ." fruits in the basket!";
 ?>
 ```
 <br> <br>This outputs:<br>Array<br>(<br>    [0] =&gt; 1 lemon<br>    [1] =&gt; 2 orange<br>    [2] =&gt; 3 banana<br>    [3] =&gt; 4 apple<br>)<br>$num is: 5<br>we&apos;ve got 4 fruits in the basket!<br><br>Now $num has changed so we are able to count the items (without calling count() unnecessarily).<br><br>As a conclusion, using references with array_walk() can be powerful toy but this should be done carefully since modifying third parameter outside the array_walk() is not always what we want.  
@@ -116,7 +116,7 @@ Don&apos;t forget about the array_map() function, it may be easier to use!<br><b
 
 ```
 <?php
-    $arr = array_map(&apos;strtolower&apos;, $arr);
+    $arr = array_map('strtolower', $arr);
 ?>
 ```
   

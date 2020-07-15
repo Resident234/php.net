@@ -6,9 +6,9 @@ Here is a simple way to control who downloads your files...<br><br>You will have
 
 ```
 <?php
-$letters = &apos;abcdefghijklmnopqrstuvwxyz&apos;;
+$letters = 'abcdefghijklmnopqrstuvwxyz';
 srand((double) microtime() * 1000000);
-$string = &apos;&apos;;
+$string = '';
 for ($i = 1; $i &lt;= rand(4,12); $i++) {
    $q = rand(1,24);
    $string = $string . $letters[$q];

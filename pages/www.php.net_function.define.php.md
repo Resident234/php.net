@@ -6,7 +6,7 @@ Be aware that if "Notice"-level error reporting is turned off, then trying to us
 
 ```
 <?php
-define(&apos;ENABLE_UPLOADS&apos;, true);
+define('ENABLE_UPLOADS', true);
 ?>
 ```
 
@@ -17,7 +17,7 @@ Since I wanted to remove the ability for uploads, I changed the file to read:
 
 ```
 <?php
-//define(&apos;ENABLE_UPLOADS&apos;, true);
+//define('ENABLE_UPLOADS', true);
 ?>
 ```
 
@@ -40,7 +40,7 @@ define() will define constants exactly as specified.  So, if you want to define 
 ```
 <?php
 namespace test;
-define(&apos;MESSAGE&apos;, &apos;Hello world!&apos;);
+define('MESSAGE', 'Hello world!');
 ?>
 ```
 
@@ -52,8 +52,8 @@ The following code will define two constants in the "test" namespace.
 ```
 <?php
 namespace test;
-define(&apos;test\HELLO&apos;, &apos;Hello world!&apos;);
-define(__NAMESPACE__ . &apos;\GOODBYE&apos;, &apos;Goodbye cruel world!&apos;);
+define('test\HELLO', 'Hello world!');
+define(__NAMESPACE__ . '\GOODBYE', 'Goodbye cruel world!');
 ?>
 ```
   

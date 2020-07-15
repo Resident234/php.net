@@ -6,9 +6,9 @@ If you try to use mb_detect_encoding to detect whether a string is valid UTF-8, 
 
 ```
 <?php
-    $str = &apos;&#xE1;&#xE9;&#xF3;&#xFA;&apos;; // ISO-8859-1
-    mb_detect_encoding($str, &apos;UTF-8&apos;); // &apos;UTF-8&apos;
-    mb_detect_encoding($str, &apos;UTF-8&apos;, true); // false
+    $str = '&#xE1;&#xE9;&#xF3;&#xFA;'; // ISO-8859-1
+    mb_detect_encoding($str, 'UTF-8'); // 'UTF-8'
+    mb_detect_encoding($str, 'UTF-8', true); // false
 ?>
 ```
   
@@ -26,7 +26,7 @@ Based upon that snippet below using preg_match() I needed something faster and l
 
 function detectUTF8($string)
 {
-        return preg_match(&apos;%(?:
+        return preg_match('%(?:
         [\xC2-\xDF][\x80-\xBF]        # non-overlong 2-byte
         |\xE0[\xA0-\xBF][\x80-\xBF]               # excluding overlongs
         |[\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}      # straight 3-byte
@@ -34,7 +34,7 @@ function detectUTF8($string)
         |\xF0[\x90-\xBF][\x80-\xBF]{2}    # planes 1-3
         |[\xF1-\xF3][\x80-\xBF]{3}                  # planes 4-15
         |\xF4[\x80-\x8F][\x80-\xBF]{2}    # plane 16
-        )+%xs&apos;, $string);
+        )+%xs', $string);
 }
 
 ?>
@@ -52,11 +52,11 @@ A simple way to detect UTF-8/16/32 of file by its BOM (not work with string or f
 ```
 <?php
 // Unicode BOM is U+FEFF, but after encoded, it will look like this.
-define (&apos;UTF32_BIG_ENDIAN_BOM&apos;   , chr(0x00) . chr(0x00) . chr(0xFE) . chr(0xFF));
-define (&apos;UTF32_LITTLE_ENDIAN_BOM&apos;, chr(0xFF) . chr(0xFE) . chr(0x00) . chr(0x00));
-define (&apos;UTF16_BIG_ENDIAN_BOM&apos;   , chr(0xFE) . chr(0xFF));
-define (&apos;UTF16_LITTLE_ENDIAN_BOM&apos;, chr(0xFF) . chr(0xFE));
-define (&apos;UTF8_BOM&apos;               , chr(0xEF) . chr(0xBB) . chr(0xBF));
+define ('UTF32_BIG_ENDIAN_BOM'   , chr(0x00) . chr(0x00) . chr(0xFE) . chr(0xFF));
+define ('UTF32_LITTLE_ENDIAN_BOM', chr(0xFF) . chr(0xFE) . chr(0x00) . chr(0x00));
+define ('UTF16_BIG_ENDIAN_BOM'   , chr(0xFE) . chr(0xFF));
+define ('UTF16_LITTLE_ENDIAN_BOM', chr(0xFF) . chr(0xFE));
+define ('UTF8_BOM'               , chr(0xEF) . chr(0xBB) . chr(0xBF));
 
 function detect_utf_encoding($filename) {
 
@@ -65,11 +65,11 @@ function detect_utf_encoding($filename) {
     $first3 = substr($text, 0, 3);
     $first4 = substr($text, 0, 3);
     
-    if ($first3 == UTF8_BOM) return &apos;UTF-8&apos;;
-    elseif ($first4 == UTF32_BIG_ENDIAN_BOM) return &apos;UTF-32BE&apos;;
-    elseif ($first4 == UTF32_LITTLE_ENDIAN_BOM) return &apos;UTF-32LE&apos;;
-    elseif ($first2 == UTF16_BIG_ENDIAN_BOM) return &apos;UTF-16BE&apos;;
-    elseif ($first2 == UTF16_LITTLE_ENDIAN_BOM) return &apos;UTF-16LE&apos;;
+    if ($first3 == UTF8_BOM) return 'UTF-8';
+    elseif ($first4 == UTF32_BIG_ENDIAN_BOM) return 'UTF-32BE';
+    elseif ($first4 == UTF32_LITTLE_ENDIAN_BOM) return 'UTF-32LE';
+    elseif ($first2 == UTF16_BIG_ENDIAN_BOM) return 'UTF-16BE';
+    elseif ($first2 == UTF16_LITTLE_ENDIAN_BOM) return 'UTF-16LE';
 }
 ?>
 ```

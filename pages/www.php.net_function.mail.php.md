@@ -6,9 +6,9 @@ Often it&apos;s helpful to find the exact error message that is triggered by the
 
 ```
 <?php
-$success = mail(&apos;example@example.com&apos;, &apos;My Subject&apos;, $message);
+$success = mail('example@example.com', 'My Subject', $message);
 if (!$success) {
-    $errorMessage = error_get_last()[&apos;message&apos;];
+    $errorMessage = error_get_last()['message'];
 }
 ?>
 ```

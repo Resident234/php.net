@@ -30,7 +30,7 @@ For an RFC 1123 (HTTP header date) date, try:<br><br>
 
 ```
 <?php
-$rfc_1123_date = gmdate(&apos;D, d M Y H:i:s T&apos;, time());
+$rfc_1123_date = gmdate('D, d M Y H:i:s T', time());
 ?>
 ```
   
@@ -44,7 +44,7 @@ For me most of the examples here needed the + or - seconds to set the time zone.
 $h = "3";// Hour for time zone goes here e.g. +7 or -4, just remove the + or -
 $hm = $h * 60; 
 $ms = $hm * 60;
-$gmdate = gmdate("m/d/Y g:i:s A", time()-($ms)); // the "-" can be switched to a plus if that&apos;s what your time zone is.
+$gmdate = gmdate("m/d/Y g:i:s A", time()-($ms)); // the "-" can be switched to a plus if that's what your time zone is.
 echo "Your current time now is :  $gmdate . ";
 ?>
 ```

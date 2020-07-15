@@ -18,17 +18,17 @@ class C
     }
     public function __construct()
     {
-        echo &apos;$this:&apos;;
+        echo '$this:';
         var_dump(get_class_methods($this));
-        echo &apos;C (inside class):&apos;;
-        var_dump(get_class_methods(&apos;C&apos;));
+        echo 'C (inside class):';
+        var_dump(get_class_methods('C'));
     }
 }
 $c = new C;
-echo &apos;$c:&apos;;
+echo '$c:';
 var_dump(get_class_methods($c));
-echo &apos;C (outside class):&apos;;
-var_dump(get_class_methods(&apos;C&apos;));
+echo 'C (outside class):';
+var_dump(get_class_methods('C'));
 ?>
 ```
 <br><br>Output:<br><br>$this:<br>array<br>  0 =&gt; string &apos;privateMethod&apos; (length=13)<br>  1 =&gt; string &apos;publicMethod&apos; (length=12)<br>  2 =&gt; string &apos;__construct&apos; (length=11)<br><br>C (inside class):<br>array<br>  0 =&gt; string &apos;privateMethod&apos; (length=13)<br>  1 =&gt; string &apos;publicMethod&apos; (length=12)<br>  2 =&gt; string &apos;__construct&apos; (length=11)<br><br>$c:<br>array<br>  0 =&gt; string &apos;publicMethod&apos; (length=12)<br>  1 =&gt; string &apos;__construct&apos; (length=11)<br><br>C (outside class):<br>array<br>  0 =&gt; string &apos;publicMethod&apos; (length=12)<br>  1 =&gt; string &apos;__construct&apos; (length=11)  

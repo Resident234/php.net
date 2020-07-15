@@ -11,8 +11,8 @@ $_SESSION["test"] = ";oops|";
 ```
 
 
-Below you can find my solution. It doesn&apos;t use a regular expression but rather the reversibility of the serialize operation and the &apos;feature&apos; that serialize ignores all further input when it thinks it&apos;s done. It&apos;s by no means a beautiful or particularly fast solution but it is a more robust solution.
-I&apos;ve added a deserializer for "php" and "php_binary". It should be trivial to add one for "wddx".
+Below you can find my solution. It doesn't use a regular expression but rather the reversibility of the serialize operation and the 'feature' that serialize ignores all further input when it thinks it's done. It's by no means a beautiful or particularly fast solution but it is a more robust solution.
+I've added a deserializer for "php" and "php_binary". It should be trivial to add one for "wddx".
 
 
 

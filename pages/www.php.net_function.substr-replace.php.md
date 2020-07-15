@@ -6,9 +6,9 @@ It&apos;s worth noting that when start and length are both negative -and- the le
 
 ```
 <?php
-substr_replace(&apos;eggs&apos;,&apos;x&apos;,-1,-1); //eggxs
-substr_replace(&apos;eggs&apos;,&apos;x&apos;,-1,-2); //eggxs
-substr_replace(&apos;eggs&apos;,&apos;x&apos;,-1,-2); //eggxs
+substr_replace('eggs','x',-1,-1); //eggxs
+substr_replace('eggs','x',-1,-2); //eggxs
+substr_replace('eggs','x',-1,-2); //eggxs
 ?>
 ```
 
@@ -18,7 +18,7 @@ Same as:
 
 ```
 <?php
-substr_replace(&apos;eggs&apos;,&apos;x&apos;,-1,0); //eggxs
+substr_replace('eggs','x',-1,0); //eggxs
 ?>
 ```
 
@@ -27,9 +27,9 @@ substr_replace(&apos;eggs&apos;,&apos;x&apos;,-1,0); //eggxs
 
 ```
 <?php
-substr_replace(&apos;huevos&apos;,&apos;x&apos;,-2,-2); //huevxos
-substr_replace(&apos;huevos&apos;,&apos;x&apos;,-2,-3); //huevxos
-substr_replace(&apos;huevos&apos;,&apos;x&apos;,-2,-3); //huevxos
+substr_replace('huevos','x',-2,-2); //huevxos
+substr_replace('huevos','x',-2,-3); //huevxos
+substr_replace('huevos','x',-2,-3); //huevxos
 ?>
 ```
 
@@ -39,7 +39,7 @@ Same as:
 
 ```
 <?php
-substr_replace(&apos;huevos&apos;,&apos;x&apos;,-2,0); //huevxos
+substr_replace('huevos','x',-2,0); //huevxos
 ?>
 ```
 
@@ -50,7 +50,7 @@ Another note, if length is negative and start offsets the same position as lengt
 
 ```
 <?php
-substr_replace(&apos;abcd&apos;, &apos;x&apos;, 0, -4); //xabcd
+substr_replace('abcd', 'x', 0, -4); //xabcd
 ?>
 ```
 
@@ -60,7 +60,7 @@ Same as:
 
 ```
 <?php
-substr_replace(&apos;abcd&apos;,&apos;x&apos;,0,0); //xabcd
+substr_replace('abcd','x',0,0); //xabcd
 ?>
 ```
 
@@ -69,7 +69,7 @@ substr_replace(&apos;abcd&apos;,&apos;x&apos;,0,0); //xabcd
 
 ```
 <?php
-substr_replace(&apos;abcd&apos;, &apos;x&apos;, 1, -3); //axbcd
+substr_replace('abcd', 'x', 1, -3); //axbcd
 ?>
 ```
 
@@ -79,7 +79,7 @@ Same as:
 
 ```
 <?php
-substr_replace(&apos;abcd&apos;, &apos;x&apos;, 1, 0); //axbcd
+substr_replace('abcd', 'x', 1, 0); //axbcd
 ?>
 ```
   
@@ -91,11 +91,11 @@ Forget all of the mb_substr_replace() implementations mentioned in this page, th
 ```
 <?php
 
-if (function_exists(&apos;mb_substr_replace&apos;) === false)
+if (function_exists('mb_substr_replace') === false)
 {
     function mb_substr_replace($string, $replacement, $start, $length = null, $encoding = null)
     {
-        if (extension_loaded(&apos;mbstring&apos;) === true)
+        if (extension_loaded('mbstring') === true)
         {
             $string_length = (is_null($encoding) === true) ? mb_strlen($string) : mb_strlen($string, $encoding);
             

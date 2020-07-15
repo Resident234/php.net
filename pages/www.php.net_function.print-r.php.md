@@ -7,9 +7,9 @@ I add this function to the global scope on just about every project I do, it mak
 ```
 <?php
 function print_r2($val){
-        echo &apos;&lt;pre&gt;&apos;;
+        echo '&lt;pre&gt;';
         print_r($val);
-        echo  &apos;&lt;/pre&gt;&apos;;
+        echo  '&lt;/pre&gt;';
 }
 ?>
 ```
@@ -23,8 +23,8 @@ Here is another version that parses the print_r() output. I tried the one posted
 <?php
 function print_r_reverse($in) {
     $lines = explode("\n", trim($in));
-    if (trim($lines[0]) != &apos;Array&apos;) {
-        // bottomed out to something that isn&apos;t an array
+    if (trim($lines[0]) != 'Array') {
+        // bottomed out to something that isn't an array
         return $in;
     } else {
         // this is an array, lets parse it
@@ -47,20 +47,20 @@ function print_r_reverse($in) {
         // make sure we only match stuff with 4 preceding spaces (stuff for this array and not a nested one)
         preg_match_all("/^\s{4}\[(.+?)\] \=\&gt; /m", $in, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER);
         $pos = array();
-        $previous_key = &apos;&apos;;
+        $previous_key = '';
         $in_length = strlen($in);
         // store the following in $pos:
-        // array with key = key of the parsed array&apos;s item
+        // array with key = key of the parsed array's item
         // value = array(start position in $in, $end position in $in)
         foreach ($matches as $match) {
             $key = $match[1][0];
             $start = $match[0][1] + strlen($match[0][0]);
             $pos[$key] = array($start, $in_length);
-            if ($previous_key != &apos;&apos;) $pos[$previous_key][1] = $match[0][1] - 1;
+            if ($previous_key != '') $pos[$previous_key][1] = $match[0][1] - 1;
             $previous_key = $key;
         }
         $ret = array();
-        foreach ($pos as $key =&gt; $where) {
+        foreach ($pos as $key => $where) {
             // recursively see if the parsed out value is an array too
             $ret[$key] = print_r_reverse(substr($in, $where[0], $where[1] - $where[0]));
         }

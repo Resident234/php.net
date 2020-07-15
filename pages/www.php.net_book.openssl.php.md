@@ -7,7 +7,7 @@ I was having a heck of a time finding help on making asynchronous encryption/dec
 ```
 <?php
 
-if (isset($_SERVER[&apos;HTTPS&apos;]) )
+if (isset($_SERVER['HTTPS']) )
 {
     echo "SECURE: This page is being accessed through a secure connection.&lt;br&gt;&lt;br&gt;";
 }
@@ -28,7 +28,7 @@ $publickey=$publickey["key"];
 
 echo "Private Key:&lt;BR&gt;$privatekey&lt;br&gt;&lt;br&gt;Public Key:&lt;BR&gt;$publickey&lt;BR&gt;&lt;BR&gt;";
 
-$cleartext = &apos;1234 5678 9012 3456&apos;;
+$cleartext = '1234 5678 9012 3456';
 
 echo "Clear text:&lt;br&gt;$cleartext&lt;BR&gt;&lt;BR&gt;";
 

@@ -14,7 +14,7 @@ class B {
 
 $b = new B();
 print($b); //Instances of B() can be treated as a strings!
-print(is_string($b) ? &apos;true&apos; : &apos;false&apos;); //false
+print(is_string($b) ? 'true' : 'false'); //false
 ?>
 ```
   

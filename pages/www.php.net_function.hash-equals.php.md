@@ -6,7 +6,7 @@ To transparently support this function on older versions of PHP use this:<br><br
 
 ```
 <?php
-if(!function_exists(&apos;hash_equals&apos;)) {
+if(!function_exists('hash_equals')) {
   function hash_equals($str1, $str2) {
     if(strlen($str1) != strlen($str2)) {
       return false;
@@ -29,12 +29,12 @@ I don&apos;t know why asphp at dsgml dot com got that many downvotes, the functi
 ```
 <?php
 
-if (!function_exists(&apos;hash_equals&apos;)) {
+if (!function_exists('hash_equals')) {
 
     /**
      * Timing attack safe string comparison
      * 
-     * Compares two strings using the same time whether they&apos;re equal or not.
+     * Compares two strings using the same time whether they're equal or not.
      * This function should be used to mitigate timing attacks; for instance, when testing crypt() password hashes.
      * 
      * @param string $known_string The string of known length to compare against
@@ -45,15 +45,15 @@ if (!function_exists(&apos;hash_equals&apos;)) {
     {
         if (func_num_args() !== 2) {
             // handle wrong parameter count as the native implentation
-            trigger_error(&apos;hash_equals() expects exactly 2 parameters, &apos; . func_num_args() . &apos; given&apos;, E_USER_WARNING);
+            trigger_error('hash_equals() expects exactly 2 parameters, ' . func_num_args() . ' given', E_USER_WARNING);
             return null;
         }
         if (is_string($known_string) !== true) {
-            trigger_error(&apos;hash_equals(): Expected known_string to be a string, &apos; . gettype($known_string) . &apos; given&apos;, E_USER_WARNING);
+            trigger_error('hash_equals(): Expected known_string to be a string, ' . gettype($known_string) . ' given', E_USER_WARNING);
             return false;
         }
         $known_string_len = strlen($known_string);
-        $user_string_type_error = &apos;hash_equals(): Expected user_string to be a string, &apos; . gettype($user_string) . &apos; given&apos;; // prepare wrong type error message now to reduce the impact of string concatenation and the gettype call
+        $user_string_type_error = 'hash_equals(): Expected user_string to be a string, ' . gettype($user_string) . ' given'; // prepare wrong type error message now to reduce the impact of string concatenation and the gettype call
         if (is_string($user_string) !== true) {
             trigger_error($user_string_type_error, E_USER_WARNING);
             // prevention of timing attacks might be still possible if we handle $user_string as a string of diffent length (the trigger_error() call increases the execution time a bit)

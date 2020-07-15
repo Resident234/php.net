@@ -9,59 +9,59 @@ This function checks if OAuth request is valid and signed correctly.<br><br>$pro
 
 public function timestampNonceHandler ( $provider )
 {
-    return $this-&gt;dbModel-&gt;checkTimestampNonce ( $provider-&gt;consumer_key,
-                                                 $provider-&gt;token, 
-                                                 $provider-&gt;timestamp,
-                                                 $provider-&gt;nonce );
+    return $this->dbModel->checkTimestampNonce ( $provider->consumer_key,
+                                                 $provider->token, 
+                                                 $provider->timestamp,
+                                                 $provider->nonce );
 }
 
 public function consumerHandler ( $provider )
 {
-    $consumer = $this-&gt;dbModel-&gt;getConsumerSecrets ($provider-&gt;consumer_key);
+    $consumer = $this->dbModel->getConsumerSecrets ($provider->consumer_key);
     
-    if($consumer[&apos;consumer_key&apos;] != $provider-&gt;consumer_key)
+    if($consumer['consumer_key'] != $provider->consumer_key)
     {
         return OAUTH_CONSUMER_KEY_UNKNOWN;
     }
     
-    if( (int)$consumer[&apos;disabled&apos;] != 0 )
+    if( (int)$consumer['disabled'] != 0 )
     {
         return OAUTH_CONSUMER_KEY_REFUSED;
     }
     
-    $provider-&gt;consumer_id = $consumer[&apos;consumer_id&apos;]; # this is not required by OAuthProvider but I use it later in tokenHandler
-    $provider-&gt;consumer_secret = $consumer[&apos;consumer_secret&apos;]; # this is REQUIRED
+    $provider->consumer_id = $consumer['consumer_id']; # this is not required by OAuthProvider but I use it later in tokenHandler
+    $provider->consumer_secret = $consumer['consumer_secret']; # this is REQUIRED
 
     return OAUTH_OK;
 }
 
 public function tokenHandler ( $provider )
 {
-    $token = $this-&gt;dbModel-&gt;getToken( $provider-&gt;token );
+    $token = $this->dbModel->getToken( $provider->token );
 
-    if( time() &gt; $token[&apos;expire&apos;] )
+    if( time() &gt; $token['expire'] )
     {
         return OAUTH_TOKEN_EXPIRED;
     }
     
-    if($token[&apos;consumer_id&apos;] != $provider-&gt;consumer_id)
+    if($token['consumer_id'] != $provider->consumer_id)
     {
         return OAUTH_TOKEN_REJECTED;
     }
 
-    if( (int)$token[&apos;authorized&apos;] == 0 )
+    if( (int)$token['authorized'] == 0 )
     {
         return OAUTH_TOKEN_REJECTED;
     }
 
-    if($token[&apos;token_type&apos;] != &apos;access&apos;)
+    if($token['token_type'] != 'access')
     {
-        if($token[&apos;verifier&apos;] != $provider-&gt;verifier)
+        if($token['verifier'] != $provider->verifier)
             return OAUTH_VERIFIER_INVALID;
     }
 
-    $provider-&gt;token_id = $token[&apos;token_id&apos;]; # not required to be set by OAuthProvider
-    $provider-&gt;token_secret = $token[&apos;token_secret&apos;]; # this is REQUIRED
+    $provider->token_id = $token['token_id']; # not required to be set by OAuthProvider
+    $provider->token_secret = $token['token_secret']; # this is REQUIRED
     
     return OAUTH_OK;
 }

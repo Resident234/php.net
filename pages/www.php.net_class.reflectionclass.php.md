@@ -7,7 +7,7 @@ To reflect on a namespaced class in PHP 5.3, you must always specify the fully q
 ```
 <?php
 use App\Core as Core;
-$oReflectionClass = new ReflectionClass(&apos;Core\Singleton&apos;);
+$oReflectionClass = new ReflectionClass('Core\Singleton');
 ?>
 ```
 
@@ -19,7 +19,7 @@ You would type:
 ```
 <?php
 use App\Core as Core;
-$oReflectionClass = new ReflectionClass(&apos;App\Core\Singleton&apos;);
+$oReflectionClass = new ReflectionClass('App\Core\Singleton');
 ?>
 ```
   
@@ -35,10 +35,10 @@ class X {
     
 }
 
-class_alias(&apos;X&apos;,&apos;Y&apos;);
-class_alias(&apos;Y&apos;,&apos;Z&apos;);
-$z = new ReflectionClass(&apos;Z&apos;);
-echo $z-&gt;getName(); // X
+class_alias('X','Y');
+class_alias('Y','Z');
+$z = new ReflectionClass('Z');
+echo $z->getName(); // X
 
 ?>
 ```
@@ -55,13 +55,13 @@ Unserialized reflection class cause error.<br><br>
  */
 class a{}
 
-$ref = new ReflectionClass(&apos;a&apos;);
+$ref = new ReflectionClass('a');
 $ref = unserialize(serialize($ref));
 var_dump($ref);
-var_dump($ref-&gt;getDocComment());
+var_dump($ref->getDocComment());
 
 // object(ReflectionClass)#2 (1) {
-//   ["name"]=&gt;
+//   ["name"]=>
 //   string(1) "a"
 // }
 // PHP Fatal error:  ReflectionClass::getDocComment(): Internal error: Failed to retrieve the reflection object

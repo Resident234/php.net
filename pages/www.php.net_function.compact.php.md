@@ -6,7 +6,7 @@ Can also handy for debugging, to quickly show a bunch of variables and their val
 
 ```
 <?php
-print_r(compact(explode(&apos; &apos;, &apos;count acw cols coldepth&apos;)));
+print_r(compact(explode(' ', 'count acw cols coldepth')));
 ?>
 ```
 <br><br>gives<br><br>Array<br>(<br>    [count] =&gt; 70<br>    [acw] =&gt; 9<br>    [cols] =&gt; 7<br>    [coldepth] =&gt; 10<br>)  

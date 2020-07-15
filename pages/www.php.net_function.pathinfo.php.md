@@ -6,7 +6,7 @@ Simple example of pathinfo and array destructuring in PHP 7:<br>
 
 ```
 <?php
-[ &apos;basename&apos; =&gt; $basename, &apos;dirname&apos; =&gt; $dirname ] = pathinfo(&apos;/www/htdocs/inc/lib.inc.php&apos;);
+[ 'basename' => $basename, 'dirname' => $dirname ] = pathinfo('/www/htdocs/inc/lib.inc.php');
 
 var_dump($basename, $dirname);
 

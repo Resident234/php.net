@@ -9,7 +9,7 @@ Clarification of the ldap_read command syntax:  <br><br>If you just want to pull
 $ds = ldap.myserver.com // your ldap server
   $dn = "cn=username,o=My Company, c=US"; //the object itself instead of the top search level as in ldap_search
   $filter="(objectclass=*)"; // this command requires some filter
-  $justthese = array("ou", "sn", "givenname", "mail"); //the attributes to pull, which is much more efficient than pulling all attributes if you don&apos;t do this
+  $justthese = array("ou", "sn", "givenname", "mail"); //the attributes to pull, which is much more efficient than pulling all attributes if you don't do this
       $sr=ldap_read($ds, $dn, $filter, $justthese);
           $entry = ldap_get_entries($ds, $sr);
 

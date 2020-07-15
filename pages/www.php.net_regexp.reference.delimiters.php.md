@@ -6,9 +6,9 @@ Note that bracket style opening and closing delimiters aren&apos;t a 100% proble
 
 ```
 <?php
-  preg_match(&apos;{[{]}&apos;, &apos;&apos;); // Warning: preg_match(): No ending matching delimiter &apos;}&apos;
-  preg_match(&apos;{[}]}&apos;, &apos;&apos;); // Warning: preg_match(): Unknown modifier &apos;]&apos;
-  preg_match(&apos;{[}{]}&apos;, &apos;&apos;); // Warning: preg_match(): Unknown modifier &apos;]&apos;
+  preg_match('{[{]}', ''); // Warning: preg_match(): No ending matching delimiter '}'
+  preg_match('{[}]}', ''); // Warning: preg_match(): Unknown modifier ']'
+  preg_match('{[}{]}', ''); // Warning: preg_match(): Unknown modifier ']'
 ?>
 ```
 
@@ -19,9 +19,9 @@ Escaping them solves it:
 
 ```
 <?php
-  preg_match(&apos;{[\{]}&apos;, &apos;&apos;); // OK
-  preg_match(&apos;{[}]}&apos;, &apos;&apos;); // OK
-  preg_match(&apos;{[\}\{]}&apos;, &apos;&apos;); // OK
+  preg_match('{[\{]}', ''); // OK
+  preg_match('{[}]}', ''); // OK
+  preg_match('{[\}\{]}', ''); // OK
 ?>
 ```
   

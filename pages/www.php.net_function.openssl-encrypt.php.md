@@ -2,7 +2,9 @@
 
 
 
-There&apos;s a lot of confusion plus some false guidance here on the openssl library. <br><br>The basic tips are:<br><br>aes-256-ctr is arguably the best choice for cipher algorithm as of 2016. This avoids potential security issues (so-called padding oracle attacks) and bloat from algorithms that pad data to a certain block size. aes-256-gcm is preferable, but not usable until the openssl library is enhanced, which is due in PHP 7.1<br><br>Use different random data for the initialisation vector each time encryption is made with the same key. mcrypt_create_iv() is one choice for random data. AES uses 16 byte blocks, so you need 16 bytes for the iv.<br><br>Join the iv data to the encrypted result and extract the iv data again when decrypting.<br><br>Pass OPENSSL_RAW_DATA for the flags and encode the result if necessary after adding in the iv data.<br><br>Hash the chosen encryption key (the password parameter) using openssl_digest() with a hash function such as sha256, and use the hashed value for the password parameter.<br><br>There&apos;s a simple Cryptor class on GitHub called php-openssl-cryptor that demonstrates encryption/decryption and hashing with openssl, along with how to produce and consume the data in base64 and hex as well as binary. It should lay the foundations for better understanding and making effective use of openssl with PHP.<br><br>Hopefully it will help anyone looking to get started with this powerful library.  
+There&apos;s a lot of confusion plus some false guidance here on the openssl library. <br><br>The basic tips are:<br><br>aes-256-ctr is arguably the best choice for cipher algorithm as of 2016. This avoids potential security issues (so-called padding oracle attacks) and bloat from algorithms that pad data to a certain block size. aes-256-gcm is preferable, but not usable until the openssl library is enhanced, which is due in PHP 7.1<br><br>Use different random data for the initialisation vector each time encryption is made with the same key. mcrypt_create_iv() is one choice for random data. AES uses 16 byte blocks, so you need 16 bytes for the iv.<br><br>Join the iv data to the encrypted result and extract the iv data again when decrypting.<br><br>Pass OPENSSL_RAW_DATA for the flags and encode the result if necessary after adding in the iv data.<br><br>Hash the chosen encryption key (the password parameter) using openssl_digest() with a hash function such as sha256, and use the hashed value for the password parameter.<br><br>There&apos;s a simple Cryptor class on GitHub called ?>
+```
+openssl-cryptor that demonstrates encryption/decryption and hashing with openssl, along with how to produce and consume the data in base64 and hex as well as binary. It should lay the foundations for better understanding and making effective use of openssl with PHP.<br><br>Hopefully it will help anyone looking to get started with this powerful library.  
 
 #
 
@@ -11,11 +13,11 @@ Many users give up with handilng problem when openssl command line tool cant dec
 ```
 <?php
 
-$string = &apos;It works ? Or not it works ?&apos;;
-$pass = &apos;1234&apos;;
-$method = &apos;aes128&apos;;
+$string = 'It works ? Or not it works ?';
+$pass = '1234';
+$method = 'aes128';
 
-file_put_contents (&apos;./file.encrypted&apos;, openssl_encrypt ($string, $method, $pass));
+file_put_contents ('./file.encrypted', openssl_encrypt ($string, $method, $pass));
 
 ?>
 ```
@@ -37,7 +39,7 @@ Or even if he determinates that IV is needed and adds some string iv as encrypti
 
 # openssl enc -aes-128-cbc -d -in file.encrypted -base64 -pass pass:123 -iv -iv 31323334353637383132333435363738
 
-Or even if he determinates that aes-128 password must be 128 bits there fore 16 bytes and sets $pass = &apos;1234567812345678&apos; and tries:
+Or even if he determinates that aes-128 password must be 128 bits there fore 16 bytes and sets $pass = '1234567812345678' and tries:
 
 # openssl enc -aes-128-cbc -d -in file.encrypted -base64 -pass pass:1234567812345678 -iv -iv 31323334353637383132333435363738
 
@@ -58,26 +60,26 @@ And now how to correctly encrypt data with php openssl_encrypt and how to correc
 
     function strtohex($x) 
     {
-        $s=&apos;&apos;;
+        $s='';
         foreach (str_split($x) as $c) $s.=sprintf("%02X",ord($c));
         return($s);
     } 
     
-    $source = &apos;It works !&apos;;
+    $source = 'It works !';
 
     $iv = "1234567812345678";
-    $pass = &apos;1234567812345678&apos;;
-    $method = &apos;aes-128-cbc&apos;;
+    $pass = '1234567812345678';
+    $method = 'aes-128-cbc';
 
     echo "\niv in hex to use: ".strtohex ($iv);
     echo "\nkey in hex to use: ".strtohex ($pass);
     echo "\n";
 
-    file_put_contents (&apos;./file.encrypted&apos;,openssl_encrypt ($source, $method, $pass, true, $iv));
+    file_put_contents ('./file.encrypted',openssl_encrypt ($source, $method, $pass, true, $iv));
 
     $exec = "openssl enc -".$method." -d -in file.encrypted -nosalt -nopad -K ".strtohex($pass)." -iv ".strtohex($iv);
 
-    echo &apos;executing: &apos;.$exec."\n\n";
+    echo 'executing: '.$exec."\n\n";
     echo exec ($exec);
     echo "\n";
 
@@ -97,11 +99,11 @@ PHP lacks a build-in function to encrypt and decrypt large files. `openssl_encry
 <?php
 /**
  * Define the number of blocks that should be read from the source file for each chunk.
- * For &apos;AES-128-CBC&apos; each block consist of 16 bytes.
+ * For 'AES-128-CBC' each block consist of 16 bytes.
  * So if we read 10,000 blocks we load 160kb into memory. You may adjust this value
  * to read/write shorter or longer chunks.
  */
-define(&apos;FILE_ENCRYPTION_BLOCKS&apos;, 10000);
+define('FILE_ENCRYPTION_BLOCKS', 10000);
 
 /**
  * Encrypt the passed file and saves the result in a new file with ".enc" as suffix.
@@ -117,13 +119,13 @@ function encryptFile($source, $key, $dest)
     $iv = openssl_random_pseudo_bytes(16);
 
     $error = false;
-    if ($fpOut = fopen($dest, &apos;w&apos;)) {
+    if ($fpOut = fopen($dest, 'w')) {
         // Put the initialzation vector to the beginning of the file
         fwrite($fpOut, $iv);
-        if ($fpIn = fopen($source, &apos;rb&apos;)) {
+        if ($fpIn = fopen($source, 'rb')) {
             while (!feof($fpIn)) {
                 $plaintext = fread($fpIn, 16 * FILE_ENCRYPTION_BLOCKS);
-                $ciphertext = openssl_encrypt($plaintext, &apos;AES-128-CBC&apos;, $key, OPENSSL_RAW_DATA, $iv);
+                $ciphertext = openssl_encrypt($plaintext, 'AES-128-CBC', $key, OPENSSL_RAW_DATA, $iv);
                 // Use the first 16 bytes of the ciphertext as the next initialization vector
                 $iv = substr($ciphertext, 0, 16);
                 fwrite($fpOut, $ciphertext);
@@ -165,14 +167,14 @@ function decryptFile($source, $key, $dest)
     $key = substr(sha1($key, true), 0, 16);
 
     $error = false;
-    if ($fpOut = fopen($dest, &apos;w&apos;)) {
-        if ($fpIn = fopen($source, &apos;rb&apos;)) {
+    if ($fpOut = fopen($dest, 'w')) {
+        if ($fpIn = fopen($source, 'rb')) {
             // Get the initialzation vector from the beginning of the file
             $iv = fread($fpIn, 16);
             while (!feof($fpIn)) {
                 // we have to read one block more for decrypting than for encrypting
                 $ciphertext = fread($fpIn, 16 * (FILE_ENCRYPTION_BLOCKS + 1)); 
-                $plaintext = openssl_decrypt($ciphertext, &apos;AES-128-CBC&apos;, $key, OPENSSL_RAW_DATA, $iv);
+                $plaintext = openssl_decrypt($ciphertext, 'AES-128-CBC', $key, OPENSSL_RAW_DATA, $iv);
                 // Use the first 16 bytes of the ciphertext as the next initialization vector
                 $iv = substr($ciphertext, 0, 16);
                 fwrite($fpOut, $plaintext);
@@ -216,8 +218,8 @@ echo base64_encode(openssl_random_pseudo_bytes(64));
 ```
 <?php
 // Save The Keys In Your Configuration File
-define(&apos;FIRSTKEY&apos;,&apos;Lk5Uz3slx3BrAghS1aaW5AYgWZRV0tIX5eI0yPchFz4=&apos;);
-define(&apos;SECONDKEY&apos;,&apos;EZ44mFi3TlAey1b2w4Y7lVDuqO+SRxGXsa7nctnr/JmMrA2vN6EJhrvdVZbxaQs5jpSe34X3ejFK/o9+Y5c83w==&apos;);
+define('FIRSTKEY','Lk5Uz3slx3BrAghS1aaW5AYgWZRV0tIX5eI0yPchFz4=');
+define('SECONDKEY','EZ44mFi3TlAey1b2w4Y7lVDuqO+SRxGXsa7nctnr/JmMrA2vN6EJhrvdVZbxaQs5jpSe34X3ejFK/o9+Y5c83w==');
 ?>
 ```
 
@@ -236,7 +238,7 @@ $iv_length = openssl_cipher_iv_length($method);
 $iv = openssl_random_pseudo_bytes($iv_length);
         
 $first_encrypted = openssl_encrypt($data,$method,$first_key, OPENSSL_RAW_DATA ,$iv);    
-$second_encrypted = hash_hmac(&apos;sha3-512&apos;, $first_encrypted, $second_key, TRUE);
+$second_encrypted = hash_hmac('sha3-512', $first_encrypted, $second_key, TRUE);
             
 $output = base64_encode($iv.$second_encrypted.$first_encrypted);    
 return $output;        
@@ -263,7 +265,7 @@ $second_encrypted = substr($mix,$iv_length,64);
 $first_encrypted = substr($mix,$iv_length+64);
             
 $data = openssl_decrypt($first_encrypted,$method,$first_key,OPENSSL_RAW_DATA,$iv);
-$second_encrypted_new = hash_hmac(&apos;sha3-512&apos;, $first_encrypted, $second_key, TRUE);
+$second_encrypted_new = hash_hmac('sha3-512', $first_encrypted, $second_key, TRUE);
     
 if (hash_equals($second_encrypted,$second_encrypted_new))
 return $data;

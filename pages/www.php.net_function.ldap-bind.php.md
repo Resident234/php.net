@@ -9,8 +9,8 @@ Interesting point,<br><br>if you can&apos;t bind to active directory with the er
 
 define(LDAP_OPT_DIAGNOSTIC_MESSAGE, 0x0032)
 
-$handle = ldap_connect(&apos;ldap://active.directory.server/&apos;);
-$bind = ldap_bind($handle, &apos;user&apos;, &apos;expiredpass&apos;);
+$handle = ldap_connect('ldap://active.directory.server/');
+$bind = ldap_bind($handle, 'user', 'expiredpass');
 
 if ($bind) {
     if (ldap_get_option($handle, LDAP_OPT_DIAGNOSTIC_MESSAGE, $extended_error)) {
@@ -25,14 +25,16 @@ if ($bind) {
 
 #
 
-I couldn&apos;t get ldap_bind to work on an ldaps connection until I followed some instructions about creating an ldap.conf file.  I don&apos;t see these instructions anywhere on the php site.  Maybe they&apos;re on the OpenLDAP site, but I thought it would be useful to have here as well.  Credit goes to a dude known as &apos;LRM&apos;, and I found my solution here: http://lists.horde.org/archives/sork/Week-of-Mon-20040503/001578.html<br><br>My setup is XAMPP on Win XP.<br>###### ApacheFriends XAMPP (basic package) version 1.6.3a ######<br><br>  + Apache 2.2.4<br>  + MySQL 5.0.45<br>  + PHP 5.2.3 + PHP 4.4.7 + PEAR<br>  + PHP-Switch win32 1.0 (please use the "php-switch.bat")<br>  + XAMPP Control Version 2.5 from www.nat32.com    <br>  + XAMPP Security 1.0    <br>  + SQLite 2.8.15<br>  + OpenSSL 0.9.8e<br>  + phpMyAdmin 2.10.3<br>  + ADOdb 4.95<br>  + Mercury Mail Transport System v4.01b<br>  + FileZilla FTP Server 0.9.23<br>  + Webalizer 2.01-10<br>  + Zend Optimizer 3.3.0<br>  + eAccelerator 0.9.5.1 for PHP 5.2.3  (comment out in the php.ini)<br><br>1. create C:\OpenLDAP\sysconf\ldap.conf (Yes, it MUST be this path because it&apos;s hard-coded in the dll)<br>2. put this line at the top:<br><br>TLS_REQCERT never<br><br>3. Save, stop/start apache.<br><br>The reason is, I think, because it doesn&apos;t understand the certificate, so this directive tells it to not bother checking it.  I guess that could be unsafe in some cases, but in my case I&apos;m confident with the server I&apos;m connecting to.<br><br>My connection code was as follows (nothing new here, I don&apos;t think):<br><br>
+I couldn&apos;t get ldap_bind to work on an ldaps connection until I followed some instructions about creating an ldap.conf file.  I don&apos;t see these instructions anywhere on the php site.  Maybe they&apos;re on the OpenLDAP site, but I thought it would be useful to have here as well.  Credit goes to a dude known as &apos;LRM&apos;, and I found my solution here: http://lists.horde.org/archives/sork/Week-of-Mon-20040503/001578.html<br><br>My setup is XAMPP on Win XP.<br>###### ApacheFriends XAMPP (basic package) version 1.6.3a ######<br><br>  + Apache 2.2.4<br>  + MySQL 5.0.45<br>  + PHP 5.2.3 + PHP 4.4.7 + PEAR<br>  + PHP-Switch win32 1.0 (please use the "?>
+```
+switch.bat")<br>  + XAMPP Control Version 2.5 from www.nat32.com    <br>  + XAMPP Security 1.0    <br>  + SQLite 2.8.15<br>  + OpenSSL 0.9.8e<br>  + phpMyAdmin 2.10.3<br>  + ADOdb 4.95<br>  + Mercury Mail Transport System v4.01b<br>  + FileZilla FTP Server 0.9.23<br>  + Webalizer 2.01-10<br>  + Zend Optimizer 3.3.0<br>  + eAccelerator 0.9.5.1 for PHP 5.2.3  (comment out in the php.ini)<br><br>1. create C:\OpenLDAP\sysconf\ldap.conf (Yes, it MUST be this path because it&apos;s hard-coded in the dll)<br>2. put this line at the top:<br><br>TLS_REQCERT never<br><br>3. Save, stop/start apache.<br><br>The reason is, I think, because it doesn&apos;t understand the certificate, so this directive tells it to not bother checking it.  I guess that could be unsafe in some cases, but in my case I&apos;m confident with the server I&apos;m connecting to.<br><br>My connection code was as follows (nothing new here, I don&apos;t think):<br><br>
 
 ```
 <?php
-$con = @ldap_connect(&apos;ldaps://the.ldap.server&apos;, 636);
+$con = @ldap_connect('ldaps://the.ldap.server', 636);
 ldap_set_option($con, LDAP_OPT_PROTOCOL_VERSION, 3);
 ldap_set_option($con, LDAP_OPT_REFERRALS, 0);
-var_dump(@ldap_bind($con, &apos;user@sub.domain.com&apos;, &apos;password&apos;));
+var_dump(@ldap_bind($con, 'user@sub.domain.com', 'password'));
 ?>
 ```
 <br><br>Good luck!  LDAPS can be a real bitch.  

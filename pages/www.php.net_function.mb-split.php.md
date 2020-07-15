@@ -6,9 +6,9 @@ a (simpler) way to extract all characters from a UTF-8 string to array with a si
 
 ```
 <?php
-  $str = &apos;&#x41C;&#x430;-
-&#x440;&#x443;&#x441;&#x44F;&apos;;
-  print_r(preg_split(&apos;//u&apos;, $str, null, PREG_SPLIT_NO_EMPTY));
+  $str = '&#x41C;&#x430;-
+&#x440;&#x443;&#x441;&#x44F;';
+  print_r(preg_split('//u', $str, null, PREG_SPLIT_NO_EMPTY));
 ?>
 ```
 <br><br>Output:<br><br>Array<br>(<br>    [0] =&gt; &#x41C;<br>    [1] =&gt; &#x430;<br>    [2] =&gt; -<br>    [3] =&gt; <br><br>    [4] =&gt; &#x440;<br>    [5] =&gt; &#x443;<br>    [6] =&gt; &#x441;<br>    [7] =&gt; &#x44F;<br>)  
@@ -22,14 +22,14 @@ The $pattern argument doesn&apos;t use /pattern/ delimiters, unlike other regex 
    # Works. No slashes around the /pattern/
    print_r( mb_split("\s", "hello world") );
    Array (
-      [0] =&gt; hello
-      [1] =&gt; world
+      [0] => hello
+      [1] => world
    )
 
-   # Doesn&apos;t work:
+   # Doesn't work:
    print_r( mb_split("/\s/", "hello world") );
    Array (
-      [0] =&gt; hello world
+      [0] => hello world
    )
 ?>
 ```
@@ -63,10 +63,10 @@ In addition to Sezer Yalcin&apos;s tip.<br><br>This function splits a multibyte 
 function mb_str_split( $string ) {
     # Split at all position not after the start: ^
     # and not before the end: $
-    return preg_split(&apos;/(?&lt;!^)(?!$)/u&apos;, $string );
+    return preg_split('/(?&lt;!^)(?!$)/u', $string );
 }
 
-$string   = &apos;&#x706B;&#x8F66;&#x7968;&apos;;
+$string   = '&#x706B;&#x8F66;&#x7968;';
 $charlist = mb_str_split( $string );
 
 print_r( $charlist );

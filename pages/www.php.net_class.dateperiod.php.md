@@ -7,15 +7,15 @@ Just an example to include the end date using the DateTime method &apos;modify&a
 ```
 <?php
 
-$begin = new DateTime( &apos;2012-08-01&apos; );
-$end = new DateTime( &apos;2012-08-31&apos; );
-$end = $end-&gt;modify( &apos;+1 day&apos; ); 
+$begin = new DateTime( '2012-08-01' );
+$end = new DateTime( '2012-08-31' );
+$end = $end->modify( '+1 day' ); 
 
-$interval = new DateInterval(&apos;P1D&apos;);
+$interval = new DateInterval('P1D');
 $daterange = new DatePeriod($begin, $interval ,$end);
 
 foreach($daterange as $date){
-    echo $date-&gt;format("Ymd") . "&lt;br&gt;";
+    echo $date->format("Ymd") . "&lt;br&gt;";
 }
 ?>
 ```
@@ -31,14 +31,14 @@ Nice example from PHP Spring Conference (thanks to Johannes Schl&#xFC;ter and Da
 
 ```
 <?php
-$begin = new DateTime( &apos;2007-12-31&apos; );
-$end = new DateTime( &apos;2009-12-31 23:59:59&apos; );
+$begin = new DateTime( '2007-12-31' );
+$end = new DateTime( '2009-12-31 23:59:59' );
 
-$interval = DateInterval::createFromDateString(&apos;last thursday of next month&apos;);
+$interval = DateInterval::createFromDateString('last thursday of next month');
 $period = new DatePeriod($begin, $interval, $end, DatePeriod::EXCLUDE_START_DATE);
 
 foreach ( $period as $dt )
-  echo $dt-&gt;format( "l Y-m-d H:i:s\n" );
+  echo $dt->format( "l Y-m-d H:i:s\n" );
 ?>
 ```
 <br><br>DateInterval specs could be found at http://en.wikipedia.org/wiki/ISO_8601#Time_intervals  

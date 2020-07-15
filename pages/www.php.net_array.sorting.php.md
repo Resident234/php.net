@@ -13,10 +13,10 @@ function usortTest($a, $b) {
     return -1;
 }
 
-$test = array(&apos;val1&apos;);
+$test = array('val1');
 usort($test, "usortTest");
 
-$test2 = array(&apos;val2&apos;, &apos;val3&apos;);
+$test2 = array('val2', 'val3');
 usort($test2, "usortTest");
 
 ?>
@@ -29,7 +29,7 @@ Another way to do a case case-insensitive sort by key would simply be:<br><br>
 
 ```
 <?php
-uksort($array, &apos;strcasecmp&apos;);
+uksort($array, 'strcasecmp');
 ?>
 ```
 <br><br>Since strcasecmp is already predefined in php it saves you the trouble to actually write the comparison function yourself.  

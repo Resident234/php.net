@@ -41,8 +41,8 @@ final class PDOStatement extends \PDOStatement {
     */
 
     protected function __construct(PDO &amp;$PDO) {
-        $this-&gt;PDO = $PDO;
-        $this-&gt;executionTime = microtime(true);
+        $this->PDO = $PDO;
+        $this->executionTime = microtime(true);
     }
 
     /**
@@ -52,7 +52,7 @@ final class PDOStatement extends \PDOStatement {
     */
 
     final public function getExecutionError(int $i = 2) {
-        $executionError = $this-&gt;errorInfo();
+        $executionError = $this->errorInfo();
 
         if (isset($executionError[$i]))
             return $executionError[$i];
@@ -66,11 +66,11 @@ final class PDOStatement extends \PDOStatement {
     *
     */
 
-    final public function getExecutionTime($numberFormat = false, $decPoint = &apos;.&apos;, $thousandsSep = &apos;,&apos;) {
+    final public function getExecutionTime($numberFormat = false, $decPoint = '.', $thousandsSep = ',') {
         if (is_numeric($numberFormat))
-            return number_format($this-&gt;executionTime, $numberFormat, $decPoint, $thousandsSep);
+            return number_format($this->executionTime, $numberFormat, $decPoint, $thousandsSep);
         
-        return $this-&gt;executionTime;
+        return $this->executionTime;
     }
 
     /**
@@ -79,11 +79,11 @@ final class PDOStatement extends \PDOStatement {
     *
     */
 
-    final public function getResultCount($numberFormat = false, $decPoint = &apos;.&apos;, $thousandsSep = &apos;,&apos;) {
+    final public function getResultCount($numberFormat = false, $decPoint = '.', $thousandsSep = ',') {
         if (is_numeric($numberFormat))
-            return number_format($this-&gt;resultCount, $numberFormat, $decPoint, $thousandsSep);
+            return number_format($this->resultCount, $numberFormat, $decPoint, $thousandsSep);
         
-        return $this-&gt;resultCount;
+        return $this->resultCount;
     }
 
     /**
@@ -93,7 +93,7 @@ final class PDOStatement extends \PDOStatement {
     */
 
     final public function getLastInsertId() {
-        return $this-&gt;PDO-&gt;lastInsertId();
+        return $this->PDO->lastInsertId();
     }
 
     /**
@@ -103,10 +103,10 @@ final class PDOStatement extends \PDOStatement {
     */
 
     final public function bindValues(array $inputParams) {
-        foreach ($this-&gt;inputParams = array_values($inputParams) as $i =&gt; $value) {
+        foreach ($this->inputParams = array_values($inputParams) as $i => $value) {
             $varType = is_null($value) ? \PDO::PARAM_NULL : is_bool($value) ? \PDO::PARAM_BOOL : is_int($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR;
 
-            if (!$this-&gt;bindValue(++ $i, $value, $varType))
+            if (!$this->bindValue(++ $i, $value, $varType))
                 return false;
         }
 
@@ -121,10 +121,10 @@ final class PDOStatement extends \PDOStatement {
 
     final public function execute($inputParams = null) {
         if ($inputParams)
-            $this-&gt;inputParams = $inputParams;
+            $this->inputParams = $inputParams;
 
         if ($executed = parent::execute($inputParams))
-            $this-&gt;executionTime = microtime(true) - $this-&gt;executionTime;
+            $this->executionTime = microtime(true) - $this->executionTime;
 
         return $executed;
     }
@@ -139,19 +139,19 @@ final class PDOStatement extends \PDOStatement {
         $resultSet = parent::fetchAll(... func_get_args());
 
         if (!empty($resultSet)) {
-            $queryString = $this-&gt;queryString;
-            $inputParams = $this-&gt;inputParams;
+            $queryString = $this->queryString;
+            $inputParams = $this->inputParams;
 
-            if (preg_match(&apos;/(.*)?LIMIT/is&apos;, $queryString, $match))
+            if (preg_match('/(.*)?LIMIT/is', $queryString, $match))
                 $queryString = $match[1];
 
-            $queryString = sprintf(&apos;SELECT COUNT(*) AS T FROM (%s) DT&apos;, $queryString);
+            $queryString = sprintf('SELECT COUNT(*) AS T FROM (%s) DT', $queryString);
 
-            if (($placeholders = substr_count($queryString, &apos;?&apos;)) &lt; count($inputParams))
+            if (($placeholders = substr_count($queryString, '?')) &lt; count($inputParams))
                 $inputParams = array_slice($inputParams, 0, $placeholders);
 
-            if (($sth = $this-&gt;PDO-&gt;prepare($queryString)) &amp;&amp; $sth-&gt;bindValues($inputParams) &amp;&amp; $sth-&gt;execute())
-                $this-&gt;resultCount = $sth-&gt;fetchColumn();
+            if (($sth = $this->PDO->prepare($queryString)) &amp;&amp; $sth->bindValues($inputParams) &amp;&amp; $sth->execute())
+                $this->resultCount = $sth->fetchColumn();
                 
             $sth = null;
         }

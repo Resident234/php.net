@@ -12,7 +12,7 @@ I used this simple script, flicked from StackOverflow to escape from the functio
 <?php
     function utf8ize($d) {
         if (is_array($d)) {
-            foreach ($d as $k =&gt; $v) {
+            foreach ($d as $k => $v) {
                 $d[$k] = utf8ize($v);
             }
         } else if (is_string ($d)) {
@@ -29,7 +29,19 @@ I used this simple script, flicked from StackOverflow to escape from the functio
 when json_decode a empty string, PHP7 will trigger an Syntax error:<br>
 
 ```
-<?php<br>json_decode("");<br>var_dump(json_last_error(), json_last_error_msg());<br><br>// PHP 7<br>int(4)<br>string(12) "Syntax error"<br><br>//  PHP 5<br>int(0)<br>string(8) "No error"  
+<?php
+json_decode("");
+var_dump(json_last_error(), json_last_error_msg());
+
+// PHP 7
+int(4)
+string(12) "Syntax error"
+
+//  PHP 5
+int(0)
+string(8) "No error"?>
+```
+  
 
 #
 

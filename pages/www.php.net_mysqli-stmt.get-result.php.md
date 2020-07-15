@@ -22,8 +22,8 @@ function iimysqli_stmt_get_result($stmt)
      *    mysqli_bind_param($stmt, "types", ...);
      *
      *    $param1 = 0;
-     *    $param2 = &apos;foo&apos;;
-     *    $param3 = &apos;bar&apos;;
+     *    $param2 = 'foo';
+     *    $param3 = 'bar';
      *    mysqli_execute($stmt);
      *    $result _mysqli_stmt_get_result($stmt);
      *        [ $arr = _mysqli_result_fetch_array($result);
@@ -37,8 +37,8 @@ function iimysqli_stmt_get_result($stmt)
     $ret = new iimysqli_result;
     if (!$ret) return NULL;
 
-    $ret-&gt;nCols = mysqli_num_fields($metadata);
-    $ret-&gt;stmt = $stmt;
+    $ret->nCols = mysqli_num_fields($metadata);
+    $ret->stmt = $stmt;
 
     mysqli_free_result($metadata);
     return $ret;
@@ -47,19 +47,19 @@ function iimysqli_stmt_get_result($stmt)
 function iimysqli_result_fetch_array(&amp;$result)
 {
     $ret = array();
-    $code = "return mysqli_stmt_bind_result(\$result-&gt;stmt ";
+    $code = "return mysqli_stmt_bind_result(\$result->stmt ";
 
-    for ($i=0; $i&lt;$result-&gt;nCols; $i++)
+    for ($i=0; $i&lt;$result->nCols; $i++)
     {
         $ret[$i] = NULL;
-        $code .= ", \$ret[&apos;" .$i ."&apos;]";
+        $code .= ", \$ret['" .$i ."']";
     };
 
     $code .= ");";
     if (!eval($code)) { return NULL; };
 
     // This should advance the "$stmt" cursor.
-    if (!mysqli_stmt_fetch($result-&gt;stmt)) { return NULL; };
+    if (!mysqli_stmt_fetch($result->stmt)) { return NULL; };
 
     // Return the array we built.
     return $ret;

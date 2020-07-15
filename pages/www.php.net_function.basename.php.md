@@ -21,7 +21,16 @@ It&apos;s a shame, that for a 20 years of development we don&apos;t have mb_base
 There is only one variant that works in my case for my Russian UTF-8 letters:<br><br>
 
 ```
-<?php<br>function mb_basename($file)<br>{<br>    return end(explode(&apos;/&apos;,$file));<br>}<br>&gt;&lt;<br><br>It is intented for UNIX servers  
+<?php
+function mb_basename($file)
+{
+    return end(explode('/',$file));
+}
+&gt;&lt;
+
+It is intented for UNIX servers?>
+```
+  
 
 #
 

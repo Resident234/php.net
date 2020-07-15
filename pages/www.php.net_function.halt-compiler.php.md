@@ -11,7 +11,7 @@ __halt_compiler is also useful for debugging. If you need to temporarily make a 
 ```
 <?php
 if ( $something ):
-  print &apos;something&apos;;
+  print 'something';
 endif;   // endif placed here for debugging purposes
 __halt_compiler();
 endif;   // original location of endif -- would produce syntax error if __halt_compiler was not there

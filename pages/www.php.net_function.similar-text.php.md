@@ -6,8 +6,8 @@ Hey there,<br><br>Be aware when using this function, that the order of passing t
 
 ```
 <?php
-$var_1 = &apos;PHP IS GREAT&apos;;
-$var_2 = &apos;WITH MYSQL&apos;;
+$var_1 = 'PHP IS GREAT';
+$var_2 = 'WITH MYSQL';
 
 similar_text($var_1, $var_2, $percent);
 
@@ -68,10 +68,10 @@ function similarity($str1, $str2) {
     return round($similarity / $max, 2);
 }
 
-$str1 = &apos;12345678901234567890&apos;;
-$str2 = &apos;12345678991234567890&apos;;
+$str1 = '12345678901234567890';
+$str2 = '12345678991234567890';
 
-echo &apos;Similarity: &apos; . (similarity($str1, $str2) * 100) . &apos;%&apos;;
+echo 'Similarity: ' . (similarity($str1, $str2) * 100) . '%';
 ?>
 ```
   
@@ -81,7 +81,16 @@ echo &apos;Similarity: &apos; . (similarity($str1, $str2) * 100) . &apos;%&apos;
 Note that this function is case sensitive:<br><br>
 
 ```
-<?php<br><br>$var1 = &apos;Hello&apos;;<br>$var2 = &apos;Hello&apos;;<br>$var3 = &apos;hello&apos;;<br><br>echo similar_text($var1, $var2);  // 5<br>echo similar_text($var1, $var3);  // 4  
+<?php
+
+$var1 = 'Hello';
+$var2 = 'Hello';
+$var3 = 'hello';
+
+echo similar_text($var1, $var2);  // 5
+echo similar_text($var1, $var3);  // 4?>
+```
+  
 
 #
 
@@ -104,10 +113,10 @@ If you have reserved names in a database that you don&apos;t want others to use,
 $query = mysql_query("select * from $table") or die("Query failed");
 
 while ($row = mysql_fetch_array($query)) {
-      similar_text(strtoupper($_POST[&apos;name&apos;]), strtoupper($row[&apos;reserved&apos;]), $similarity_pst);
+      similar_text(strtoupper($_POST['name']), strtoupper($row['reserved']), $similarity_pst);
       if (number_format($similarity_pst, 0) &gt; 90){
-        $too_similar = $row[&apos;reserved&apos;];
-        print "The name you entered is too similar the reserved name &amp;quot;".$row[&apos;reserved&apos;]."&amp;quot;";
+        $too_similar = $row['reserved'];
+        print "The name you entered is too similar the reserved name &amp;quot;".$row['reserved']."&amp;quot;";
         break;
        }
     }

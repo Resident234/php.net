@@ -15,13 +15,13 @@ dirname(__FILE__);
 ```
 
 
-For example, if a script called &apos;database.init.php&apos; which is included from anywhere on the filesystem wants to include the script &apos;database.class.php&apos;, which lays in the same directory, you can use:
+For example, if a script called 'database.init.php' which is included from anywhere on the filesystem wants to include the script 'database.class.php', which lays in the same directory, you can use:
 
 
 
 ```
 <?php
-include_once(dirname(__FILE__) . &apos;/database.class.php&apos;);
+include_once(dirname(__FILE__) . '/database.class.php');
 ?>
 ```
   

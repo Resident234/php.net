@@ -2,7 +2,18 @@
 
 
 
-As of January 2, 2019 Maxmind discontinued the original GeoLite databases that we have been using in all these examples. You can read the full announcement here: https://support.maxmind.com/geolite-legacy-discontinuation-notice/<br><br>This means that if you require to have an updated version of the GeoIP information, there are a few steps you need to do:<br>1. Install the GeoIP2 client libraries (Composer, Phar)<br>2. Download the new GeoIP2 datasets<br>3. Update your application to make use of this new API and dataset<br><br>You can find detailed instructions on http://maxmind.github.io/GeoIP2-php/<br><br>C extension<br>Yes, there is a C extension available! Check out https://github.com/maxmind/MaxMind-DB-Reader-php for more details on how to install and use this extension.  
+As of January 2, 2019 Maxmind discontinued the original GeoLite databases that we have been using in all these examples. You can read the full announcement here: https://support.maxmind.com/geolite-legacy-discontinuation-notice/<br><br>This means that if you require to have an updated version of the GeoIP information, there are a few steps you need to do:<br>1. Install the GeoIP2 client libraries (Composer, Phar)<br>2. Download the new GeoIP2 datasets<br>3. Update your application to make use of this new API and dataset<br><br>You can find detailed instructions on http://maxmind.github.io/GeoIP2
+
+```
+<?php/
+
+C extension
+Yes, there is a C extension available! Check out https://github.com/maxmind/MaxMind-DB-Reader
+
+```
+<?php for more details on how to install and use this extension.?>
+```
+  
 
 #
 

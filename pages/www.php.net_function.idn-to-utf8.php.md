@@ -24,10 +24,10 @@ class IDN {
     // translate character to punycode number
     private static function decodeDigit($cp) {
         $cp = strtolower($cp);
-        if ($cp &gt;= &apos;a&apos; &amp;&amp; $cp &lt;= &apos;z&apos;)
-            return ord($cp) - ord(&apos;a&apos;);
-        elseif ($cp &gt;= &apos;0&apos; &amp;&amp; $cp &lt;= &apos;9&apos;)
-            return ord($cp) - ord(&apos;0&apos;)+26;
+        if ($cp &gt;= 'a' &amp;&amp; $cp &lt;= 'z')
+            return ord($cp) - ord('a');
+        elseif ($cp &gt;= '0' &amp;&amp; $cp &lt;= '9')
+            return ord($cp) - ord('0')+26;
     }
  
     // make utf8 string from unicode codepoint number
@@ -96,7 +96,7 @@ class IDN {
     }
  
 }
-echo IDN::decodeIDN($_SERVER[&apos;HTTP_HOST&apos;]);
+echo IDN::decodeIDN($_SERVER['HTTP_HOST']);
 ?>
 ```
   

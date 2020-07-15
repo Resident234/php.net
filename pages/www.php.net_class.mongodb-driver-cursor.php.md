@@ -6,13 +6,13 @@ As one might notice, this class does not implement a hasNext() or next() method 
 
 ```
 <?php
-$cursor = $collection-&gt;find();
+$cursor = $collection->find();
 $it = new \IteratorIterator($cursor);
-$it-&gt;rewind(); // Very important
+$it->rewind(); // Very important
 
-while($doc = $it-&gt;current()) {
+while($doc = $it->current()) {
     var_dump($doc);
-    $it-&gt;next();
+    $it->next();
 }
 ?>
 ```

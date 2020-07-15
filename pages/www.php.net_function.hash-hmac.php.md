@@ -6,7 +6,7 @@ Very important notice, if you pass array to $data, php will generate a Warning, 
 
 ```
 <?php
-var_dump(hash_hmac(&apos;sha256&apos;, [], &apos;secret&apos;));
+var_dump(hash_hmac('sha256', [], 'secret'));
 
 WARNING hash_hmac() expects parameter 2 to be string, array given on line number 3
 NULL
@@ -76,7 +76,7 @@ For signing an Amazon AWS query, base64-encode the binary value:<br><br>
 
 ```
 <?php
-  $Sig = base64_encode(hash_hmac(&apos;sha256&apos;, $Request, $AmazonSecretKey, true));
+  $Sig = base64_encode(hash_hmac('sha256', $Request, $AmazonSecretKey, true));
 ?>
 ```
   

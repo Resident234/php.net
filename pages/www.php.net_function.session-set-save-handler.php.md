@@ -16,7 +16,7 @@ class SysSession implements SessionHandlerInterface
     {
         $link = mysqli_connect("server","user","pwd","mydatabase");
         if($link){
-            $this-&gt;link = $link;
+            $this->link = $link;
             return true;
         }else{
             return false;
@@ -24,23 +24,23 @@ class SysSession implements SessionHandlerInterface
     }
     public function close()
     {
-        mysqli_close($this-&gt;link);
+        mysqli_close($this->link);
         return true;
     }
     public function read($id)
     {
-        $result = mysqli_query($this-&gt;link,"SELECT Session_Data FROM Session WHERE Session_Id = &apos;".$id."&apos; AND Session_Expires &gt; &apos;".date(&apos;Y-m-d H:i:s&apos;)."&apos;");
+        $result = mysqli_query($this->link,"SELECT Session_Data FROM Session WHERE Session_Id = '".$id."' AND Session_Expires &gt; '".date('Y-m-d H:i:s')."'");
         if($row = mysqli_fetch_assoc($result)){
-            return $row[&apos;Session_Data&apos;];
+            return $row['Session_Data'];
         }else{
             return "";
         }
     }
     public function write($id, $data)
     {
-        $DateTime = date(&apos;Y-m-d H:i:s&apos;);
-        $NewDateTime = date(&apos;Y-m-d H:i:s&apos;,strtotime($DateTime.&apos; + 1 hour&apos;));
-        $result = mysqli_query($this-&gt;link,"REPLACE INTO Session SET Session_Id = &apos;".$id."&apos;, Session_Expires = &apos;".$NewDateTime."&apos;, Session_Data = &apos;".$data."&apos;");
+        $DateTime = date('Y-m-d H:i:s');
+        $NewDateTime = date('Y-m-d H:i:s',strtotime($DateTime.' + 1 hour'));
+        $result = mysqli_query($this->link,"REPLACE INTO Session SET Session_Id = '".$id."', Session_Expires = '".$NewDateTime."', Session_Data = '".$data."'");
         if($result){
             return true;
         }else{
@@ -49,7 +49,7 @@ class SysSession implements SessionHandlerInterface
     }
     public function destroy($id)
     {
-        $result = mysqli_query($this-&gt;link,"DELETE FROM Session WHERE Session_Id =&apos;".$id."&apos;");
+        $result = mysqli_query($this->link,"DELETE FROM Session WHERE Session_Id ='".$id."'");
         if($result){
             return true;
         }else{
@@ -58,7 +58,7 @@ class SysSession implements SessionHandlerInterface
     }
     public function gc($maxlifetime)
     {
-        $result = mysqli_query($this-&gt;link,"DELETE FROM Session WHERE ((UNIX_TIMESTAMP(Session_Expires) + ".$maxlifetime.") &lt; ".$maxlifetime.")");
+        $result = mysqli_query($this->link,"DELETE FROM Session WHERE ((UNIX_TIMESTAMP(Session_Expires) + ".$maxlifetime.") &lt; ".$maxlifetime.")");
         if($result){
             return true;
         }else{
@@ -77,11 +77,11 @@ session_set_save_handler($handler, true);
 ```
 <?php
 //page 1
-require_once(&apos;inc.session.php&apos;);
+require_once('inc.session.php');
 
 session_start();
 
-$_SESSION[&apos;var1&apos;] = "My Portuguese text: SOU Gaucho!";
+$_SESSION['var1'] = "My Portuguese text: SOU Gaucho!";
 ?>
 ```
 
@@ -91,12 +91,12 @@ $_SESSION[&apos;var1&apos;] = "My Portuguese text: SOU Gaucho!";
 ```
 <?php
 //page 2
-require_once(&apos;inc.session.php&apos;);
+require_once('inc.session.php');
 
 session_start();
 
-if(isset($_SESSION[&apos;var1&apos;]){
-echo $_SESSION[&apos;var1&apos;]; 
+if(isset($_SESSION['var1']){
+echo $_SESSION['var1']; 
 }
 //OUTPUT: My Portuguese text: SOU Gaucho!
 ?>

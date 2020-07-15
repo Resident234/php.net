@@ -105,7 +105,7 @@ function are_int ( ) {
 
 // Example:
 are_int ( 4, 9 ); // true
-are_int ( 22, 08, &apos;foo&apos; ); // false
+are_int ( 22, 08, 'foo' ); // false
 ?>
 ```
   
@@ -119,17 +119,17 @@ Just a shorter way to check if your variable is an int or a string containing a 
 $bool = ( !is_int($value) ? (ctype_digit($value)) : true );
 
 $value = 42; //true
-$value = &apos;42&apos;; //true
-$value = &apos;1e9&apos;; //false
-$value = &apos;0155&apos;; //true
+$value = '42'; //true
+$value = '1e9'; //false
+$value = '0155'; //true
 $value = 0155; //true
-$value = 0xFF; //true while it&apos;s just the same as 255
-$value = &apos;0xFF&apos;; //false
-$value = &apos;a&apos;; //false
+$value = 0xFF; //true while it's just the same as 255
+$value = '0xFF'; //false
+$value = 'a'; //false
 $value = array(); //false
-$value = array(&apos;5&apos;); //false
+$value = array('5'); //false
 $value = array(5); false
-$value = &apos;&apos;; //false
+$value = ''; //false
 $value = NULL; //false
 
 ?>

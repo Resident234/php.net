@@ -6,21 +6,21 @@ I didn&apos;t found a replacement for apache_request_headers() in PHP::Compat (h
 
 ```
 <?php
-if( !function_exists(&apos;apache_request_headers&apos;) ) {
+if( !function_exists('apache_request_headers') ) {
 ///
 function apache_request_headers() {
   $arh = array();
-  $rx_http = &apos;/\AHTTP_/&apos;;
-  foreach($_SERVER as $key =&gt; $val) {
+  $rx_http = '/\AHTTP_/';
+  foreach($_SERVER as $key => $val) {
     if( preg_match($rx_http, $key) ) {
-      $arh_key = preg_replace($rx_http, &apos;&apos;, $key);
+      $arh_key = preg_replace($rx_http, '', $key);
       $rx_matches = array();
       // do some nasty string manipulations to restore the original letter case
       // this should work in most cases
-      $rx_matches = explode(&apos;_&apos;, $arh_key);
+      $rx_matches = explode('_', $arh_key);
       if( count($rx_matches) &gt; 0 and strlen($arh_key) &gt; 2 ) {
-        foreach($rx_matches as $ak_key =&gt; $ak_val) $rx_matches[$ak_key] = ucfirst($ak_val);
-        $arh_key = implode(&apos;-&apos;, $rx_matches);
+        foreach($rx_matches as $ak_key => $ak_val) $rx_matches[$ak_key] = ucfirst($ak_val);
+        $arh_key = implode('-', $rx_matches);
       }
       $arh[$arh_key] = $val;
     }
@@ -40,8 +40,8 @@ There is a simple way to get request headers from Apache even on PHP running as 
 
 ```
 <?php
-  $_SERVER[&apos;HTTP_IF_MODIFIED_SINCE&apos;];
-  $_SERVER[&apos;HTTP_IF_NONE_MATCH&apos;];
+  $_SERVER['HTTP_IF_MODIFIED_SINCE'];
+  $_SERVER['HTTP_IF_NONE_MATCH'];
 ?>
 ```
 <br><br>I&apos;ve tested this on PHP/5.1.6, on both Apache/2.2.3/Win32 and Apache/2.0.54/Unix, and it works perfectly.<br><br>Note: if you use RewriteRules already for clean URLs, you need to put the above rules AFTER your existing ones.  

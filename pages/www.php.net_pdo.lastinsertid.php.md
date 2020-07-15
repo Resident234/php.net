@@ -19,21 +19,21 @@ Beware of lastInsertId() when working with transactions in mysql. The following 
 ```
 <?php
 try {
-    $dbh = new PDO(&apos;mysql:host=localhost;dbname=test&apos;, &apos;username&apos;, &apos;password&apos;);
+    $dbh = new PDO('mysql:host=localhost;dbname=test', 'username', 'password');
 
-    $stmt = $dbh-&gt;prepare("INSERT INTO test (name, email) VALUES(?,?)");
+    $stmt = $dbh->prepare("INSERT INTO test (name, email) VALUES(?,?)");
 
     try {
-        $dbh-&gt;beginTransaction();
-        $tmt-&gt;execute( array(&apos;user&apos;, &apos;user@example.com&apos;));
-        $dbh-&gt;commit();
-        print $dbh-&gt;lastInsertId();
+        $dbh->beginTransaction();
+        $tmt->execute( array('user', 'user@example.com'));
+        $dbh->commit();
+        print $dbh->lastInsertId();
     } catch(PDOExecption $e) {
-        $dbh-&gt;rollback();
-        print "Error!: " . $e-&gt;getMessage() . "&lt;/br&gt;";
+        $dbh->rollback();
+        print "Error!: " . $e->getMessage() . "&lt;/br&gt;";
     }
 } catch( PDOExecption $e ) {
-    print "Error!: " . $e-&gt;getMessage() . "&lt;/br&gt;";
+    print "Error!: " . $e->getMessage() . "&lt;/br&gt;";
 }
 ?>
 ```
@@ -50,11 +50,11 @@ If you&apos;re accessing MSSQL/SQL Server 2008 R2 (or higher) from Linux via Fre
 
 $sql = "INSERT INTO product (product_name) OUTPUT INSERTED.product_id VALUES (?)";
 
-$sth = $dbh-&gt;prepare($sql);
+$sth = $dbh->prepare($sql);
 
-$sth-&gt;execute(array(&apos;widgets&apos;));
+$sth->execute(array('widgets'));
 
-$temp = $sth-&gt;fetch(PDO::FETCH_ASSOC);
+$temp = $sth->fetch(PDO::FETCH_ASSOC);
 
 ?>
 ```
@@ -70,17 +70,17 @@ I think I get a nice solution in Postgres to get the ID using the RETURNING that
 
         $sqlQuery = "INSERT INTO employee(user_id,name,address,city) VALUES(:user_id,:name,:address,:city) RETURNING employee_id";
 
-        $statement = $this-&gt;prepare($sqlQuery);
+        $statement = $this->prepare($sqlQuery);
 
         $a ="2002-03-11 12:01AM" ;
 
-        $statement-&gt;bindParam(":user_id", $employee-&gt;getUserId(), PDO::PARAM_INT);
-        $statement-&gt;bindParam(":name", $employee-&gt;getName(), PDO::PARAM_STR);
-        $statement-&gt;bindParam(":address", $employee-&gt;getAddress(), PDO::PARAM_STR);
-        $statement-&gt;bindParam(":city", $employee-&gt;getCity(), PDO::PARAM_STR);
-        $statement-&gt;execute();
+        $statement->bindParam(":user_id", $employee->getUserId(), PDO::PARAM_INT);
+        $statement->bindParam(":name", $employee->getName(), PDO::PARAM_STR);
+        $statement->bindParam(":address", $employee->getAddress(), PDO::PARAM_STR);
+        $statement->bindParam(":city", $employee->getCity(), PDO::PARAM_STR);
+        $statement->execute();
         
-        $result = $statement-&gt;fetch(PDO::FETCH_ASSOC);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result["employee_id"];
 
     }

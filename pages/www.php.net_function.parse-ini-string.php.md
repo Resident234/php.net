@@ -25,7 +25,7 @@ function parse_ini_string_m($str) {
             continue;
         }
 
-        if(!strpos($line, &apos;=&apos;)) continue;
+        if(!strpos($line, '=')) continue;
 
         $tmp = explode("=", $line, 2);
 
@@ -34,14 +34,14 @@ function parse_ini_string_m($str) {
             $key = rtrim($tmp[0]);
             $value = ltrim($tmp[1]);
 
-            if(preg_match("/^\".*\"$/", $value) || preg_match("/^&apos;.*&apos;$/", $value)) {
+            if(preg_match("/^\".*\"$/", $value) || preg_match("/^'.*'$/", $value)) {
                 $value = mb_substr($value, 1, mb_strlen($value) - 2);
             }
 
             $t = preg_match("^\[(.*?)\]^", $key, $matches);
             if(!empty($matches) &amp;amp;&amp;amp; isset($matches[0])) {
 
-                $arr_name = preg_replace(&apos;#\[(.*?)\]#is&apos;, &apos;&apos;, $key);
+                $arr_name = preg_replace('#\[(.*?)\]#is', '', $key);
 
                 if(!isset($ret[$inside_section][$arr_name]) || !is_array($ret[$inside_section][$arr_name])) {
                     $ret[$inside_section][$arr_name] = array();
@@ -75,7 +75,7 @@ example usage:
 
 ```
 <?php
-$ini = &apos;
+$ini = '
 
     [simple]
     val_one = "some value"
@@ -90,7 +90,7 @@ $ini = &apos;
     val_arr_two[6] = "key_6"
     val_arr_two[some_key] = "some_key_value"
 
-&apos;;
+';
 
 $arr = parse_ini_string_m($ini);
 ?>

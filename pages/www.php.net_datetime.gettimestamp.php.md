@@ -8,9 +8,9 @@ Note that for dates before the unix epoch getTimestamp() will return false, wher
 <?php
 $date = new DateTime("1899-12-31");
 // "-2209078800"
-echo $date-&gt;format("U");
+echo $date->format("U");
 // false
-echo $date-&gt;getTimestamp();
+echo $date->getTimestamp();
 ?>
 ```
   

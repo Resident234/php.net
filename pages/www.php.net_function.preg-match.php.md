@@ -10,7 +10,7 @@ Was working on a site that needed japanese and alphabetic letters and needed to 
 
 ```
 <?php
-$pattern =&apos;/^([-a-zA-Z0-9_\p{Katakana}\p{Hiragana}\p{Han}]*)$/u&apos;; // Didn&apos;t work
+$pattern ='/^([-a-zA-Z0-9_\p{Katakana}\p{Hiragana}\p{Han}]*)$/u'; // Didn't work
 ?>
 ```
 
@@ -21,9 +21,9 @@ So I tried with ranges and it worked:
 
 ```
 <?php
-$pattern =&apos;/^[-a-zA-Z0-9_\x{30A0}-\x{30FF}&apos;
-         .&apos;\x{3040}-\x{309F}\x{4E00}-\x{9FBF}\s]*$/u&apos;;
-$match_string = &apos;&#x5370;&#x5237;&#x6700;&#x5B89; &#x30CB;&#x30AD;&#x30D3;&#x8DE1;&#x9664;&#x53BB; &#x30B2;&#x30FC;&#x30E0;&#x30DC;&#x30FC;&#x30A4;&apos;;
+$pattern ='/^[-a-zA-Z0-9_\x{30A0}-\x{30FF}'
+         .'\x{3040}-\x{309F}\x{4E00}-\x{9FBF}\s]*$/u';
+$match_string = '&#x5370;&#x5237;&#x6700;&#x5B89; &#x30CB;&#x30AD;&#x30D3;&#x8DE1;&#x9664;&#x53BB; &#x30B2;&#x30FC;&#x30E0;&#x30DC;&#x30FC;&#x30A4;';
 
 if (preg_match($pattern, $match_string)) {
     echo "Found - pattern $pattern";
@@ -48,8 +48,8 @@ This sample regexp may be useful if you are working with DB field types. <br><br
 
 ```
 <?php
-   $type = &apos;varchar(255)&apos;;  // type of field
-   preg_match(&apos;/(?P&lt;type&gt;\w+)($|\((?P&lt;length&gt;(\d+|(.*)))\))/&apos;, $type, $field);
+   $type = 'varchar(255)';  // type of field
+   preg_match('/(?P&lt;type&gt;\w+)($|\((?P&lt;length&gt;(\d+|(.*)))\))/', $type, $field);
    print_r($field);
 ?>
 ```
@@ -62,7 +62,7 @@ I just learned about named groups from a Python friend today and was curious if 
 ```
 <?php
    preg_match("/(?P&lt;foo&gt;abc)(.*)(?P&lt;bar&gt;xyz)/",
-                       &apos;abcdefghijklmnopqrstuvwxyz&apos;,
+                       'abcdefghijklmnopqrstuvwxyz',
                        $matches);
    print_r($matches);
 ?>
@@ -80,18 +80,18 @@ Matching a backslash character can be confusing, because double escaping is need
 ```
 <?php
 //match newline control character:
-preg_match(&apos;/\n/&apos;,&apos;\n&apos;);   //pattern matches and is stored as control character 0x0A in the pattern string
-preg_match(&apos;/\\\n/&apos;,&apos;\n&apos;); //very same match, but is stored escaped as 0x5C,0x6E in the pattern string
+preg_match('/\n/','\n');   //pattern matches and is stored as control character 0x0A in the pattern string
+preg_match('/\\\n/','\n'); //very same match, but is stored escaped as 0x5C,0x6E in the pattern string
 
-//trying to match "\&apos;" (2 characters) in a text file, &apos;\\\&apos;&apos; as PHP string:
-$subject = file_get_contents(&apos;myfile.txt&apos;);
-preg_match(&apos;/\\\&apos;/&apos;,$subject);    //DOESN&apos;T MATCH!!! stored as 0x5C,0x27 (escaped apostrophe), this only matches apostrophe
-preg_match(&apos;/\\\\\&apos;/&apos;,$subject);  //matches, stored as 0x5C,0x5C,0x27 (escaped backslash and unescaped apostrophe)
-preg_match(&apos;/\\\\\\\/&apos;,$subject); //also matches, stored as 0x5C,0x5C,0x5C,0x27 (escaped backslash and escaped apostrophe)
+//trying to match "\'" (2 characters) in a text file, '\\\'' as PHP string:
+$subject = file_get_contents('myfile.txt');
+preg_match('/\\\'/',$subject);    //DOESN'T MATCH!!! stored as 0x5C,0x27 (escaped apostrophe), this only matches apostrophe
+preg_match('/\\\\\'/',$subject);  //matches, stored as 0x5C,0x5C,0x27 (escaped backslash and unescaped apostrophe)
+preg_match('/\\\\\\\/',$subject); //also matches, stored as 0x5C,0x5C,0x5C,0x27 (escaped backslash and escaped apostrophe)
 
 //matching "\n" (2 characters):
-preg_match(&apos;/\\\\n/&apos;,&apos;\\n&apos;);
-preg_match(&apos;/\\\n/&apos;,&apos;\\n&apos;); //same match - 3 backslashes are interpreted as 2 in PHP, if the following character is not escapeable
+preg_match('/\\\\n/','\\n');
+preg_match('/\\\n/','\\n'); //same match - 3 backslashes are interpreted as 2 in PHP, if the following character is not escapeable
 ?>
 ```
   
@@ -112,8 +112,8 @@ $text = "test=";
 for ($i = 0; $i++ &lt; 100000;)
     $text .= "%AB";
 
-// a typical URL_query validity-checker (the pattern&apos;s function does not matter for this example)
-$pattern    = &apos;/^(?:[;\/?:@&amp;=+$,]|(?:[^\W_]|[-_.!~*\()\[\] ])|(?:%[\da-fA-F]{2}))*$/&apos;;
+// a typical URL_query validity-checker (the pattern's function does not matter for this example)
+$pattern    = '/^(?:[;\/?:@&amp;=+$,]|(?:[^\W_]|[-_.!~*\()\[\] ])|(?:%[\da-fA-F]{2}))*$/';
     
 var_dump( preg_match( $pattern, $text ) );
 
@@ -123,7 +123,7 @@ var_dump( preg_match( $pattern, $text ) );
 
 Possible bug (1):
 =============
-On one of our Linux-Servers the above example crashes PHP-execution with a C(?) Segmentation Fault(!). This seems to be a known bug (see http://bugs.php.net/bug.php?id=40909), but I don&apos;t know if it has been fixed, yet.
+On one of our Linux-Servers the above example crashes PHP-execution with a C(?) Segmentation Fault(!). This seems to be a known bug (see http://bugs.php.net/bug.php?id=40909), but I don't know if it has been fixed, yet.
 If you are looking for a work-around, the following code-snippet is what I found helpful. It wraps the possibly crashing preg_match call by decreasing the PCRE recursion limit in order to result in a Reg-Exp error instead of a PHP-crash.
 
 
@@ -161,7 +161,7 @@ This sample is for checking persian character:<br><br>
 
 ```
 <?php
-   preg_match("/[\x{0600}-\x{06FF}\x]{1,32}/u", &apos;&#x645;&#x62D;&#x645;&#x62F;&apos;);
+   preg_match("/[\x{0600}-\x{06FF}\x]{1,32}/u", '&#x645;&#x62D;&#x645;&#x62F;');
 ?>
 ```
   
@@ -230,25 +230,25 @@ I see a lot of people trying to put together phone regex&apos;s and struggling (
 <?php
 
 // all on one line...
-$regex = &apos;/^(?:1(?:[. -])?)?(?:\((?=\d{3}\)))?([2-9]\d{2})(?:(?&lt;=\(\d{3})\))? ?(?:(?&lt;=\d{3})[.-])?([2-9]\d{2})[. -]?(\d{4})(?: (?i:ext)\.? ?(\d{1,5}))?$/&apos;;
+$regex = '/^(?:1(?:[. -])?)?(?:\((?=\d{3}\)))?([2-9]\d{2})(?:(?&lt;=\(\d{3})\))? ?(?:(?&lt;=\d{3})[.-])?([2-9]\d{2})[. -]?(\d{4})(?: (?i:ext)\.? ?(\d{1,5}))?$/';
 
 // or broken up
-$regex = &apos;/^(?:1(?:[. -])?)?(?:\((?=\d{3}\)))?([2-9]\d{2})&apos;
-        .&apos;(?:(?&lt;=\(\d{3})\))? ?(?:(?&lt;=\d{3})[.-])?([2-9]\d{2})&apos;
-        .&apos;[. -]?(\d{4})(?: (?i:ext)\.? ?(\d{1,5}))?$/&apos;;
+$regex = '/^(?:1(?:[. -])?)?(?:\((?=\d{3}\)))?([2-9]\d{2})'
+        .'(?:(?&lt;=\(\d{3})\))? ?(?:(?&lt;=\d{3})[.-])?([2-9]\d{2})'
+        .'[. -]?(\d{4})(?: (?i:ext)\.? ?(\d{1,5}))?$/';
 
 ?>
 ```
 
 
-If you&apos;re wondering why all the non-capturing subpatterns (which look like this "(?:", it&apos;s so that we can do this:
+If you're wondering why all the non-capturing subpatterns (which look like this "(?:", it's so that we can do this:
 
 
 
 ```
 <?php
 
-$formatted = preg_replace($regex, &apos;($1) $2-$3 ext. $4&apos;, $phoneNumber);
+$formatted = preg_replace($regex, '($1) $2-$3 ext. $4', $phoneNumber);
 
 // or, provided you use the $matches argument in preg_match
 
@@ -283,7 +283,7 @@ function is_clean_file ($file)
         exit($file." Not exists.");
     }
 
-    if (preg_match(&apos;/(base64_|eval|system|shell_|exec|php_)/i&apos;,$contents))
+    if (preg_match('/(base64_|eval|system|shell_|exec|php_)/i',$contents))
     {
         return true;
     }
@@ -291,27 +291,27 @@ function is_clean_file ($file)
     {
         return true;
     }
-    elseif (preg_match(&apos;#&amp;\#([0-9]+);#i&apos;, $contents))
+    elseif (preg_match('#&amp;\#([0-9]+);#i', $contents))
     {
         return true;
     }
-    elseif (preg_match("#([a-z]*)=([\`\&apos;\"]*)script:#iU", $contents))
+    elseif (preg_match("#([a-z]*)=([\`\'\"]*)script:#iU", $contents))
     {
         return true;
     }
-    elseif (preg_match("#([a-z]*)=([\`\&apos;\"]*)javascript:#iU", $contents))
+    elseif (preg_match("#([a-z]*)=([\`\'\"]*)javascript:#iU", $contents))
     {
         return true;
     }
-    elseif (preg_match("#([a-z]*)=([\&apos;\"]*)vbscript:#iU", $contents))
+    elseif (preg_match("#([a-z]*)=([\'\"]*)vbscript:#iU", $contents))
     {
         return true;
     }
-    elseif (preg_match("#(&lt;[^&gt;]+)style=([\`\&apos;\"]*).*expression\([^&gt;]*&gt;#iU", $contents))
+    elseif (preg_match("#(&lt;[^&gt;]+)style=([\`\'\"]*).*expression\([^&gt;]*&gt;#iU", $contents))
     {
         return true;
     }
-    elseif (preg_match("#(&lt;[^&gt;]+)style=([\`\&apos;\"]*).*behaviour\([^&gt;]*&gt;#iU", $contents))
+    elseif (preg_match("#(&lt;[^&gt;]+)style=([\`\'\"]*).*behaviour\([^&gt;]*&gt;#iU", $contents))
     {
         return true;
     }
@@ -356,9 +356,9 @@ for those coming over from ereg, preg_match can be quite intimidating. to get st
 
 ```
 <?php
-if(ereg(&apos;[^0-9A-Za-z]&apos;,$test_string)) // will be true if characters arnt 0-9, A-Z or a-z.
+if(ereg('[^0-9A-Za-z]',$test_string)) // will be true if characters arnt 0-9, A-Z or a-z.
 
-if(preg_match(&apos;/[^0-9A-Za-z]/&apos;,$test_string)) // this is the preg_match version. the /&apos;s are now required.
+if(preg_match('/[^0-9A-Za-z]/',$test_string)) // this is the preg_match version. the /'s are now required.
 ?>
 ```
   

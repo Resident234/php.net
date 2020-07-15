@@ -26,7 +26,7 @@ http://php.net/stream_get_meta_data
 <?php 
 function fseekable($stream) {
   $meta = stream_get_meta_data($stream);
-  return $meta[&apos;seekable&apos;];
+  return $meta['seekable'];
 }
 ?>
 ```

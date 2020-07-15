@@ -6,21 +6,7 @@ If you are using aliasing to import namespaced classes, take care that class_exi
 
 #
 
-Beware: class_exists is case-INsensitive, as is class instantiation.<br><br>php &gt; var_dump(class_exists("DomNode"));
-bool(true)
-php &gt; var_dump(class_exists("DOMNode"));
-bool(true)
-php &gt; var_dump(class_exists("DOMNodE"));
-bool(true)
-php &gt; $x = new DOMNOdE();
-php &gt; var_dump(get_class($x));
-string(7) "DOMNode"
-
-(tested with PHP 5.5.10 on Linux)
-
-This can cause some headaches in correlating class names to file names, especially on a case-sensitive file system.?>
-```
-  
+Beware: class_exists is case-INsensitive, as is class instantiation.<br><br>php &gt; var_dump(class_exists("DomNode"));<br>bool(true)<br>php &gt; var_dump(class_exists("DOMNode"));<br>bool(true)<br>php &gt; var_dump(class_exists("DOMNodE"));<br>bool(true)<br>php &gt; $x = new DOMNOdE();<br>php &gt; var_dump(get_class($x));<br>string(7) "DOMNode"<br><br>(tested with PHP 5.5.10 on Linux)<br><br>This can cause some headaches in correlating class names to file names, especially on a case-sensitive file system.  
 
 #
 
@@ -45,14 +31,14 @@ class First
 {
     function first($class, $bool) {
         spl_autoload_register( function($class) {
-            require strtolower($class) . &apos;.php&apos;;
+            require strtolower($class) . '.php';
         });
-        echo class_exists($class, $bool)?&apos;Exist!!!!&apos;:&apos;Not exist!&apos;;
+        echo class_exists($class, $bool)?'Exist!!!!':'Not exist!';
     }
 }
 
-new First($class = &apos;Second&apos;, $bool = true); //Exist!!!!
-new First($class = &apos;Second&apos;, $bool = false); //Not exist!
+new First($class = 'Second', $bool = true); //Exist!!!!
+new First($class = 'Second', $bool = false); //Not exist!
 ?>
 ```
 <br>Because __autoload executing much earlier than boolean returned, imho..  

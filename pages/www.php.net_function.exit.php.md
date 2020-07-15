@@ -31,23 +31,23 @@ jbezorg at gmail proposed the following:<br><br>
 ```
 <?php
 
-if($_SERVER[&apos;SCRIPT_FILENAME&apos;] == __FILE__ )
-  header(&apos;Location: /&apos;);
+if($_SERVER['SCRIPT_FILENAME'] == __FILE__ )
+  header('Location: /');
 
 ?>
 ```
 
 
-After sending the `Location:&apos; header PHP _will_ continue parsing, and all code below the header() call will still be executed.  So instead use:
+After sending the `Location:' header PHP _will_ continue parsing, and all code below the header() call will still be executed.  So instead use:
 
 
 
 ```
 <?php
 
-if($_SERVER[&apos;SCRIPT_FILENAME&apos;] == __FILE__)
+if($_SERVER['SCRIPT_FILENAME'] == __FILE__)
 {
-  header(&apos;Location: /&apos;);
+  header('Location: /');
   exit;
 }
 
@@ -65,7 +65,7 @@ To rich dot lovely at klikzltd dot co dot uk:<br><br>Using a "@" before header()
 
 ```
 <?php
-define (&apos;INDEX&apos;, true);
+define ('INDEX', true);
 ?>
 ```
 
@@ -75,8 +75,8 @@ in your included file:
 
 ```
 <?php
-if (!defined(&apos;INDEX&apos;)) {
-   die(&apos;You cannot call this script directly !&apos;);
+if (!defined('INDEX')) {
+   die('You cannot call this script directly !');
 }
 ?>
 ```

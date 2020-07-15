@@ -8,14 +8,14 @@ Just wanted to show off the beauty of PHPs spaceship operator in this use case.<
 <?php // tested on PHP 7.1
 $a = [2, 1, 3, 6, 5, 4, 7];
 $asc = $desc = $a;
-usort($asc, function (int $a, int $b) { return ($a &lt;=&gt; $b); });
-usort($desc, function (int $a, int $b) { return -($a &lt;=&gt; $b); });
+usort($asc, function (int $a, int $b) { return ($a &lt;=> $b); });
+usort($desc, function (int $a, int $b) { return -($a &lt;=> $b); });
 print_r([ $a, $asc, $desc ]);
 
 /**
  * Getting ahead of myself but... If arrow function syntax was possible:
- * usort($asc, (int $a, int $b) =&gt; ($a &lt;=&gt; $b));
- * usort($desc, (int $a, int $b) =&gt; -($a &lt;=&gt; $b));
+ * usort($asc, (int $a, int $b) => ($a &lt;=> $b));
+ * usort($desc, (int $a, int $b) => -($a &lt;=> $b));
  */
 ?>
 ```
@@ -60,16 +60,16 @@ this is a new multisort function for sorting on multiple subfield like it will b
 ```
 <?php
 
-$array[] = array(&apos;soc&apos; =&gt; 3, &apos;code&apos;=&gt;1);
-$array[] = array(&apos;soc&apos; =&gt; 2, &apos;code&apos;=&gt;1);
-$array[] = array(&apos;soc&apos; =&gt; 1, &apos;code&apos;=&gt;1);
-$array[] = array(&apos;soc&apos; =&gt; 1, &apos;code&apos;=&gt;1);
-$array[] = array(&apos;soc&apos; =&gt; 2, &apos;code&apos;=&gt;5);
-$array[] = array(&apos;soc&apos; =&gt; 1, &apos;code&apos;=&gt;2);
-$array[] = array(&apos;soc&apos; =&gt; 3, &apos;code&apos;=&gt;2);
+$array[] = array('soc' => 3, 'code'=>1);
+$array[] = array('soc' => 2, 'code'=>1);
+$array[] = array('soc' => 1, 'code'=>1);
+$array[] = array('soc' => 1, 'code'=>1);
+$array[] = array('soc' => 2, 'code'=>5);
+$array[] = array('soc' => 1, 'code'=>2);
+$array[] = array('soc' => 3, 'code'=>2);
 
 //usage
-print_r(multiSort($array, &apos;soc&apos;, &apos;code&apos;));
+print_r(multiSort($array, 'soc', 'code'));
 
 function multiSort() {
     //get args of the function
@@ -111,31 +111,31 @@ I wrote a wrapper for usort that lets you use something similar to an SQL ORDER 
 ```
 <?php
 $testAry = array(
-  array(&apos;a&apos; =&gt; 1, &apos;b&apos; =&gt; 2, &apos;c&apos; =&gt; 3),
-  array(&apos;a&apos; =&gt; 2, &apos;b&apos; =&gt; 1, &apos;c&apos; =&gt; 3),
-  array(&apos;a&apos; =&gt; 3, &apos;b&apos; =&gt; 2, &apos;c&apos; =&gt; 1),
-  array(&apos;a&apos; =&gt; 1, &apos;b&apos; =&gt; 3, &apos;c&apos; =&gt; 2),
-  array(&apos;a&apos; =&gt; 2, &apos;b&apos; =&gt; 3, &apos;c&apos; =&gt; 1),
-  array(&apos;a&apos; =&gt; 3, &apos;b&apos; =&gt; 1, &apos;c&apos; =&gt; 2)
+  array('a' => 1, 'b' => 2, 'c' => 3),
+  array('a' => 2, 'b' => 1, 'c' => 3),
+  array('a' => 3, 'b' => 2, 'c' => 1),
+  array('a' => 1, 'b' => 3, 'c' => 2),
+  array('a' => 2, 'b' => 3, 'c' => 1),
+  array('a' => 3, 'b' => 1, 'c' => 2)
 );
 
-Utility::orderBy($testAry, &apos;a ASC, b DESC&apos;);
+Utility::orderBy($testAry, 'a ASC, b DESC');
 
 //Result:
 $testAry = array(
-  array(&apos;a&apos; =&gt; 1, &apos;b&apos; =&gt; 3, &apos;c&apos; =&gt; 2),
-  array(&apos;a&apos; =&gt; 1, &apos;b&apos; =&gt; 2, &apos;c&apos; =&gt; 3),
-  array(&apos;a&apos; =&gt; 2, &apos;b&apos; =&gt; 3, &apos;c&apos; =&gt; 1),
-  array(&apos;a&apos; =&gt; 2, &apos;b&apos; =&gt; 1, &apos;c&apos; =&gt; 3),
-  array(&apos;a&apos; =&gt; 3, &apos;b&apos; =&gt; 2, &apos;c&apos; =&gt; 1),
-  array(&apos;a&apos; =&gt; 3, &apos;b&apos; =&gt; 1, &apos;c&apos; =&gt; 2)
+  array('a' => 1, 'b' => 3, 'c' => 2),
+  array('a' => 1, 'b' => 2, 'c' => 3),
+  array('a' => 2, 'b' => 3, 'c' => 1),
+  array('a' => 2, 'b' => 1, 'c' => 3),
+  array('a' => 3, 'b' => 2, 'c' => 1),
+  array('a' => 3, 'b' => 1, 'c' => 2)
 );
 ?>
 ```
 
 
 To sort an array of objects you would do something like:
-Utility::orderBy($objectAry, &apos;getCreationDate() DESC, getSubOrder() ASC&apos;);
+Utility::orderBy($objectAry, 'getCreationDate() DESC, getSubOrder() ASC');
 
 This would sort an array of objects that have methods getCreationDate() and getSubOrder().
 
@@ -153,16 +153,16 @@ class Utility {
     * @return null
     */
     public static function orderBy(&amp;$ary, $clause, $ascending = true) {
-        $clause = str_ireplace(&apos;order by&apos;, &apos;&apos;, $clause);
-        $clause = preg_replace(&apos;/\s+/&apos;, &apos; &apos;, $clause);
-        $keys = explode(&apos;,&apos;, $clause);
-        $dirMap = array(&apos;desc&apos; =&gt; 1, &apos;asc&apos; =&gt; -1);
+        $clause = str_ireplace('order by', '', $clause);
+        $clause = preg_replace('/\s+/', ' ', $clause);
+        $keys = explode(',', $clause);
+        $dirMap = array('desc' => 1, 'asc' => -1);
         $def = $ascending ? -1 : 1;
 
         $keyAry = array();
         $dirAry = array();
         foreach($keys as $key) {
-            $key = explode(&apos; &apos;, trim($key));
+            $key = explode(' ', trim($key));
             $keyAry[] = trim($key[0]);
             if(isset($key[1])) {
                 $dir = strtolower(trim($key[1]));
@@ -172,19 +172,19 @@ class Utility {
             }
         }
 
-        $fnBody = &apos;&apos;;
+        $fnBody = '';
         for($i = count($keyAry) - 1; $i &gt;= 0; $i--) {
             $k = $keyAry[$i];
             $t = $dirAry[$i];
             $f = -1 * $t;
-            $aStr = &apos;$a[\&apos;&apos;.$k.&apos;\&apos;]&apos;;
-            $bStr = &apos;$b[\&apos;&apos;.$k.&apos;\&apos;]&apos;;
-            if(strpos($k, &apos;(&apos;) !== false) {
-                $aStr = &apos;$a-&gt;&apos;.$k;
-                $bStr = &apos;$b-&gt;&apos;.$k;
+            $aStr = '$a[\''.$k.'\']';
+            $bStr = '$b[\''.$k.'\']';
+            if(strpos($k, '(') !== false) {
+                $aStr = '$a->'.$k;
+                $bStr = '$b->'.$k;
             }
 
-            if($fnBody == &apos;&apos;) {
+            if($fnBody == '') {
                 $fnBody .= "if({$aStr} == {$bStr}) { return 0; }\n";
                 $fnBody .= "return ({$aStr} &lt; {$bStr}) ? {$t} : {$f};\n";                
             } else {
@@ -195,7 +195,7 @@ class Utility {
         }
 
         if($fnBody) {
-            $sortFn = create_function(&apos;$a,$b&apos;, $fnBody);
+            $sortFn = create_function('$a,$b', $fnBody);
             usort($ary, $sortFn);        
         }
     }
@@ -212,42 +212,42 @@ You can also sort multi-dimensional array for multiple values like as<br><br>
 <?php 
 $arr = [
     [
-        "name"=&gt; "Sally",
-        "nick_name"=&gt; "sal",
-        "availability"=&gt; "0",
-        "is_fav"=&gt; "0"
+        "name"=> "Sally",
+        "nick_name"=> "sal",
+        "availability"=> "0",
+        "is_fav"=> "0"
     ],
     [
-        "name"=&gt; "David",
-        "nick_name"=&gt; "dav07",
-        "availability"=&gt; "0",
-        "is_fav"=&gt; "1"
+        "name"=> "David",
+        "nick_name"=> "dav07",
+        "availability"=> "0",
+        "is_fav"=> "1"
     ],
     [
-        "name"=&gt; "Zen",
-        "nick_name"=&gt; "zen",
-        "availability"=&gt; "1",
-        "is_fav"=&gt; "0"
+        "name"=> "Zen",
+        "nick_name"=> "zen",
+        "availability"=> "1",
+        "is_fav"=> "0"
     ],
     [
-        "name"=&gt; "Jackson",
-        "nick_name"=&gt; "jack",
-        "availability"=&gt; "1",
-        "is_fav"=&gt; "1"
+        "name"=> "Jackson",
+        "nick_name"=> "jack",
+        "availability"=> "1",
+        "is_fav"=> "1"
     ],
     [
-        "name"=&gt; "Rohit",
-        "nick_name"=&gt; "rod",
-        "availability"=&gt; "0",
-        "is_fav"=&gt; "0"
+        "name"=> "Rohit",
+        "nick_name"=> "rod",
+        "availability"=> "0",
+        "is_fav"=> "0"
     ],
 
 ];
 
 usort($arr,function($a,$b){
-    $c = $b[&apos;is_fav&apos;] - $a[&apos;is_fav&apos;];
-    $c .= $b[&apos;availability&apos;] - $a[&apos;availability&apos;];
-    $c .= strcmp($a[&apos;nick_name&apos;],$b[&apos;nick_name&apos;]);
+    $c = $b['is_fav'] - $a['is_fav'];
+    $c .= $b['availability'] - $a['availability'];
+    $c .= strcmp($a['nick_name'],$b['nick_name']);
     return $c;
 });
 
@@ -263,27 +263,27 @@ You can also sort multi-dimensional array for multiple values like as<br>
 ```
 <?php
 $arr = array(
-    array(&apos;id&apos;=&gt;1, &apos;age&apos;=&gt;1, &apos;sex&apos;=&gt;6, &apos;name&apos;=&gt;&apos;a&apos;),
-    array(&apos;id&apos;=&gt;2, &apos;age&apos;=&gt;3, &apos;sex&apos;=&gt;1, &apos;name&apos;=&gt;&apos;c&apos;),
-    array(&apos;id&apos;=&gt;3, &apos;age&apos;=&gt;3, &apos;sex&apos;=&gt;1, &apos;name&apos;=&gt;&apos;b&apos;),
-    array(&apos;id&apos;=&gt;4, &apos;age&apos;=&gt;2, &apos;sex&apos;=&gt;1, &apos;name&apos;=&gt;&apos;d&apos;),
+    array('id'=>1, 'age'=>1, 'sex'=>6, 'name'=>'a'),
+    array('id'=>2, 'age'=>3, 'sex'=>1, 'name'=>'c'),
+    array('id'=>3, 'age'=>3, 'sex'=>1, 'name'=>'b'),
+    array('id'=>4, 'age'=>2, 'sex'=>1, 'name'=>'d'),
 );
 
-print_r(arrayOrderBy($arr, &apos;age asc,sex asc,name desc&apos;));
+print_r(arrayOrderBy($arr, 'age asc,sex asc,name desc'));
 
 function arrayOrderBy(array &amp;$arr, $order = null) {
     if (is_null($order)) {
         return $arr;
     }
-    $orders = explode(&apos;,&apos;, $order);
+    $orders = explode(',', $order);
     usort($arr, function($a, $b) use($orders) {
         $result = array();
         foreach ($orders as $value) {
-            list($field, $sort) = array_map(&apos;trim&apos;, explode(&apos; &apos;, trim($value)));
+            list($field, $sort) = array_map('trim', explode(' ', trim($value)));
             if (!(isset($a[$field]) &amp;&amp; isset($b[$field]))) {
                 continue;
             }
-            if (strcasecmp($sort, &apos;desc&apos;) === 0) {
+            if (strcasecmp($sort, 'desc') === 0) {
                 $tmp = $a;
                 $a = $b;
                 $b = $tmp;
@@ -294,7 +294,7 @@ function arrayOrderBy(array &amp;$arr, $order = null) {
                 $result[] = strcmp($a[$field], $b[$field]);
             }
         }
-        return implode(&apos;&apos;, $result);
+        return implode('', $result);
     });
     return $arr;
 }
@@ -308,7 +308,7 @@ As the manual says, "If two members compare as equal, their order in the sorted 
 
 ```
 <?php
-function mergesort(&amp;$array, $cmp_function = &apos;strcmp&apos;) {
+function mergesort(&amp;$array, $cmp_function = 'strcmp') {
     // Arrays of size &lt; 2 require no action.
     if (count($array) &lt; 2) return;
     // Split the array in half
@@ -353,7 +353,7 @@ function listcmp($a, $b)
 {
   global $order;
 
-  foreach($order as $key =&gt; $value)
+  foreach($order as $key => $value)
     {
       if($a==$value)
         {

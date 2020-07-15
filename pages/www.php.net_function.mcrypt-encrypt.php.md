@@ -19,21 +19,21 @@ $secret = mcrypt_encrypt(MCRYPT_3DES, $my_key, $data, MCRYPT_MODE_CBC, $iv);  //
 
 And, like magic, it works.
 
-There&apos;s one more caveat: Data padding
+There's one more caveat: Data padding
 mcrypt always pads data will the null character
 but .NET has two padding modes: "Zeros" and "PKCS7"
 Zeros is identical to the mcrypt scheme, but PKCS7 is the default.
-PKCS7 isn&apos;t much more complex, though:
+PKCS7 isn't much more complex, though:
 instead of nulls, it appends the total number of padding bytes (which means, for 3DES, it can be a value from 0x01 to 0x07)
 if your plaintext is "ABC", it will be padded into:
 0x41 0x42 0x43 0x05 0x05 0x05 0x05 0x05
 
-You can remove these from a decrypted string in PHP by counting the number of times that last character appears, and if it matches it&apos;s ordinal value, truncating the string by that many characters:
+You can remove these from a decrypted string in PHP by counting the number of times that last character appears, and if it matches it's ordinal value, truncating the string by that many characters:
 
 
 ```
 <?php
-    $block = mcrypt_get_block_size(&apos;tripledes&apos;, &apos;cbc&apos;);
+    $block = mcrypt_get_block_size('tripledes', 'cbc');
     $packing = ord($text{strlen($text) - 1});
     if($packing and ($packing &lt; $block)){
       for($P = strlen($text) - 1; $P &gt;= strlen($text) - $packing; $P--){
@@ -52,7 +52,7 @@ And to pad a string that you intend to decrypt with .NET, just add the chr() val
 
 ```
 <?php
-    $block = mcrypt_get_block_size(&apos;tripledes&apos;, &apos;cbc&apos;);
+    $block = mcrypt_get_block_size('tripledes', 'cbc');
     $len = strlen($dat);
     $padding = $block - ($len % $block);
     $dat .= str_repeat(chr($padding),$padding);

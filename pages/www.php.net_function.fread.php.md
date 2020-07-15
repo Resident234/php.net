@@ -21,46 +21,46 @@ function dl_file_resumable($file, $is_resume=TRUE)
     
     //workaround for IE filename bug with multiple periods / multiple dots in filename
     //that adds square brackets to filename - eg. setup.abc.exe becomes setup[1].abc.exe
-    $filename = (strstr($_SERVER[&apos;HTTP_USER_AGENT&apos;], &apos;MSIE&apos;)) ?
-                  preg_replace(&apos;/\./&apos;, &apos;%2e&apos;, $fileinfo[&apos;basename&apos;], substr_count($fileinfo[&apos;basename&apos;], &apos;.&apos;) - 1) :
-                  $fileinfo[&apos;basename&apos;];
+    $filename = (strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE')) ?
+                  preg_replace('/\./', '%2e', $fileinfo['basename'], substr_count($fileinfo['basename'], '.') - 1) :
+                  $fileinfo['basename'];
     
-    $file_extension = strtolower($path_info[&apos;extension&apos;]);
+    $file_extension = strtolower($path_info['extension']);
 
     //This will set the Content-Type to the appropriate setting for the file
     switch($file_extension)
     {
-        case &apos;exe&apos;: $ctype=&apos;application/octet-stream&apos;; break;
-        case &apos;zip&apos;: $ctype=&apos;application/zip&apos;; break;
-        case &apos;mp3&apos;: $ctype=&apos;audio/mpeg&apos;; break;
-        case &apos;mpg&apos;: $ctype=&apos;video/mpeg&apos;; break;
-        case &apos;avi&apos;: $ctype=&apos;video/x-msvideo&apos;; break;
-        default:    $ctype=&apos;application/force-download&apos;;
+        case 'exe': $ctype='application/octet-stream'; break;
+        case 'zip': $ctype='application/zip'; break;
+        case 'mp3': $ctype='audio/mpeg'; break;
+        case 'mpg': $ctype='video/mpeg'; break;
+        case 'avi': $ctype='video/x-msvideo'; break;
+        default:    $ctype='application/force-download';
     }
 
     //check if http_range is sent by browser (or download manager)
-    if($is_resume &amp;&amp; isset($_SERVER[&apos;HTTP_RANGE&apos;]))
+    if($is_resume &amp;&amp; isset($_SERVER['HTTP_RANGE']))
     {
-        list($size_unit, $range_orig) = explode(&apos;=&apos;, $_SERVER[&apos;HTTP_RANGE&apos;], 2);
+        list($size_unit, $range_orig) = explode('=', $_SERVER['HTTP_RANGE'], 2);
 
-        if ($size_unit == &apos;bytes&apos;)
+        if ($size_unit == 'bytes')
         {
             //multiple ranges could be specified at the same time, but for simplicity only serve the first range
             //http://tools.ietf.org/id/draft-ietf-http-range-retrieval-00.txt
-            list($range, $extra_ranges) = explode(&apos;,&apos;, $range_orig, 2);
+            list($range, $extra_ranges) = explode(',', $range_orig, 2);
         }
         else
         {
-            $range = &apos;&apos;;
+            $range = '';
         }
     }
     else
     {
-        $range = &apos;&apos;;
+        $range = '';
     }
 
     //figure out download piece from range (if set)
-    list($seek_start, $seek_end) = explode(&apos;-&apos;, $range, 2);
+    list($seek_start, $seek_end) = explode('-', $range, 2);
 
     //set start and end based on range (if set), else set defaults
     //also check for invalid ranges.
@@ -73,23 +73,23 @@ function dl_file_resumable($file, $is_resume=TRUE)
         //Only send partial content header if downloading a piece of the file (IE workaround)
         if ($seek_start &gt; 0 || $seek_end &lt; ($size - 1))
         {
-            header(&apos;HTTP/1.1 206 Partial Content&apos;);
+            header('HTTP/1.1 206 Partial Content');
         }
 
-        header(&apos;Accept-Ranges: bytes&apos;);
-        header(&apos;Content-Range: bytes &apos;.$seek_start.&apos;-&apos;.$seek_end.&apos;/&apos;.$size);
+        header('Accept-Ranges: bytes');
+        header('Content-Range: bytes '.$seek_start.'-'.$seek_end.'/'.$size);
     }
 
     //headers for IE Bugs (is this necessary?)
     //header("Cache-Control: cache, must-revalidate");   
     //header("Pragma: public");
 
-    header(&apos;Content-Type: &apos; . $ctype);
-    header(&apos;Content-Disposition: attachment; filename="&apos; . $filename . &apos;"&apos;);
-    header(&apos;Content-Length: &apos;.($seek_end - $seek_start + 1));
+    header('Content-Type: ' . $ctype);
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    header('Content-Length: '.($seek_end - $seek_start + 1));
 
     //open the file
-    $fp = fopen($file, &apos;rb&apos;);
+    $fp = fopen($file, 'rb');
     //seek to start of missing part
     fseek($fp, $seek_start);
 
@@ -121,14 +121,14 @@ function readfile_chunked_remote($filename, $seek = 0, $retbytes = true, $timeou
     set_time_limit(0);
     $defaultchunksize = 1024*1024;
     $chunksize = $defaultchunksize;
-    $buffer = &apos;&apos;;
+    $buffer = '';
     $cnt = 0;
     $remotereadfile = false;
 
-    if (preg_match(&apos;/[a-zA-Z]+:\/\//&apos;, $filename))
+    if (preg_match('/[a-zA-Z]+:\/\//', $filename))
         $remotereadfile = true;
 
-    $handle = @fopen($filename, &apos;rb&apos;);
+    $handle = @fopen($filename, 'rb');
 
     if ($handle === false) {
         return false;
@@ -163,7 +163,7 @@ function readfile_chunked_remote($filename, $seek = 0, $retbytes = true, $timeou
 
     $status = fclose($handle);
 
-    if ($info[&apos;timed_out&apos;])
+    if ($info['timed_out'])
         return false;
 
     if ($retbytes &amp;&amp; $status) {
@@ -198,7 +198,7 @@ if (!$fp) {
 ```
 
 
-The problem is that sometimes end of streaming is not marked by EOF nor a fixed mark, that&apos;s why this looped forever. This caused me a lot of headaches...
+The problem is that sometimes end of streaming is not marked by EOF nor a fixed mark, that's why this looped forever. This caused me a lot of headaches...
 I solved it using the stream_get_meta_data function and a break statement as the following shows:
 
 
@@ -214,7 +214,7 @@ if (!$fp) {
     while (!feof($fp)) {  
         $content .= fread($fp, 1024);
         $stream_meta_data = stream_get_meta_data($fp); //Added line
-         if($stream_meta_data[&apos;unread_bytes&apos;] &lt;= 0) break; //Added line
+         if($stream_meta_data['unread_bytes'] &lt;= 0) break; //Added line
     }
     fclose($fp);
     echo $content;

@@ -10,7 +10,7 @@ function myfunction ( $param ) {
     
 }
 
-echo (new ReflectionFunction("myfunction"))-&gt;getParameters()[0]-&gt;allowsNull() ? "true":"false";
+echo (new ReflectionFunction("myfunction"))->getParameters()[0]->allowsNull() ? "true":"false";
 
 ?>
 ```
@@ -26,7 +26,7 @@ function myfunction ( stdClass $param ) {
     
 }
 
-echo (new ReflectionFunction("myfunction"))-&gt;getParameters()[0]-&gt;allowsNull() ? "true":"false";
+echo (new ReflectionFunction("myfunction"))->getParameters()[0]->allowsNull() ? "true":"false";
 
 ?>
 ```
@@ -42,7 +42,7 @@ function myfunction ( stdClass $param = null ) {
     
 }
 
-echo (new ReflectionFunction("myfunction"))-&gt;getParameters()[0]-&gt;allowsNull() ? "true":"false";
+echo (new ReflectionFunction("myfunction"))->getParameters()[0]->allowsNull() ? "true":"false";
 ?>
 ```
 <br><br>Result : true  

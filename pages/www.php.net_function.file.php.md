@@ -6,12 +6,12 @@ To write all the lines of the file in other words to read the file line by line 
 
 ```
 <?php
-$names=file(&apos;name.txt&apos;);
+$names=file('name.txt');
 // To check the number of lines 
-echo count($names).&apos;&lt;br&gt;&apos;;
+echo count($names).'&lt;br&gt;';
 foreach($names as $name)
 {
-   echo $name.&apos;&lt;br&gt;&apos;;
+   echo $name.'&lt;br&gt;';
 }
 ?>
 ```

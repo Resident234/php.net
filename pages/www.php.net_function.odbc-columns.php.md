@@ -6,7 +6,7 @@
 
 ```
 <?php
-include(&apos;connect.inc&apos;); // &lt;== Put all your database connection parameters in here. (DSN, PWD, USR, mssql_connect, etc.; returns $connection)
+include('connect.inc'); // &lt;== Put all your database connection parameters in here. (DSN, PWD, USR, mssql_connect, etc.; returns $connection)
 
 $outval = odbc_columns($connection, "your DB name", "%", "your table name", "%");
 

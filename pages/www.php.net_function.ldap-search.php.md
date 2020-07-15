@@ -8,13 +8,13 @@
 <?php
 set_time_limit(30);
 error_reporting(E_ALL);
-ini_set(&apos;error_reporting&apos;, E_ALL);
-ini_set(&apos;display_errors&apos;,1);
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors',1);
 
 // config
-$ldapserver = &apos;svr.domain.com&apos;;
-$ldapuser      = &apos;administrator&apos;;  
-$ldappass     = &apos;PASSWORD_HERE&apos;;
+$ldapserver = 'svr.domain.com';
+$ldapuser      = 'administrator';  
+$ldappass     = 'PASSWORD_HERE';
 $ldaptree    = "OU=SBSUsers,OU=Users,OU=MyBusiness,DC=myDomain,DC=local";
 
 // connect 
@@ -32,13 +32,13 @@ if($ldapconn) {
         $data = ldap_get_entries($ldapconn, $result);
         
         // SHOW ALL DATA
-        echo &apos;&lt;h1&gt;Dump all data&lt;/h1&gt;&lt;pre&gt;&apos;;
+        echo '&lt;h1&gt;Dump all data&lt;/h1&gt;&lt;pre&gt;';
         print_r($data);    
-        echo &apos;&lt;/pre&gt;&apos;;
+        echo '&lt;/pre&gt;';
         
         
         // iterate over array and print data for each entry
-        echo &apos;&lt;h1&gt;Show me the users&lt;/h1&gt;&apos;;
+        echo '&lt;h1&gt;Show me the users&lt;/h1&gt;';
         for ($i=0; $i&lt;$data["count"]; $i++) {
             //echo "dn is: ". $data[$i]["dn"] ."&lt;br /&gt;";
             echo "User: ". $data[$i]["cn"][0] ."&lt;br /&gt;";

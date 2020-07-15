@@ -34,12 +34,12 @@ may help someone...<br><br>
                 
                 $i++;
                 if(($i) == count($words)){
-                    break;//last word -&gt; break
+                    break;//last word -> break
                 }
                 
                 //messure size of line + next word
                 $linePreview = $line." ".$words[$i];
-                $metrics = $this-&gt;canvas-&gt;queryFontMetrics($draw, $linePreview);
+                $metrics = $this->canvas->queryFontMetrics($draw, $linePreview);
                 //echo $line."($i)".$metrics["textWidth"].":".$maxWidth."&lt;br&gt;";
                 
             }while($metrics["textWidth"] &lt;= $maxWidth);

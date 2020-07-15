@@ -6,9 +6,7 @@ BEWARE, a couple of the examples in the comments suggest doing something like th
 
 #
 
-BEWARE using quotes around the second parameter...<br><br>If you use quotes eg<br><br>chmod (file, "0644");<br><br>php will not complain but will do an implicit conversion to an int before running chmod. Unfortunately the implicit conversion doesn&apos;t take into account the octal string so you end up with an integer version 644, which is 1204 octal?>
-```
-  
+BEWARE using quotes around the second parameter...<br><br>If you use quotes eg<br><br>chmod (file, "0644");<br><br>php will not complain but will do an implicit conversion to an int before running chmod. Unfortunately the implicit conversion doesn&apos;t take into account the octal string so you end up with an integer version 644, which is 1204 octal  
 
 #
 

@@ -24,27 +24,27 @@ and Apache WebServer.
 */
 function money_format($format, $number)
 {
-    $regex  = &apos;/%((?:[\^!\-]|\+|\(|\=.)*)([0-9]+)?&apos;.
-              &apos;(?:#([0-9]+))?(?:\.([0-9]+))?([in%])/&apos;;
-    if (setlocale(LC_MONETARY, 0) == &apos;C&apos;) {
-        setlocale(LC_MONETARY, &apos;&apos;);
+    $regex  = '/%((?:[\^!\-]|\+|\(|\=.)*)([0-9]+)?'.
+              '(?:#([0-9]+))?(?:\.([0-9]+))?([in%])/';
+    if (setlocale(LC_MONETARY, 0) == 'C') {
+        setlocale(LC_MONETARY, '');
     }
     $locale = localeconv();
     preg_match_all($regex, $format, $matches, PREG_SET_ORDER);
     foreach ($matches as $fmatch) {
         $value = floatval($number);
         $flags = array(
-            &apos;fillchar&apos;  =&gt; preg_match(&apos;/\=(.)/&apos;, $fmatch[1], $match) ?
-                           $match[1] : &apos; &apos;,
-            &apos;nogroup&apos;   =&gt; preg_match(&apos;/\^/&apos;, $fmatch[1]) &gt; 0,
-            &apos;usesignal&apos; =&gt; preg_match(&apos;/\+|\(/&apos;, $fmatch[1], $match) ?
-                           $match[0] : &apos;+&apos;,
-            &apos;nosimbol&apos;  =&gt; preg_match(&apos;/\!/&apos;, $fmatch[1]) &gt; 0,
-            &apos;isleft&apos;    =&gt; preg_match(&apos;/\-/&apos;, $fmatch[1]) &gt; 0
+            'fillchar'  => preg_match('/\=(.)/', $fmatch[1], $match) ?
+                           $match[1] : ' ',
+            'nogroup'   => preg_match('/\^/', $fmatch[1]) &gt; 0,
+            'usesignal' => preg_match('/\+|\(/', $fmatch[1], $match) ?
+                           $match[0] : '+',
+            'nosimbol'  => preg_match('/\!/', $fmatch[1]) &gt; 0,
+            'isleft'    => preg_match('/\-/', $fmatch[1]) &gt; 0
         );
         $width      = trim($fmatch[2]) ? (int)$fmatch[2] : 0;
         $left       = trim($fmatch[3]) ? (int)$fmatch[3] : 0;
-        $right      = trim($fmatch[4]) ? (int)$fmatch[4] : $locale[&apos;int_frac_digits&apos;];
+        $right      = trim($fmatch[4]) ? (int)$fmatch[4] : $locale['int_frac_digits'];
         $conversion = $fmatch[5];
 
         $positive = true;
@@ -52,55 +52,55 @@ function money_format($format, $number)
             $positive = false;
             $value  *= -1;
         }
-        $letter = $positive ? &apos;p&apos; : &apos;n&apos;;
+        $letter = $positive ? 'p' : 'n';
 
-        $prefix = $suffix = $cprefix = $csuffix = $signal = &apos;&apos;;
+        $prefix = $suffix = $cprefix = $csuffix = $signal = '';
 
-        $signal = $positive ? $locale[&apos;positive_sign&apos;] : $locale[&apos;negative_sign&apos;];
+        $signal = $positive ? $locale['positive_sign'] : $locale['negative_sign'];
         switch (true) {
-            case $locale["{$letter}_sign_posn"] == 1 &amp;&amp; $flags[&apos;usesignal&apos;] == &apos;+&apos;:
+            case $locale["{$letter}_sign_posn"] == 1 &amp;&amp; $flags['usesignal'] == '+':
                 $prefix = $signal;
                 break;
-            case $locale["{$letter}_sign_posn"] == 2 &amp;&amp; $flags[&apos;usesignal&apos;] == &apos;+&apos;:
+            case $locale["{$letter}_sign_posn"] == 2 &amp;&amp; $flags['usesignal'] == '+':
                 $suffix = $signal;
                 break;
-            case $locale["{$letter}_sign_posn"] == 3 &amp;&amp; $flags[&apos;usesignal&apos;] == &apos;+&apos;:
+            case $locale["{$letter}_sign_posn"] == 3 &amp;&amp; $flags['usesignal'] == '+':
                 $cprefix = $signal;
                 break;
-            case $locale["{$letter}_sign_posn"] == 4 &amp;&amp; $flags[&apos;usesignal&apos;] == &apos;+&apos;:
+            case $locale["{$letter}_sign_posn"] == 4 &amp;&amp; $flags['usesignal'] == '+':
                 $csuffix = $signal;
                 break;
-            case $flags[&apos;usesignal&apos;] == &apos;(&apos;:
+            case $flags['usesignal'] == '(':
             case $locale["{$letter}_sign_posn"] == 0:
-                $prefix = &apos;(&apos;;
-                $suffix = &apos;)&apos;;
+                $prefix = '(';
+                $suffix = ')';
                 break;
         }
-        if (!$flags[&apos;nosimbol&apos;]) {
+        if (!$flags['nosimbol']) {
             $currency = $cprefix .
-                        ($conversion == &apos;i&apos; ? $locale[&apos;int_curr_symbol&apos;] : $locale[&apos;currency_symbol&apos;]) .
+                        ($conversion == 'i' ? $locale['int_curr_symbol'] : $locale['currency_symbol']) .
                         $csuffix;
         } else {
-            $currency = &apos;&apos;;
+            $currency = '';
         }
-        $space  = $locale["{$letter}_sep_by_space"] ? &apos; &apos; : &apos;&apos;;
+        $space  = $locale["{$letter}_sep_by_space"] ? ' ' : '';
 
-        $value = number_format($value, $right, $locale[&apos;mon_decimal_point&apos;],
-                 $flags[&apos;nogroup&apos;] ? &apos;&apos; : $locale[&apos;mon_thousands_sep&apos;]);
-        $value = @explode($locale[&apos;mon_decimal_point&apos;], $value);
+        $value = number_format($value, $right, $locale['mon_decimal_point'],
+                 $flags['nogroup'] ? '' : $locale['mon_thousands_sep']);
+        $value = @explode($locale['mon_decimal_point'], $value);
 
         $n = strlen($prefix) + strlen($currency) + strlen($value[0]);
         if ($left &gt; 0 &amp;&amp; $left &gt; $n) {
-            $value[0] = str_repeat($flags[&apos;fillchar&apos;], $left - $n) . $value[0];
+            $value[0] = str_repeat($flags['fillchar'], $left - $n) . $value[0];
         }
-        $value = implode($locale[&apos;mon_decimal_point&apos;], $value);
+        $value = implode($locale['mon_decimal_point'], $value);
         if ($locale["{$letter}_cs_precedes"]) {
             $value = $prefix . $currency . $space . $value . $suffix;
         } else {
             $value = $prefix . $value . $space . $currency . $suffix;
         }
         if ($width &gt; 0) {
-            $value = str_pad($value, $width, $flags[&apos;fillchar&apos;], $flags[&apos;isleft&apos;] ?
+            $value = str_pad($value, $width, $flags['fillchar'], $flags['isleft'] ?
                      STR_PAD_RIGHT : STR_PAD_LEFT);
         }
 

@@ -14,7 +14,7 @@ class Imap {
     public function login($user, $pass) {
         $mbox = @imap_open("{imap.example.org:143}", $user, $pass);
         if(!$mbox)
-            return (&apos;Your login failed for user &lt;strong&gt;&apos;.$user.&apos;&lt;/strong&gt;. Please try to enter your username and password again.&lt;br /&gt;&apos;);
+            return ('Your login failed for user &lt;strong&gt;'.$user.'&lt;/strong&gt;. Please try to enter your username and password again.&lt;br /&gt;');
 
         // Login worked, let us begin!!!!....
 
@@ -29,65 +29,65 @@ class Imap {
 
         sort($folders);
 
-        $this-&gt;folders = $folders;
-        $this-&gt;connection = $mbox;
+        $this->folders = $folders;
+        $this->connection = $mbox;
 
         if(1 === $fldrs_made)
-            return (&apos;User logged in successfully as &apos;.$user.&apos;. This is your first time logging in, welcome to our webmail!!!&lt;br /&gt;&apos;);
+            return ('User logged in successfully as '.$user.'. This is your first time logging in, welcome to our webmail!!!&lt;br /&gt;');
         else
-            return (&apos;User logged in successfully as &apos;.$user.&apos;.&lt;br /&gt;&apos;);
+            return ('User logged in successfully as '.$user.'.&lt;br /&gt;');
     }
     private function create_default_folders($imap_stream, $folders) {
         $change=0;
-        if(!in_array(&apos;{imap.example.org}TRASH&apos;,$folders)) {
+        if(!in_array('{imap.example.org}TRASH',$folders)) {
             @imap_createmailbox($imap_stream, imap_utf7_encode("{imap.example.org:143}TRASH"));
             $change=1;
         }
-        if(!in_array(&apos;{imap.example.org}SENT&apos;,$folders)) {
+        if(!in_array('{imap.example.org}SENT',$folders)) {
             @imap_createmailbox($imap_stream, imap_utf7_encode("{imap.example.org:143}SENT"));
             $change=1;
         }
-        if(!in_array(&apos;{imap.example.org}SPAM&apos;,$folders)) {
+        if(!in_array('{imap.example.org}SPAM',$folders)) {
             @imap_createmailbox($imap_stream, imap_utf7_encode("{imap.example.org:143}SPAM"));
             $change=1;
         }
-        if(!in_array(&apos;{imap.example.org}SENT&apos;,$folders)) {
+        if(!in_array('{imap.example.org}SENT',$folders)) {
             @imap_createmailbox($imap_stream, imap_utf7_encode("{imap.example.org:143}SENT"));
             $change=1;
         }
-        if(!in_array(&apos;{imap.example.org}SENT&apos;,$folders)) {
+        if(!in_array('{imap.example.org}SENT',$folders)) {
             @imap_createmailbox($imap_stream, imap_utf7_encode("{imap.example.org:143}DRAFTS"));
             $change=1;
         }
-        if(!in_array(&apos;{imap.example.org}MY_FOLDERS&apos;,$folders)) {
+        if(!in_array('{imap.example.org}MY_FOLDERS',$folders)) {
             @imap_createmailbox($imap_stream, imap_utf7_encode("{imap.example.org:143}PERSONAL EMAIL"));
             $change=1;
         }
         return $change;
     }
     public function close_mail_connection() {
-        @imap_close($this-&gt;connection);
+        @imap_close($this->connection);
     }
 }
 
 // usage, create a form, post it....
-if($_POST[&apos;imap_username&apos;] &amp;&amp; $_POST[&apos;imap_password&apos;]) {
+if($_POST['imap_username'] &amp;&amp; $_POST['imap_password']) {
     $imap_login = new Imap();
-    $imap_login-&gt;login($_POST[&apos;imap_username&apos;],$_POST[&apos;imap_password&apos;]);
+    $imap_login->login($_POST['imap_username'],$_POST['imap_password']);
     
     // Do some mail stuff here, like get headers...., use obj connection
-    $message_headers = imap_mailboxmsginfo($imap_login-&gt;connection);
+    $message_headers = imap_mailboxmsginfo($imap_login->connection);
     
     // show the folders....
-    print_r($imap_login-&gt;folders, true);
+    print_r($imap_login->folders, true);
     
-    print &apos;&lt;br /&gt;&lt;hr size="1" noshade /&gt;&apos;;
+    print '&lt;br /&gt;&lt;hr size="1" noshade /&gt;';
     
     print_r($message_headers, true);
     
 
     // close the connection
-    $imap_login-&gt;close_mail_connection();
+    $imap_login->close_mail_connection();
 }
 
 ?>

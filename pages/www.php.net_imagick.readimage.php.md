@@ -7,13 +7,13 @@ Use this to convert all pages of a PDF to JPG:<br><br>
 ```
 <?php
 $imagick = new Imagick();
-$imagick-&gt;readImage(&apos;myfile.pdf&apos;);
-$imagick-&gt;writeImages(&apos;converted.jpg&apos;, false);
+$imagick->readImage('myfile.pdf');
+$imagick->writeImages('converted.jpg', false);
 ?>
 ```
 
 
-If you need better quality, try adding $imagick-&gt;setResolution(150, 150); before reading the file!
+If you need better quality, try adding $imagick->setResolution(150, 150); before reading the file!
 
 If you experience transparency problems when converting PDF to JPEG (black background), try flattening your file:
 
@@ -22,9 +22,9 @@ If you experience transparency problems when converting PDF to JPEG (black backg
 ```
 <?php
 $imagick = new Imagick();
-$imagick-&gt;readImage(&apos;myfile.pdf[0]&apos;);
-$imagick = $imagick-&gt;flattenImages();
-$imagick-&gt;writeFile(&apos;pageone.jpg&apos;);
+$imagick->readImage('myfile.pdf[0]');
+$imagick = $imagick->flattenImages();
+$imagick->writeFile('pageone.jpg');
 ?>
 ```
 
@@ -38,8 +38,8 @@ Example: Read page #1 from test.pdf
 ```
 <?php
 $imagick = new Imagick();
-$imagick-&gt;readImage(&apos;test.pdf[0]&apos;);
-$imagick-&gt;writeImage(&apos;page_one.jpg&apos;);
+$imagick->readImage('test.pdf[0]');
+$imagick->writeImage('page_one.jpg');
 ?>
 ```
   

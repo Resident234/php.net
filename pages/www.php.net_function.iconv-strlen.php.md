@@ -9,9 +9,9 @@ If iconv_strlen is passed a UTF-8 string containing badly formed sequences, it w
 # UTF-8 string containing bad sequence: \xe9
 $str = "I&#xFFFD;t&#xFFFD;rn&#xFFFD;ti&#xFFFD;n\xe9&#xFFFD;liz&#xFFFD;ti&#xFFFD;n";
 
-print "mb_strlen: ".mb_strlen($str,&apos;UTF-8&apos;)."\n";
+print "mb_strlen: ".mb_strlen($str,'UTF-8')."\n";
 print "strlen/utf8_decode: ".strlen(utf8_decode($str))."\n";
-print "iconv_strlen: ".iconv_strlen($str,&apos;UTF-8&apos;)."\n";
+print "iconv_strlen: ".iconv_strlen($str,'UTF-8')."\n";
 ?>
 ```
 
@@ -30,7 +30,7 @@ As such it is being "stricter" than mb_strlen and it may mean you need to check 
 
 ```
 <?php
-if (preg_match(&apos;/^.{1}/us&apos;,$str,$ar) != 1) {
+if (preg_match('/^.{1}/us',$str,$ar) != 1) {
     die("string contains invalid UTF-8");
 }
 ?>

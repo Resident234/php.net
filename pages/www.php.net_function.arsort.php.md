@@ -7,7 +7,7 @@ I have two servers; one running 5.6 and another that is running 7.  Using this f
 ```
 <?php
 
-$list = json_decode(&apos;{"706":2,"703":2,"702":2,"696":2,"658":2}&apos;, true);
+$list = json_decode('{"706":2,"703":2,"702":2,"696":2,"658":2}', true);
 
 print_r($list);
 

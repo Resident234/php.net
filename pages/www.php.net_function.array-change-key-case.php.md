@@ -12,13 +12,13 @@ Unicode example;<br><br>
 <?php
 function array_change_key_case_unicode($arr, $c = CASE_LOWER) {
     $c = ($c == CASE_LOWER) ? MB_CASE_LOWER : MB_CASE_UPPER;
-    foreach ($arr as $k =&gt; $v) {
+    foreach ($arr as $k => $v) {
         $ret[mb_convert_case($k, $c, "UTF-8")] = $v;
     }
     return $ret;
 }
 
-$arr = array("FirSt" =&gt; 1, "ya&#x11F;" =&gt; "Oil", "&#x15F;ekER" =&gt; "sugar");
+$arr = array("FirSt" => 1, "ya&#x11F;" => "Oil", "&#x15F;ekER" => "sugar");
 print_r(array_change_key_case($arr, CASE_UPPER));
 print_r(array_change_key_case_unicode($arr, CASE_UPPER));
 ?>

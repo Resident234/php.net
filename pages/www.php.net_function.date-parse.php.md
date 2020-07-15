@@ -13,18 +13,18 @@ var_dump($info);
 
 /*Returns:
 array(12) { 
-    ["year"]=&gt; int(2010)
-    ["month"]=&gt; int(2)
-    ["day"]=&gt; int(1)    //&lt;---expected false like below
-    ["hour"]=&gt; bool(false)
-    ["minute"]=&gt; bool(false)
-    ["second"]=&gt; bool(false)
-    ["fraction"]=&gt; bool(false)
-    ["warning_count"]=&gt; int(0)
-    ["warnings"]=&gt; array(0) { }
-    ["error_count"]=&gt; int(0)
-    ["errors"]=&gt; array(0) { }
-    ["is_localtime"]=&gt; bool(false)
+    ["year"]=> int(2010)
+    ["month"]=> int(2)
+    ["day"]=> int(1)    //&lt;---expected false like below
+    ["hour"]=> bool(false)
+    ["minute"]=> bool(false)
+    ["second"]=> bool(false)
+    ["fraction"]=> bool(false)
+    ["warning_count"]=> int(0)
+    ["warnings"]=> array(0) { }
+    ["error_count"]=> int(0)
+    ["errors"]=> array(0) { }
+    ["is_localtime"]=> bool(false)
 }*/
 ?>
 ```

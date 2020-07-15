@@ -43,9 +43,9 @@ Not to mention the fact that $file will be an SplFileInfo class, so you can do p
 
 $size = 0;
 foreach ($iterator as $file) {
-    if ($file-&gt;isFile()) {
-        echo substr($file-&gt;getPathname(), 27) . ": " . $file-&gt;getSize() . " B; modified " . date("Y-m-d", $file-&gt;getMTime()) . "\n";
-        $size += $file-&gt;getSize();
+    if ($file->isFile()) {
+        echo substr($file->getPathname(), 27) . ": " . $file->getSize() . " B; modified " . date("Y-m-d", $file->getMTime()) . "\n";
+        $size += $file->getSize();
     }
 }
 
@@ -62,7 +62,7 @@ Please note that glob(&apos;*&apos;) ignores all &apos;hidden&apos; files by def
 ```
 <?php
 // Search for all files that match .* or *
-$files = glob(&apos;{,.}*&apos;, GLOB_BRACE);
+$files = glob('{,.}*', GLOB_BRACE);
 ?>
 ```
 <br><br>Note: This also returns the directory special entries . and ..  
@@ -72,7 +72,7 @@ $files = glob(&apos;{,.}*&apos;, GLOB_BRACE);
 glob is case sensitive, even on Windows systems.<br><br>It does support character classes though, so a case insensitive version of<br>
 
 ```
-<?php glob(&apos;my/dir/*.csv&apos;) ?>
+<?php glob('my/dir/*.csv') ?>
 ```
 
 
@@ -80,7 +80,7 @@ could be written as
 
 
 ```
-<?php glob(&apos;my/dir/*.[cC][sS][vV]&apos;) ?>
+<?php glob('my/dir/*.[cC][sS][vV]') ?>
 ```
   
 
@@ -91,7 +91,7 @@ glob() isn&apos;t limited to one directory:<br><br>
 ```
 <?php
 $results=glob("{includes/*.php,core/*.php}",GLOB_BRACE);
-echo &apos;&lt;pre&gt;&apos;,print_r($results,true),&apos;&lt;/pre&gt;&apos;;
+echo '&lt;pre&gt;',print_r($results,true),'&lt;/pre&gt;';
 ?>
 ```
 <br><br>Just be careful when using GLOB_BRACE regarding spaces around the comma:<br>{includes/*.php,core/*.php} works as expected, but<br>{includes/*.php, core/*.php} with a leading space, will only match the former as expected but not the latter<br>unless you have a directory named " core" on your machine with a leading space.<br>PHP can create such directories quite easily like so:<br>mkdir(" core");  
@@ -103,7 +103,7 @@ Note that in case you are using braces with glob you might retrieve duplicated e
 ```
 <?php
 
-$a = glob(&apos;/path/*{foo,bar}.dat&apos;,GLOB_BRACE);
+$a = glob('/path/*{foo,bar}.dat',GLOB_BRACE);
 print_r($a);
 
 ?>
@@ -120,7 +120,7 @@ Don&apos;t use glob() if you try to list files in a directory where very much fi
 if ($handle = opendir($path)) {
     while (false !== ($file = readdir($handle))) {
         // do something with the file
-        // note that &apos;.&apos; and &apos;..&apos; is returned even
+        // note that '.' and '..' is returned even
     }
     closedir($handle);
 }
@@ -135,7 +135,7 @@ if ($handle = opendir($path)) {
 ```
 <?php
 
-if ( ! function_exists(&apos;glob_recursive&apos;))
+if ( ! function_exists('glob_recursive'))
 {
     // Does not support flag GLOB_BRACE
     
@@ -143,9 +143,9 @@ if ( ! function_exists(&apos;glob_recursive&apos;))
     {
         $files = glob($pattern, $flags);
         
-        foreach (glob(dirname($pattern).&apos;/*&apos;, GLOB_ONLYDIR|GLOB_NOSORT) as $dir)
+        foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir)
         {
-            $files = array_merge($files, glob_recursive($dir.&apos;/&apos;.basename($pattern), $flags));
+            $files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));
         }
         
         return $files;

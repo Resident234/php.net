@@ -30,22 +30,22 @@ You can safely use isset to check properties and subproperties of objects direct
 
 ```
 <?php
-    $abc = (object) array("def" =&gt; 123);
+    $abc = (object) array("def" => 123);
     var_dump(isset($abc));                // bool(true)
-    var_dump(isset($abc-&gt;def));           // bool(true)
-    var_dump(isset($abc-&gt;def-&gt;ghi));      // bool(false)
-    var_dump(isset($abc-&gt;def-&gt;ghi-&gt;jkl)); // bool(false)
+    var_dump(isset($abc->def));           // bool(true)
+    var_dump(isset($abc->def->ghi));      // bool(false)
+    var_dump(isset($abc->def->ghi->jkl)); // bool(false)
     var_dump(isset($def));                // bool(false)
-    var_dump(isset($def-&gt;ghi));           // bool(false)
-    var_dump(isset($def-&gt;ghi-&gt;jkl));      // bool(false)
+    var_dump(isset($def->ghi));           // bool(false)
+    var_dump(isset($def->ghi->jkl));      // bool(false)
 
-    var_dump($abc);                       // object(stdClass)#1 (1) { ["def"] =&gt; int(123) }
-    var_dump($abc-&gt;def);                  // int(123)
-    var_dump($abc-&gt;def-&gt;ghi);             // null / E_NOTICE: Trying to get property of non-object
-    var_dump($abc-&gt;def-&gt;ghi-&gt;jkl);        // null / E_NOTICE: Trying to get property of non-object
+    var_dump($abc);                       // object(stdClass)#1 (1) { ["def"] => int(123) }
+    var_dump($abc->def);                  // int(123)
+    var_dump($abc->def->ghi);             // null / E_NOTICE: Trying to get property of non-object
+    var_dump($abc->def->ghi->jkl);        // null / E_NOTICE: Trying to get property of non-object
     var_dump($def);                       // null / E_NOTICE: Trying to get property of non-object
-    var_dump($def-&gt;ghi);                  // null / E_NOTICE: Trying to get property of non-object
-    var_dump($def-&gt;ghi-&gt;jkl);             // null / E_NOTICE: Trying to get property of non-object
+    var_dump($def->ghi);                  // null / E_NOTICE: Trying to get property of non-object
+    var_dump($def->ghi->jkl);             // null / E_NOTICE: Trying to get property of non-object
 ?>
 ```
   
@@ -58,28 +58,28 @@ How to test for a variable actually existing, including being set to null. This 
 <?php
 // false
 var_export(
-  array_key_exists(&apos;myvar&apos;, get_defined_vars())
+  array_key_exists('myvar', get_defined_vars())
 );
 
 $myvar;
 // false
 var_export(
-  array_key_exists(&apos;myvar&apos;, get_defined_vars())
+  array_key_exists('myvar', get_defined_vars())
 );
 
 $myvar = null;
 // true
 var_export(
-  array_key_exists(&apos;myvar&apos;, get_defined_vars())
+  array_key_exists('myvar', get_defined_vars())
 );
 
 unset($myvar);
 // false
 var_export(
-  array_key_exists(&apos;myvar&apos;, get_defined_vars())
+  array_key_exists('myvar', get_defined_vars())
 );
 
-if (array_key_exists(&apos;myvar&apos;, get_defined_vars())) {
+if (array_key_exists('myvar', get_defined_vars())) {
   myfunction($myvar);
 }
 ?>
@@ -90,13 +90,7 @@ if (array_key_exists(&apos;myvar&apos;, get_defined_vars())) {
 
 in PHP5, if you have <br><br>&lt;?PHP<br>class Foo<br>{<br>    protected $data = array(&apos;bar&apos; =&gt; null);<br><br>    function __get($p)<br>    {<br>        if( isset($this-&gt;data[$p]) ) return $this-&gt;data[$p];<br>    }<br>}<br>?>
 ```
-
-
-and
-&lt;?PHP
-$foo = new Foo;
-echo isset($foo-&gt;bar);
-?>
+<br><br>and<br>&lt;?PHP<br>$foo = new Foo;<br>echo isset($foo-&gt;bar);<br>?>
 ```
 <br>will always echo &apos;false&apos;. because the isset() accepts VARIABLES as it parameters, but in this case, $foo-&gt;bar is NOT a VARIABLE. it is a VALUE returned from the __get() method of the class Foo. thus the isset($foo-&gt;bar) expreesion will always equal &apos;false&apos;.  
 
@@ -106,16 +100,16 @@ The new (as of PHP7) &apos;null coalesce operator&apos; allows shorthand isset. 
 
 ```
 <?php
-// Fetches the value of $_GET[&apos;user&apos;] and returns &apos;nobody&apos;
+// Fetches the value of $_GET['user'] and returns 'nobody'
 // if it does not exist.
-$username = $_GET[&apos;user&apos;] ?? &apos;nobody&apos;;
+$username = $_GET['user'] ?? 'nobody';
 // This is equivalent to:
-$username = isset($_GET[&apos;user&apos;]) ? $_GET[&apos;user&apos;] : &apos;nobody&apos;;
+$username = isset($_GET['user']) ? $_GET['user'] : 'nobody';
 
 // Coalescing can be chained: this will return the first
-// defined value out of $_GET[&apos;user&apos;], $_POST[&apos;user&apos;], and
-// &apos;nobody&apos;.
-$username = $_GET[&apos;user&apos;] ?? $_POST[&apos;user&apos;] ?? &apos;nobody&apos;;
+// defined value out of $_GET['user'], $_POST['user'], and
+// 'nobody'.
+$username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
 ?>
 ```
 <br><br>Quoted from http://php.net/manual/en/migration70.new-features.php#migration70.new-features.null-coalesce-op  
@@ -132,7 +126,7 @@ Careful with this function "ifsetfor" by soapergem, passing by reference means t
 <?php
 $a = array();
 print_r($a);
-ifsetor($a["unsetindex"], &apos;default&apos;);
+ifsetor($a["unsetindex"], 'default');
 print_r($a);
 ?>
 ```
@@ -146,8 +140,8 @@ print_r($a);
 <?php
 unset($undefined);
 $null = null;
-if (true === isset($undefined)){echo &apos;isset($undefined) === true&apos;} else {echo &apos;isset($undefined) === false&apos;); // &apos;isset($undefined) === false&apos;
-if (true === isset($null)){echo &apos;isset($null) === true&apos;} else {echo &apos;isset($null) === false&apos;);              // &apos;isset($null)      === false&apos;
+if (true === isset($undefined)){echo 'isset($undefined) === true'} else {echo 'isset($undefined) === false'); // 'isset($undefined) === false'
+if (true === isset($null)){echo 'isset($null) === true'} else {echo 'isset($null) === false');              // 'isset($null)      === false'
 ?>
 ```
 
@@ -161,8 +155,8 @@ if (true === isset($null)){echo &apos;isset($null) === true&apos;} else {echo &a
 unset($undefined);
 $null = null;
 
-if (true !== array_key_exists(&apos;undefined&apos;, get_defined_vars())) {echo &apos;$undefined does not exist&apos;;} else {echo &apos;$undefined exists&apos;;} // &apos;$undefined does not exist&apos;
-if (true === array_key_exists(&apos;null&apos;, get_defined_vars())) {echo &apos;$null exists&apos;;} else {echo &apos;$null does not exist&apos;;}                // &apos;$null exists&apos;
+if (true !== array_key_exists('undefined', get_defined_vars())) {echo '$undefined does not exist';} else {echo '$undefined exists';} // '$undefined does not exist'
+if (true === array_key_exists('null', get_defined_vars())) {echo '$null exists';} else {echo '$null does not exist';}                // '$null exists'
 ?>
 ```
   
@@ -175,7 +169,7 @@ To organize some of the frequently used functions..<br><br>
 <?php
 
 /**
- * Returns field of variable (arr[key] or obj-&gt;prop), otherwise the third parameter
+ * Returns field of variable (arr[key] or obj->prop), otherwise the third parameter
  * @param array/object $arr_or_obj
  * @param string $key_or_prop
  * @param mixed $else
@@ -187,8 +181,8 @@ function nz($arr_or_obj, $key_or_prop, $else){
       if(isset($arr_or_obj[$key_or_prop]))
         $result = $arr_or_obj[$key_or_prop];
     }elseif(is_object($arr_or_object))
-      if(isset($arr_or_obj-&gt;$key_or_prop))
-        $result = $arr_or_obj-&gt;$key_or_prop;
+      if(isset($arr_or_obj->$key_or_prop))
+        $result = $arr_or_obj->$key_or_prop;
     }
   }
   return $result;
@@ -201,7 +195,7 @@ function nz_int($arr_or_obj, $key_or_prop, $else){
   return intval(nz($arr_or_obj, $key_or_prop, $else));
 }
 
-$my_id = nz_int($_REQUEST, &apos;id&apos;, 0);
+$my_id = nz_int($_REQUEST, 'id', 0);
 if($my_id &gt; 0){
   //why?
 }
@@ -259,16 +253,16 @@ class FatalOnGet {
 $obj = new FatalOnGet();
 
 // works
-echo "Testing if -&gt;nosuch exists: ";
-if (isset($obj-&gt;nosuch)) echo "Yes"; else echo "No";
+echo "Testing if ->nosuch exists: ";
+if (isset($obj->nosuch)) echo "Yes"; else echo "No";
 
 // fatals
-echo "\nTesting if -&gt;nosuch-&gt;foo exists: ";
-if (isset($obj-&gt;nosuch-&gt;foo)) echo "Yes"; else echo "No";
+echo "\nTesting if ->nosuch->foo exists: ";
+if (isset($obj->nosuch->foo)) echo "Yes"; else echo "No";
 
 // not executed
-echo "\nTesting if -&gt;irrelevant exists: ";
-if (isset($obj-&gt;irrelevant)) echo "Yes"; else echo "No";
+echo "\nTesting if ->irrelevant exists: ";
+if (isset($obj->irrelevant)) echo "Yes"; else echo "No";
 
 ?>
 ```
@@ -296,16 +290,16 @@ The following is an example of how to test if a variable is set, whether or not 
 <?php
 
 function var_exists($var){
-    if (empty($GLOBALS[&apos;var_exists_err&apos;])) {
+    if (empty($GLOBALS['var_exists_err'])) {
         return true;
     } else {
-        unset($GLOBALS[&apos;var_exists_err&apos;]);
+        unset($GLOBALS['var_exists_err']);
         return false;
     }
 }
 
 function var_existsHandler($errno, $errstr, $errfile, $errline) {
-   $GLOBALS[&apos;var_exists_err&apos;] = true;
+   $GLOBALS['var_exists_err'] = true;
 }
 
 $l = NULL;
@@ -329,18 +323,18 @@ The problem is, the set_error_handler and restore_error_handler calls can not be
 <?php
 
 function var_exists($var){
-   if (empty($GLOBALS[&apos;var_exists_err&apos;])) {
+   if (empty($GLOBALS['var_exists_err'])) {
        return true;
    } else {
-       unset($GLOBALS[&apos;var_exists_err&apos;]);
+       unset($GLOBALS['var_exists_err']);
        return false;
    }
 }
 
 function var_existsHandler($errno, $errstr, $errfile, $errline) {
     $filearr = file($errfile);
-    if (strpos($filearr[$errline-1], &apos;var_exists&apos;) !== false) {
-        $GLOBALS[&apos;var_exists_err&apos;] = true;
+    if (strpos($filearr[$errline-1], 'var_exists') !== false) {
+        $GLOBALS['var_exists_err'] = true;
         return true;
     } else {
         return false;

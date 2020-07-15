@@ -7,21 +7,21 @@ A good example on when you would use functionality like this is when working wit
 ```
 <?php
 
-date_default_timezone_set(&apos;America/Los_Angeles&apos;);
+date_default_timezone_set('America/Los_Angeles');
 
 class Fruit implements JsonSerializable {
     public
-        $type = &apos;Apple&apos;,
+        $type = 'Apple',
         $lastEaten = null;
 
     public function __construct() {
-        $this-&gt;lastEaten = new DateTime();
+        $this->lastEaten = new DateTime();
     }
 
     public function jsonSerialize() {
         return [
-            &apos;type&apos; =&gt; $this-&gt;type,
-            &apos;lastEaten&apos; =&gt; $this-&gt;lastEaten-&gt;format(DateTime::ISO8601)
+            'type' => $this->type,
+            'lastEaten' => $this->lastEaten->format(DateTime::ISO8601)
         ];
     }
 }
@@ -45,13 +45,13 @@ class NestedSerializable implements \JsonSerializable
 
     public function __construct($serializable)
     {
-        $this-&gt;serializable = $serializable;
+        $this->serializable = $serializable;
     }
 
     public function jsonSerialize()
     {
         return [
-            &apos;serialized&apos; =&gt; $this-&gt;serializable
+            'serialized' => $this->serializable
         ];
     }
 
@@ -63,12 +63,12 @@ class SerializableCollection implements \JsonSerializable {
 
     public function __construct(array $elements)
     {
-        $this-&gt;elements = $elements;
+        $this->elements = $elements;
     }
 
     public function jsonSerialize()
     {
-        return $this-&gt;elements;
+        return $this->elements;
     }
 
 }

@@ -6,32 +6,32 @@
 
 ```
 <?php
-$_GET[&apos;A&apos;][&apos;a&apos;] = &apos;  CORRECT(including some spaces)    &apos;;
-$_GET[&apos;A&apos;][&apos;b&apos;] = &apos;  CORRECT(including some spaces)    &apos;;
-$_GET[&apos;A&apos;][&apos;c&apos;] = "Invalid UTF-8 sequence: \xe3\xe3\xe3";
-$_GET[&apos;A&apos;][&apos;d&apos;][&apos;invalid_structure&apos;] = &apos;INVALID&apos;;
+$_GET['A']['a'] = '  CORRECT(including some spaces)    ';
+$_GET['A']['b'] = '  CORRECT(including some spaces)    ';
+$_GET['A']['c'] = "Invalid UTF-8 sequence: \xe3\xe3\xe3";
+$_GET['A']['d']['invalid_structure'] = 'INVALID';
 
-$_GET[&apos;B&apos;][&apos;a&apos;] = &apos;  CORRECT(including some spaces)    &apos;;
-$_GET[&apos;B&apos;][&apos;b&apos;] = "Invalid UTF-8 sequence: \xe3\xe3\xe3";
-$_GET[&apos;B&apos;][&apos;c&apos;][&apos;invalid_structure&apos;] = &apos;INVALID&apos;;
-$_GET[&apos;B&apos;]["Invalid UTF-8 sequence: \xe3\xe3\xe3"] = &apos;INVALID&apos;;
+$_GET['B']['a'] = '  CORRECT(including some spaces)    ';
+$_GET['B']['b'] = "Invalid UTF-8 sequence: \xe3\xe3\xe3";
+$_GET['B']['c']['invalid_structure'] = 'INVALID';
+$_GET['B']["Invalid UTF-8 sequence: \xe3\xe3\xe3"] = 'INVALID';
 
-$_GET[&apos;C&apos;][&apos;a&apos;] = &apos;  CORRECT(including some spaces)    &apos;;
-$_GET[&apos;C&apos;][&apos;b&apos;] = "Invalid UTF-8 sequence: \xe3\xe3\xe3";
-$_GET[&apos;C&apos;][&apos;c&apos;][&apos;invalid_structure&apos;] = &apos;INVALID&apos;;
-$_GET[&apos;C&apos;]["Invalid UTF-8 sequence: \xe3\xe3\xe3"] = &apos;INVALID&apos;;
+$_GET['C']['a'] = '  CORRECT(including some spaces)    ';
+$_GET['C']['b'] = "Invalid UTF-8 sequence: \xe3\xe3\xe3";
+$_GET['C']['c']['invalid_structure'] = 'INVALID';
+$_GET['C']["Invalid UTF-8 sequence: \xe3\xe3\xe3"] = 'INVALID';
 
-$_GET[&apos;unneeded_item&apos;] = &apos;UNNEEDED&apos;;
+$_GET['unneeded_item'] = 'UNNEEDED';
 
 var_dump(filter_struct_utf8(INPUT_GET, array(
-    &apos;A&apos; =&gt; array(
-        &apos;a&apos; =&gt; &apos;&apos;,
-        &apos;b&apos; =&gt; FILTER_STRUCT_TRIM,
-        &apos;c&apos; =&gt; &apos;&apos;,
-        &apos;d&apos; =&gt; &apos;&apos;,
+    'A' => array(
+        'a' => '',
+        'b' => FILTER_STRUCT_TRIM,
+        'c' => '',
+        'd' => '',
     ),
-    &apos;B&apos; =&gt; FILTER_STRUCT_FORCE_ARRAY,
-    &apos;C&apos; =&gt; FILTER_STRUCT_FORCE_ARRAY | FILTER_STRUCT_TRIM,
+    'B' => FILTER_STRUCT_FORCE_ARRAY,
+    'C' => FILTER_STRUCT_FORCE_ARRAY | FILTER_STRUCT_TRIM,
 )));
 ?>
 ```
@@ -64,7 +64,7 @@ extract($ARRAY);
 
 // vs. 
 
-foreach($ARRAY as $key=&gt;$value) 
+foreach($ARRAY as $key=>$value) 
     $key = $value; 
 ?>
 ```

@@ -18,7 +18,7 @@ When using PDO::FETCH_COLUMN in a while loop, it&apos;s not enough to just use t
 
 ```
 <?php
-while ($row = $stmt-&gt;fetch(PDO::FETCH_COLUMN)) {
+while ($row = $stmt->fetch(PDO::FETCH_COLUMN)) {
     print $row;
 }
 ?>
@@ -31,7 +31,7 @@ If there are 5 rows with values 1 2 0 4 5, then the while loop above will stop a
 
 ```
 <?php
-while (($row = $stmt-&gt;fetch(PDO::FETCH_COLUMN)) !== false) {
+while (($row = $stmt->fetch(PDO::FETCH_COLUMN)) !== false) {
     print $row;
 }
 ?>
@@ -44,7 +44,7 @@ Or use foreach with fetchAll():
 
 ```
 <?php
-foreach ($stmt-&gt;fetchAll(PDO::FETCH_COLUMN) as $row) {
+foreach ($stmt->fetchAll(PDO::FETCH_COLUMN) as $row) {
     print $row;
 }
 ?>
@@ -57,9 +57,9 @@ When fetching an object, the constructor of the class is called after the fields
 
 ```
 <?php
-$a = $PDO-&gt;query(&apos;select id from table&apos;);
-$a-&gt;setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, &apos;ClassName&apos;);
-$obj = $a-&gt;fetch();
+$a = $PDO->query('select id from table');
+$a->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ClassName');
+$obj = $a->fetch();
 ?>
 ```
 <br><br>http://bugs.php.net/bug.php?id=53394  
@@ -70,7 +70,7 @@ A quick one liner to get the first entry returned.  This is nice for very basic 
 
 ```
 <?php
-$count = current($db-&gt;query("select count(*) from table")-&gt;fetch());
+$count = current($db->query("select count(*) from table")->fetch());
 php
 
 ```

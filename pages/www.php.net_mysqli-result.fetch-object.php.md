@@ -4,13 +4,7 @@
 
 Please mind the difference between objects and arrays in PHP&gt;=5: arrays are by value while objects are by reference.<br><br>&lt;?<br>$o = mysqli_fetch_object($res);<br>$o1 = $o;<br>$o1-&gt;value = 10;<br><br>$a = mysqli_fetch_array($res);<br>$a1 = $a;<br>$a1[&apos;value&apos;] = 10;<br><br>echo $o-&gt;value; // 10<br>echo $a[&apos;value&apos;]; // (original value from db)<br>?>
 ```
-
-
-Should same behaviour be intended, the object needs to be cloned:
-
-&lt;?
-$o1 = clone $o;
-?>
+<br><br>Should same behaviour be intended, the object needs to be cloned:<br><br>&lt;?<br>$o1 = clone $o;<br>?>
 ```
 <br><br>More about object cloning:<br>http://php.net/manual/en/language.oop5.cloning.php  
 
@@ -31,14 +25,14 @@ class Employee
 
   public function __construct($id = 0)
   {
-    $this-&gt;id = $id;
+    $this->id = $id;
   }
 }
 
 // some code for creating a database connection... i.e. mysqli object
 ....
-$result = $con-&gt;query("select id, name from employees");
-$anEmployee = $result-&gt;fetch_object("Employee");
+$result = $con->query("select id, name from employees");
+$anEmployee = $result->fetch_object("Employee");
 ?>
 ```
 
@@ -54,9 +48,9 @@ class Employee
 
   public function __construct($id = 0)
   {
-    if (!$this-&gt;id)
+    if (!$this->id)
     {
-       $this-&gt;id = $id 
+       $this->id = $id 
     }
   }
 }

@@ -19,13 +19,13 @@ If you want to check if there are for example only strings in an array, you can 
 <?php
 
 function only_strings_in_array($arr) {
-    return array_sum(array_map(&apos;is_string&apos;, $arr)) == count($arr);
+    return array_sum(array_map('is_string', $arr)) == count($arr);
 }
 
-$arr1 = array(&apos;one&apos;, &apos;two&apos;, &apos;three&apos;);
-$arr2 = array(&apos;foo&apos;, &apos;bar&apos;, array());
-$arr3 = array(&apos;foo&apos;, array(), &apos;bar&apos;);
-$arr4 = array(array(), &apos;foo&apos;, &apos;bar&apos;);
+$arr1 = array('one', 'two', 'three');
+$arr2 = array('foo', 'bar', array());
+$arr3 = array('foo', array(), 'bar');
+$arr4 = array(array(), 'foo', 'bar');
 
 var_dump(
     only_strings_in_array($arr1),

@@ -7,19 +7,19 @@ Remember, array_values() will ignore your beautiful numeric indexes, it will ren
 ```
 <?php
 $a = array(
- 3 =&gt; 11,
- 1 =&gt; 22,
- 2 =&gt; 33,
+ 3 => 11,
+ 1 => 22,
+ 2 => 33,
 );
 $a[0] = 44;
 
 print_r( array_values( $a ));
-==&gt;
+==>
 Array(
-  [0] =&gt; 11
-  [1] =&gt; 22
-  [2] =&gt; 33
-  [3] =&gt; 44
+  [0] => 11
+  [1] => 22
+  [2] => 33
+  [3] => 44
 )
 ?>
 ```
@@ -58,25 +58,25 @@ function array_value_recursive($key, array $arr){
 }
 
 $arr = array(
-    &apos;foo&apos; =&gt; &apos;foo&apos;,
-    &apos;bar&apos; =&gt; array(
-        &apos;baz&apos; =&gt; &apos;baz&apos;,
-        &apos;candy&apos; =&gt; &apos;candy&apos;,
-        &apos;vegetable&apos; =&gt; array(
-            &apos;carrot&apos; =&gt; &apos;carrot&apos;,
+    'foo' => 'foo',
+    'bar' => array(
+        'baz' => 'baz',
+        'candy' => 'candy',
+        'vegetable' => array(
+            'carrot' => 'carrot',
         )
     ),
-    &apos;vegetable&apos; =&gt; array(
-        &apos;carrot&apos; =&gt; &apos;carrot2&apos;,
+    'vegetable' => array(
+        'carrot' => 'carrot2',
     ),
-    &apos;fruits&apos; =&gt; &apos;fruits&apos;,
+    'fruits' => 'fruits',
 );
 
-var_dump(array_value_recursive(&apos;carrot&apos;, $arr)); // array(2) { [0]=&gt; string(6) "carrot" [1]=&gt; string(7) "carrot2" }
-var_dump(array_value_recursive(&apos;apple&apos;, $arr)); // null
-var_dump(array_value_recursive(&apos;baz&apos;, $arr)); // string(3) "baz"
-var_dump(array_value_recursive(&apos;candy&apos;, $arr)); // string(5) "candy"
-var_dump(array_value_recursive(&apos;pear&apos;, $arr)); // null
+var_dump(array_value_recursive('carrot', $arr)); // array(2) { [0]=> string(6) "carrot" [1]=> string(7) "carrot2" }
+var_dump(array_value_recursive('apple', $arr)); // null
+var_dump(array_value_recursive('baz', $arr)); // string(3) "baz"
+var_dump(array_value_recursive('candy', $arr)); // string(5) "candy"
+var_dump(array_value_recursive('pear', $arr)); // null
 ?>
 ```
   

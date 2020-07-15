@@ -20,7 +20,7 @@ $external = "19/10/2016 14:48:21";
 $format = "d/m/Y H:i:s";
 $dateobj = DateTime::createFromFormat($format, $external);
 
-$iso_datetime = $dateobj-&gt;format(Datetime::ATOM);
+$iso_datetime = $dateobj->format(Datetime::ATOM);
 echo "SUCCESS: $external EQUALS ISO-8601 $iso_datetime";
 
 // MAN PAGE: http://php.net/manual/en/datetime.createfromformat.php?>

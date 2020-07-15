@@ -8,13 +8,13 @@ to loop through object keys and reset to the start, try this:<br>
 <?php
 
 $obj = new stdClass();
-$obj-&gt;Mon = "Monday";
-$obj-&gt;Tue = "Tuesday";
-$obj-&gt;Wed = "Wednesday";
-$obj-&gt;Thu = "Thursday";
-$obj-&gt;Fri = "Friday";
-$obj-&gt;Sat = "Saturday";
-$obj-&gt;Sun = "Sunday";
+$obj->Mon = "Monday";
+$obj->Tue = "Tuesday";
+$obj->Wed = "Wednesday";
+$obj->Thu = "Thursday";
+$obj->Fri = "Friday";
+$obj->Sat = "Saturday";
+$obj->Sun = "Sunday";
 
 $infinate = new InfiniteIterator(new ArrayIterator($obj));
 foreach ( new LimitIterator($infinate, 0, 14) as $value ) {

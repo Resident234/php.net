@@ -13,9 +13,9 @@ class Potatoe {
     private $roots;
 
     function __construct ( $s, $m, $r ) {
-        $this-&gt;skin = $s;
-        $this-&gt;meat = $m;
-        $this-&gt;roots = $r;
+        $this->skin = $s;
+        $this->meat = $m;
+        $this->roots = $r;
     }
 }
 
@@ -41,24 +41,24 @@ This will returns:
 Using get_object_vars:
 Array
 (
-    [skin] =&gt; 1
+    [skin] => 1
 )
 
 Using array cast:
 Array
 (
-    [skin] =&gt; 1
-    [ * meat] =&gt; 2
-    [ Potatoe roots] =&gt; 3
+    [skin] => 1
+    [ * meat] => 2
+    [ Potatoe roots] => 3
 )
 
-As you can see, you can obtain the visibility for each member from this cast. That which seems to be spaces into array keys are &apos;\0&apos; characters, so the general rule to parse keys seems to be:
+As you can see, you can obtain the visibility for each member from this cast. That which seems to be spaces into array keys are '\0' characters, so the general rule to parse keys seems to be:
 
 Public members: member_name
 Protected memebers: \0*\0member_name
 Private members: \0Class_name\0member_name
 
-I&apos;ve wroten a obj2array function that creates entries without visibility for each key, so you can handle them into the array as it were within the object:
+I've wroten a obj2array function that creates entries without visibility for each key, so you can handle them into the array as it were within the object:
 
 
 
@@ -68,12 +68,12 @@ I&apos;ve wroten a obj2array function that creates entries without visibility fo
 function obj2array ( &amp;$Instance ) {
     $clone = (array) $Instance;
     $rtn = array ();
-    $rtn[&apos;___SOURCE_KEYS_&apos;] = $clone;
+    $rtn['___SOURCE_KEYS_'] = $clone;
 
     while ( list ($key, $value) = each ($clone) ) {
         $aux = explode ("\0", $key);
         $newkey = $aux[count($aux)-1];
-        $rtn[$newkey] = &amp;$rtn[&apos;___SOURCE_KEYS_&apos;][$key];
+        $rtn[$newkey] = &amp;$rtn['___SOURCE_KEYS_'][$key];
     }
 
     return $rtn;
@@ -83,7 +83,7 @@ function obj2array ( &amp;$Instance ) {
 ```
 
 
-I&apos;ve created also a &lt;i&gt;bless&lt;/i&gt; function that works similar to Perl&apos;s bless, so you can further recast the array converting it in an object of an specific class:
+I've created also a &lt;i&gt;bless&lt;/i&gt; function that works similar to Perl's bless, so you can further recast the array converting it in an object of an specific class:
 
 
 
@@ -96,15 +96,15 @@ function bless ( &amp;$Instance, $Class ) {
     }
 
     // First get source keys if available
-    if ( isset ($Instance[&apos;___SOURCE_KEYS_&apos;])) {
-        $Instance = $Instance[&apos;___SOURCE_KEYS_&apos;];
+    if ( isset ($Instance['___SOURCE_KEYS_'])) {
+        $Instance = $Instance['___SOURCE_KEYS_'];
     }
 
     // Get serialization data from array
     $serdata = serialize ( $Instance );
 
-    list ($array_params, $array_elems) = explode (&apos;{&apos;, $serdata, 2);
-    list ($array_tag, $array_count) = explode (&apos;:&apos;, $array_params, 3 );
+    list ($array_params, $array_elems) = explode ('{', $serdata, 2);
+    list ($array_tag, $array_count) = explode (':', $array_params, 3 );
     $serdata = "O:".strlen ($Class).":\"$Class\":$array_count:{".$array_elems;
 
     $Instance = unserialize ( $serdata );
@@ -130,15 +130,15 @@ class Potatoe {
     private $roots;
 
     function __construct ( $s, $m, $r ) {
-        $this-&gt;skin = $s;
-        $this-&gt;meat = $m;
-        $this-&gt;roots = $r;
+        $this->skin = $s;
+        $this->meat = $m;
+        $this->roots = $r;
     }
 
     function PrintAll () {
-        echo "skin = ".$this-&gt;skin."\n";
-        echo "meat = ".$this-&gt;meat."\n";
-        echo "roots = ".$this-&gt;roots."\n";
+        echo "skin = ".$this->skin."\n";
+        echo "meat = ".$this->meat."\n";
+        echo "roots = ".$this->roots."\n";
     }
 }
 
@@ -156,9 +156,9 @@ $Arr = obj2array($Obj);
 print_r ( $Arr );
 
 echo "\n\nSetting all members to 0.\n";
-$Arr[&apos;skin&apos;]=0;
-$Arr[&apos;meat&apos;]=0;
-$Arr[&apos;roots&apos;]=0;
+$Arr['skin']=0;
+$Arr['meat']=0;
+$Arr['roots']=0;
 
 echo "Converting the array into an instance of the original class.\n";
 bless ( $Arr, Potatoe );
@@ -170,7 +170,7 @@ if ( is_object ($Arr) ) {
     }
 }
 
-$Arr-&gt;PrintAll();
+$Arr->PrintAll();
 
 ?>
 ```
@@ -188,7 +188,7 @@ Hi all, I just wrote a function which dumps all the object propreties and its as
 <?php
 function object_to_array($obj) {
         $_arr = is_object($obj) ? get_object_vars($obj) : $obj;
-        foreach ($_arr as $key =&gt; $val) {
+        foreach ($_arr as $key => $val) {
                 $val = (is_array($val) || is_object($val)) ? object_to_array($val) : $val;
                 $arr[$key] = $val;
         }
@@ -202,32 +202,32 @@ Example:
 You have an object like this:
 fruitsbasket Object
 (
-    [Fruits] =&gt; Array
+    [Fruits] => Array
         (
-            [0] =&gt; fruits Object
+            [0] => fruits Object
                 (
-                    [_name] =&gt; Mango
-                    [_color] =&gt; Green
-                    [_weight] =&gt; 10
+                    [_name] => Mango
+                    [_color] => Green
+                    [_weight] => 10
                 )
 
-            [1] =&gt; fruits Object
+            [1] => fruits Object
                 (
-                    [_name] =&gt; Apple
-                    [_color] =&gt; Red
-                    [_weight] =&gt; 15
+                    [_name] => Apple
+                    [_color] => Red
+                    [_weight] => 15
                 )
 
-            [2] =&gt; fruits Object
+            [2] => fruits Object
                 (
-                    [_name] =&gt; Grape
-                    [_color] =&gt; Purple
-                    [_weight] =&gt; 5
+                    [_name] => Grape
+                    [_color] => Purple
+                    [_weight] => 5
                 )
 
         )
 
-    [total_weight] =&gt; 30
+    [total_weight] => 30
 )
 
 just do:

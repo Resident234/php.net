@@ -36,8 +36,8 @@ class MyDateTime extends DateTime
 
     public function addMonth($num = 1)
     {
-        $date = $this-&gt;format(&apos;Y-n-j&apos;);
-        list($y, $m, $d) = explode(&apos;-&apos;, $date);
+        $date = $this->format('Y-n-j');
+        list($y, $m, $d) = explode('-', $date);
 
         $m += $num;
         while ($m &gt; 12)
@@ -46,13 +46,13 @@ class MyDateTime extends DateTime
             $y++;
         }
 
-        $last_day = date(&apos;t&apos;, strtotime("$y-$m-1"));
+        $last_day = date('t', strtotime("$y-$m-1"));
         if ($d &gt; $last_day)
         {
             $d = $last_day;
         }
 
-        $this-&gt;setDate($y, $m, $d);
+        $this->setDate($y, $m, $d);
     }
 
 }
@@ -66,7 +66,39 @@ class MyDateTime extends DateTime
 If you need add() and sub() that don&apos;t modify object values, you can create new methods like this:<br><br>
 
 ```
-<?php<br><br>class DateTimeEnhanced extends DateTime {<br><br>    public function returnAdd(DateInterval $interval)<br>    {<br>        $dt = clone $this;<br>        $dt-&gt;add($interval);<br>        return $dt;<br>    }<br>    <br>    public function returnSub(DateInterval $interval)<br>    {<br>        $dt = clone $this;<br>        $dt-&gt;sub($interval);<br>        return $dt;<br>    }<br><br>}<br><br>$interval = DateInterval::createfromdatestring(&apos;+1 day&apos;);<br><br>$dt = new DateTimeEnhanced; # initialize new object<br>echo $dt-&gt;format(DateTime::W3C) . "\n"; # 2013-09-12T15:01:44+02:00<br><br>$dt-&gt;add($interval); # this modifies the object values<br>echo $dt-&gt;format(DateTime::W3C) . "\n"; # 2013-09-13T15:01:44+02:00<br><br>$dtNew = $dt-&gt;returnAdd($interval); # this returns the new modified object and doesn&apos;t change original object<br>echo $dt-&gt;format(DateTime::W3C) . "\n"; # 2013-09-13T15:01:44+02:00<br>echo $dtNew-&gt;format(DateTime::W3C) . "\n"; # 2013-09-14T15:01:44+02:00  
+<?php
+
+class DateTimeEnhanced extends DateTime {
+
+    public function returnAdd(DateInterval $interval)
+    {
+        $dt = clone $this;
+        $dt->add($interval);
+        return $dt;
+    }
+    
+    public function returnSub(DateInterval $interval)
+    {
+        $dt = clone $this;
+        $dt->sub($interval);
+        return $dt;
+    }
+
+}
+
+$interval = DateInterval::createfromdatestring('+1 day');
+
+$dt = new DateTimeEnhanced; # initialize new object
+echo $dt->format(DateTime::W3C) . "\n"; # 2013-09-12T15:01:44+02:00
+
+$dt->add($interval); # this modifies the object values
+echo $dt->format(DateTime::W3C) . "\n"; # 2013-09-13T15:01:44+02:00
+
+$dtNew = $dt->returnAdd($interval); # this returns the new modified object and doesn't change original object
+echo $dt->format(DateTime::W3C) . "\n"; # 2013-09-13T15:01:44+02:00
+echo $dtNew->format(DateTime::W3C) . "\n"; # 2013-09-14T15:01:44+02:00?>
+```
+  
 
 #
 

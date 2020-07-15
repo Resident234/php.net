@@ -16,28 +16,13 @@ ZipArchive.close() changes its behaviour in PHP7. The function ignores directori
 <?php 
 // test.php
 $zip = new ZipArchive();
-$zip-&gt;open(&apos;/tmp/test.zip&apos;, ZipArchive::CREATE);
-$zip-&gt;addFile(&apos;.&apos;, &apos;.&apos;);
-$ret = $zip-&gt;close();
+$zip->open('/tmp/test.zip', ZipArchive::CREATE);
+$zip->addFile('.', '.');
+$ret = $zip->close();
 echo "Closed with: " . ($ret ? "true" : "false") . "\n";
 ?>
 ```
-
-
-For php5:
-
-php --version
-  PHP 5.5.38-1-avature-ondrej-fork (cli) (built: Aug 31 2016 16:37:38)
-
-php test.php
-  Closed with: true
-
-For php7:
-
-php --version
-  PHP 7.0.8-0ubuntu0.16.04.2 (cli) ( NTS )
-
-php test.php<br>  Closed with: false  
+<br><br>For php5:<br><br>php --version<br>  PHP 5.5.38-1-avature-ondrej-fork (cli) (built: Aug 31 2016 16:37:38)<br><br>php test.php<br>  Closed with: true<br><br>For php7:<br><br>php --version<br>  PHP 7.0.8-0ubuntu0.16.04.2 (cli) ( NTS )<br><br>php test.php<br>  Closed with: false  
 
 #
 

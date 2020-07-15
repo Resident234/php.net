@@ -8,7 +8,7 @@ If you are iterating over a multi-dimensional array of objects, you may be tempt
 <?php
 class RecursiveArrayOnlyIterator extends RecursiveArrayIterator {
   public function hasChildren() {
-    return is_array($this-&gt;current());
+    return is_array($this->current());
   }
 }
 ?>
@@ -22,30 +22,30 @@ Using the RecursiveArrayIterator to traverse an unknown amount of sub arrays wit
 ```
 <?php
 $myArray = array(
-    0 =&gt; &apos;a&apos;,
-    1 =&gt; array(&apos;subA&apos;,&apos;subB&apos;,array(0 =&gt; &apos;subsubA&apos;, 1 =&gt; &apos;subsubB&apos;, 2 =&gt; array(0 =&gt; &apos;deepA&apos;, 1 =&gt; &apos;deepB&apos;))),
-    2 =&gt; &apos;b&apos;,
-    3 =&gt; array(&apos;subA&apos;,&apos;subB&apos;,&apos;subC&apos;),
-    4 =&gt; &apos;c&apos;
+    0 => 'a',
+    1 => array('subA','subB',array(0 => 'subsubA', 1 => 'subsubB', 2 => array(0 => 'deepA', 1 => 'deepB'))),
+    2 => 'b',
+    3 => array('subA','subB','subC'),
+    4 => 'c'
 );
 
 $iterator = new RecursiveArrayIterator($myArray);
-iterator_apply($iterator, &apos;traverseStructure&apos;, array($iterator));
+iterator_apply($iterator, 'traverseStructure', array($iterator));
 
 function traverseStructure($iterator) {
     
-    while ( $iterator -&gt; valid() ) {
+    while ( $iterator -> valid() ) {
 
-        if ( $iterator -&gt; hasChildren() ) {
+        if ( $iterator -> hasChildren() ) {
         
-            traverseStructure($iterator -&gt; getChildren());
+            traverseStructure($iterator -> getChildren());
             
         }
         else {
-            echo $iterator -&gt; key() . &apos; : &apos; . $iterator -&gt; current() .PHP_EOL;    
+            echo $iterator -> key() . ' : ' . $iterator -> current() .PHP_EOL;    
         }
 
-        $iterator -&gt; next();
+        $iterator -> next();
     }
 }
 ?>

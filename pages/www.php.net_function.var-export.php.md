@@ -5,7 +5,17 @@
 /**<br> * var_export() with square brackets and indented 4 spaces.<br> */<br>
 
 ```
-<?php<br>function varexport($expression, $return=FALSE) {<br>    $export = var_export($expression, TRUE);<br>    $export = preg_replace("/^([ ]*)(.*)/m", &apos;$1$1$2&apos;, $export);<br>    $array = preg_split("/\r\n|\n|\r/", $export);<br>    $array = preg_replace(["/\s*array\s\($/", "/\)(,)?$/", "/\s=&gt;\s$/"], [NULL, &apos;]$1&apos;, &apos; =&gt; [&apos;], $array);<br>    $export = join(PHP_EOL, array_filter(["["] + $array));<br>    if ((bool)$return) return $export; else echo $export;<br>}  
+<?php
+function varexport($expression, $return=FALSE) {
+    $export = var_export($expression, TRUE);
+    $export = preg_replace("/^([ ]*)(.*)/m", '$1$1$2', $export);
+    $array = preg_split("/\r\n|\n|\r/", $export);
+    $array = preg_replace(["/\s*array\s\($/", "/\)(,)?$/", "/\s=>\s$/"], [NULL, ']$1', ' => ['], $array);
+    $export = join(PHP_EOL, array_filter(["["] + $array));
+    if ((bool)$return) return $export; else echo $export;
+}?>
+```
+  
 
 #
 
@@ -37,10 +47,10 @@ I found that my complex type was exporting with <br>  stdClass::__set_state()<br
 function var_export_min($var, $return = false) {
     if (is_array($var)) {
         $toImplode = array();
-        foreach ($var as $key =&gt; $value) {
-            $toImplode[] = var_export($key, true).&apos;=&gt;&apos;.var_export_min($value, true);
+        foreach ($var as $key => $value) {
+            $toImplode[] = var_export($key, true).'=>'.var_export_min($value, true);
         }
-        $code = &apos;array(&apos;.implode(&apos;,&apos;, $toImplode).&apos;)&apos;;
+        $code = 'array('.implode(',', $toImplode).')';
         if ($return) return $code;
         else echo $code;
     } else {

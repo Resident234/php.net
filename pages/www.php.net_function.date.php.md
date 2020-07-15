@@ -36,7 +36,7 @@ FYI: there&apos;s a list of constants with predefined formats on the DateTime ob
 
 ```
 <?php
-echo date(&apos;c&apos;);
+echo date('c');
 ?>
 ```
 
@@ -47,7 +47,7 @@ or
 
 ```
 <?php
-echo date(&apos;Y-m-d\TH:i:sO&apos;);
+echo date('Y-m-d\TH:i:sO');
 ?>
 ```
 
@@ -70,7 +70,7 @@ this how you make an HTML5 &lt;time&gt; tag correctly<br><br>
 ```
 <?php
 
-echo &apos;&lt;time datetime="&apos;.date(&apos;c&apos;).&apos;"&gt;&apos;.date(&apos;Y - m - d&apos;).&apos;&lt;/time&gt;&apos;;
+echo '&lt;time datetime="'.date('c').'"&gt;'.date('Y - m - d').'&lt;/time&gt;';
 
 ?>
 ```
@@ -81,7 +81,13 @@ echo &apos;&lt;time datetime="&apos;.date(&apos;c&apos;).&apos;"&gt;&apos;.date(
 It&apos;s common for us to overthink the complexity of date/time calculations and underthink the power and flexibility of PHP&apos;s built-in functions.  Consider http://php.net/manual/en/function.date.php#108613<br><br>
 
 ```
-<?php<br>function get_time_string($seconds)<br>{<br>    return date(&apos;H:i:s&apos;, strtotime("2000-01-01 + $seconds SECONDS"));<br>}  
+<?php
+function get_time_string($seconds)
+{
+    return date('H:i:s', strtotime("2000-01-01 + $seconds SECONDS"));
+}?>
+```
+  
 
 #
 
@@ -90,24 +96,24 @@ If you have a problem with the different time zone, this is the solution for tha
 ```
 <?php
 // first line of PHP
-$defaultTimeZone=&apos;UTC&apos;;
+$defaultTimeZone='UTC';
 if(date_default_timezone_get()!=$defaultTimeZone)) date_default_timezone_set($defaultTimeZone);
 
 // somewhere in the code
 function _date($format="r", $timestamp=false, $timezone=false)
 {
-    $userTimezone = new DateTimeZone(!empty($timezone) ? $timezone : &apos;GMT&apos;);
-    $gmtTimezone = new DateTimeZone(&apos;GMT&apos;);
+    $userTimezone = new DateTimeZone(!empty($timezone) ? $timezone : 'GMT');
+    $gmtTimezone = new DateTimeZone('GMT');
     $myDateTime = new DateTime(($timestamp!=false?date("r",(int)$timestamp):date("r")), $gmtTimezone);
-    $offset = $userTimezone-&gt;getOffset($myDateTime);
-    return date($format, ($timestamp!=false?(int)$timestamp:$myDateTime-&gt;format(&apos;U&apos;)) + $offset);
+    $offset = $userTimezone->getOffset($myDateTime);
+    return date($format, ($timestamp!=false?(int)$timestamp:$myDateTime->format('U')) + $offset);
 }
 
 /* Example */
-echo &apos;System Date/Time: &apos;.date("Y-m-d | h:i:sa").&apos;&lt;br&gt;&apos;;
-echo &apos;New York Date/Time: &apos;._date("Y-m-d | h:i:sa", false, &apos;America/New_York&apos;).&apos;&lt;br&gt;&apos;;
-echo &apos;Belgrade Date/Time: &apos;._date("Y-m-d | h:i:sa", false, &apos;Europe/Belgrade&apos;).&apos;&lt;br&gt;&apos;;
-echo &apos;Belgrade Date/Time: &apos;._date("Y-m-d | h:i:sa", 514640700, &apos;Europe/Belgrade&apos;).&apos;&lt;br&gt;&apos;;
+echo 'System Date/Time: '.date("Y-m-d | h:i:sa").'&lt;br&gt;';
+echo 'New York Date/Time: '._date("Y-m-d | h:i:sa", false, 'America/New_York').'&lt;br&gt;';
+echo 'Belgrade Date/Time: '._date("Y-m-d | h:i:sa", false, 'Europe/Belgrade').'&lt;br&gt;';
+echo 'Belgrade Date/Time: '._date("Y-m-d | h:i:sa", 514640700, 'Europe/Belgrade').'&lt;br&gt;';
 ?>
 ```
 <br>This is the best and fastest solution for this problem. Working almost identical to date() function only as a supplement has the time zone option.  

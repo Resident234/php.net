@@ -6,10 +6,10 @@ You don&apos;t have to have a fully-formed locale for the first parameter. This 
 
 ```
 <?php
-var_dump(Locale::getDisplayRegion(&apos;-US&apos;, &apos;fr&apos;));
+var_dump(Locale::getDisplayRegion('-US', 'fr'));
 
 //Returns
-string &apos;&#xC9;tats-Unis&apos; (length=11)
+string '&#xC9;tats-Unis' (length=11)
 ?>
 ```
   

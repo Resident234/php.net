@@ -7,7 +7,7 @@ Here&apos;s an implementation that adheres to the PECL source quite strictly. Th
 ```
 <?php
 
-if (!function_exists(&apos;stats_standard_deviation&apos;)) {
+if (!function_exists('stats_standard_deviation')) {
     /**
      * This user-land implementation follows the implementation quite strictly;
      * it does not attempt to improve the code or algorithm in any way. It will

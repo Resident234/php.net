@@ -17,7 +17,7 @@ ATTENTION:<br><br>Put the upload progress session name input field BEFORE your f
   &lt;input type="submit" /&gt;
   &lt;/form&gt;
 
-If you make it after your file field, you&apos;ll waste a lot of time figuring why (just like me ...)
+If you make it after your file field, you'll waste a lot of time figuring why (just like me ...)
 
 The following form will make you crazy and waste really a lot of time:
 

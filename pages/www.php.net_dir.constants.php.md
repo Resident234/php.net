@@ -41,7 +41,7 @@ For my part I&apos;ll continue to use this constant because it seems more future
 
 ```
 <?php
-$path = join(DIRECTORY_SEPARATOR, array(&apos;root&apos;, &apos;lib&apos;, &apos;file.php&apos;);
+$path = join(DIRECTORY_SEPARATOR, array('root', 'lib', 'file.php');
 ?>
 ```
   

@@ -24,7 +24,7 @@ isfloat("5.0" + 0);  // true
 isfloat("5.0");  // false
 isfloat(5 + 0);  // false
 isfloat(5.0 + 0);  // false
-isfloat(&apos;a&apos; + 0);  // false
+isfloat('a' + 0);  // false
 ?>
 ```
 <br><br>YMMV  

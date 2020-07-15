@@ -20,16 +20,16 @@ To display information only when the query is not empty, I do something like thi
 
 ```
 <?php
-    $sql = &apos;SELECT model FROM cars&apos;;
-    $stmt = $db-&gt;prepare($sql);
-    $stmt-&gt;execute();
+    $sql = 'SELECT model FROM cars';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
     
-    if ($data = $stmt-&gt;fetch()) {
+    if ($data = $stmt->fetch()) {
         do {
-            echo $data[&apos;model&apos;] . &apos;&lt;br&gt;&apos;;
-        } while ($data = $stmt-&gt;fetch());
+            echo $data['model'] . '&lt;br&gt;';
+        } while ($data = $stmt->fetch());
     } else {
-        echo &apos;Empty Query&apos;;
+        echo 'Empty Query';
     }
 ?>
 ```
@@ -42,10 +42,10 @@ It&apos;d better to use SQL_CALC_FOUND_ROWS, if you only use MySQL. It has many 
 ```
 <?php
 $db = new PDO(DSN...);
-$db-&gt;setAttribute(array(PDO::MYSQL_USE_BUFFERED_QUERY=&gt;TRUE));
-$rs  = $db-&gt;query(&apos;SELECT SQL_CALC_FOUND_ROWS * FROM table LIMIT 5,15&apos;);
-$rs1 = $db-&gt;query(&apos;SELECT FOUND_ROWS()&apos;);
-$rowCount = (int) $rs1-&gt;fetchColumn();
+$db->setAttribute(array(PDO::MYSQL_USE_BUFFERED_QUERY=>TRUE));
+$rs  = $db->query('SELECT SQL_CALC_FOUND_ROWS * FROM table LIMIT 5,15');
+$rs1 = $db->query('SELECT FOUND_ROWS()');
+$rowCount = (int) $rs1->fetchColumn();
 ?>
 ```
   

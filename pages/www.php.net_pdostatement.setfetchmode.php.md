@@ -6,12 +6,12 @@ if you want to fetch your result into a class (by using PDO::FETCH_CLASS) and wa
 
 ```
 <?php
-$stmt = $pdo-&gt;prepare("your query");
+$stmt = $pdo->prepare("your query");
 
-$stmt-&gt;setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "className", $constructorArguments);
+$stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "className", $constructorArguments);
 
 # pass parameters, if required by the query
-$stmt-&gt;execute($parameters);
+$stmt->execute($parameters);
 
 foreach ($stmt as $row)
 {

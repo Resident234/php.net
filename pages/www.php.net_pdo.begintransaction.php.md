@@ -5,7 +5,42 @@
 The nested transaction example here is great, but it&apos;s missing a key piece of the puzzle.  Commits will commit everything, I only wanted commits to actually commit when the outermost commit has been completed.  This can be done in InnoDB with savepoints.<br><br>
 
 ```
-<?php<br><br>class Database extends PDO<br>{<br><br>    protected $transactionCount = 0;<br><br>    public function beginTransaction()<br>    {<br>        if (!$this-&gt;transactionCounter++) {<br>            return parent::beginTransaction();<br>        }<br>        $this-&gt;exec(&apos;SAVEPOINT trans&apos;.$this-&gt;transactionCounter);<br>        return $this-&gt;transactionCounter &gt;= 0;<br>    }<br><br>    public function commit()<br>    {<br>        if (!--$this-&gt;transactionCounter) {<br>            return parent::commit();<br>        }<br>        return $this-&gt;transactionCounter &gt;= 0;<br>    }<br><br>    public function rollback()<br>    {<br>        if (--$this-&gt;transactionCounter) {<br>            $this-&gt;exec(&apos;ROLLBACK TO trans&apos;.$this-&gt;transactionCounter + 1);<br>            return true;<br>        }<br>        return parent::rollback();<br>    }<br>    <br>}  
+<?php
+
+class Database extends PDO
+{
+
+    protected $transactionCount = 0;
+
+    public function beginTransaction()
+    {
+        if (!$this->transactionCounter++) {
+            return parent::beginTransaction();
+        }
+        $this->exec('SAVEPOINT trans'.$this->transactionCounter);
+        return $this->transactionCounter &gt;= 0;
+    }
+
+    public function commit()
+    {
+        if (!--$this->transactionCounter) {
+            return parent::commit();
+        }
+        return $this->transactionCounter &gt;= 0;
+    }
+
+    public function rollback()
+    {
+        if (--$this->transactionCounter) {
+            $this->exec('ROLLBACK TO trans'.$this->transactionCounter + 1);
+            return true;
+        }
+        return parent::rollback();
+    }
+    
+}?>
+```
+  
 
 #
 
@@ -18,26 +53,26 @@ class Database extends \\PDO
     protected $transactionCounter = 0;
     function beginTransaction()
     {
-        if(!$this-&gt;transactionCounter++)
+        if(!$this->transactionCounter++)
             return parent::beginTransaction();
-       return $this-&gt;transactionCounter &gt;= 0;
+       return $this->transactionCounter &gt;= 0;
     }
 
     function commit()
     {
-       if(!--$this-&gt;transactionCounter)
+       if(!--$this->transactionCounter)
            return parent::commit();
-       return $this-&gt;transactionCounter &gt;= 0;
+       return $this->transactionCounter &gt;= 0;
     }
 
     function rollback()
     {
-        if($this-&gt;transactionCounter &gt;= 0)
+        if($this->transactionCounter &gt;= 0)
         {
-            $this-&gt;transactionCounter = 0;
+            $this->transactionCounter = 0;
             return parent::rollback();
         }
-        $this-&gt;transactionCounter = 0;
+        $this->transactionCounter = 0;
         return false;
     }
 //...

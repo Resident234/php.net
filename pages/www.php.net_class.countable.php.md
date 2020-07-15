@@ -15,7 +15,7 @@ class CountMe
 
     public function count()
     {
-        return $this-&gt;_myCount;
+        return $this->_myCount;
     }
 
 }
@@ -32,7 +32,7 @@ class CountMe implements Countable
 
     public function count()
     {
-        return $this-&gt;_myCount;
+        return $this->_myCount;
     }
 
 }

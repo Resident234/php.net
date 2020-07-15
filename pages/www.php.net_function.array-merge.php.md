@@ -18,7 +18,7 @@ $array3 = $array1 + $array2;
 
 //This will result in::
 
-$array3 = array(0=&gt;"zero", 1=&gt;"one", 2=&gt;"two", 3=&gt;"three");
+$array3 = array(0=>"zero", 1=>"one", 2=>"two", 3=>"three");
 
 ?>
 ```
@@ -43,7 +43,7 @@ PHP &lt; 5.6:
 ```
 <?php
 $data = [[1, 2], [3], [4, 5]];
-print_r(array_reduce($data, &apos;array_merge&apos;, []));   // [1, 2, 3, 4, 5];
+print_r(array_reduce($data, 'array_merge', []));   // [1, 2, 3, 4, 5];
 
 ?>
 ```
@@ -57,11 +57,11 @@ Sometimes we need to traverse an array and group / merge the indexes so that it 
 <?php
 
 $people = [
-    [&apos;id&apos; =&gt; 1, &apos;name&apos; =&gt; &apos;Hayley&apos;],
-    [&apos;id&apos; =&gt; 2, &apos;name&apos; =&gt; &apos;Jack&apos;, &apos;dad&apos; =&gt; 1],
-    [&apos;id&apos; =&gt; 3, &apos;name&apos; =&gt; &apos;Linus&apos;, &apos;dad&apos; =&gt; 4],
-    [&apos;id&apos; =&gt; 4, &apos;name&apos; =&gt; &apos;Peter&apos;],
-    [&apos;id&apos; =&gt; 5, &apos;name&apos; =&gt; &apos;Tom&apos;, &apos;dad&apos; =&gt; 4],
+    ['id' => 1, 'name' => 'Hayley'],
+    ['id' => 2, 'name' => 'Jack', 'dad' => 1],
+    ['id' => 3, 'name' => 'Linus', 'dad' => 4],
+    ['id' => 4, 'name' => 'Peter'],
+    ['id' => 5, 'name' => 'Tom', 'dad' => 4],
 ];
 
 // We set up an array with just the children
@@ -83,7 +83,7 @@ $family = [];
 foreach ($people as $p) {
     $children = children($p, $people);
     if ($children != []) {
-        $family[] = array_merge($p, ["children" =&gt; $children]);
+        $family[] = array_merge($p, ["children" => $children]);
     }
 }
 
@@ -99,20 +99,20 @@ An addition to what Julian Egelstaff above wrote - the array union operation (+)
 
 ```
 <?php
-$arr1[&apos;one&apos;] = &apos;one&apos;;
-$arr1[&apos;two&apos;] = &apos;two&apos;;
+$arr1['one'] = 'one';
+$arr1['two'] = 'two';
 
-$arr2[&apos;zero&apos;] = &apos;zero&apos;;
-$arr2[&apos;one&apos;] = &apos;three&apos;;
-$arr2[&apos;two&apos;] = &apos;four&apos;;
+$arr2['zero'] = 'zero';
+$arr2['one'] = 'three';
+$arr2['two'] = 'four';
 
 $arr3 = $arr1 + $arr2;
 var_export( $arr3 );
-# array ( &apos;one&apos; =&gt; &apos;one&apos;, &apos;two&apos; =&gt; &apos;two&apos;, &apos;zero&apos; =&gt; &apos;zero&apos;, )
+# array ( 'one' => 'one', 'two' => 'two', 'zero' => 'zero', )
 
 $arr4 = array_merge( $arr1, $arr2 );
 var_export( $arr4 );
-# array ( &apos;one&apos; =&gt; &apos;three&apos;, &apos;two&apos; =&gt; &apos;four&apos;, &apos;zero&apos; =&gt; &apos;zero&apos;, )
+# array ( 'one' => 'three', 'two' => 'four', 'zero' => 'zero', )
 ?>
 ```
   
@@ -132,8 +132,8 @@ Reiterating the notes about casting to arrays, be sure to cast if one of the arr
 ```
 <?php
 header("Content-type:text/plain");
-$a = array(&apos;zzzz&apos;, &apos;xxxx&apos;);
-$b = array(&apos;mmmm&apos;,&apos;nnnn&apos;);
+$a = array('zzzz', 'xxxx');
+$b = array('mmmm','nnnn');
 
 echo "1 ==============\r\n";
 print_r(array_merge($a, $b));
@@ -151,7 +151,7 @@ $b = null;
 print_r(array_merge($a, (array)$b));
 
 echo "5 ==============\r\n";
-echo is_null(array_merge($a, $b)) ? &apos;Result is null&apos; : &apos;Result is not null&apos;;
+echo is_null(array_merge($a, $b)) ? 'Result is null' : 'Result is not null';
 ?>
 ```
 <br><br>Produces:<br><br>1 ==============<br>Array<br>(<br>    [0] =&gt; zzzz<br>    [1] =&gt; xxxx<br>    [2] =&gt; mmmm<br>    [3] =&gt; nnnn<br>)<br>2 ==============<br>Array<br>(<br>    [0] =&gt; zzzz<br>    [1] =&gt; xxxx<br>)<br>3 ==============<br>4 ==============<br>Array<br>(<br>    [0] =&gt; zzzz<br>    [1] =&gt; xxxx<br>)<br>5 ==============<br>Result is null  
@@ -168,8 +168,8 @@ I keep seeing posts for people looking for a function to replace numeric keys.<b
 
 ```
 <?php
-$a=array(1=&gt;"one", "two"=&gt;2);
-$b=array(1=&gt;"two", "two"=&gt;1, 3=&gt;"three", "four"=&gt;4);
+$a=array(1=>"one", "two"=>2);
+$b=array(1=>"two", "two"=>1, 3=>"three", "four"=>4);
 
 print_r($a+$b);
 ?>

@@ -5,7 +5,10 @@
 In PHP 5.5 and above, getting the error message is as simple as:<br><br>
 
 ```
-<?php<br>echo array_flip(get_defined_constants(true)[&apos;pcre&apos;])[preg_last_error()];  
+<?php
+echo array_flip(get_defined_constants(true)['pcre'])[preg_last_error()];?>
+```
+  
 
 #
 
@@ -22,7 +25,7 @@ function preg_errtxt($errcode)
     {
         $errtext = array();
         $constants = get_defined_constants(true);
-        foreach ($constants[&apos;pcre&apos;] as $c =&gt; $n) if (preg_match(&apos;/_ERROR$/&apos;, $c)) $errtext[$n] = $c;
+        foreach ($constants['pcre'] as $c => $n) if (preg_match('/_ERROR$/', $c)) $errtext[$n] = $c;
     }
 
     return array_key_exists($errcode, $errtext)? $errtext[$errcode] : NULL;

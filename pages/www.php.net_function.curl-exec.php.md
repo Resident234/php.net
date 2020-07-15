@@ -17,14 +17,14 @@ Just in case anyone is looking for a a couple of simple functions [to help autom
 function curl_post($url, array $post = NULL, array $options = array())
 {
     $defaults = array(
-        CURLOPT_POST =&gt; 1,
-        CURLOPT_HEADER =&gt; 0,
-        CURLOPT_URL =&gt; $url,
-        CURLOPT_FRESH_CONNECT =&gt; 1,
-        CURLOPT_RETURNTRANSFER =&gt; 1,
-        CURLOPT_FORBID_REUSE =&gt; 1,
-        CURLOPT_TIMEOUT =&gt; 4,
-        CURLOPT_POSTFIELDS =&gt; http_build_query($post)
+        CURLOPT_POST => 1,
+        CURLOPT_HEADER => 0,
+        CURLOPT_URL => $url,
+        CURLOPT_FRESH_CONNECT => 1,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_FORBID_REUSE => 1,
+        CURLOPT_TIMEOUT => 4,
+        CURLOPT_POSTFIELDS => http_build_query($post)
     );
 
     $ch = curl_init();
@@ -47,10 +47,10 @@ function curl_post($url, array $post = NULL, array $options = array())
 function curl_get($url, array $get = NULL, array $options = array())
 {    
     $defaults = array(
-        CURLOPT_URL =&gt; $url. (strpos($url, &apos;?&apos;) === FALSE ? &apos;?&apos; : &apos;&apos;). http_build_query($get),
-        CURLOPT_HEADER =&gt; 0,
-        CURLOPT_RETURNTRANSFER =&gt; TRUE,
-        CURLOPT_TIMEOUT =&gt; 4
+        CURLOPT_URL => $url. (strpos($url, '?') === FALSE ? '?' : ''). http_build_query($get),
+        CURLOPT_HEADER => 0,
+        CURLOPT_RETURNTRANSFER => TRUE,
+        CURLOPT_TIMEOUT => 4
     );
     
     $ch = curl_init();
@@ -68,7 +68,12 @@ function curl_get($url, array $get = NULL, array $options = array())
 
 #
 
-Don&apos;t disable SSL verification! You don&apos;t need to, and it&apos;s super easy to stay secure! If you found that turning off "CURLOPT_SSL_VERIFYHOST" and "CURLOPT_SSL_VERIFYPEER" solved your problem, odds are you&apos;re just on a Windows box. Takes 2 min to solve the problem. Walkthrough here:<br><br>https://snippets.webaware.com.au/howto/stop-turning-off-curlopt_ssl_verifypeer-and-fix-your-php-config/  
+Don&apos;t disable SSL verification! You don&apos;t need to, and it&apos;s super easy to stay secure! If you found that turning off "CURLOPT_SSL_VERIFYHOST" and "CURLOPT_SSL_VERIFYPEER" solved your problem, odds are you&apos;re just on a Windows box. Takes 2 min to solve the problem. Walkthrough here:<br><br>https://snippets.webaware.com.au/howto/stop-turning-off-curlopt_ssl_verifypeer-and-fix-your
+
+```
+<??>
+```
+config/  
 
 #
 
@@ -78,7 +83,7 @@ Be careful when using curl_exec() and the CURLOPT_RETURNTRANSFER option. Accordi
 <?php
 
     // fictional URL to an existing file with no data in it (ie. 0 byte file)
-    $url = &apos;http://www.example.com/empty_file.txt&apos;;
+    $url = 'http://www.example.com/empty_file.txt';
 
     $curl = curl_init();
     
@@ -86,12 +91,12 @@ Be careful when using curl_exec() and the CURLOPT_RETURNTRANSFER option. Accordi
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HEADER, false);
 
-    // execute and return string (this should be an empty string &apos;&apos;)
+    // execute and return string (this should be an empty string '')
     $str = curl_exec($curl);
 
     curl_close($curl);
 
-    // the value of $str is actually bool(true), not empty string &apos;&apos;
+    // the value of $str is actually bool(true), not empty string ''
     var_dump($str);
 
 ?>

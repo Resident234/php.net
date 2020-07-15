@@ -7,10 +7,10 @@ The best and simplest way to get input from a user in the CLI with only PHP is t
 ```
 <?php
 
-echo &apos;Are you sure you want to quit? (y/n) &apos;;
+echo 'Are you sure you want to quit? (y/n) ';
 $input = fgetc(STDIN);
 
-if ($input == &apos;y&apos;)
+if ($input == 'y')
 {
     exit(0);
 }

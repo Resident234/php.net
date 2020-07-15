@@ -8,37 +8,37 @@ imap-fetchbody() will decode attached email messages inline with the rest of the
 <?php
 function create_part_array($structure, $prefix="") {
     //print_r($structure);
-    if (sizeof($structure-&gt;parts) &gt; 0) {    // There some sub parts
-        foreach ($structure-&gt;parts as $count =&gt; $part) {
+    if (sizeof($structure->parts) &gt; 0) {    // There some sub parts
+        foreach ($structure->parts as $count => $part) {
             add_part_to_array($part, $prefix.($count+1), $part_array);
         }
     }else{    // Email does not have a seperate mime attachment for text
-        $part_array[] = array(&apos;part_number&apos; =&gt; $prefix.&apos;1&apos;, &apos;part_object&apos; =&gt; $obj);
+        $part_array[] = array('part_number' => $prefix.'1', 'part_object' => $obj);
     }
    return $part_array;
 }
 // Sub function for create_part_array(). Only called by create_part_array() and itself. 
 function add_part_to_array($obj, $partno, &amp; $part_array) {
-    $part_array[] = array(&apos;part_number&apos; =&gt; $partno, &apos;part_object&apos; =&gt; $obj);
-    if ($obj-&gt;type == 2) { // Check to see if the part is an attached email message, as in the RFC-822 type
+    $part_array[] = array('part_number' => $partno, 'part_object' => $obj);
+    if ($obj->type == 2) { // Check to see if the part is an attached email message, as in the RFC-822 type
         //print_r($obj);
-        if (sizeof($obj-&gt;parts) &gt; 0) {    // Check to see if the email has parts
-            foreach ($obj-&gt;parts as $count =&gt; $part) {
+        if (sizeof($obj->parts) &gt; 0) {    // Check to see if the email has parts
+            foreach ($obj->parts as $count => $part) {
                 // Iterate here again to compensate for the broken way that imap_fetchbody() handles attachments
-                if (sizeof($part-&gt;parts) &gt; 0) {
-                    foreach ($part-&gt;parts as $count2 =&gt; $part2) {
+                if (sizeof($part->parts) &gt; 0) {
+                    foreach ($part->parts as $count2 => $part2) {
                         add_part_to_array($part2, $partno.".".($count2+1), $part_array);
                     }
                 }else{    // Attached email does not have a seperate mime attachment for text
-                    $part_array[] = array(&apos;part_number&apos; =&gt; $partno.&apos;.&apos;.($count+1), &apos;part_object&apos; =&gt; $obj);
+                    $part_array[] = array('part_number' => $partno.'.'.($count+1), 'part_object' => $obj);
                 }
             }
         }else{    // Not sure if this is possible
-            $part_array[] = array(&apos;part_number&apos; =&gt; $prefix.&apos;.1&apos;, &apos;part_object&apos; =&gt; $obj);
+            $part_array[] = array('part_number' => $prefix.'.1', 'part_object' => $obj);
         }
     }else{    // If there are more sub-parts, expand them out.
-        if (sizeof($obj-&gt;parts) &gt; 0) {
-            foreach ($obj-&gt;parts as $count =&gt; $p) {
+        if (sizeof($obj->parts) &gt; 0) {
+            foreach ($obj->parts as $count => $p) {
                 add_part_to_array($p, $partno.".".($count+1), $part_array);
             }
         }

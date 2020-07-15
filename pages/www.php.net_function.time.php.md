@@ -26,39 +26,39 @@ Two quick approaches to getting the time elapsed in human readable form.<br><br>
 
 function time_elapsed_A($secs){
     $bit = array(
-        &apos;y&apos; =&gt; $secs / 31556926 % 12,
-        &apos;w&apos; =&gt; $secs / 604800 % 52,
-        &apos;d&apos; =&gt; $secs / 86400 % 7,
-        &apos;h&apos; =&gt; $secs / 3600 % 24,
-        &apos;m&apos; =&gt; $secs / 60 % 60,
-        &apos;s&apos; =&gt; $secs % 60
+        'y' => $secs / 31556926 % 12,
+        'w' => $secs / 604800 % 52,
+        'd' => $secs / 86400 % 7,
+        'h' => $secs / 3600 % 24,
+        'm' => $secs / 60 % 60,
+        's' => $secs % 60
         );
         
-    foreach($bit as $k =&gt; $v)
+    foreach($bit as $k => $v)
         if($v &gt; 0)$ret[] = $v . $k;
         
-    return join(&apos; &apos;, $ret);
+    return join(' ', $ret);
     }
     
 
 function time_elapsed_B($secs){
     $bit = array(
-        &apos; year&apos;        =&gt; $secs / 31556926 % 12,
-        &apos; week&apos;        =&gt; $secs / 604800 % 52,
-        &apos; day&apos;        =&gt; $secs / 86400 % 7,
-        &apos; hour&apos;        =&gt; $secs / 3600 % 24,
-        &apos; minute&apos;    =&gt; $secs / 60 % 60,
-        &apos; second&apos;    =&gt; $secs % 60
+        ' year'        => $secs / 31556926 % 12,
+        ' week'        => $secs / 604800 % 52,
+        ' day'        => $secs / 86400 % 7,
+        ' hour'        => $secs / 3600 % 24,
+        ' minute'    => $secs / 60 % 60,
+        ' second'    => $secs % 60
         );
         
-    foreach($bit as $k =&gt; $v){
-        if($v &gt; 1)$ret[] = $v . $k . &apos;s&apos;;
+    foreach($bit as $k => $v){
+        if($v &gt; 1)$ret[] = $v . $k . 's';
         if($v == 1)$ret[] = $v . $k;
         }
-    array_splice($ret, count($ret)-1, 0, &apos;and&apos;);
-    $ret[] = &apos;ago.&apos;;
+    array_splice($ret, count($ret)-1, 0, 'and');
+    $ret[] = 'ago.';
     
-    return join(&apos; &apos;, $ret);
+    return join(' ', $ret);
     }
     
 

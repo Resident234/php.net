@@ -10,9 +10,9 @@ it should be noted that an array with one or no elements works fine. for example
     $a2 = array("a");
     $a3 = array();
     
-    echo "a1 is: &apos;".implode("&apos;,&apos;",$a1)."&apos;&lt;br&gt;";
-    echo "a2 is: &apos;".implode("&apos;,&apos;",$a2)."&apos;&lt;br&gt;";
-    echo "a3 is: &apos;".implode("&apos;,&apos;",$a3)."&apos;&lt;br&gt;";
+    echo "a1 is: '".implode("','",$a1)."'&lt;br&gt;";
+    echo "a2 is: '".implode("','",$a2)."'&lt;br&gt;";
+    echo "a3 is: '".implode("','",$a3)."'&lt;br&gt;";
 ?>
 ```
 <br><br>will produce:<br>===========<br>a1 is: &apos;1&apos;,&apos;2&apos;,&apos;3&apos;<br>a2 is: &apos;a&apos;<br>a3 is: &apos;&apos;  
@@ -25,10 +25,10 @@ It&apos;s not obvious from the samples, if/how associative arrays are handled. T
 <?php
 declare(strict_types=1);
 
-$a = array( &apos;one&apos;,&apos;two&apos;,&apos;three&apos; );
-$b = array( &apos;1st&apos; =&gt; &apos;four&apos;, &apos;five&apos;, &apos;3rd&apos; =&gt; &apos;six&apos; );
+$a = array( 'one','two','three' );
+$b = array( '1st' => 'four', 'five', '3rd' => 'six' );
 
-echo implode( &apos;,&apos;, $a ),&apos;/&apos;, implode( &apos;,&apos;, $b );
+echo implode( ',', $a ),'/', implode( ',', $b );
 ?>
 ```
 <br><br>outputs:<br>one,two,three/four,five,six  
@@ -40,7 +40,7 @@ Can also be used for building tags or complex lists, like the following:<br><br>
 ```
 <?php
 
-$elements = array(&apos;a&apos;, &apos;b&apos;, &apos;c&apos;);
+$elements = array('a', 'b', 'c');
 
 echo "&lt;ul&gt;&lt;li&gt;" . implode("&lt;/li&gt;&lt;li&gt;", $elements) . "&lt;/li&gt;&lt;/ul&gt;";
 
@@ -61,22 +61,22 @@ class Foo
 
     public function __construct($title)
     {
-        $this-&gt;title = $title;
+        $this->title = $title;
     }
 
     public function __toString()
     {
-        return $this-&gt;title;
+        return $this->title;
     }
 }
 
 $array = [
-    new Foo(&apos;foo&apos;),
-    new Foo(&apos;bar&apos;),
-    new Foo(&apos;qux&apos;)
+    new Foo('foo'),
+    new Foo('bar'),
+    new Foo('qux')
 ];
 
-echo implode(&apos;; &apos;, $array);
+echo implode('; ', $array);
 ?>
 ```
 <br><br>will output:<br><br>foo; bar; qux  
@@ -87,7 +87,7 @@ If you want to implode an array of booleans, you will get a strange result:<br>
 
 ```
 <?php
-var_dump(implode(&apos;&apos;,array(true, true, false, false, true)));
+var_dump(implode('',array(true, true, false, false, true)));
 ?>
 ```
 <br><br>Output:<br>string(3) "111"<br><br>TRUE became "1", FALSE became nothing.  
@@ -101,9 +101,9 @@ Also quite handy in INSERT statements:<br><br>
 
    // array containing data
    $array = array(
-      "name" =&gt; "John",
-      "surname" =&gt; "Doe",
-      "email" =&gt; "j.doe@intelligence.gov"
+      "name" => "John",
+      "surname" => "Doe",
+      "email" => "j.doe@intelligence.gov"
    );
 
    // build query...
@@ -113,7 +113,7 @@ Also quite handy in INSERT statements:<br><br>
    $sql .= " (`".implode("`, `", array_keys($array))."`)";
 
    // implode values of $array...
-   $sql .= " VALUES (&apos;".implode("&apos;, &apos;", $array)."&apos;) ";
+   $sql .= " VALUES ('".implode("', '", $array)."') ";
 
    // execute query...
    $result = mysql_query($sql) or die(mysql_error());
@@ -128,7 +128,7 @@ It may be worth noting that if you accidentally call implode on a string rather 
 
 ```
 <?php
-var_dump(implode(&apos;:&apos;, &apos;xxxxx&apos;));
+var_dump(implode(':', 'xxxxx'));
 ?>
 ```
 <br>returns<br>NULL<br><br>This threw me for a little while.  

@@ -8,13 +8,13 @@ In my opinion this function lacks two flags:<br><br>- PHP_ROUND_UP - Always roun
 <?php
 function round_up($number, $precision = 2)
 {
-    $fig = (int) str_pad(&apos;1&apos;, $precision, &apos;0&apos;);
+    $fig = (int) str_pad('1', $precision, '0');
     return (ceil($number * $fig) / $fig);
 }
 
 function round_down($number, $precision = 2)
 {
-    $fig = (int) str_pad(&apos;1&apos;, $precision, &apos;0&apos;);
+    $fig = (int) str_pad('1', $precision, '0');
     return (floor($number * $fig) / $fig);
 }
 ?>
@@ -37,7 +37,7 @@ As PHP doesn&apos;t have a a native number truncate function, this is my solutio
  */
 function truncate($val, $f="0")
 {
-    if(($p = strpos($val, &apos;.&apos;)) !== false) {
+    if(($p = strpos($val, '.')) !== false) {
         $val = floatval(substr($val, 0, $p + 1 + $f));
     }
     return $val;

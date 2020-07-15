@@ -6,14 +6,14 @@ It is highly recommended not to use the __autoload() function any more. Now the 
 
 ```
 <?php
-    if(!function_exists(&apos;classAutoLoader&apos;)){
+    if(!function_exists('classAutoLoader')){
         function classAutoLoader($class){
             $class=strtolower($class);
-            $classFile=$_SERVER[&apos;DOCUMENT_ROOT&apos;].&apos;/include/class/&apos;.$class.&apos;.class.php&apos;;
+            $classFile=$_SERVER['DOCUMENT_ROOT'].'/include/class/'.$class.'.class.php';
             if(is_file($classFile)&amp;&amp;!class_exists($class)) include $classFile;
         }
     }
-    spl_autoload_register(&apos;classAutoLoader&apos;);
+    spl_autoload_register('classAutoLoader');
 ?>
 ```
   
@@ -26,7 +26,7 @@ Even I have never been using this function, just a simple example in order to ex
 <?php
 class myClass {
     public function __construct() {
-        echo "myClass init&apos;ed successfuly!!!";
+        echo "myClass init'ed successfuly!!!";
     }
 }
 ?>
@@ -38,23 +38,23 @@ class myClass {
 
 ```
 <?php
-// we&apos;ve writen this code where we need
+// we've writen this code where we need
 function __autoload($classname) {
     $filename = "./". $classname .".php";
     include_once($filename);
 }
 
-// we&apos;ve called a class ***
+// we've called a class ***
 $obj = new myClass();
 ?>
 ```
 
 
-*** At this line, our "./myClass.php" will be included! This is the magic that we&apos;re wondering... And you get this result "myClass init&apos;ed successfuly!!!".
+*** At this line, our "./myClass.php" will be included! This is the magic that we're wondering... And you get this result "myClass init'ed successfuly!!!".
 
 So, if you call a class that named as myClass then a file will be included myClass.php if it exists (if not you get an include error normally). If you call Foo, Foo.php will be included, and so on...
 
-And you don&apos;t need some code like this anymore;
+And you don't need some code like this anymore;
 
 
 

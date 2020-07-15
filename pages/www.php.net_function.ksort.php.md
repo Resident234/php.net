@@ -7,16 +7,16 @@ A nice way to do sorting of a key on a multi-dimensional array without having to
 ```
 <?php
 $people = array(
-array("name"=&gt;"Bob","age"=&gt;8,"colour"=&gt;"red"),
-array("name"=&gt;"Greg","age"=&gt;12,"colour"=&gt;"blue"),
-array("name"=&gt;"Andy","age"=&gt;5,"colour"=&gt;"purple"));
+array("name"=>"Bob","age"=>8,"colour"=>"red"),
+array("name"=>"Greg","age"=>12,"colour"=>"blue"),
+array("name"=>"Andy","age"=>5,"colour"=>"purple"));
 
 var_dump($people);
 
 $sortArray = array();
 
 foreach($people as $person){
-    foreach($person as $key=&gt;$value){
+    foreach($person as $key=>$value){
         if(!isset($sortArray[$key])){
             $sortArray[$key] = array();
         }
@@ -47,18 +47,18 @@ I wrote this function to sort the keys of an array using an array of keynames, i
  */
 function array_reorder_keys(&amp;$array, $keynames){
     if(empty($array) || !is_array($array) || empty($keynames)) return;
-    if(!is_array($keynames)) $keynames = explode(&apos;,&apos;,$keynames);
+    if(!is_array($keynames)) $keynames = explode(',',$keynames);
     if(!empty($keynames)) $keynames = array_reverse($keynames);
     foreach($keynames as $n){
         if(array_key_exists($n, $array)){
-            $newarray = array($n=&gt;$array[$n]); //copy the node before unsetting
+            $newarray = array($n=>$array[$n]); //copy the node before unsetting
             unset($array[$n]); //remove the node
             $array = $newarray + array_filter($array); //combine copy with filtered array
         }
     }
 }
-$seed_array = array(&apos;foo&apos;=&gt;&apos;bar&apos;, &apos;someotherkey&apos;=&gt;&apos;whatev&apos;, &apos;bar&apos;=&gt;&apos;baz&apos;, &apos;baz&apos;=&gt;&apos;foo&apos;, &apos;anotherkey&apos;=&gt;&apos;anotherval&apos;);
-array_reorder_keys($seed_array, &apos;baz,foo,bar&apos;); //returns array(&apos;baz&apos;=&gt;&apos;foo&apos;, &apos;foo&apos;=&gt;&apos;bar&apos;, &apos;bar&apos;=&gt;&apos;baz&apos;, &apos;someotherkey&apos;=&gt;&apos;whatev&apos;, &apos;anotherkey&apos;=&gt;&apos;anotherval&apos; );
+$seed_array = array('foo'=>'bar', 'someotherkey'=>'whatev', 'bar'=>'baz', 'baz'=>'foo', 'anotherkey'=>'anotherval');
+array_reorder_keys($seed_array, 'baz,foo,bar'); //returns array('baz'=>'foo', 'foo'=>'bar', 'bar'=>'baz', 'someotherkey'=>'whatev', 'anotherkey'=>'anotherval' );
 ?>
 ```
   
@@ -75,22 +75,22 @@ function sksort(&amp;$array, $subkey="id", $sort_ascending=false) {
     if (count($array))
         $temp_array[key($array)] = array_shift($array);
 
-    foreach($array as $key =&gt; $val){
+    foreach($array as $key => $val){
         $offset = 0;
         $found = false;
-        foreach($temp_array as $tmp_key =&gt; $tmp_val)
+        foreach($temp_array as $tmp_key => $tmp_val)
         {
             if(!$found and strtolower($val[$subkey]) &gt; strtolower($tmp_val[$subkey]))
             {
                 $temp_array = array_merge(    (array)array_slice($temp_array,0,$offset),
-                                            array($key =&gt; $val),
+                                            array($key => $val),
                                             array_slice($temp_array,$offset)
                                           );
                 $found = true;
             }
             $offset++;
         }
-        if(!$found) $temp_array = array_merge($temp_array, array($key =&gt; $val));
+        if(!$found) $temp_array = array_merge($temp_array, array($key => $val));
     }
 
     if ($sort_ascending) $array = array_reverse($temp_array);
@@ -107,14 +107,14 @@ Example
 
 ```
 <?php
-$info = array("peter" =&gt; array("age" =&gt; 21,
-                                           "gender" =&gt; "male"
+$info = array("peter" => array("age" => 21,
+                                           "gender" => "male"
                                            ),
-                   "john"  =&gt; array("age" =&gt; 19,
-                                           "gender" =&gt; "male"
+                   "john"  => array("age" => 19,
+                                           "gender" => "male"
                                            ),
-                   "mary" =&gt; array("age" =&gt; 20,
-                                           "gender" =&gt; "female"
+                   "mary" => array("age" => 20,
+                                           "gender" => "female"
                                           )
                   );
 

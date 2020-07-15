@@ -8,22 +8,22 @@ There are some things to note when working with mysqli::bind_param() and array-e
 <?php
 function getData() {
     return array(
-        0=&gt;array(
-            "name"=&gt;"test_0",
-            "email"=&gt;"test_0@example.com"
+        0=>array(
+            "name"=>"test_0",
+            "email"=>"test_0@example.com"
         ),
-        1=&gt;array(
-            "name"=&gt;"test_1",
-            "email"=&gt;"test_1@example.com"
+        1=>array(
+            "name"=>"test_1",
+            "email"=>"test_1@example.com"
         )
     );
 }
 $db  = new mysqli("localhost","root","","tests");
 $sql = "INSERT INTO `user` SET `name`=?,`email`=?";
-$res = $db-&gt;prepare($sql);
+$res = $db->prepare($sql);
 // If you bind array-elements to a prepared statement, the array has to be declared first with the used keys:
-$arr = array("name"=&gt;"","email"=&gt;""); 
-$res-&gt;bind_param("ss",$arr[&apos;name&apos;],$arr[&apos;email&apos;]);
+$arr = array("name"=>"","email"=>""); 
+$res->bind_param("ss",$arr['name'],$arr['email']);
 //So far the introduction...
 
 /* 
@@ -31,7 +31,7 @@ $res-&gt;bind_param("ss",$arr[&apos;name&apos;],$arr[&apos;email&apos;]);
     Re-assigning the array in the while()-head generates a new array, whereas references from bind_param stick to the old array
 */
 foreach( getData() as $arr ) {
-    $res-&gt;execute();
+    $res->execute();
 }
 
 /*
@@ -39,16 +39,16 @@ foreach( getData() as $arr ) {
     Re-assigning every single value explicitly keeps the references alive
 */
 foreach( getData() as $tempArr ) {
-    foreach($tempArr as $k=&gt;$v) {
+    foreach($tempArr as $k=>$v) {
         $arr[$k] = $v;
     }
-    $res-&gt;execute();
+    $res->execute();
 }
 ?>
 ```
 
 
-Coming to the problem calling mysqli::bind_param() with a dynamic number of arguments via call_user_func_array() with PHP Version 5.3+, there&apos;s another workaround besides using an extra function to build the references for the array-elements.
+Coming to the problem calling mysqli::bind_param() with a dynamic number of arguments via call_user_func_array() with PHP Version 5.3+, there's another workaround besides using an extra function to build the references for the array-elements.
 You can use Reflection to call mysqli::bind_param(). When using PHP 5.3+ this saves you about 20-40% Speed compared to passing the array to your own reference-builder-function.
 Example:
 
@@ -56,12 +56,12 @@ Example:
 ```
 <?php
 $db     = new mysqli("localhost","root","","tests"); 
-$res    = $db-&gt;prepare("INSERT INTO test SET foo=?,bar=?"); 
+$res    = $db->prepare("INSERT INTO test SET foo=?,bar=?"); 
 $refArr = array("si","hello",42); 
-$ref    = new ReflectionClass(&apos;mysqli_stmt&apos;); 
-$method = $ref-&gt;getMethod("bind_param"); 
-$method-&gt;invokeArgs($res,$refArr); 
-$res-&gt;execute();  
+$ref    = new ReflectionClass('mysqli_stmt'); 
+$method = $ref->getMethod("bind_param"); 
+$method->invokeArgs($res,$refArr); 
+$res->execute();  
 ?>
 ```
   
@@ -80,26 +80,26 @@ Hi, I just write a function to do all my sql statements based on all the others 
 function execSQL($sql, $params, $close){
            $mysqli = new mysqli("localhost", "user", "pass", "db");
            
-           $stmt = $mysqli-&gt;prepare($sql) or die ("Failed to prepared the statement!");
+           $stmt = $mysqli->prepare($sql) or die ("Failed to prepared the statement!");
            
-           call_user_func_array(array($stmt, &apos;bind_param&apos;), refValues($params));
+           call_user_func_array(array($stmt, 'bind_param'), refValues($params));
            
-           $stmt-&gt;execute();
+           $stmt->execute();
            
            if($close){
-               $result = $mysqli-&gt;affected_rows;
+               $result = $mysqli->affected_rows;
            } else {
-               $meta = $stmt-&gt;result_metadata();
+               $meta = $stmt->result_metadata();
             
-               while ( $field = $meta-&gt;fetch_field() ) {
-                   $parameters[] = &amp;$row[$field-&gt;name];
+               while ( $field = $meta->fetch_field() ) {
+                   $parameters[] = &amp;$row[$field->name];
                }  
         
-            call_user_func_array(array($stmt, &apos;bind_result&apos;), refValues($parameters));
+            call_user_func_array(array($stmt, 'bind_result'), refValues($parameters));
                
-            while ( $stmt-&gt;fetch() ) {  
+            while ( $stmt->fetch() ) {  
                $x = array();  
-               foreach( $row as $key =&gt; $val ) {  
+               foreach( $row as $key => $val ) {  
                   $x[$key] = $val;  
                }  
                $results[] = $x;  
@@ -108,17 +108,17 @@ function execSQL($sql, $params, $close){
             $result = $results;
            }
            
-           $stmt-&gt;close();
-           $mysqli-&gt;close();
+           $stmt->close();
+           $mysqli->close();
            
            return  $result;
    }
    
     function refValues($arr){
-        if (strnatcmp(phpversion(),&apos;5.3&apos;) &gt;= 0) //Reference is required for PHP 5.3+
+        if (strnatcmp(phpversion(),'5.3') &gt;= 0) //Reference is required for PHP 5.3+
         {
             $refs = array();
-            foreach($arr as $key =&gt; $value)
+            foreach($arr as $key => $value)
                 $refs[$key] = &amp;$arr[$key];
             return $refs;
         }
@@ -136,29 +136,29 @@ Blob and null handling aside, a couple of notes on how param values are automati
 <?php
 
 $var = true;
-bind_param(&apos;i&apos;, $var); // forwarded to Mysql as 1
+bind_param('i', $var); // forwarded to Mysql as 1
 
 ?>
 ```
 
 
-2) Though PHP numbers cannot be reliably cast to (int) if larger than PHP_INT_MAX, behind the scenes, the value will be converted anyway to at most long long depending on the size.  This means that keeping in mind precision limits and avoiding manually casting the variable to (int) first, you can still use the &apos;i&apos; binding type for larger numbers.  i.e.:
+2) Though PHP numbers cannot be reliably cast to (int) if larger than PHP_INT_MAX, behind the scenes, the value will be converted anyway to at most long long depending on the size.  This means that keeping in mind precision limits and avoiding manually casting the variable to (int) first, you can still use the 'i' binding type for larger numbers.  i.e.:
 
 
 
 ```
 <?php
 
-$var = &apos;429496729479896&apos;;
-bind_param(&apos;i&apos;, $var); // forwarded to Mysql as 429496729479900
+$var = '429496729479896';
+bind_param('i', $var); // forwarded to Mysql as 429496729479900
 
 ?>
 ```
 
 
-3) You can default to &apos;s&apos; for most parameter arguments in most cases.  The value will then be automatically cast to string on the back-end before being passed to the Mysql engine.  Mysql will then perform its own conversions with values it receives from PHP on execute.  This allows you to bind not only to larger numbers without concern for precision, but also to objects as long as that object has a &apos;__toString&apos; method.
+3) You can default to 's' for most parameter arguments in most cases.  The value will then be automatically cast to string on the back-end before being passed to the Mysql engine.  Mysql will then perform its own conversions with values it receives from PHP on execute.  This allows you to bind not only to larger numbers without concern for precision, but also to objects as long as that object has a '__toString' method.
 
-This auto-string casting behavior greatly improves things like datetime handling.  For example: if you extended DateTime class to add a __toString method which outputs the datetime format expected by Mysql, you can just bind to that DateTime_Extended object using type &apos;s&apos;.  i.e.:
+This auto-string casting behavior greatly improves things like datetime handling.  For example: if you extended DateTime class to add a __toString method which outputs the datetime format expected by Mysql, you can just bind to that DateTime_Extended object using type 's'.  i.e.:
 
 
 
@@ -167,7 +167,7 @@ This auto-string casting behavior greatly improves things like datetime handling
 
 // DateTime_Extended has __toString defined to return the Mysql formatted datetime
 $var = new DateTime_Extended;
-bind_param(&apos;s&apos;, $var); // forwarded to Mysql as &apos;2011-03-14 17:00:01&apos;
+bind_param('s', $var); // forwarded to Mysql as '2011-03-14 17:00:01'
 
 ?>
 ```
@@ -188,46 +188,46 @@ class db extends mysqli {
 
 class stmt extends mysqli_stmt {
     public function __construct($link, $query) {
-        $this-&gt;mbind_reset();
+        $this->mbind_reset();
         parent::__construct($link, $query);
     }
 
     public function mbind_reset() {
-        unset($this-&gt;mbind_params);
-        unset($this-&gt;mbind_types);
-        $this-&gt;mbind_params = array();
-        $this-&gt;mbind_types = array();
+        unset($this->mbind_params);
+        unset($this->mbind_types);
+        $this->mbind_params = array();
+        $this->mbind_types = array();
     }
     
     //use this one to bind params by reference
     public function mbind_param($type, &amp;$param) {
-        $this-&gt;mbind_types[0].= $type;
-        $this-&gt;mbind_params[] = &amp;$param;
+        $this->mbind_types[0].= $type;
+        $this->mbind_params[] = &amp;$param;
     }
     
     //use this one to bin value directly, can be mixed with mbind_param()
     public function mbind_value($type, $param) {
-        $this-&gt;mbind_types[0].= $type;
-        $this-&gt;mbind_params[] = $param;
+        $this->mbind_types[0].= $type;
+        $this->mbind_params[] = $param;
     }
     
     
     public function mbind_param_do() {
-        $params = array_merge($this-&gt;mbind_types, $this-&gt;mbind_params);
-        return call_user_func_array(array($this, &apos;bind_param&apos;), $this-&gt;makeValuesReferenced($params));
+        $params = array_merge($this->mbind_types, $this->mbind_params);
+        return call_user_func_array(array($this, 'bind_param'), $this->makeValuesReferenced($params));
     }
     
     private function makeValuesReferenced($arr){
         $refs = array();
-        foreach($arr as $key =&gt; $value)
+        foreach($arr as $key => $value)
         $refs[$key] = &amp;$arr[$key];
         return $refs;
 
     }
     
     public function execute() {
-        if(count($this-&gt;mbind_params))
-            $this-&gt;mbind_param_do();
+        if(count($this->mbind_params))
+            $this->mbind_param_do();
             
         return parent::execute();
     }
@@ -241,24 +241,24 @@ $search2 = "test2";
 
 $_db = new db("host","user","pass","database");
 $query = "SELECT name FROM table WHERE col1=? AND col2=?";
-$stmt = $_db-&gt;prepare($query);
+$stmt = $_db->prepare($query);
 
-$stmt-&gt;mbind_param(&apos;s&apos;,$search1);
+$stmt->mbind_param('s',$search1);
 //this second call is the cool thing!!!
-$stmt-&gt;mbind_param(&apos;s&apos;,$search2);
+$stmt->mbind_param('s',$search2);
 
-$stmt-&gt;execute();
+$stmt->execute();
 
 //this would still work!
 //$search1 = "test1changed";
 //$search2 = "test2changed";
-//$stmt-&gt;execute();
+//$stmt->execute();
 
 ...
 
-$stmt-&gt;store_result();
-$stmt-&gt;bind_result(...);
-$stmt-&gt;fetch();
+$stmt->store_result();
+$stmt->bind_result(...);
+$stmt->fetch();
 ?>
 ```
   
@@ -269,8 +269,8 @@ I had a problem with the LIKE operator<br><br>This code did not work:<br><br>
 
 ```
 <?php
-$test = $sql-&gt;prepare("SELECT name FROM names WHERE name LIKE %?%");
-$test-&gt;bind_param("s", $myname);
+$test = $sql->prepare("SELECT name FROM names WHERE name LIKE %?%");
+$test->bind_param("s", $myname);
 ?>
 ```
 
@@ -281,9 +281,9 @@ The solution is:
 
 ```
 <?php
-$test = $sql-&gt;prepare("SELECT name FROM names WHERE name LIKE ?");
+$test = $sql->prepare("SELECT name FROM names WHERE name LIKE ?");
 $param = "%" . $myname . "%";
-$test-&gt;bind_param("s", $param);
+$test->bind_param("s", $param);
 ?>
 ```
   
@@ -295,10 +295,10 @@ I used to have problems with call_user_func_array and bind_param after migrating
 ```
 <?php
 function refValues($arr){
-    if (strnatcmp(phpversion(),&apos;5.3&apos;) &gt;= 0) //Reference is required for PHP 5.3+
+    if (strnatcmp(phpversion(),'5.3') &gt;= 0) //Reference is required for PHP 5.3+
     {
         $refs = array();
-        foreach($arr as $key =&gt; $value)
+        foreach($arr as $key => $value)
             $refs[$key] = &amp;$arr[$key];
         return $refs; 
     }
@@ -314,7 +314,7 @@ and changed my previous function from:
 
 ```
 <?php
-call_user_func_array(array($this-&gt;stmt, "bind_param"),$this-&gt;valores);
+call_user_func_array(array($this->stmt, "bind_param"),$this->valores);
 ?>
 ```
 
@@ -325,7 +325,7 @@ to:
 
 ```
 <?php
-call_user_func_array(array($this-&gt;stmt, "bind_param"),refValues($this-&gt;valores));
+call_user_func_array(array($this->stmt, "bind_param"),refValues($this->valores));
 ?>
 ```
 <br><br>in this way my db functions keep working in php 5.2/5.3 servers.<br><br>I hope this help someone.  
@@ -337,22 +337,22 @@ When dealing with a dynamic number of field values while preparing a statement I
 ```
 <?php
 class BindParam{
-    private $values = array(), $types = &apos;&apos;;
+    private $values = array(), $types = '';
     
     public function add( $type, &amp;$value ){
-        $this-&gt;values[] = $value;
-        $this-&gt;types .= $type;
+        $this->values[] = $value;
+        $this->types .= $type;
     }
     
     public function get(){
-        return array_merge(array($this-&gt;types), $this-&gt;values);
+        return array_merge(array($this->types), $this->values);
     }
 }
 ?>
 ```
 
 
-Usage is pretty simple. Create an instance and use the add method to populate. When you&apos;re ready to execute simply use the get method.
+Usage is pretty simple. Create an instance and use the add method to populate. When you're ready to execute simply use the get method.
 
 
 
@@ -365,26 +365,26 @@ $use_part_1 = 1;
 $use_part_2 = 1;
 $use_part_3 = 1;
 
-$query = &apos;SELECT * FROM users WHERE &apos;;
+$query = 'SELECT * FROM users WHERE ';
 if($use_part_1){
-    $qArray[] = &apos;hair_color = ?&apos;;
-    $bindParam-&gt;add(&apos;s&apos;, &apos;red&apos;);
+    $qArray[] = 'hair_color = ?';
+    $bindParam->add('s', 'red');
 }
 if($use_part_2){
-    $qArray[] = &apos;age = ?&apos;;
-    $bindParam-&gt;add(&apos;i&apos;, 25);
+    $qArray[] = 'age = ?';
+    $bindParam->add('i', 25);
 }
 if($use_part_3){
-    $qArray[] = &apos;balance = ?&apos;;
-    $bindParam-&gt;add(&apos;d&apos;, 50.00);
+    $qArray[] = 'balance = ?';
+    $bindParam->add('d', 50.00);
 }
 
-$query .= implode(&apos; OR &apos;, $qArray);
+$query .= implode(' OR ', $qArray);
 
-//call_user_func_array( array($stm, &apos;bind_param&apos;), $bindParam-&gt;get());
+//call_user_func_array( array($stm, 'bind_param'), $bindParam->get());
 
-echo $query . &apos;&lt;br/&gt;&apos;;
-var_dump($bindParam-&gt;get());
+echo $query . '&lt;br/&gt;';
+var_dump($bindParam->get());
 ?>
 ```
 <br><br>This gets you the result that looks something like this:<br><br>SELECT * FROM users WHERE hair_color = ? OR age = ? OR balance = ?<br>array(4) { [0]=&gt; string(3) "sid" [1]=&gt; string(3) "red" [2]=&gt; int(25) [3]=&gt; float(50) }<br><br>[Editor&apos;s note: changed BindParam::add() to accept $value by reference and thereby prevent a warning in newer versions of PHP.]  

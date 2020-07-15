@@ -10,37 +10,42 @@ For percent sign and underscore I use this:<br>
 
 ```
 <?php
-$more_escaped = addcslashes($escaped, &apos;%_&apos;);
+$more_escaped = addcslashes($escaped, '%_');
 ?>
 ```
   
 
 #
 
-Presenting several UTF-8 / Multibyte-aware escape functions.<br><br>These functions represent alternatives to mysqli::real_escape_string, as long as your DB connection and Multibyte extension are using the same character set (UTF-8), they will produce the same results by escaping the same characters as mysqli::real_escape_string.<br><br>This is based on research I did for my SQL Query Builder class:<br>https://github.com/twister-php/sql<br><br>
+Presenting several UTF-8 / Multibyte-aware escape functions.<br><br>These functions represent alternatives to mysqli::real_escape_string, as long as your DB connection and Multibyte extension are using the same character set (UTF-8), they will produce the same results by escaping the same characters as mysqli::real_escape_string.<br><br>This is based on research I did for my SQL Query Builder class:<br>https://github.com/twister
+
+```
+<?php/sql
+
+
 
 ```
 <?php
 /**
  * Returns a string with backslashes before characters that need to be escaped.
  * As required by MySQL and suitable for multi-byte character sets
- * Characters encoded are NUL (ASCII 0), \n, \r, \, &apos;, ", and ctrl-Z.
+ * Characters encoded are NUL (ASCII 0), \n, \r, \, ', ", and ctrl-Z.
  *
  * @param string $string String to add slashes to
  * @return $string with `\` prepended to reserved characters 
  *
  * @author Trevor Herselman
  */
-if (function_exists(&apos;mb_ereg_replace&apos;))
+if (function_exists('mb_ereg_replace'))
 {
     function mb_escape(string $string)
     {
-        return mb_ereg_replace(&apos;[\x00\x0A\x0D\x1A\x22\x27\x5C]&apos;, &apos;\\\0&apos;, $string);
+        return mb_ereg_replace('[\x00\x0A\x0D\x1A\x22\x27\x5C]', '\\\0', $string);
     }
 } else {
     function mb_escape(string $string)
     {
-        return preg_replace(&apos;~[\x00\x0A\x0D\x1A\x22\x27\x5C]~u&apos;, &apos;\\\$0&apos;, $string);
+        return preg_replace('~[\x00\x0A\x0D\x1A\x22\x27\x5C]~u', '\\\$0', $string);
     }
 }
 
@@ -55,7 +60,7 @@ Characters escaped are (the same as mysqli::real_escape_string):
 0D = \r
 1A = ctl-Z
 22 = "
-27 = &apos;
+27 = '
 5C = \
 
 Note: preg_replace() is in PCRE_UTF8 (UTF-8) mode (`u`).
@@ -74,7 +79,7 @@ So this is a more fail-safe version (even when compared to mysqli::real_escape_s
 /**
  * Returns a string with backslashes before characters that need to be escaped.
  * As required by MySQL and suitable for multi-byte character sets
- * Characters encoded are NUL (ASCII 0), \n, \r, \, &apos;, ", and ctrl-Z.
+ * Characters encoded are NUL (ASCII 0), \n, \r, \, ', ", and ctrl-Z.
  * In addition, the special control characters % and _ are also escaped,
  * suitable for all statements, but especially suitable for `LIKE`.
  *
@@ -83,16 +88,16 @@ So this is a more fail-safe version (even when compared to mysqli::real_escape_s
  *
  * @author Trevor Herselman
  */
-if (function_exists(&apos;mb_ereg_replace&apos;))
+if (function_exists('mb_ereg_replace'))
 {
     function mb_escape(string $string)
     {
-        return mb_ereg_replace(&apos;[\x00\x0A\x0D\x1A\x22\x25\x27\x5C\x5F]&apos;, &apos;\\\0&apos;, $string);
+        return mb_ereg_replace('[\x00\x0A\x0D\x1A\x22\x25\x27\x5C\x5F]', '\\\0', $string);
     }
 } else {
     function mb_escape(string $string)
     {
-        return preg_replace(&apos;~[\x00\x0A\x0D\x1A\x22\x25\x27\x5C\x5F]~u&apos;, &apos;\\\$0&apos;, $string);
+        return preg_replace('~[\x00\x0A\x0D\x1A\x22\x25\x27\x5C\x5F]~u', '\\\$0', $string);
     }
 }
 
@@ -108,7 +113,7 @@ Additional characters escaped:
 Bonus function:
 
 The original MySQL `utf8` character-set (for tables and fields) only supports 3-byte sequences.
-4-byte characters are not common, but I&apos;ve had queries fail to execute on 4-byte UTF-8 characters, so you should be using `utf8mb4` wherever possible.
+4-byte characters are not common, but I've had queries fail to execute on 4-byte UTF-8 characters, so you should be using `utf8mb4` wherever possible.
 
 However, if you still want to use `utf8`, you can use the following function to replace all 4-byte sequences.
 
@@ -119,7 +124,7 @@ However, if you still want to use `utf8`, you can use the following function to 
 // Modified from: https://stackoverflow.com/a/24672780/2726557
 function mysql_utf8_sanitizer(string $str)
 {
-    return preg_replace(&apos;/[\x{10000}-\x{10FFFF}]/u&apos;, "\xEF\xBF\xBD", $str);
+    return preg_replace('/[\x{10000}-\x{10FFFF}]/u', "\xEF\xBF\xBD", $str);
 }
 ?>
 ```
@@ -138,8 +143,8 @@ To escape for the purposes of having your queries made successfully, and to prev
      
      // Assume this is a simple comments form with a name and comment.
 
-     $name = mysqli_real_escape_string($conn, $_POST[&apos;name&apos;]);
-     $comments = mysqli_real_escape_string($conn, $_POST[&apos;comments&apos;]);
+     $name = mysqli_real_escape_string($conn, $_POST['name']);
+     $comments = mysqli_real_escape_string($conn, $_POST['comments']);
 
      // Here is where most of the action happens.  But see note below
      // on dumping back out from the database
@@ -148,7 +153,7 @@ To escape for the purposes of having your queries made successfully, and to prev
      $name = htmlspecialchars($name);
      $comments = htmlspecialchars($comments);
 
-     $insert_sql = "INSERT INTO tbl_comments ( c_id, c_name, c_comments ) VALUES ( DEFAULT, &apos;" . $name . "&apos;, &apos;" . $comments . "&apos;)";
+     $insert_sql = "INSERT INTO tbl_comments ( c_id, c_name, c_comments ) VALUES ( DEFAULT, '" . $name . "', '" . $comments . "')";
 
      $res = mysqli_query($conn, $insert_sql);
      if ( $res === false ) {
@@ -160,7 +165,7 @@ To escape for the purposes of having your queries made successfully, and to prev
 ```
 
 
-//  Assume we&apos;re in a table with each row containing a name and comment
+//  Assume we're in a table with each row containing a name and comment
 
 
 
@@ -177,16 +182,16 @@ To escape for the purposes of having your queries made successfully, and to prev
           
           // This will output safe HTML entities if they went in
           // They will be displayed, but not interpreted
-          echo "&lt;tr&gt;&lt;td&gt;" . $row[&apos;c_name&apos;] . "&lt;/td&gt;";
-          echo "&lt;td&gt;" . $row[&apos;c_comments&apos;] . "&lt;/td&gt;&lt;/tr&gt;";
+          echo "&lt;tr&gt;&lt;td&gt;" . $row['c_name'] . "&lt;/td&gt;";
+          echo "&lt;td&gt;" . $row['c_comments'] . "&lt;/td&gt;&lt;/tr&gt;";
 
           // BUT, if you make this mistake...
-          echo "&lt;tr&gt;&lt;td&gt;" . htmlspecialchars_decode($row[&apos;c_name&apos;]) . "&lt;/td&gt;";
-          echo "&lt;td&gt;" . htmlspecialchars_decode($row[&apos;c_comments&apos;]) . "&lt;/td&gt;&lt;/tr&gt;";
+          echo "&lt;tr&gt;&lt;td&gt;" . htmlspecialchars_decode($row['c_name']) . "&lt;/td&gt;";
+          echo "&lt;td&gt;" . htmlspecialchars_decode($row['c_comments']) . "&lt;/td&gt;&lt;/tr&gt;";
 
           // ... then your entities will reflect back as the characters, so
-          // input such as this: "&gt;&lt;img src=x onerror=alert(&apos;xss&apos;)&gt;
-          // will display the &apos;xss&apos; in an alert box in the browser.
+          // input such as this: "&gt;&lt;img src=x onerror=alert('xss')&gt;
+          // will display the 'xss' in an alert box in the browser.
      }
 
      mysqli_free_result($res);
@@ -195,13 +200,13 @@ To escape for the purposes of having your queries made successfully, and to prev
 ```
 
 
-In most cases, you wouldn&apos;t want to go way overboard sanitizing untrusted user input, for instance:
+In most cases, you wouldn't want to go way overboard sanitizing untrusted user input, for instance:
 
 
 
 ```
 <?php
-     $my_input = htmlspecialchars( strip_tags($_POST[&apos;foo&apos;]) );
+     $my_input = htmlspecialchars( strip_tags($_POST['foo']) );
 ?>
 ```
 <br><br>This will junk a lot of input you might actually want, if you&apos;re rolling your own forum or comments section and it&apos;s for web developers, for example.  On the other hand, if legitimate users are never going to enter anything other than text, never HTML tags or anything else, it&apos;s not a bad idea.<br><br>The take-away is that mysqli_real_escape_string() is not good enough, and being overly-aggressive in sanitizing input may not be what you want.<br><br>Be aware that in the above example, it will protect you from sqli (run sqlmap on all your input fields and forms to check) but it won&apos;t protect your database from being filled with junk, effectively DoS&apos;ing your Web app in the process.<br><br>So after protecting against SQLi, even if you&apos;re behind CloudFlare and take other measures to protect your databases, there&apos;s still effectively a DoS attack that could slow down your Web App for legitimate users and make it a nightmare filled with rubbish that some poor maintainer has to clean out, if you don&apos;t take other measures.<br><br>So aside from escaping your stings, and protecting against SQLi and stored/reflected XSS, and maliciously loaded images or JS, there&apos;s also checking your input to see if it makes sense, so you don&apos;t get a database full of rubbish!<br><br>It just never ends... :-)  

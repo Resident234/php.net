@@ -11,36 +11,36 @@ If you are wanting to change the values of an existing multi-dimensional array, 
 ```
 <?php
 // array_walk_recursive fails to change your array unless you pass by reference.
-// Don&apos;t return values from your filter function, even though it&apos;s quite logical at a glance!
+// Don't return values from your filter function, even though it's quite logical at a glance!
 function bad_example($item,$key){
-   if($key==&apos;test&apos;){
-       return &apos;PHP Rocks&apos;;  // Don&apos;t do it
+   if($key=='test'){
+       return 'PHP Rocks';  // Don't do it
    }else{
-      return $item;  // Don&apos;t do this either
+      return $item;  // Don't do this either
    }
 }
 
 // array_walk_recursive pass-by-reference example
 function good_example(&amp;$item,$key){
-   if($key==&apos;test&apos;){
-        $item=&apos;PHP Rocks&apos;; // Do This!
+   if($key=='test'){
+        $item='PHP Rocks'; // Do This!
    }
 }
 
-$arr = array(&apos;a&apos;=&gt;&apos;1&apos;,&apos;b&apos;=&gt;&apos;2&apos;,&apos;test&apos;=&gt;&apos;Replace This&apos;);
+$arr = array('a'=>'1','b'=>'2','test'=>'Replace This');
 
-array_walk_recursive($arr,&apos;bad_example&apos;);
+array_walk_recursive($arr,'bad_example');
 var_dump($arr);
 /**
  * no errors, but prints...
- * array(&apos;a&apos;=&gt;&apos;1&apos;,&apos;b&apos;=&gt;&apos;2&apos;,&apos;test&apos;=&gt;&apos;Replace This&apos;);
+ * array('a'=>'1','b'=>'2','test'=>'Replace This');
  */
 
-array_walk_recursive($arr,&apos;good_example&apos;);
+array_walk_recursive($arr,'good_example');
 var_dump($arr);
 /**
  * prints...
- * array(&apos;a&apos;=&gt;&apos;1&apos;,&apos;b&apos;=&gt;&apos;2&apos;,&apos;test&apos;=&gt;&apos;PHP Rocks&apos;);
+ * array('a'=>'1','b'=>'2','test'=>'PHP Rocks');
  */
 
 ?>
@@ -55,8 +55,8 @@ One other silly thing you might try first is something like this:
 
 ```
 <?php
-// Resist the urge to do this, it doesn&apos;t work.
-$filtered = array_walk_recursive($unfiltered,&apos;filter_function&apos;);
+// Resist the urge to do this, it doesn't work.
+$filtered = array_walk_recursive($unfiltered,'filter_function');
 ?>
 ```
 <br><br>Of course, $filtered is just TRUE afterwards, not the filtered results you were wanting. Oh, it ran your function recursively alright, but changed all the values in the local function scope only and returns a boolean as the documentation states.  
@@ -68,8 +68,8 @@ I use RecursiveIteratorIterator with parameter CATCH_GET_CHILD to iterate on lea
 ```
 <?php
 // Iteration on leafs AND nodes
-foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($candidate), RecursiveIteratorIterator::CATCH_GET_CHILD) as $key =&gt; $value) {
-    echo &apos;My node &apos; . $key . &apos; with value &apos; . $value . PHP_EOL;
+foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($candidate), RecursiveIteratorIterator::CATCH_GET_CHILD) as $key => $value) {
+    echo 'My node ' . $key . ' with value ' . $value . PHP_EOL;
 }
 ?>
 ```

@@ -23,7 +23,7 @@ in_array("your-interface", class_implements($object_or_class_name));
 ?>
 ```
 
-would check if &apos;your-interface&apos; is ONE of the implemented interfaces.
+would check if 'your-interface' is ONE of the implemented interfaces.
 Note that you can use something similar to be sure the class only implements that, (whyever you would want that?)
 
 

@@ -7,25 +7,25 @@
 ```
 <?php
 $heap = new SplMaxHeap(); # Ascending order
-$heap-&gt;insert(&apos;E&apos;);
-$heap-&gt;insert(&apos;B&apos;);
-$heap-&gt;insert(&apos;D&apos;);
-$heap-&gt;insert(&apos;A&apos;);
-$heap-&gt;insert(&apos;C&apos;);
+$heap->insert('E');
+$heap->insert('B');
+$heap->insert('D');
+$heap->insert('A');
+$heap->insert('C');
 
-echo $heap-&gt;extract(), PHP_EOL; # E
-echo $heap-&gt;extract(), PHP_EOL; # D
+echo $heap->extract(), PHP_EOL; # E
+echo $heap->extract(), PHP_EOL; # D
 
 $heap = new SplMinHeap(); # Descending order
-$heap-&gt;insert(&apos;E&apos;);
-$heap-&gt;insert(&apos;B&apos;);
-$heap-&gt;insert(&apos;D&apos;);
-$heap-&gt;insert(&apos;A&apos;);
-$heap-&gt;insert(&apos;C&apos;);
+$heap->insert('E');
+$heap->insert('B');
+$heap->insert('D');
+$heap->insert('A');
+$heap->insert('C');
 
 print PHP_EOL;
-echo $heap-&gt;extract(), PHP_EOL; # A
-echo $heap-&gt;extract(), PHP_EOL; # B
+echo $heap->extract(), PHP_EOL; # A
+echo $heap->extract(), PHP_EOL; # B
 ?>
 ```
   

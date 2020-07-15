@@ -13,7 +13,7 @@ As PHP&apos;s Session Control does not handle session lifetimes correctly when u
 ```
 
 
-This code doesn&apos;t change the lifetime of the session when the user gets back at our site or refreshes the page. The session WILL expire after $lifetime seconds, no matter how many times the user requests the page. So we just overwrite the session cookie as follows:
+This code doesn't change the lifetime of the session when the user gets back at our site or refreshes the page. The session WILL expire after $lifetime seconds, no matter how many times the user requests the page. So we just overwrite the session cookie as follows:
 
 
 
@@ -34,7 +34,7 @@ Setting the domain for cookies in session_set_cookie_params() only affects the d
 <?php
 $currentCookieParams = session_get_cookie_params();
 
-$rootDomain = &apos;.example.com&apos;;
+$rootDomain = '.example.com';
 
 session_set_cookie_params(
     $currentCookieParams["lifetime"],
@@ -44,10 +44,10 @@ session_set_cookie_params(
     $currentCookieParams["httponly"]
 );
 
-session_name(&apos;mysessionname&apos;);
+session_name('mysessionname');
 session_start();
 
-setcookie($cookieName, $cookieValue, time() + 3600, &apos;/&apos;, $rootDomain);
+setcookie($cookieName, $cookieValue, time() + 3600, '/', $rootDomain);
 ?>
 ```
   
@@ -62,7 +62,7 @@ REMEMBER, that if you have a multi-subdomain site, you must put the following to
 
 ```
 <?php
-session_set_cookie_params(0, &apos;/&apos;, &apos;.example.com&apos;);
+session_set_cookie_params(0, '/', '.example.com');
 session_start();
 ?>
 ```

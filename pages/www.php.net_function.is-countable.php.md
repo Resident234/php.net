@@ -6,7 +6,7 @@ If you are unable to upgrade to PHP 7.3 (not released at the time of writing), y
 
 ```
 <?php
-if (!function_exists(&apos;is_countable&apos;)) {
+if (!function_exists('is_countable')) {
     function is_countable($var) {
         return (is_array($var) || $var instanceof Countable);
     }

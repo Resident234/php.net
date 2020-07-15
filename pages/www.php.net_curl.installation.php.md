@@ -14,21 +14,7 @@ It is not necessary to always (re)compile PHP. For me it was sufficient to insta
 
 #
 
-You may be confused, as I was, by the instructions for installing cURL in php.  The instruction "To use PHP&apos;s cURL support you must also compile PHP --with-curl[=DIR]..." was murky to me, since I didn&apos;t compile php when I installed it.  I just copied all of the necessary files to the correct folders as described very clearly in the php manual.<br><br>I am using Windows XP and Apache with php 5.1.6. In this situation, and it may apply to php versions of 5.0 and later, all one needs to do is remove the ";" from the front of the directive extension
-
-```
-<?php_curl.dll.  You should also check to make certain that libeay32.dll and ssleay32.dll are in your php directory with the other dll&apos;s.  This directory should already be in you path, so the instruction to put them in you path is not critical.
-
-You can then run phpinfo() and you should see a heading for curl in the listing.
-
-Succinctly, my installation of cURL consisted of removing the semi-colon in front of the ;extension
-
-```
-<?php_curl.dll line in php.ini, saving php.ini and restarting Apache.  You may wish to try this if you are using php 5.0 and later and are having difficulty understanding the instructions on the cURL installation page at php.net
-
-You might also find the information at http://curl.phptrack.com/forum/viewtopic.php?t=52 useful.?>
-```
-  
+You may be confused, as I was, by the instructions for installing cURL in php.  The instruction "To use PHP&apos;s cURL support you must also compile PHP --with-curl[=DIR]..." was murky to me, since I didn&apos;t compile php when I installed it.  I just copied all of the necessary files to the correct folders as described very clearly in the php manual.<br><br>I am using Windows XP and Apache with php 5.1.6. In this situation, and it may apply to php versions of 5.0 and later, all one needs to do is remove the ";" from the front of the directive extension=php_curl.dll.  You should also check to make certain that libeay32.dll and ssleay32.dll are in your php directory with the other dll&apos;s.  This directory should already be in you path, so the instruction to put them in you path is not critical.<br><br>You can then run phpinfo() and you should see a heading for curl in the listing.<br><br>Succinctly, my installation of cURL consisted of removing the semi-colon in front of the ;extension=php_curl.dll line in php.ini, saving php.ini and restarting Apache.  You may wish to try this if you are using php 5.0 and later and are having difficulty understanding the instructions on the cURL installation page at php.net<br><br>You might also find the information at http://curl.phptrack.com/forum/viewtopic.php?t=52 useful.  
 
 #
 

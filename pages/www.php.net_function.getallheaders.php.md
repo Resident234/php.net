@@ -6,16 +6,16 @@ it could be useful if you using nginx instead of apache<br><br>
 
 ```
 <?php
-if (!function_exists(&apos;getallheaders&apos;)) 
+if (!function_exists('getallheaders')) 
 {
     function getallheaders() 
     {
            $headers = [];
-       foreach ($_SERVER as $name =&gt; $value) 
+       foreach ($_SERVER as $name => $value) 
        {
-           if (substr($name, 0, 5) == &apos;HTTP_&apos;) 
+           if (substr($name, 0, 5) == 'HTTP_') 
            {
-               $headers[str_replace(&apos; &apos;, &apos;-&apos;, ucwords(strtolower(str_replace(&apos;_&apos;, &apos; &apos;, substr($name, 5)))))] = $value;
+               $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
            }
        }
        return $headers;

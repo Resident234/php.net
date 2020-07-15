@@ -15,7 +15,7 @@ the best solution - use mb_strtolower()
 
 
 ```
-<?php mb_strtolower("m&#x104;kA",&apos;UTF-8&apos;); ?>
+<?php mb_strtolower("m&#x104;kA",'UTF-8'); ?>
 ```
 <br>will return: m&#x105;ka  
 
@@ -51,7 +51,7 @@ the function  arraytolower will create duplicate entries since keys are case sen
 
 ```
 <?php
-$array = array(&apos;test1&apos; =&gt; &apos;asgAFasDAAd&apos;, &apos;TEST2&apos; =&gt; &apos;ASddhshsDGb&apos;, &apos;TeSt3 &apos;=&gt; &apos;asdasda@asdadadASDASDgh&apos;);
+$array = array('test1' => 'asgAFasDAAd', 'TEST2' => 'ASddhshsDGb', 'TeSt3 '=> 'asdasda@asdadadASDASDgh');
 
 $array = arraytolower($array);
 ?>
@@ -60,11 +60,11 @@ $array = arraytolower($array);
 /*
 Array
 (
-    [test1] =&gt; asgafasdaad
-    [TEST2] =&gt; ASddhshsDGb
-    [TeSt3] =&gt; asdasda@asdadadASDASDgh
-    [test2] =&gt; asddhshsdgb
-    [test3] =&gt; asdasda@asdadadasdasdgh
+    [test1] => asgafasdaad
+    [TEST2] => ASddhshsDGb
+    [TeSt3] => asdasda@asdadadASDASDgh
+    [test2] => asddhshsdgb
+    [test3] => asdasda@asdadadasdasdgh
 )
 */
 
@@ -77,7 +77,7 @@ I prefer this method
   function arraytolower($array, $include_leys=false) {
     
     if($include_leys) {
-      foreach($array as $key =&gt; $value) {
+      foreach($array as $key => $value) {
         if(is_array($value))
           $array2[strtolower($key)] = arraytolower($value, $include_leys);
         else
@@ -86,7 +86,7 @@ I prefer this method
       $array = $array2;
     }
     else {
-      foreach($array as $key =&gt; $value) {
+      foreach($array as $key => $value) {
         if(is_array($value))
           $array[$key] = arraytolower($value, $include_leys);
         else
@@ -106,7 +106,7 @@ which when used like this
 
 ```
 <?php
-$array = $array = array(&apos;test1&apos; =&gt; &apos;asgAFasDAAd&apos;, &apos;TEST2&apos; =&gt; &apos;ASddhshsDGb&apos;, &apos;TeSt3 &apos;=&gt; &apos;asdasda@asdadadASDASDgh&apos;);
+$array = $array = array('test1' => 'asgAFasDAAd', 'TEST2' => 'ASddhshsDGb', 'TeSt3 '=> 'asdasda@asdadadASDASDgh');
 
 $array1 = arraytolower($array);
 $array2 = arraytolower($array,true);

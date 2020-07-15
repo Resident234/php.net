@@ -7,7 +7,7 @@ current() also works on objects:<br><br>
 ```
 <?php
 
-  echo current((object) array(&apos;one&apos;, &apos;two&apos;)); // Outputs: one
+  echo current((object) array('one', 'two')); // Outputs: one
 
 ?>
 ```

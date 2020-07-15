@@ -7,9 +7,9 @@ Note that this also works with positional placeholders using the &apos;?&apos; t
 ```
 <?php
 
-$stmt = $db-&gt;prepare(&apos;SELECT * FROM mytable WHERE foo = ? AND bar = ?&apos;);
-$stmt-&gt;bindValue(1, &apos;somestring&apos;, SQLITE3_TEXT);
-$stmt-&gt;bindValue(2, 42, SQLITE3_INTEGER);
+$stmt = $db->prepare('SELECT * FROM mytable WHERE foo = ? AND bar = ?');
+$stmt->bindValue(1, 'somestring', SQLITE3_TEXT);
+$stmt->bindValue(2, 42, SQLITE3_INTEGER);
 
 ?>
 ```

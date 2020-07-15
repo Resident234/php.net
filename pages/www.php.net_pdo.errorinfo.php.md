@@ -6,11 +6,11 @@ Please note : that this example won&apos;t work if PDO::ATTR_EMULATE_PREPARES is
 
 ```
 <?php
-$dbh-&gt;setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
-$stmt = $dbh-&gt;prepare(&apos;bogus sql&apos;);
+$dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
+$stmt = $dbh->prepare('bogus sql');
 if (!$stmt) {
     echo "\nPDO::errorInfo():\n";
-    print_r($dbh-&gt;errorInfo());
+    print_r($dbh->errorInfo());
 }
 ?>
 ```
@@ -26,8 +26,8 @@ Some PDO drivers return a larger array. For example, the SQL Server driver retur
 
 ```
 <?php
-$numRows = $db-&gt;exec("DELETE FROM [TableName] WHERE ID between 6 and 17");
-print_r($db-&gt;errorInfo());
+$numRows = $db->exec("DELETE FROM [TableName] WHERE ID between 6 and 17");
+print_r($db->errorInfo());
 ?>
 ```
 <br><br>Result:<br><br>Array<br>(<br>    [0] =&gt; 00000<br>    [1] =&gt; 0<br>    [2] =&gt; (null) [0] (severity 0) []<br>    [3] =&gt; 0<br>    [4] =&gt; 0<br>)  

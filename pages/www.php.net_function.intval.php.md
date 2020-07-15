@@ -10,7 +10,7 @@ It seems intval is interpreting valid numeric strings differently between PHP 5.
 
 ```
 <?php
-echo intval(&apos;1e5&apos;);
+echo intval('1e5');
 ?>
 ```
 <br><br>will return 1 on PHP 5.6 and PHP 7.0,<br>but it will return 100000 on PHP 7.1.  
@@ -55,9 +55,9 @@ if you want to take a number from a string, no matter what it may contain, here 
 
 ```
 <?php
-function int($s){return(int)preg_replace(&apos;/[^\-\d]*(\-?\d*).*/&apos;,&apos;$1&apos;,$s);}
+function int($s){return(int)preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$s);}
 
-echo int(&apos;j18ugj9hu0gj5hg&apos;);
+echo int('j18ugj9hu0gj5hg');
 //output: 18
 ?>
 ```
@@ -68,9 +68,9 @@ this example returns an int, so it will follow the int rules, and has support fo
 
 ```
 <?php
-function int($s){return($a=preg_replace(&apos;/[^\-\d]*(\-?\d*).*/&apos;,&apos;$1&apos;,$s))?$a:&apos;0&apos;;}
+function int($s){return($a=preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$s))?$a:'0';}
 
-echo int(&apos;j-1809809808908099878758765ugj9hu0gj5hg&apos;);
+echo int('j-1809809808908099878758765ugj9hu0gj5hg');
 //output: -1809809808908099878758765
 ?>
 ```

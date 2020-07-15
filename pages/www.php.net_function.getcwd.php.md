@@ -13,12 +13,7 @@ It appears there is a change in functionality in PHP5 from PHP4 when using the C
     print getcwd() . "\n";
 ?>
 ```
-
-END
-
-cd /
-
-php -q /tmp/foo.php<br><br>PHP4 returns /tmp<br>PHP5 returns /<br><br>Something to be aware of.  
+<br>END<br><br>cd /<br><br>php -q /tmp/foo.php<br><br>PHP4 returns /tmp<br>PHP5 returns /<br><br>Something to be aware of.  
 
 #
 

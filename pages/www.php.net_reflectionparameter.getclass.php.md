@@ -14,12 +14,12 @@ class A {
 class B {
 }
 
-$refl = new ReflectionClass(&apos;A&apos;);
-$par = $refl-&gt;getMethod(&apos;b&apos;)-&gt;getParameters();
+$refl = new ReflectionClass('A');
+$par = $refl->getMethod('b')->getParameters();
 
-var_dump($par[0]-&gt;getClass()-&gt;getName());  // outputs B
-var_dump($par[1]-&gt;getClass());  // note that array type outputs NULL
-var_dump($par[2]-&gt;getClass());  // outputs NULL
+var_dump($par[0]->getClass()->getName());  // outputs B
+var_dump($par[1]->getClass());  // note that array type outputs NULL
+var_dump($par[2]->getClass());  // outputs NULL
 
 ?>
 ```

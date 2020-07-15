@@ -15,23 +15,23 @@ if (mysqli_connect_errno()) {
 }
 
 $query = "SELECT Name, CountryCode FROM City ORDER by ID LIMIT 3";
-$result = $mysqli-&gt;query($query);
+$result = $mysqli->query($query);
 
-while($row = $result-&gt;fetch_array())
+while($row = $result->fetch_array())
 {
 $rows[] = $row;
 }
 
 foreach($rows as $row)
 {
-echo $row[&apos;CountryCode&apos;];
+echo $row['CountryCode'];
 }
 
 /* free result set */
-$result-&gt;close();
+$result->close();
 
 /* close connection */
-$mysqli-&gt;close();
+$mysqli->close();
 ?>
 ```
   

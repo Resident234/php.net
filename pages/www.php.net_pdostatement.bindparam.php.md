@@ -7,13 +7,13 @@ I know this has been said before but I&apos;ll write a note on it too because I 
 ```
 <?php
 // Get the keyword from query string
-$keyword = $_GET[&apos;keyword&apos;];
+$keyword = $_GET['keyword'];
 // Prepare the command
-$sth = $dbh-&gt;prepare(&apos;SELECT * FROM `users` WHERE `firstname` LIKE :keyword&apos;);
+$sth = $dbh->prepare('SELECT * FROM `users` WHERE `firstname` LIKE :keyword');
 // Put the percentage sing on the keyword
 $keyword = "%".$keyword."%";
 // Bind the parameter
-$sth-&gt;bindParam(&apos;:keyword&apos;, $keyword, PDO::PARAM_STR);
+$sth->bindParam(':keyword', $keyword, PDO::PARAM_STR);
 ?>
 ```
   
@@ -24,8 +24,8 @@ This works ($val by reference):<br>
 
 ```
 <?php
-foreach ($params as $key =&gt; &amp;$val) {
-    $sth-&gt;bindParam($key, $val);
+foreach ($params as $key => &amp;$val) {
+    $sth->bindParam($key, $val);
 }
 ?>
 ```
@@ -36,8 +36,8 @@ This will fail ($val by value, because bindParam needs &amp;$variable):
 
 ```
 <?php
-foreach ($params as $key =&gt; $val) {
-    $sth-&gt;bindParam($key, $val);
+foreach ($params as $key => $val) {
+    $sth->bindParam($key, $val);
 }
 ?>
 ```
@@ -51,9 +51,9 @@ Note that when using PDOStatement::bindParam an integer is changed to a string v
 <?php
 $active = 1;
 var_dump($active);
-$ps-&gt;bindParam(":active", $active, PDO::PARAM_INT);
+$ps->bindParam(":active", $active, PDO::PARAM_INT);
 var_dump($active);
-$ps-&gt;execute();
+$ps->execute();
 var_dump($active);
 if ($active === 1) {
     // do something here
@@ -73,12 +73,12 @@ Please note, that PDO format numbers according to current locale. So if, locale 
 
 ```
 <?php
-setlocale(LC_ALL, &apos;pl_PL&apos;);
-$sth = $dbh-&gt;prepare(&apos;SELECT name FROM products WHERE price &lt; :price&apos;);
-$sth-&gt;bindParam(&apos;:price&apos;, 123.45, PDO::PARAM_STR);
-$sth-&gt;execute();
+setlocale(LC_ALL, 'pl_PL');
+$sth = $dbh->prepare('SELECT name FROM products WHERE price &lt; :price');
+$sth->bindParam(':price', 123.45, PDO::PARAM_STR);
+$sth->execute();
 // result:
-// SELECT name FROM products WHERE price &lt; &apos;123,45&apos;;
+// SELECT name FROM products WHERE price &lt; '123,45';
 ?>
 ```
   
@@ -89,9 +89,9 @@ Do not try to use the same named parameter twice in a single SQL statement, for 
 
 ```
 <?php
-$sql = &apos;SELECT * FROM some_table WHERE  some_value &gt; :value OR some_value &lt; :value&apos;;
-$stmt = $dbh-&gt;prepare($sql);
-$stmt-&gt;execute( array( &apos;:value&apos; =&gt; 3 ) );
+$sql = 'SELECT * FROM some_table WHERE  some_value &gt; :value OR some_value &lt; :value';
+$stmt = $dbh->prepare($sql);
+$stmt->execute( array( ':value' => 3 ) );
 ?>
 ```
 <br><br>...this will return no rows and no error -- you must use each parameter once and only once. Apparently this is expected behavior (according to this bug report: http://bugs.php.net/bug.php?id=33886)  because of portability issues.  

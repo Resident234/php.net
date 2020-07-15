@@ -9,7 +9,7 @@ Wondering why your preg_replace fails, even if you have used preg_quote?<br><br>
 To escape characters with special meaning, like: .-[]() and so on, use \Q and \E.<br><br>For example:<br><br>
 
 ```
-<?php echo ( preg_match(&apos;/^&apos;.( $myvar = &apos;te.t&apos; ).&apos;$/i&apos;, &apos;test&apos;) ? &apos;match&apos; : &apos;nomatch&apos; ); ?>
+<?php echo ( preg_match('/^'.( $myvar = 'te.t' ).'$/i', 'test') ? 'match' : 'nomatch' ); ?>
 ```
 
 
@@ -20,7 +20,7 @@ But:
 
 
 ```
-<?php echo ( preg_match(&apos;/^\Q&apos;.( $myvar = &apos;te.t&apos; ).&apos;\E$/i&apos;, &apos;test&apos;) ? &apos;match&apos; : &apos;nomatch&apos; ); ?>
+<?php echo ( preg_match('/^\Q'.( $myvar = 'te.t' ).'\E$/i', 'test') ? 'match' : 'nomatch' ); ?>
 ```
 <br><br>Will result in: nomatch  
 

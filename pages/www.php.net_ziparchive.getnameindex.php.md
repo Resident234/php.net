@@ -7,16 +7,16 @@ I couldn&apos;t find any how-to example for getting the filenames, so I made an 
 ```
 <?php
 $zip = new ZipArchive;
-if ($zip-&gt;open(&apos;items.zip&apos;))
+if ($zip->open('items.zip'))
 {
-     for($i = 0; $i &lt; $zip-&gt;numFiles; $i++)
+     for($i = 0; $i &lt; $zip->numFiles; $i++)
      {   
-          echo &apos;Filename: &apos; . $zip-&gt;getNameIndex($i) . &apos;&lt;br /&gt;&apos;;
+          echo 'Filename: ' . $zip->getNameIndex($i) . '&lt;br /&gt;';
      }
 }
 else
 {
-     echo &apos;Error reading zip-archive!&apos;;
+     echo 'Error reading zip-archive!';
 }
 ?>
 ```

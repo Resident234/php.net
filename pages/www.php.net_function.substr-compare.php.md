@@ -24,19 +24,9 @@ Take note of the `length` parameter: "The default value is the largest of the le
 
 ```
 <?php
-$hash = &apos;$5$lalalalalalalala$crypt.output.here&apos;;
-var_dump(substr_compare($hash, &apos;$5
-
-```
-<?php<br>$hash = &apos;$5$lalalalalalalala$crypt.output.here&apos;;<br>var_dump(substr_compare($hash, &apos;$5$&apos;, 0)); # int(34)<br>var_dump(substr_compare($hash, &apos;$5$&apos;, 0, 3)); # int(0)<br>var_dump(PHP_VERSION); # string(6) "5.3.14"<br>?>
-```
-apos;, 0)); # int(34)
-var_dump(substr_compare($hash, &apos;$5
-
-```
-<?php<br>$hash = &apos;$5$lalalalalalalala$crypt.output.here&apos;;<br>var_dump(substr_compare($hash, &apos;$5$&apos;, 0)); # int(34)<br>var_dump(substr_compare($hash, &apos;$5$&apos;, 0, 3)); # int(0)<br>var_dump(PHP_VERSION); # string(6) "5.3.14"<br>?>
-```
-apos;, 0, 3)); # int(0)
+$hash = '$5$lalalalalalalala$crypt.output.here';
+var_dump(substr_compare($hash, '$5  , 0)); # int(34)
+var_dump(substr_compare($hash, '$5  , 0, 3)); # int(0)
 var_dump(PHP_VERSION); # string(6) "5.3.14"
 ?>
 ```

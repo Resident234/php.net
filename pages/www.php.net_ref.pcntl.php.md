@@ -6,7 +6,7 @@ If you want to create a daemon in PHP, consider using System_Daemon http://pear.
 
 ```
 <?php
-// Include PEAR&apos;s Daemon Class
+// Include PEAR's Daemon Class
 require_once "System/Daemon.php";
 
 // Bare minimum setup

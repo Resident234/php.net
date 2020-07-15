@@ -6,8 +6,8 @@ A note for people who just couldn&apos;t get this working..<br><br>With PHP 5.1.
 
 ```
 <?php
-$img-&gt;setCompression(Imagick::COMPRESSION_JPEG);
-$img-&gt;setCompressionQuality(80);
+$img->setCompression(Imagick::COMPRESSION_JPEG);
+$img->setCompressionQuality(80);
 ?>
 ```
 
@@ -20,8 +20,8 @@ The code that works instead is:
 
 ```
 <?php
-$img-&gt;setImageCompression(Imagick::COMPRESSION_JPEG);
-$img-&gt;setImageCompressionQuality(80);
+$img->setImageCompression(Imagick::COMPRESSION_JPEG);
+$img->setImageCompressionQuality(80);
 ?>
 ```
 <br><br>and this is backwards compatible (Works on PHP 5.1.6 as well as 5.2.10)  

@@ -6,10 +6,10 @@ getimagesizefromstring function for &lt; 5.4<br><br>
 
 ```
 <?php
-   if (!function_exists(&apos;getimagesizefromstring&apos;)) {
+   if (!function_exists('getimagesizefromstring')) {
       function getimagesizefromstring($string_data)
       {
-         $uri = &apos;data://application/octet-stream;base64,&apos;  . base64_encode($string_data);
+         $uri = 'data://application/octet-stream;base64,'  . base64_encode($string_data);
          return getimagesize($uri);
       }
 }

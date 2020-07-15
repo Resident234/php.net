@@ -6,14 +6,14 @@ This function provides us the extremely simple solution for type filtering.<br><
 
 ```
 <?php
-if (!isset($_GET[&apos;a&apos;])) {
+if (!isset($_GET['a'])) {
     $a = null;
-} elseif (!is_string($_GET[&apos;a&apos;])) {
+} elseif (!is_string($_GET['a'])) {
     $a = false;
 } else {
-    $a = $_GET[&apos;a&apos;];
+    $a = $_GET['a'];
 }
-$b = isset($_GET[&apos;b&apos;]) &amp;&amp; is_string($_GET[&apos;b&apos;]) ? $_GET[&apos;b&apos;] : &apos;&apos;;
+$b = isset($_GET['b']) &amp;&amp; is_string($_GET['b']) ? $_GET['b'] : '';
 ?>
 ```
 
@@ -23,8 +23,8 @@ With this function...
 
 ```
 <?php
-$a = filter_input(INPUT_GET, &apos;a&apos;);
-$b = (string)filter_input(INPUT_GET, &apos;b&apos;);
+$a = filter_input(INPUT_GET, 'a');
+$b = (string)filter_input(INPUT_GET, 'b');
 ?>
 ```
 <br><br>Yes, FILTER_REQUIRE_SCALAR seems to be set as a default option. <br>It&apos;s very helpful for eliminating E_NOTICE, E_WARNING and E_ERROR. <br>This fact should be documented.  
@@ -39,7 +39,7 @@ var_dump($_SERVER);
 foreach ( array_keys($_SERVER) as $b ) {
     var_dump($b, filter_input(INPUT_SERVER, $b));
 }
-echo &apos;&lt;hr&gt;&apos;;
+echo '&lt;hr&gt;';
 var_dump($_ENV);
 foreach ( array_keys($_ENV) as $b ) {
     var_dump($b, filter_input(INPUT_ENV, $b));
@@ -55,7 +55,7 @@ If your $_POST contains an array value:<br>
 ```
 <?php
 $_POST  = array(
-    &apos;var&apos; =&gt; array(&apos;more&apos;, &apos;than&apos;, &apos;one&apos;, &apos;values&apos;)
+    'var' => array('more', 'than', 'one', 'values')
 );
 ?>
 ```
@@ -65,7 +65,7 @@ you should use FILTER_REQUIRE_ARRAY option:
 
 ```
 <?php
-var_dump(filter_input(INPUT_POST, &apos;var&apos;, FILTER_DEFAULT , FILTER_REQUIRE_ARRAY));
+var_dump(filter_input(INPUT_POST, 'var', FILTER_DEFAULT , FILTER_REQUIRE_ARRAY));
 ?>
 ```
 <br>Otherwise it returns false.  
@@ -76,12 +76,12 @@ Note that this function doesn&apos;t (or at least doesn&apos;t seem to) actually
 
 ```
 <?php
-$_GET[&apos;search&apos;] = &apos;foo&apos;; // This has no effect on the filter_input
+$_GET['search'] = 'foo'; // This has no effect on the filter_input
 
-$search_html = filter_input(INPUT_GET, &apos;search&apos;, FILTER_SANITIZE_SPECIAL_CHARS);
-$search_url = filter_input(INPUT_GET, &apos;search&apos;, FILTER_SANITIZE_ENCODED);
+$search_html = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
+$search_url = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_ENCODED);
 echo "You have searched for $search_html.\n";
-echo "&lt;a href=&apos;?search=$search_url&apos;&gt;Search again.&lt;/a&gt;";
+echo "&lt;a href='?search=$search_url'&gt;Search again.&lt;/a&gt;";
 ?>
 ```
 <br><br>If you need to set a default input value and filter that, use filter_var on your required input variable instead  
@@ -101,8 +101,8 @@ class myValidator
 }
 
 $myValidator = new myValidator;
-$options = array(&apos;options&apos; =&gt; array($myValidator, &apos;username&apos;));
-$username = filter_input(INPUT_GET, &apos;username&apos;, FILTER_CALLBACK, $options);
+$options = array('options' => array($myValidator, 'username'));
+$username = filter_input(INPUT_GET, 'username', FILTER_CALLBACK, $options);
 var_dump($username);
 ?>
 ```
@@ -114,9 +114,9 @@ Here is an example how to work with the options-parameter. Notice the &apos;opti
 
 ```
 <?php
-$options=array(&apos;options&apos;=&gt;array(&apos;default&apos;=&gt;5, &apos;min_range&apos;=&gt;0, &apos;max_range&apos;=&gt;9));
+$options=array('options'=>array('default'=>5, 'min_range'=>0, 'max_range'=>9));
 
-$priority=filter_input(INPUT_GET, &apos;priority&apos;, FILTER_VALIDATE_INT, $options);
+$priority=filter_input(INPUT_GET, 'priority', FILTER_VALIDATE_INT, $options);
 ?>
 ```
 <br><br>$priority will be 5 if the priority-Parameter isn&apos;t set or out the given range.  

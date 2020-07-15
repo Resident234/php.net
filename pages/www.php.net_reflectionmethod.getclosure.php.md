@@ -9,7 +9,7 @@ You can call private methods with getClosure():<br><br>
 
 function call_private_method($object, $method, $args = array()) {
     $reflection = new ReflectionClass(get_class($object));
-    $closure = $reflection-&gt;getMethod($method)-&gt;getClosure($object);
+    $closure = $reflection->getMethod($method)->getClosure($object);
     return call_user_func_array($closure, $args);
 }
 
@@ -18,12 +18,12 @@ class Example {
     private $x = 1, $y = 10;
 
     private function sum() {
-        print $this-&gt;x + $this-&gt;y;
+        print $this->x + $this->y;
     }
 
 }
 
-call_private_method(new Example(), &apos;sum&apos;);
+call_private_method(new Example(), 'sum');
 
 ?>
 ```

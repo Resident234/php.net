@@ -7,11 +7,11 @@ For anyone interested in the &apos;base64url&apos; variant encoding, you can use
 ```
 <?php
 function base64url_encode($data) {
-  return rtrim(strtr(base64_encode($data), &apos;+/&apos;, &apos;-_&apos;), &apos;=&apos;);
+  return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
 }
 
 function base64url_decode($data) {
-  return base64_decode(str_pad(strtr($data, &apos;-_&apos;, &apos;+/&apos;), strlen($data) % 4, &apos;=&apos;, STR_PAD_RIGHT));
+  return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
 }
 ?>
 ```
@@ -28,20 +28,20 @@ gutzmer at usa dot net&apos;s ( http://php.net/manual/en/function.base64-encode.
 ```
 <?php
 function base64url_encode( $data ){
-  return rtrim( strtr( base64_encode( $data ), &apos;+/&apos;, &apos;-_&apos;), &apos;=&apos;);
+  return rtrim( strtr( base64_encode( $data ), '+/', '-_'), '=');
 }
 
 function base64url_decode( $data ){
-  return base64_decode( strtr( $data, &apos;-_&apos;, &apos;+/&apos;) . str_repeat(&apos;=&apos;, 3 - ( 3 + strlen( $data )) % 4 ));
+  return base64_decode( strtr( $data, '-_', '+/') . str_repeat('=', 3 - ( 3 + strlen( $data )) % 4 ));
 }
 
 // proof
-for( $i = 0, $s = &apos;&apos;; $i &lt; 24; ++$i, $s .= substr("$i", -1 )){
+for( $i = 0, $s = ''; $i &lt; 24; ++$i, $s .= substr("$i", -1 )){
   $base64_encoded    = base64_encode(    $s );
   $base64url_encoded = base64url_encode( $s );
   $base64url_decoded = base64url_decode( $base64url_encoded );
-  $base64_restored   = strtr( $base64url_encoded, &apos;-_&apos;, &apos;+/&apos;)
-                     . str_repeat(&apos;=&apos;,
+  $base64_restored   = strtr( $base64url_encoded, '-_', '+/')
+                     . str_repeat('=',
                          3 - ( 3 + strlen( $base64url_encoded )) % 4
                        );
   echo "$s&lt;br&gt;$base64url_decoded&lt;br&gt;$base64_encoded&lt;br&gt;$base64_restored&lt;br&gt;$base64url_encoded&lt;br&gt;&lt;br&gt;";
@@ -78,7 +78,7 @@ A function I&apos;m using to return local images as base64 encrypted code, i.e. 
 function base64_encode_image ($filename=string,$filetype=string) {
     if ($filename) {
         $imgbinary = fread(fopen($filename, "r"), filesize($filename));
-        return &apos;data:image/&apos; . $filetype . &apos;;base64,&apos; . base64_encode($imgbinary);
+        return 'data:image/' . $filetype . ';base64,' . base64_encode($imgbinary);
     }
 }
 ?>
@@ -92,7 +92,7 @@ used as so
     background: url("
 
 ```
-<?php echo base64_encode_image (&apos;img/logo.png&apos;,&apos;png&apos;); ?>
+<?php echo base64_encode_image ('img/logo.png','png'); ?>
 ```
 ") no-repeat right 5px;
 }
@@ -103,7 +103,7 @@ or
 &lt;img src="
 
 ```
-<?php echo base64_encode_image (&apos;img/logo.png&apos;,&apos;png&apos;); ?>
+<?php echo base64_encode_image ('img/logo.png','png'); ?>
 ```
 "/&gt;  
 
@@ -113,10 +113,10 @@ Unfortunately my "function" for encoding base64 on-the-fly from 2007 [which has 
 
 ```
 <?php
-$fh = fopen(&apos;Input-File&apos;, &apos;rb&apos;);
-//$fh2 = fopen(&apos;Output-File&apos;, &apos;wb&apos;);
+$fh = fopen('Input-File', 'rb');
+//$fh2 = fopen('Output-File', 'wb');
 
-$cache = &apos;&apos;;
+$cache = '';
 $eof = false;
 
 while (1) {
@@ -125,23 +125,23 @@ while (1) {
         if (!feof($fh)) {
             $row = fgets($fh, 4096);
         } else {
-            $row = &apos;&apos;;
+            $row = '';
             $eof = true;
         }
     }
 
-    if ($cache !== &apos;&apos;)
+    if ($cache !== '')
         $row = $cache.$row;
     elseif ($eof)
         break;
 
     $b64 = base64_encode($row);
-    $put = &apos;&apos;;
+    $put = '';
 
     if (strlen($b64) &lt; 76) {
         if ($eof) {
             $put = $b64."\n";
-            $cache = &apos;&apos;;
+            $cache = '';
         } else {
             $cache = $row;
         }
@@ -155,15 +155,15 @@ while (1) {
         $cache = base64_decode($b64);
 
     } else {
-        if (!$eof &amp;&amp; $b64{75} == &apos;=&apos;) {
+        if (!$eof &amp;&amp; $b64{75} == '=') {
             $cache = $row;
         } else {
             $put = $b64."\n";
-            $cache = &apos;&apos;;
+            $cache = '';
         }
     }
 
-    if ($put !== &apos;&apos;) {
+    if ($put !== '') {
         echo $put;
         //fputs($fh2, $put);
         //fputs($fh2, base64_decode($put));        // for comparing

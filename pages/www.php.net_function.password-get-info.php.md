@@ -11,27 +11,27 @@ If you&apos;re curious to use this method to determine if there is someway to ev
 $password_plaintext = "12345";
 
 // Hash it up, fuzzball!
-$password_hash = password_hash( $password_plaintext, PASSWORD_DEFAULT, [ &apos;cost&apos; =&gt; 11 ] );
+$password_hash = password_hash( $password_plaintext, PASSWORD_DEFAULT, [ 'cost' => 11 ] );
 
 // What do we get?
 print_r( password_get_info( $password_hash ) );
 
 /* returns:
 Array ( 
-    [algo] =&gt; 1 
-    [algoName] =&gt; bcrypt  // Your server&apos;s default.
-    [options] =&gt; Array ( [cost] =&gt; 11 ) 
+    [algo] => 1 
+    [algoName] => bcrypt  // Your server's default.
+    [options] => Array ( [cost] => 11 ) 
 )
 */
 
-// What about if it&apos;s un-hashed?...
+// What about if it's un-hashed?...
 print_r( password_get_info( $password_plaintext ) );
 
 /* returns:
 Array ( 
-    [algo] =&gt; 0 
-    [algoName] =&gt; unknown 
-    [options] =&gt; Array ( ) 
+    [algo] => 0 
+    [algoName] => unknown 
+    [options] => Array ( ) 
 ) 
 */
 ?>

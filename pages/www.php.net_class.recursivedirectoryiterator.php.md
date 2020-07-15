@@ -7,9 +7,9 @@ If you would like to get, say, all the *.php files in your project folder, recur
 ```
 <?php
 
-$Directory = new RecursiveDirectoryIterator(&apos;path/to/project/&apos;);
+$Directory = new RecursiveDirectoryIterator('path/to/project/');
 $Iterator = new RecursiveIteratorIterator($Directory);
-$Regex = new RegexIterator($Iterator, &apos;/^.+\.php$/i&apos;, RecursiveRegexIterator::GET_MATCH);
+$Regex = new RegexIterator($Iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
 
 ?>
 ```
@@ -26,7 +26,7 @@ $iterator = new \RecursiveIteratorIterator($directory);
 $files = array();
 foreach ($iterator as $info) {
   if (...custom conditions...) {
-    $files[] = $info-&gt;getPathname();
+    $files[] = $info->getPathname();
   }
 }
 ?>
@@ -41,7 +41,7 @@ foreach ($iterator as $info) {
 
 Remember this simple rule of thumb:
 
-&#x2192; A RecursiveDirectoryIterator must be FILTERED or you have a solid reason for why it shouldn&apos;t.
+&#x2192; A RecursiveDirectoryIterator must be FILTERED or you have a solid reason for why it shouldn't.
 
 On PHP &lt;5.4, implement the following - your custom conditions move into a proper filter:
 
@@ -54,24 +54,24 @@ $filter = new MyRecursiveFilterIterator($directory);
 $iterator = new \RecursiveIteratorIterator($filter);
 $files = array();
 foreach ($iterator as $info) {
-  $files[] = $info-&gt;getPathname();
+  $files[] = $info->getPathname();
 }
 
 class MyRecursiveFilterIterator extends \RecursiveFilterIterator {
 
   public function accept() {
-    $filename = $this-&gt;current()-&gt;getFilename();
+    $filename = $this->current()->getFilename();
     // Skip hidden files and directories.
-    if ($name[0] === &apos;.&apos;) {
+    if ($name[0] === '.') {
       return FALSE;
     }
-    if ($this-&gt;isDir()) {
+    if ($this->isDir()) {
       // Only recurse into intended subdirectories.
-      return $name === &apos;wanted_dirname&apos;;
+      return $name === 'wanted_dirname';
     }
     else {
       // Only consume files of interest.
-      return strpos($name, &apos;wanted_filename&apos;) === 0;
+      return strpos($name, 'wanted_filename') === 0;
     }
   }
 
@@ -89,22 +89,22 @@ On PHP 5.4+, PHP core addressed the slightly cumbersome issue of having to creat
 $directory = new \RecursiveDirectoryIterator($path, \FilesystemIterator::FOLLOW_SYMLINKS);
 $filter = new \RecursiveCallbackFilterIterator($directory, function ($current, $key, $iterator) {
   // Skip hidden files and directories.
-  if ($current-&gt;getFilename()[0] === &apos;.&apos;) {
+  if ($current->getFilename()[0] === '.') {
     return FALSE;
   }
-  if ($current-&gt;isDir()) {
+  if ($current->isDir()) {
     // Only recurse into intended subdirectories.
-    return $current-&gt;getFilename() === &apos;wanted_dirname&apos;;
+    return $current->getFilename() === 'wanted_dirname';
   }
   else {
     // Only consume files of interest.
-    return strpos($current-&gt;getFilename(), &apos;wanted_filename&apos;) === 0;
+    return strpos($current->getFilename(), 'wanted_filename') === 0;
   }
 });
 $iterator = new \RecursiveIteratorIterator($filter);
 $files = array();
 foreach ($iterator as $info) {
-  $files[] = $info-&gt;getPathname();
+  $files[] = $info->getPathname();
 }
 ?>
 ```
@@ -117,10 +117,10 @@ Usage example:<br><br>
 ```
 <?php
 
-$path = realpath(&apos;/etc&apos;);
+$path = realpath('/etc');
 
 $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
-foreach($objects as $name =&gt; $object){
+foreach($objects as $name => $object){
     echo "$name\n";
 }
 
@@ -137,12 +137,12 @@ If you need to convert a nested directory tree into a multidimensional array, us
 $ritit = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($startpath), RecursiveIteratorIterator::CHILD_FIRST);
 $r = array();
 foreach ($ritit as $splFileInfo) {
-   $path = $splFileInfo-&gt;isDir()
-         ? array($splFileInfo-&gt;getFilename() =&gt; array())
-         : array($splFileInfo-&gt;getFilename());
+   $path = $splFileInfo->isDir()
+         ? array($splFileInfo->getFilename() => array())
+         : array($splFileInfo->getFilename());
 
-   for ($depth = $ritit-&gt;getDepth() - 1; $depth &gt;= 0; $depth--) {
-       $path = array($ritit-&gt;getSubIterator($depth)-&gt;current()-&gt;getFilename() =&gt; $path);
+   for ($depth = $ritit->getDepth() - 1; $depth &gt;= 0; $depth--) {
+       $path = array($ritit->getSubIterator($depth)->current()->getFilename() => $path);
    }
    $r = array_merge_recursive($r, $path);
 }

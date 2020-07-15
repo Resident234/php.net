@@ -17,8 +17,8 @@ After wrestling with DateTime::diff for a while it finally dawned on me the prob
 
 // Example
 
-   $strStart = &apos;2013-06-19 18:25&apos;;
-   $strEnd   = &apos;06/19/13 21:47&apos;;
+   $strStart = '2013-06-19 18:25';
+   $strEnd   = '06/19/13 21:47';
 
 ?>
 ```
@@ -46,7 +46,7 @@ After wrestling with DateTime::diff for a while it finally dawned on me the prob
 ```
 <?php
 
-   $dteDiff  = $dteStart-&gt;diff($dteEnd);
+   $dteDiff  = $dteStart->diff($dteEnd);
 
 ?>
 ```
@@ -60,7 +60,7 @@ After wrestling with DateTime::diff for a while it finally dawned on me the prob
 ```
 <?php
 
-   print $dteDiff-&gt;format("%H:%I:%S");
+   print $dteDiff->format("%H:%I:%S");
 
 /*
     Outputs
@@ -78,8 +78,8 @@ Using the identical (===) comparision operator in different but equal objects wi
 
 ```
 <?php
-$c = new DateTime( &apos;2014-04-20&apos; );
-$d = new DateTime( &apos;2014-04-20&apos; );
+$c = new DateTime( '2014-04-20' );
+$d = new DateTime( '2014-04-20' );
 var_dump( $d === $d ); #true
 var_dump( $d === $c ); #false
 var_dump( $d == $c ); #true
@@ -100,14 +100,14 @@ function pluralize( $count, $text )
 
 function ago( $datetime )
 {
-    $interval = date_create(&apos;now&apos;)-&gt;diff( $datetime );
-    $suffix = ( $interval-&gt;invert ? &apos; ago&apos; : &apos;&apos; );
-    if ( $v = $interval-&gt;y &gt;= 1 ) return pluralize( $interval-&gt;y, &apos;year&apos; ) . $suffix;
-    if ( $v = $interval-&gt;m &gt;= 1 ) return pluralize( $interval-&gt;m, &apos;month&apos; ) . $suffix;
-    if ( $v = $interval-&gt;d &gt;= 1 ) return pluralize( $interval-&gt;d, &apos;day&apos; ) . $suffix;
-    if ( $v = $interval-&gt;h &gt;= 1 ) return pluralize( $interval-&gt;h, &apos;hour&apos; ) . $suffix;
-    if ( $v = $interval-&gt;i &gt;= 1 ) return pluralize( $interval-&gt;i, &apos;minute&apos; ) . $suffix;
-    return pluralize( $interval-&gt;s, &apos;second&apos; ) . $suffix;
+    $interval = date_create('now')->diff( $datetime );
+    $suffix = ( $interval->invert ? ' ago' : '' );
+    if ( $v = $interval->y &gt;= 1 ) return pluralize( $interval->y, 'year' ) . $suffix;
+    if ( $v = $interval->m &gt;= 1 ) return pluralize( $interval->m, 'month' ) . $suffix;
+    if ( $v = $interval->d &gt;= 1 ) return pluralize( $interval->d, 'day' ) . $suffix;
+    if ( $v = $interval->h &gt;= 1 ) return pluralize( $interval->h, 'hour' ) . $suffix;
+    if ( $v = $interval->i &gt;= 1 ) return pluralize( $interval->i, 'minute' ) . $suffix;
+    return pluralize( $interval->s, 'second' ) . $suffix;
 }
 ?>
 ```
@@ -119,13 +119,13 @@ It seems that while DateTime in general does preserve microseconds, DateTime::di
 
 ```
 <?php
-$val1 = &apos;2014-03-18 10:34:09.939&apos;;
-$val2 = &apos;2014-03-18 10:34:09.940&apos;;
+$val1 = '2014-03-18 10:34:09.939';
+$val2 = '2014-03-18 10:34:09.940';
 
 $datetime1 = new DateTime($val1);
 $datetime2 = new DateTime($val2);
 echo "&lt;pre&gt;";
-var_dump($datetime1-&gt;diff($datetime2));
+var_dump($datetime1->diff($datetime2));
 
 if($datetime1 &gt; $datetime2)
   echo "1 is bigger";
@@ -147,7 +147,7 @@ Example:
 <?php
 if($datetime1 &gt; $datetime2)
   echo "1 is bigger";
-else if ($datetime1-&gt;format(&apos;u&apos;) &gt; $datetime2-&gt;format(&apos;u&apos;))
+else if ($datetime1->format('u') &gt; $datetime2->format('u'))
   echo "1 is bigger";
 else
   echo "2 is bigger";
@@ -166,28 +166,28 @@ Though I found a number of people who ran into the issue of 5.2 and lower not su
 ```
 <?php
 function get_timespan_string($older, $newer) {
-  $Y1 = $older-&gt;format(&apos;Y&apos;);
-  $Y2 = $newer-&gt;format(&apos;Y&apos;);
+  $Y1 = $older->format('Y');
+  $Y2 = $newer->format('Y');
   $Y = $Y2 - $Y1;
 
-  $m1 = $older-&gt;format(&apos;m&apos;);
-  $m2 = $newer-&gt;format(&apos;m&apos;);
+  $m1 = $older->format('m');
+  $m2 = $newer->format('m');
   $m = $m2 - $m1;
 
-  $d1 = $older-&gt;format(&apos;d&apos;);
-  $d2 = $newer-&gt;format(&apos;d&apos;);
+  $d1 = $older->format('d');
+  $d2 = $newer->format('d');
   $d = $d2 - $d1;
 
-  $H1 = $older-&gt;format(&apos;H&apos;);
-  $H2 = $newer-&gt;format(&apos;H&apos;);
+  $H1 = $older->format('H');
+  $H2 = $newer->format('H');
   $H = $H2 - $H1;
 
-  $i1 = $older-&gt;format(&apos;i&apos;);
-  $i2 = $newer-&gt;format(&apos;i&apos;);
+  $i1 = $older->format('i');
+  $i2 = $newer->format('i');
   $i = $i2 - $i1;
 
-  $s1 = $older-&gt;format(&apos;s&apos;);
-  $s2 = $newer-&gt;format(&apos;s&apos;);
+  $s1 = $older->format('s');
+  $s2 = $newer->format('s');
   $s = $s2 - $s1;
 
   if($s &lt; 0) {
@@ -238,32 +238,32 @@ function get_days_for_previous_month($current_month, $current_year) {
 
 function create_timespan_string($Y, $m, $d, $H, $i, $s)
 {
-  $timespan_string = &apos;&apos;;
+  $timespan_string = '';
   $found_first_diff = false;
   if($Y &gt;= 1) {
     $found_first_diff = true;
-    $timespan_string .= pluralize($Y, &apos;year&apos;).&apos; &apos;;
+    $timespan_string .= pluralize($Y, 'year').' ';
   }
   if($m &gt;= 1 || $found_first_diff) {
     $found_first_diff = true;
-    $timespan_string .= pluralize($m, &apos;month&apos;).&apos; &apos;;
+    $timespan_string .= pluralize($m, 'month').' ';
   }
   if($d &gt;= 1 || $found_first_diff) {
     $found_first_diff = true;
-    $timespan_string .= pluralize($d, &apos;day&apos;).&apos; &apos;;
+    $timespan_string .= pluralize($d, 'day').' ';
   }
   if($H &gt;= 1 || $found_first_diff) {
     $found_first_diff = true;
-    $timespan_string .= pluralize($H, &apos;hour&apos;).&apos; &apos;;
+    $timespan_string .= pluralize($H, 'hour').' ';
   }
   if($i &gt;= 1 || $found_first_diff) {
     $found_first_diff = true;
-    $timespan_string .= pluralize($i, &apos;minute&apos;).&apos; &apos;;
+    $timespan_string .= pluralize($i, 'minute').' ';
   }
   if($found_first_diff) {
-    $timespan_string .= &apos;and &apos;;
+    $timespan_string .= 'and ';
   }
-  $timespan_string .= pluralize($s, &apos;second&apos;);
+  $timespan_string .= pluralize($s, 'second');
   return $timespan_string;
 }
 
@@ -281,9 +281,9 @@ I needed to get the exact number of days between 2 dates and was relying on the 
 
 ```
 <?php
-    $today = new DateTime(date(&apos;2011-11-09&apos;));
-    $appt  = new DateTime(date(&apos;2011-12-09&apos;));
-    $days_until_appt = $appt-&gt;diff($today)-&gt;d;
+    $today = new DateTime(date('2011-11-09'));
+    $appt  = new DateTime(date('2011-12-09'));
+    $days_until_appt = $appt->diff($today)->d;
 ?>
 ```
 
@@ -296,7 +296,7 @@ I had to end up using :
 
 ```
 <?php
-    $days_until_appt = $appt-&gt;diff($today)-&gt;days;
+    $days_until_appt = $appt->diff($today)->days;
 ?>
 ```
 <br><br>to get 30.  

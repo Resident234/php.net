@@ -7,13 +7,13 @@
 ```
 <?php
 
-if (! function_exists(&apos;pcntl_fork&apos;)) die(&apos;PCNTL functions not available on this PHP installation&apos;);
+if (! function_exists('pcntl_fork')) die('PCNTL functions not available on this PHP installation');
 
 for ($x = 1; $x &lt; 5; $x++) {
    switch ($pid = pcntl_fork()) {
       case -1:
          // @fail
-         die(&apos;Fork failed&apos;);
+         die('Fork failed');
          break;
 
       case 0:
@@ -33,10 +33,7 @@ for ($x = 1; $x &lt; 5; $x++) {
 print "Done! :^)\n\n";
 ?>
 ```
-
-
-Which outputs:
-php -q fork_n_wait.php<br>FORK: Child #1 preparing to nuke...<br>PHP Fatal error:  Call to undefined function generate_fatal_error() in ~fork_n_wait.php on line 16<br>FORK: Parent, letting the child run amok...<br>FORK: Child #2 preparing to nuke...<br>PHP Fatal error:  Call to undefined function generate_fatal_error() in ~/fork_n_wait.php on line 16<br>FORK: Parent, letting the child run amok...<br>FORK: Child #3 preparing to nuke...<br>PHP Fatal error:  Call to undefined function generate_fatal_error() in ~/fork_n_wait.php on line 16<br>FORK: Parent, letting the child run amok...<br>FORK: Child #4 preparing to nuke...<br>PHP Fatal error:  Call to undefined function generate_fatal_error() in ~/fork_n_wait.php on line 16<br>FORK: Parent, letting the child run amok...<br>Done! :^)  
+<br><br>Which outputs:<br>php -q fork_n_wait.php<br>FORK: Child #1 preparing to nuke...<br>PHP Fatal error:  Call to undefined function generate_fatal_error() in ~fork_n_wait.php on line 16<br>FORK: Parent, letting the child run amok...<br>FORK: Child #2 preparing to nuke...<br>PHP Fatal error:  Call to undefined function generate_fatal_error() in ~/fork_n_wait.php on line 16<br>FORK: Parent, letting the child run amok...<br>FORK: Child #3 preparing to nuke...<br>PHP Fatal error:  Call to undefined function generate_fatal_error() in ~/fork_n_wait.php on line 16<br>FORK: Parent, letting the child run amok...<br>FORK: Child #4 preparing to nuke...<br>PHP Fatal error:  Call to undefined function generate_fatal_error() in ~/fork_n_wait.php on line 16<br>FORK: Parent, letting the child run amok...<br>Done! :^)  
 
 #
 
@@ -46,67 +43,67 @@ I just thought of contributing to this awesome community and hope this can be of
 <?php
 function fork_process($options) 
 {
-    $shared_memory_monitor = shmop_open(ftok(__FILE__, chr(0)), "c", 0644, count($options[&apos;process&apos;]));
+    $shared_memory_monitor = shmop_open(ftok(__FILE__, chr(0)), "c", 0644, count($options['process']));
     $shared_memory_ids = (object) array();
-    for ($i = 1; $i &lt;= count($options[&apos;process&apos;]); $i++) 
+    for ($i = 1; $i &lt;= count($options['process']); $i++) 
     {
-        $shared_memory_ids-&gt;$i = shmop_open(ftok(__FILE__, chr($i)), "c", 0644, $options[&apos;size&apos;]);
+        $shared_memory_ids->$i = shmop_open(ftok(__FILE__, chr($i)), "c", 0644, $options['size']);
     }
-    for ($i = 1; $i &lt;= count($options[&apos;process&apos;]); $i++) 
+    for ($i = 1; $i &lt;= count($options['process']); $i++) 
     { 
         $pid = pcntl_fork(); 
         if (!$pid) 
         { 
             if($i==1)
                 usleep(100000);
-            $shared_memory_data = $options[&apos;process&apos;][$i - 1]();
-            shmop_write($shared_memory_ids-&gt;$i, $shared_memory_data, 0);
+            $shared_memory_data = $options['process'][$i - 1]();
+            shmop_write($shared_memory_ids->$i, $shared_memory_data, 0);
             shmop_write($shared_memory_monitor, "1", $i-1);
             exit($i); 
         } 
     } 
     while (pcntl_waitpid(0, $status) != -1) 
     { 
-        if(shmop_read($shared_memory_monitor, 0, count($options[&apos;process&apos;])) == str_repeat("1", count($options[&apos;process&apos;])))
+        if(shmop_read($shared_memory_monitor, 0, count($options['process'])) == str_repeat("1", count($options['process'])))
         {
             $result = array();
-            foreach($shared_memory_ids as $key=&gt;$value)
+            foreach($shared_memory_ids as $key=>$value)
             {
-                $result[$key-1] = shmop_read($shared_memory_ids-&gt;$key, 0, $options[&apos;size&apos;]);
-                shmop_delete($shared_memory_ids-&gt;$key);
+                $result[$key-1] = shmop_read($shared_memory_ids->$key, 0, $options['size']);
+                shmop_delete($shared_memory_ids->$key);
             }
             shmop_delete($shared_memory_monitor);
-            $options[&apos;callback&apos;]($result);
+            $options['callback']($result);
         }    
     } 
 }
 
 // Create shared memory block of size 1M for each function.
-$options[&apos;size&apos;] = pow(1024,2); 
+$options['size'] = pow(1024,2); 
 
 // Define 2 functions to run as its own process.
-$options[&apos;process&apos;][0] = function()
+$options['process'][0] = function()
 {
     // Whatever you need goes here...
     // If you need the results, return its value.
     // Eg: Long running proccess 1
     sleep(1);
-    return &apos;Hello &apos;;
+    return 'Hello ';
 };
-$options[&apos;process&apos;][1] = function()
+$options['process'][1] = function()
 {
     // Whatever you need goes here...
     // If you need the results, return its value.
     // Eg:
     // Eg: Long running proccess 2
     sleep(1);
-    return &apos;World!&apos;;
+    return 'World!';
 };
-$options[&apos;callback&apos;] = function($result)
+$options['callback'] = function($result)
 {
     // $results is an array of return values...
-    // $result[0] for $options[&apos;process&apos;][0] &amp;
-    // $result[1] for $options[&apos;process&apos;][1] &amp;
+    // $result[0] for $options['process'][0] &amp;
+    // $result[1] for $options['process'][1] &amp;
     // Eg:
     echo $result[0].$result[1]."\n";    
 };
@@ -195,7 +192,7 @@ function index()
         fclose(STDOUT); // file descriptors as we
         fclose(STDERR); // are running as a daemon.
 
-        register_shutdown_function(&apos;shutdown&apos;);
+        register_shutdown_function('shutdown');
 
         if (posix_setsid() &lt; 0)
             return;

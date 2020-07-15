@@ -12,9 +12,9 @@ If you&apos;re like me and uses var_dump whenever you&apos;re debugging, you mig
 <?php
 
 function var_dump_pre($mixed = null) {
-  echo &apos;&lt;pre&gt;&apos;;
+  echo '&lt;pre&gt;';
   var_dump($mixed);
-  echo &apos;&lt;/pre&gt;&apos;;
+  echo '&lt;/pre&gt;';
   return null;
 }
 
@@ -56,11 +56,11 @@ function dump_debug($input, $collapse=false) {
         if (!$isTerminal &amp;&amp; $level == 0 &amp;&amp; !defined("DUMP_DEBUG_SCRIPT")) {
             define("DUMP_DEBUG_SCRIPT", true);
 
-            echo &apos;&lt;script language="Javascript"&gt;function toggleDisplay(id) {&apos;;
-            echo &apos;var state = document.getElementById("container"+id).style.display;&apos;;
-            echo &apos;document.getElementById("container"+id).style.display = state == "inline" ? "none" : "inline";&apos;;
-            echo &apos;document.getElementById("plus"+id).style.display = state == "inline" ? "inline" : "none";&apos;;
-            echo &apos;}&lt;/script&gt;&apos;."\n";
+            echo '&lt;script language="Javascript"&gt;function toggleDisplay(id) {';
+            echo 'var state = document.getElementById("container"+id).style.display;';
+            echo 'document.getElementById("container"+id).style.display = state == "inline" ? "none" : "inline";';
+            echo 'document.getElementById("plus"+id).style.display = state == "inline" ? "inline" : "none";';
+            echo '}&lt;/script&gt;'."\n";
         }
 
         $type = !is_string($data) &amp;&amp; is_callable($data) ? "Callable" : ucfirst(gettype($data));
@@ -101,7 +101,7 @@ function dump_debug($input, $collapse=false) {
         if (in_array($type, array("Object", "Array"))) {
             $notEmpty = false;
 
-            foreach($data as $key =&gt; $value) {
+            foreach($data as $key => $value) {
                 if (!$notEmpty) {
                     $notEmpty = true;
 
@@ -111,8 +111,8 @@ function dump_debug($input, $collapse=false) {
                     } else {
                         $id = substr(md5(rand().":".$key.":".$level), 0, 8);
 
-                        echo "&lt;a href=\"javascript:toggleDisplay(&apos;". $id ."&apos;);\" style=\"text-decoration:none\"&gt;";
-                        echo "&lt;span style=&apos;color:#666666&apos;&gt;" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "&lt;/span&gt;";
+                        echo "&lt;a href=\"javascript:toggleDisplay('". $id ."');\" style=\"text-decoration:none\"&gt;";
+                        echo "&lt;span style='color:#666666'&gt;" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "&lt;/span&gt;";
                         echo "&lt;/a&gt;";
                         echo "&lt;span id=\"plus". $id ."\" style=\"display: " . ($collapse ? "inline" : "none") . ";\"&gt;&amp;nbsp;&amp;#10549;&lt;/span&gt;";
                         echo "&lt;div id=\"container". $id ."\" style=\"display: " . ($collapse ? "" : "inline") . ";\"&gt;";
@@ -120,24 +120,24 @@ function dump_debug($input, $collapse=false) {
                     }
 
                     for ($i=0; $i &lt;= $level; $i++) {
-                        echo $isTerminal ? "|    " : "&lt;span style=&apos;color:black&apos;&gt;|&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;";
+                        echo $isTerminal ? "|    " : "&lt;span style='color:black'&gt;|&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;";
                     }
 
                     echo $isTerminal ? "\n" : "&lt;br /&gt;";
                 }
 
                 for ($i=0; $i &lt;= $level; $i++) {
-                    echo $isTerminal ? "|    " : "&lt;span style=&apos;color:black&apos;&gt;|&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;";
+                    echo $isTerminal ? "|    " : "&lt;span style='color:black'&gt;|&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;";
                 }
 
-                echo $isTerminal ? "[" . $key . "] =&gt; " : "&lt;span style=&apos;color:black&apos;&gt;[" . $key . "]&amp;nbsp;=&gt;&amp;nbsp;&lt;/span&gt;";
+                echo $isTerminal ? "[" . $key . "] => " : "&lt;span style='color:black'&gt;[" . $key . "]&amp;nbsp;=>&amp;nbsp;&lt;/span&gt;";
 
                 call_user_func($recursive, $value, $level+1);
             }
 
             if ($notEmpty) {
                 for ($i=0; $i &lt;= $level; $i++) {
-                    echo $isTerminal ? "|    " : "&lt;span style=&apos;color:black&apos;&gt;|&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;";
+                    echo $isTerminal ? "|    " : "&lt;span style='color:black'&gt;|&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;";
                 }
 
                 if (!$isTerminal) {
@@ -147,16 +147,16 @@ function dump_debug($input, $collapse=false) {
             } else {
                 echo $isTerminal ? 
                         $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "  " : 
-                        "&lt;span style=&apos;color:#666666&apos;&gt;" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "&lt;/span&gt;&amp;nbsp;&amp;nbsp;";
+                        "&lt;span style='color:#666666'&gt;" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "&lt;/span&gt;&amp;nbsp;&amp;nbsp;";
             }
 
         } else {
             echo $isTerminal ? 
                     $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "  " : 
-                    "&lt;span style=&apos;color:#666666&apos;&gt;" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "&lt;/span&gt;&amp;nbsp;&amp;nbsp;";
+                    "&lt;span style='color:#666666'&gt;" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "&lt;/span&gt;&amp;nbsp;&amp;nbsp;";
 
             if ($type_data != null) {
-                echo $isTerminal ? $type_data : "&lt;span style=&apos;color:" . $type_color . "&apos;&gt;" . $type_data . "&lt;/span&gt;";
+                echo $isTerminal ? $type_data : "&lt;span style='color:" . $type_color . "'&gt;" . $type_data . "&lt;/span&gt;";
             }
         }
 

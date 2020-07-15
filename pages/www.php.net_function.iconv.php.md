@@ -10,12 +10,12 @@ Please note that iconv(&apos;UTF-8&apos;, &apos;ASCII//TRANSLIT&apos;, ...) does
 
 ```
 <?php
-setlocale(LC_CTYPE, &apos;POSIX&apos;);
-echo iconv(&apos;UTF-8&apos;, &apos;ASCII//TRANSLIT&apos;, "&#x17D;lu&#x165;ou&#x10D;k&#xFD; k&#x16F;&#x148;\n");
+setlocale(LC_CTYPE, 'POSIX');
+echo iconv('UTF-8', 'ASCII//TRANSLIT', "&#x17D;lu&#x165;ou&#x10D;k&#xFD; k&#x16F;&#x148;\n");
 // ?lu?ou?k? k??
 
-setlocale(LC_CTYPE, &apos;cs_CZ&apos;);
-echo iconv(&apos;UTF-8&apos;, &apos;ASCII//TRANSLIT&apos;, "&#x17D;lu&#x165;ou&#x10D;k&#xFD; k&#x16F;&#x148;\n");
+setlocale(LC_CTYPE, 'cs_CZ');
+echo iconv('UTF-8', 'ASCII//TRANSLIT', "&#x17D;lu&#x165;ou&#x10D;k&#xFD; k&#x16F;&#x148;\n");
 // Zlutoucky kun
 ?>
 ```
@@ -28,13 +28,13 @@ Interestingly, setting different target locales results in different, yet approp
 ```
 <?php
 //some German
-$utf8_sentence = &apos;Wei&#xDF;, Goldmann, G&#xF6;bel, Weiss, G&#xF6;the, Goethe und G&#xF6;tz&apos;;
+$utf8_sentence = 'Wei&#xDF;, Goldmann, G&#xF6;bel, Weiss, G&#xF6;the, Goethe und G&#xF6;tz';
 
 //UK
-setlocale(LC_ALL, &apos;en_GB&apos;);
+setlocale(LC_ALL, 'en_GB');
 
 //transliterate
-$trans_sentence = iconv(&apos;UTF-8&apos;, &apos;ASCII//TRANSLIT&apos;, $utf8_sentence);
+$trans_sentence = iconv('UTF-8', 'ASCII//TRANSLIT', $utf8_sentence);
 
 //gives [Weiss, Goldmann, Gobel, Weiss, Gothe, Goethe und Gotz]
 //which is our original string flattened into 7-bit ASCII as
@@ -42,9 +42,9 @@ $trans_sentence = iconv(&apos;UTF-8&apos;, &apos;ASCII//TRANSLIT&apos;, $utf8_se
 echo $trans_sentence . PHP_EOL;
 
 //Germany
-setlocale(LC_ALL, &apos;de_DE&apos;);
+setlocale(LC_ALL, 'de_DE');
 
-$trans_sentence = iconv(&apos;UTF-8&apos;, &apos;ASCII//TRANSLIT&apos;, $utf8_sentence);
+$trans_sentence = iconv('UTF-8', 'ASCII//TRANSLIT', $utf8_sentence);
 
 //gives [Weiss, Goldmann, Goebel, Weiss, Goethe, Goethe und Goetz]
 //which is exactly how a German would transliterate those
@@ -83,8 +83,8 @@ If you are getting question-marks in your iconv output when transliterating, be 
 
 ```
 <?php
-  setlocale(LC_CTYPE, &apos;en_AU.utf8&apos;);
-  $str = iconv(&apos;UTF-8&apos;, &apos;ASCII//TRANSLIT&apos;, "C&#xF4;te d&apos;Ivoire");
+  setlocale(LC_CTYPE, 'en_AU.utf8');
+  $str = iconv('UTF-8', 'ASCII//TRANSLIT', "C&#xF4;te d'Ivoire");
 ?>
 ```
   
@@ -96,7 +96,7 @@ Like many other people, I have encountered massive problems when using iconv() t
 ```
 <?php
 
-$newstring = html_entity_decode(htmlentities($oldstring, ENT_QUOTES, &apos;UTF-8&apos;), ENT_QUOTES , &apos;ISO-8859-15&apos;);
+$newstring = html_entity_decode(htmlentities($oldstring, ENT_QUOTES, 'UTF-8'), ENT_QUOTES , 'ISO-8859-15');
 
 ?>
 ```
@@ -104,14 +104,14 @@ $newstring = html_entity_decode(htmlentities($oldstring, ENT_QUOTES, &apos;UTF-8
 
 workaround suggested here and elsewhere will also break when encountering illegal characters, at least dropping a useful note ("htmlentities(): Invalid multibyte sequence in argument in...")
 
-I have found a lot of hints, suggestions and alternative methods (it&apos;s scary and in my opinion no good sign how many ways PHP natively provides to convert the encoding of strings), but none of them really worked, except for this one:
+I have found a lot of hints, suggestions and alternative methods (it's scary and in my opinion no good sign how many ways PHP natively provides to convert the encoding of strings), but none of them really worked, except for this one:
 
 
 
 ```
 <?php
 
-$newstring = mb_convert_encoding($oldstring, &apos;ISO-8859-15&apos;, &apos;UTF-8&apos;);
+$newstring = mb_convert_encoding($oldstring, 'ISO-8859-15', 'UTF-8');
 
 ?>
 ```

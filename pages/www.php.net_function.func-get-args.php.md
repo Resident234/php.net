@@ -22,43 +22,43 @@ How to create a polymorphic/"overloaded" function<br><br>
 <?php
 function select()
 {
-    $t = &apos;&apos;;
+    $t = '';
     $args = func_get_args();
     foreach ($args as &amp;$a) {
-        $t .= gettype($a) . &apos;|&apos;;
+        $t .= gettype($a) . '|';
         $a = mysql_real_escape_string($a);
     }
-    if ($t != &apos;&apos;) {
+    if ($t != '') {
         $t = substr($t, 0, - 1);
     }
-    $sql = &apos;&apos;;
+    $sql = '';
     switch ($t) {
-        case &apos;integer&apos;:
+        case 'integer':
             // search by ID
             $sql = "id = {$args[0]}";
             break;
-        case &apos;string&apos;:
+        case 'string':
             // search by name
-            $sql = "name LIKE &apos;%{$args[0]}%&apos;";
+            $sql = "name LIKE '%{$args[0]}%'";
             break;
-        case &apos;string|integer&apos;:
+        case 'string|integer':
             // search by name AND status
-            $sql = "name LIKE &apos;%{$args[0]}%&apos; AND status = {$args[1]}";
+            $sql = "name LIKE '%{$args[0]}%' AND status = {$args[1]}";
             break;
-        case &apos;string|integer|integer&apos;:
+        case 'string|integer|integer':
             // search by name with limit
-            $sql = "name LIKE &apos;%{$args[0]}%&apos; LIMIT {$args[1]},{$args[2]}";
+            $sql = "name LIKE '%{$args[0]}%' LIMIT {$args[1]},{$args[2]}";
             break;
         default:
             // :P
-            $sql = &apos;1 = 2&apos;;
+            $sql = '1 = 2';
     }
-    return mysql_query(&apos;SELECT * FROM table WHERE &apos; . $sql);
+    return mysql_query('SELECT * FROM table WHERE ' . $sql);
 }
 $res = select(29); // by ID
-$res = select(&apos;Anderson&apos;); // by name
-$res = select(&apos;Anderson&apos;, 1); // by name and status
-$res = select(&apos;Anderson&apos;, 0, 5); // by name with limit
+$res = select('Anderson'); // by name
+$res = select('Anderson', 1); // by name and status
+$res = select('Anderson', 0, 5); // by name with limit
 ?>
 ```
   

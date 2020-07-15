@@ -7,9 +7,9 @@ Practical use to get the dimensions of the image:<br><br>
 ```
 <?php
 $image = new Imagick($image_src);
-$d = $image-&gt;getImageGeometry();
-$w = $d[&apos;width&apos;];
-$h = $d[&apos;height&apos;];
+$d = $image->getImageGeometry();
+$w = $d['width'];
+$h = $d['height'];
 ?>
 ```
   

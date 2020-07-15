@@ -11,7 +11,7 @@ $utf8 = "&#x627;&#x644;&#x633;&#x644;&#x627;&#x645; &#x639;&#x644;&#x6CC;&#x6A9;
 
 var_export( strlen($utf8) ); // 59
 echo "&lt;br&gt;";
-var_export( mb_strlen($utf8, &apos;utf8&apos;) ); // 32
+var_export( mb_strlen($utf8, 'utf8') ); // 32
 ?>
 ```
   
@@ -34,12 +34,12 @@ We just ran into what we thought was a bug but turned out to be a documented dif
 ```
 <?php
 
-$attributes = array(&apos;one&apos;, &apos;two&apos;, &apos;three&apos;);
+$attributes = array('one', 'two', 'three');
 
 if (strlen($attributes) == 0 &amp;&amp; !is_bool($attributes)) {
-    echo "We are in the &apos;if&apos;\n";  //  PHP 5.3
+    echo "We are in the 'if'\n";  //  PHP 5.3
 } else {
-    echo "We are in the &apos;else&apos;\n";  //  PHP 5.2
+    echo "We are in the 'else'\n";  //  PHP 5.2
 }
 
 ?>
@@ -61,26 +61,26 @@ I would like to demonstrate that you need more than just this function in order 
 <?php
 $foo = null;
 $len = strlen(null);
-$bar = &apos;&apos;;
+$bar = '';
 
 echo "Length: " . strlen($foo) . "&lt;br&gt;";
 echo "Length: $len &lt;br&gt;";
 echo "Length: " . strlen(null) . "&lt;br&gt;";
 
-if (strlen($foo) === 0) echo &apos;Null length is Zero &lt;br&gt;&apos;;
-if ($len === 0) echo &apos;Null length is still Zero &lt;br&gt;&apos;;
+if (strlen($foo) === 0) echo 'Null length is Zero &lt;br&gt;';
+if ($len === 0) echo 'Null length is still Zero &lt;br&gt;';
 
-if (strlen($foo) == 0 &amp;&amp; !is_null($foo)) echo &apos;!is_null(): $foo is truly an empty string &lt;br&gt;&apos;;
-else echo &apos;!is_null(): $foo is probably null &lt;br&gt;&apos;;
+if (strlen($foo) == 0 &amp;&amp; !is_null($foo)) echo '!is_null(): $foo is truly an empty string &lt;br&gt;';
+else echo '!is_null(): $foo is probably null &lt;br&gt;';
 
-if (strlen($foo) == 0 &amp;&amp; isset($foo)) echo &apos;isset(): $foo is truly an empty string &lt;br&gt;&apos;;
-else echo &apos;isset(): $foo is probably null &lt;br&gt;&apos;;
+if (strlen($foo) == 0 &amp;&amp; isset($foo)) echo 'isset(): $foo is truly an empty string &lt;br&gt;';
+else echo 'isset(): $foo is probably null &lt;br&gt;';
 
-if (strlen($bar) == 0 &amp;&amp; !is_null($bar)) echo &apos;!is_null(): $bar is truly an empty string &lt;br&gt;&apos;;
-else echo &apos;!is_null(): $foo is probably null &lt;br&gt;&apos;;
+if (strlen($bar) == 0 &amp;&amp; !is_null($bar)) echo '!is_null(): $bar is truly an empty string &lt;br&gt;';
+else echo '!is_null(): $foo is probably null &lt;br&gt;';
 
-if (strlen($bar) == 0 &amp;&amp; isset($bar)) echo &apos;isset(): $bar is truly an empty string &lt;br&gt;&apos;;
-else echo &apos;isset(): $foo is probably null &lt;br&gt;&apos;;
+if (strlen($bar) == 0 &amp;&amp; isset($bar)) echo 'isset(): $bar is truly an empty string &lt;br&gt;';
+else echo 'isset(): $foo is probably null &lt;br&gt;';
 ?>
 ```
 <br><br>// Begin Output:<br>Length: 0<br>Length: 0 <br>Length: 0<br><br>Null length is Zero <br>Null length is still Zero <br><br>!is_null(): $foo is probably null <br>isset(): $foo is probably null <br><br>!is_null(): $bar is truly an empty string <br>isset(): $bar is truly an empty string <br>// End Output<br><br>So it would seem you need either is_null() or isset() in addition to strlen() if you care whether or not the original value was null.  

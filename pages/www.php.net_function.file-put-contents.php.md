@@ -7,9 +7,9 @@ File put contents fails if you try to put a file in a directory that doesn&apos;
 ```
 <?php
     function file_force_contents($dir, $contents){
-        $parts = explode(&apos;/&apos;, $dir);
+        $parts = explode('/', $dir);
         $file = array_pop($parts);
-        $dir = &apos;&apos;;
+        $dir = '';
         foreach($parts as $part)
             if(!is_dir($dir .= "/$part")) mkdir($dir);
         file_put_contents("$dir/$file", $contents);
@@ -29,9 +29,9 @@ A slightly simplified version of the method: http://php.net/manual/ru/function.f
 ```
 <?php 
 function file_force_contents( $fullPath, $contents, $flags = 0 ){
-    $parts = explode( &apos;/&apos;, $fullPath );
+    $parts = explode( '/', $fullPath );
     array_pop( $parts );
-    $dir = implode( &apos;/&apos;, $parts );
+    $dir = implode( '/', $parts );
     
     if( !is_dir( $dir ) )
         mkdir( $dir, 0777, true );
@@ -39,7 +39,7 @@ function file_force_contents( $fullPath, $contents, $flags = 0 ){
     file_put_contents( $fullPath, $contents, $flags );
 }
 
-file_force_contents( ROOT.&apos;/newpath/file.txt&apos;, &apos;message&apos;, LOCK_EX );
+file_force_contents( ROOT.'/newpath/file.txt', 'message', LOCK_EX );
 ?>
 ```
   
@@ -61,7 +61,7 @@ Please note that when saving using an FTP host, an additional stream context mus
  $content = "this is just a test.";
  
  /* create a stream context telling PHP to overwrite the file */
- $options = array(&apos;ftp&apos; =&gt; array(&apos;overwrite&apos; =&gt; true));
+ $options = array('ftp' => array('overwrite' => true));
  $stream = stream_context_create($options);
  
  /* and finally, put the contents */

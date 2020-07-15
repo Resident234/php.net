@@ -7,21 +7,21 @@ It seems that this function supports only decryption of password protected archi
 ```
 <?php
     $zip = new ZipArchive();
-    $zip_status = $zip-&gt;open("test.zip");
+    $zip_status = $zip->open("test.zip");
 
     if ($zip_status === true)
     {
-        if ($zip-&gt;setPassword("MySecretPassword"))
+        if ($zip->setPassword("MySecretPassword"))
         {
-            if (!$zip-&gt;extractTo(__DIR__))
+            if (!$zip->extractTo(__DIR__))
                 echo "Extraction failed (wrong password?)";
         }
 
-        $zip-&gt;close();
+        $zip->close();
     }
     else
     {
-        die("Failed opening archive: ". @$zip-&gt;getStatusString() . " (code: ". $zip_status .")");
+        die("Failed opening archive: ". @$zip->getStatusString() . " (code: ". $zip_status .")");
     }
 ?>
 ```

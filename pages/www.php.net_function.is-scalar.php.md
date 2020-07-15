@@ -10,12 +10,12 @@ Another warning in response to the previous note:<br>&gt; just a warning as it a
 
 ```
 <?php
-    echo(&apos;is_scalar() test:&apos;.EOL);
+    echo('is_scalar() test:'.EOL);
     echo("NULL: "      . print_R(is_scalar(NULL),     true) . EOL);
     echo("false: "    . print_R(is_scalar(false),   true) . EOL);
-    echo("(empty): "  . print_R(is_scalar(&apos;&apos;),      true) . EOL);
+    echo("(empty): "  . print_R(is_scalar(''),      true) . EOL);
     echo("0: "         . print_R(is_scalar(0),       true) . EOL);
-    echo("&apos;0&apos;: "      . print_R(is_scalar(&apos;0&apos;),     true) . EOL);
+    echo("'0': "      . print_R(is_scalar('0'),     true) . EOL);
 ?>
 ```
 <br><br>OUTPUT:<br>is_scalar() test:<br>NULL: <br>false: 1<br>(empty): 1<br>0: 1<br>&apos;0&apos;: 1<br><br>THUS:<br>   * NULL is NOT a scalar<br>   * false, (empty string), 0, and "0" ARE scalars  

@@ -39,14 +39,14 @@ function cologne_phon($word){
     //prepare for processing
     $word=strtolower($word);
     $substitution=array(
-            "&#xE4;"=&gt;"a",
-            "&#xF6;"=&gt;"o",
-            "&#xFC;"=&gt;"u",
-            "&#xDF;"=&gt;"ss",
-            "ph"=&gt;"f"
+            "&#xE4;"=>"a",
+            "&#xF6;"=>"o",
+            "&#xFC;"=>"u",
+            "&#xDF;"=>"ss",
+            "ph"=>"f"
             );
 
-    foreach ($substitution as $letter=&gt;$substitution) {
+    foreach ($substitution as $letter=>$substitution) {
         $word=str_replace($letter,$substitution,$word);
     }
     
@@ -54,24 +54,24 @@ function cologne_phon($word){
     
     //Rule for exeptions
     $exceptionsLeading=array(
-    4=&gt;array("ca","ch","ck","cl","co","cq","cu","cx"),
-    8=&gt;array("dc","ds","dz","tc","ts","tz")
+    4=>array("ca","ch","ck","cl","co","cq","cu","cx"),
+    8=>array("dc","ds","dz","tc","ts","tz")
     );
     
     $exceptionsFollowing=array("sc","zc","cx","kx","qx");
     
     //Table for coding
     $codingTable=array(
-    0=&gt;array("a","e","i","j","o","u","y"),
-    1=&gt;array("b","p"),
-    2=&gt;array("d","t"),
-    3=&gt;array("f","v","w"),
-    4=&gt;array("c","g","k","q"),
-    48=&gt;array("x"),
-    5=&gt;array("l"),
-    6=&gt;array("m","n"),
-    7=&gt;array("r"),
-    8=&gt;array("c","s","z"),
+    0=>array("a","e","i","j","o","u","y"),
+    1=>array("b","p"),
+    2=>array("d","t"),
+    3=>array("f","v","w"),
+    4=>array("c","g","k","q"),
+    48=>array("x"),
+    5=>array("l"),
+    6=>array("m","n"),
+    7=>array("r"),
+    8=>array("c","s","z"),
     );
     
     for ($i=0;$i&lt;$len;$i++){
@@ -80,7 +80,7 @@ function cologne_phon($word){
         //Exceptions
         if ($i==0 AND $word[$i].$word[$i+1]=="cr") $value[$i]=4;
         
-        foreach ($exceptionsLeading as $code=&gt;$letters) {
+        foreach ($exceptionsLeading as $code=>$letters) {
             if (in_array($word[$i].$word[$i+1],$letters)){
 
                     $value[$i]=$code;
@@ -96,7 +96,7 @@ $exceptionsFollowing))) {
         
         //Normal encoding
         if ($value[$i]==""){
-                foreach ($codingTable as $code=&gt;$letters) {
+                foreach ($codingTable as $code=>$letters) {
                     if (in_array($word[$i],$letters))$value[$i]=$code;
                 }
             }
@@ -134,13 +134,13 @@ I made some improvements to the "Cologne Phonetic" function of niclas zimmer. Ke
 <?php   
 class CologneHash() {
 
-    static $eLeading = array("ca" =&gt; 4, "ch" =&gt; 4, "ck" =&gt; 4, "cl" =&gt; 4, "co" =&gt; 4, "cq" =&gt; 4, "cu" =&gt; 4, "cx" =&gt; 4, "dc" =&gt; 8, "ds" =&gt; 8, "dz" =&gt; 8, "tc" =&gt; 8, "ts" =&gt; 8, "tz" =&gt; 8); 
+    static $eLeading = array("ca" => 4, "ch" => 4, "ck" => 4, "cl" => 4, "co" => 4, "cq" => 4, "cu" => 4, "cx" => 4, "dc" => 8, "ds" => 8, "dz" => 8, "tc" => 8, "ts" => 8, "tz" => 8); 
 
     static $eFollow = array("sc", "zc", "cx", "kx", "qx");
 
-    static $codingTable = array("a" =&gt; 0, "e" =&gt; 0, "i" =&gt; 0, "j" =&gt; 0, "o" =&gt; 0, "u" =&gt; 0, "y" =&gt; 0,
-        "b" =&gt; 1, "p" =&gt; 1, "d" =&gt; 2, "t" =&gt; 2, "f" =&gt; 3, "v" =&gt; 3, "w" =&gt; 3, "c" =&gt; 4, "g" =&gt; 4, "k" =&gt; 4, "q" =&gt; 4,
-        "x" =&gt; 48, "l" =&gt; 5, "m" =&gt; 6, "n" =&gt; 6, "r" =&gt; 7, "c" =&gt; 8, "s" =&gt; 8, "z" =&gt; 8);
+    static $codingTable = array("a" => 0, "e" => 0, "i" => 0, "j" => 0, "o" => 0, "u" => 0, "y" => 0,
+        "b" => 1, "p" => 1, "d" => 2, "t" => 2, "f" => 3, "v" => 3, "w" => 3, "c" => 4, "g" => 4, "k" => 4, "q" => 4,
+        "x" => 48, "l" => 5, "m" => 6, "n" => 6, "r" => 7, "c" => 8, "s" => 8, "z" => 8);
 
     public static function getCologneHash($word)
     {

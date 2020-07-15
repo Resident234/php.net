@@ -6,7 +6,7 @@ To get a really clean json string use these three constants like so:<br><br>
 
 ```
 <?php
-$array = [&apos;&#x20AC;&apos;, &apos;http://example.com/some/cool/page&apos;, &apos;337&apos;];
+$array = ['&#x20AC;', 'http://example.com/some/cool/page', '337'];
 $bad   = json_encode($array); 
 $good  = json_encode($array,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
 

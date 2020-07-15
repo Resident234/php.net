@@ -43,25 +43,9 @@ Also note that<br><br>
 
 Interesting to note that you must pass a STRING to this function, other values won&apos;t be typecasted (I figured it would even though above explicitly says string $text).<br><br>I.E.<br><br>&lt;?PHP<br>$val = 42; //Answer to life<br>$x = ctype_digit($val);<br>?>
 ```
-
-
-Will return false, even though, when typecasted to string, it would be true.
-
-&lt;?PHP
-$val = &apos;42&apos;;
-$x = ctype_digit($val);
-?>
+<br><br>Will return false, even though, when typecasted to string, it would be true.<br><br>&lt;?PHP<br>$val = &apos;42&apos;;<br>$x = ctype_digit($val);<br>?>
 ```
-
-
-Returns True.
-
-Could do this too:
-
-&lt;?PHP
-$val = 42;
-$x = ctype_digit((string) $val);
-?>
+<br><br>Returns True.<br><br>Could do this too:<br><br>&lt;?PHP<br>$val = 42;<br>$x = ctype_digit((string) $val);<br>?>
 ```
 <br><br>Which will also return true, as it should.  
 

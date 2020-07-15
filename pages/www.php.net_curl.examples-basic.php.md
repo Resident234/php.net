@@ -10,11 +10,11 @@ It is important to notice that when using curl to post form data and you use an 
 
 ```
 <?php
-$params=[&apos;name&apos;=&gt;&apos;John&apos;, &apos;surname&apos;=&gt;&apos;Doe&apos;, &apos;age&apos;=&gt;36)
+$params=['name'=>'John', 'surname'=>'Doe', 'age'=>36)
 $defaults = array(
-CURLOPT_URL =&gt; &apos;http://myremoteservice/&apos;, 
-CURLOPT_POST =&gt; true,
-CURLOPT_POSTFIELDS =&gt; $params,
+CURLOPT_URL => 'http://myremoteservice/', 
+CURLOPT_POST => true,
+CURLOPT_POSTFIELDS => $params,
 );
 $ch = curl_init();
 curl_setopt_array($ch, ($options + $defaults));

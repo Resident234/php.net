@@ -6,7 +6,7 @@ An important note below about using this function to secure your application aga
 
 ```
 <?php
-$_GET[&apos;a&apos;] = "#000&apos; onload=&apos;alert(document.cookie)";
+$_GET['a'] = "#000' onload='alert(document.cookie)";
 ?>
 ```
 
@@ -17,33 +17,33 @@ XSS possible (insecure):
 
 ```
 <?php
-$href = htmlEntities($_GET[&apos;a&apos;]);
-print "&lt;body bgcolor=&apos;$href&apos;&gt;"; # results in: &lt;body bgcolor=&apos;#000&apos; onload=&apos;alert(document.cookie)&apos;&gt;
+$href = htmlEntities($_GET['a']);
+print "&lt;body bgcolor='$href'&gt;"; # results in: &lt;body bgcolor='#000' onload='alert(document.cookie)'&gt;
 ?>
 ```
 
 
-Use the &apos;ENT_QUOTES&apos; quote style option, to ensure no XSS is possible and your application is secure:
+Use the 'ENT_QUOTES' quote style option, to ensure no XSS is possible and your application is secure:
 
 
 
 ```
 <?php
-$href = htmlEntities($_GET[&apos;a&apos;], ENT_QUOTES);
-print "&lt;body bgcolor=&apos;$href&apos;&gt;"; # results in: &lt;body bgcolor=&apos;#000&amp;#039; onload=&amp;#039;alert(document.cookie)&apos;&gt;
+$href = htmlEntities($_GET['a'], ENT_QUOTES);
+print "&lt;body bgcolor='$href'&gt;"; # results in: &lt;body bgcolor='#000&amp;#039; onload=&amp;#039;alert(document.cookie)'&gt;
 ?>
 ```
 
 
-The &apos;ENT_QUOTES&apos; option doesn&apos;t protect you against javascript evaluation in certain tag&apos;s attributes, like the &apos;href&apos; attribute of the &apos;a&apos; tag. When clicked on the link below, the given JavaScript will get executed:
+The 'ENT_QUOTES' option doesn't protect you against javascript evaluation in certain tag's attributes, like the 'href' attribute of the 'a' tag. When clicked on the link below, the given JavaScript will get executed:
 
 
 
 ```
 <?php
-$_GET[&apos;a&apos;] = &apos;javascript:alert(document.cookie)&apos;;
-$href = htmlEntities($_GET[&apos;a&apos;], ENT_QUOTES);
-print "&lt;a href=&apos;$href&apos;&gt;link&lt;/a&gt;"; # results in: &lt;a href=&apos;javascript:alert(document.cookie)&apos;&gt;link&lt;/a&gt;
+$_GET['a'] = 'javascript:alert(document.cookie)';
+$href = htmlEntities($_GET['a'], ENT_QUOTES);
+print "&lt;a href='$href'&gt;link&lt;/a&gt;"; # results in: &lt;a href='javascript:alert(document.cookie)'&gt;link&lt;/a&gt;
 ?>
 ```
   
@@ -55,7 +55,7 @@ I&apos;ve seen lots of functions to convert all the entities, but I needed to do
 ```
 <?php
 
-$entities_unmatched = explode(&apos;,&apos;, &apos;160,nbsp,161,iexcl,162,cent, [...] &apos;);
+$entities_unmatched = explode(',', '160,nbsp,161,iexcl,162,cent, [...] ');
 $even = 1;
 foreach($entities_unmatched as $c) {
     if($even) {
@@ -69,7 +69,7 @@ foreach($entities_unmatched as $c) {
 function encode_named_entities($str) {
     global $entities_table;
     
-    $encoded_str = &apos;&apos;;
+    $encoded_str = '';
     for($i = 0; $i &lt; strlen($str); $i++) {
         $ent = @$entities_table[ord($str{$i})];
         if($ent) {
@@ -96,7 +96,7 @@ If you are building a loadvars page for Flash and have problems with special cha
 ```
 <?php
 function flashentities($string){
-return str_replace(array("&amp;","&apos;"),array("%26","%27"),$string);
+return str_replace(array("&amp;","'"),array("%26","%27"),$string);
 }
 ?>
 ```
@@ -119,17 +119,17 @@ function philsXMLClean($strin) {
                 }
                 else {
                         switch ($strin[$i]) {
-                                case &apos;&lt;&apos;:
-                                        $strout .= &apos;&amp;lt;&apos;;
+                                case '&lt;':
+                                        $strout .= '&amp;lt;';
                                         break;
-                                case &apos;&gt;&apos;:
-                                        $strout .= &apos;&amp;gt;&apos;;
+                                case '&gt;':
+                                        $strout .= '&amp;gt;';
                                         break;
-                                case &apos;&amp;&apos;:
-                                        $strout .= &apos;&amp;amp;&apos;;
+                                case '&amp;':
+                                        $strout .= '&amp;amp;';
                                         break;
-                                case &apos;"&apos;:
-                                        $strout .= &apos;&amp;quot;&apos;;
+                                case '"':
+                                        $strout .= '&amp;quot;';
                                         break;
                                 default:
                                         $strout .= $strin[$i];
@@ -151,15 +151,15 @@ For those Spanish (and not only) folks, that want their national letters back af
 <?php
 protected function _decodeAccented($encodedValue, $options = array()) {
     $options += array(
-        &apos;quote&apos;     =&gt; ENT_NOQUOTES,
-        &apos;encoding&apos;  =&gt; &apos;UTF-8&apos;,
+        'quote'     => ENT_NOQUOTES,
+        'encoding'  => 'UTF-8',
     );
     return preg_replace_callback(
-        &apos;/&amp;\w(acute|uml|tilde);/&apos;,
+        '/&amp;\w(acute|uml|tilde);/',
         create_function(
-            &apos;$m&apos;,
-            &apos;return html_entity_decode($m[0], &apos; . $options[&apos;quote&apos;] . &apos;, "&apos; .
-            $options[&apos;encoding&apos;] . &apos;");&apos;
+            '$m',
+            'return html_entity_decode($m[0], ' . $options['quote'] . ', "' .
+            $options['encoding'] . '");'
         ),
         $encodedValue
     );

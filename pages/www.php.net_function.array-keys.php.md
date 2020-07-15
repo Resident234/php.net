@@ -7,7 +7,7 @@ It&apos;s worth noting that if you have keys that are long integer, such as &apo
 ```
 <?php 
 
-$importantKeys = array(&apos;329462291595&apos; =&gt;null, &apos;ZZ291595&apos; =&gt; null);
+$importantKeys = array('329462291595' =>null, 'ZZ291595' => null);
 
 foreach(array_keys($importantKeys) as $key){
     echo gettype($key)."\n";
@@ -45,18 +45,18 @@ Here&apos;s how to get the first key, the last key, the first value or the last 
 
 ```
 <?php
-  $array = array(&apos;first&apos;=&gt;&apos;111&apos;, &apos;second&apos;=&gt;&apos;222&apos;, &apos;third&apos;=&gt;&apos;333&apos;);
+  $array = array('first'=>'111', 'second'=>'222', 'third'=>'333');
 
-  // get the first key: returns &apos;first&apos;
+  // get the first key: returns 'first'
   print array_shift(array_keys($array));
 
-  // get the last key: returns &apos;third&apos;
+  // get the last key: returns 'third'
   print array_pop(array_keys($array));
 
-  // get the first value: returns &apos;111&apos;
+  // get the first value: returns '111'
   print array_shift(array_values($array));
 
-  // get the last value: returns &apos;333&apos;
+  // get the last value: returns '333'
   print array_pop(array_values($array));
 ?>
 ```

@@ -10,12 +10,12 @@ class ftp{
     public $conn;
 
     public function __construct($url){
-        $this-&gt;conn = ftp_connect($url);
+        $this->conn = ftp_connect($url);
     }
     
     public function __call($func,$a){
-        if(strstr($func,&apos;ftp_&apos;) !== false &amp;&amp; function_exists($func)){
-            array_unshift($a,$this-&gt;conn);
+        if(strstr($func,'ftp_') !== false &amp;&amp; function_exists($func)){
+            array_unshift($a,$this->conn);
             return call_user_func_array($func,$a);
         }else{
             // replace with your own error handler.
@@ -25,9 +25,9 @@ class ftp{
 }
 
 // Example
-$ftp = new ftp(&apos;ftp.example.com&apos;);
-$ftp-&gt;ftp_login(&apos;username&apos;,&apos;password&apos;);
-var_dump($ftp-&gt;ftp_nlist());
+$ftp = new ftp('ftp.example.com');
+$ftp->ftp_login('username','password');
+var_dump($ftp->ftp_nlist());
 ?>
 ```
   

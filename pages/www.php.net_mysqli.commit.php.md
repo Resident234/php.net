@@ -9,22 +9,22 @@ I never recomend to use the ? with only one value variant like: $var = expressio
  
 //variants combined
 
-$mysqli-&gt;autocommit(FALSE);
+$mysqli->autocommit(FALSE);
 
 try{
 
-  $mysqli-&gt;query("INSERT INTO myCity (id) VALUES (100)") or throw new Exception(&apos;error!&apos;);
+  $mysqli->query("INSERT INTO myCity (id) VALUES (100)") or throw new Exception('error!');
 
 // or we can use
 
-  if( !$mysqli-&gt;query("INSERT INTO myCity (id) VALUES (200)"){ 
-    throw new Exception(&apos;error!&apos;); 
+  if( !$mysqli->query("INSERT INTO myCity (id) VALUES (200)"){ 
+    throw new Exception('error!'); 
   }
 
 }catch( Exception $e ){
-  $mysqli-&gt;rollback();
+  $mysqli->rollback();
 }
-$mysqli-&gt;commit();
+$mysqli->commit();
 
 ?>
 ```
@@ -44,15 +44,15 @@ $all_query_ok=true; // our control variable
 
 //we make 4 inserts, the last one generates an error
 //if at least one query returns an error we change our control variable
-$mysqli-&gt;query("INSERT INTO myCity (id) VALUES (100)") ? null : $all_query_ok=false;
-$mysqli-&gt;query("INSERT INTO myCity (id) VALUES (200)") ? null : $all_query_ok=false;
-$mysqli-&gt;query("INSERT INTO myCity (id) VALUES (300)") ? null : $all_query_ok=false;
-$mysqli-&gt;query("INSERT INTO myCity (id) VALUES (100)") ? null : $all_query_ok=false; //duplicated PRIMARY KEY VALUE
+$mysqli->query("INSERT INTO myCity (id) VALUES (100)") ? null : $all_query_ok=false;
+$mysqli->query("INSERT INTO myCity (id) VALUES (200)") ? null : $all_query_ok=false;
+$mysqli->query("INSERT INTO myCity (id) VALUES (300)") ? null : $all_query_ok=false;
+$mysqli->query("INSERT INTO myCity (id) VALUES (100)") ? null : $all_query_ok=false; //duplicated PRIMARY KEY VALUE
 
-//now let&apos;s test our control variable
-$all_query_ok ? $mysqli-&gt;commit() : $mysqli-&gt;rollback();
+//now let's test our control variable
+$all_query_ok ? $mysqli->commit() : $mysqli->rollback();
 
-$mysqli-&gt;close();
+$mysqli->close();
 ?>
 ```
 <br><br>hope to be helpful!  

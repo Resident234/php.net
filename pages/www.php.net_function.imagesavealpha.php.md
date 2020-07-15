@@ -7,12 +7,12 @@ After much trial and error and gnashing of teeth I finally figured out how to co
 ```
 <?php
 // load the frame image (png with 8-bit transparency)
-$frame = imagecreatefrompng(&apos;path/to/frame.png&apos;);
+$frame = imagecreatefrompng('path/to/frame.png');
 
 // load the thumbnail image
-$thumb = imagecreatefromjpeg(&apos;path/to/thumbnail.jpg&apos;);
+$thumb = imagecreatefromjpeg('path/to/thumbnail.jpg');
 
-// get the dimensions of the frame, which we&apos;ll also be using for the
+// get the dimensions of the frame, which we'll also be using for the
 // composited final image.
 $width = imagesx( $frame );
 $height = imagesy( $frame );
@@ -40,7 +40,7 @@ imagealphablending($img, false);
 imagesavealpha($img,true);
 
 // emit the image
-header(&apos;Content-type: image/png&apos;);
+header('Content-type: image/png');
 imagepng( $img );
 
 // dispose

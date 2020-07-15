@@ -2,24 +2,7 @@
 
 
 
-How to install on macOS Mojave<br><br>Start with:<br><br>sudo pecl install mongodb<br><br>To check if mongodb package is installed, look for "mongodb" when you run:<br><br>pecl list<br><br>To get your installed mongodb.so path, run:<br><br>pecl list-files mongodb | grep mongodb.so<br><br>then remove (or comment out) on your php.ini file:<br><br>extension="mongodb.so" <br><br>(I could not found a line with extension="php_mongodb.so")<br><br>now insert a line with:<br><br>extension="{{the path to your installed mongodb.so}}"<br><br>Run this command to get your ext-*.ini directory path:<br><br>php -i | grep Scan
-
-Create your ext-mongodb.ini with:
-
-touch {{your conf.d path}}/ext-mongodb.ini
-
-like: 
-touch /usr/local/etc/php/7.1/conf.d/ext-mongodb.ini
-
-Restart your apache to read the new configuration
-
-Sanity check with:
-
-php -i | grep mongodb 
-
-Your&apos;re ready to go.?>
-```
-  
+How to install on macOS Mojave<br><br>Start with:<br><br>sudo pecl install mongodb<br><br>To check if mongodb package is installed, look for "mongodb" when you run:<br><br>pecl list<br><br>To get your installed mongodb.so path, run:<br><br>pecl list-files mongodb | grep mongodb.so<br><br>then remove (or comment out) on your php.ini file:<br><br>extension="mongodb.so" <br><br>(I could not found a line with extension="php_mongodb.so")<br><br>now insert a line with:<br><br>extension="{{the path to your installed mongodb.so}}"<br><br>Run this command to get your ext-*.ini directory path:<br><br>php -i | grep Scan<br><br>Create your ext-mongodb.ini with:<br><br>touch {{your conf.d path}}/ext-mongodb.ini<br><br>like: <br>touch /usr/local/etc/php/7.1/conf.d/ext-mongodb.ini<br><br>Restart your apache to read the new configuration<br><br>Sanity check with:<br><br>php -i | grep mongodb <br><br>Your&apos;re ready to go.  
 
 #
 

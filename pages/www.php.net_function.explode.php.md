@@ -25,12 +25,12 @@ print_r($exploded);
 //And output will be like this:
 // Array
 // (
-//    [0] =&gt; here is a sample
-//    [1] =&gt;  this text
-//    [2] =&gt;  and this will be exploded
-//    [3] =&gt;  this also 
-//    [4] =&gt;  this one too 
-//    [5] =&gt; )
+//    [0] => here is a sample
+//    [1] =>  this text
+//    [2] =>  and this will be exploded
+//    [3] =>  this also 
+//    [4] =>  this one too 
+//    [5] => )
 // )
 
 ?>
@@ -54,7 +54,7 @@ If you split an empty string, you get back a one-element array with 0 as the key
 
 Array
 (
-    [0] =&gt; 
+    [0] => 
 )
 
 To solve this, just use array_filter() without callback. Quoting manual page "If the callback function is not supplied, array_filter() will remove all the entries of input that are equal to FALSE.".
@@ -76,7 +76,7 @@ The comments to use array_filter() without a callback to remove empty strings fr
 
 ```
 <?php
-array_filter(explode(&apos;:&apos;, "1:2::3:0:4"), &apos;strlen&apos;);
+array_filter(explode(':', "1:2::3:0:4"), 'strlen');
 ?>
 ```
   
@@ -92,7 +92,7 @@ a simple one line method to explode &amp; trim whitespaces from the exploded ele
 ```
 <?php
 // converts pure string into a trimmed keyed array
-function string2KeyedArray($string, $delimiter = &apos;,&apos;, $kv = &apos;=&gt;&apos;) {
+function string2KeyedArray($string, $delimiter = ',', $kv = '=>') {
   if ($a = explode($delimiter, $string)) { // create parts
     foreach ($a as $s) { // each part
       if ($s) {
@@ -107,7 +107,7 @@ function string2KeyedArray($string, $delimiter = &apos;,&apos;, $kv = &apos;=&gt
   }
 } // string2KeyedArray
 
-$string = &apos;a=&gt;1, b=&gt;23   , $a, c=&gt; 45% , true,d =&gt; ab c &apos;;
+$string = 'a=>1, b=>23   , $a, c=> 45% , true,d => ab c ';
 print_r(string2KeyedArray($string));
 ?>
 ```
@@ -126,7 +126,7 @@ function multiexplode ($delimiters,$string) {
     $ary = explode($delimiters[0],$string);
     array_shift($delimiters);
     if($delimiters != NULL) {
-        foreach($ary as $key =&gt; $val) {
+        foreach($ary as $key => $val) {
              $ary[$key] = multiexplode($delimiters, $val);
         }
     }
@@ -138,79 +138,79 @@ $string = "1-2-3|4-5|6:7-8-9-0|1,2:3-4|5";
 $delimiters = Array(",",":","|","-");
 
 $res = multiexplode($delimiters,$string);
-echo &apos;&lt;pre&gt;&apos;;
+echo '&lt;pre&gt;';
 print_r($res);
-echo &apos;&lt;/pre&gt;&apos;;
+echo '&lt;/pre&gt;';
 
 //returns
 /*
 Array
 (
-    [0] =&gt; Array
+    [0] => Array
         (
-            [0] =&gt; Array
+            [0] => Array
                 (
-                    [0] =&gt; Array
+                    [0] => Array
                         (
-                            [0] =&gt; 1
-                            [1] =&gt; 2
-                            [2] =&gt; 3
+                            [0] => 1
+                            [1] => 2
+                            [2] => 3
                         )
 
-                    [1] =&gt; Array
+                    [1] => Array
                         (
-                            [0] =&gt; 4
-                            [1] =&gt; 5
+                            [0] => 4
+                            [1] => 5
                         )
 
-                    [2] =&gt; Array
+                    [2] => Array
                         (
-                            [0] =&gt; 6
+                            [0] => 6
                         )
 
                 )
 
-            [1] =&gt; Array
+            [1] => Array
                 (
-                    [0] =&gt; Array
+                    [0] => Array
                         (
-                            [0] =&gt; 7
-                            [1] =&gt; 8
-                            [2] =&gt; 9
-                            [3] =&gt; 0
+                            [0] => 7
+                            [1] => 8
+                            [2] => 9
+                            [3] => 0
                         )
 
-                    [1] =&gt; Array
+                    [1] => Array
                         (
-                            [0] =&gt; 1
+                            [0] => 1
                         )
 
                 )
 
         )
 
-    [1] =&gt; Array
+    [1] => Array
         (
-            [0] =&gt; Array
+            [0] => Array
                 (
-                    [0] =&gt; Array
+                    [0] => Array
                         (
-                            [0] =&gt; 2
+                            [0] => 2
                         )
 
                 )
 
-            [1] =&gt; Array
+            [1] => Array
                 (
-                    [0] =&gt; Array
+                    [0] => Array
                         (
-                            [0] =&gt; 3
-                            [1] =&gt; 4
+                            [0] => 3
+                            [1] => 4
                         )
 
-                    [1] =&gt; Array
+                    [1] => Array
                         (
-                            [0] =&gt; 5
+                            [0] => 5
                         )
 
                 )
@@ -236,9 +236,9 @@ var_dump(explode("/","/"));
    Outputs 
 
    array(2) { 
-     [0]=&gt; 
+     [0]=> 
      string(0) "" 
-     [1]=&gt; 
+     [1]=> 
      string(0) "" 
    } 
 */ 
@@ -249,7 +249,7 @@ var_dump(explode("/","/"));
 
 The reason we have two empty strings here is that a boundary is discovered before any data has been collected from the string. The boundary splits the string into two parts even though those parts are empty. 
 
-One way to avoid getting back empty parts (if you don&apos;t care for those empty parts) is to use array_filter on the result. 
+One way to avoid getting back empty parts (if you don't care for those empty parts) is to use array_filter on the result. 
 
 
 

@@ -6,19 +6,19 @@ strstr() is not a way to avoid type-checking with strpos().<br><br>If $needle is
 
 ```
 <?php
-findZero(&apos;01234&apos;);  // found a zero
-findZero(&apos;43210&apos;);  // did not find a zero
-findZero(&apos;0&apos;);      // did not find a zero
-findZero(&apos;00&apos;);     // found a zero
-findZero(&apos;000&apos;);    // found a zero
-findZero(&apos;10&apos;);     // did not find a zero
-findZero(&apos;100&apos;);    // found a zero
+findZero('01234');  // found a zero
+findZero('43210');  // did not find a zero
+findZero('0');      // did not find a zero
+findZero('00');     // found a zero
+findZero('000');    // found a zero
+findZero('10');     // did not find a zero
+findZero('100');    // found a zero
 
 function findZero($numberString) {
-    if (strstr($numberString, &apos;0&apos;)) {
-        echo &apos;found a zero&apos;;
+    if (strstr($numberString, '0')) {
+        echo 'found a zero';
     } else {
-        echo &apos;did not find a zero&apos;;
+        echo 'did not find a zero';
     }
 }
 ?>
@@ -39,8 +39,8 @@ Been using this for years:<br><br>
 * Date : June 17, 2007
 * Function : reverse strstr()
 * Purpose : Returns part of haystack string from start to the first occurrence of needle
-* $haystack = &apos;this/that/whatever&apos;;
-* $result = rstrstr($haystack, &apos;/&apos;)
+* $haystack = 'this/that/whatever';
+* $result = rstrstr($haystack, '/')
 * $result == this
 *
 * @access public

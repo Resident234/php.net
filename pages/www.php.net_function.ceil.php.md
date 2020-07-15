@@ -7,8 +7,8 @@ I needed this and couldn&apos;t find it so I thought someone else wouldn&apos;t 
 ```
 <?php
 
-// duplicates m$ excel&apos;s ceiling function
-if( !function_exists(&apos;ceiling&apos;) )
+// duplicates m$ excel's ceiling function
+if( !function_exists('ceiling') )
 {
     function ceiling($number, $significance = 1)
     {
@@ -30,7 +30,12 @@ echo ceiling(1.27, 0.05);  // 1.30
 Caution!<br>
 
 ```
-<?php<br>$value = 77.4;<br>echo ceil($value * 100) / 100;         // 77.41 - WRONG!<br>echo ceil(round($value * 100)) / 100;  // 77.4 - OK!  
+<?php
+$value = 77.4;
+echo ceil($value * 100) / 100;         // 77.41 - WRONG!
+echo ceil(round($value * 100)) / 100;  // 77.4 - OK!?>
+```
+  
 
 #
 

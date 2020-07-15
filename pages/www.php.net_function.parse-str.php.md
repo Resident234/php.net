@@ -7,10 +7,10 @@ It bears mentioning that the parse_str builtin does NOT process a query string i
 ```
 <?php
 # silently fails to handle multiple values
-parse_str(&apos;foo=1&amp;foo=2&amp;foo=3&apos;);
+parse_str('foo=1&amp;foo=2&amp;foo=3');
 
 # the above produces:
-$foo = array(&apos;foo&apos; =&gt; &apos;3&apos;);
+$foo = array('foo' => '3');
 ?>
 ```
 
@@ -21,16 +21,18 @@ Instead, PHP uses a non-standards compliant practice of including brackets in fi
 
 ```
 <?php
-# bizarre php-specific behavior
-parse_str(&apos;foo[]=1&amp;foo[]=2&amp;foo[]=3&apos;);
+# bizarre ?>
+```
+specific behavior
+parse_str('foo[]=1&amp;foo[]=2&amp;foo[]=3');
 
 # the above produces:
-$foo = array(&apos;foo&apos; =&gt; array(&apos;1&apos;, &apos;2&apos;, &apos;3&apos;) );
+$foo = array('foo' => array('1', '2', '3') );
 ?>
 ```
 
 
-This can be confusing for anyone who&apos;s used to the CGI standard, so keep it in mind.  As an alternative, I use a "proper" querystring parser function:
+This can be confusing for anyone who's used to the CGI standard, so keep it in mind.  As an alternative, I use a "proper" querystring parser function:
 
 
 
@@ -41,12 +43,12 @@ function proper_parse_str($str) {
   $arr = array();
 
   # split on outer delimiter
-  $pairs = explode(&apos;&amp;&apos;, $str);
+  $pairs = explode('&amp;', $str);
 
   # loop through each pair
   foreach ($pairs as $i) {
     # split into name and value
-    list($name,$value) = explode(&apos;=&apos;, $i, 2);
+    list($name,$value) = explode('=', $i, 2);
     
     # if name already exists
     if( isset($arr[$name]) ) {
@@ -68,7 +70,7 @@ function proper_parse_str($str) {
   return $arr;
 }
 
-$query = proper_parse_str($_SERVER[&apos;QUERY_STRING&apos;]);
+$query = proper_parse_str($_SERVER['QUERY_STRING']);
 ?>
 ```
   
@@ -90,12 +92,12 @@ if you need custom arg separator, you can use this function. it returns parsed  
  * @param integer $decType Decoding type
  * @return array
  */
-function http_parse_query($queryString, $argSeparator = &apos;&amp;&apos;, $decType = PHP_QUERY_RFC1738) {
+function http_parse_query($queryString, $argSeparator = '&amp;', $decType = PHP_QUERY_RFC1738) {
         $result             = array();
         $parts              = explode($argSeparator, $queryString);
 
         foreach ($parts as $part) {
-                list($paramName, $paramValue)   = explode(&apos;=&apos;, $part, 2);
+                list($paramName, $paramValue)   = explode('=', $part, 2);
 
                 switch ($decType) {
                         case PHP_QUERY_RFC3986:
@@ -111,8 +113,8 @@ function http_parse_query($queryString, $argSeparator = &apos;&amp;&apos;, $decT
                 }
                 
 
-                if (preg_match_all(&apos;/\[([^\]]*)\]/m&apos;, $paramName, $matches)) {
-                        $paramName      = substr($paramName, 0, strpos($paramName, &apos;[&apos;));
+                if (preg_match_all('/\[([^\]]*)\]/m', $paramName, $matches)) {
+                        $paramName      = substr($paramName, 0, strpos($paramName, '['));
                         $keys           = array_merge(array($paramName), $matches[1]);
                 } else {
                         $keys           = array($paramName);
@@ -121,10 +123,10 @@ function http_parse_query($queryString, $argSeparator = &apos;&amp;&apos;, $decT
                 $target         = &amp;$result;
                 
                 foreach ($keys as $index) {
-                        if ($index === &apos;&apos;) {
+                        if ($index === '') {
                                 if (isset($target)) {
                                         if (is_array($target)) {
-                                                $intKeys        = array_filter(array_keys($target), &apos;is_int&apos;);
+                                                $intKeys        = array_filter(array_keys($target), 'is_int');
                                                 $index  = count($intKeys) ? max($intKeys)+1 : 0;
                                         } else {
                                                 $target = array($target);

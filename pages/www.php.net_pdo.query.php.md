@@ -6,7 +6,7 @@ The handling of errors by this function is controlled by the attribute PDO::ATTR
 
 ```
 <?php
-$dbh-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ?>
 ```
   

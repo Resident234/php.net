@@ -21,9 +21,9 @@ Example:
 
 ```
 <?php
-get_numeric(&apos;3&apos;); // int(3)
-get_numeric(&apos;1.2&apos;); // float(1.2)
-get_numeric(&apos;3.0&apos;); // float(3)
+get_numeric('3'); // int(3)
+get_numeric('1.2'); // float(1.2)
+get_numeric('3.0'); // float(3)
 ?>
 ```
   
@@ -34,7 +34,7 @@ Note that the function accepts extremely big numbers and correctly evaluates the
 
 ```
 <?php
-    $v = is_numeric (&apos;58635272821786587286382824657568871098287278276543219876543&apos;) ? true : false;
+    $v = is_numeric ('58635272821786587286382824657568871098287278276543219876543') ? true : false;
     
     var_dump ($v);
 ?>

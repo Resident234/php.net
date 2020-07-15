@@ -7,8 +7,8 @@ array_splice, split an array into 2 arrays. The returned arrays is the 2nd argum
 ```
 <?php
 $input = array("red", "green", "blue", "yellow");
-print_r(array_splice($input, 3)); // Array ( [0] =&gt; yellow )  
-print_r($input); //Array ( [0] =&gt; red [1] =&gt; green [2] =&gt; blue )
+print_r(array_splice($input, 3)); // Array ( [0] => yellow )  
+print_r($input); //Array ( [0] => red [1] => green [2] => blue )
 ?>
 ```
 
@@ -20,7 +20,7 @@ first search the array index you want to replace
 
 
 ```
-<?php $index = array_search(&apos;green&apos;, $input);// index = 1 ?>
+<?php $index = array_search('green', $input);// index = 1 ?>
 ```
 
 
@@ -30,7 +30,7 @@ and then use it as according to the definition
 
 ```
 <?php
-array_splice($input, $index, 1, array(&apos;mygreeen&apos;)); //Array ( [0] =&gt; red [1] =&gt; mygreeen [2] =&gt; blue [3] =&gt; yellow ) 
+array_splice($input, $index, 1, array('mygreeen')); //Array ( [0] => red [1] => mygreeen [2] => blue [3] => yellow ) 
 ?>
 ```
 <br><br>so here green is replaced by mygreen.<br><br>here 1 in array_splice above represent the number of items to be replaced. so here start at index &apos;1&apos; and replaced only one item which is &apos;green&apos;  
@@ -43,14 +43,14 @@ You cannot insert with array_splice an array with your own key. array_splice wil
 <?php
 // [DATA]
 $test_array = array (
-  row1 =&gt; array (col1 =&gt; &apos;foobar!&apos;, col2 =&gt; &apos;foobar!&apos;),
-  row2 =&gt; array (col1 =&gt; &apos;foobar!&apos;, col2 =&gt; &apos;foobar!&apos;),
-  row3 =&gt; array (col1 =&gt; &apos;foobar!&apos;, col2 =&gt; &apos;foobar!&apos;)
+  row1 => array (col1 => 'foobar!', col2 => 'foobar!'),
+  row2 => array (col1 => 'foobar!', col2 => 'foobar!'),
+  row3 => array (col1 => 'foobar!', col2 => 'foobar!')
 );
 
 // [ACTION]
-array_splice ($test_array, 2, 0, array (&apos;rowX&apos; =&gt; array (&apos;colX&apos; =&gt; &apos;foobar2&apos;)));
-echo &apos;&lt;pre&gt;&apos;; print_r ($test_array); echo &apos;&lt;/pre&gt;&apos;;
+array_splice ($test_array, 2, 0, array ('rowX' => array ('colX' => 'foobar2')));
+echo '&lt;pre&gt;'; print_r ($test_array); echo '&lt;/pre&gt;';
 ?>
 ```
 
@@ -58,23 +58,23 @@ echo &apos;&lt;pre&gt;&apos;; print_r ($test_array); echo &apos;&lt;/pre&gt;&apo
 [RESULT]
 
 Array (
-    [row1] =&gt; Array (
-            [col1] =&gt; foobar!
-            [col2] =&gt; foobar!
+    [row1] => Array (
+            [col1] => foobar!
+            [col2] => foobar!
         )
 
-    [row2] =&gt; Array (
-            [col1] =&gt; foobar!
-            [col2] =&gt; foobar!
+    [row2] => Array (
+            [col1] => foobar!
+            [col2] => foobar!
         )
 
-    [0] =&gt; Array (
-            [colX] =&gt; foobar2
+    [0] => Array (
+            [colX] => foobar2
         )
 
-    [row3] =&gt; Array (
-            [col1] =&gt; foobar!
-            [col2] =&gt; foobar!
+    [row3] => Array (
+            [col1] => foobar!
+            [col2] => foobar!
         )
 )
 
@@ -91,8 +91,8 @@ function array_insert (&amp;$array, $position, $insert_array) {
 <?php
 // [ACTION]
 
-array_insert ($test_array, 2, array (&apos;rowX&apos; =&gt; array (&apos;colX&apos; =&gt; &apos;foobar2&apos;)));
-echo &apos;&lt;pre&gt;&apos;; print_r ($test_array); echo &apos;&lt;/pre&gt;&apos;;
+array_insert ($test_array, 2, array ('rowX' => array ('colX' => 'foobar2')));
+echo '&lt;pre&gt;'; print_r ($test_array); echo '&lt;/pre&gt;';
 ?>
 ```
 <br><br>[RESULT]<br><br>Array (<br>    [row1] =&gt; Array (<br>            [col1] =&gt; foobar!<br>            [col2] =&gt; foobar!<br>        )<br><br>    [row2] =&gt; Array (<br>            [col1] =&gt; foobar!<br>            [col2] =&gt; foobar!<br>        )<br><br>    [rowX] =&gt; Array (<br>            [colX] =&gt; foobar2<br>        )<br><br>    [row3] =&gt; Array (<br>            [col1] =&gt; foobar!<br>            [col2] =&gt; foobar!<br>        )<br>)<br><br>[NOTE]<br><br>The position "0" will insert the array in the first position (like array_shift). If you try a position higher than the langth of the array, you add it to the array like the function array_push.  
@@ -165,18 +165,18 @@ function array_splice_assoc(&amp;$input, $offset, $length, $replacement) {
 }
 
 $fruit = array(
-        &apos;orange&apos; =&gt; &apos;orange&apos;,
-        &apos;lemon&apos; =&gt; &apos;yellow&apos;,
-        &apos;lime&apos; =&gt; &apos;green&apos;,
-        &apos;grape&apos; =&gt; &apos;purple&apos;,
-        &apos;cherry&apos; =&gt; &apos;red&apos;,
+        'orange' => 'orange',
+        'lemon' => 'yellow',
+        'lime' => 'green',
+        'grape' => 'purple',
+        'cherry' => 'red',
 );
 
 // Replace lemon and lime with apple
-array_splice_assoc($fruit, &apos;lemon&apos;, &apos;grape&apos;, array(&apos;apple&apos; =&gt; &apos;red&apos;));
+array_splice_assoc($fruit, 'lemon', 'grape', array('apple' => 'red'));
 
 // Replace cherry with strawberry
-array_splice_assoc($fruit, &apos;cherry&apos;, 1, array(&apos;strawberry&apos; =&gt; &apos;red&apos;));
+array_splice_assoc($fruit, 'cherry', 1, array('strawberry' => 'red'));
 ?>
 ```
 <br><br>Note: I have not tested this with negative offsets and lengths.  

@@ -7,10 +7,10 @@ One might think that setting the correct locale would do the trick with for exam
 ```
 <?php
 
-setlocale(LC_CTYPE, &apos;de_DE.UTF8&apos;);
+setlocale(LC_CTYPE, 'de_DE.UTF8');
 
-echo strtoupper(&apos;Umlaute &#xE4;&#xF6;&#xFC; in uppercase&apos;); // outputs "UMLAUTE &#xE4;&#xF6;&#xFC; IN UPPERCASE"
-echo mb_strtoupper(&apos;Umlaute &#xE4;&#xF6;&#xFC; in uppercase&apos;, &apos;UTF-8&apos;); // outputs "UMLAUTE &#xC4;&#xD6;&#xDC; IN UPPERCASE"
+echo strtoupper('Umlaute &#xE4;&#xF6;&#xFC; in uppercase'); // outputs "UMLAUTE &#xE4;&#xF6;&#xFC; IN UPPERCASE"
+echo mb_strtoupper('Umlaute &#xE4;&#xF6;&#xFC; in uppercase', 'UTF-8'); // outputs "UMLAUTE &#xC4;&#xD6;&#xDC; IN UPPERCASE"
 
 ?>
 ```

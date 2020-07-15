@@ -7,12 +7,12 @@ To better understand this function you should execute this code first :<br><br>
 ```
 <?php
     // First of all choose your path , For e.g. C:/session
-    session_save_path(&apos;Your Path here !&apos;);
+    session_save_path('Your Path here !');
     
     session_start();
     
     // Define a Session Variable
-    $_SESSION[&apos;Key&apos;] = &apos;value&apos; ;
+    $_SESSION['Key'] = 'value' ;
     
     Var_dump(session_status() == PHP_SESSION_ACTIVE);
     
@@ -28,7 +28,7 @@ Then you should execute this code :
 ```
 <?php
     // Choose the path that you used it in first part  
-    session_save_path(&apos;Your path here&apos;);
+    session_save_path('Your path here');
     
     session_start();
     

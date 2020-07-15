@@ -15,9 +15,9 @@ function enoughmem ($x, $y, $rgb=3) {
 }
 
 //-------------------------------------------------- SIMPLE EXAMPLE
-list ($x, $y) = @getimagesize (&apos;your_img.jpg&apos;);  //--- get size of img ---
+list ($x, $y) = @getimagesize ('your_img.jpg');  //--- get size of img ---
 if (enoughmem($x,$y)) {
-    $img = @imagecreatefromjpeg (&apos;your_img.jpg&apos;);  //--- open img file ---
+    $img = @imagecreatefromjpeg ('your_img.jpg');  //--- open img file ---
     $thumb = 200;  //--- max. size of thumb ---
     if ($x &gt; $y) {
         $tx = $thumb;  //--- landscape ---
@@ -29,7 +29,7 @@ if (enoughmem($x,$y)) {
     if (enoughmem($tx,$ty)) {
         $thb = imagecreatetruecolor ($tx, $ty);  //--- create thumbnail ---
         imagecopyresampled ($thb,$img, 0,0, 0,0, $tx,$ty, $x,$y);
-        imagejpeg ($thb, &apos;your_thumbnail.jpg&apos;, 80);
+        imagejpeg ($thb, 'your_thumbnail.jpg', 80);
         imagedestroy ($thb);
     }
     imagedestroy ($img);

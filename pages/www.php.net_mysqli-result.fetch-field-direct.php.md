@@ -7,23 +7,23 @@ Here&apos;s a bigger list of data types.  I got this by creating every type I co
 ```
 <?php
 $mysql_data_type_hash = array(
-    1=&gt;&apos;tinyint&apos;,
-    2=&gt;&apos;smallint&apos;,
-    3=&gt;&apos;int&apos;,
-    4=&gt;&apos;float&apos;,
-    5=&gt;&apos;double&apos;,
-    7=&gt;&apos;timestamp&apos;,
-    8=&gt;&apos;bigint&apos;,
-    9=&gt;&apos;mediumint&apos;,
-    10=&gt;&apos;date&apos;,
-    11=&gt;&apos;time&apos;,
-    12=&gt;&apos;datetime&apos;,
-    13=&gt;&apos;year&apos;,
-    16=&gt;&apos;bit&apos;,
+    1=>'tinyint',
+    2=>'smallint',
+    3=>'int',
+    4=>'float',
+    5=>'double',
+    7=>'timestamp',
+    8=>'bigint',
+    9=>'mediumint',
+    10=>'date',
+    11=>'time',
+    12=>'datetime',
+    13=>'year',
+    16=>'bit',
     //252 is currently mapped to all text and blob types (MySQL 5.0.51a)
-    253=&gt;&apos;varchar&apos;,
-    254=&gt;&apos;char&apos;,
-    246=&gt;&apos;decimal&apos;
+    253=>'varchar',
+    254=>'char',
+    246=>'decimal'
 );
 ?>
 ```

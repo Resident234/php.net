@@ -6,8 +6,8 @@ If you need to send a CSV file directly to the browser, without writing in an ex
 
 ```
 <?php
-$out = fopen(&apos;php://output&apos;, &apos;w&apos;);
-fputcsv($out, array(&apos;this&apos;,&apos;is some&apos;, &apos;csv "stuff", you know.&apos;));
+$out = fopen('php://output', 'w');
+fputcsv($out, array('this','is some', 'csv "stuff", you know.'));
 fclose($out);
 ?>
 ```
@@ -21,7 +21,7 @@ Sometimes it&apos;s useful to get CSV line as string. I.e. to store it somewhere
 <?php
 function csvstr(array $fields) : string
 {
-    $f = fopen(&apos;php://memory&apos;, &apos;r+&apos;);
+    $f = fopen('php://memory', 'r+');
     if (fputcsv($f, $fields) === false) {
         return false;
     }
@@ -40,9 +40,9 @@ If you need to save the output to a variable (e.g. for use within a framework) y
 ```
 <?php
 // output up to 5MB is kept in memory, if it becomes bigger it will automatically be written to a temporary file
-$csv = fopen(&apos;php://temp/maxmemory:&apos;. (5*1024*1024), &apos;r+&apos;);
+$csv = fopen('php://temp/maxmemory:'. (5*1024*1024), 'r+');
 
-fputcsv($csv, array(&apos;blah&apos;,&apos;blah&apos;));
+fputcsv($csv, array('blah','blah'));
 
 rewind($csv);
 
@@ -62,8 +62,8 @@ TAB delimiting.<br><br>Using fputcsv to output a CSV with a tab delimiter is a l
 
 ```
 <?php
-    fputcsv($fp, $foo, &apos;\t&apos;);      //won&apos;t work
-    fputcsv($fp, $foo, &apos;    &apos;);    //won&apos;t work
+    fputcsv($fp, $foo, '\t');      //won't work
+    fputcsv($fp, $foo, '    ');    //won't work
 
     fputcsv($fp, $foo, chr(9));    //works
 ?>
@@ -91,7 +91,7 @@ I&apos;ve created a function for quickly generating CSV files that work with Mic
 
 function mssafe_csv($filepath, $data, $header = array())
 {
-    if ( $fp = fopen($filepath, &apos;w&apos;) ) {
+    if ( $fp = fopen($filepath, 'w') ) {
         $show_header = true;
         if ( empty($header) ) {
             $show_header = false;
@@ -100,7 +100,7 @@ function mssafe_csv($filepath, $data, $header = array())
             if ( !empty($line) ) {
                 reset($line);
                 $first = current($line);
-                if ( substr($first, 0, 2) == &apos;ID&apos; &amp;&amp; !preg_match(&apos;/["\\s,]/&apos;, $first) ) {
+                if ( substr($first, 0, 2) == 'ID' &amp;&amp; !preg_match('/["\\s,]/', $first) ) {
                     array_shift($data);
                     array_shift($line);
                     if ( empty($line) ) {
@@ -116,7 +116,7 @@ function mssafe_csv($filepath, $data, $header = array())
         } else {
             reset($header);
             $first = current($header);
-            if ( substr($first, 0, 2) == &apos;ID&apos; &amp;&amp; !preg_match(&apos;/["\\s,]/&apos;, $first) ) {
+            if ( substr($first, 0, 2) == 'ID' &amp;&amp; !preg_match('/["\\s,]/', $first) ) {
                 array_shift($header);
                 if ( empty($header) ) {
                     $show_header = false;
@@ -157,11 +157,11 @@ Utility function to output a mysql query to csv with the option to write to file
         
         if($attachment) {
             // send response headers to the browser
-            header( &apos;Content-Type: text/csv&apos; );
-            header( &apos;Content-Disposition: attachment;filename=&apos;.$filename);
-            $fp = fopen(&apos;php://output&apos;, &apos;w&apos;);
+            header( 'Content-Type: text/csv' );
+            header( 'Content-Disposition: attachment;filename='.$filename);
+            $fp = fopen('php://output', 'w');
         } else {
-            $fp = fopen($filename, &apos;w&apos;);
+            $fp = fopen($filename, 'w');
         }
         
         $result = mysql_query($query, $db_conn) or die( mysql_error( $db_conn ) );
@@ -203,14 +203,14 @@ Alright, after playing a while, I&apos;m confident the following replacement fun
 ```
 <?php
 
-function fputcsv2 ($fh, array $fields, $delimiter = &apos;,&apos;, $enclosure = &apos;"&apos;, $mysql_null = false) {
-    $delimiter_esc = preg_quote($delimiter, &apos;/&apos;);
-    $enclosure_esc = preg_quote($enclosure, &apos;/&apos;);
+function fputcsv2 ($fh, array $fields, $delimiter = ',', $enclosure = '"', $mysql_null = false) {
+    $delimiter_esc = preg_quote($delimiter, '/');
+    $enclosure_esc = preg_quote($enclosure, '/');
 
     $output = array();
     foreach ($fields as $field) {
         if ($field === null &amp;&amp; $mysql_null) {
-            $output[] = &apos;NULL&apos;;
+            $output[] = 'NULL';
             continue;
         }
 
@@ -228,22 +228,22 @@ function fputcsv2 ($fh, array $fields, $delimiter = &apos;,&apos;, $enclosure = 
 // but _LEAVE ESCAPED BY EMPTY!_).
 /*
 LOAD DATA INFILE
-    &apos;/path/to/file.csv&apos;
+    '/path/to/file.csv'
 
 INTO TABLE
     my_table
 
 FIELDS TERMINATED BY
-    &apos;,&apos;
+    ','
 
 OPTIONALLY ENCLOSED BY
-    &apos;"&apos;
+    '"'
 
 ESCAPED BY
-    &apos;&apos;
+    ''
 
 LINES TERMINATED BY
-    &apos;\n&apos;
+    '\n'
 */
 
 ?>

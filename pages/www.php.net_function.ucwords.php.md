@@ -11,9 +11,9 @@ My quick and dirty ucname (Upper Case Name) function.<br><br>
 function ucname($string) {
     $string =ucwords(strtolower($string));
 
-    foreach (array(&apos;-&apos;, &apos;\&apos;&apos;) as $delimiter) {
+    foreach (array('-', '\'') as $delimiter) {
       if (strpos($string, $delimiter)!==false) {
-        $string =implode($delimiter, array_map(&apos;ucfirst&apos;, explode($delimiter, $string)));
+        $string =implode($delimiter, array_map('ucfirst', explode($delimiter, $string)));
       }
     }
     return $string;
@@ -28,18 +28,18 @@ function ucname($string) {
 //TEST
 
 $names =array(
-  &apos;JEAN-LUC PICARD&apos;,
-  &apos;MILES O\&apos;BRIEN&apos;,
-  &apos;WILLIAM RIKER&apos;,
-  &apos;geordi la forge&apos;,
-  &apos;bEvErly CRuSHeR&apos;
+  'JEAN-LUC PICARD',
+  'MILES O\'BRIEN',
+  'WILLIAM RIKER',
+  'geordi la forge',
+  'bEvErly CRuSHeR'
 );
 foreach ($names as $name) { print ucname("{$name}\n"); }
 
 //PRINTS:
 /*
 Jean-Luc Picard
-Miles O&apos;Brien
+Miles O'Brien
 William Riker
 Geordi La Forge
 Beverly Crusher
@@ -55,19 +55,19 @@ Para formatar nomes em pt-br:<br><br>
 ```
 <?php
 
-    function titleCase($string, $delimiters = array(" ", "-", ".", "&apos;", "O&apos;", "Mc"), $exceptions = array("de", "da", "dos", "das", "do", "I", "II", "III", "IV", "V", "VI"))
+    function titleCase($string, $delimiters = array(" ", "-", ".", "'", "O'", "Mc"), $exceptions = array("de", "da", "dos", "das", "do", "I", "II", "III", "IV", "V", "VI"))
     {
         /*
-         * Exceptions in lower case are words you don&apos;t want converted
-         * Exceptions all in upper case are any words you don&apos;t want converted to title case
+         * Exceptions in lower case are words you don't want converted
+         * Exceptions all in upper case are any words you don't want converted to title case
          *   but should be converted to upper case, e.g.:
          *   king henry viii or king henry Viii should be King Henry VIII
          */
         $string = mb_convert_case($string, MB_CASE_TITLE, "UTF-8");
-        foreach ($delimiters as $dlnr =&gt; $delimiter) {
+        foreach ($delimiters as $dlnr => $delimiter) {
             $words = explode($delimiter, $string);
             $newwords = array();
-            foreach ($words as $wordnr =&gt; $word) {
+            foreach ($words as $wordnr => $word) {
                 if (in_array(mb_strtoupper($word, "UTF-8"), $exceptions)) {
                     // check exceptions list for any words that should be in upper case
                     $word = mb_strtoupper($word, "UTF-8");
@@ -95,8 +95,8 @@ Usage:
 
 ```
 <?php
-    $s = &apos;S&#xC3;O JO&#xC3;O DOS SANTOS&apos;;
-    $v = titleCase($s); // &apos;S&#xE3;o Jo&#xE3;o dos Santos&apos; 
+    $s = 'S&#xC3;O JO&#xC3;O DOS SANTOS';
+    $v = titleCase($s); // 'S&#xE3;o Jo&#xE3;o dos Santos' 
 ?>
 ```
   
@@ -108,17 +108,17 @@ Some recipes for switching between underscore and camelcase naming:<br><br>
 ```
 <?php
 // underscored to upper-camelcase
-// e.g. "this_method_name" -&gt; "ThisMethodName"
-preg_replace(&apos;/(?:^|_)(.?)/e&apos;,"strtoupper(&apos;$1&apos;)",$string);
+// e.g. "this_method_name" -> "ThisMethodName"
+preg_replace('/(?:^|_)(.?)/e',"strtoupper('$1')",$string);
 
 // underscored to lower-camelcase
-// e.g. "this_method_name" -&gt; "thisMethodName"
-preg_replace(&apos;/_(.?)/e&apos;,"strtoupper(&apos;$1&apos;)",$string);
+// e.g. "this_method_name" -> "thisMethodName"
+preg_replace('/_(.?)/e',"strtoupper('$1')",$string);
 
 // camelcase (lower or upper) to underscored
-// e.g. "thisMethodName" -&gt; "this_method_name"
-// e.g. "ThisMethodName" -&gt; "this_method_name"
-strtolower(preg_replace(&apos;/([^A-Z])([A-Z])/&apos;, "$1_$2", $string));
+// e.g. "thisMethodName" -> "this_method_name"
+// e.g. "ThisMethodName" -> "this_method_name"
+strtolower(preg_replace('/([^A-Z])([A-Z])/', "$1_$2", $string));
 ?>
 ```
 <br><br>Of course these aren&apos;t 100% symmetric.  For example...<br>  * this_is_a_string -&gt; ThisIsAString -&gt; this_is_astring<br>  * GetURLForString -&gt; get_urlfor_string -&gt; GetUrlforString  
@@ -129,13 +129,13 @@ Features:<br>- multi byte compatible<br>- handles multiple delimiters<br><br>
 
 ```
 <?php
-function ucwords_specific ($string, $delimiters = &apos;&apos;, $encoding = NULL)
+function ucwords_specific ($string, $delimiters = '', $encoding = NULL)
 {
     if ($encoding === NULL) { $encoding = mb_internal_encoding();}
 
     if (is_string($delimiters))
     {
-        $delimiters =  str_split( str_replace(&apos; &apos;, &apos;&apos;, $delimiters));
+        $delimiters =  str_split( str_replace(' ', '', $delimiters));
     }
 
     $delimiters_pattern1 = array();
@@ -145,9 +145,9 @@ function ucwords_specific ($string, $delimiters = &apos;&apos;, $encoding = NULL
     foreach ($delimiters as $delimiter)
     {
         $uniqid = uniqid();
-        $delimiters_pattern1[]   = &apos;/&apos;. preg_quote($delimiter) .&apos;/&apos;;
-        $delimiters_replace1[]   = $delimiter.$uniqid.&apos; &apos;;
-        $delimiters_pattern2[]   = &apos;/&apos;. preg_quote($delimiter.$uniqid.&apos; &apos;) .&apos;/&apos;;
+        $delimiters_pattern1[]   = '/'. preg_quote($delimiter) .'/';
+        $delimiters_replace1[]   = $delimiter.$uniqid.' ';
+        $delimiters_pattern2[]   = '/'. preg_quote($delimiter.$uniqid.' ') .'/';
         $delimiters_replace2[]   = $delimiter;
     }
 
@@ -155,14 +155,14 @@ function ucwords_specific ($string, $delimiters = &apos;&apos;, $encoding = NULL
     $return_string = $string;
     $return_string = preg_replace($delimiters_pattern1, $delimiters_replace1, $return_string);
 
-    $words = explode(&apos; &apos;, $return_string);
+    $words = explode(' ', $return_string);
 
-    foreach ($words as $index =&gt; $word)
+    foreach ($words as $index => $word)
     {
         $words[$index] = mb_strtoupper(mb_substr($word, 0, 1, $encoding), $encoding).mb_substr($word, 1, mb_strlen($word, $encoding), $encoding);
     }
 
-    $return_string = implode(&apos; &apos;, $words);
+    $return_string = implode(' ', $words);
 
     $return_string = preg_replace($delimiters_pattern2, $delimiters_replace2, $return_string);
 
@@ -174,7 +174,7 @@ function ucwords_specific ($string, $delimiters = &apos;&apos;, $encoding = NULL
 
 Params:
 1. string: The string being converted
-2. delimiters: a string with all wanted delimiters written one after the other e.g. "-&apos;"
+2. delimiters: a string with all wanted delimiters written one after the other e.g. "-'"
 3. encoding: Is the character encoding. If it is omitted, the internal character encoding value will be used.
 
 Example Usage:
@@ -182,9 +182,9 @@ Example Usage:
 
 ```
 <?php
-mb_internal_encoding(&apos;UTF-8&apos;);
-$string = "JEAN-PAUL d&apos;artagnan &#x15F;&#x160;-&#xF2;&#xC0;-&#xE9;&#xCC; hello - world";
-echo ucwords_specific( mb_strtolower($string, &apos;UTF-8&apos;), "-&apos;");
+mb_internal_encoding('UTF-8');
+$string = "JEAN-PAUL d'artagnan &#x15F;&#x160;-&#xF2;&#xC0;-&#xE9;&#xCC; hello - world";
+echo ucwords_specific( mb_strtolower($string, 'UTF-8'), "-'");
 ?>
 ```
 <br><br>Output:<br>Jean-Paul D&apos;Artagnan &#x15E;&#x161;-&#xD2;&#xE0;-&#xC9;&#xEC; Hello - World  

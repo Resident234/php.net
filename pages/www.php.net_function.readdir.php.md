@@ -11,18 +11,18 @@ A function I created to non-recursively get the path of all files and folders in
  * Finds path, relative to the given root folder, of all files and directories in the given directory and its sub-directories non recursively.
  * Will return an array of the form 
  * array(
- *   &apos;files&apos; =&gt; [],
- *   &apos;dirs&apos;  =&gt; [],
+ *   'files' => [],
+ *   'dirs'  => [],
  * )
  * @author sreekumar
  * @param string $root
  * @result array
  */
-function read_all_files($root = &apos;.&apos;){
-  $files  = array(&apos;files&apos;=&gt;array(), &apos;dirs&apos;=&gt;array());
+function read_all_files($root = '.'){
+  $files  = array('files'=>array(), 'dirs'=>array());
   $directories  = array();
   $last_letter  = $root[strlen($root)-1];
-  $root  = ($last_letter == &apos;\\&apos; || $last_letter == &apos;/&apos;) ? $root : $root.DIRECTORY_SEPARATOR;
+  $root  = ($last_letter == '\\' || $last_letter == '/') ? $root : $root.DIRECTORY_SEPARATOR;
   
   $directories[]  = $root;
   
@@ -30,16 +30,16 @@ function read_all_files($root = &apos;.&apos;){
     $dir  = array_pop($directories);
     if ($handle = opendir($dir)) {
       while (false !== ($file = readdir($handle))) {
-        if ($file == &apos;.&apos; || $file == &apos;..&apos;) {
+        if ($file == '.' || $file == '..') {
           continue;
         }
         $file  = $dir.$file;
         if (is_dir($file)) {
           $directory_path = $file.DIRECTORY_SEPARATOR;
           array_push($directories, $directory_path);
-          $files[&apos;dirs&apos;][]  = $directory_path;
+          $files['dirs'][]  = $directory_path;
         } elseif (is_file($file)) {
-          $files[&apos;files&apos;][]  = $file;
+          $files['files'][]  = $file;
         }
       }
       closedir($handle);

@@ -10,9 +10,9 @@ The flags used by MySql are:                                                    
 
 ```
 <?php
-$meta = $mysqli_result_object-&gt;fetch_field();
-if ($meta-&gt;flags &amp; 4) { 
-  echo &apos;Unique key flag is set&apos;; 
+$meta = $mysqli_result_object->fetch_field();
+if ($meta->flags &amp; 4) { 
+  echo 'Unique key flag is set'; 
 } 
 ?>
 ```

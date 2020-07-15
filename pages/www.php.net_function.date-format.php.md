@@ -13,7 +13,7 @@ $current_time = urlEncode(subStr(date("c"), 0, 19)."Z");
 ```
 
 
-In other words, take the date/time of now (in ISO 8601 format), discard the trailing Daylight Savings Time specifier, add a "Z" where the DST was and urlEncode the whole thing to convert the time&apos;s colons for REST requests (required for amazon, not sure about eBay).
+In other words, take the date/time of now (in ISO 8601 format), discard the trailing Daylight Savings Time specifier, add a "Z" where the DST was and urlEncode the whole thing to convert the time's colons for REST requests (required for amazon, not sure about eBay).
 
 Another way might be to create your own timestamp:
 
@@ -30,7 +30,7 @@ $current_time = urlEncode(date("Y-m-d")."T".date("H:i:s")."Z");
 
 This way however takes a little more coding on the line.
 
-As far as performance goes, I&apos;m not sure which may be quicker. I just like things to work and work well, don&apos;t much care for how fast they are as long as they get the job done :)
+As far as performance goes, I'm not sure which may be quicker. I just like things to work and work well, don't much care for how fast they are as long as they get the job done :)
 
 A much simpler way to get the eBay, or Amazon, web service timestamp is as follows:
 

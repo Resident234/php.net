@@ -64,7 +64,7 @@ do {
     }
     
     // Handle Input
-    foreach ($clients as $key =&gt; $client) { // for each client        
+    foreach ($clients as $key => $client) { // for each client        
         if (in_array($client, $read)) {
             if (false === ($buf = socket_read($client, 2048, PHP_NORMAL_READ))) {
                 echo "socket_read() fall&#xF3;: raz&#xF3;n: " . socket_strerror(socket_last_error($client)) . "\n";

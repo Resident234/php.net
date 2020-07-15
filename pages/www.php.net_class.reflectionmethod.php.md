@@ -9,8 +9,8 @@ Note that the public member $class contains the name of the class in which the m
 class A {public function __construct() {}}
 class B extends A {}
 
-$method = new ReflectionMethod(&apos;B&apos;, &apos;__construct&apos;);
-echo $method-&gt;class; // prints &apos;A&apos;
+$method = new ReflectionMethod('B', '__construct');
+echo $method->class; // prints 'A'
 ?>
 ```
   

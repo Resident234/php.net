@@ -114,7 +114,7 @@ I had a situation where I had to unpack a file filled with little-endian order d
 
 ```
 <?php
-/*The following code is a workaround for php&apos;s unpack function
+/*The following code is a workaround for php's unpack function
 which does not have the capability of unpacking double precision
 floats that were packed in the opposite byte order of the current
 machine.
@@ -122,37 +122,37 @@ machine.
 function big_endian_unpack ($format, $data) {
     $ar = unpack ($format, $data);
     $vals = array_values ($ar);
-    $f = explode (&apos;/&apos;, $format);
+    $f = explode ('/', $format);
     $i = 0;
-    foreach ($f as $f_k =&gt; $f_v) {
+    foreach ($f as $f_k => $f_v) {
     $repeater = intval (substr ($f_v, 1));
     if ($repeater == 0) $repeater = 1;
-    if ($f_v{1} == &apos;*&apos;)
+    if ($f_v{1} == '*')
     {
         $repeater = count ($ar) - $i;
     }
-    if ($f_v{0} != &apos;d&apos;) { $i += $repeater; continue; }
+    if ($f_v{0} != 'd') { $i += $repeater; continue; }
     $j = $i + $repeater;
     for ($a = $i; $a &lt; $j; ++$a)
     {
-        $p = pack (&apos;d&apos;,$vals[$i]);
+        $p = pack ('d',$vals[$i]);
         $p = strrev ($p);
-        list ($vals[$i]) = array_values (unpack (&apos;d1d&apos;, $p));
+        list ($vals[$i]) = array_values (unpack ('d1d', $p));
         ++$i;
     }
     }
     $a = 0;
-    foreach ($ar as $ar_k =&gt; $ar_v) {
+    foreach ($ar as $ar_k => $ar_v) {
     $ar[$ar_k] = $vals[$a];
     ++$a;
     }
     return $ar;
 }
 
-list ($endiantest) = array_values (unpack (&apos;L1L&apos;, pack (&apos;V&apos;,1)));
-if ($endiantest != 1) define (&apos;BIG_ENDIAN_MACHINE&apos;,1);
-if (defined (&apos;BIG_ENDIAN_MACHINE&apos;)) $unpack_workaround = &apos;big_endian_unpack&apos;;
-else $unpack_workaround = &apos;unpack&apos;;
+list ($endiantest) = array_values (unpack ('L1L', pack ('V',1)));
+if ($endiantest != 1) define ('BIG_ENDIAN_MACHINE',1);
+if (defined ('BIG_ENDIAN_MACHINE')) $unpack_workaround = 'big_endian_unpack';
+else $unpack_workaround = 'unpack';
 ?>
 ```
 
@@ -166,7 +166,7 @@ This workaround is used like this:
 
 function foo() {
         global $unpack_workaround;
-    $bar = $unpack_workaround(&apos;N7N/V2V/d8d&apos;,$my_data);
+    $bar = $unpack_workaround('N7N/V2V/d8d',$my_data);
 //...
 }
 

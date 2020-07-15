@@ -19,13 +19,13 @@ $needle = array("fox", "dog", ".", "duck")
 var_dump(multineedle_stripos($haystack, $needle));
 /* Output:
    array(3) {
-     ["fox"]=&gt;
+     ["fox"]=>
      int(16)
-     ["dog"]=&gt;
+     ["dog"]=>
      int(40)
-     ["."]=&gt;
+     ["."]=>
      int(43)
-     ["duck"]=&gt;
+     ["duck"]=>
      bool(false)
    }
 */

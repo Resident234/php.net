@@ -13,12 +13,12 @@ I&apos;m sure I&apos;m not the only one who is distressed by the recent default 
     // to the file with the timezone info
     if (is_link("/etc/localtime")) {
         
-        // If it is, that file&apos;s name is actually the "Olsen" format timezone
+        // If it is, that file's name is actually the "Olsen" format timezone
         $filename = readlink("/etc/localtime");
         
         $pos = strpos($filename, "zoneinfo");
         if ($pos) {
-            // When it is, it&apos;s in the "/usr/share/zoneinfo/" folder
+            // When it is, it's in the "/usr/share/zoneinfo/" folder
             $timezone = substr($filename, $pos + strlen("zoneinfo/"));
         } else {
             // If not, bail
@@ -26,7 +26,7 @@ I&apos;m sure I&apos;m not the only one who is distressed by the recent default 
         }
     }
     else {
-        // On other systems, like Ubuntu, there&apos;s file with the Olsen time
+        // On other systems, like Ubuntu, there's file with the Olsen time
         // right inside it.
         $timezone = file_get_contents("/etc/timezone");
         if (!strlen($timezone)) {

@@ -6,7 +6,7 @@ Note: If you are trying to get 02.29 for non leap year it will return 03.01<br>E
 
 ```
 <?php 
-new DateTimeImmutable(&apos;2017-02-29&apos;) // 2017-03-01
+new DateTimeImmutable('2017-02-29') // 2017-03-01
 ?>
 ```
   

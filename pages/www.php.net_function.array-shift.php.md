@@ -18,13 +18,13 @@ Just a useful version which returns a simple array with the first key and value.
 function array_kshift(&amp;$arr)
 {
   list($k) = array_keys($arr);
-  $r  = array($k=&gt;$arr[$k]);
+  $r  = array($k=>$arr[$k]);
   unset($arr[$k]);
   return $r;
 }
 
 // test it on a simple associative array
-$arr = array(&apos;x&apos;=&gt;&apos;ball&apos;,&apos;y&apos;=&gt;&apos;hat&apos;,&apos;z&apos;=&gt;&apos;apple&apos;);
+$arr = array('x'=>'ball','y'=>'hat','z'=>'apple');
 
 print_r($arr);
 print_r(array_kshift($arr));

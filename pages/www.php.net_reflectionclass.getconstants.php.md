@@ -15,7 +15,7 @@ class myClass {
 
     static function getConstants() {
         $oClass = new ReflectionClass(__CLASS__);
-        return $oClass-&gt;getConstants();
+        return $oClass->getConstants();
     }
 }
 ?>
@@ -31,22 +31,22 @@ You can pass $this as class for the ReflectionClass. __CLASS__ won&apos;t help i
 
 class Example {
   const TYPE_A = 1;
-  const TYPE_B = &apos;hello&apos;;
+  const TYPE_B = 'hello';
 
   public function getConstants()
   {
     $reflectionClass = new ReflectionClass($this);
-    return $reflectionClass-&gt;getConstants();
+    return $reflectionClass->getConstants();
   }
 }
 
 $example = new Example();
-var_dump($example-&gt;getConstants());
+var_dump($example->getConstants());
 
 // Result:
 array ( size = 2)
-  &apos;TYPE_A&apos; =&gt; int 1
-  &apos;TYPE_B&apos; =&gt; (string) &apos;hello&apos;?>
+  'TYPE_A' => int 1
+  'TYPE_B' => (string) 'hello'?>
 ```
   
 

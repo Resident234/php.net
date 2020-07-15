@@ -6,7 +6,7 @@ Note: array_rand uses the libc generator, which is slower and less-random than M
 
 ```
 <?php
-    $a = [&apos;http://php.net/&apos;, &apos;http://google.com/&apos;, &apos;http://bbc.co.uk/&apos;];
+    $a = ['http://php.net/', 'http://google.com/', 'http://bbc.co.uk/'];
 
     $website = $a[mt_rand(0, count($a) - 1)];
 ?>
@@ -33,7 +33,7 @@ $proba = array_fill(1, 40, 0);
 for ($i = 0; $i &lt; 10000; ++$i)
 {
     $tirage_tab = array_rand($valeurs, 10);
-    foreach($tirage_tab as $key =&gt; $value)
+    foreach($tirage_tab as $key => $value)
     {
         $proba[$valeurs[$value]]++;
     }
@@ -41,7 +41,7 @@ for ($i = 0; $i &lt; 10000; ++$i)
 
 asort($proba);
 echo "Proba : &lt;br/&gt;\n";
-foreach($proba as $key =&gt; $value)
+foreach($proba as $key => $value)
 {
     echo "$key : $value&lt;br/&gt;\n";
 }
@@ -54,7 +54,18 @@ foreach($proba as $key =&gt; $value)
 
 
 ```
-<?php<br>// An example how to fetch multiple values from array_rand<br>$a = [ &apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;, &apos;f&apos;, &apos;g&apos; ];<br>$n = 3;<br><br>// If you want to fetch multiple values you can try this:<br>print_r( array_intersect_key( $a, array_flip( array_rand( $a, $n ) ) ) );<br><br>// If you want to re-index keys wrap the call in &apos;array_values&apos;:<br>print_r( array_values( array_intersect_key( $a, array_flip( array_rand( $a, $n ) ) ) ) );  
+<?php
+// An example how to fetch multiple values from array_rand
+$a = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ];
+$n = 3;
+
+// If you want to fetch multiple values you can try this:
+print_r( array_intersect_key( $a, array_flip( array_rand( $a, $n ) ) ) );
+
+// If you want to re-index keys wrap the call in 'array_values':
+print_r( array_values( array_intersect_key( $a, array_flip( array_rand( $a, $n ) ) ) ) );?>
+```
+  
 
 #
 
@@ -82,8 +93,8 @@ print_r(array_random($a, 2));
 cherry
 Array
 (
-    [0] =&gt; banana
-    [1] =&gt; apple
+    [0] => banana
+    [1] => apple
 )
 
 And example for getting random value from assoc arrays;
@@ -103,7 +114,7 @@ function array_random_assoc($arr, $num = 1) {
     return $r;
 }
 
-$a = array("a" =&gt; "apple", "b" =&gt; "banana", "c" =&gt; "cherry");
+$a = array("a" => "apple", "b" => "banana", "c" => "cherry");
 print_r(array_random_assoc($a));
 print_r(array_random_assoc($a, 2));
 ?>
@@ -115,7 +126,35 @@ print_r(array_random_assoc($a, 2));
 
 
 ```
-<?php<br><br>/**<br> * Wraps array_rand call with additional checks<br> *<br> * TLDR; not so radom as you&apos;d wish.<br> *<br> * NOTICE: the closer you get to the input arrays length, for the n parameter, the  output gets less random.<br> * e.g.: array_random($a, count($a)) == $a will yield true<br> * This, most certainly, has to do with the method used for making the array random (see other comments).<br> *<br> * @throws OutOfBoundsException &#x2013; if n less than one or exceeds size of input array<br> *<br> * @param array $array &#x2013; array to randomize<br> * @param int $n &#x2013; how many elements to return<br> * @return array<br> */<br>function array_random(array $array, int $n = 1): array<br>{<br>    if ($n &lt; 1 || $n &gt; count($array)) {<br>        throw new OutOfBoundsException();<br>    }<br><br>    return ($n !== 1)<br>        ? array_values(array_intersect_key($array, array_flip(array_rand($array, $n))))<br>        : array($array[array_rand($array)]);<br>}  
+<?php
+
+/**
+ * Wraps array_rand call with additional checks
+ *
+ * TLDR; not so radom as you'd wish.
+ *
+ * NOTICE: the closer you get to the input arrays length, for the n parameter, the  output gets less random.
+ * e.g.: array_random($a, count($a)) == $a will yield true
+ * This, most certainly, has to do with the method used for making the array random (see other comments).
+ *
+ * @throws OutOfBoundsException &#x2013; if n less than one or exceeds size of input array
+ *
+ * @param array $array &#x2013; array to randomize
+ * @param int $n &#x2013; how many elements to return
+ * @return array
+ */
+function array_random(array $array, int $n = 1): array
+{
+    if ($n &lt; 1 || $n &gt; count($array)) {
+        throw new OutOfBoundsException();
+    }
+
+    return ($n !== 1)
+        ? array_values(array_intersect_key($array, array_flip(array_rand($array, $n))))
+        : array($array[array_rand($array)]);
+}?>
+```
+  
 
 #
 
@@ -136,7 +175,7 @@ $te=($te-$ts)*1000.0;    // Loop time in miliseconds
 
 asort($test);
 echo "Test mt_rand() in ".$te." ms: &lt;br/&gt;\n";
-foreach($test as $k=&gt;$v) echo "$k :\t$v &lt;br/&gt;\n";
+foreach($test as $k=>$v) echo "$k :\t$v &lt;br/&gt;\n";
 ?>
 ```
 <br><br>And it appears to me that simple "$idx=rand(0, count($test)-1);" is much better than "$idx=array_rand($test, 1);".<br>And what&apos;s more the simpler and a bit slower (0 ms up to total 712.357 ms at 5 mln cycles) "rand()" is better than "mt_rand()" in simple everyday use cases because it is more evenly distributed (difference least vs. most often numbers: ca. 0.20-1.28 % for "rand()" vs. ca. 1.43-1.68 % for "mt_rand()").<br>Try it for yourself... although it depends on your software and hardware configuration, range of numbers to choose from (due to random patterns), number of cycles in the loop, and temporary (public) server load as well.  

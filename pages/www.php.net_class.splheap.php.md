@@ -25,33 +25,33 @@ class JupilerLeague extends SplHeap
     }
 }
 
-// Let&apos;s populate our heap here (data of 2009)
+// Let's populate our heap here (data of 2009)
 $heap = new JupilerLeague();
-$heap-&gt;insert(array (&apos;AA Gent&apos; =&gt; 15));
-$heap-&gt;insert(array (&apos;Anderlecht&apos; =&gt; 20));
-$heap-&gt;insert(array (&apos;Cercle Brugge&apos; =&gt; 11));
-$heap-&gt;insert(array (&apos;Charleroi&apos; =&gt; 12));
-$heap-&gt;insert(array (&apos;Club Brugge&apos; =&gt; 21));
-$heap-&gt;insert(array (&apos;G. Beerschot&apos; =&gt; 15));
-$heap-&gt;insert(array (&apos;Kortrijk&apos; =&gt; 10));
-$heap-&gt;insert(array (&apos;KV Mechelen&apos; =&gt; 18));
-$heap-&gt;insert(array (&apos;Lokeren&apos; =&gt; 10));
-$heap-&gt;insert(array (&apos;Moeskroen&apos; =&gt; 7));
-$heap-&gt;insert(array (&apos;Racing Genk&apos; =&gt; 11));
-$heap-&gt;insert(array (&apos;Roeselare&apos; =&gt; 6));
-$heap-&gt;insert(array (&apos;Standard&apos; =&gt; 20));
-$heap-&gt;insert(array (&apos;STVV&apos; =&gt; 17));
-$heap-&gt;insert(array (&apos;Westerlo&apos; =&gt; 10));
-$heap-&gt;insert(array (&apos;Zulte Waregem&apos; =&gt; 15));
+$heap->insert(array ('AA Gent' => 15));
+$heap->insert(array ('Anderlecht' => 20));
+$heap->insert(array ('Cercle Brugge' => 11));
+$heap->insert(array ('Charleroi' => 12));
+$heap->insert(array ('Club Brugge' => 21));
+$heap->insert(array ('G. Beerschot' => 15));
+$heap->insert(array ('Kortrijk' => 10));
+$heap->insert(array ('KV Mechelen' => 18));
+$heap->insert(array ('Lokeren' => 10));
+$heap->insert(array ('Moeskroen' => 7));
+$heap->insert(array ('Racing Genk' => 11));
+$heap->insert(array ('Roeselare' => 6));
+$heap->insert(array ('Standard' => 20));
+$heap->insert(array ('STVV' => 17));
+$heap->insert(array ('Westerlo' => 10));
+$heap->insert(array ('Zulte Waregem' => 15));
 
 // For displaying the ranking we move up to the first node
-$heap-&gt;top();
+$heap->top();
 
 // Then we iterate through each node for displaying the result
-while ($heap-&gt;valid()) {
-  list ($team, $score) = each ($heap-&gt;current());
-  echo $team . &apos;: &apos; . $score . PHP_EOL;
-  $heap-&gt;next();
+while ($heap->valid()) {
+  list ($team, $score) = each ($heap->current());
+  echo $team . ': ' . $score . PHP_EOL;
+  $heap->next();
 }
 ?>
 ```

@@ -9,7 +9,7 @@ You can easily check mime type of an internet resource using this code :<br><br>
 function getUrlMimeType($url) {
     $buffer = file_get_contents($url);
     $finfo = new finfo(FILEINFO_MIME_TYPE);
-    return $finfo-&gt;buffer($buffer);
+    return $finfo->buffer($buffer);
 }
 ?>
 ```

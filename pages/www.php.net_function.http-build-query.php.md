@@ -6,7 +6,7 @@ Params with null value do not present in result string.<br><br>
 
 ```
 <?php
-$arr = array(&apos;test&apos; =&gt; null, &apos;test2&apos; =&gt; 1);
+$arr = array('test' => null, 'test2' => 1);
 echo http_build_query($arr);
 ?>
 ```

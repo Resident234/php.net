@@ -8,7 +8,7 @@ Here are the response codes ready for pasting in an ini-style file. Can be used 
 <?php
 $ch = curl_init(); // create cURL handle (ch)
 if (!$ch) {
-    die("Couldn&apos;t initialize a cURL handle");
+    die("Couldn't initialize a cURL handle");
 }
 // set some cURL options
 $ret = curl_setopt($ch, CURLOPT_URL,            "http://mail.yahoo.com");
@@ -28,7 +28,7 @@ if (empty($ret)) {
     $info = curl_getinfo($ch);
     curl_close($ch); // close cURL handler
 
-    if (empty($info[&apos;http_code&apos;])) {
+    if (empty($info['http_code'])) {
             die("No HTTP code was returned"); 
     } else {
         // load the HTTP codes
@@ -36,7 +36,7 @@ if (empty($ret)) {
         
         // echo results
         echo "The server responded: &lt;br /&gt;";
-        echo $info[&apos;http_code&apos;] . " " . $http_codes[$info[&apos;http_code&apos;]];
+        echo $info['http_code'] . " " . $http_codes[$info['http_code']];
     }
 
 }
@@ -54,8 +54,8 @@ CURLINFO_HTTP_CODE does not return a string, as the docs say, but rather an inte
 
 ```
 <?php
-    $c = curl_init(&apos;http://www.example.com/&apos;);
-    if(curl_getinfo($c, CURLINFO_HTTP_CODE) === &apos;200&apos;) echo "CURLINFO_HTTP_CODE returns a string.";
+    $c = curl_init('http://www.example.com/');
+    if(curl_getinfo($c, CURLINFO_HTTP_CODE) === '200') echo "CURLINFO_HTTP_CODE returns a string.";
     if(curl_getinfo($c, CURLINFO_HTTP_CODE) === 200) echo "CURLINFO_HTTP_CODE returns an integer.";
     curl_close($c);
 ?>

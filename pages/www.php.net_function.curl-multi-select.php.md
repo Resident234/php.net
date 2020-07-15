@@ -6,7 +6,7 @@ Even after so many distro releases, in PHP v5.5.9 and libcurl v7.35.0, curl_mult
 
 ```
 <?php
-        // While we&apos;re still active, execute curl
+        // While we're still active, execute curl
         $active = null;
         do {
             $mrc = curl_multi_exec($multi, $active);
@@ -55,7 +55,7 @@ With that, the core of "multi" processing becomes (ignoring error handling for b
     curl_multi_select($mh); // non-busy (!) wait for state change
     full_curl_multi_exec($mh, $still_running); // get new state
     while ($info = curl_multi_info_read($mh)) {
-      // process completed request (e.g. curl_multi_getcontent($info[&apos;handle&apos;]))
+      // process completed request (e.g. curl_multi_getcontent($info['handle']))
     }
   } while ($still_running);
 ?>

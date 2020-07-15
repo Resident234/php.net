@@ -12,12 +12,7 @@ foreach($array as $value)
 }
 ?>
 ```
-
-
-and experiencing errors (the pointer of the array is already moved to the next item, so instead of getting the key for $value, you will get the key to the next value in the array)
-
-CORRECT:
-
+<br><br>and experiencing errors (the pointer of the array is already moved to the next item, so instead of getting the key for $value, you will get the key to the next value in the array)<br><br>CORRECT:<br>
 
 ```
 <?php<br>foreach($array as $key =&gt; $value)<br>{<br>  $mykey = $key;<br>}<br><br>A noob error, but felt it might help someone else out there.  
@@ -29,26 +24,26 @@ Suppose if the array values are in numbers and numbers contains `0` then the loo
 ```
 <?php
 $array = array(
-    &apos;0&apos; =&gt; &apos;5&apos;,
-    &apos;1&apos; =&gt; &apos;2&apos;,
-    &apos;2&apos; =&gt; &apos;0&apos;,
-    &apos;3&apos; =&gt; &apos;3&apos;,
-    &apos;4&apos; =&gt; &apos;1&apos;);
+    '0' => '5',
+    '1' => '2',
+    '2' => '0',
+    '3' => '3',
+    '4' => '1');
 
 // wrong approach
 
 while ($fruit_name = current($array)) {
 
-        echo key($array).&apos;&lt;br /&gt;&apos;;
+        echo key($array).'&lt;br /&gt;';
        next($array);
 }
 
-// the way will be break loop when arra(&apos;2&apos;=&gt;0) because its value is &apos;0&apos;, while(0) will terminate the loop
+// the way will be break loop when arra('2'=>0) because its value is '0', while(0) will terminate the loop
 
 // correct approach
 while ( ($fruit_name = current($array)) !== FALSE ) {
 
-        echo key($array).&apos;&lt;br /&gt;&apos;;
+        echo key($array).'&lt;br /&gt;';
        next($array);
 }
 //this will work properly

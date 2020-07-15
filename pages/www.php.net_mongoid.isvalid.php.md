@@ -7,7 +7,7 @@ There is no equivalent for this method in the new extension, so instead use&#x20
 ```
 <?php
 if ($id instanceof \MongoDB\BSON\ObjectID
-    || preg_match(&apos;/^[a-f\d]{24}$/i&apos;, $id)
+    || preg_match('/^[a-f\d]{24}$/i', $id)
 ) {
   &#x2026;
 }

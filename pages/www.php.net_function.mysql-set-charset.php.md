@@ -9,9 +9,9 @@ I needed to access the database from within one particular webhosting service. P
 
 // ... (creating a connection to mysql) ...
 
-mysql_query("SET character_set_results = &apos;utf8&apos;, character_set_client = &apos;utf8&apos;, character_set_connection = &apos;utf8&apos;, character_set_database = &apos;utf8&apos;, character_set_server = &apos;utf8&apos;", $conn);
+mysql_query("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'", $conn);
 
-$re = mysql_query(&apos;SHOW VARIABLES LIKE "%character_set%";&apos;)or die(mysql_error());
+$re = mysql_query('SHOW VARIABLES LIKE "%character_set%";')or die(mysql_error());
 while ($r = mysql_fetch_assoc($re)) {var_dump ($r); echo "&lt;br /&gt;";} exit;
 
 ?>
@@ -24,12 +24,12 @@ Here&apos;s an example of how to use this feature :<br><br>I&apos;m using  PHP 5
 
 ```
 <?php
-$link = mysql_connect(&apos;localhost&apos;, &apos;user&apos;, &apos;password&apos;);
-mysql_set_charset(&apos;utf8&apos;,$link);
-$db_selected = mysql_select_db(&apos;emp_feedback&apos;, $link);
-if (!$db_selected) { die (&apos;Database access error : &apos; . mysql_error());}
-$query = "INSERT INTO feedback ( EmpName, Message ) VALUES (&apos;$_empName&apos;,&apos;$_message&apos;)";
-mysql_query($query) or die(&apos;Error, Feedback insert into database failed&apos;);
+$link = mysql_connect('localhost', 'user', 'password');
+mysql_set_charset('utf8',$link);
+$db_selected = mysql_select_db('emp_feedback', $link);
+if (!$db_selected) { die ('Database access error : ' . mysql_error());}
+$query = "INSERT INTO feedback ( EmpName, Message ) VALUES ('$_empName','$_message')";
+mysql_query($query) or die('Error, Feedback insert into database failed');
 ?>
 ```
 <br>Note that here $_empName is stored in English while $_message is in Arabic.  

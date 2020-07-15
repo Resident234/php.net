@@ -7,28 +7,28 @@ Another fine Iterator from php . You can use it especially when you have to iter
 ```
 <?php
 $fruits = array(
-    "apple" =&gt; "yummy",
-    "orange" =&gt; "ah ya, nice",
-    "grape" =&gt; "wow, I love it!",
-    "plum" =&gt; "nah, not me"
+    "apple" => "yummy",
+    "orange" => "ah ya, nice",
+    "grape" => "wow, I love it!",
+    "plum" => "nah, not me"
 );
 $obj = new ArrayObject( $fruits );
-$it = $obj-&gt;getIterator();
+$it = $obj->getIterator();
 
 // How many items are we iterating over?
 
-echo "Iterating over: " . $obj-&gt;count() . " values\n";
+echo "Iterating over: " . $obj->count() . " values\n";
 
 // Iterate over the values in the ArrayObject:
-while( $it-&gt;valid() )
+while( $it->valid() )
 {
-    echo $it-&gt;key() . "=" . $it-&gt;current() . "\n";
-    $it-&gt;next();
+    echo $it->key() . "=" . $it->current() . "\n";
+    $it->next();
 }
 
 // The good thing here is that it can be iterated with foreach loop
 
-foreach ($it as $key=&gt;$val)
+foreach ($it as $key=>$val)
 echo $key.":".$val."\n";
 
 /* Outputs something like */
@@ -53,12 +53,12 @@ class ArrayCallbackIterator extends ArrayIterator {
   private $callback;
   public function __construct($value, $callback) {
     parent::__construct($value);
-    $this-&gt;callback = $callback;
+    $this->callback = $callback;
   }
 
   public function current() {
     $value = parent::current();
-    return call_user_func($this-&gt;callback, $value);
+    return call_user_func($this->callback, $value);
   }
 }
 ?>

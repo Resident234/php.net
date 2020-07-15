@@ -6,7 +6,7 @@ If you are working with Images only and you need mime type (e.g. for headers), t
 
 ```
 <?php
-$file = &apos;path/to/image.jpg&apos;;
+$file = 'path/to/image.jpg';
 $image_mime = image_type_to_mime_type(exif_imagetype($file));
 ?>
 ```

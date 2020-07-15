@@ -13,7 +13,7 @@ Code first, then explanation.<br><br>
 ```
 
 
-That doesn&apos;t rename the file within the folder, as you might assume, instead, it moves the file to whatever the PHP working directory is... Chances are you&apos;ll not find it in your FTP tree. Instead, use the following:
+That doesn't rename the file within the folder, as you might assume, instead, it moves the file to whatever the PHP working directory is... Chances are you'll not find it in your FTP tree. Instead, use the following:
 
 
 
@@ -87,7 +87,7 @@ If by any chance you end up with something equivalent to this:<br><br>
 
 ```
 <?php
-rename(&apos;/foo/bar&apos;,&apos;/foo/bar&apos;);
+rename('/foo/bar','/foo/bar');
 ?>
 ```
 <br><br>It returns true. It&apos;s not documented.  

@@ -6,10 +6,10 @@ The code example as stated has a missing &apos;.&apos;, causing a syntax error i
 
 ```
 <?php
-$asn = geoip_asnum_by_name(&apos;www.example.com&apos;);
+$asn = geoip_asnum_by_name('www.example.com');
 
 if ($asn) {
-    echo &apos;The ASN is: &apos; . $asn;
+    echo 'The ASN is: ' . $asn;
 }
 ?>
 ```

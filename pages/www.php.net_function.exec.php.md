@@ -25,7 +25,7 @@ function execInBackground($cmd) {
 ```
 <?php
     // You may use status(), start(), and stop(). notice that start() method gets called automatically one time.
-    $process = new Process(&apos;ls -al&apos;);
+    $process = new Process('ls -al');
 
     // or if you got the pid, however here only the status() metod will work.
     $process = new Process();
@@ -65,40 +65,40 @@ class Process{
 
     public function __construct($cl=false){
         if ($cl != false){
-            $this-&gt;command = $cl;
-            $this-&gt;runCom();
+            $this->command = $cl;
+            $this->runCom();
         }
     }
     private function runCom(){
-        $command = &apos;nohup &apos;.$this-&gt;command.&apos; &gt; /dev/null 2&gt;&amp;1 &amp; echo $!&apos;;
+        $command = 'nohup '.$this->command.' &gt; /dev/null 2&gt;&amp;1 &amp; echo $!';
         exec($command ,$op);
-        $this-&gt;pid = (int)$op[0];
+        $this->pid = (int)$op[0];
     }
 
     public function setPid($pid){
-        $this-&gt;pid = $pid;
+        $this->pid = $pid;
     }
 
     public function getPid(){
-        return $this-&gt;pid;
+        return $this->pid;
     }
 
     public function status(){
-        $command = &apos;ps -p &apos;.$this-&gt;pid;
+        $command = 'ps -p '.$this->pid;
         exec($command,$op);
         if (!isset($op[1]))return false;
         else return true;
     }
 
     public function start(){
-        if ($this-&gt;command != &apos;&apos;)$this-&gt;runCom();
+        if ($this->command != '')$this->runCom();
         else return true;
     }
 
     public function stop(){
-        $command = &apos;kill &apos;.$this-&gt;pid;
+        $command = 'kill '.$this->pid;
         exec($command);
-        if ($this-&gt;status() == false)return true;
+        if ($this->status() == false)return true;
         else return false;
     }
 }
@@ -117,7 +117,7 @@ I too wrestled with getting a program to run in the background in Windows while 
 ```
 <?php
 $WshShell = new COM("WScript.Shell");
-$oExec = $WshShell-&gt;Run("notepad.exe", 7, false);
+$oExec = $WshShell->Run("notepad.exe", 7, false);
 ?>
 ```
 
@@ -128,7 +128,7 @@ start a shell command invisible in the background:
 ```
 <?php
 $WshShell = new COM("WScript.Shell");
-$oExec = $WshShell-&gt;Run("cmd /C dir /S %windir%", 0, false);
+$oExec = $WshShell->Run("cmd /C dir /S %windir%", 0, false);
 ?>
 ```
 
@@ -139,7 +139,7 @@ start MSPaint maximized and wait for you to close it before continuing the scrip
 ```
 <?php
 $WshShell = new COM("WScript.Shell");
-$oExec = $WshShell-&gt;Run("mspaint.exe", 3, true);
+$oExec = $WshShell->Run("mspaint.exe", 3, true);
 ?>
 ```
 <br><br>For more info on the Run() method go to:<br>http://msdn.microsoft.com/library/en-us/script56/html/wsMthRun.asp  

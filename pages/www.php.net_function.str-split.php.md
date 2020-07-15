@@ -28,11 +28,11 @@ A new version of "str_split_unicode" prev.<br><br>
 ```
 <?php
 function str_split_unicode($str, $length = 1) {
-    $tmp = preg_split(&apos;~~u&apos;, $str, -1, PREG_SPLIT_NO_EMPTY);
+    $tmp = preg_split('~~u', $str, -1, PREG_SPLIT_NO_EMPTY);
     if ($length &gt; 1) {
         $chunks = array_chunk($tmp, $length);
-        foreach ($chunks as $i =&gt; $chunk) {
-            $chunks[$i] = join(&apos;&apos;, (array) $chunk);
+        foreach ($chunks as $i => $chunk) {
+            $chunks[$i] = join('', (array) $chunk);
         }
         $tmp = $chunks;
     }

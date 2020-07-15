@@ -21,9 +21,9 @@ A proper unicode string padder;<br><br>
 
 ```
 <?php
-mb_internal_encoding(&apos;utf-8&apos;); // @important
+mb_internal_encoding('utf-8'); // @important
 
-function str_pad_unicode($str, $pad_len, $pad_str = &apos; &apos;, $dir = STR_PAD_RIGHT) {
+function str_pad_unicode($str, $pad_len, $pad_str = ' ', $dir = STR_PAD_RIGHT) {
     $str_len = mb_strlen($str);
     $pad_str_len = mb_strlen($pad_str);
     if (!$str_len &amp;&amp; ($dir == STR_PAD_RIGHT || $dir == STR_PAD_LEFT)) {
@@ -61,10 +61,10 @@ Test;
 ```
 <?php
 // needs ie. "test.php" file encoded in "utf-8 without bom"
-$s = &apos;...&apos;;
+$s = '...';
 for ($i = 3; $i &lt;= 1000; $i++) {
-    $s1 = str_pad($s, $i, &apos;AO&apos;, STR_PAD_BOTH); // can not inculde unicode char!!!
-    $s2 = str_pad_unicode($s, $i, &apos;&#xC4;&#xD6;&apos;, STR_PAD_BOTH);
+    $s1 = str_pad($s, $i, 'AO', STR_PAD_BOTH); // can not inculde unicode char!!!
+    $s2 = str_pad_unicode($s, $i, '&#xC4;&#xD6;', STR_PAD_BOTH);
     $sl1 = strlen($s1);
     $sl2 = mb_strlen($s2);
     echo  "len $sl1: $s1 \n";
@@ -82,7 +82,7 @@ multibyte version:<br><br>
 
 ```
 <?php
-function mb_str_pad($str, $pad_len, $pad_str = &apos; &apos;, $dir = STR_PAD_RIGHT, $encoding = NULL)
+function mb_str_pad($str, $pad_len, $pad_str = ' ', $dir = STR_PAD_RIGHT, $encoding = NULL)
 {
     $encoding = $encoding === NULL ? mb_internal_encoding() : $encoding;
     $padBefore = $dir === STR_PAD_BOTH || $dir === STR_PAD_LEFT;
@@ -92,8 +92,8 @@ function mb_str_pad($str, $pad_len, $pad_str = &apos; &apos;, $dir = STR_PAD_RIG
     $strToRepeatLen = mb_strlen($pad_str, $encoding);
     $repeatTimes = ceil($targetLen / $strToRepeatLen);
     $repeatedString = str_repeat($pad_str, max(0, $repeatTimes)); // safe if used with valid utf-8 strings
-    $before = $padBefore ? mb_substr($repeatedString, 0, floor($targetLen), $encoding) : &apos;&apos;;
-    $after = $padAfter ? mb_substr($repeatedString, 0, ceil($targetLen), $encoding) : &apos;&apos;;
+    $before = $padBefore ? mb_substr($repeatedString, 0, floor($targetLen), $encoding) : '';
+    $after = $padAfter ? mb_substr($repeatedString, 0, ceil($targetLen), $encoding) : '';
     return $before . $str . $after;
 }
 ?>

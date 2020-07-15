@@ -11,16 +11,16 @@ I found some addresses that FILTER_VALIDATE_EMAIL rejects, but RFC5321 permits:<
 ```
 <?php
 foreach (array(
-        &apos;localpart.ending.with.dot.@example.com&apos;,
-        &apos;(comment)localpart@example.com&apos;,
-        &apos;"this is v@lid!"@example.com&apos;, 
-        &apos;"much.more unusual"@example.com&apos;,
-        &apos;postbox@com&apos;,
-        &apos;admin@mailserver1&apos;,
-        &apos;"()&lt;&gt;[]:,;@\\"\\\\!#$%&amp;\&apos;*+-/=?^_`{}| ~.a"@example.org&apos;,
-        &apos;" "@example.org&apos;,
+        'localpart.ending.with.dot.@example.com',
+        '(comment)localpart@example.com',
+        '"this is v@lid!"@example.com', 
+        '"much.more unusual"@example.com',
+        'postbox@com',
+        'admin@mailserver1',
+        '"()&lt;&gt;[]:,;@\\"\\\\!#$%&amp;\'*+-/=?^_`{}| ~.a"@example.org',
+        '" "@example.org',
     ) as $address) {
-    echo "&lt;p&gt;$address is &lt;b&gt;".(filter_var($address, FILTER_VALIDATE_EMAIL) ? &apos;&apos; : &apos;not&apos;)." valid&lt;/b&gt;&lt;/p&gt;";
+    echo "&lt;p&gt;$address is &lt;b&gt;".(filter_var($address, FILTER_VALIDATE_EMAIL) ? '' : 'not')." valid&lt;/b&gt;&lt;/p&gt;";
 }
 ?>
 ```
@@ -36,11 +36,11 @@ note that FILTER_VALIDATE_BOOLEAN tries to be smart, recognizing words like Yes,
 
 ```
 <?php
-$vals=array(&apos;on&apos;,&apos;On&apos;,&apos;ON&apos;,&apos;off&apos;,&apos;Off&apos;,&apos;OFF&apos;,&apos;yes&apos;,&apos;Yes&apos;,&apos;YES&apos;,
-&apos;no&apos;,&apos;No&apos;,&apos;NO&apos;,0,1,&apos;0&apos;,&apos;1&apos;,&apos;true&apos;,
-&apos;True&apos;,&apos;TRUE&apos;,&apos;false&apos;,&apos;False&apos;,&apos;FALSE&apos;,true,false,&apos;foo&apos;,&apos;bar&apos;);
+$vals=array('on','On','ON','off','Off','OFF','yes','Yes','YES',
+'no','No','NO',0,1,'0','1','true',
+'True','TRUE','false','False','FALSE',true,false,'foo','bar');
 foreach($vals as $val){
-    echo var_export($val,true).&apos;: &apos;;   var_dump(filter_var($val,FILTER_VALIDATE_BOOLEAN,FILTER_NULL_ON_FAILURE));
+    echo var_export($val,true).': ';   var_dump(filter_var($val,FILTER_VALIDATE_BOOLEAN,FILTER_NULL_ON_FAILURE));
 }
 ?>
 ```

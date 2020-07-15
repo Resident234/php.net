@@ -7,7 +7,7 @@ My preferred way of checking if a constant is set, and if it isn&apos;t - settin
 ```
 <?php
 
-defined(&apos;CONSTANT&apos;) or define(&apos;CONSTANT&apos;, &apos;SomeDefaultValue&apos;);
+defined('CONSTANT') or define('CONSTANT', 'SomeDefaultValue');
 
 ?>
 ```
@@ -23,7 +23,7 @@ You can use the late static command "static::" withing defined as well. This exa
   {
     public function getConst()
     {
-      return defined(&apos;static::SOME_CONST&apos;) ? static::SOME_CONST : false;
+      return defined('static::SOME_CONST') ? static::SOME_CONST : false;
     }
   }
   
@@ -34,7 +34,7 @@ You can use the late static command "static::" withing defined as well. This exa
   
   $class2 = new class2;
   
-  var_dump($class2-&gt;getConst());
+  var_dump($class2->getConst());
 ?>
 ```
   
@@ -49,7 +49,7 @@ if you want to check id a class constant is defined use self:: before the consta
 
 ```
 <?php
-defined(&apos;self::CONSTANT_NAME&apos;);
+defined('self::CONSTANT_NAME');
 ?>
 ```
   
@@ -63,19 +63,19 @@ I saw that PHP doesn&apos;t have an enum function so I created my own. It&apos;s
     function enum()
     {
         $args = func_get_args();
-        foreach($args as $key=&gt;$arg)
+        foreach($args as $key=>$arg)
         {
             if(defined($arg))
             {
-                 die(&apos;Redefinition of defined constant &apos; . $arg);
+                 die('Redefinition of defined constant ' . $arg);
             }
 
             define($arg, $key);
         }
     }
     
-    enum(&apos;ONE&apos;,&apos;TWO&apos;,&apos;THREE&apos;);
-    echo ONE, &apos; &apos;, TWO, &apos; &apos;, THREE;
+    enum('ONE','TWO','THREE');
+    echo ONE, ' ', TWO, ' ', THREE;
 ?>
 ```
   
@@ -85,7 +85,23 @@ I saw that PHP doesn&apos;t have an enum function so I created my own. It&apos;s
 This function, along with constant(), is namespace sensitive. And it might help if you imagine them always running under the "root namespace":<br><br>
 
 ```
-<?php<br>namespace FOO\BAR<br>{<br>    const WMP="wmp";<br>    function test()<br>    {<br>        if(defined("WMP")) echo "direct: ".constant("WMP"); //doesn&apos;t work;<br>        elseif(defined("FOO\\BAR\\WMP")) echo "namespace: ".constant("FOO\\BAR\\WMP"); //works<br>        echo WMP; //works<br>    }<br>}<br>namespace<br>{<br>    \FOO\BAR\test();<br>}  
+<?php
+namespace FOO\BAR
+{
+    const WMP="wmp";
+    function test()
+    {
+        if(defined("WMP")) echo "direct: ".constant("WMP"); //doesn't work;
+        elseif(defined("FOO\\BAR\\WMP")) echo "namespace: ".constant("FOO\\BAR\\WMP"); //works
+        echo WMP; //works
+    }
+}
+namespace
+{
+    \FOO\BAR\test();
+}?>
+```
+  
 
 #
 
@@ -94,7 +110,7 @@ If you wish to protect files from direct access I normally use this:<br><br>inde
 ```
 <?php
 // Main stuff here
-define(&apos;START&apos;,microtime());
+define('START',microtime());
 
 include "x.php";
 ?>
@@ -107,7 +123,7 @@ x.php:
 
 ```
 <?php
-defined(&apos;START&apos;)||(header("HTTP/1.1 403 Forbidden")&amp;die(&apos;403.14 - Directory listing denied.&apos;));
+defined('START')||(header("HTTP/1.1 403 Forbidden")&amp;die('403.14 - Directory listing denied.'));
 ?>
 ```
   

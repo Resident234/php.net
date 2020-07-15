@@ -6,8 +6,8 @@ Sometimes PREG_SPLIT_DELIM_CAPTURE does strange results.<br><br>
 
 ```
 <?php
-$content = &apos;&lt;strong&gt;Lorem ipsum dolor&lt;/strong&gt; sit &lt;img src="test.png" /&gt;amet &lt;span class="test" style="color:red"&gt;consec&lt;i&gt;tet&lt;/i&gt;uer&lt;/span&gt;.&apos;;
-$chars = preg_split(&apos;/&lt;[^&gt;]*[^\/]&gt;/i&apos;, $content, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+$content = '&lt;strong&gt;Lorem ipsum dolor&lt;/strong&gt; sit &lt;img src="test.png" /&gt;amet &lt;span class="test" style="color:red"&gt;consec&lt;i&gt;tet&lt;/i&gt;uer&lt;/span&gt;.';
+$chars = preg_split('/&lt;[^&gt;]*[^\/]&gt;/i', $content, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 print_r($chars);
 ?>
 ```
@@ -15,11 +15,11 @@ print_r($chars);
 Produces:
 Array
 (
-    [0] =&gt; Lorem ipsum dolor
-    [1] =&gt;  sit &lt;img src="test.png" /&gt;amet 
-    [2] =&gt; consec
-    [3] =&gt; tet
-    [4] =&gt; uer
+    [0] => Lorem ipsum dolor
+    [1] =>  sit &lt;img src="test.png" /&gt;amet 
+    [2] => consec
+    [3] => tet
+    [4] => uer
 )
 
 So that the delimiter patterns are missing. If you wanna get these patters remember to use parentheses.
@@ -28,7 +28,7 @@ So that the delimiter patterns are missing. If you wanna get these patters remem
 
 ```
 <?php
-$chars = preg_split(&apos;/(&lt;[^&gt;]*[^\/]&gt;)/i&apos;, $content, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+$chars = preg_split('/(&lt;[^&gt;]*[^\/]&gt;)/i', $content, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 print_r($chars); //parentheses added
 ?>
 ```
@@ -40,8 +40,8 @@ Extending m.timmermans&apos;s solution, you can use the following code as a sear
 
 ```
 <?php
-$search_expression = "apple bear \"Tom Cruise\" or &apos;Mickey Mouse&apos; another word";
-$words = preg_split("/[\s,]*\\\"([^\\\"]+)\\\"[\s,]*|" . "[\s,]*&apos;([^&apos;]+)&apos;[\s,]*|" . "[\s,]+/", $search_expression, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+$search_expression = "apple bear \"Tom Cruise\" or 'Mickey Mouse' another word";
+$words = preg_split("/[\s,]*\\\"([^\\\"]+)\\\"[\s,]*|" . "[\s,]*'([^']+)'[\s,]*|" . "[\s,]+/", $search_expression, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 print_r($words);
 ?>
 ```
@@ -53,8 +53,8 @@ If you want to split by a char, but want to ignore that char in case it is escap
 
 ```
 <?php
-$string=&apos;a:b:c\:d&apos;;
-$array=preg_split(&apos;#(?&lt;!\\\)\:#&apos;,$string);
+$string='a:b:c\:d';
+$array=preg_split('#(?&lt;!\\\)\:#',$string);
 print_r($array);
 ?>
 ```
@@ -70,7 +70,7 @@ To clarify the "limit" parameter and the PREG_SPLIT_DELIM_CAPTURE option,<br><br
 
 ```
 <?php
-$preg_split(&apos;(/ /)&apos;, &apos;1 2 3 4 5 6 7 8&apos;, 4 ,PREG_SPLIT_DELIM_CAPTURE );
+$preg_split('(/ /)', '1 2 3 4 5 6 7 8', 4 ,PREG_SPLIT_DELIM_CAPTURE );
 ?>
 ```
 <br><br>returns:<br><br>(&apos;1&apos;, &apos; &apos;, &apos;2&apos;, &apos; &apos; , &apos;3&apos;, &apos; &apos;, &apos;4 5 6 7 8&apos;)<br><br>So you actually get 7 array items not 4  

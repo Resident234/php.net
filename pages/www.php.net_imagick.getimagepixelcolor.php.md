@@ -6,11 +6,11 @@ I&apos;m sure there are a lot of people like me who have been wondering, "How yo
 
 ```
 <?php
-$image = new Imagick(&apos;testimage.jpg&apos;);
+$image = new Imagick('testimage.jpg');
 
 $x = 1; 
 $y = 1;
-$pixel = $image-&gt;getImagePixelColor($x, $y);
+$pixel = $image->getImagePixelColor($x, $y);
 ?>
 ```
 
@@ -23,15 +23,15 @@ You can do either of the following:
 
 ```
 <?php
-$colors = $pixel-&gt;getColor();
-print_r($colors); // produces Array([r]=&gt;255,[g]=&gt;255,[b]=&gt;255,[a]=&gt;1);
+$colors = $pixel->getColor();
+print_r($colors); // produces Array([r]=>255,[g]=>255,[b]=>255,[a]=>1);
 
-$pixel-&gt;getColorAsString(); // produces rgb(255,255,255);
+$pixel->getColorAsString(); // produces rgb(255,255,255);
 ?>
 ```
 
 
-The place where I was getting hung up was how to get the data that was captured in the Imagick::getImagePixelColor operation into an ImagickPixel object. I was trying to find ways of passing the value to a newly instantiated ImagickPixel object. Well, it appears that once you&apos;ve captured your color data using Imagick::getImagePixelColor, what&apos;s returned IS an ImagickPixel object!
+The place where I was getting hung up was how to get the data that was captured in the Imagick::getImagePixelColor operation into an ImagickPixel object. I was trying to find ways of passing the value to a newly instantiated ImagickPixel object. Well, it appears that once you've captured your color data using Imagick::getImagePixelColor, what's returned IS an ImagickPixel object!
 
 As a further note, you do not need to convert this to a human readable format if you just want to take a color sample at a single point on your image to plug into another operation. 
 
@@ -43,12 +43,12 @@ The following fill perform a flood fill effect at coordinates 1,1 on your image 
 
 ```
 <?php
-$hexcolor = &apos;#00ff00&apos;;
-$fuzz = &apos;4000&apos;;
+$hexcolor = '#00ff00';
+$fuzz = '4000';
 $x = 1;
 $y = 1;
-$pixel = $image-&gt;getImagePixelColor($x, $y);
-$image-&gt;floodfillPaintImage($hexcolor, $fuzz, $pixel, $x, $y, false);
+$pixel = $image->getImagePixelColor($x, $y);
+$image->floodfillPaintImage($hexcolor, $fuzz, $pixel, $x, $y, false);
 ?>
 ```
   

@@ -22,7 +22,7 @@ function quoteIdent($field) {
 
 this will make your identifier properly formatted and thus invulnerable to injection. 
 
-However, there is another possible attack vector - using dynamical identifiers in the query may give an outsider control over fields the aren&apos;t allowed to:
+However, there is another possible attack vector - using dynamical identifiers in the query may give an outsider control over fields the aren't allowed to:
 Say, a field user_role in the users table and a dynamically built INSERT query based on a $_POST array may allow a privilege escalation with easily forged $_POST array. 
 Or a select query which let a user to choose fields to display may reveal some sensitive information to attacker.
 
@@ -34,16 +34,16 @@ Every dynamical identifier have to be checked against a hardcoded whitelist like
 ```
 <?php
 $allowed  = array("name","price","qty");
-$key = array_search($_GET[&apos;field&apos;], $allowed));
+$key = array_search($_GET['field'], $allowed));
 if ($key == false) {
-    throw new Exception(&apos;Wrong field name&apos;);
+    throw new Exception('Wrong field name');
 }
-$field = $db-&gt;quoteIdent($allowed[$key]);
+$field = $db->quoteIdent($allowed[$key]);
 $query = "SELECT $field FROM t"; //value is safe
 ?>
 ```
 
-(Personally I wouldn&apos;t use a query like this, but that&apos;s just an example of using a dynamical identifier in the query).
+(Personally I wouldn't use a query like this, but that's just an example of using a dynamical identifier in the query).
 
 And similar approach have to be used when filtering dynamical arrays for insert and update:
 
@@ -63,8 +63,8 @@ function filterArray($input,$allowed)
     return $input;
 }
 //used like this
-$allowed = array(&apos;title&apos;,&apos;url&apos;,&apos;body&apos;,&apos;rating&apos;,&apos;term&apos;,&apos;type&apos;);
-$data = $db-&gt;filterArray($_POST,$allowed); 
+$allowed = array('title','url','body','rating','term','type');
+$data = $db->filterArray($_POST,$allowed); 
 // $data now contains allowed fields only 
 // and can be used to create INSERT or UPDATE query dynamically
 ?>

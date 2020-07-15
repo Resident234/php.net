@@ -10,14 +10,19 @@ A double metaphone pecl module is available: http://pecl.php.net/package/doublem
 
 #
 
-metaphone<br>=======================<br>The metaphone() function can be used for spelling applications.This function returns the metaphone key of the string on success, or FALSE on failure.Its main use is when you are searching a genealogy database. check to see if a metaphone search is offered. It is also useful in making/searching family tree.<br>Given below is a simple code that calculates and compares two strings to find whether its metaphone codes are equivalent.<br><br>html code<br>==========<br>&lt;html&gt;<br>&lt;body&gt;<br>&lt;form action="test.php" name="test" method="get"&gt;<br>Name1:&lt;input type="text" name="name1" /&gt;&lt;br /&gt;<br>Name2:&lt;input type="text" name="name2" /&gt;&lt;br /&gt;<br>&lt;input type="submit" name="submit" value="compare" /&gt;<br>&lt;/form&gt;<br><br>&lt;!--php code begins here --&gt;<br><br>
+metaphone<br>=======================<br>The metaphone() function can be used for spelling applications.This function returns the metaphone key of the string on success, or FALSE on failure.Its main use is when you are searching a genealogy database. check to see if a metaphone search is offered. It is also useful in making/searching family tree.<br>Given below is a simple code that calculates and compares two strings to find whether its metaphone codes are equivalent.<br><br>html code<br>==========<br>&lt;html&gt;<br>&lt;body&gt;<br>&lt;form action="test.php" name="test" method="get"&gt;<br>Name1:&lt;input type="text" name="name1" /&gt;&lt;br /&gt;<br>Name2:&lt;input type="text" name="name2" /&gt;&lt;br /&gt;<br>&lt;input type="submit" name="submit" value="compare" /&gt;<br>&lt;/form&gt;<br><br>&lt;!-
+
+```
+<?php code begins here -->
+
+
 
 ```
 <?php
-if(isset($_GET[&apos;submit&apos;]))
+if(isset($_GET['submit']))
 {
-$str1 = $_GET[&apos;name1&apos;];
-$str2 = $_GET[&apos;name2&apos;];
+$str1 = $_GET['name1'];
+$str2 = $_GET['name2'];
 $meta_one=metaphone($str1);
 $meta_two=metaphone($str2);
 echo "metaphone code for ".$str1." is ". $meta_one;

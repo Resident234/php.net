@@ -21,7 +21,7 @@ function fix_session_register(){
         unset($_SESSION[$key]);
     }
 }
-if (!function_exists(&apos;session_register&apos;)) fix_session_register();
+if (!function_exists('session_register')) fix_session_register();
 ?>
 ```
 <br><br><br>[EDIT BY danbrown AT php DOT net: Bugfix provided by "dr3w" on 02-APR-2010: "its [sic] function_exists with an S at the end".]  

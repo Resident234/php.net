@@ -11,22 +11,22 @@ $result = mysql_query("SELECT `datetime` FROM `table`");
 $row = mysql_fetch_row($result);
 $date = date_create($row[0]);
 
-echo date_format($date, &apos;Y-m-d H:i:s&apos;);
+echo date_format($date, 'Y-m-d H:i:s');
 #output: 2012-03-24 17:45:12
 
-echo date_format($date, &apos;d/m/Y H:i:s&apos;);
+echo date_format($date, 'd/m/Y H:i:s');
 #output: 24/03/2012 17:45:12
 
-echo date_format($date, &apos;d/m/y&apos;);
+echo date_format($date, 'd/m/y');
 #output: 24/03/12
 
-echo date_format($date, &apos;g:i A&apos;);
+echo date_format($date, 'g:i A');
 #output: 5:45 PM
 
-echo date_format($date, &apos;G:ia&apos;);
+echo date_format($date, 'G:ia');
 #output: 05:45pm
 
-echo date_format($date, &apos;g:ia \o\n l jS F Y&apos;);
+echo date_format($date, 'g:ia \o\n l jS F Y');
 #output: 5:45pm on Saturday 24th March 2012
 
 ?>

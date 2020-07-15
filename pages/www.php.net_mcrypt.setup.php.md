@@ -2,18 +2,7 @@
 
 
 
-debian/ubuntu php5 (&gt;= 5.4.0~rc6-1) has introduced two new commands:<br>php5enmod and php5dismod
-
-# install the extension
-sudo apt-get install php5-mcrypt
-# you can see that it&apos;s installed by the presence of the .ini file
-cat /etc/php5/mods-available/mcrypt.ini
-# enable it
-sudo php5enmod mcrypt
-# reload Apache to make use of the extension
-sudo service apache2 reload?>
-```
-  
+debian/ubuntu php5 (&gt;= 5.4.0~rc6-1) has introduced two new commands:<br>php5enmod and php5dismod<br><br># install the extension<br>sudo apt-get install php5-mcrypt<br># you can see that it&apos;s installed by the presence of the .ini file<br>cat /etc/php5/mods-available/mcrypt.ini<br># enable it<br>sudo php5enmod mcrypt<br># reload Apache to make use of the extension<br>sudo service apache2 reload  
 
 #
 

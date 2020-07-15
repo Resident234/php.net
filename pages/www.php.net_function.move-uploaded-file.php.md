@@ -59,7 +59,7 @@ or use in_array checking as
 ```
 <?php
 
-$ext_type = array(&apos;gif&apos;,&apos;jpg&apos;,&apos;jpe&apos;,&apos;jpeg&apos;,&apos;png&apos;);
+$ext_type = array('gif','jpg','jpe','jpeg','png');
 
 ?>
 ```

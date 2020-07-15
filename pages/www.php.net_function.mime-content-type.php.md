@@ -6,15 +6,15 @@ Fast generation of uptodate mime types:<br><br>
 
 ```
 <?php
-define(&apos;APACHE_MIME_TYPES_URL&apos;,&apos;http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types&apos;);
+define('APACHE_MIME_TYPES_URL','http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types');
 
 function generateUpToDateMimeArray($url){
     $s=array();
     foreach(@explode("\n",@file_get_contents($url))as $x)
-        if(isset($x[0])&amp;&amp;$x[0]!==&apos;#&apos;&amp;&amp;preg_match_all(&apos;#([^\s]+)#&apos;,$x,$out)&amp;&amp;isset($out[1])&amp;&amp;($c=count($out[1]))&gt;1)
+        if(isset($x[0])&amp;&amp;$x[0]!=='#'&amp;&amp;preg_match_all('#([^\s]+)#',$x,$out)&amp;&amp;isset($out[1])&amp;&amp;($c=count($out[1]))&gt;1)
             for($i=1;$i&lt;$c;$i++)
-                $s[]=&apos;&amp;nbsp;&amp;nbsp;&amp;nbsp;\&apos;&apos;.$out[1][$i].&apos;\&apos; =&gt; \&apos;&apos;.$out[1][0].&apos;\&apos;&apos;;
-    return @sort($s)?&apos;$mime_types = array(&lt;br /&gt;&apos;.implode($s,&apos;,&lt;br /&gt;&apos;).&apos;&lt;br /&gt;);&apos;:false;
+                $s[]='&amp;nbsp;&amp;nbsp;&amp;nbsp;\''.$out[1][$i].'\' => \''.$out[1][0].'\'';
+    return @sort($s)?'$mime_types = array(&lt;br /&gt;'.implode($s,',&lt;br /&gt;').'&lt;br /&gt;);':false;
 }
 
 echo
@@ -28,7 +28,16 @@ generateUpToDateMimeArray(APACHE_MIME_TYPES_URL);
 There is a composer package that will do this:<br>https://github.com/ralouphie/mimey<br><br>
 
 ```
-<?php<br>$mimes = new \Mimey\MimeTypes;<br><br>// Convert extension to MIME type:<br>$mimes-&gt;getMimeType(&apos;json&apos;); // application/json<br><br>// Convert MIME type to extension:<br>$mimes-&gt;getExtension(&apos;application/json&apos;); // json  
+<?php
+$mimes = new \Mimey\MimeTypes;
+
+// Convert extension to MIME type:
+$mimes->getMimeType('json'); // application/json
+
+// Convert MIME type to extension:
+$mimes->getExtension('application/json'); // json?>
+```
+  
 
 #
 
@@ -36,7 +45,7 @@ using <br>
 
 ```
 <?php
-function detectFileMimeType($filename=&apos;&apos;)
+function detectFileMimeType($filename='')
 {
     $filename = escapeshellcmd($filename);
     $command = "file -b --mime-type -m /usr/share/misc/magic {$filename}";
@@ -55,78 +64,78 @@ function detectFileMimeType($filename=&apos;&apos;)
 
 ```
 <?php
-if(!function_exists(&apos;mime_content_type&apos;)) {
+if(!function_exists('mime_content_type')) {
 
     function mime_content_type($filename) {
 
         $mime_types = array(
 
-            &apos;txt&apos; =&gt; &apos;text/plain&apos;,
-            &apos;htm&apos; =&gt; &apos;text/html&apos;,
-            &apos;html&apos; =&gt; &apos;text/html&apos;,
-            &apos;php&apos; =&gt; &apos;text/html&apos;,
-            &apos;css&apos; =&gt; &apos;text/css&apos;,
-            &apos;js&apos; =&gt; &apos;application/javascript&apos;,
-            &apos;json&apos; =&gt; &apos;application/json&apos;,
-            &apos;xml&apos; =&gt; &apos;application/xml&apos;,
-            &apos;swf&apos; =&gt; &apos;application/x-shockwave-flash&apos;,
-            &apos;flv&apos; =&gt; &apos;video/x-flv&apos;,
+            'txt' => 'text/plain',
+            'htm' => 'text/html',
+            'html' => 'text/html',
+            'php' => 'text/html',
+            'css' => 'text/css',
+            'js' => 'application/javascript',
+            'json' => 'application/json',
+            'xml' => 'application/xml',
+            'swf' => 'application/x-shockwave-flash',
+            'flv' => 'video/x-flv',
 
             // images
-            &apos;png&apos; =&gt; &apos;image/png&apos;,
-            &apos;jpe&apos; =&gt; &apos;image/jpeg&apos;,
-            &apos;jpeg&apos; =&gt; &apos;image/jpeg&apos;,
-            &apos;jpg&apos; =&gt; &apos;image/jpeg&apos;,
-            &apos;gif&apos; =&gt; &apos;image/gif&apos;,
-            &apos;bmp&apos; =&gt; &apos;image/bmp&apos;,
-            &apos;ico&apos; =&gt; &apos;image/vnd.microsoft.icon&apos;,
-            &apos;tiff&apos; =&gt; &apos;image/tiff&apos;,
-            &apos;tif&apos; =&gt; &apos;image/tiff&apos;,
-            &apos;svg&apos; =&gt; &apos;image/svg+xml&apos;,
-            &apos;svgz&apos; =&gt; &apos;image/svg+xml&apos;,
+            'png' => 'image/png',
+            'jpe' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'jpg' => 'image/jpeg',
+            'gif' => 'image/gif',
+            'bmp' => 'image/bmp',
+            'ico' => 'image/vnd.microsoft.icon',
+            'tiff' => 'image/tiff',
+            'tif' => 'image/tiff',
+            'svg' => 'image/svg+xml',
+            'svgz' => 'image/svg+xml',
 
             // archives
-            &apos;zip&apos; =&gt; &apos;application/zip&apos;,
-            &apos;rar&apos; =&gt; &apos;application/x-rar-compressed&apos;,
-            &apos;exe&apos; =&gt; &apos;application/x-msdownload&apos;,
-            &apos;msi&apos; =&gt; &apos;application/x-msdownload&apos;,
-            &apos;cab&apos; =&gt; &apos;application/vnd.ms-cab-compressed&apos;,
+            'zip' => 'application/zip',
+            'rar' => 'application/x-rar-compressed',
+            'exe' => 'application/x-msdownload',
+            'msi' => 'application/x-msdownload',
+            'cab' => 'application/vnd.ms-cab-compressed',
 
             // audio/video
-            &apos;mp3&apos; =&gt; &apos;audio/mpeg&apos;,
-            &apos;qt&apos; =&gt; &apos;video/quicktime&apos;,
-            &apos;mov&apos; =&gt; &apos;video/quicktime&apos;,
+            'mp3' => 'audio/mpeg',
+            'qt' => 'video/quicktime',
+            'mov' => 'video/quicktime',
 
             // adobe
-            &apos;pdf&apos; =&gt; &apos;application/pdf&apos;,
-            &apos;psd&apos; =&gt; &apos;image/vnd.adobe.photoshop&apos;,
-            &apos;ai&apos; =&gt; &apos;application/postscript&apos;,
-            &apos;eps&apos; =&gt; &apos;application/postscript&apos;,
-            &apos;ps&apos; =&gt; &apos;application/postscript&apos;,
+            'pdf' => 'application/pdf',
+            'psd' => 'image/vnd.adobe.photoshop',
+            'ai' => 'application/postscript',
+            'eps' => 'application/postscript',
+            'ps' => 'application/postscript',
 
             // ms office
-            &apos;doc&apos; =&gt; &apos;application/msword&apos;,
-            &apos;rtf&apos; =&gt; &apos;application/rtf&apos;,
-            &apos;xls&apos; =&gt; &apos;application/vnd.ms-excel&apos;,
-            &apos;ppt&apos; =&gt; &apos;application/vnd.ms-powerpoint&apos;,
+            'doc' => 'application/msword',
+            'rtf' => 'application/rtf',
+            'xls' => 'application/vnd.ms-excel',
+            'ppt' => 'application/vnd.ms-powerpoint',
 
             // open office
-            &apos;odt&apos; =&gt; &apos;application/vnd.oasis.opendocument.text&apos;,
-            &apos;ods&apos; =&gt; &apos;application/vnd.oasis.opendocument.spreadsheet&apos;,
+            'odt' => 'application/vnd.oasis.opendocument.text',
+            'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
         );
 
-        $ext = strtolower(array_pop(explode(&apos;.&apos;,$filename)));
+        $ext = strtolower(array_pop(explode('.',$filename)));
         if (array_key_exists($ext, $mime_types)) {
             return $mime_types[$ext];
         }
-        elseif (function_exists(&apos;finfo_open&apos;)) {
+        elseif (function_exists('finfo_open')) {
             $finfo = finfo_open(FILEINFO_MIME);
             $mimetype = finfo_file($finfo, $filename);
             finfo_close($finfo);
             return $mimetype;
         }
         else {
-            return &apos;application/octet-stream&apos;;
+            return 'application/octet-stream';
         }
     }
 }

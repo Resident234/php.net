@@ -12,17 +12,17 @@ I refactored the Daniel&apos;s function and I got it:<br><br>
  * value in the second array, as array_merge does. I.e., with array_merge_recursive,
  * this happens (documented behavior):
  *
- * array_merge_recursive(array(&apos;key&apos; =&gt; &apos;org value&apos;), array(&apos;key&apos; =&gt; &apos;new value&apos;));
- *     =&gt; array(&apos;key&apos; =&gt; array(&apos;org value&apos;, &apos;new value&apos;));
+ * array_merge_recursive(array('key' => 'org value'), array('key' => 'new value'));
+ *     => array('key' => array('org value', 'new value'));
  *
  * array_merge_recursive_distinct does not change the datatypes of the values in the arrays.
- * Matching keys&apos; values in the second array overwrite those in the first array, as is the
+ * Matching keys' values in the second array overwrite those in the first array, as is the
  * case with array_merge, i.e.:
  *
- * array_merge_recursive_distinct(array(&apos;key&apos; =&gt; &apos;org value&apos;), array(&apos;key&apos; =&gt; &apos;new value&apos;));
- *     =&gt; array(&apos;key&apos; =&gt; array(&apos;new value&apos;));
+ * array_merge_recursive_distinct(array('key' => 'org value'), array('key' => 'new value'));
+ *     => array('key' => array('new value'));
  *
- * Parameters are passed by reference, though only for performance reasons. They&apos;re not
+ * Parameters are passed by reference, though only for performance reasons. They're not
  * altered by this function.
  *
  * @param array $array1
@@ -35,7 +35,7 @@ function array_merge_recursive_distinct ( array &amp;$array1, array &amp;$array2
 {
   $merged = $array1;
 
-  foreach ( $array2 as $key =&gt; &amp;$value )
+  foreach ( $array2 as $key => &amp;$value )
   {
     if ( is_array ( $value ) &amp;&amp; isset ( $merged [$key] ) &amp;&amp; is_array ( $merged [$key] ) )
     {
@@ -95,7 +95,7 @@ There are a lot of examples here for recursion that are meant to behave more lik
 function array_merge_recursive_simple() {
 
     if (func_num_args() &lt; 2) {
-        trigger_error(__FUNCTION__ .&apos; needs two or more array arguments&apos;, E_USER_WARNING);
+        trigger_error(__FUNCTION__ .' needs two or more array arguments', E_USER_WARNING);
         return;
     }
     $arrays = func_get_args();
@@ -103,12 +103,12 @@ function array_merge_recursive_simple() {
     while ($arrays) {
         $array = array_shift($arrays);
         if (!is_array($array)) {
-            trigger_error(__FUNCTION__ .&apos; encountered a non array argument&apos;, E_USER_WARNING);
+            trigger_error(__FUNCTION__ .' encountered a non array argument', E_USER_WARNING);
             return;
         }
         if (!$array)
             continue;
-        foreach ($array as $key =&gt; $value)
+        foreach ($array as $key => $value)
             if (is_string($key))
                 if (is_array($value) &amp;&amp; array_key_exists($key, $merged) &amp;&amp; is_array($merged[$key]))
                     $merged[$key] = call_user_func(__FUNCTION__, $merged[$key], $value);
@@ -121,28 +121,28 @@ function array_merge_recursive_simple() {
 }
 
 $a1 = array(
-    88 =&gt; 1,
-    &apos;foo&apos; =&gt; 2,
-    &apos;bar&apos; =&gt; array(4),
-    &apos;x&apos; =&gt; 5,
-    &apos;z&apos; =&gt; array(
+    88 => 1,
+    'foo' => 2,
+    'bar' => array(4),
+    'x' => 5,
+    'z' => array(
         6,
-        &apos;m&apos; =&gt; &apos;hi&apos;,
+        'm' => 'hi',
     ),
 );
 $a2 = array(
-    99 =&gt; 7,
-    &apos;foo&apos; =&gt; array(8),
-    &apos;bar&apos; =&gt; 9,
-    &apos;y&apos; =&gt; 10,
-    &apos;z&apos; =&gt; array(
-        &apos;m&apos; =&gt; &apos;bye&apos;,
+    99 => 7,
+    'foo' => array(8),
+    'bar' => 9,
+    'y' => 10,
+    'z' => array(
+        'm' => 'bye',
         11,
     ),
 );
 $a3 = array(
-    &apos;z&apos; =&gt; array(
-        &apos;m&apos; =&gt; &apos;ciao&apos;,
+    'z' => array(
+        'm' => 'ciao',
     ),
 );
 var_dump(array_merge($a1, $a2, $a3));
@@ -161,7 +161,7 @@ Here&apos;s my function to recursively merge two arrays with overwrites. Nice fo
 
 function MergeArrays($Arr1, $Arr2)
 {
-  foreach($Arr2 as $key =&gt; $Value)
+  foreach($Arr2 as $key => $Value)
   {
     if(array_key_exists($key, $Arr1) &amp;&amp; is_array($Value))
       $Arr1[$key] = MergeArrays($Arr1[$key], $Arr2[$key]);

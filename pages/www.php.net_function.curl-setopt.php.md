@@ -24,9 +24,9 @@ function doPut($url, $fields)
 
    if($ch = curl_init($url))
    {
-      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, &apos;PUT&apos;);
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($ch, CURLOPT_HTTPHEADER, array(&apos;Content-Length: &apos; . strlen($fields)));
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($fields)));
       curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
       curl_exec($ch);
 
@@ -42,7 +42,7 @@ function doPut($url, $fields)
    }
 }
 
-if(doPut(&apos;http://example.com/api/a/b/c&apos;, array(&apos;foo&apos; =&gt; &apos;bar&apos;)) == 200)
+if(doPut('http://example.com/api/a/b/c', array('foo' => 'bar')) == 200)
    // do something
 else
    // do something else.
@@ -56,11 +56,11 @@ You can grab the request data on the other side with:
 
 ```
 <?php
-if($_SERVER[&apos;REQUEST_METHOD&apos;] == &apos;PUT&apos;)
+if($_SERVER['REQUEST_METHOD'] == 'PUT')
 {
-   parse_str(file_get_contents(&apos;php://input&apos;), $requestData);
+   parse_str(file_get_contents('php://input'), $requestData);
 
-   // Array ( [foo] =&gt; bar )
+   // Array ( [foo] => bar )
    print_r($requestData);
 
    // Do something with data...
@@ -75,7 +75,7 @@ If you are doing a POST, and the content length is 1,025 or greater, then curl e
 
 ```
 <?php
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(&apos;Expect:&apos;));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
 ?>
 ```
 <br><br>See http://www.gnegg.ch/2007/02/the-return-of-except-100-continue/  
@@ -85,7 +85,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(&apos;Expect:&apos;));
 If you want to Curl to follow redirects and you would also like Curl to echo back any cookies that are set in the process, use this:<br><br>
 
 ```
-<?php curl_setopt($ch, CURLOPT_COOKIEJAR, &apos;-&apos;); ?>
+<?php curl_setopt($ch, CURLOPT_COOKIEJAR, '-'); ?>
 ```
 <br><br>&apos;-&apos; means stdout<br><br>-dw  
 
@@ -123,9 +123,9 @@ If you want cURL to timeout in less than one second, you can use CURLOPT_TIMEOUT
 
 ```
 <?php
-if (!isset($_GET[&apos;foo&apos;])) {
+if (!isset($_GET['foo'])) {
         // Client
-        $ch = curl_init(&apos;http://localhost/test/test_timeout.php?foo=bar&apos;);
+        $ch = curl_init('http://localhost/test/test_timeout.php?foo=bar');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT_MS, 200);
@@ -159,10 +159,10 @@ function write_function($curl_resource, $string)
 {
     if(curl_getinfo($curl_resource, CURLINFO_SIZE_DOWNLOAD) &lt;= 2000)
     {
-        header(&apos;Expires: 0&apos;);
-        header(&apos;Cache-Control: must-revalidate, post-check=0, pre-check=0&apos;);
-        header(&apos;Pragma: public&apos;);
-        header(&apos;Content-Description: File Transfer&apos;);
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Description: File Transfer');
         header("Content-Transfer-Encoding: binary");
         header("Content-Type: ".curl_getinfo($curl_resource, CURLINFO_CONTENT_TYPE)."");
         header("Content-Length: ".curl_getinfo($curl_resource, CURLINFO_CONTENT_LENGTH_DOWNLOAD)."");
@@ -170,7 +170,7 @@ function write_function($curl_resource, $string)
     
     print $string;
 
-    return mb_strlen($string, &apos;8bit&apos;);
+    return mb_strlen($string, '8bit');
 }
 
 ?>
@@ -220,7 +220,7 @@ After much struggling, I managed to get a SOAP request requiring HTTP authentica
          
          // Read the XML to send to the Web Service
          $request_file = "./SampleRequest.xml";
-        $fh = fopen($request_file, &apos;r&apos;);
+        $fh = fopen($request_file, 'r');
         $xml_data = fread($fh, filesize($request_file));
         fclose($fh);
                 
@@ -242,7 +242,7 @@ After much struggling, I managed to get a SOAP request requiring HTTP authentica
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 60);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_USERAGENT, $defined_vars[&apos;HTTP_USER_AGENT&apos;]);
+        curl_setopt($ch, CURLOPT_USERAGENT, $defined_vars['HTTP_USER_AGENT']);
         
         // Apply the XML to our curl call
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -288,7 +288,9 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 #
 
-Sometimes you can&apos;t use CURLOPT_COOKIEJAR and CURLOPT_COOKIEFILE becoz of the server php-settings(They say u may grab any files from server using these options). Here is the solution<br>1)Don&apos;t use CURLOPT_FOLLOWLOCATION<br>2)Use curl_setopt($ch, CURLOPT_HEADER, 1)<br>3)Grab from the header cookies like this:<br>preg_match_all(&apos;|Set-Cookie: (.*);|U&apos;, $content, $results);    <br>$cookies = implode(&apos;;&apos;, $results[1]);<br>4)Set them using curl_setopt($ch, CURLOPT_COOKIE,  $cookies);<br><br>Good Luck, Yevgen  
+Sometimes you can&apos;t use CURLOPT_COOKIEJAR and CURLOPT_COOKIEFILE becoz of the server ?>
+```
+settings(They say u may grab any files from server using these options). Here is the solution<br>1)Don&apos;t use CURLOPT_FOLLOWLOCATION<br>2)Use curl_setopt($ch, CURLOPT_HEADER, 1)<br>3)Grab from the header cookies like this:<br>preg_match_all(&apos;|Set-Cookie: (.*);|U&apos;, $content, $results);    <br>$cookies = implode(&apos;;&apos;, $results[1]);<br>4)Set them using curl_setopt($ch, CURLOPT_COOKIE,  $cookies);<br><br>Good Luck, Yevgen  
 
 #
 
@@ -338,7 +340,7 @@ Handling redirections with curl if safe_mode or open_basedir is enabled. The fun
 <?php
 function curl_exec_follow(/*resource*/ $ch, /*int*/ &amp;$maxredirect = null) {
     $mr = $maxredirect === null ? 5 : intval($maxredirect);
-    if (ini_get(&apos;open_basedir&apos;) == &apos;&apos; &amp;&amp; ini_get(&apos;safe_mode&apos; == &apos;Off&apos;)) {
+    if (ini_get('open_basedir') == '' &amp;&amp; ini_get('safe_mode' == 'Off')) {
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $mr &gt; 0);
         curl_setopt($ch, CURLOPT_MAXREDIRS, $mr);
     } else {
@@ -359,7 +361,7 @@ function curl_exec_follow(/*resource*/ $ch, /*int*/ &amp;$maxredirect = null) {
                 } else {
                     $code = curl_getinfo($rch, CURLINFO_HTTP_CODE);
                     if ($code == 301 || $code == 302) {
-                        preg_match(&apos;/Location:(.*?)\n/&apos;, $header, $matches);
+                        preg_match('/Location:(.*?)\n/', $header, $matches);
                         $newurl = trim(array_pop($matches));
                     } else {
                         $code = 0;
@@ -369,7 +371,7 @@ function curl_exec_follow(/*resource*/ $ch, /*int*/ &amp;$maxredirect = null) {
             curl_close($rch);
             if (!$mr) {
                 if ($maxredirect === null) {
-                    trigger_error(&apos;Too many redirects. When following redirects, libcurl hit the maximum amount.&apos;, E_USER_WARNING);
+                    trigger_error('Too many redirects. When following redirects, libcurl hit the maximum amount.', E_USER_WARNING);
                 } else {
                     $maxredirect = 0;
                 }
@@ -395,10 +397,10 @@ Passing in PHP&apos;s $_SESSION into your cURL call:<br><br>
 ```
 <?php
 session_start();
-$strCookie = &apos;PHPSESSID=&apos; . $_COOKIE[&apos;PHPSESSID&apos;] . &apos;; path=/&apos;;
+$strCookie = 'PHPSESSID=' . $_COOKIE['PHPSESSID'] . '; path=/';
 session_write_close();
 
-$curl_handle = curl_init(&apos;enter_external_url_here&apos;);
+$curl_handle = curl_init('enter_external_url_here');
 curl_setopt( $curl_handle, CURLOPT_COOKIE, $strCookie );
 curl_exec($curl_handle);
 curl_close($curl_handle);

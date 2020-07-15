@@ -6,8 +6,8 @@ Easy way to get rid of the dots that scandir() picks up in Linux environments:<b
 
 ```
 <?php
-$directory = &apos;/path/to/my/directory&apos;;
-$scanned_directory = array_diff(scandir($directory), array(&apos;..&apos;, &apos;.&apos;));
+$directory = '/path/to/my/directory';
+$scanned_directory = array_diff(scandir($directory), array('..', '.'));
 ?>
 ```
   
@@ -23,7 +23,7 @@ function dirToArray($dir) {
    $result = array();
 
    $cdir = scandir($dir);
-   foreach ($cdir as $key =&gt; $value)
+   foreach ($cdir as $key => $value)
    {
       if (!in_array($value,array(".","..")))
       {
@@ -53,7 +53,10 @@ Someone wrote that array_slice could be used to quickly remove directory entries
 Fastest way to get a list of files without dots.<br>
 
 ```
-<?php<br>$files = array_slice(scandir(&apos;/path/to/directory/&apos;), 2);  
+<?php
+$files = array_slice(scandir('/path/to/directory/'), 2);?>
+```
+  
 
 #
 
@@ -86,7 +89,7 @@ class scanDir {
 
         // Was a filter on file extensions included? | default action: return all file types
         if(isset($args[1])){
-            if(gettype($args[1]) == "array"){self::$ext_filter = array_map(&apos;strtolower&apos;, $args[1]);}
+            if(gettype($args[1]) == "array"){self::$ext_filter = array_map('strtolower', $args[1]);}
             else
             if(gettype($args[1]) == "string"){self::$ext_filter[] = strtolower($args[1]);}
         }
@@ -117,7 +120,7 @@ class scanDir {
         $result = array();
         $root = scandir($dir);
         foreach($root as $value){
-            if($value === &apos;.&apos; || $value === &apos;..&apos;) {continue;}
+            if($value === '.' || $value === '..') {continue;}
             if(is_file($dir.DIRECTORY_SEPARATOR.$value)){
                 if(!self::$ext_filter || in_array(strtolower(pathinfo($dir.DIRECTORY_SEPARATOR.$value, PATHINFO_EXTENSION)), self::$ext_filter)){
                     self::$files[] = $result[] = $dir.DIRECTORY_SEPARATOR.$value;
@@ -145,13 +148,13 @@ scanDir::scan(path(s):string|array, [file_extensions:string|array], [subfolders?
 ```
 <?php
 //Scan a single directory for all files, no sub-directories
-$files = scanDir::scan(&apos;D:\Websites\temp&apos;);
+$files = scanDir::scan('D:\Websites\temp');
 
 //Scan multiple directories for all files, no sub-dirs
 $dirs = array(
-    &apos;D:\folder&apos;;
-    &apos;D:\folder2&apos;;
-    &apos;C:\Other&apos;;
+    'D:\folder';
+    'D:\folder2';
+    'C:\Other';
 );
 $files = scanDir::scan($dirs);
 
@@ -187,7 +190,7 @@ function find_all_files($dir)
     $root = scandir($dir);
     foreach($root as $value)
     {
-        if($value === &apos;.&apos; || $value === &apos;..&apos;) {continue;}
+        if($value === '.' || $value === '..') {continue;}
         if(is_file("$dir/$value")) {$result[]="$dir/$value";continue;}
         foreach(find_all_files("$dir/$value") as $value)
         {

@@ -6,11 +6,11 @@ I was getting "database locked" all the time until I found out some features of 
 
 ```
 <?php
-$db = new SQLite3(&apos;/my/sqlite/file.sqlite3&apos;);
-$db-&gt;busyTimeout(5000);
+$db = new SQLite3('/my/sqlite/file.sqlite3');
+$db->busyTimeout(5000);
 // WAL mode has better control over concurrency.
 // Source: https://www.sqlite.org/wal.html
-$db-&gt;exec(&apos;PRAGMA journal_mode = wal;&apos;);
+$db->exec('PRAGMA journal_mode = wal;');
 ?>
 ```
 <br><br>Hope that helps.  

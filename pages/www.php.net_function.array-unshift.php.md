@@ -6,9 +6,9 @@ You can preserve keys and unshift an array with numerical indexes in a really si
 
 ```
 <?php
-$someArray=array(224=&gt;&apos;someword1&apos;, 228=&gt;&apos;someword2&apos;, 102=&gt;&apos;someword3&apos;, 544=&gt;&apos;someword3&apos;,95=&gt;&apos;someword4&apos;);
+$someArray=array(224=>'someword1', 228=>'someword2', 102=>'someword3', 544=>'someword3',95=>'someword4');
 
-$someArray=array(100=&gt;&apos;Test Element 1 &apos;,255=&gt;&apos;Test Element 2&apos;)+$someArray;
+$someArray=array(100=>'Test Element 1 ',255=>'Test Element 2')+$someArray;
 ?>
 ```
 <br><br>now the array looks as follows:<br><br>array(<br>100=&gt;&apos;Test Element 1 &apos;,<br>255=&gt;&apos;Test Element 2&apos;<br>224=&gt;&apos;someword1&apos;,<br>228=&gt;&apos;someword2&apos;,<br>102=&gt;&apos;someword3&apos;,<br>544=&gt;&apos;someword3&apos;,<br>95=&gt;&apos;someword4&apos;<br>);  
@@ -19,7 +19,7 @@ array_merge() will also reindex (see array_merge() manual entry), but the &apos;
 
 ```
 <?php
-$arrayone=array("newkey"=&gt;"newvalue") + $arrayone;
+$arrayone=array("newkey"=>"newvalue") + $arrayone;
 ?>
 ```
 <br><br>does the job.  

@@ -19,16 +19,16 @@ If you register function that needs to be running last (for example, close datab
 ```
 <?php
 function test1(){
-  register_shutdown_function(&apos;test_last&apos;);
+  register_shutdown_function('test_last');
 }
 
 function test2(){/*...*/}
 function test3(){/*...*/}
 function test_last(){/*...*/}
 
-register_shutdown_function(&apos;test1&apos;);
-register_shutdown_function(&apos;test2&apos;);
-register_shutdown_function(&apos;test3&apos;);
+register_shutdown_function('test1');
+register_shutdown_function('test2');
+register_shutdown_function('test3');
 ?>
 ```
 <br><br>the script will call functions in correct order: test1, test2, test3, test_last  
@@ -39,9 +39,9 @@ You definitely need to be careful about using relative paths in after the shutdo
 
 ```
 <?php
-function echocwd() { echo &apos;cwd: &apos;, getcwd(), "\n"; }
+function echocwd() { echo 'cwd: ', getcwd(), "\n"; }
 
-register_shutdown_function(&apos;echocwd&apos;);
+register_shutdown_function('echocwd');
 echocwd() and exit;
 ?>
 ```
@@ -58,35 +58,35 @@ class shutdownScheduler {
     private $callbacks; // array to store user callbacks
     
     public function __construct() {
-        $this-&gt;callbacks = array();
-        register_shutdown_function(array($this, &apos;callRegisteredShutdown&apos;));
+        $this->callbacks = array();
+        register_shutdown_function(array($this, 'callRegisteredShutdown'));
     }
     public function registerShutdownEvent() {
         $callback = func_get_args();
         
         if (empty($callback)) {
-            trigger_error(&apos;No callback passed to &apos;.__FUNCTION__.&apos; method&apos;, E_USER_ERROR);
+            trigger_error('No callback passed to '.__FUNCTION__.' method', E_USER_ERROR);
             return false;
         }
         if (!is_callable($callback[0])) {
-            trigger_error(&apos;Invalid callback passed to the &apos;.__FUNCTION__.&apos; method&apos;, E_USER_ERROR);
+            trigger_error('Invalid callback passed to the '.__FUNCTION__.' method', E_USER_ERROR);
             return false;
         }
-        $this-&gt;callbacks[] = $callback;
+        $this->callbacks[] = $callback;
         return true;
     }
     public function callRegisteredShutdown() {
-        foreach ($this-&gt;callbacks as $arguments) {
+        foreach ($this->callbacks as $arguments) {
             $callback = array_shift($arguments);
             call_user_func_array($callback, $arguments);
         }
     }
     // test methods:
     public function dynamicTest() {
-        echo &apos;_REQUEST array is &apos;.count($_REQUEST).&apos; elements long.&lt;br /&gt;&apos;;
+        echo '_REQUEST array is '.count($_REQUEST).' elements long.&lt;br /&gt;';
     }
     public static function staticTest() {
-        echo &apos;_SERVER array is &apos;.count($_SERVER).&apos; elements long.&lt;br /&gt;&apos;;
+        echo '_SERVER array is '.count($_SERVER).' elements long.&lt;br /&gt;';
     }
 }
 ?>
@@ -100,19 +100,19 @@ A simple application:
 ```
 <?php
 // a generic function
-function say($a = &apos;a generic greeting&apos;, $b = &apos;&apos;) {
+function say($a = 'a generic greeting', $b = '') {
     echo "Saying {$a} {$b}&lt;br /&gt;";
 }
 
 $scheduler = new shutdownScheduler();
 
 // schedule a global scope function:
-$scheduler-&gt;registerShutdownEvent(&apos;say&apos;, &apos;hello!&apos;);
+$scheduler->registerShutdownEvent('say', 'hello!');
 
 // try to schedule a dyamic method:
-$scheduler-&gt;registerShutdownEvent(array($scheduler, &apos;dynamicTest&apos;));
+$scheduler->registerShutdownEvent(array($scheduler, 'dynamicTest'));
 // try with a static call:
-$scheduler-&gt;registerShutdownEvent(&apos;scheduler::staticTest&apos;);
+$scheduler->registerShutdownEvent('scheduler::staticTest');
 
 ?>
 ```
@@ -120,22 +120,28 @@ $scheduler-&gt;registerShutdownEvent(&apos;scheduler::staticTest&apos;);
 
 #
 
-When using php-fpm, fastcgi_finish_request() should be used instead of register_shutdown_function() and exit()<br><br>For example, under nginx and php-fpm 5.3+, this will make browsers wait 10 seconds to show output:<br><br>
+When using ?>
+```
+fpm, fastcgi_finish_request() should be used instead of register_shutdown_function() and exit()<br><br>For example, under nginx and ?>
+```
+fpm 5.3+, this will make browsers wait 10 seconds to show output:<br><br>
 
 ```
 <?php
     echo "You have to wait 10 seconds to see this.&lt;br&gt;";
-    register_shutdown_function(&apos;shutdown&apos;);
+    register_shutdown_function('shutdown');
     exit;
     function shutdown(){
         sleep(10);
-        echo "Because exit() doesn&apos;t terminate php-fpm calls immediately.&lt;br&gt;";
+        echo "Because exit() doesn't terminate ?>
+```
+fpm calls immediately.&lt;br&gt;";
     }
 ?>
 ```
 
 
-This doesn&apos;t:
+This doesn't:
 
 
 
@@ -144,7 +150,7 @@ This doesn&apos;t:
     echo "You can see this from the browser immediately.&lt;br&gt;";
     fastcgi_finish_request();
     sleep(10);
-    echo "You can&apos;t see this form the browser.";
+    echo "You can't see this form the browser.";
 ?>
 ```
   
@@ -156,13 +162,13 @@ register_shutdown_function seems to be immune to whatever value was set with set
 ```
 <?php
 function asdf() {
-    echo microtime(true) . &apos;&lt;br&gt;&apos;;
+    echo microtime(true) . '&lt;br&gt;';
     sleep(1);
-    echo microtime(true) . &apos;&lt;br&gt;&apos;;
+    echo microtime(true) . '&lt;br&gt;';
     sleep(1);
-    echo microtime(true) . &apos;&lt;br&gt;&apos;;
+    echo microtime(true) . '&lt;br&gt;';
 }
-register_shutdown_function(&apos;asdf&apos;);
+register_shutdown_function('asdf');
 set_time_limit(1);
 
 while(true) {}

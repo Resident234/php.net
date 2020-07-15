@@ -6,11 +6,11 @@ To make it clearer about what the two parameters of the callback are for, and wh
 
 ```
 <?php
-array_reduce(array(1,2,3,4), &apos;f&apos;,         99             );
-array_reduce(array(2,3,4),   &apos;f&apos;,       f(99,1)          );
-array_reduce(array(3,4),     &apos;f&apos;,     f(f(99,1),2)       );
-array_reduce(array(4),       &apos;f&apos;,   f(f(f(99,1),2),3)    );
-array_reduce(array(),        &apos;f&apos;, f(f(f(f(99,1),2),3),4) );
+array_reduce(array(1,2,3,4), 'f',         99             );
+array_reduce(array(2,3,4),   'f',       f(99,1)          );
+array_reduce(array(3,4),     'f',     f(f(99,1),2)       );
+array_reduce(array(4),       'f',   f(f(f(99,1),2),3)    );
+array_reduce(array(),        'f', f(f(f(f(99,1),2),3),4) );
 f(f(f(f(99,1),2),3),4)
 ?>
 ```
@@ -42,37 +42,37 @@ Sometimes we need to go through an array and group the indexes so that it is eas
 <?php
 
 $people = [
-    [&apos;id&apos; =&gt; 1, &apos;name&apos; =&gt; &apos;Hayley&apos;],
-    [&apos;id&apos; =&gt; 2, &apos;name&apos; =&gt; &apos;Jack&apos;, &apos;dad&apos; =&gt; 1],
-    [&apos;id&apos; =&gt; 3, &apos;name&apos; =&gt; &apos;Linus&apos;, &apos;dad&apos;=&gt; 4],
-    [&apos;id&apos; =&gt; 4, &apos;name&apos; =&gt; &apos;Peter&apos; ],
-    [&apos;id&apos; =&gt; 5, &apos;name&apos; =&gt; &apos;Tom&apos;, &apos;dad&apos; =&gt; 4],
+    ['id' => 1, 'name' => 'Hayley'],
+    ['id' => 2, 'name' => 'Jack', 'dad' => 1],
+    ['id' => 3, 'name' => 'Linus', 'dad'=> 4],
+    ['id' => 4, 'name' => 'Peter' ],
+    ['id' => 5, 'name' => 'Tom', 'dad' => 4],
 ];
 
 $family = array_reduce($people, function($accumulator, $item) {
-    // if you don&apos;t have a dad you are probably a dad
-    if (!isset($item[&apos;dad&apos;])) {
-        $id = $item[&apos;id&apos;];
-        $name = $item[&apos;name&apos;];
+    // if you don't have a dad you are probably a dad
+    if (!isset($item['dad'])) {
+        $id = $item['id'];
+        $name = $item['name'];
         // take the children if you already have 
-        $children = $accumulator[$id][&apos;children&apos;] ?? [];
+        $children = $accumulator[$id]['children'] ?? [];
         // add dad
-        $accumulator[$id] = [&apos;id&apos; =&gt; $id, &apos;name&apos; =&gt; $name,&apos;children&apos; =&gt; $children];
+        $accumulator[$id] = ['id' => $id, 'name' => $name,'children' => $children];
         return $accumulator;
     }
 
-    // add a new dad if you haven&apos;t already 
-    $dad = $item[&apos;dad&apos;];
+    // add a new dad if you haven't already 
+    $dad = $item['dad'];
     if (!isset($accumulator[$dad])) {
         // how did you find the dad will first add only with children 
-        $accumulator[$dad] = [&apos;children&apos; =&gt; [$item]];
+        $accumulator[$dad] = ['children' => [$item]];
         return $accumulator;
     }
 
     //  add a son to his dad who has already been added
     //  by the first or second conditional "if"
     
-    $accumulator[$dad][&apos;children&apos;][] = $item;
+    $accumulator[$dad]['children'][] = $item;
     return $accumulator;
 }, []);
 
@@ -85,37 +85,37 @@ var_export(array_values($family));
 OUTPUT
 
 array (
-  0 =&gt;
+  0 =>
   array (
-    &apos;id&apos; =&gt; 1,
-    &apos;name&apos; =&gt; &apos;Hayley&apos;,
-    &apos;children&apos; =&gt;
+    'id' => 1,
+    'name' => 'Hayley',
+    'children' =>
     array (
-      0 =&gt;
+      0 =>
       array (
-        &apos;id&apos; =&gt; 2,
-        &apos;name&apos; =&gt; &apos;Jack&apos;,
-        &apos;dad&apos; =&gt; 1,
+        'id' => 2,
+        'name' => 'Jack',
+        'dad' => 1,
       ),
     ),
   ),
-  1 =&gt;
+  1 =>
   array (
-    &apos;id&apos; =&gt; 4,
-    &apos;name&apos; =&gt; &apos;Peter&apos;,
-    &apos;children&apos; =&gt;
+    'id' => 4,
+    'name' => 'Peter',
+    'children' =>
     array (
-      0 =&gt;
+      0 =>
       array (
-        &apos;id&apos; =&gt; 3,
-        &apos;name&apos; =&gt; &apos;Linus&apos;,
-        &apos;dad&apos; =&gt; 4,
+        'id' => 3,
+        'name' => 'Linus',
+        'dad' => 4,
       ),
-      1 =&gt;
+      1 =>
       array (
-        &apos;id&apos; =&gt; 5,
-        &apos;name&apos; =&gt; &apos;Tom&apos;,
-        &apos;dad&apos; =&gt; 4,
+        'id' => 5,
+        'name' => 'Tom',
+        'dad' => 4,
       ),
     ),
   ),
@@ -127,41 +127,41 @@ array (
 <?php
 $array = [
   [
-    "menu_id" =&gt; "1",
-    "menu_name" =&gt; "Clients",
-    "submenu_name" =&gt; "Add",
-    "submenu_link" =&gt; "clients/add"
+    "menu_id" => "1",
+    "menu_name" => "Clients",
+    "submenu_name" => "Add",
+    "submenu_link" => "clients/add"
   ],
   [
-    "menu_id" =&gt; "1",
-    "menu_name" =&gt; "Clients",
-    "submenu_name" =&gt; "List",
-    "submenu_link" =&gt; "clients"
+    "menu_id" => "1",
+    "menu_name" => "Clients",
+    "submenu_name" => "List",
+    "submenu_link" => "clients"
   ],
   [
-    "menu_id" =&gt; "2",
-    "menu_name" =&gt; "Products",
-    "submenu_name" =&gt; "List",
-    "submenu_link" =&gt; "products"
+    "menu_id" => "2",
+    "menu_name" => "Products",
+    "submenu_name" => "List",
+    "submenu_link" => "products"
   ],
 ];
 
 //Grouping submenus to their menus
 
 $menu =  array_reduce($array, function($accumulator, $item){
-  $index = $item[&apos;menu_name&apos;];
+  $index = $item['menu_name'];
 
   if (!isset($accumulator[$index])) {
     $accumulator[$index] = [
-      &apos;menu_id&apos; =&gt; $item[&apos;menu_id&apos;],
-      &apos;menu_name&apos; =&gt; $item[&apos;menu_name&apos;],
-      &apos;submenu&apos; =&gt; []    
+      'menu_id' => $item['menu_id'],
+      'menu_name' => $item['menu_name'],
+      'submenu' => []    
     ];
   }
 
-  $accumulator[$index][&apos;submenu&apos;][] = [
-    &apos;submenu_name&apos; =&gt; $item[&apos;submenu_name&apos;],
-    &apos;submenu_link&apos; =&gt; $item[&apos;submenu_link&apos;]
+  $accumulator[$index]['submenu'][] = [
+    'submenu_name' => $item['submenu_name'],
+    'submenu_link' => $item['submenu_link']
   ];
 
   return $accumulator;
@@ -182,17 +182,17 @@ So, if you were wondering how to use this where key and value are passed in to t
 
     // Attribute List
     $attribs = [
-        &apos;name&apos; =&gt; &apos;first_name&apos;,
-        &apos;value&apos; =&gt; &apos;Edward&apos;
+        'name' => 'first_name',
+        'value' => 'Edward'
     ];
 
     // Attribute string formatted for use inside HTML element
     $formatted_attribs = array_reduce(
         array_keys($attribs),                       // We pass in the array_keys instead of the array here
-        function ($carry, $key) use ($attribs) {    // ... then we &apos;use&apos; the actual array here
-            return $carry . &apos; &apos; . $key . &apos;="&apos; . htmlspecialchars( $attribs[$key] ) . &apos;"&apos;;
+        function ($carry, $key) use ($attribs) {    // ... then we 'use' the actual array here
+            return $carry . ' ' . $key . '="' . htmlspecialchars( $attribs[$key] ) . '"';
         },
-        &apos;&apos;
+        ''
     );
 
 echo $formatted_attribs;

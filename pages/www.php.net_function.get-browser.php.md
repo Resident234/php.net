@@ -2,7 +2,9 @@
 
 
 
-As of PHP 7.0.15 and 7.1.1 and higher, get_browser() now performs much better - reportedly 100x faster.  The Changelog, bug description, and solution are here:<br><br>http://php.net/ChangeLog-7.php (search for get_browser())<br>https://bugs.php.net/bug.php?id=70490<br>https://github.com/php/php-src/pull/2242  
+As of PHP 7.0.15 and 7.1.1 and higher, get_browser() now performs much better - reportedly 100x faster.  The Changelog, bug description, and solution are here:<br><br>http://php.net/ChangeLog-7.php (search for get_browser())<br>https://bugs.php.net/bug.php?id=70490<br>https://github.com/php/?>
+```
+src/pull/2242  
 
 #
 
@@ -26,50 +28,61 @@ function get_browser_name($user_agent)
         $t = " " . $t;
 
         // Humans / Regular Users      
-        if     (strpos($t, &apos;opera&apos;     ) || strpos($t, &apos;opr/&apos;)     ) return &apos;Opera&apos;            ;
-        elseif (strpos($t, &apos;edge&apos;      )                           ) return &apos;Edge&apos;             ;
-        elseif (strpos($t, &apos;chrome&apos;    )                           ) return &apos;Chrome&apos;           ;
-        elseif (strpos($t, &apos;safari&apos;    )                           ) return &apos;Safari&apos;           ;
-        elseif (strpos($t, &apos;firefox&apos;   )                           ) return &apos;Firefox&apos;          ;
-        elseif (strpos($t, &apos;msie&apos;      ) || strpos($t, &apos;trident/7&apos;)) return &apos;Internet Explorer&apos;;
+        if     (strpos($t, 'opera'     ) || strpos($t, 'opr/')     ) return 'Opera'            ;
+        elseif (strpos($t, 'edge'      )                           ) return 'Edge'             ;
+        elseif (strpos($t, 'chrome'    )                           ) return 'Chrome'           ;
+        elseif (strpos($t, 'safari'    )                           ) return 'Safari'           ;
+        elseif (strpos($t, 'firefox'   )                           ) return 'Firefox'          ;
+        elseif (strpos($t, 'msie'      ) || strpos($t, 'trident/7')) return 'Internet Explorer';
 
         // Search Engines  
-        elseif (strpos($t, &apos;google&apos;    )                           ) return &apos;[Bot] Googlebot&apos;   ;
-        elseif (strpos($t, &apos;bing&apos;      )                           ) return &apos;[Bot] Bingbot&apos;     ;
-        elseif (strpos($t, &apos;slurp&apos;     )                           ) return &apos;[Bot] Yahoo! Slurp&apos;;
-        elseif (strpos($t, &apos;duckduckgo&apos;)                           ) return &apos;[Bot] DuckDuckBot&apos; ;
-        elseif (strpos($t, &apos;baidu&apos;     )                           ) return &apos;[Bot] Baidu&apos;       ;
-        elseif (strpos($t, &apos;yandex&apos;    )                           ) return &apos;[Bot] Yandex&apos;      ;
-        elseif (strpos($t, &apos;sogou&apos;     )                           ) return &apos;[Bot] Sogou&apos;       ;
-        elseif (strpos($t, &apos;exabot&apos;    )                           ) return &apos;[Bot] Exabot&apos;      ;
-        elseif (strpos($t, &apos;msn&apos;       )                           ) return &apos;[Bot] MSN&apos;         ;
+        elseif (strpos($t, 'google'    )                           ) return '[Bot] Googlebot'   ;
+        elseif (strpos($t, 'bing'      )                           ) return '[Bot] Bingbot'     ;
+        elseif (strpos($t, 'slurp'     )                           ) return '[Bot] Yahoo! Slurp';
+        elseif (strpos($t, 'duckduckgo')                           ) return '[Bot] DuckDuckBot' ;
+        elseif (strpos($t, 'baidu'     )                           ) return '[Bot] Baidu'       ;
+        elseif (strpos($t, 'yandex'    )                           ) return '[Bot] Yandex'      ;
+        elseif (strpos($t, 'sogou'     )                           ) return '[Bot] Sogou'       ;
+        elseif (strpos($t, 'exabot'    )                           ) return '[Bot] Exabot'      ;
+        elseif (strpos($t, 'msn'       )                           ) return '[Bot] MSN'         ;
 
         // Common Tools and Bots
-        elseif (strpos($t, &apos;mj12bot&apos;   )                           ) return &apos;[Bot] Majestic&apos;     ;
-        elseif (strpos($t, &apos;ahrefs&apos;    )                           ) return &apos;[Bot] Ahrefs&apos;       ;
-        elseif (strpos($t, &apos;semrush&apos;   )                           ) return &apos;[Bot] SEMRush&apos;      ;
-        elseif (strpos($t, &apos;rogerbot&apos;  ) || strpos($t, &apos;dotbot&apos;)   ) return &apos;[Bot] Moz or OpenSiteExplorer&apos;;
-        elseif (strpos($t, &apos;frog&apos;      ) || strpos($t, &apos;screaming&apos;)) return &apos;[Bot] Screaming Frog&apos;;
+        elseif (strpos($t, 'mj12bot'   )                           ) return '[Bot] Majestic'     ;
+        elseif (strpos($t, 'ahrefs'    )                           ) return '[Bot] Ahrefs'       ;
+        elseif (strpos($t, 'semrush'   )                           ) return '[Bot] SEMRush'      ;
+        elseif (strpos($t, 'rogerbot'  ) || strpos($t, 'dotbot')   ) return '[Bot] Moz or OpenSiteExplorer';
+        elseif (strpos($t, 'frog'      ) || strpos($t, 'screaming')) return '[Bot] Screaming Frog';
         
         // Miscellaneous 
-        elseif (strpos($t, &apos;facebook&apos;  )                           ) return &apos;[Bot] Facebook&apos;     ;
-        elseif (strpos($t, &apos;pinterest&apos; )                           ) return &apos;[Bot] Pinterest&apos;    ;
+        elseif (strpos($t, 'facebook'  )                           ) return '[Bot] Facebook'     ;
+        elseif (strpos($t, 'pinterest' )                           ) return '[Bot] Pinterest'    ;
         
         // Check for strings commonly used in bot user agents   
-        elseif (strpos($t, &apos;crawler&apos; ) || strpos($t, &apos;api&apos;    ) ||
-                strpos($t, &apos;spider&apos;  ) || strpos($t, &apos;http&apos;   ) ||
-                strpos($t, &apos;bot&apos;     ) || strpos($t, &apos;archive&apos;) || 
-                strpos($t, &apos;info&apos;    ) || strpos($t, &apos;data&apos;   )    ) return &apos;[Bot] Other&apos;   ;
+        elseif (strpos($t, 'crawler' ) || strpos($t, 'api'    ) ||
+                strpos($t, 'spider'  ) || strpos($t, 'http'   ) ||
+                strpos($t, 'bot'     ) || strpos($t, 'archive') || 
+                strpos($t, 'info'    ) || strpos($t, 'data'   )    ) return '[Bot] Other'   ;
         
-        return &apos;Other (Unknown)&apos;;
+        return 'Other (Unknown)';
 }
 ?>
 ```
-<br>Post with more depth here:<br>https://www.256kilobytes.com/content/show/1922/how-to-parse-a-user-agent-in-php-with-minimal-effort  
+
+Post with more depth here:
+https://www.256kilobytes.com/content/show/1922/how-to-parse-a-user-agent-in
+
+```
+<??>
+```
+with-minimal-effort  
 
 #
 
-Since browser detection can be tricky and very slow, I compared a few packages.<br><br>http://thadafinser.github.io/UserAgentParserComparison/v5/index.html<br><br>https://github.com/sinergi/php-browser-detector<br>https://github.com/WhichBrowser/Parser-PHP<br>https://github.com/piwik/device-detector<br>http://php.net/manual/en/function.get-browser.php<br><br>Here are the results:<br><br>User Agent: <br>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36<br><br>Sinergi Package<br>---------------<br>Chrome 63.0.3239.84 on Windows 10.0<br>Took 0.0022480487823486 seconds.<br>---------------<br><br>WhichBrowser Package<br>---------------<br>Chrome 63 on Windows 10<br>Took 0.021045207977295 seconds.<br>---------------<br><br>Piwik Package<br>---------------<br>Chrome 63.0 on Windows 10<br>Took 0.079447031021118 seconds.<br>---------------<br><br>get_browser Package<br>---------------<br>Chrome 63.0 on Windows 10<br>Took 0.09611701965332 seconds.<br>---------------<br><br>User Agent: <br>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0<br><br>Sinergi Package<br>---------------<br>Firefox 57.0 on Windows 10.0<br>Took 0.0023159980773926 seconds.<br>---------------<br><br>WhichBrowser Package<br>---------------<br>Firefox 57.0 on Windows 10<br>Took 0.019663095474243 seconds.<br>---------------<br><br>Piwik Package<br>---------------<br>Firefox 57.0 on Windows 10<br>Took 0.079678058624268 seconds.<br>---------------<br><br>get_browser Package<br>---------------<br>Firefox 57.0 on Windows 10<br>Took 0.02236008644104 seconds.<br>---------------<br><br>The consistent winner (by speed, not necessarily coverage) by far is:<br>https://github.com/sinergi/php-browser-detector  
+Since browser detection can be tricky and very slow, I compared a few packages.<br><br>http://thadafinser.github.io/UserAgentParserComparison/v5/index.html<br><br>https://github.com/sinergi/?>
+```
+browser-detector<br>https://github.com/WhichBrowser/Parser-PHP<br>https://github.com/piwik/device-detector<br>http://php.net/manual/en/function.get-browser.php<br><br>Here are the results:<br><br>User Agent: <br>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36<br><br>Sinergi Package<br>---------------<br>Chrome 63.0.3239.84 on Windows 10.0<br>Took 0.0022480487823486 seconds.<br>---------------<br><br>WhichBrowser Package<br>---------------<br>Chrome 63 on Windows 10<br>Took 0.021045207977295 seconds.<br>---------------<br><br>Piwik Package<br>---------------<br>Chrome 63.0 on Windows 10<br>Took 0.079447031021118 seconds.<br>---------------<br><br>get_browser Package<br>---------------<br>Chrome 63.0 on Windows 10<br>Took 0.09611701965332 seconds.<br>---------------<br><br>User Agent: <br>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0<br><br>Sinergi Package<br>---------------<br>Firefox 57.0 on Windows 10.0<br>Took 0.0023159980773926 seconds.<br>---------------<br><br>WhichBrowser Package<br>---------------<br>Firefox 57.0 on Windows 10<br>Took 0.019663095474243 seconds.<br>---------------<br><br>Piwik Package<br>---------------<br>Firefox 57.0 on Windows 10<br>Took 0.079678058624268 seconds.<br>---------------<br><br>get_browser Package<br>---------------<br>Firefox 57.0 on Windows 10<br>Took 0.02236008644104 seconds.<br>---------------<br><br>The consistent winner (by speed, not necessarily coverage) by far is:<br>https://github.com/sinergi/?>
+```
+browser-detector  
 
 #
 
@@ -79,93 +92,93 @@ To my surprise I found that none of the get_browser alternatives output the corr
 <?php
 function getBrowser() 
 { 
-    $u_agent = $_SERVER[&apos;HTTP_USER_AGENT&apos;]; 
-    $bname = &apos;Unknown&apos;;
-    $platform = &apos;Unknown&apos;;
+    $u_agent = $_SERVER['HTTP_USER_AGENT']; 
+    $bname = 'Unknown';
+    $platform = 'Unknown';
     $version= "";
 
     //First get the platform?
-    if (preg_match(&apos;/linux/i&apos;, $u_agent)) {
-        $platform = &apos;linux&apos;;
+    if (preg_match('/linux/i', $u_agent)) {
+        $platform = 'linux';
     }
-    elseif (preg_match(&apos;/macintosh|mac os x/i&apos;, $u_agent)) {
-        $platform = &apos;mac&apos;;
+    elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
+        $platform = 'mac';
     }
-    elseif (preg_match(&apos;/windows|win32/i&apos;, $u_agent)) {
-        $platform = &apos;windows&apos;;
+    elseif (preg_match('/windows|win32/i', $u_agent)) {
+        $platform = 'windows';
     }
     
     // Next get the name of the useragent yes seperately and for good reason
-    if(preg_match(&apos;/MSIE/i&apos;,$u_agent) &amp;&amp; !preg_match(&apos;/Opera/i&apos;,$u_agent)) 
+    if(preg_match('/MSIE/i',$u_agent) &amp;&amp; !preg_match('/Opera/i',$u_agent)) 
     { 
-        $bname = &apos;Internet Explorer&apos;; 
+        $bname = 'Internet Explorer'; 
         $ub = "MSIE"; 
     } 
-    elseif(preg_match(&apos;/Firefox/i&apos;,$u_agent)) 
+    elseif(preg_match('/Firefox/i',$u_agent)) 
     { 
-        $bname = &apos;Mozilla Firefox&apos;; 
+        $bname = 'Mozilla Firefox'; 
         $ub = "Firefox"; 
     } 
-    elseif(preg_match(&apos;/Chrome/i&apos;,$u_agent)) 
+    elseif(preg_match('/Chrome/i',$u_agent)) 
     { 
-        $bname = &apos;Google Chrome&apos;; 
+        $bname = 'Google Chrome'; 
         $ub = "Chrome"; 
     } 
-    elseif(preg_match(&apos;/Safari/i&apos;,$u_agent)) 
+    elseif(preg_match('/Safari/i',$u_agent)) 
     { 
-        $bname = &apos;Apple Safari&apos;; 
+        $bname = 'Apple Safari'; 
         $ub = "Safari"; 
     } 
-    elseif(preg_match(&apos;/Opera/i&apos;,$u_agent)) 
+    elseif(preg_match('/Opera/i',$u_agent)) 
     { 
-        $bname = &apos;Opera&apos;; 
+        $bname = 'Opera'; 
         $ub = "Opera"; 
     } 
-    elseif(preg_match(&apos;/Netscape/i&apos;,$u_agent)) 
+    elseif(preg_match('/Netscape/i',$u_agent)) 
     { 
-        $bname = &apos;Netscape&apos;; 
+        $bname = 'Netscape'; 
         $ub = "Netscape"; 
     } 
     
     // finally get the correct version number
-    $known = array(&apos;Version&apos;, $ub, &apos;other&apos;);
-    $pattern = &apos;#(?&lt;browser&gt;&apos; . join(&apos;|&apos;, $known) .
-    &apos;)[/ ]+(?&lt;version&gt;[0-9.|a-zA-Z.]*)#&apos;;
+    $known = array('Version', $ub, 'other');
+    $pattern = '#(?&lt;browser&gt;' . join('|', $known) .
+    ')[/ ]+(?&lt;version&gt;[0-9.|a-zA-Z.]*)#';
     if (!preg_match_all($pattern, $u_agent, $matches)) {
         // we have no matching number just continue
     }
     
     // see how many we have
-    $i = count($matches[&apos;browser&apos;]);
+    $i = count($matches['browser']);
     if ($i != 1) {
-        //we will have two since we are not using &apos;other&apos; argument yet
+        //we will have two since we are not using 'other' argument yet
         //see if version is before or after the name
         if (strripos($u_agent,"Version") &lt; strripos($u_agent,$ub)){
-            $version= $matches[&apos;version&apos;][0];
+            $version= $matches['version'][0];
         }
         else {
-            $version= $matches[&apos;version&apos;][1];
+            $version= $matches['version'][1];
         }
     }
     else {
-        $version= $matches[&apos;version&apos;][0];
+        $version= $matches['version'][0];
     }
     
     // check if we have a number
     if ($version==null || $version=="") {$version="?";}
     
     return array(
-        &apos;userAgent&apos; =&gt; $u_agent,
-        &apos;name&apos;      =&gt; $bname,
-        &apos;version&apos;   =&gt; $version,
-        &apos;platform&apos;  =&gt; $platform,
-        &apos;pattern&apos;    =&gt; $pattern
+        'userAgent' => $u_agent,
+        'name'      => $bname,
+        'version'   => $version,
+        'platform'  => $platform,
+        'pattern'    => $pattern
     );
 } 
 
 // now try it
 $ua=getBrowser();
-$yourbrowser= "Your browser: " . $ua[&apos;name&apos;] . " " . $ua[&apos;version&apos;] . " on " .$ua[&apos;platform&apos;] . " reports: &lt;br &gt;" . $ua[&apos;userAgent&apos;];
+$yourbrowser= "Your browser: " . $ua['name'] . " " . $ua['version'] . " on " .$ua['platform'] . " reports: &lt;br &gt;" . $ua['userAgent'];
 print_r($yourbrowser);
 ?>
 ```
@@ -180,19 +193,19 @@ If you ONLY need a very fast and simple function to detect the browser name (upd
 
 function get_browser_name($user_agent)
 {
-    if (strpos($user_agent, &apos;Opera&apos;) || strpos($user_agent, &apos;OPR/&apos;)) return &apos;Opera&apos;;
-    elseif (strpos($user_agent, &apos;Edge&apos;)) return &apos;Edge&apos;;
-    elseif (strpos($user_agent, &apos;Chrome&apos;)) return &apos;Chrome&apos;;
-    elseif (strpos($user_agent, &apos;Safari&apos;)) return &apos;Safari&apos;;
-    elseif (strpos($user_agent, &apos;Firefox&apos;)) return &apos;Firefox&apos;;
-    elseif (strpos($user_agent, &apos;MSIE&apos;) || strpos($user_agent, &apos;Trident/7&apos;)) return &apos;Internet Explorer&apos;;
+    if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) return 'Opera';
+    elseif (strpos($user_agent, 'Edge')) return 'Edge';
+    elseif (strpos($user_agent, 'Chrome')) return 'Chrome';
+    elseif (strpos($user_agent, 'Safari')) return 'Safari';
+    elseif (strpos($user_agent, 'Firefox')) return 'Firefox';
+    elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
     
-    return &apos;Other&apos;;
+    return 'Other';
 }
 
 // Usage:
 
-echo get_browser_name($_SERVER[&apos;HTTP_USER_AGENT&apos;]);
+echo get_browser_name($_SERVER['HTTP_USER_AGENT']);
 
 ?>
 ```

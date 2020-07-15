@@ -13,7 +13,7 @@ I&apos;ve been trying to find the charset of a norwegian (with a lot of &#xF8;, 
 $text = "A strange string to pass, maybe with some &#xF8;, &#xE6;, &#xE5; characters.";
 
 foreach(mb_list_encodings() as $chr){
-        echo mb_convert_encoding($text, &apos;UTF-8&apos;, $chr)." : ".$chr."&lt;br&gt;";    
+        echo mb_convert_encoding($text, 'UTF-8', $chr)." : ".$chr."&lt;br&gt;";    
  } 
 ?>
 ```
@@ -25,11 +25,11 @@ many people below talk about using <br>
 
 ```
 <?php
-    mb_convert_encode($s,&apos;HTML-ENTITIES&apos;,&apos;UTF-8&apos;);
+    mb_convert_encode($s,'HTML-ENTITIES','UTF-8');
 ?>
 ```
 
-to convert non-ascii code into html-readable stuff.  Due to my webserver being out of my control, I was unable to set the database character set, and whenever PHP made a copy of my $s variable that it had pulled out of the database, it would convert it to nasty latin1 automatically and not leave it in it&apos;s beautiful UTF-8 glory.
+to convert non-ascii code into html-readable stuff.  Due to my webserver being out of my control, I was unable to set the database character set, and whenever PHP made a copy of my $s variable that it had pulled out of the database, it would convert it to nasty latin1 automatically and not leave it in it's beautiful UTF-8 glory.
 
 So [insert korean characters here] turned into ?????.
 
@@ -39,7 +39,7 @@ so instead of
 
 ```
 <?php
-    mb_convert_encode(&amp;$s,&apos;HTML-ENTITIES&apos;,&apos;UTF-8&apos;);
+    mb_convert_encode(&amp;$s,'HTML-ENTITIES','UTF-8');
 ?>
 ```
 
@@ -48,7 +48,7 @@ which worked perfectly until I upgraded, so I had to use
 
 ```
 <?php
-    call_user_func_array(&apos;mb_convert_encoding&apos;, array(&amp;$s,&apos;HTML-ENTITIES&apos;,&apos;UTF-8&apos;));
+    call_user_func_array('mb_convert_encoding', array(&amp;$s,'HTML-ENTITIES','UTF-8'));
 ?>
 ```
 <br><br>Hope it helps someone else out  
@@ -63,7 +63,7 @@ aaron, to discard unsupported characters instead of printing a ?, you might as w
 
 ```
 <?php
-ini_set(&apos;mbstring.substitute_character&apos;, "none");
+ini_set('mbstring.substitute_character', "none");
 ?>
 ```
   

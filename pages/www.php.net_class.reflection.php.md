@@ -9,8 +9,8 @@ Here is a code snippet for some of us who are just beginning with reflection. I 
 
 class A
 {
-    public $one = &apos;&apos;;
-    public $two = &apos;&apos;;
+    public $one = '';
+    public $two = '';
     
     //Constructor
     public function __construct()
@@ -21,13 +21,13 @@ class A
     //print variable one
     public function echoOne()
     {
-        echo $this-&gt;one."\n";
+        echo $this->one."\n";
     }
 
     //print variable two    
     public function echoTwo()
     {
-        echo $this-&gt;two."\n";
+        echo $this->two."\n";
     }
 }
 
@@ -35,19 +35,19 @@ class A
 $a = new A();
 
 //Instantiate the reflection object
-$reflector = new ReflectionClass(&apos;A&apos;);
+$reflector = new ReflectionClass('A');
 
 //Now get all the properties from class A in to $properties array
-$properties = $reflector-&gt;getProperties();
+$properties = $reflector->getProperties();
 
 $i =1;
 //Now go through the $properties array and populate each property
 foreach($properties as $property)
 {
     //Populating properties
-    $a-&gt;{$property-&gt;getName()}=$i;
+    $a->{$property->getName()}=$i;
     //Invoking the method to print what was populated
-    $a-&gt;{"echo".ucfirst($property-&gt;getName())}()."\n";
+    $a->{"echo".ucfirst($property->getName())}()."\n";
     
     $i++;
 }

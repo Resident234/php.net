@@ -9,15 +9,15 @@ $flags stays untouched if $key was not found on the server, it&apos;s helpfull t
 
 $memcache = new Memcache();
 
-$memcache-&gt;set(&apos;test&apos;, false); // 
+$memcache->set('test', false); // 
 $flags = false;
-var_dump($memcache-&gt;get(&apos;test&apos;, $flags)); // bool(false)
+var_dump($memcache->get('test', $flags)); // bool(false)
 var_dump($flags); // int(256) - changed to int
 
-$memcache-&gt;delete(&apos;test&apos;);
+$memcache->delete('test');
 
 $flags = false;
-var_dump($memcache-&gt;get(&apos;test&apos;, $flags)); // bool(false)
+var_dump($memcache->get('test', $flags)); // bool(false)
 var_dump($flags); // bool(false) - untouched
 
 ?>

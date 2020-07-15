@@ -8,19 +8,19 @@ Here is something interesting regarding a PDOException and it involves some of t
 <?php
 
 try {
-    $PDO = new PDO( &apos;...&apos; ); // PDO Driver DSN. Throws A PDOException.
+    $PDO = new PDO( '...' ); // PDO Driver DSN. Throws A PDOException.
 }
 catch( PDOException $Exception ) {
     // PHP Fatal Error. Second Argument Has To Be An Integer, But PDOException::getCode Returns A
     // String.
-    throw new MyDatabaseException( $Exception-&gt;getMessage( ) , $Exception-&gt;getCode( ) );
+    throw new MyDatabaseException( $Exception->getMessage( ) , $Exception->getCode( ) );
 }
 
 ?>
 ```
 
 
-Be careful in that you have to typecast the value returned by PDOException::getCode to an Integer BEFORE you pass it as an Argument to your Exception&apos;s Constructor. The following will work:
+Be careful in that you have to typecast the value returned by PDOException::getCode to an Integer BEFORE you pass it as an Argument to your Exception's Constructor. The following will work:
 
 
 
@@ -28,11 +28,11 @@ Be careful in that you have to typecast the value returned by PDOException::getC
 <?php
 
 try {
-    $PDO = new PDO( &apos;...&apos; ); // PDO Driver DSN. Throws A PDOException.
+    $PDO = new PDO( '...' ); // PDO Driver DSN. Throws A PDOException.
 }
 catch( PDOException $Exception ) {
     // Note The Typecast To An Integer!
-    throw new MyDatabaseException( $Exception-&gt;getMessage( ) , (int)$Exception-&gt;getCode( ) );
+    throw new MyDatabaseException( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
 }
 
 ?>

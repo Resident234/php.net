@@ -18,11 +18,11 @@ function is_assoc($var)
 
 function test($var)
 {
-        echo is_assoc($var) ? "I&apos;m an assoc array.\n" : "I&apos;m not an assoc array.\n";
+        echo is_assoc($var) ? "I'm an assoc array.\n" : "I'm not an assoc array.\n";
 }
 
 // an assoc array
-$a = array("a"=&gt;"aaa","b"=&gt;1,"c"=&gt;true);
+$a = array("a"=>"aaa","b"=>1,"c"=>true);
 test($a);
 
 // an array
@@ -34,9 +34,9 @@ $c = (object)$a;
 test($c);
 
 // other types
-test($a-&gt;a);
-test($a-&gt;b);
-test($a-&gt;c);
+test($a->a);
+test($a->b);
+test($a->c);
 
 ?>
 ```
@@ -49,7 +49,7 @@ Yet another simpler, faster is_assoc():<br><br>
 ```
 <?php
 function is_assoc($array) {
-  foreach (array_keys($array) as $k =&gt; $v) {
+  foreach (array_keys($array) as $k => $v) {
     if ($k !== $v)
       return true;
   }
@@ -66,9 +66,9 @@ I&apos;ve found a faster way of determining an array. If you use is_array() mill
 ```
 <?php
 if ( (array) $unknown !== $unknown ) {
-    echo &apos;$unknown is not an array&apos;;
+    echo '$unknown is not an array';
 } else {
-    echo &apos;$unknown is an array&apos;;
+    echo '$unknown is an array';
 }
 ?>
 ```
@@ -77,7 +77,7 @@ if ( (array) $unknown !== $unknown ) {
 You can use this script to test the speed of both methods.
 
 &lt;pre&gt;
-What&apos;s faster for determining arrays?
+What's faster for determining arrays?
 
 
 
@@ -86,32 +86,32 @@ What&apos;s faster for determining arrays?
 
 $count = 1000000;
 
-$test = array(&apos;im&apos;, &apos;an&apos;, &apos;array&apos;);
-$test2 = &apos;im not an array&apos;;
-$test3 = (object) array(&apos;im&apos; =&gt; &apos;not&apos;, &apos;going&apos; =&gt; &apos;to be&apos;, &apos;an&apos; =&gt; &apos;array&apos;);
+$test = array('im', 'an', 'array');
+$test2 = 'im not an array';
+$test3 = (object) array('im' => 'not', 'going' => 'to be', 'an' => 'array');
 $test4 = 42;
-// Set this now so the first for loop doesn&apos;t do the extra work.
+// Set this now so the first for loop doesn't do the extra work.
 $i = $start_time = $end_time = 0;
 
 $start_time = microtime(true);
 for ($i = 0; $i &lt; $count; $i++) {
     if (!is_array($test) || is_array($test2) || is_array($test3) || is_array($test4)) {
-        echo &apos;error&apos;;
+        echo 'error';
         break;
     }
 }
 $end_time = microtime(true);
-echo &apos;is_array  :  &apos;.($end_time - $start_time)."\n";
+echo 'is_array  :  '.($end_time - $start_time)."\n";
 
 $start_time = microtime(true);
 for ($i = 0; $i &lt; $count; $i++) {
     if (!(array) $test === $test || (array) $test2 === $test2 || (array) $test3 === $test3 || (array) $test4 === $test4) {
-        echo &apos;error&apos;;
+        echo 'error';
         break;
     }
 }
 $end_time = microtime(true);
-echo &apos;cast, === :  &apos;.($end_time - $start_time)."\n";
+echo 'cast, === :  '.($end_time - $start_time)."\n";
 
 echo "\nTested $count iterations."
 
@@ -134,7 +134,7 @@ function is_vector( &amp;$array ) {
       return -1;
    }
    $next = 0;
-   foreach ( $array as $k =&gt; $v ) {
+   foreach ( $array as $k => $v ) {
       if ( $k !== $next ) return false;
       $next++;
    }
@@ -155,7 +155,7 @@ function is_vector( &amp;$array ) {
       return -1;
    }
    $next = 0;
-   foreach ( $array as $k =&gt; $v ) {
+   foreach ( $array as $k => $v ) {
       if ( $k !== $next ) return true;
       $next++;
    }
@@ -165,7 +165,7 @@ function is_vector( &amp;$array ) {
 ```
 
 
-and the modified (alex&apos;s is_assoc) version
+and the modified (alex's is_assoc) version
 
 
 
@@ -175,7 +175,7 @@ function is_assoc($_array) {
     if ( !is_array($_array) || empty($array) ) {
         return -1;
     }
-    foreach (array_keys($_array) as $k =&gt; $v) {
+    foreach (array_keys($_array) as $k => $v) {
         if ($k !== $v) {
             return true;
         }
@@ -249,7 +249,7 @@ A slight modification of what&apos;s below:<br><br>
 
 function is_assoc($array)
 {
-    return is_array($array) &amp;&amp; count($array) !== array_reduce(array_keys($array), &apos;is_assoc_callback&apos;, 0);
+    return is_array($array) &amp;&amp; count($array) !== array_reduce(array_keys($array), 'is_assoc_callback', 0);
 }
 
 function is_assoc_callback($a, $b)

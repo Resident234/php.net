@@ -17,7 +17,7 @@ Another quick and short function to get unicode char by its code.<br><br>
  * @return char
  */
 function unichr($u) {
-    return mb_convert_encoding(&apos;&amp;#&apos; . intval($u) . &apos;;&apos;, &apos;UTF-8&apos;, &apos;HTML-ENTITIES&apos;);
+    return mb_convert_encoding('&amp;#' . intval($u) . ';', 'UTF-8', 'HTML-ENTITIES');
 }
 ?>
 ```

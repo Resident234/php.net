@@ -14,7 +14,12 @@ Mirai Densetsu is wrong by saying that "America/Sao_Paulo" timezone does not exi
 
 #
 
-For the United States:<br><br>Eastern ........... America/New_York<br>Central ........... America/Chicago<br>Mountain .......... America/Denver<br>Mountain no DST ... America/Phoenix<br>Pacific ........... America/Los_Angeles<br>Alaska ............ America/Anchorage<br>Hawaii ............ America/Adak<br>Hawaii no DST ..... Pacific/Honolulu<br><br>Source: http://stackoverflow.com/questions/4989209/list-of-us-time-zones-for-php-to-use  
+For the United States:<br><br>Eastern ........... America/New_York<br>Central ........... America/Chicago<br>Mountain .......... America/Denver<br>Mountain no DST ... America/Phoenix<br>Pacific ........... America/Los_Angeles<br>Alaska ............ America/Anchorage<br>Hawaii ............ America/Adak<br>Hawaii no DST ..... Pacific/Honolulu<br><br>Source: http://stackoverflow.com/questions/4989209/list-of-us-time-zones-for
+
+```
+<??>
+```
+to-use  
 
 #
 

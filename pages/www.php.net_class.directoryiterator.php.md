@@ -7,9 +7,9 @@ Shows us all files and catalogues in directory except "." and "..".<br><br>
 ```
 <?php
 
-foreach (new DirectoryIterator(&apos;../moodle&apos;) as $fileInfo) {
-    if($fileInfo-&gt;isDot()) continue;
-    echo $fileInfo-&gt;getFilename() . "&lt;br&gt;\n";
+foreach (new DirectoryIterator('../moodle') as $fileInfo) {
+    if($fileInfo->isDot()) continue;
+    echo $fileInfo->getFilename() . "&lt;br&gt;\n";
 }
 
 ?>
@@ -27,7 +27,7 @@ Beware of the behavior when using FilesystemIterator::UNIX_PATHS, it&apos;s not 
         $flags = FilesystemIterator::KEY_AS_PATHNAME | FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS;
         $d_iterator = new RecursiveDirectoryIterator($folder, $flags);
 
-        echo $d_iterator-&gt;getPath();
+        echo $d_iterator->getPath();
 
 ?>
 ```

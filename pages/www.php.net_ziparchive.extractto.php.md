@@ -7,16 +7,16 @@ If you want to copy one file at a time and remove the folder name that is stored
 ```
 <?php
 
-$path = &apos;zipfile.zip&apos;
+$path = 'zipfile.zip'
 
 $zip = new ZipArchive;
-if ($zip-&gt;open($path) === true) {
-    for($i = 0; $i &lt; $zip-&gt;numFiles; $i++) {
-        $filename = $zip-&gt;getNameIndex($i);
+if ($zip->open($path) === true) {
+    for($i = 0; $i &lt; $zip->numFiles; $i++) {
+        $filename = $zip->getNameIndex($i);
         $fileinfo = pathinfo($filename);
-        copy("zip://".$path."#".$filename, "/your/new/destination/".$fileinfo[&apos;basename&apos;]);
+        copy("zip://".$path."#".$filename, "/your/new/destination/".$fileinfo['basename']);
     }                   
-    $zip-&gt;close();                   
+    $zip->close();                   
 }
 
 ?>

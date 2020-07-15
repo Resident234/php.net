@@ -30,12 +30,12 @@ As an alternative for  qeremy [atta] gmail [dotta] com<br>There is much shorter 
 ```
 <?php
 function word_chunk($str, $len = 76, $end = "\n") {
-    $pattern = &apos;~.{1,&apos; . $len . &apos;}~u&apos;; // like "~.{1,76}~u"
-    $str = preg_replace($pattern, &apos;$0&apos; . $end, $str);
+    $pattern = '~.{1,' . $len . '}~u'; // like "~.{1,76}~u"
+    $str = preg_replace($pattern, '$0' . $end, $str);
     return rtrim($str, $end);
 }
 
-$str = &apos;&#x440;&#x443;&#x441;&#x441;&#x43A;&#x438;&#x439;&apos;;
+$str = '&#x440;&#x443;&#x441;&#x441;&#x43A;&#x438;&#x439;';
 echo chunk_split($str, 3) ."\n";
 echo word_chunk($str, 3) . "\n";
 ?>

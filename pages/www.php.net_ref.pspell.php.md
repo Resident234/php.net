@@ -6,17 +6,17 @@ preg_replace_callback() is the best way I found to check words in a large text a
 
 ```
 <?php
-$pspell = pspell_new(&apos;en&apos;,&apos;canadian&apos;,&apos;&apos;,&apos;utf-8&apos;,PSPELL_FAST);
+$pspell = pspell_new('en','canadian','','utf-8',PSPELL_FAST);
 
 function spellCheckWord($word) {
     global $pspell;
     $autocorrect = TRUE;
 
-    // Take the string match from preg_replace_callback&apos;s array
+    // Take the string match from preg_replace_callback's array
     $word = $word[0];
     
     // Ignore ALL CAPS
-    if (preg_match(&apos;/^[A-Z]*$/&apos;,$word)) return $word;
+    if (preg_match('/^[A-Z]*$/',$word)) return $word;
 
     // Return dictionary words
     if (pspell_check($pspell,$word))
@@ -24,17 +24,17 @@ function spellCheckWord($word) {
 
     // Auto-correct with the first suggestion, color green
     if ($autocorrect &amp;&amp; $suggestions = pspell_suggest($pspell,$word))
-        return &apos;&lt;span style="color:#00FF00;"&gt;&apos;.current($suggestions).&apos;&lt;/span&gt;&apos;;
+        return '&lt;span style="color:#00FF00;"&gt;'.current($suggestions).'&lt;/span&gt;';
     
     // No suggestions, color red
-    return &apos;&lt;span style="color:#FF0000;"&gt;&apos;.$word.&apos;&lt;/span&gt;&apos;;
+    return '&lt;span style="color:#FF0000;"&gt;'.$word.'&lt;/span&gt;';
 }
 
 function spellCheck($string) {
-    return preg_replace_callback(&apos;/\b\w+\b/&apos;,&apos;spellCheckWord&apos;,$string);
+    return preg_replace_callback('/\b\w+\b/','spellCheckWord',$string);
 }
 
-echo spellCheck(&apos;PHP is a reflecktive proegramming langwage origenaly dezigned for prodewcing dinamic waieb pagges.&apos;);
+echo spellCheck('PHP is a reflecktive proegramming langwage origenaly dezigned for prodewcing dinamic waieb pagges.');
 ?>
 ```
 <br>OUTPUT: PHP is a reflective programming language originally designed for producing dynamic Web pages.  

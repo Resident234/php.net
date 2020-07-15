@@ -10,30 +10,30 @@ Even though thumbnailImage is meant to produce the smallest file size image poss
 $maxsize=550;
 
 // create new Imagick object
-$image = new Imagick(&apos;input_image_filename_and_location&apos;);
+$image = new Imagick('input_image_filename_and_location');
 
 // Resizes to whichever is larger, width or height
-if($image-&gt;getImageHeight() &lt;= $image-&gt;getImageWidth())
+if($image->getImageHeight() &lt;= $image->getImageWidth())
 {
 // Resize image using the lanczos resampling algorithm based on width
-$image-&gt;resizeImage($maxsize,0,Imagick::FILTER_LANCZOS,1);
+$image->resizeImage($maxsize,0,Imagick::FILTER_LANCZOS,1);
 }
 else
 {
 // Resize image using the lanczos resampling algorithm based on height
-$image-&gt;resizeImage(0,$maxsize,Imagick::FILTER_LANCZOS,1);
+$image->resizeImage(0,$maxsize,Imagick::FILTER_LANCZOS,1);
 }
 
 // Set to use jpeg compression
-$image-&gt;setImageCompression(Imagick::COMPRESSION_JPEG);
+$image->setImageCompression(Imagick::COMPRESSION_JPEG);
 // Set compression level (1 lowest quality, 100 highest quality)
-$image-&gt;setImageCompressionQuality(75);
+$image->setImageCompressionQuality(75);
 // Strip out unneeded meta data
-$image-&gt;stripImage();
+$image->stripImage();
 // Writes resultant image to output directory
-$image-&gt;writeImage(&apos;output_image_filename_and_location&apos;);
+$image->writeImage('output_image_filename_and_location');
 // Destroys Imagick object, freeing allocated resources in the process
-$image-&gt;destroy();
+$image->destroy();
 
 ?>
 ```

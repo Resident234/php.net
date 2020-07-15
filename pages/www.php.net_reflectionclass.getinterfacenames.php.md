@@ -24,26 +24,26 @@ class Test6 implements Foobar, Other {}
 class TestO implements Other {}
 class Test7 extends TestO implements Barfoo {}
 
-$r=new ReflectionClass(&apos;Test1&apos;);
-print_r($r-&gt;getInterfaceNames()); // Foo, Bar
+$r=new ReflectionClass('Test1');
+print_r($r->getInterfaceNames()); // Foo, Bar
 
-$r=new ReflectionClass(&apos;Test2&apos;);
-print_r($r-&gt;getInterfaceNames()); // Bar, Foo
+$r=new ReflectionClass('Test2');
+print_r($r->getInterfaceNames()); // Bar, Foo
 
-$r=new ReflectionClass(&apos;Test3&apos;);
-print_r($r-&gt;getInterfaceNames()); // Bar, Foo
+$r=new ReflectionClass('Test3');
+print_r($r->getInterfaceNames()); // Bar, Foo
 
-$r=new ReflectionClass(&apos;Test4&apos;);
-print_r($r-&gt;getInterfaceNames()); // Foo, Bar
+$r=new ReflectionClass('Test4');
+print_r($r->getInterfaceNames()); // Foo, Bar
 
-$r=new ReflectionClass(&apos;Test5&apos;);
-print_r($r-&gt;getInterfaceNames()); // Bar, Foo, Other
+$r=new ReflectionClass('Test5');
+print_r($r->getInterfaceNames()); // Bar, Foo, Other
 
-$r=new ReflectionClass(&apos;Test6&apos;);
-print_r($r-&gt;getInterfaceNames()); // Foobar, Bar, Foo, Other
+$r=new ReflectionClass('Test6');
+print_r($r->getInterfaceNames()); // Foobar, Bar, Foo, Other
 
-$r=new ReflectionClass(&apos;Test7&apos;);
-print_r($r-&gt;getInterfaceNames()); // Other, Barfoo, Foo, Bar
+$r=new ReflectionClass('Test7');
+print_r($r->getInterfaceNames()); // Other, Barfoo, Foo, Bar
 ?>
 ```
   

@@ -45,18 +45,18 @@ Note that array_intersect and array_unique doesnt work well with multidimensiona
 ```
 <?php
 
-$orders_today[0] = array(&apos;John Doe&apos;, &apos;PHP Book&apos;);
-$orders_today[1] = array(&apos;Jack Smith&apos;, &apos;Coke&apos;);
+$orders_today[0] = array('John Doe', 'PHP Book');
+$orders_today[1] = array('Jack Smith', 'Coke');
 
-$orders_yesterday[0] = array(&apos;Miranda Jones&apos;, &apos;Digital Watch&apos;);
-$orders_yesterday[1] = array(&apos;John Doe&apos;, &apos;PHP Book&apos;);
-$orders_yesterday[2] = array(&apos;Z&#xFFFD; da Silva&apos;, &apos;BMW Car&apos;);
+$orders_yesterday[0] = array('Miranda Jones', 'Digital Watch');
+$orders_yesterday[1] = array('John Doe', 'PHP Book');
+$orders_yesterday[2] = array('Z&#xFFFD; da Silva', 'BMW Car');
 
 ?>
 ```
 
 
-and wants to know if the same person bought the same thing today and yesterday and use array_intersect($orders_today, $orders_yesterday) you&apos;ll get as result:
+and wants to know if the same person bought the same thing today and yesterday and use array_intersect($orders_today, $orders_yesterday) you'll get as result:
 
 
 
@@ -65,16 +65,16 @@ and wants to know if the same person bought the same thing today and yesterday a
 
 Array
 (
-    [0] =&gt; Array
+    [0] => Array
         (
-            [0] =&gt; John Doe
-            [1] =&gt; PHP Book
+            [0] => John Doe
+            [1] => PHP Book
         )
 
-    [1] =&gt; Array
+    [1] => Array
         (
-            [0] =&gt; Jack Smith
-            [1] =&gt; Coke
+            [0] => Jack Smith
+            [1] => Coke
         )
 
 )
@@ -89,12 +89,12 @@ but we can get around that by serializing the inner arrays:
 ```
 <?php
 
-$orders_today[0] = serialize(array(&apos;John Doe&apos;, &apos;PHP Book&apos;));
-$orders_today[1] = serialize(array(&apos;Jack Smith&apos;, &apos;Coke&apos;));
+$orders_today[0] = serialize(array('John Doe', 'PHP Book'));
+$orders_today[1] = serialize(array('Jack Smith', 'Coke'));
 
-$orders_yesterday[0] = serialize(array(&apos;Miranda Jones&apos;, &apos;Digital Watch&apos;));
-$orders_yesterday[1] = serialize(array(&apos;John Doe&apos;, &apos;PHP Book&apos;));
-$orders_yesterday[2] = serialize(array(&apos;Z&#xFFFD; da Silva&apos;, &apos;Uncle Tungsten&apos;));
+$orders_yesterday[0] = serialize(array('Miranda Jones', 'Digital Watch'));
+$orders_yesterday[1] = serialize(array('John Doe', 'PHP Book'));
+$orders_yesterday[2] = serialize(array('Z&#xFFFD; da Silva', 'Uncle Tungsten'));
 
 ?>
 ```
@@ -109,10 +109,10 @@ so that array_map("unserialize", array_intersect($orders_today, $orders_yesterda
 
 Array
 (
-    [0] =&gt; Array
+    [0] => Array
         (
-            [0] =&gt; John Doe
-            [1] =&gt; PHP Book
+            [0] => John Doe
+            [1] => PHP Book
         )
 
 )

@@ -10,7 +10,7 @@ To run a command in background, the output must be redirected to /dev/null. This
 
 ```
 <?php
-# this doesn&apos;t work!
+# this doesn't work!
 shell_exec("my_script.sh 2&gt;&amp;1 &gt;&gt; /tmp/mylog &amp;");
 ?>
 ```
@@ -48,7 +48,7 @@ A simple way to handle the problem of capturing stderr output when using shell-e
 ```
 <?php
 ob_start()
-$dir = shell_exec(&apos;dir B:&apos;);
+$dir = shell_exec('dir B:');
 if is_null($dir)
 {   // B: does not exist
     // do whatever you want with the stderr output here

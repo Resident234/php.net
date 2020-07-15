@@ -6,8 +6,8 @@ If anyone finds "The other parameter will be calculated if 0 is passed as either
 
 ```
 <?php
-$im = new Imagick(&apos;example.jpg&apos;);
-$im-&gt;scaleImage(300, 0);
+$im = new Imagick('example.jpg');
+$im->scaleImage(300, 0);
 ?>
 ```
 
@@ -18,8 +18,8 @@ This scales the image such that it is now 300 pixels wide, and automatically cal
 
 ```
 <?php
-$im = new Imagick(&apos;example.jpg&apos;);
-$im-&gt;scaleImage(0, 300);
+$im = new Imagick('example.jpg');
+$im->scaleImage(0, 300);
 ?>
 ```
 <br><br>Similarly, this example scales the image to make it 300 pixels tall, and the method automatically recalculates the image&apos;s height to maintain the aspect ratio.  

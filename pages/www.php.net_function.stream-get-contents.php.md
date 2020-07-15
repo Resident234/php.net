@@ -7,16 +7,16 @@ It is important to know that stream_get_contents behaves differently with differ
 ```
 <?php
 
-$handle = fopen(&apos;file&apos;, &apos;w+&apos;); // truncate + attempt to create
-fwrite($handle, &apos;12345&apos;); // file position &gt; 0
+$handle = fopen('file', 'w+'); // truncate + attempt to create
+fwrite($handle, '12345'); // file position &gt; 0
 rewind($handle); // position = 0
 $content = stream_get_contents($handle); // file position = 0 in PHP 5.1.6, file position &gt; 0 in PHP 5.2.17!
-fwrite($handle, &apos;6789&apos;);
+fwrite($handle, '6789');
 fclose($handle);
 
 /**
  *
- * &apos;file&apos; content
+ * 'file' content
  * 
  * PHP 5.1.6:
  * 67895

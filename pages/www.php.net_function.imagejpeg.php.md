@@ -20,7 +20,7 @@ function scaleImageFileToBlob($file) {
         case 1: $src = imagecreatefromgif($file); break;
         case 2: $src = imagecreatefromjpeg($file);  break;
         case 3: $src = imagecreatefrompng($file); break;
-        default: return &apos;&apos;;  break;
+        default: return '';  break;
     }
 
     $x_ratio = $max_width / $width;
@@ -62,7 +62,7 @@ function scaleImageFileToBlob($file) {
         case 1: imagegif($tmp); break;
         case 2: imagejpeg($tmp, NULL, 100);  break; // best quality
         case 3: imagepng($tmp, NULL, 0); break; // no compression
-        default: echo &apos;&apos;; break;
+        default: echo ''; break;
     }
 
     $final_image = ob_get_contents();
@@ -76,7 +76,7 @@ function scaleImageFileToBlob($file) {
 ```
 
 
-So, let&apos;s suppose you have a form where a user can upload an image, and you have to scale it and save it into your database.
+So, let's suppose you have a form where a user can upload an image, and you have to scale it and save it into your database.
 
 
 
@@ -86,21 +86,21 @@ So, let&apos;s suppose you have a form where a user can upload an image, and you
     [..] // the user has clicked the Submit button..
     
     // Check if the user entered an image
-    if ($_FILES[&apos;imagefile&apos;][&apos;name&apos;] != &apos;&apos;) {
-        $image = scaleImageFileToBlob($_FILES[&apos;imagefile&apos;][&apos;tmp_name&apos;]);
+    if ($_FILES['imagefile']['name'] != '') {
+        $image = scaleImageFileToBlob($_FILES['imagefile']['tmp_name']);
 
-        if ($image == &apos;&apos;) {
-            echo &apos;Image type not supported&apos;;
+        if ($image == '') {
+            echo 'Image type not supported';
         } else {
-            $image_type = $_FILES[&apos;imagefile&apos;][&apos;type&apos;];
+            $image_type = $_FILES['imagefile']['type'];
             $image = addslashes($image);
             
-            $query  = "UPDATE yourtable SET image_type=&apos;$image_type&apos;, image=&apos;$image&apos; WHERE ...";
+            $query  = "UPDATE yourtable SET image_type='$image_type', image='$image' WHERE ...";
             $result = mysql_query($query);
             if ($result) {
-               echo &apos;Image scaled and uploaded&apos;;
+               echo 'Image scaled and uploaded';
              } else {
-               echo &apos;Error running the query&apos;;
+               echo 'Error running the query';
              }
         }
     }

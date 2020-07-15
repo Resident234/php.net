@@ -6,7 +6,7 @@ Note that when PHP is called by f.e. apache or nginx instead of directly from th
 
 ```
 <?php
-    touch( &apos;somefile&apos; );
+    touch( 'somefile' );
 ?>
 ```
 
@@ -17,7 +17,7 @@ But this will:
 
 ```
 <?php
-    touch( __DIR__ . &apos;/somefile&apos; );
+    touch( __DIR__ . '/somefile' );
 ?>
 ```
   

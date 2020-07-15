@@ -29,16 +29,16 @@ This is how you use it:
 
 ```
 <?php
-$string = &apos;This is some string&apos;;
-$search = &apos;a&apos;;
+$string = 'This is some string';
+$search = 'a';
 $found = strpos_recursive($string, $search);
 
 if($found) {
     foreach($found as $pos) {
-        echo &apos;Found "&apos;.$search.&apos;" in string "&apos;.$string.&apos;" at position &lt;b&gt;&apos;.$pos.&apos;&lt;/b&gt;&lt;br /&gt;&apos;;
+        echo 'Found "'.$search.'" in string "'.$string.'" at position &lt;b&gt;'.$pos.'&lt;/b&gt;&lt;br /&gt;';
     }    
 } else {
-    echo &apos;"&apos;.$search.&apos;" not found in "&apos;.$string.&apos;"&apos;;
+    echo '"'.$search.'" not found in "'.$string.'"';
 }
 ?>
 ```
@@ -49,7 +49,29 @@ if($found) {
 It is interesting to be aware of the behavior when the treatment of strings with characters using different encodings.<br><br>
 
 ```
-<?php<br># Works like expected. There is no accent<br>var_dump(strpos("Fabio", &apos;b&apos;));<br>#int(2)<br><br># The "&#xE1;" letter is occupying two positions<br>var_dump(strpos("F&#xE1;bio", &apos;b&apos;)) ;<br>#int(3)<br><br># Now, encoding the string "F&#xE1;bio" to utf8, we get some "unexpected" outputs. Every letter that is no in regular ASCII table, will use 4 positions(bytes). The starting point remains like before.<br># We cant find the characted, because the haystack string is now encoded.<br>var_dump(strpos(utf8_encode("F&#xE1;bio"), &apos;&#xE1;&apos;));<br>#bool(false)<br><br># To get the expected result, we need to encode the needle too<br>var_dump(strpos(utf8_encode("F&#xE1;bio"), utf8_encode(&apos;&#xE1;&apos;)));<br>#int(1) <br><br># And, like said before, "&#xE1;" occupies 4 positions(bytes)<br>var_dump(strpos(utf8_encode("F&#xE1;bio"), &apos;b&apos;));<br>#int(5)  
+<?php
+# Works like expected. There is no accent
+var_dump(strpos("Fabio", 'b'));
+#int(2)
+
+# The "&#xE1;" letter is occupying two positions
+var_dump(strpos("F&#xE1;bio", 'b')) ;
+#int(3)
+
+# Now, encoding the string "F&#xE1;bio" to utf8, we get some "unexpected" outputs. Every letter that is no in regular ASCII table, will use 4 positions(bytes). The starting point remains like before.
+# We cant find the characted, because the haystack string is now encoded.
+var_dump(strpos(utf8_encode("F&#xE1;bio"), '&#xE1;'));
+#bool(false)
+
+# To get the expected result, we need to encode the needle too
+var_dump(strpos(utf8_encode("F&#xE1;bio"), utf8_encode('&#xE1;')));
+#int(1) 
+
+# And, like said before, "&#xE1;" occupies 4 positions(bytes)
+var_dump(strpos(utf8_encode("F&#xE1;bio"), 'b'));
+#int(5)?>
+```
+  
 
 #
 
@@ -83,7 +105,7 @@ function strpos_array($haystack, $needles) {
 }
 
 // Test
-echo strpos_array(&apos;This is a test&apos;, array(&apos;test&apos;, &apos;drive&apos;)); // Output is 10
+echo strpos_array('This is a test', array('test', 'drive')); // Output is 10
 
 ?>
 ```

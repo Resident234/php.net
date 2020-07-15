@@ -10,7 +10,7 @@ For getting a substring of UTF-8 characters, I highly recommend mb_substr<br><br
 
         echo substr($utf8string,0,5);
         // output cake#
-        echo mb_substr($utf8string,0,5,&apos;UTF-8&apos;);
+        echo mb_substr($utf8string,0,5,'UTF-8');
         //output cake&#xE6;
 ?>
 ```
@@ -22,29 +22,29 @@ may be by following functions will be easier to extract the needed sub parts fro
 
 ```
 <?php
-after (&apos;@&apos;, &apos;biohazard@online.ge&apos;);
-//returns &apos;online.ge&apos;
-//from the first occurrence of &apos;@&apos;
+after ('@', 'biohazard@online.ge');
+//returns 'online.ge'
+//from the first occurrence of '@'
 
-before (&apos;@&apos;, &apos;biohazard@online.ge&apos;);
-//returns &apos;biohazard&apos;
-//from the first occurrence of &apos;@&apos;
+before ('@', 'biohazard@online.ge');
+//returns 'biohazard'
+//from the first occurrence of '@'
 
-between (&apos;@&apos;, &apos;.&apos;, &apos;biohazard@online.ge&apos;);
-//returns &apos;online&apos;
-//from the first occurrence of &apos;@&apos;
+between ('@', '.', 'biohazard@online.ge');
+//returns 'online'
+//from the first occurrence of '@'
 
-after_last (&apos;[&apos;, &apos;sin[90]*cos[180]&apos;);
-//returns &apos;180]&apos;
-//from the last occurrence of &apos;[&apos;
+after_last ('[', 'sin[90]*cos[180]');
+//returns '180]'
+//from the last occurrence of '['
 
-before_last (&apos;[&apos;, &apos;sin[90]*cos[180]&apos;);
-//returns &apos;sin[90]*cos[&apos;
-//from the last occurrence of &apos;[&apos;
+before_last ('[', 'sin[90]*cos[180]');
+//returns 'sin[90]*cos['
+//from the last occurrence of '['
 
-between_last (&apos;[&apos;, &apos;]&apos;, &apos;sin[90]*cos[180]&apos;);
-//returns &apos;180&apos;
-//from the last occurrence of &apos;[&apos;
+between_last ('[', ']', 'sin[90]*cos[180]');
+//returns '180'
+//from the last occurrence of '['
 ?>
 ```
 

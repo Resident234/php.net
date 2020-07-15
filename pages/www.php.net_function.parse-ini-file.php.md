@@ -25,10 +25,10 @@ Undocumented feature!<br><br>Using ${...} as a value will look to<br>1) an INI s
 ```
 <?php
 
-print_r(parse_ini_string(&apos;
+print_r(parse_ini_string('
 php_ext_dir = ${extension_dir}
 operating_system = ${OS}
-&apos;));
+'));
 
 ?>
 ```
@@ -40,7 +40,7 @@ If your configuration file holds any sensitive information (such as database log
 
 ```
 <?php
-$database[&apos;host&apos;] = &apos;localhost&apos;;
+$database['host'] = 'localhost';
 // etc...
 ?>
 ```
@@ -61,19 +61,19 @@ Here is a quick parse_ini_file wrapper to add extend support to save typing and 
     function parse_ini_file_extended($filename) {
         $p_ini = parse_ini_file($filename, true);
         $config = array();
-        foreach($p_ini as $namespace =&gt; $properties){
-            list($name, $extends) = explode(&apos;:&apos;, $namespace);
+        foreach($p_ini as $namespace => $properties){
+            list($name, $extends) = explode(':', $namespace);
             $name = trim($name);
             $extends = trim($extends);
             // create namespace if necessary
             if(!isset($config[$name])) $config[$name] = array();
             // inherit base namespace
             if(isset($p_ini[$extends])){
-                foreach($p_ini[$extends] as $prop =&gt; $val)
+                foreach($p_ini[$extends] as $prop => $val)
                     $config[$name][$prop] = $val;
             }
             // overwrite / set current namespace values
-            foreach($properties as $prop =&gt; $val)
+            foreach($properties as $prop => $val)
             $config[$name][$prop] = $val;
         }
         return $config;
@@ -145,19 +145,19 @@ To those who were like me looking if this could be used to create an array out o
  * The return is very similar to that of parse_ini_file, but this works off files
  * 
  * Below is an example of what it does, where the first
- * value is what you&apos;d normally want to do, and the second and third things that might
- * happen and in case it does it&apos;s good to know what is going on.
+ * value is what you'd normally want to do, and the second and third things that might
+ * happen and in case it does it's good to know what is going on.
  * 
- * $anArray = array( &apos;default=theValue&apos;, &apos;setting=&apos;, &apos;something=value=value&apos; );
- * explodeExplode( &apos;=&apos;, $anArray );
+ * $anArray = array( 'default=theValue', 'setting=', 'something=value=value' );
+ * explodeExplode( '=', $anArray );
  * 
  * the return will be 
- * array( &apos;default&apos; =&gt; &apos;theValue&apos;, &apos;setting&apos; =&gt; &apos;&apos;, &apos;something&apos; =&gt; &apos;value=value&apos; );
+ * array( 'default' => 'theValue', 'setting' => '', 'something' => 'value=value' );
  * 
  * So the oddities here are, text after the second $string occurence dissapearing
  * and empty values resulting in an empty string.
  * 
- * @return $returnArray array array( &apos;setting&apos; =&gt; &apos;value&apos; )
+ * @return $returnArray array array( 'setting' => 'value' )
  * @param $string Object
  * @param $array Object
  */
@@ -171,7 +171,7 @@ function explodeExplode( $string, $array )
         
         if( count( $tmpArray ) == 1 )
         {
-            $returnArray[$tmpArray[0]] = &apos;&apos;;
+            $returnArray[$tmpArray[0]] = '';
         }
         else if( count( $tmpArray ) == 2 )
         {
@@ -193,7 +193,7 @@ function explodeExplode( $string, $array )
                 }
             }
             print_r( $implodeBack );
-            $returnArray[$tmpArray[0]] = implode( &apos;=&apos;, $implodeBack );
+            $returnArray[$tmpArray[0]] = implode( '=', $implodeBack );
         }
     }
     

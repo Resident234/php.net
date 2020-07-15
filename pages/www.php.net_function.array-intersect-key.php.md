@@ -6,8 +6,8 @@ Simple key white-list filter:<br><br>
 
 ```
 <?php
-$arr = array(&apos;a&apos; =&gt; 123, &apos;b&apos; =&gt; 213, &apos;c&apos; =&gt; 321);
-$allowed = array(&apos;b&apos;, &apos;c&apos;);
+$arr = array('a' => 123, 'b' => 213, 'c' => 321);
+$allowed = array('b', 'c');
 
 print_r(array_intersect_key($arr, array_flip($allowed)));
 ?>
@@ -22,22 +22,22 @@ print_r(array_intersect_key($arr, array_flip($allowed)));
 <?php
 
 $defaults = [
-    &apos;id&apos;            =&gt; 123456,
-    &apos;client_id&apos;     =&gt; null,
-    &apos;client_secret&apos; =&gt; null,
-    &apos;options&apos;       =&gt; [
-        &apos;trusted&apos; =&gt; false,
-        &apos;active&apos;  =&gt; false
+    'id'            => 123456,
+    'client_id'     => null,
+    'client_secret' => null,
+    'options'       => [
+        'trusted' => false,
+        'active'  => false
     ]
 ];
 
 $options = [
-    &apos;client_id&apos;       =&gt; 789,
-    &apos;client_secret&apos;   =&gt; &apos;5ebe2294ecd0e0f08eab7690d2a6ee69&apos;,
-    &apos;client_password&apos; =&gt; &apos;5f4dcc3b5aa765d61d8327deb882cf99&apos;, // ignored
-    &apos;client_name&apos;     =&gt; &apos;IGNORED&apos;,                          // ignored
-    &apos;options&apos;         =&gt; [
-        &apos;active&apos; =&gt; true
+    'client_id'       => 789,
+    'client_secret'   => '5ebe2294ecd0e0f08eab7690d2a6ee69',
+    'client_password' => '5f4dcc3b5aa765d61d8327deb882cf99', // ignored
+    'client_name'     => 'IGNORED',                          // ignored
+    'options'         => [
+        'active' => true
     ]
 ];
 

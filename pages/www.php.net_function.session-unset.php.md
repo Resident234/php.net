@@ -10,7 +10,7 @@ I was having a problem clearing all session variables, deleting the session, and
     session_unset();
     session_destroy();
     session_write_close();
-    setcookie(session_name(),&apos;&apos;,0,&apos;/&apos;);
+    setcookie(session_name(),'',0,'/');
     session_regenerate_id(true);
 ?>
 ```

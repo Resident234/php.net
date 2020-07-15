@@ -7,9 +7,9 @@ Note that gzuncompress() may not decompress some compressed strings and return a
 ```
 <?php
     function gzuncompress_crc32($data) {
-         $f = tempnam(&apos;/tmp&apos;, &apos;gz_fix&apos;);
+         $f = tempnam('/tmp', 'gz_fix');
          file_put_contents($f, "\x1f\x8b\x08\x00\x00\x00\x00\x00" . $data);
-         return file_get_contents(&apos;compress.zlib://&apos; . $f);
+         return file_get_contents('compress.zlib://' . $f);
     }
 ?>
 ```

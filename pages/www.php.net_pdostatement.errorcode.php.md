@@ -6,11 +6,11 @@ Statement&apos;s errorCode() returns an empty string before execution, and &apos
 
 ```
 <?php
-$stmt = $pdo-&gt;prepare($query);
-assert($stmt-&gt;errorCode === &apos;&apos;);
+$stmt = $pdo->prepare($query);
+assert($stmt->errorCode === '');
 
-$stmt-&gt;execute();
-assert($stmt-&gt;errorCode === &apos;00000&apos;);
+$stmt->execute();
+assert($stmt->errorCode === '00000');
 ?>
 ```
   

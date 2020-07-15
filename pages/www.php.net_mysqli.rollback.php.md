@@ -14,15 +14,15 @@ $all_query_ok=true; // our control variable
 
 //we make 4 inserts, the last one generates an error
 //if at least one query returns an error we change our control variable
-$mysqli-&gt;query("INSERT INTO myCity (id) VALUES (100)") ? null : $all_query_ok=false;
-$mysqli-&gt;query("INSERT INTO myCity (id) VALUES (200)") ? null : $all_query_ok=false;
-$mysqli-&gt;query("INSERT INTO myCity (id) VALUES (300)") ? null : $all_query_ok=false;
-$mysqli-&gt;query("INSERT INTO myCity (id) VALUES (100)") ? null : $all_query_ok=false; //duplicated PRIMARY KEY VALUE
+$mysqli->query("INSERT INTO myCity (id) VALUES (100)") ? null : $all_query_ok=false;
+$mysqli->query("INSERT INTO myCity (id) VALUES (200)") ? null : $all_query_ok=false;
+$mysqli->query("INSERT INTO myCity (id) VALUES (300)") ? null : $all_query_ok=false;
+$mysqli->query("INSERT INTO myCity (id) VALUES (100)") ? null : $all_query_ok=false; //duplicated PRIMARY KEY VALUE
 
-//now let&apos;s test our control variable
-$all_query_ok ? $mysqli-&gt;commit() : $mysqli-&gt;rollback();
+//now let's test our control variable
+$all_query_ok ? $mysqli->commit() : $mysqli->rollback();
 
-$mysqli-&gt;close();
+$mysqli->close();
 ?>
 ```
 <br><br>hope to be helpful!  
@@ -42,47 +42,47 @@ if (mysqli_connect_errno()) {
 }
 
 /* disable autocommit */
-$mysqli-&gt;autocommit(FALSE);
+$mysqli->autocommit(FALSE);
 
 /* We just create a test table with one auto incremental primary column and a content column*/
-$mysqli-&gt;query("CREATE TABLE TestTable ( `id_column` INT NOT NULL  AUTO_INCREMENT , `content` INT NOT NULL , PRIMARY KEY ( `id_column` )) ENGINE = InnoDB;");
+$mysqli->query("CREATE TABLE TestTable ( `id_column` INT NOT NULL  AUTO_INCREMENT , `content` INT NOT NULL , PRIMARY KEY ( `id_column` )) ENGINE = InnoDB;");
 
 /* commit newly created table */
-$mysqli-&gt;commit();
+$mysqli->commit();
 
 /* we insert a row */
-$mysqli-&gt;query("INSERT INTO TestTable (content) VALUES (99)");
+$mysqli->query("INSERT INTO TestTable (content) VALUES (99)");
 
 /* we commit the inserted row */
-$mysqli-&gt;commit();
+$mysqli->commit();
 
 /* we insert another three rows */
-$mysqli-&gt;query("INSERT INTO TestTable (content) VALUES (99)");
-$mysqli-&gt;query("INSERT INTO TestTable (content) VALUES (99)");
-$mysqli-&gt;query("INSERT INTO TestTable (content) VALUES (99)");
+$mysqli->query("INSERT INTO TestTable (content) VALUES (99)");
+$mysqli->query("INSERT INTO TestTable (content) VALUES (99)");
+$mysqli->query("INSERT INTO TestTable (content) VALUES (99)");
 
 /* we the rollback */
-$mysqli-&gt;rollback();
+$mysqli->rollback();
 
 /* we insert a row */
-$mysqli-&gt;query("INSERT INTO TestTable (content) VALUES (99)");
+$mysqli->query("INSERT INTO TestTable (content) VALUES (99)");
 
 /* we commit the inserted row */
-$mysqli-&gt;commit();
+$mysqli->commit();
 
-if ($result = $mysqli-&gt;query("SELECT id_column FROM TestTable")) {
+if ($result = $mysqli->query("SELECT id_column FROM TestTable")) {
 
-   while($row = $result-&gt;fetch_row()) {
+   while($row = $result->fetch_row()) {
       printf("Id: %d.\n", $row[0]);
    }
     /* Free result */
-    $result-&gt;close();
+    $result->close();
 }
 
 /* Drop table TestTable */
-$mysqli-&gt;query("DROP TABLE TestTable");
+$mysqli->query("DROP TABLE TestTable");
 
-$mysqli-&gt;close();
+$mysqli->close();
 ?>
 ```
 <br><br>This will output:<br>Id: 1.<br>Id: 5.  

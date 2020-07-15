@@ -44,9 +44,9 @@ Note that this does not replace strings that become part of replacement strings.
 
 ```
 <?php
-$challenge = &apos;-aaa----b-c-----d--e---f&apos;;
-echo str_replace(&apos;--&apos;, &apos;-&apos;, $challenge).&apos;&lt;br&gt;&apos;;
-echo preg_replace(&apos;/--+/&apos;, &apos;-&apos;, $challenge).&apos;&lt;br&gt;&apos;;
+$challenge = '-aaa----b-c-----d--e---f';
+echo str_replace('--', '-', $challenge).'&lt;br&gt;';
+echo preg_replace('/--+/', '-', $challenge).'&lt;br&gt;';
 ?>
 ```
 <br><br>This outputs the following:<br>-aaa--b-c---d-e--f<br>-aaa-b-c-d-e-f  
@@ -58,12 +58,12 @@ Feel free to optimize this using the while/for or anything else, but this is a b
 ```
 <?php
 $replace = array(
-&apos;dog&apos; =&gt; &apos;cat&apos;,
-&apos;apple&apos; =&gt; &apos;orange&apos;
-&apos;chevy&apos; =&gt; &apos;ford&apos;
+'dog' => 'cat',
+'apple' => 'orange'
+'chevy' => 'ford'
 );
 
-$string = &apos;I like to eat an apple with my dog in my chevy&apos;;
+$string = 'I like to eat an apple with my dog in my chevy';
 
 echo str_replace_assoc($replace,$string);
 
@@ -109,7 +109,7 @@ To make this work, use "strtr" instead:
 
 ```
 <?php
-$arr = array("1" =&gt; "A","2" =&gt; "B","3" =&gt; "C","B" =&gt; "D");
+$arr = array("1" => "A","2" => "B","3" => "C","B" => "D");
 $word = "ZBB2";
 echo strtr($word,$arr);
 ?>

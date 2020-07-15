@@ -17,11 +17,11 @@ Just a little note on  [P.Peyremorte]&apos;s note.<br><br>"- openssl_private_enc
          //For encryption we would use:
   function encrypt_RSA($plainData, $privatePEMKey)
   {
-    $encrypted = &apos;&apos;;
-    $plainData = str_split($plainData, $this-&gt;ENCRYPT_BLOCK_SIZE);
+    $encrypted = '';
+    $plainData = str_split($plainData, $this->ENCRYPT_BLOCK_SIZE);
     foreach($plainData as $chunk)
     {
-      $partialEncrypted = &apos;&apos;;
+      $partialEncrypted = '';
 
       //using for example OPENSSL_PKCS1_PADDING as padding
       $encryptionOk = openssl_private_encrypt($chunk, $partialEncrypted, $privatePEMKey, OPENSSL_PKCS1_PADDING);
@@ -35,14 +35,14 @@ Just a little note on  [P.Peyremorte]&apos;s note.<br><br>"- openssl_private_enc
          //For decryption we would use:
   protected function decrypt_RSA($publicPEMKey, $data)
   {
-    $decrypted = &apos;&apos;;
+    $decrypted = '';
 
     //decode must be done before spliting for getting the binary String
-    $data = str_split(base64_decode($data), $this-&gt;DECRYPT_BLOCK_SIZE);
+    $data = str_split(base64_decode($data), $this->DECRYPT_BLOCK_SIZE);
 
     foreach($data as $chunk)
     {
-      $partial = &apos;&apos;;
+      $partial = '';
 
       //be sure to match padding
       $decryptionOK = openssl_public_decrypt($chunk, $partial, $publicPEMKey, OPENSSL_PKCS1_PADDING);

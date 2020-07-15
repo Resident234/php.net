@@ -11,13 +11,13 @@
 
 class MyObserver1 implements SplObserver {
     public function update(SplSubject $subject) {
-        echo __CLASS__ . &apos; - &apos; . $subject-&gt;getName();
+        echo __CLASS__ . ' - ' . $subject->getName();
     }
 }
 
 class MyObserver2 implements SplObserver {
     public function update(SplSubject $subject) {
-        echo __CLASS__ . &apos; - &apos; . $subject-&gt;getName();
+        echo __CLASS__ . ' - ' . $subject->getName();
     }
 }
 
@@ -26,26 +26,26 @@ class MySubject implements SplSubject {
     private $_name;
 
     public function __construct($name) {
-        $this-&gt;_observers = new SplObjectStorage();
-        $this-&gt;_name = $name;
+        $this->_observers = new SplObjectStorage();
+        $this->_name = $name;
     }
 
     public function attach(SplObserver $observer) {
-        $this-&gt;_observers-&gt;attach($observer);
+        $this->_observers->attach($observer);
     }
 
     public function detach(SplObserver $observer) {
-        $this-&gt;_observers-&gt;detach($observer);
+        $this->_observers->detach($observer);
     }
 
     public function notify() {
-        foreach ($this-&gt;_observers as $observer) {
-            $observer-&gt;update($this);
+        foreach ($this->_observers as $observer) {
+            $observer->update($this);
         }
     }
 
     public function getName() {
-        return $this-&gt;_name;
+        return $this->_name;
     }
 }
 
@@ -54,9 +54,9 @@ $observer2 = new MyObserver2();
 
 $subject = new MySubject("test");
 
-$subject-&gt;attach($observer1);
-$subject-&gt;attach($observer2);
-$subject-&gt;notify();
+$subject->attach($observer1);
+$subject->attach($observer2);
+$subject->notify();
 
 /* 
 will output:
@@ -65,8 +65,8 @@ MyObserver1 - test
 MyObserver2 - test
 */
 
-$subject-&gt;detach($observer2);
-$subject-&gt;notify();
+$subject->detach($observer2);
+$subject->notify();
 
 /* 
 will output:

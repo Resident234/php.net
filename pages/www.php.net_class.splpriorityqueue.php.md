@@ -18,23 +18,23 @@ class PQtest extends SplPriorityQueue
 
 $objPQ = new PQtest();
 
-$objPQ-&gt;insert(&apos;A&apos;,3);
-$objPQ-&gt;insert(&apos;B&apos;,6);
-$objPQ-&gt;insert(&apos;C&apos;,1);
-$objPQ-&gt;insert(&apos;D&apos;,2);
+$objPQ->insert('A',3);
+$objPQ->insert('B',6);
+$objPQ->insert('C',1);
+$objPQ->insert('D',2);
 
-echo "COUNT-&gt;".$objPQ-&gt;count()."&lt;BR&gt;";
+echo "COUNT->".$objPQ->count()."&lt;BR&gt;";
 
 //mode of extraction
-$objPQ-&gt;setExtractFlags(PQtest::EXTR_BOTH);
+$objPQ->setExtractFlags(PQtest::EXTR_BOTH);
 
 //Go to TOP
-$objPQ-&gt;top();
+$objPQ->top();
 
-while($objPQ-&gt;valid()){
-    print_r($objPQ-&gt;current());
+while($objPQ->valid()){
+    print_r($objPQ->current());
     echo "&lt;BR&gt;";
-    $objPQ-&gt;next();
+    $objPQ->next();
 }
 
 ?>

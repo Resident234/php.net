@@ -17,52 +17,7 @@ ftp_pasv($resource, true);
 
 #
 
-If you want to copy a whole directory tree (with subdiretories), <br>this function (ftp_copy) might be usefull. Tested with <br>php 4.2.2 and a Linux OS. 
-
-Example:
-----------------------------------------------------------------
-$conn_id = ftp_connect("server_adress"); 
-...
-
-$src_dir = "/from";
-$dst_dir = "/to";
-
-ftp_copy($src_dir, $dst_dir);
-...
-ftp_close($conn_id)
-
-Function: ftp_copy()
-----------------------------------------------------------------
-function ftp_copy($src_dir, $dst_dir) {
-
-global $conn_id;
-
-$d = dir($src_dir);
-
-    while($file = $d-&gt;read()) {
-
-        if ($file != "." &amp;&amp; $file != "..") {
-
-            if (is_dir($src_dir."/".$file)) {
-
-                if (!@ftp_chdir($conn_id, $dst_dir."/".$file)) {
-
-                ftp_mkdir($conn_id, $dst_dir."/".$file);
-                }
-
-            ftp_copy($src_dir."/".$file, $dst_dir."/".$file);
-            }
-            else {
-
-            $upload = ftp_put($conn_id, $dst_dir."/".$file, $src_dir."/".$file, FTP_BINARY);
-            }
-        }
-    }
-
-$d-&gt;close();
-}?>
-```
-  
+If you want to copy a whole directory tree (with subdiretories), <br>this function (ftp_copy) might be usefull. Tested with <br>php 4.2.2 and a Linux OS. <br><br>Example:<br>----------------------------------------------------------------<br>$conn_id = ftp_connect("server_adress"); <br>...<br><br>$src_dir = "/from";<br>$dst_dir = "/to";<br><br>ftp_copy($src_dir, $dst_dir);<br>...<br>ftp_close($conn_id)<br><br>Function: ftp_copy()<br>----------------------------------------------------------------<br>function ftp_copy($src_dir, $dst_dir) {<br><br>global $conn_id;<br><br>$d = dir($src_dir);<br><br>    while($file = $d-&gt;read()) {<br><br>        if ($file != "." &amp;&amp; $file != "..") {<br><br>            if (is_dir($src_dir."/".$file)) {<br><br>                if (!@ftp_chdir($conn_id, $dst_dir."/".$file)) {<br><br>                ftp_mkdir($conn_id, $dst_dir."/".$file);<br>                }<br><br>            ftp_copy($src_dir."/".$file, $dst_dir."/".$file);<br>            }<br>            else {<br><br>            $upload = ftp_put($conn_id, $dst_dir."/".$file, $src_dir."/".$file, FTP_BINARY);<br>            }<br>        }<br>    }<br><br>$d-&gt;close();<br>}  
 
 #
 
@@ -70,8 +25,8 @@ Got this cryptic error<br><br>Warning:  ftp_put() [function.ftp-put]: &apos;STOR
 
 ```
 <?php
-ftp_chdir($conn, &apos;/www/site/&apos;);
-ftp_put($conn,&apos;file.html&apos;, &apos;c:/wamp/www/site/file.html&apos;, FTP_BINARY );
+ftp_chdir($conn, '/www/site/');
+ftp_put($conn,'file.html', 'c:/wamp/www/site/file.html', FTP_BINARY );
 ?>
 ```
   

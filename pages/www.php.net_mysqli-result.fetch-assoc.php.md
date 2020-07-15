@@ -8,8 +8,8 @@ I often like to have my results sent elsewhere in the format of an array (althou
 <?php
 $sql = new MySQLi($host, $username, $password, $database);
 
-$result = $sql-&gt;query("SELECT * FROM `$table`;");
-for ($set = array (); $row = $result-&gt;fetch_assoc(); $set[] = $row);
+$result = $sql->query("SELECT * FROM `$table`;");
+for ($set = array (); $row = $result->fetch_assoc(); $set[] = $row);
 print_r($set);
 ?>
 ```
@@ -18,17 +18,17 @@ print_r($set);
 Outputs:
 Array
 (
-    [0] =&gt; Array
+    [0] => Array
         (
-            [id] =&gt; 1
-            [field2] =&gt; a
-            [field3] =&gt; b
+            [id] => 1
+            [field2] => a
+            [field3] => b
         ),
-    [1] =&gt; Array
+    [1] => Array
         (
-            [id] =&gt; 2
-            [field2] =&gt; c
-            [field3] =&gt; d
+            [id] => 2
+            [field2] => c
+            [field3] => d
         )
 )
 
@@ -38,8 +38,8 @@ I use other variations to adapt to the situation, i.e. if I am selecting only on
 ```
 <?php
 $sql = new MySQLi($host, $username, $password, $database);
-$result = $sql-&gt;query("SELECT `field2` FROM `$table`;");
-for ($set = array (); $row = $result-&gt;fetch_assoc(); $set[] = $row[&apos;field2&apos;]);
+$result = $sql->query("SELECT `field2` FROM `$table`;");
+for ($set = array (); $row = $result->fetch_assoc(); $set[] = $row['field2']);
 print_r($set);
 ?>
 ```
@@ -47,8 +47,8 @@ print_r($set);
 Outputs:
 Array
 (
-    [0] =&gt; a
-    [1] =&gt; c
+    [0] => a
+    [1] => c
 )
 
 Or, to make the array associative with the primary index (code assumes primary index is the first field in the table):
@@ -57,8 +57,8 @@ Or, to make the array associative with the primary index (code assumes primary i
 ```
 <?php
 $sql = new MySQLi($host, $username, $password, $database);
-$result = $sql-&gt;query("SELECT * FROM `$table`;");
-for ($set = array (); $row = $result-&gt;fetch_assoc(); $set[array_shift($row)] = $row);
+$result = $sql->query("SELECT * FROM `$table`;");
+for ($set = array (); $row = $result->fetch_assoc(); $set[array_shift($row)] = $row);
 print_r($set);
 ?>
 ```

@@ -79,11 +79,11 @@ When using spl_autoload_register() with class methods, it might seem that it can
 
     class ClassAutoloader {
         public function __construct() {
-            spl_autoload_register(array($this, &apos;loader&apos;));
+            spl_autoload_register(array($this, 'loader'));
         }
         private function loader($className) {
-            echo &apos;Trying to load &apos;, $className, &apos; via &apos;, __METHOD__, "()\n";
-            include $className . &apos;.php&apos;;
+            echo 'Trying to load ', $className, ' via ', __METHOD__, "()\n";
+            include $className . '.php';
         }
     }
 
@@ -109,7 +109,7 @@ class MyClass {
   }
 }
 
-spl_autoload_register(array(&apos;MyClass&apos;, &apos;autoload&apos;));
+spl_autoload_register(array('MyClass', 'autoload'));
 ?>
 ```
 
@@ -126,7 +126,7 @@ class MyClass {
 }
 
 $instance = new MyClass();
-spl_autoload_register(array($instance, &apos;autoload&apos;));
+spl_autoload_register(array($instance, 'autoload'));
 ?>
 ```
   
@@ -156,7 +156,7 @@ Be careful using this function on case sensitive file systems.<br><br>
 
 ```
 <?php
-spl_autoload_extensions(&apos;.php&apos;);
+spl_autoload_extensions('.php');
 spl_autoload_register();
 ?>
 ```

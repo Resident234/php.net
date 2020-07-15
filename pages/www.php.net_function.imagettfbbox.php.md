@@ -27,7 +27,7 @@ function calculateTextBox($font_size, $font_angle, $font_file, $text) {
   imagettftext( $img, $font_size,
                 $font_angle, $left, $top,
                 $white, $font_file, $text);
-  // start scanning (0=&gt; black =&gt; empty)
+  // start scanning (0=> black => empty)
   $rleft  = $w4 = $width&lt;&lt;2;
   $rright = 0;
   $rbottom   = 0;
@@ -42,10 +42,10 @@ function calculateTextBox($font_size, $font_angle, $font_file, $text) {
       }
   // destroy img and serve the result
   imagedestroy( $img );
-  return array( "left"   =&gt; $left - $rleft,
-                "top"    =&gt; $top  - $rtop,
-                "width"  =&gt; $rright - $rleft + 1,
-                "height" =&gt; $rbottom - $rtop + 1 );
+  return array( "left"   => $left - $rleft,
+                "top"    => $top  - $rtop,
+                "width"  => $rright - $rleft + 1,
+                "height" => $rbottom - $rtop + 1 );
 }
 ?>
 ```

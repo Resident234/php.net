@@ -7,8 +7,8 @@ This was driving me nuts so I&apos;m adding a note here.<br><br>Took a while to 
 ```
 <?php
 $dateTime = new DateTime();
-$dateTime-&gt;setTimeZone(new DateTimeZone(&apos;America/Los_Angeles&apos;));
-return $dateTime-&gt;format(&apos;T&apos;);
+$dateTime->setTimeZone(new DateTimeZone('America/Los_Angeles'));
+return $dateTime->format('T');
 ?>
 ```
 <br><br>Will return PST<br><br>[red.: Or PDT is the current date/time is during Daylight Savings Time]  

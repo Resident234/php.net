@@ -7,8 +7,8 @@ FILTER_SANITIZE_STRING doesn&apos;t behavior the same as strip_tags function.   
 ```
 <?php
 $smaller = "not a tag &lt; 5";
-echo strip_tags($smaller);    // -&gt; not a tag &lt; 5
-echo filter_var ( $smaller, FILTER_SANITIZE_STRING); // -&gt; not a tag
+echo strip_tags($smaller);    // -> not a tag &lt; 5
+echo filter_var ( $smaller, FILTER_SANITIZE_STRING); // -> not a tag
 ?>
 ```
   
@@ -27,17 +27,17 @@ function trim_value(&amp;$value)
 {
     $value = trim($value);    // this removes whitespace and related characters from the beginning and end of the string
 }
-array_filter($_POST, &apos;trim_value&apos;);    // the data in $_POST is trimmed
+array_filter($_POST, 'trim_value');    // the data in $_POST is trimmed
 
 $postfilter =    // set up the filters to be used with the trimmed post array
     array(
-            &apos;user_tasks&apos;                        =&gt;    array(&apos;filter&apos; =&gt; FILTER_SANITIZE_STRING, &apos;flags&apos; =&gt; !FILTER_FLAG_STRIP_LOW),    // removes tags. formatting code is encoded -- add nl2br() when displaying
-            &apos;username&apos;                            =&gt;    array(&apos;filter&apos; =&gt; FILTER_SANITIZE_ENCODED, &apos;flags&apos; =&gt; FILTER_FLAG_STRIP_LOW),    // we are using this in the url
-            &apos;mod_title&apos;                            =&gt;    array(&apos;filter&apos; =&gt; FILTER_SANITIZE_ENCODED, &apos;flags&apos; =&gt; FILTER_FLAG_STRIP_LOW),    // we are using this in the url
+            'user_tasks'                        =>    array('filter' => FILTER_SANITIZE_STRING, 'flags' => !FILTER_FLAG_STRIP_LOW),    // removes tags. formatting code is encoded -- add nl2br() when displaying
+            'username'                            =>    array('filter' => FILTER_SANITIZE_ENCODED, 'flags' => FILTER_FLAG_STRIP_LOW),    // we are using this in the url
+            'mod_title'                            =>    array('filter' => FILTER_SANITIZE_ENCODED, 'flags' => FILTER_FLAG_STRIP_LOW),    // we are using this in the url
         );
 
 $revised_post_array = filter_var_array($_POST, $postfilter);    // must be referenced via a variable which is now an array that takes the place of $_POST[]
-echo (nl2br($revised_post_array[&apos;user_tasks&apos;]));    //-- use nl2br() upon output like so, for the [&apos;user_tasks&apos;] array value so that the newlines are formatted, since this is our HTML &lt;textarea&gt; field and we want to maintain newlines
+echo (nl2br($revised_post_array['user_tasks']));    //-- use nl2br() upon output like so, for the ['user_tasks'] array value so that the newlines are formatted, since this is our HTML &lt;textarea&gt; field and we want to maintain newlines
 ?>
 ```
   

@@ -15,9 +15,9 @@ FILTER_VALIDATE_EMAIL does NOT allow incomplete e-mail addresses to be validated
 ```
 <?php
 $email = "clifton@example"; //Note the .com missing
-echo "PHP Version: ".phpversion().&apos;&lt;br&gt;&apos;;
+echo "PHP Version: ".phpversion().'&lt;br&gt;';
 if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-    echo $email.&apos;&lt;br&gt;&apos;;
+    echo $email.'&lt;br&gt;';
     var_dump(filter_var($email, FILTER_VALIDATE_EMAIL));
 }else{
     var_dump(filter_var($email, FILTER_VALIDATE_EMAIL));    
@@ -37,9 +37,9 @@ While the following code:
 ```
 <?php
 $email = "clifton@example.com"; //Note the .com added
-echo "PHP Version: ".phpversion().&apos;&lt;br&gt;&apos;;
+echo "PHP Version: ".phpversion().'&lt;br&gt;';
 if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-    echo $email.&apos;&lt;br&gt;&apos;;
+    echo $email.'&lt;br&gt;';
     var_dump(filter_var($email, FILTER_VALIDATE_EMAIL));
 }else{
     var_dump(filter_var($email, FILTER_VALIDATE_EMAIL));    

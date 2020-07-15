@@ -7,12 +7,12 @@ With php 5.2.6, the following code created a new zip or replaced a existing zip.
 ```
 <?php
     $zip = new ZipArchive();
-    $opened = $zip-&gt;open( $zipFileName, ZIPARCHIVE::OVERWRITE );
+    $opened = $zip->open( $zipFileName, ZIPARCHIVE::OVERWRITE );
     if( $opened !== true ){
         die("cannot open {$zipFileName} for writing.");
     }
-    $zip-&gt;addFromString( $name, $contents );
-    $zip-&gt;close();
+    $zip->addFromString( $name, $contents );
+    $zip->close();
 ?>
 ```
 
@@ -28,12 +28,12 @@ To fix this, you must specify the flags as create or overwrite.
 ```
 <?php
     $zip = new ZipArchive();
-    $opened = $zip-&gt;open( $zipFileName, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE );
+    $opened = $zip->open( $zipFileName, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE );
     if( $opened !== true ){
         die("cannot open {$zipFileName} for writing.");
     }
-    $zip-&gt;addFromString( $name, $contents );
-    $zip-&gt;close();
+    $zip->addFromString( $name, $contents );
+    $zip->close();
 ?>
 ```
 <br><br>When googling for the error message I found a lot of people that had it but couldn&apos;t figure out why they were getting it.<br>I hope this helps someone.  
@@ -54,95 +54,95 @@ class zip extends ZipArchive
                 switch ($code)
                     {
                         case 0:
-                        return &apos;No error&apos;;
+                        return 'No error';
                         
                         case 1:
-                        return &apos;Multi-disk zip archives not supported&apos;;
+                        return 'Multi-disk zip archives not supported';
                         
                         case 2:
-                        return &apos;Renaming temporary file failed&apos;;
+                        return 'Renaming temporary file failed';
                         
                         case 3:
-                        return &apos;Closing zip archive failed&apos;;
+                        return 'Closing zip archive failed';
                         
                         case 4:
-                        return &apos;Seek error&apos;;
+                        return 'Seek error';
                         
                         case 5:
-                        return &apos;Read error&apos;;
+                        return 'Read error';
                         
                         case 6:
-                        return &apos;Write error&apos;;
+                        return 'Write error';
                         
                         case 7:
-                        return &apos;CRC error&apos;;
+                        return 'CRC error';
                         
                         case 8:
-                        return &apos;Containing zip archive was closed&apos;;
+                        return 'Containing zip archive was closed';
                         
                         case 9:
-                        return &apos;No such file&apos;;
+                        return 'No such file';
                         
                         case 10:
-                        return &apos;File already exists&apos;;
+                        return 'File already exists';
                         
                         case 11:
-                        return &apos;Can\&apos;t open file&apos;;
+                        return 'Can\'t open file';
                         
                         case 12:
-                        return &apos;Failure to create temporary file&apos;;
+                        return 'Failure to create temporary file';
                         
                         case 13:
-                        return &apos;Zlib error&apos;;
+                        return 'Zlib error';
                         
                         case 14:
-                        return &apos;Malloc failure&apos;;
+                        return 'Malloc failure';
                         
                         case 15:
-                        return &apos;Entry has been changed&apos;;
+                        return 'Entry has been changed';
                         
                         case 16:
-                        return &apos;Compression method not supported&apos;;
+                        return 'Compression method not supported';
                         
                         case 17:
-                        return &apos;Premature EOF&apos;;
+                        return 'Premature EOF';
                         
                         case 18:
-                        return &apos;Invalid argument&apos;;
+                        return 'Invalid argument';
                         
                         case 19:
-                        return &apos;Not a zip archive&apos;;
+                        return 'Not a zip archive';
                         
                         case 20:
-                        return &apos;Internal error&apos;;
+                        return 'Internal error';
                         
                         case 21:
-                        return &apos;Zip archive inconsistent&apos;;
+                        return 'Zip archive inconsistent';
                         
                         case 22:
-                        return &apos;Can\&apos;t remove file&apos;;
+                        return 'Can\'t remove file';
                         
                         case 23:
-                        return &apos;Entry has been deleted&apos;;
+                        return 'Entry has been deleted';
                         
                         default:
-                        return &apos;An unknown error has occurred(&apos;.intval($code).&apos;)&apos;;
+                        return 'An unknown error has occurred('.intval($code).')';
                     }                
             }
 
         public function isDir($path)
             {
-                return substr($path,-1) == &apos;/&apos;;
+                return substr($path,-1) == '/';
             }
 
         public function getTree()
             {
                 $Tree = array();
                 $pathArray = array();
-                for($i=0; $i&lt;$this-&gt;numFiles; $i++)
+                for($i=0; $i&lt;$this->numFiles; $i++)
                     {
-                        $path = $this-&gt;getNameIndex($i);
-                        $pathBySlash = array_values(explode(&apos;/&apos;,$path));
+                        $path = $this->getNameIndex($i);
+                        $pathBySlash = array_values(explode('/',$path));
                         $c = count($pathBySlash);
                         $temp = &amp;$Tree;
                         for($j=0; $j&lt;$c-1; $j++)
@@ -153,7 +153,7 @@ class zip extends ZipArchive
                                     $temp[$pathBySlash[$j]] = array();
                                     $temp = &amp;$temp[$pathBySlash[$j]];
                                 }
-                        if($this-&gt;isDir($path))
+                        if($this->isDir($path))
                             $temp[$pathBySlash[$c-1]] = array();
                         else
                             $temp[] = $pathBySlash[$c-1];
@@ -175,17 +175,17 @@ class zip extends ZipArchive
     // Warning: ZipArchive::addFile(): Invalid or uninitialized Zip object 
     // try ZipArchive::OVERWRITE|ZipArchive::CREATE when you want to replace a zip archive that may not exist
     $zip = new ZipArchive;
-    $rt=$zip-&gt;open(&apos;i.zip&apos;,ZipArchive::OVERWRITE);
+    $rt=$zip->open('i.zip',ZipArchive::OVERWRITE);
     echo $rt;
     // when i.zip does not exist, $rt is 9, ZipArchive::ER_NOENT, or "No such file."
-    $zip-&gt;addFile(&apos;wuxiancheng.cn.sql&apos;,&apos;db.sql&apos;);
+    $zip->addFile('wuxiancheng.cn.sql','db.sql');
     // triggers an error with the message "Warning: ZipArchive::addFile(): Invalid or uninitialized Zip object ..."
     
     
     // Use ZipArchive::OVERWRITE|ZipArchive::CREATE
     $zip = new ZipArchive;
-    $zip-&gt;open(&apos;i.zip&apos;,ZipArchive::OVERWRITE|ZipArchive::CREATE);    
-    $zip-&gt;addFile(&apos;wuxiancheng.cn.sql&apos;,&apos;db.sql&apos;);    
+    $zip->open('i.zip',ZipArchive::OVERWRITE|ZipArchive::CREATE);    
+    $zip->addFile('wuxiancheng.cn.sql','db.sql');    
 ?>
 ```
   

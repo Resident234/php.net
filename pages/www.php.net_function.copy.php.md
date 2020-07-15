@@ -14,11 +14,11 @@ Don&apos;t forget; you can use copy on remote files, rather than doing messy fop
 
 ```
 <?php
-if(!@copy(&apos;http://someserver.com/somefile.zip&apos;,&apos;./somefile.zip&apos;))
+if(!@copy('http://someserver.com/somefile.zip','./somefile.zip'))
 {
     $errors= error_get_last();
-    echo "COPY ERROR: ".$errors[&apos;type&apos;];
-    echo "&lt;br /&gt;\n".$errors[&apos;message&apos;];
+    echo "COPY ERROR: ".$errors['type'];
+    echo "&lt;br /&gt;\n".$errors['message'];
 } else {
     echo "File copied from remote!";
 }
@@ -33,8 +33,8 @@ A nice simple trick if you need to make sure the folder exists first:<br><br>
 ```
 <?php
 
-$srcfile=&apos;C:\File\Whatever\Path\Joe.txt&apos;;
-$dstfile=&apos;G:\Shared\Reports\Joe.txt&apos;;
+$srcfile='C:\File\Whatever\Path\Joe.txt';
+$dstfile='G:\Shared\Reports\Joe.txt';
 mkdir(dirname($dstfile), 0777, true);
 copy($srcfile, $dstfile);
 
@@ -85,12 +85,12 @@ function recurse_copy($src,$dst) {
     $dir = opendir($src);
     @mkdir($dst);
     while(false !== ( $file = readdir($dir)) ) {
-        if (( $file != &apos;.&apos; ) &amp;&amp; ( $file != &apos;..&apos; )) {
-            if ( is_dir($src . &apos;/&apos; . $file) ) {
-                recurse_copy($src . &apos;/&apos; . $file,$dst . &apos;/&apos; . $file);
+        if (( $file != '.' ) &amp;&amp; ( $file != '..' )) {
+            if ( is_dir($src . '/' . $file) ) {
+                recurse_copy($src . '/' . $file,$dst . '/' . $file);
             }
             else { 
-                copy($src . &apos;/&apos; . $file,$dst . &apos;/&apos; . $file);
+                copy($src . '/' . $file,$dst . '/' . $file);
             }
         }
     }

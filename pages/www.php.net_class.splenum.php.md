@@ -66,8 +66,8 @@ class Fruit extends SplEnumPlus {
   const ORANGE    = 2;
 }
 
-echo (Fruit::hasKey(Fruit::APPLE) ? &apos;yes&apos; : &apos;no&apos;) . PHP_EOL; // yes
-echo (Fruit::hasKey(&apos;banana&apos;) ? &apos;yes&apos; : &apos;no&apos;) . PHP_EOL; // no
+echo (Fruit::hasKey(Fruit::APPLE) ? 'yes' : 'no') . PHP_EOL; // yes
+echo (Fruit::hasKey('banana') ? 'yes' : 'no') . PHP_EOL; // no
 ?>
 ```
 <br><br>Other useful features, like reverse value-to-key lookups, could be done in this way.  It would be helpful if this and other useful functionality were made part of SplEnum.  

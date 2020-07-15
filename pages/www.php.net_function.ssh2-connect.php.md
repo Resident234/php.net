@@ -66,7 +66,7 @@ Be careful when providing a specific hostkey order. <br><br>
 
 ```
 <?php
-ssh2_connect('IP', 'port', array('hostkey'=&gt;'ssh-rsa, ssh-dss'));
+ssh2_connect('IP', 'port', array('hostkey'=>'ssh-rsa, ssh-dss'));
 ?>
 ```
 
@@ -79,7 +79,7 @@ So a similar code:
 
 ```
 <?php
-ssh2_connect('IP', 'port',   array('hostkey'=&gt;'ssh-rsa,ssh-dss'));
+ssh2_connect('IP', 'port',   array('hostkey'=>'ssh-rsa,ssh-dss'));
 ?>
 ```
 <br><br>Will work. The HOSTKEY method is overriden using exactly what you write, so no empty spaces are allowed.<br><br>This took me some time that you could save ;)  

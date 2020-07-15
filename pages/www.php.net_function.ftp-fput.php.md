@@ -8,9 +8,9 @@ For directly inserting content into a file on an FTP host, you could also create
 <?php
 
 $string = "Your content goes here";
-$stream = fopen(&apos;data://text/plain,&apos; . $string,&apos;r&apos;);
+$stream = fopen('data://text/plain,' . $string,'r');
 
-ftp_fput($this-&gt;connection,$pathTo,$stream, FTP_BINARY);
+ftp_fput($this->connection,$pathTo,$stream, FTP_BINARY);
 
 ?>
 ```

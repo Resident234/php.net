@@ -9,9 +9,9 @@ Note some inconsistent/surprising behavior in SplObjectStorage to preserve backw
 $spl = new SplObjectStorage ();
 $keyForA = new StdClass();
 $keyForB = new StdClass();
-$spl[$keyForA] = &apos;value a&apos;;
-$spl[$keyForB] = &apos;value b&apos;;
-foreach ($spl as $key =&gt; $value)
+$spl[$keyForA] = 'value a';
+$spl[$keyForB] = 'value b';
+foreach ($spl as $key => $value)
 {
     // $key is NOT an object, $value is!
     // Must use standard array access to get strings.

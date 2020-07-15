@@ -22,7 +22,7 @@ echo $output;
 Use the following to decode all entities:<br>
 
 ```
-<?php html_entity_decode($string, ENT_QUOTES | ENT_XML1, &apos;UTF-8&apos;) ?>
+<?php html_entity_decode($string, ENT_QUOTES | ENT_XML1, 'UTF-8') ?>
 ```
 <br><br>I&apos;ve checked these special entities: <br>- double quotes (&amp;#34;)<br>- single quotes (&amp;#39; and &amp;apos;) <br>- non printable chars (e.g. &amp;#13;)<br>With other $flags some or all won&apos;t be decoded.<br><br>It seems that ENT_XML1 and ENT_XHTML are identical when decoding.  
 

@@ -12,10 +12,10 @@ blur:  &gt; 1 is blurry, &lt; 1 is sharp<br><br>To create a nice thumbnail (LANC
 <?php
 
 $thumb = new Imagick();
-$thumb-&gt;readImage(&apos;myimage.gif&apos;);    $thumb-&gt;resizeImage(320,240,Imagick::FILTER_LANCZOS,1);
-$thumb-&gt;writeImage(&apos;mythumb.gif&apos;);
-$thumb-&gt;clear();
-$thumb-&gt;destroy(); 
+$thumb->readImage('myimage.gif');    $thumb->resizeImage(320,240,Imagick::FILTER_LANCZOS,1);
+$thumb->writeImage('mythumb.gif');
+$thumb->clear();
+$thumb->destroy(); 
 
 ?>
 ```
@@ -28,12 +28,12 @@ Or, a shorter version of the same:
 ```
 <?php
 
-$thumb = new Imagick(&apos;myimage.gif&apos;);
+$thumb = new Imagick('myimage.gif');
 
-$thumb-&gt;resizeImage(320,240,Imagick::FILTER_LANCZOS,1);
-$thumb-&gt;writeImage(&apos;mythumb.gif&apos;);
+$thumb->resizeImage(320,240,Imagick::FILTER_LANCZOS,1);
+$thumb->writeImage('mythumb.gif');
 
-$thumb-&gt;destroy(); 
+$thumb->destroy(); 
 
 ?>
 ```

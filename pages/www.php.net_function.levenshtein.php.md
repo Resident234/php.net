@@ -20,7 +20,7 @@ function utf8_to_extended_ascii($str, &amp;$map)
 {
     // find all multibyte characters (cf. utf-8 encoding specs)
     $matches = array();
-    if (!preg_match_all(&apos;/[\xC0-\xF7][\x80-\xBF]+/&apos;, $str, $matches))
+    if (!preg_match_all('/[\xC0-\xF7][\x80-\xBF]+/', $str, $matches))
         return $str; // plain ascii string
     
     // update the encoding map with the characters not already met

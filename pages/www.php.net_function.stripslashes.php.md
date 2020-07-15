@@ -14,7 +14,7 @@ function removeslashes($string)
 
 /* Example */
 
-$text="My dog don\\\\\\\\\\\\\\\\&apos;t like the postman!";
+$text="My dog don\\\\\\\\\\\\\\\\'t like the postman!";
 echo removeslashes($text);
 ?>
 ```

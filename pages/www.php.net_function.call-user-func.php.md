@@ -11,9 +11,9 @@ function fa () { return 1; }
 function fb () { return 1; }
 function fc () { return 1; }
 
-$calla = &apos;fa&apos;;
-$callb = &apos;fb&apos;;
-$callc = &apos;fc&apos;;
+$calla = 'fa';
+$callb = 'fb';
+$callc = 'fc';
 
 $time = microtime( true );
 for( $i = 5000; $i--; ) {
@@ -21,27 +21,27 @@ for( $i = 5000; $i--; ) {
     $x += $calla();
     $x += $callb();
     $x += $callc();
-    if( $x != 3 ) die( &apos;Bad numbers&apos; );
+    if( $x != 3 ) die( 'Bad numbers' );
 }
 echo( "Variable functions took " . (microtime( true ) - $time) . " seconds.&lt;br /&gt;" );
 
 $time = microtime( true );
 for( $i = 5000; $i--; ) {
     $x = 0;
-    $x += call_user_func(&apos;fa&apos;, &apos;&apos;);
-    $x += call_user_func(&apos;fb&apos;, &apos;&apos;);
-    $x += call_user_func(&apos;fc&apos;, &apos;&apos;);
-    if( $x != 3 ) die( &apos;Bad numbers&apos; );
+    $x += call_user_func('fa', '');
+    $x += call_user_func('fb', '');
+    $x += call_user_func('fc', '');
+    if( $x != 3 ) die( 'Bad numbers' );
 }
 echo( "call_user_func took " . (microtime( true ) - $time) . " seconds.&lt;br /&gt;" );
 
 $time = microtime( true );
 for( $i = 5000; $i--; ) {
     $x = 0;
-    eval( &apos;$x += &apos; . $calla . &apos;();&apos; );
-    eval( &apos;$x += &apos; . $callb . &apos;();&apos; );
-    eval( &apos;$x += &apos; . $callc . &apos;();&apos; );
-    if( $x != 3 ) die( &apos;Bad numbers&apos; );
+    eval( '$x += ' . $calla . '();' );
+    eval( '$x += ' . $callb . '();' );
+    eval( '$x += ' . $callc . '();' );
+    if( $x != 3 ) die( 'Bad numbers' );
 }
 echo( "eval took " . (microtime( true ) - $time) . " seconds.&lt;br /&gt;" );
 
@@ -60,7 +60,7 @@ $method_name = "AMethodName";
 
 $obj = new ClassName();
 
-$obj-&gt;{$method_name}();
+$obj->{$method_name}();
 
 ?>
 ```
@@ -77,12 +77,12 @@ A good use for call_user_func(); is for recursive functions.<br>If you&apos;re d
 ```
 <?php
 // example, an extremely simplified factorial calculator..
-// it&apos;s quite obvious when someone renames the function, it&apos;ll spit out an error because it wants to call itself.
+// it's quite obvious when someone renames the function, it'll spit out an error because it wants to call itself.
 function Factorial($i=1) {
   return($i==1?1:$i*Factorial($i-1));
 }
 
-// you can give this function whatever name you want, it&apos;ll always work, of course if you initially call it using the name you gave it.
+// you can give this function whatever name you want, it'll always work, of course if you initially call it using the name you gave it.
 function qwertyuiop($i=1) {
   return($i==1?1:$i*call_user_func(__FUNCTION__,$i-1));
 }

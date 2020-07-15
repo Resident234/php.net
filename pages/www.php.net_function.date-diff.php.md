@@ -30,24 +30,24 @@ function s_datediff( $str_interval, $dt_menor, $dt_maior, $relative=false){
        
        switch( $str_interval){
            case "y": 
-               $total = $diff-&gt;y + $diff-&gt;m / 12 + $diff-&gt;d / 365.25; break;
+               $total = $diff->y + $diff->m / 12 + $diff->d / 365.25; break;
            case "m":
-               $total= $diff-&gt;y * 12 + $diff-&gt;m + $diff-&gt;d/30 + $diff-&gt;h / 24;
+               $total= $diff->y * 12 + $diff->m + $diff->d/30 + $diff->h / 24;
                break;
            case "d":
-               $total = $diff-&gt;y * 365.25 + $diff-&gt;m * 30 + $diff-&gt;d + $diff-&gt;h/24 + $diff-&gt;i / 60;
+               $total = $diff->y * 365.25 + $diff->m * 30 + $diff->d + $diff->h/24 + $diff->i / 60;
                break;
            case "h": 
-               $total = ($diff-&gt;y * 365.25 + $diff-&gt;m * 30 + $diff-&gt;d) * 24 + $diff-&gt;h + $diff-&gt;i/60;
+               $total = ($diff->y * 365.25 + $diff->m * 30 + $diff->d) * 24 + $diff->h + $diff->i/60;
                break;
            case "i": 
-               $total = (($diff-&gt;y * 365.25 + $diff-&gt;m * 30 + $diff-&gt;d) * 24 + $diff-&gt;h) * 60 + $diff-&gt;i + $diff-&gt;s/60;
+               $total = (($diff->y * 365.25 + $diff->m * 30 + $diff->d) * 24 + $diff->h) * 60 + $diff->i + $diff->s/60;
                break;
            case "s": 
-               $total = ((($diff-&gt;y * 365.25 + $diff-&gt;m * 30 + $diff-&gt;d) * 24 + $diff-&gt;h) * 60 + $diff-&gt;i)*60 + $diff-&gt;s;
+               $total = ((($diff->y * 365.25 + $diff->m * 30 + $diff->d) * 24 + $diff->h) * 60 + $diff->i)*60 + $diff->s;
                break;
           }
-       if( $diff-&gt;invert)
+       if( $diff->invert)
                return -1 * $total;
        else    return $total;
    }

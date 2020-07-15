@@ -6,10 +6,10 @@ By using imap_fetchbody() you may run in trouble by using too much memory. Using
 
 ```
 <?php
-$whandle = fopen(&apos;./incomming/tmp.tif&apos;,&apos;w&apos;);
+$whandle = fopen('./incomming/tmp.tif','w');
 
 stream_filter_append($whandle, 
-   &apos;convert.base64-decode&apos;,STREAM_FILTER_WRITE);
+   'convert.base64-decode',STREAM_FILTER_WRITE);
 
 imap_savebody ($mbox, $whandle, $i, $partcounter++);
 

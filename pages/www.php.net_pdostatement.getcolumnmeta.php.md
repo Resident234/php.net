@@ -7,16 +7,16 @@ This method is supported in the MySQL 5.0+ driver.  It can be used for object hy
 ```
 <?php
 
-$pdo_stmt = $dbh-&gt;execute(&apos;SELECT discussion.id, discussion.text, comment.id, comment.text FROM discussions LEFT JOIN comments ON comment.discussion_id = discussion.id&apos;);
+$pdo_stmt = $dbh->execute('SELECT discussion.id, discussion.text, comment.id, comment.text FROM discussions LEFT JOIN comments ON comment.discussion_id = discussion.id');
 
-foreach(range(0, $pdo_stmt-&gt;columnCount() - 1) as $column_index)
+foreach(range(0, $pdo_stmt->columnCount() - 1) as $column_index)
 {
-  $meta[] = $pdo_stmt-&gt;getColumnMeta($column_index);
+  $meta[] = $pdo_stmt->getColumnMeta($column_index);
 }
 
-while($row = $pdo_stmt-&gt;fetch(PDO::FETCH_NUM))
+while($row = $pdo_stmt->fetch(PDO::FETCH_NUM))
 {
-  foreach($row as $column_index =&gt; $column_value)
+  foreach($row as $column_index => $column_value)
   {
     //do something with the data, using the ids to establish the discussion.has_many(comments) relationship.
   }

@@ -5,7 +5,7 @@
 This will delete all files in a directory matching a pattern in one line of code.<br><br>
 
 ```
-<?php array_map(&apos;unlink&apos;, glob("some/dir/*.txt")); ?>
+<?php array_map('unlink', glob("some/dir/*.txt")); ?>
 ```
   
 

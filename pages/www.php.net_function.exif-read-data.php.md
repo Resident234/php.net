@@ -6,10 +6,10 @@ When the new update came out from Apple for iOS6 it provided the ability for iPa
 
 ```
 <?php
-$image = imagecreatefromstring(file_get_contents($_FILES[&apos;image_upload&apos;][&apos;tmp_name&apos;]));
-$exif = exif_read_data($_FILES[&apos;image_upload&apos;][&apos;tmp_name&apos;]);
-if(!empty($exif[&apos;Orientation&apos;])) {
-    switch($exif[&apos;Orientation&apos;]) {
+$image = imagecreatefromstring(file_get_contents($_FILES['image_upload']['tmp_name']));
+$exif = exif_read_data($_FILES['image_upload']['tmp_name']);
+if(!empty($exif['Orientation'])) {
+    switch($exif['Orientation']) {
         case 8:
             $image = imagerotate($image,90,0);
             break;

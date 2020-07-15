@@ -23,7 +23,7 @@ class Foo {
 namespace Baz;
 use \Foo as F;
 
-echo constant(F::class.&apos;::BAR&apos;);
+echo constant(F::class.'::BAR');
 ?>
 ```
 <br><br>since F::class will be dereferenced to whatever namespace shortcuts you are using (and those are way easier to refactor for IDE than just plain strings with hardcoded namespaces in string literals)  
@@ -49,7 +49,7 @@ namespace Baz;
 
 use \Foo as F;
 
-echo constant(&apos;F::BAR&apos;);
+echo constant('F::BAR');
 ?>
 ```
 <br><br>However, calling constant(&apos;Foo::BAR&apos;) will work as expected.  

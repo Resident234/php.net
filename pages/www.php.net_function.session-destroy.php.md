@@ -18,8 +18,8 @@ It took me a while to figure out how to destroy a particular session in php. Not
 
 ```
 <?php
-$session_id_to_destroy = &apos;nill2if998vhplq9f3pj08vjb1&apos;;
-// 1. commit session if it&apos;s started.
+$session_id_to_destroy = 'nill2if998vhplq9f3pj08vjb1';
+// 1. commit session if it's started.
 if (session_id()) {
     session_commit();
 }
@@ -35,7 +35,7 @@ session_start();
 session_destroy();
 session_commit();
 
-// 4. restore current session id. If don&apos;t restore it, your current session will refer to the session you just destroyed!
+// 4. restore current session id. If don't restore it, your current session will refer to the session you just destroyed!
 session_id($current_session_id);
 session_start();
 session_commit();

@@ -6,7 +6,7 @@ Passing null as length will not make mb_substr use it&apos;s default, instead it
 
 ```
 <?php
-mb_substr($str,$start,null,$encoding); //Returns &apos;&apos; (empty string) just like substr()
+mb_substr($str,$start,null,$encoding); //Returns '' (empty string) just like substr()
 ?>
 ```
 

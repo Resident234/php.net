@@ -15,7 +15,17 @@ array_slice can be used to remove elements from an array but it&apos;s pretty si
 
 
 ```
-<?php<br>// CHOP $num ELEMENTS OFF THE FRONT OF AN ARRAY<br>// RETURN THE CHOP, SHORTENING THE SUBJECT ARRAY<br>function array_chop(&amp;$arr, $num)<br>{<br>    $ret = array_slice($arr, 0, $num);<br>    $arr = array_slice($arr, $num);<br>    return $ret;<br>}  
+<?php
+// CHOP $num ELEMENTS OFF THE FRONT OF AN ARRAY
+// RETURN THE CHOP, SHORTENING THE SUBJECT ARRAY
+function array_chop(&amp;$arr, $num)
+{
+    $ret = array_slice($arr, 0, $num);
+    $arr = array_slice($arr, $num);
+    return $ret;
+}?>
+```
+  
 
 #
 

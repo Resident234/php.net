@@ -19,22 +19,22 @@ outputs:
 |1   |-1  |
 |+1  |-1  |
 
-2.  Padding with a &apos;0&apos; is different than padding with other characters.  Zeros will only be added at the front of a number, after any sign.  Other characters will be added before the sign, or after the number:
+2.  Padding with a '0' is different than padding with other characters.  Zeros will only be added at the front of a number, after any sign.  Other characters will be added before the sign, or after the number:
 
 
 
 ```
 <?php
 echo sprintf ("|%04d|\n",   -2);
-echo sprintf ("|%&apos;:4d|\n",  -2);
-echo sprintf ("|%-&apos;:4d|\n", -2);
+echo sprintf ("|%':4d|\n",  -2);
+echo sprintf ("|%-':4d|\n", -2);
 
 // Specifying both "-" and "0" creates a conflict with unexpected results:
 echo sprintf ("|%-04d|\n",  -2);
 
 // Padding with other digits behaves like other non-zero characters:
-echo sprintf ("|%-&apos;14d|\n", -2);
-echo sprintf ("|%-&apos;04d|\n", -2);
+echo sprintf ("|%-'14d|\n", -2);
+echo sprintf ("|%-'04d|\n", -2);
 ?>
 ```
 <br><br>outputs:<br><br>|-002|<br>|::-2|<br>|-2::|<br>|-2  |<br>|-211|<br>|-2  |  
@@ -45,7 +45,7 @@ With printf() and sprintf() functions, escape character is not backslash &apos;\
 
 ```
 <?php
-printf(&apos;%%%s%%&apos;, &apos;koko&apos;); #output: &apos;%koko%&apos;
+printf('%%%s%%', 'koko'); #output: '%koko%'
 ?>
 ```
   
@@ -56,18 +56,18 @@ There are already some comments on using sprintf to force leading leading zeros 
 
 ```
 <?php
-sprintf(&apos;%02d&apos;, 1);
+sprintf('%02d', 1);
 ?>
 ```
 
 
-This will result in 01. However, trying the same for a float with precision doesn&apos;t work:
+This will result in 01. However, trying the same for a float with precision doesn't work:
 
 
 
 ```
 <?php
-sprintf(&apos;%02.2f&apos;, 1);
+sprintf('%02.2f', 1);
 ?>
 ```
 
@@ -80,7 +80,7 @@ This threw me a little off. To get the desired result, one needs to add the prec
 
 ```
 <?php
-sprintf(&apos;%05.2f&apos;, 1);
+sprintf('%05.2f', 1);
 ?>
 ```
 <br><br>Output: 01.00<br><br>Please see http://stackoverflow.com/a/28739819/413531 for a more detailed explanation.  
@@ -91,7 +91,7 @@ Here is how to print a floating point number with 16 significant digits regardle
 
 ```
 <?php
-    $result = sprintf(sprintf(&apos;%%.%dF&apos;, max(15 - floor(log10($value)), 0)), $value);
+    $result = sprintf(sprintf('%%.%dF', max(15 - floor(log10($value)), 0)), $value);
 ?>
 ```
 <br><br>This works more reliably than doing something like sprintf(&apos;%.15F&apos;, $value) as the latter may cut off significant digits for very small numbers, or prints bogus digits (meaning extra digits beyond what can reliably be represented in a floating point number) for very large numbers.  
@@ -108,9 +108,9 @@ function mressf()
     if (count($args) &lt; 2)
         return false;
     $query = array_shift($args);
-    $args = array_map(&apos;mysql_real_escape_string&apos;, $args);
+    $args = array_map('mysql_real_escape_string', $args);
     array_unshift($args, $query);
-    $query = call_user_func_array(&apos;sprintf&apos;, $args);
+    $query = call_user_func_array('sprintf', $args);
     return $query;
 }
 ?>

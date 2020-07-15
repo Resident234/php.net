@@ -6,14 +6,14 @@ You can use this function to conditionally define functions, see: http://php.net
 
 ```
 <?php
-if (function_exists(&apos;foo&apos;)) {
+if (function_exists('foo')) {
   print "foo defined\\n";
 } else {
   print "foo not defined\\n";
 }
 function foo() {}
 
-if (function_exists(&apos;bar&apos;)) {
+if (function_exists('bar')) {
   print "bar defined\\n";
 } else {
   print "defining bar\\n";
@@ -27,7 +27,7 @@ baz(); // ok to call function unconditionally defined later
 function baz() {}
 
 qux(); // NOT ok to call function conditionally defined later
-if (!function_exists(&apos;qux&apos;)) {
+if (!function_exists('qux')) {
   function qux() {}
 }
 ?>
@@ -43,7 +43,7 @@ It should be noted that the function_exists check is not relative to the root na
 
   namespace test;
 
-  if (!function_exists(__NAMESPACE__ . &apos;\example&apos;))
+  if (!function_exists(__NAMESPACE__ . '\example'))
   {
 
     function example()

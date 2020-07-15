@@ -8,18 +8,18 @@ Had some trouble finding the correct way to send a Content-Length header with HT
 <?php
 
 // disable ZLIB ouput compression
-ini_set(&apos;zlib.output_compression&apos;,&apos;Off&apos;);
+ini_set('zlib.output_compression','Off');
 
 // compress data
 $gzipoutput = gzencode($output,6);
 
 // various headers, those with # are mandatory
-header(&apos;Content-Type: application/x-download&apos;);
-header(&apos;Content-Encoding: gzip&apos;); #
-header(&apos;Content-Length: &apos;.strlen($gzipoutput)); #
-header(&apos;Content-Disposition: attachment; filename="myfile.name"&apos;);
-header(&apos;Cache-Control: no-cache, no-store, max-age=0, must-revalidate&apos;);
-header(&apos;Pragma: no-cache&apos;);
+header('Content-Type: application/x-download');
+header('Content-Encoding: gzip'); #
+header('Content-Length: '.strlen($gzipoutput)); #
+header('Content-Disposition: attachment; filename="myfile.name"');
+header('Cache-Control: no-cache, no-store, max-age=0, must-revalidate');
+header('Pragma: no-cache');
 
 // output data
 echo $gzipoutput;

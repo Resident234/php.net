@@ -17,9 +17,9 @@ class User {
    private function __construct () {}
 
    public static function load_by_id ($id) {
-      $stmt = $pdo-&gt;prepare(&apos;SELECT id, name FROM users WHERE id=?&apos;);
-      $stmt-&gt;execute([$id]);
-      return $stmt-&gt;fetchObject(__CLASS__);
+      $stmt = $pdo->prepare('SELECT id, name FROM users WHERE id=?');
+      $stmt->execute([$id]);
+      return $stmt->fetchObject(__CLASS__);
    }
    /* same method can be written with the "name" column/property */
 }

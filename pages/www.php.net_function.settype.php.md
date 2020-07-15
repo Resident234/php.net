@@ -7,15 +7,15 @@ Note that you can&apos;t use this to convert a string &apos;true&apos; or &apos;
 ```
 <?php
 $var = "true";
-settype($var, &apos;bool&apos;);
+settype($var, 'bool');
 var_dump($var); // true
 
 $var = "false";
-settype($var, &apos;bool&apos;);
+settype($var, 'bool');
 var_dump($var); // true as well!
 
 $var = "";
-settype($var, &apos;bool&apos;);
+settype($var, 'bool');
 var_dump($var); // false
 ?>
 ```

@@ -6,11 +6,11 @@ ctype_alnum() is a godsend for quick and easy username/data filtering when used 
 
 ```
 <?php
-$sUser = &apos;my_username01&apos;;
-$aValid = array(&apos;-&apos;, &apos;_&apos;);
+$sUser = 'my_username01';
+$aValid = array('-', '_');
 
-if(!ctype_alnum(str_replace($aValid, &apos;&apos;, $sUser))) {
-    echo &apos;Your username is not properly formatted.&apos;;
+if(!ctype_alnum(str_replace($aValid, '', $sUser))) {
+    echo 'Your username is not properly formatted.';
 }
 ?>
 ```

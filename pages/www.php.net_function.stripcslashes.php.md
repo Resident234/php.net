@@ -6,7 +6,7 @@ stripcslashes does not simply skip the C-style escape sequences \a, \b, \f, \n, 
 
 ```
 <?php
-stripcslashes(&apos;\n&apos;) == "\n"; //true;
+stripcslashes('\n') == "\n"; //true;
 
 $str = "we are escaping \r\n"; //we are escaping
 

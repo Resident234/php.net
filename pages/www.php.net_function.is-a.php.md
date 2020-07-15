@@ -23,8 +23,8 @@ namespace har\var;
 use foo\bar\A;
 $foo = new foo\bar\B();
 
-is_a($foo, &apos;A&apos;); // returns false;
-is_a($foo, &apos;foo\bar\A&apos;); // returns true;
+is_a($foo, 'A'); // returns false;
+is_a($foo, 'foo\bar\A'); // returns true;
 ?>
 ```
 <br><br>Just adding that note here because all examples are without namespaces.  
@@ -51,7 +51,7 @@ class TestImplementor implements test {
 
 $testImpl = new TestImplementor();
 
-var_dump(is_a($testImpl,&apos;test&apos;));
+var_dump(is_a($testImpl,'test'));
 ?>
 ```
 <br><br>will return true  

@@ -10,7 +10,7 @@ Inception with eval()<br><br>&lt;pre&gt;<br>Inception Start:<br>
 
 ```
 <?php
-eval("echo &apos;Inception lvl 1...\n&apos;; eval(&apos;echo \"Inception lvl 2...\n\"; eval(\"echo \&apos;Inception lvl 3...\n\&apos;; eval(\&apos;echo \\\"Limbo!\\\";\&apos;);\");&apos;);");
+eval("echo 'Inception lvl 1...\n'; eval('echo \"Inception lvl 2...\n\"; eval(\"echo \'Inception lvl 3...\n\'; eval(\'echo \\\"Limbo!\\\";\');\");');");
 ?>
 ```
   
@@ -21,19 +21,19 @@ At least in PHP 7.1+, eval() terminates the script if the evaluated code generat
 
 ```
 <?php
-@eval(&apos;$content = (100 - );&apos;);
+@eval('$content = (100 - );');
 ?>
 ```
 
 
-(Even if it is in the man, I&apos;m note sure it acted like this in 5.6, but whatever)
+(Even if it is in the man, I'm note sure it acted like this in 5.6, but whatever)
 To catch it, I had to do:
 
 
 ```
 <?php
 try {
-    eval(&apos;$content = (100 - );&apos;);
+    eval('$content = (100 - );');
 } catch (Throwable $t) {
     $content = null;
 }
@@ -48,20 +48,20 @@ If you want to allow math input and make sure that the input is proper mathemati
 ```
 <?php
 
-$test = &apos;2+3*pi&apos;;
+$test = '2+3*pi';
 
 // Remove whitespaces
-$test = preg_replace(&apos;/\s+/&apos;, &apos;&apos;, $test);
+$test = preg_replace('/\s+/', '', $test);
 
-$number = &apos;(?:\d+(?:[,.]\d+)?|pi|&#x3C0;)&apos;; // What is a number
-$functions = &apos;(?:sinh?|cosh?|tanh?|abs|acosh?|asinh?|atanh?|exp|log10|deg2rad|rad2deg|sqrt|ceil|floor|round)&apos;; // Allowed PHP functions
-$operators = &apos;[+\/*\^%-]&apos;; // Allowed math operators
-$regexp = &apos;/^((&apos;.$number.&apos;|&apos;.$functions.&apos;\s*\((?1)+\)|\((?1)+\))(?:&apos;.$operators.&apos;(?2))?)+$/&apos;; // Final regexp, heavily using recursive patterns
+$number = '(?:\d+(?:[,.]\d+)?|pi|&#x3C0;)'; // What is a number
+$functions = '(?:sinh?|cosh?|tanh?|abs|acosh?|asinh?|atanh?|exp|log10|deg2rad|rad2deg|sqrt|ceil|floor|round)'; // Allowed PHP functions
+$operators = '[+\/*\^%-]'; // Allowed math operators
+$regexp = '/^(('.$number.'|'.$functions.'\s*\((?1)+\)|\((?1)+\))(?:'.$operators.'(?2))?)+$/'; // Final regexp, heavily using recursive patterns
 
 if (preg_match($regexp, $q))
 {
-    $test = preg_replace(&apos;!pi|&#x3C0;!&apos;, &apos;pi()&apos;, $test); // Replace pi with pi function
-    eval(&apos;$result = &apos;.$test.&apos;;&apos;);
+    $test = preg_replace('!pi|&#x3C0;!', 'pi()', $test); // Replace pi with pi function
+    eval('$result = '.$test.';');
 }
 else
 {

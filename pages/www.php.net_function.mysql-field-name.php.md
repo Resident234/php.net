@@ -31,9 +31,9 @@ This function is slightly stupid to be honest, why not just make an array of fie
     
     // Show them all
     
-    echo implode( &apos;, &apos;, $fields[3] );
+    echo implode( ', ', $fields[3] );
     
-     // Count them - easy equivelant to &apos;mysql_num_fields&apos;
+     // Count them - easy equivelant to 'mysql_num_fields'
     
     echo count( $fields );
 

@@ -20,15 +20,15 @@ If an associative array is used as the second parameter of array_fill_keys, then
 ```
 <?php
 $array1 = array(
-    "a" =&gt; "first",
-    "b" =&gt; "second",
-    "c" =&gt; "something",
+    "a" => "first",
+    "b" => "second",
+    "c" => "something",
     "red"
 );
 
 $array2 = array(
-    "a" =&gt; "first",
-    "b" =&gt; "something",
+    "a" => "first",
+    "b" => "something",
     "letsc"
 );
 

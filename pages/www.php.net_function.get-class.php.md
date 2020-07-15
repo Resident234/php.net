@@ -5,7 +5,18 @@
 &gt;= 5.5<br><br>::class<br>fully qualified class name, instead of get_class<br><br>
 
 ```
-<?php<br>namespace my\library\mvc;<br><br>class Dispatcher {}<br><br>print Dispatcher::class; // FQN == my\library\mvc\Dispatcher<br><br>$disp = new Dispatcher;<br><br>print $disp::class; // parse error  
+<?php
+namespace my\library\mvc;
+
+class Dispatcher {}
+
+print Dispatcher::class; // FQN == my\library\mvc\Dispatcher
+
+$disp = new Dispatcher;
+
+print $disp::class; // parse error?>
+```
+  
 
 #
 
@@ -15,7 +26,7 @@ A lot of people in other comments wanting to get the classname without the names
 <?php
 function get_class_name($classname)
 {
-    if ($pos = strrpos($classname, &apos;\\&apos;)) return substr($classname, $pos + 1);
+    if ($pos = strrpos($classname, '\\')) return substr($classname, $pos + 1);
     return $pos;
 }
 ?>
@@ -28,23 +39,23 @@ Also did some quick benchmarking, and strrpos() was the fastest too. Micro-optim
 28.6305 ms - explode() + end()
 20.3314 ms - strrpos()
 
-(For reference, here&apos;s the debug code used. c() is a benchmarking function that runs each closure run 10,000 times.)
+(For reference, here's the debug code used. c() is a benchmarking function that runs each closure run 10,000 times.)
 
 
 
 ```
 <?php
 c(
-    function($class = &apos;a\b\C&apos;) {
-        if (preg_match(&apos;/\\\\([\w]+)$/&apos;, $class, $matches)) return $matches[1];
+    function($class = 'a\b\C') {
+        if (preg_match('/\\\\([\w]+)$/', $class, $matches)) return $matches[1];
         return $class;
     },
-    function($class = &apos;a\b\C&apos;) {
-        $bits = explode(&apos;\\&apos;, $class);
+    function($class = 'a\b\C') {
+        $bits = explode('\\', $class);
         return end($bits);
     },
-    function($class = &apos;a\b\C&apos;) {
-        if ($pos = strrpos($class, &apos;\\&apos;)) return substr($class, $pos + 1);
+    function($class = 'a\b\C') {
+        if ($pos = strrpos($class, '\\')) return substr($class, $pos + 1);
         return $pos;
     }
 );
@@ -64,10 +75,10 @@ class Foo {
   echo __METHOD__ . "\n";
  }
  function doGetClassThis(){
-  echo get_class($this).&apos;::doThat&apos; . "\n";
+  echo get_class($this).'::doThat' . "\n";
  }
  function doGetClass(){
-  echo get_class().&apos;::doThat&apos; . "\n";
+  echo get_class().'::doThat' . "\n";
  }
 }
 
@@ -80,10 +91,10 @@ class Quux extends Bar {
   echo __METHOD__ . "\n";
  }
  function doGetClassThis(){
-  echo get_class($this).&apos;::doThat&apos; . "\n";
+  echo get_class($this).'::doThat' . "\n";
  }
  function doGetClass(){
-  echo get_class().&apos;::doThat&apos; . "\n";
+  echo get_class().'::doThat' . "\n";
  }
 }
 
@@ -93,21 +104,21 @@ $quux = new Quux();
 
 echo "\n--doMethod--\n";
 
-$foo-&gt;doMethod();
-$bar-&gt;doMethod();
-$quux-&gt;doMethod();
+$foo->doMethod();
+$bar->doMethod();
+$quux->doMethod();
 
 echo "\n--doGetClassThis--\n";
 
-$foo-&gt;doGetClassThis();
-$bar-&gt;doGetClassThis();
-$quux-&gt;doGetClassThis();
+$foo->doGetClassThis();
+$bar->doGetClassThis();
+$quux->doGetClassThis();
 
 echo "\n--doGetClass--\n";
 
-$foo-&gt;doGetClass();
-$bar-&gt;doGetClass();
-$quux-&gt;doGetClass();
+$foo->doGetClass();
+$bar->doGetClass();
+$quux->doGetClass();
 
 ?>
 ```

@@ -7,8 +7,8 @@ Converting an old project from using the mysql extension to the mysqli extension
 ```
 <?php
 function mysqli_result($res, $row, $field=0) {
-    $res-&gt;data_seek($row);
-    $datarow = $res-&gt;fetch_array();
+    $res->data_seek($row);
+    $datarow = $res->fetch_array();
     return $datarow[$field];
 }
 ?>

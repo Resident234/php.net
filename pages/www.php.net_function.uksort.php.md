@@ -41,13 +41,13 @@ class family
     // ...
     function _objSort(&amp;$a, &amp;$b, $i = 0)
     {
-        $field        = $this-&gt;sortFields[$i];
-        $direction    = $this-&gt;sortDirections[$i];
+        $field        = $this->sortFields[$i];
+        $direction    = $this->sortDirections[$i];
         
-        $diff = strnatcmp($this-&gt;details[$a]-&gt;$field, $this-&gt;details[$b]-&gt;$field) * $direction;
-        if ($diff == 0 &amp;&amp; isset($this-&gt;sortFields[++$i]))
+        $diff = strnatcmp($this->details[$a]->$field, $this->details[$b]->$field) * $direction;
+        if ($diff == 0 &amp;&amp; isset($this->sortFields[++$i]))
         {
-            $diff = $this-&gt;_objSort($a, $b, $i);
+            $diff = $this->_objSort($a, $b, $i);
         }
         
         return $diff;
@@ -56,30 +56,30 @@ class family
     function sortMembers($sortFields)
     {
         $i = 0;
-        foreach ($sortFields as $field =&gt; $direction)
+        foreach ($sortFields as $field => $direction)
         {
-            $this-&gt;sortFields[$i] = $field;
-            $direction == "DESC" ? $this-&gt;sortDirections[$i] = -1 : $this-&gt;sortDirections[$i] = 1;
+            $this->sortFields[$i] = $field;
+            $direction == "DESC" ? $this->sortDirections[$i] = -1 : $this->sortDirections[$i] = 1;
             $i++;
         }
         
-        uksort($this-&gt;details, array($this, "_objSort"));
+        uksort($this->details, array($this, "_objSort"));
         
-        $this-&gt;sortFields = array();
-        $this-&gt;sortDirections = array();
+        $this->sortFields = array();
+        $this->sortDirections = array();
     }
 }
 // open a family
 $familyId = 5;
 $family = new family($familyId);
-$family-&gt;open(); // this will also fetch all members
+$family->open(); // this will also fetch all members
 
 // sort members by 3 fields
-$family-&gt;sortMembers(array("firstName" =&gt; "ASC", "age" =&gt; "DESC", "hairColor" =&gt; "ASC"));
+$family->sortMembers(array("firstName" => "ASC", "age" => "DESC", "hairColor" => "ASC"));
 // output all family members
-foreach ($family-&gt;members as $member)
+foreach ($family->members as $member)
 {
-    echo $member-&gt;firstName." - ".$member-&gt;age." - ".$member-&gt;hairColor."&lt;br /&gt;";
+    echo $member->firstName." - ".$member->age." - ".$member->hairColor."&lt;br /&gt;";
 }
 ?>
 ```

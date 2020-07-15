@@ -27,8 +27,8 @@ class Session
     
     
     /**
-    *    Returns THE instance of &apos;Session&apos;.
-    *    The session is automatically initialized if it wasn&apos;t.
+    *    Returns THE instance of 'Session'.
+    *    The session is automatically initialized if it wasn't.
     *    
     *    @return    object
     **/
@@ -40,7 +40,7 @@ class Session
             self::$instance = new self;
         }
         
-        self::$instance-&gt;startSession();
+        self::$instance->startSession();
         
         return self::$instance;
     }
@@ -54,18 +54,18 @@ class Session
     
     public function startSession()
     {
-        if ( $this-&gt;sessionState == self::SESSION_NOT_STARTED )
+        if ( $this->sessionState == self::SESSION_NOT_STARTED )
         {
-            $this-&gt;sessionState = session_start();
+            $this->sessionState = session_start();
         }
         
-        return $this-&gt;sessionState;
+        return $this->sessionState;
     }
     
     
     /**
     *    Stores datas in the session.
-    *    Example: $instance-&gt;foo = &apos;bar&apos;;
+    *    Example: $instance->foo = 'bar';
     *    
     *    @param    name    Name of the datas.
     *    @param    value    Your datas.
@@ -80,7 +80,7 @@ class Session
     
     /**
     *    Gets datas from the session.
-    *    Example: echo $instance-&gt;foo;
+    *    Example: echo $instance->foo;
     *    
     *    @param    name    Name of the datas to get.
     *    @return    mixed    Datas stored in session.
@@ -115,12 +115,12 @@ class Session
     
     public function destroy()
     {
-        if ( $this-&gt;sessionState == self::SESSION_STARTED )
+        if ( $this->sessionState == self::SESSION_STARTED )
         {
-            $this-&gt;sessionState = !session_destroy();
+            $this->sessionState = !session_destroy();
             unset( $_SESSION );
             
-            return !$this-&gt;sessionState;
+            return !$this->sessionState;
         }
         
         return FALSE;
@@ -134,33 +134,33 @@ class Session
 // We get the instance
 $data = Session::getInstance();
 
-// Let&apos;s store datas in the session
-$data-&gt;nickname = &apos;Someone&apos;;
-$data-&gt;age = 18;
+// Let's store datas in the session
+$data->nickname = 'Someone';
+$data->age = 18;
 
-// Let&apos;s display datas
-printf( &apos;&lt;p&gt;My name is %s and I\&apos;m %d years old.&lt;/p&gt;&apos; , $data-&gt;nickname , $data-&gt;age );
+// Let's display datas
+printf( '&lt;p&gt;My name is %s and I\'m %d years old.&lt;/p&gt;' , $data->nickname , $data->age );
 
 /*
     It will display:
     
     Array
     (
-        [nickname] =&gt; Someone
-        [age] =&gt; 18
+        [nickname] => Someone
+        [age] => 18
     )
 */
 
-printf( &apos;&lt;pre&gt;%s&lt;/pre&gt;&apos; , print_r( $_SESSION , TRUE ));
+printf( '&lt;pre&gt;%s&lt;/pre&gt;' , print_r( $_SESSION , TRUE ));
 
 // TRUE
-var_dump( isset( $data-&gt;nickname ));
+var_dump( isset( $data->nickname ));
 
 // We destroy the session
-$data-&gt;destroy();
+$data->destroy();
 
 // FALSE
-var_dump( isset( $data-&gt;nickname ));
+var_dump( isset( $data->nickname ));
 
 ?>
 ```
@@ -179,11 +179,11 @@ As others have noted, PHP&apos;s session handler is blocking. When one of your s
  * to choke the web server.
  *
  * This method clears out the duplicate session cookies. You can
- * call it after each time you&apos;ve called session_start(), or call it
+ * call it after each time you've called session_start(), or call it
  * just before you send your headers.
  */
 function clear_duplicate_cookies() {
-    // If headers have already been sent, there&apos;s nothing we can do
+    // If headers have already been sent, there's nothing we can do
     if (headers_sent()) {
         return;
     }
@@ -191,12 +191,12 @@ function clear_duplicate_cookies() {
     $cookies = array();
     foreach (headers_list() as $header) {
         // Identify cookie headers
-        if (strpos($header, &apos;Set-Cookie:&apos;) === 0) {
+        if (strpos($header, 'Set-Cookie:') === 0) {
             $cookies[] = $header;
         }
     }
     // Removes all cookie headers, including duplicates
-    header_remove(&apos;Set-Cookie&apos;);
+    header_remove('Set-Cookie');
 
     // Restore one copy of each cookie
     foreach(array_unique($cookies) as $cookie) {
@@ -221,7 +221,7 @@ PHP locks the session file until it is closed. If you have 2 scripts using the s
 session_start();
 
 // do all your writing to $_SESSION
-$_SESSION[&apos;a&apos;] = 1;
+$_SESSION['a'] = 1;
 
 // $_SESSION can still be read, but writing will not update the session.
 // the lock is removed and other scripts can now read the session
@@ -230,7 +230,14 @@ session_write_close();
 do_something_slow();
 ?>
 ```
-<br><br>Found this out from http://konrness.com/php5/how-to-prevent-blocking-php-requests/  
+
+
+Found this out from http://konrness.com/php5/how-to-prevent-blocking
+
+```
+<??>
+```
+requests/  
 
 #
 
@@ -247,7 +254,7 @@ function read($id)
   //check to see if $session_data is null before returning (CRITICAL)
   if(is_null($session_data))
   {
-    $session_data = &apos;&apos;;  //use empty string instead of null!
+    $session_data = '';  //use empty string instead of null!
   }
 
   return $session_data;
@@ -264,12 +271,12 @@ When you have an import script that takes long to execute, the browser seem to l
 ```
 <?php
 session_start(); //initiate / open session
-$_SESSION[&apos;count&apos;] = 0; // store something in the session
+$_SESSION['count'] = 0; // store something in the session
 session_write_close(); //now close it, 
 # from here every other script can be run (and makes it seem like multitasking)
 for($i=0; $i&lt;=100; $i++){ //do 100 cycles
     session_start(); //open the session again for editing a variable
-    $_SESSION[&apos;count&apos;] += 1; //change variable
+    $_SESSION['count'] += 1; //change variable
     session_write_close(); //now close the session again!
     sleep(2); //every cycle sleep two seconds, or do a heavy task
 }

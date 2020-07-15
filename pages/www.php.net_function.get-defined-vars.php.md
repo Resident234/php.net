@@ -12,34 +12,34 @@ A little gotcha to watch out for:<br><br>If you turn off RegisterGlobals and rel
 <?php
 Array
 (
-    [GLOBALS] =&gt; Array
+    [GLOBALS] => Array
         (
-            [GLOBALS] =&gt; Array
+            [GLOBALS] => Array
  *RECURSION*
-            [_POST] =&gt; Array()
-            [_GET] =&gt; Array()
-            [_COOKIE] =&gt; Array()
-            [_FILES] =&gt; Array()
+            [_POST] => Array()
+            [_GET] => Array()
+            [_COOKIE] => Array()
+            [_FILES] => Array()
         )
 
-    [_POST] =&gt; Array()
-    [_GET] =&gt; Array()
-    [_COOKIE] =&gt; Array()
-    [_FILES] =&gt; Array()
+    [_POST] => Array()
+    [_GET] => Array()
+    [_COOKIE] => Array()
+    [_FILES] => Array()
 
 )
 ?>
 ```
 
 
-Notice that $_SERVER isn&apos;t there.  It seems that php only loads the superglobal $_SERVER if it is used somewhere.  You could do this:
+Notice that $_SERVER isn't there.  It seems that php only loads the superglobal $_SERVER if it is used somewhere.  You could do this:
 
 
 
 ```
 <?php
-print &apos;&lt;pre&gt;&apos; . htmlspecialchars(print_r(get_defined_vars(), true)) . &apos;&lt;/pre&gt;&apos;;
-print &apos;&lt;pre&gt;&apos; . htmlspecialchars(print_r($_SERVER, true)) . &apos;&lt;/pre&gt;&apos;;
+print '&lt;pre&gt;' . htmlspecialchars(print_r(get_defined_vars(), true)) . '&lt;/pre&gt;';
+print '&lt;pre&gt;' . htmlspecialchars(print_r($_SERVER, true)) . '&lt;/pre&gt;';
 ?>
 ```
 <br><br>And then $_SERVER will appear in both lists.  I guess it&apos;s not really a gotcha, because nothing bad will happen either way, but it&apos;s an interesting curiosity nonetheless.  
@@ -54,15 +54,15 @@ Since get_defined_vars() only gets the variables at the point you call the funct
 $vars = get_defined_vars();
 
 // Now do your stuff
-$foo = &apos;foo&apos;;
-$bar = &apos;bar&apos;;
+$foo = 'foo';
+$bar = 'bar';
 
 // Get all the variables defined in current scope
 $vars = array_diff(get_defined_vars(),$vars);
 
-echo &apos;&lt;pre&gt;&apos;;
+echo '&lt;pre&gt;';
 print_r($vars);
-echo &apos;&lt;/pre&gt;&apos;;
+echo '&lt;/pre&gt;';
 ?>
 ```
   

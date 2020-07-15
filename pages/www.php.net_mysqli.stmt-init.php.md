@@ -6,21 +6,21 @@ stmt_init() seems to clear previous (possibly erroneous) results on the DB conne
 
 ```
 <?php
-$db = $this-&gt;getConnection()-&gt;getDbConnection();
-$preparedQuery = $db-&gt;prepare ($query);
+$db = $this->getConnection()->getDbConnection();
+$preparedQuery = $db->prepare ($query);
 ?>
 ```
 
 
-the prepare() call generated an error: "Could not prepare query: Commands out of sync; you can&apos;t run this command now." Changing to this:
+the prepare() call generated an error: "Could not prepare query: Commands out of sync; you can't run this command now." Changing to this:
 
 
 
 ```
 <?php
-$db = $this-&gt;getConnection()-&gt;getDbConnection();
-$preparedQuery = $db-&gt;stmt_init();
-$preparedQuery-&gt;prepare ($query);
+$db = $this->getConnection()->getDbConnection();
+$preparedQuery = $db->stmt_init();
+$preparedQuery->prepare ($query);
 ?>
 ```
 <br><br>resolved the problem.  

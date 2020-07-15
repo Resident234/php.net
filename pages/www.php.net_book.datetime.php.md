@@ -6,7 +6,7 @@ I think it&apos;s important to mention with the DateTime class that if you&apos;
 
 ```
 <?php
-date_default_timezone_set(&apos;UTC&apos;);
+date_default_timezone_set('UTC');
 ?>
 ```
 
@@ -17,7 +17,7 @@ Even if you use something like:
 
 ```
 <?php
-$date-&gt;setTimezone( new DateTimeZone(&apos;UTC&apos;) );
+$date->setTimezone( new DateTimeZone('UTC') );
 ?>
 ```
 <br><br>... before you store the value, it doesn&apos;t seem to work because PHP is already trying to convert it to the default timezone.  

@@ -11,13 +11,13 @@ As explained in http://bugs.php.net/bug.php?id=39992, proc_terminate() leaves ch
 ```
 <?php
 $descriptorspec = array(
-0 =&gt; array(&apos;pipe&apos;, &apos;r&apos;),  // stdin is a pipe that the child will read from
-1 =&gt; array(&apos;pipe&apos;, &apos;w&apos;),  // stdout is a pipe that the child will write to
-2 =&gt; array(&apos;pipe&apos;, &apos;w&apos;)   // stderr is a pipe the child will write to
+0 => array('pipe', 'r'),  // stdin is a pipe that the child will read from
+1 => array('pipe', 'w'),  // stdout is a pipe that the child will write to
+2 => array('pipe', 'w')   // stderr is a pipe the child will write to
 );
-$process = proc_open(&apos;bad_program&apos;, $descriptorspec, $pipes);
+$process = proc_open('bad_program', $descriptorspec, $pipes);
 if(!is_resource($process)) {
-    throw new Exception(&apos;bad_program could not be started.&apos;);
+    throw new Exception('bad_program could not be started.');
 }
 //pass some input to the program
 fwrite($pipes[0], $lots_of_data);
@@ -29,14 +29,14 @@ fclose($pipes[0]);
 //if we check on it right away
 
 $status = proc_get_status($process);
-if($status[&apos;running&apos;] == true) { //process ran too long, kill it
+if($status['running'] == true) { //process ran too long, kill it
     //close all pipes that are still open
     fclose($pipes[1]); //stdout
     fclose($pipes[2]); //stderr
     //get the parent pid of the process we want to kill
-    $ppid = $status[&apos;pid&apos;];
+    $ppid = $status['pid'];
     //use ps to get all the children of this process, and kill them
-    $pids = preg_split(&apos;/\s+/&apos;, `ps -o pid --no-heading --ppid $ppid`);
+    $pids = preg_split('/\s+/', `ps -o pid --no-heading --ppid $ppid`);
     foreach($pids as $pid) {
         if(is_numeric($pid)) {
             echo "Killing $pid\n";

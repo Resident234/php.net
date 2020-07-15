@@ -6,7 +6,7 @@ If you want to save data that is derived from a Javascript canvas.toDataURL() fu
 
 ```
 <?php
-  $encodedData = str_replace(&apos; &apos;,&apos;+&apos;,$encodedData);
+  $encodedData = str_replace(' ','+',$encodedData);
   $decocedData = base64_decode($encodedData);
 ?>
 ```

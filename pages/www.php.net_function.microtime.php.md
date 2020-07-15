@@ -12,7 +12,7 @@ for ($i=0; $i &lt; rand(1000,4000); ++$i) {
     $hash ^= md5(substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, rand(1,10)));
 }
 $time += microtime(true);
-echo "Hash: $hash iterations:$i time: ",sprintf(&apos;%f&apos;, $time),PHP_EOL;
+echo "Hash: $hash iterations:$i time: ",sprintf('%f', $time),PHP_EOL;
 ?>
 ```
   

@@ -6,7 +6,7 @@ I wrote the current top voted comment on this and wanted to add something. The e
 
 ```
 <?php
-$_SESSION[&apos;nonce&apos;] = md5(microtime(true));
+$_SESSION['nonce'] = md5(microtime(true));
 ?>
 ```
 
@@ -31,20 +31,20 @@ I wrote the following code for a project I&apos;m working on- it attempts to res
 function regenerateSession($reload = false)
 {
     // This token is used by forms to prevent cross site forgery attempts
-    if(!isset($_SESSION[&apos;nonce&apos;]) || $reload)
-        $_SESSION[&apos;nonce&apos;] = md5(microtime(true));
+    if(!isset($_SESSION['nonce']) || $reload)
+        $_SESSION['nonce'] = md5(microtime(true));
 
-    if(!isset($_SESSION[&apos;IPaddress&apos;]) || $reload)
-        $_SESSION[&apos;IPaddress&apos;] = $_SERVER[&apos;REMOTE_ADDR&apos;];
+    if(!isset($_SESSION['IPaddress']) || $reload)
+        $_SESSION['IPaddress'] = $_SERVER['REMOTE_ADDR'];
 
-    if(!isset($_SESSION[&apos;userAgent&apos;]) || $reload)
-        $_SESSION[&apos;userAgent&apos;] = $_SERVER[&apos;HTTP_USER_AGENT&apos;];
+    if(!isset($_SESSION['userAgent']) || $reload)
+        $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
 
-    //$_SESSION[&apos;user_id&apos;] = $this-&gt;user-&gt;getId();
+    //$_SESSION['user_id'] = $this->user->getId();
 
     // Set current session to expire in 1 minute
-    $_SESSION[&apos;OBSOLETE&apos;] = true;
-    $_SESSION[&apos;EXPIRES&apos;] = time() + 60;
+    $_SESSION['OBSOLETE'] = true;
+    $_SESSION['EXPIRES'] = time() + 60;
 
     // Create new session without destroying the old one
     session_regenerate_id(false);
@@ -57,32 +57,32 @@ function regenerateSession($reload = false)
     session_id($newSession);
     session_start();
 
-    // Don&apos;t want this one to expire
-    unset($_SESSION[&apos;OBSOLETE&apos;]);
-    unset($_SESSION[&apos;EXPIRES&apos;]);
+    // Don't want this one to expire
+    unset($_SESSION['OBSOLETE']);
+    unset($_SESSION['EXPIRES']);
 }
 
 function checkSession()
 {
     try{
-        if($_SESSION[&apos;OBSOLETE&apos;] &amp;&amp; ($_SESSION[&apos;EXPIRES&apos;] &lt; time()))
-            throw new Exception(&apos;Attempt to use expired session.&apos;);
+        if($_SESSION['OBSOLETE'] &amp;&amp; ($_SESSION['EXPIRES'] &lt; time()))
+            throw new Exception('Attempt to use expired session.');
 
-        if(!is_numeric($_SESSION[&apos;user_id&apos;]))
-            throw new Exception(&apos;No session started.&apos;);
+        if(!is_numeric($_SESSION['user_id']))
+            throw new Exception('No session started.');
 
-        if($_SESSION[&apos;IPaddress&apos;] != $_SERVER[&apos;REMOTE_ADDR&apos;])
-            throw new Exception(&apos;IP Address mixmatch (possible session hijacking attempt).&apos;);
+        if($_SESSION['IPaddress'] != $_SERVER['REMOTE_ADDR'])
+            throw new Exception('IP Address mixmatch (possible session hijacking attempt).');
 
-        if($_SESSION[&apos;userAgent&apos;] != $_SERVER[&apos;HTTP_USER_AGENT&apos;])
-            throw new Exception(&apos;Useragent mixmatch (possible session hijacking attempt).&apos;);
+        if($_SESSION['userAgent'] != $_SERVER['HTTP_USER_AGENT'])
+            throw new Exception('Useragent mixmatch (possible session hijacking attempt).');
 
-        if(!$this-&gt;loadUser($_SESSION[&apos;user_id&apos;]))
-            throw new Exception(&apos;Attempted to log in user that does not exist with ID: &apos; . $_SESSION[&apos;user_id&apos;]);
+        if(!$this->loadUser($_SESSION['user_id']))
+            throw new Exception('Attempted to log in user that does not exist with ID: ' . $_SESSION['user_id']);
 
-        if(!$_SESSION[&apos;OBSOLETE&apos;] &amp;&amp; mt_rand(1, 100) == 1)
+        if(!$_SESSION['OBSOLETE'] &amp;&amp; mt_rand(1, 100) == 1)
         {
-            $this-&gt;regenerateSession();
+            $this->regenerateSession();
         }
 
         return true;

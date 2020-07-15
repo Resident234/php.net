@@ -20,7 +20,7 @@ while($fet_tbl = MSSQL_Fetch_Assoc($all)) { // PUSH ALL TABLES AND COLUMNS INTO 
 
 $sltml = array_count_values($tables); // HOW MANY COLUMNS ARE IN THE TABLE
 
-foreach($sltml as $table_name =&gt; $id) {
+foreach($sltml as $table_name => $id) {
  
  echo "&lt;h2&gt;". $table_name ." (". $id .")&lt;/h2&gt;&lt;ol&gt;";
  

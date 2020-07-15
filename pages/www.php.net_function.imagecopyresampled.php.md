@@ -15,12 +15,12 @@ function image_resize($src, $dst, $width, $height, $crop=0){
   if(!list($w, $h) = getimagesize($src)) return "Unsupported picture type!";
 
   $type = strtolower(substr(strrchr($src,"."),1));
-  if($type == &apos;jpeg&apos;) $type = &apos;jpg&apos;;
+  if($type == 'jpeg') $type = 'jpg';
   switch($type){
-    case &apos;bmp&apos;: $img = imagecreatefromwbmp($src); break;
-    case &apos;gif&apos;: $img = imagecreatefromgif($src); break;
-    case &apos;jpg&apos;: $img = imagecreatefromjpeg($src); break;
-    case &apos;png&apos;: $img = imagecreatefrompng($src); break;
+    case 'bmp': $img = imagecreatefromwbmp($src); break;
+    case 'gif': $img = imagecreatefromgif($src); break;
+    case 'jpg': $img = imagecreatefromjpeg($src); break;
+    case 'png': $img = imagecreatefrompng($src); break;
     default : return "Unsupported picture type!";
   }
 
@@ -52,10 +52,10 @@ function image_resize($src, $dst, $width, $height, $crop=0){
   imagecopyresampled($new, $img, 0, 0, $x, 0, $width, $height, $w, $h);
 
   switch($type){
-    case &apos;bmp&apos;: imagewbmp($new, $dst); break;
-    case &apos;gif&apos;: imagegif($new, $dst); break;
-    case &apos;jpg&apos;: imagejpeg($new, $dst); break;
-    case &apos;png&apos;: imagepng($new, $dst); break;
+    case 'bmp': imagewbmp($new, $dst); break;
+    case 'gif': imagegif($new, $dst); break;
+    case 'jpg': imagejpeg($new, $dst); break;
+    case 'png': imagepng($new, $dst); break;
   }
   return true;
 }
@@ -75,9 +75,9 @@ and creates a new thumbnail:
 
 ```
 <?php
-  $pic_type = strtolower(strrchr($picture[&apos;name&apos;],"."));
+  $pic_type = strtolower(strrchr($picture['name'],"."));
   $pic_name = "original$pic_type";
-  move_uploaded_file($picture[&apos;tmp_name&apos;], $pic_name);
+  move_uploaded_file($picture['tmp_name'], $pic_name);
   if (true !== ($pic_error = @image_resize($pic_name, "100x100$pic_type", 100, 100, 1))) {
     echo $pic_error;
     unlink($pic_name);
@@ -121,9 +121,9 @@ class imaging
         if(is_file($img) &amp;&amp; ($ext == "JPG" OR $ext == "JPEG"))
         {
 
-            $this-&gt;format = $ext;
-            $this-&gt;img_input = ImageCreateFromJPEG($img);
-            $this-&gt;img_src = $img;
+            $this->format = $ext;
+            $this->img_input = ImageCreateFromJPEG($img);
+            $this->img_src = $img;
             
 
         }
@@ -132,9 +132,9 @@ class imaging
         elseif(is_file($img) &amp;&amp; $ext == "PNG")
         {
 
-            $this-&gt;format = $ext;
-            $this-&gt;img_input = ImageCreateFromPNG($img);
-            $this-&gt;img_src = $img;
+            $this->format = $ext;
+            $this->img_input = ImageCreateFromPNG($img);
+            $this->img_src = $img;
 
         }
 
@@ -142,15 +142,15 @@ class imaging
         elseif(is_file($img) &amp;&amp; $ext == "GIF")
         {
 
-            $this-&gt;format = $ext;
-            $this-&gt;img_input = ImageCreateFromGIF($img);
-            $this-&gt;img_src = $img;
+            $this->format = $ext;
+            $this->img_input = ImageCreateFromGIF($img);
+            $this->img_src = $img;
 
         }
 
         // Get dimensions
-        $this-&gt;x_input = imagesx($this-&gt;img_input);
-        $this-&gt;y_input = imagesy($this-&gt;img_input);
+        $this->x_input = imagesx($this->img_input);
+        $this->y_input = imagesy($this->img_input);
 
     }
 
@@ -159,15 +159,15 @@ class imaging
     {
 
         // Resize
-        if($this-&gt;x_input &gt; $size &amp;&amp; $this-&gt;y_input &gt; $size)
+        if($this->x_input &gt; $size &amp;&amp; $this->y_input &gt; $size)
         {
 
             // Wide
-            if($this-&gt;x_input &gt;= $this-&gt;y_input)
+            if($this->x_input &gt;= $this->y_input)
             {
 
-                $this-&gt;x_output = $size;
-                $this-&gt;y_output = ($this-&gt;x_output / $this-&gt;x_input) * $this-&gt;y_input;
+                $this->x_output = $size;
+                $this->y_output = ($this->x_output / $this->x_input) * $this->y_input;
 
             }
 
@@ -175,18 +175,18 @@ class imaging
             else
             {
 
-                $this-&gt;y_output = $size;
-                $this-&gt;x_output = ($this-&gt;y_output / $this-&gt;y_input) * $this-&gt;x_input;
+                $this->y_output = $size;
+                $this->x_output = ($this->y_output / $this->y_input) * $this->x_input;
 
             }
 
             // Ready
-            $this-&gt;resize = TRUE;
+            $this->resize = TRUE;
 
         }
 
-        // Don&apos;t resize
-        else { $this-&gt;resize = FALSE; }
+        // Don't resize
+        else { $this->resize = FALSE; }
 
     }
 
@@ -197,7 +197,7 @@ class imaging
         if(is_int($quality))
         {
 
-            $this-&gt;quality = $quality;
+            $this->quality = $quality;
 
         }
 
@@ -208,38 +208,38 @@ class imaging
     {
 
         // Resize
-        if($this-&gt;resize)
+        if($this->resize)
         {
 
-            $this-&gt;img_output = ImageCreateTrueColor($this-&gt;x_output, $this-&gt;y_output);
-            ImageCopyResampled($this-&gt;img_output, $this-&gt;img_input, 0, 0, 0, 0, $this-&gt;x_output, $this-&gt;y_output, $this-&gt;x_input, $this-&gt;y_input);
+            $this->img_output = ImageCreateTrueColor($this->x_output, $this->y_output);
+            ImageCopyResampled($this->img_output, $this->img_input, 0, 0, 0, 0, $this->x_output, $this->y_output, $this->x_input, $this->y_input);
 
         }
 
         // Save JPEG
-        if($this-&gt;format == "JPG" OR $this-&gt;format == "JPEG")
+        if($this->format == "JPG" OR $this->format == "JPEG")
         {
 
-            if($this-&gt;resize) { imageJPEG($this-&gt;img_output, $path, $this-&gt;quality); }
-            else { copy($this-&gt;img_src, $path); }
+            if($this->resize) { imageJPEG($this->img_output, $path, $this->quality); }
+            else { copy($this->img_src, $path); }
 
         }
 
         // Save PNG
-        elseif($this-&gt;format == "PNG")
+        elseif($this->format == "PNG")
         {
 
-            if($this-&gt;resize) { imagePNG($this-&gt;img_output, $path); }
-            else { copy($this-&gt;img_src, $path); }
+            if($this->resize) { imagePNG($this->img_output, $path); }
+            else { copy($this->img_src, $path); }
 
         }
 
         // Save GIF
-        elseif($this-&gt;format == "GIF")
+        elseif($this->format == "GIF")
         {
 
-            if($this-&gt;resize) { imageGIF($this-&gt;img_output, $path); }
-            else { copy($this-&gt;img_src, $path); }
+            if($this->resize) { imageGIF($this->img_output, $path); }
+            else { copy($this->img_src, $path); }
 
         }
 
@@ -249,7 +249,7 @@ class imaging
     public function get_width()
     {
 
-        return $this-&gt;x_input;
+        return $this->x_input;
 
     }
 
@@ -257,7 +257,7 @@ class imaging
     public function get_height()
     {
 
-        return $this-&gt;y_input;
+        return $this->y_input;
 
     }
 
@@ -265,8 +265,8 @@ class imaging
     public function clear_cache()
     {
 
-        @ImageDestroy($this-&gt;img_input);
-        @ImageDestroy($this-&gt;img_output);
+        @ImageDestroy($this->img_input);
+        @ImageDestroy($this->img_output);
 
     }
 
@@ -279,19 +279,19 @@ $src = "myimage.jpg";
 
 // Begin
 $img = new imaging;
-$img-&gt;set_img($src);
-$img-&gt;set_quality(80);
+$img->set_img($src);
+$img->set_quality(80);
 
 // Small thumbnail
-$img-&gt;set_size(200);
-$img-&gt;save_img("small_" . $src);
+$img->set_size(200);
+$img->save_img("small_" . $src);
 
 // Baby thumbnail
-$img-&gt;set_size(50);
-$img-&gt;save_img("baby_" . $src);
+$img->set_size(50);
+$img->save_img("baby_" . $src);
 
 // Finalize
-$img-&gt;clear_cache();
+$img->clear_cache();
 
 ?>
 ```

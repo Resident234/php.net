@@ -13,7 +13,7 @@ function intdiv_1($a, $b){
 ```
 
 
-However, this isn&apos;t:
+However, this isn't:
 
 
 
@@ -34,15 +34,15 @@ Consider an example where either of the parameters is negative:
 $param1 = -10;
 $param2 = 3;
 print_r([
-    &apos;modulus&apos; =&gt; intdiv_1($param1, $param2),
-    &apos;floor&apos; =&gt; intdiv_2($param1, $param2),
+    'modulus' => intdiv_1($param1, $param2),
+    'floor' => intdiv_2($param1, $param2),
 ]);
 
 /**
  * Array
  * (
- *     [modulus] =&gt; -3
- *     [floor] =&gt; -4
+ *     [modulus] => -3
+ *     [floor] => -4
  * )
  */
 ?>

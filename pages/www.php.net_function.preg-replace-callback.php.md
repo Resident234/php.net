@@ -9,7 +9,7 @@ The easiest way to pass more than one parameters to the callback function is wit
 $string = "Some numbers: one: 1; two: 2; three: 3 end";
 $ten = 10;
 $newstring = preg_replace_callback(
-    &apos;/(\\d+)/&apos;,
+    '/(\\d+)/',
     function($match) use ($ten) { return (($match[0] + $ten)); },
     $string
     );
@@ -29,12 +29,12 @@ class test_preg_callback{
 
   private function process($text){
     $reg = "/\{([0-9a-zA-Z\- ]+)\:([0-9a-zA-Z\- ]+):?\}/";
-    return preg_replace_callback($reg, array($this, &apos;replace&apos;), $text);
+    return preg_replace_callback($reg, array($this, 'replace'), $text);
   }
   
   private function replace($matches){
     if (method_exists($this, $matches[1])){
-      return @$this-&gt;$matches[1]($matches[2]);     
+      return @$this->$matches[1]($matches[2]);     
     }
   }  
 }
@@ -56,7 +56,7 @@ class test_preg_callback{
   
   private function replace($matches){
     if (method_exists($this, $matches[1])){
-      return @$this-&gt;$matches[1]($matches[2]);     
+      return @$this->$matches[1]($matches[2]);     
     }
   }  
 }

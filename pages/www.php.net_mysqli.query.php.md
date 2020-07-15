@@ -12,14 +12,14 @@ $sql = "SELECT a.uid, a.role AS roleid, b.role,
             ON a.role = b.id
             ";
 
-    if ($result = $mysqli-&gt;query($sql)) {
-        while($obj = $result-&gt;fetch_object()){
-            $line.=$obj-&gt;uid;
-            $line.=$obj-&gt;role;
-            $line.=$obj-&gt;roleid;
+    if ($result = $mysqli->query($sql)) {
+        while($obj = $result->fetch_object()){
+            $line.=$obj->uid;
+            $line.=$obj->role;
+            $line.=$obj->roleid;
         }
     }
-    $result-&gt;close();
+    $result->close();
     unset($obj);
     unset($sql);
     unset($query);
@@ -35,7 +35,7 @@ When calling multiple stored procedures, you can run into the following error: "
 ```
 <?php
 // New Connection
-$db = new mysqli(&apos;localhost&apos;,&apos;user&apos;,&apos;pass&apos;,&apos;database&apos;);
+$db = new mysqli('localhost','user','pass','database');
 
 // Check for errors
 if(mysqli_connect_errno()){
@@ -43,32 +43,32 @@ if(mysqli_connect_errno()){
 }
 
 // 1st Query
-$result = $db-&gt;query("call getUsers()");
+$result = $db->query("call getUsers()");
 if($result){
      // Cycle through results
-    while ($row = $result-&gt;fetch_object()){
+    while ($row = $result->fetch_object()){
         $user_arr[] = $row;
     }
     // Free result set
-    $result-&gt;close();
-    $db-&gt;next_result();
+    $result->close();
+    $db->next_result();
 }
 
 // 2nd Query
-$result = $db-&gt;query("call getGroups()");
+$result = $db->query("call getGroups()");
 if($result){
      // Cycle through results
-    while ($row = $result-&gt;fetch_object()){
+    while ($row = $result->fetch_object()){
         $group_arr[] = $row;
     }
      // Free result set
-     $result-&gt;close();
-     $db-&gt;next_result();
+     $result->close();
+     $db->next_result();
 }
-else echo($db-&gt;error);
+else echo($db->error);
 
 // Close connection
-$db-&gt;close();
+$db->close();
 ?>
 ```
   
@@ -83,7 +83,7 @@ The cryptic "Couldn&apos;t fetch mysqli" error message can mean any number of th
  or 
 
 ```
-<?php $db-&gt;close(); ?>
+<?php $db->close(); ?>
 ```
  and remove it.
 2. Your MySQLi object has been serialized and unserialized for some reason. Define a wakeup function to re-create your database connection. http://php.net/__wakeup 
@@ -91,7 +91,7 @@ The cryptic "Couldn&apos;t fetch mysqli" error message can mean any number of th
 4. You mixed OOP and functional calls to the database object. (So, you have 
 
 ```
-<?php $db-&gt;query() ?>
+<?php $db->query() ?>
 ```
  in the same program as 
 
@@ -105,7 +105,7 @@ The cryptic "Couldn&apos;t fetch mysqli" error message can mean any number of th
 Here is an example of a clean query into a html table<br><br>&lt;table&gt;<br>   &lt;tr&gt;<br>     &lt;th&gt;First Name&lt;/th&gt;<br>     &lt;th&gt;Last Name&lt;/th&gt;<br>     &lt;th&gt;City&lt;/th&gt;<br>   &lt;/tr&gt;<br>   
 
 ```
-<?php while ($row = $myquery-&gt;fetch_assoc()) { ?>
+<?php while ($row = $myquery->fetch_assoc()) { ?>
 ```
 
    &lt;tr&gt;

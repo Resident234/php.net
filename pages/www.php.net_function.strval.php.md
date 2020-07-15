@@ -13,23 +13,23 @@ If you want to convert an integer into an English word string, eg. 29 -&gt; twen
 $nwords = array( "zero", "one", "two", "three", "four", "five", "six", "seven",
                    "eight", "nine", "ten", "eleven", "twelve", "thirteen",
                    "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
-                   "nineteen", "twenty", 30 =&gt; "thirty", 40 =&gt; "forty",
-                   50 =&gt; "fifty", 60 =&gt; "sixty", 70 =&gt; "seventy", 80 =&gt; "eighty",
-                   90 =&gt; "ninety" );
+                   "nineteen", "twenty", 30 => "thirty", 40 => "forty",
+                   50 => "fifty", 60 => "sixty", 70 => "seventy", 80 => "eighty",
+                   90 => "ninety" );
 
 function int_to_words($x) {
    global $nwords;
 
    if(!is_numeric($x))
-      $w = &apos;#&apos;;
+      $w = '#';
    else if(fmod($x, 1) != 0)
-      $w = &apos;#&apos;;
+      $w = '#';
    else {
       if($x &lt; 0) {
-         $w = &apos;minus &apos;;
+         $w = 'minus ';
          $x = -$x;
       } else
-         $w = &apos;&apos;;
+         $w = '';
       // ... now $x is a non-negative integer.
 
       if($x &lt; 21)   // 0 to 20
@@ -38,28 +38,28 @@ function int_to_words($x) {
          $w .= $nwords[10 * floor($x/10)];
          $r = fmod($x, 10);
          if($r &gt; 0)
-            $w .= &apos;-&apos;. $nwords[$r];
+            $w .= '-'. $nwords[$r];
       } else if($x &lt; 1000) {   // 100 to 999
-         $w .= $nwords[floor($x/100)] .&apos; hundred&apos;;
+         $w .= $nwords[floor($x/100)] .' hundred';
          $r = fmod($x, 100);
          if($r &gt; 0)
-            $w .= &apos; and &apos;. int_to_words($r);
+            $w .= ' and '. int_to_words($r);
       } else if($x &lt; 1000000) {   // 1000 to 999999
-         $w .= int_to_words(floor($x/1000)) .&apos; thousand&apos;;
+         $w .= int_to_words(floor($x/1000)) .' thousand';
          $r = fmod($x, 1000);
          if($r &gt; 0) {
-            $w .= &apos; &apos;;
+            $w .= ' ';
             if($r &lt; 100)
-               $w .= &apos;and &apos;;
+               $w .= 'and ';
             $w .= int_to_words($r);
          }
       } else {    //  millions
-         $w .= int_to_words(floor($x/1000000)) .&apos; million&apos;;
+         $w .= int_to_words(floor($x/1000000)) .' million';
          $r = fmod($x, 1000000);
          if($r &gt; 0) {
-            $w .= &apos; &apos;;
+            $w .= ' ';
             if($r &lt; 100)
-               $word .= &apos;and &apos;;
+               $word .= 'and ';
             $w .= int_to_words($r);
          }
       }
@@ -76,7 +76,7 @@ Usage:
 
 ```
 <?php
-echo &apos;There are currently &apos;. int_to_words($count) . &apos; members logged on.&apos;;
+echo 'There are currently '. int_to_words($count) . ' members logged on.';
 ?>
 ```
   

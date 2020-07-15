@@ -6,7 +6,7 @@ This is a very handy function for dealing with browser caching. For example, say
 
 ```
 <?php
-echo &apos;&lt;link rel="stylesheet" type="text/css" href="style.css?&apos; . filemtime(&apos;style.css&apos;) . &apos;" /&gt;&apos;;
+echo '&lt;link rel="stylesheet" type="text/css" href="style.css?' . filemtime('style.css') . '" /&gt;';
 ?>
 ```
 <br><br>Sample output:<br><br>&lt;link rel="stylesheet" type="text/css" href="style.css?1203291283" /&gt;<br><br>By appending a GET value (the UNIX timestamp) to the stylesheet URL, you make the browser think the stylesheet is dynamic, so it&apos;ll reload the stylesheet every time the modification date changes.  
@@ -21,8 +21,8 @@ Cheaper and dirtier way to code a cache:<br><br>
 
 ```
 <?php
-$cache_file = &apos;URI to cache file&apos;;
-$cache_life = &apos;120&apos;; //caching time, in seconds
+$cache_file = 'URI to cache file';
+$cache_life = '120'; //caching time, in seconds
 
 $filemtime = @filemtime($cache_file);  // returns FALSE if file does not exist
 if (!$filemtime or (time() - $filemtime &gt;= $cache_life)){
@@ -47,8 +47,8 @@ function GetCorrectMTime($filePath)
 
     $time = filemtime($filePath);
 
-    $isDST = (date(&apos;I&apos;, $time) == 1);
-    $systemDST = (date(&apos;I&apos;) == 1);
+    $isDST = (date('I', $time) == 1);
+    $systemDST = (date('I') == 1);
 
     $adjustment = 0;
 

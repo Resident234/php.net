@@ -91,7 +91,7 @@ function rgba_colorize($img, $color)
         for ($y = 0; $y &lt; $img_y; ++$y)
         {
             $rgba = imagecolorsforindex($img, imagecolorat($img, $x, $y));
-            $color_alpha = imagecolorallocatealpha($img, $color[0], $color[1], $color[2], $rgba[&apos;alpha&apos;]);
+            $color_alpha = imagecolorallocatealpha($img, $color[0], $color[1], $color[2], $rgba['alpha']);
             imagesetpixel($img, $x, $y, $color_alpha);
             imagecolordeallocate($img, $color_alpha);
         }

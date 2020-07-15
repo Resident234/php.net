@@ -25,13 +25,13 @@ function unzip($src_file, $dest_dir=false, $create_zip_name_dir=true, $overwrite
       $splitter = ($create_zip_name_dir === true) ? "." : "/";
       if ($dest_dir === false) $dest_dir = substr($src_file, 0, strrpos($src_file, $splitter))."/";
       
-      // Create the directories to the destination dir if they don&apos;t already exist
+      // Create the directories to the destination dir if they don't already exist
       create_dirs($dest_dir);
 
       // For every file in the zip-packet
       while ($zip_entry = zip_read($zip)) 
       {
-        // Now we&apos;re going to create the directories in the destination directories
+        // Now we're going to create the directories in the destination directories
         
         // If the file is not in the root dir
         $pos_last_slash = strrpos(zip_entry_name($zip_entry), "/");
@@ -77,7 +77,7 @@ function unzip($src_file, $dest_dir=false, $create_zip_name_dir=true, $overwrite
 }
 
 /**
- * This function creates recursive directories if it doesn&apos;t already exist
+ * This function creates recursive directories if it doesn't already exist
  *
  * @param String  The path that should be created
  *  
@@ -106,7 +106,7 @@ function create_dirs($path)
 // Extract C:/zipfiletest/zip-file.zip to C:/zipfiletest/zip-file/ and overwrites existing files
 unzip("C:/zipfiletest/zip-file.zip", false, true, true);
 
-// Extract C:/zipfiletest/zip-file.zip to C:/another_map/zipfiletest/ and doesn&apos;t overwrite existing files. NOTE: It doesn&apos;t create a map with the zip-file-name!
+// Extract C:/zipfiletest/zip-file.zip to C:/another_map/zipfiletest/ and doesn't overwrite existing files. NOTE: It doesn't create a map with the zip-file-name!
 unzip("C:/zipfiletest/zip-file.zip", "C:/another_map/zipfiletest/", true, false);
 
 ?>

@@ -6,7 +6,7 @@ Since SQLite3Result::numRows is unavailable, use:<br><br>
 
 ```
 <?php
-if ($res-&gt;numColumns() &amp;&amp; $res-&gt;columnType(0) != SQLITE3_NULL) {
+if ($res->numColumns() &amp;&amp; $res->columnType(0) != SQLITE3_NULL) {
     // have rows
 } else {
     // zero rows

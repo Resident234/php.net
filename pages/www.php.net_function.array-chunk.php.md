@@ -56,12 +56,12 @@ Here my array_chunk_values( ) with values distributed by lines (columns are bala
         return $tabular ;
     }
 
-    header(&apos;Content-Type: text/plain&apos;) ;
+    header('Content-Type: text/plain') ;
 
     $data = array_chunk_vertical(range(1, 31), 7) ;
     foreach ( $data as $row ) {
         foreach ( $row as $value ) {
-            printf(&apos;[%2s]&apos;, $value) ;
+            printf('[%2s]', $value) ;
         }
         echo "\r\n" ;
     }

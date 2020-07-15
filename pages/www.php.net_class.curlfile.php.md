@@ -11,8 +11,8 @@ There are "@" issue on multipart POST requests.<br><br>Solution for PHP 5.5 or l
  * For safe multipart POST request for PHP5.3 ~ PHP 5.4.
  * 
  * @param resource $ch cURL resource
- * @param array $assoc "name =&gt; value"
- * @param array $files "name =&gt; path"
+ * @param array $assoc "name => value"
+ * @param array $files "name => path"
  * @return bool
  */
 function curl_custom_postfields($ch, array $assoc = array(), array $files = array()) {
@@ -21,7 +21,7 @@ function curl_custom_postfields($ch, array $assoc = array(), array $files = arra
     static $disallow = array("\0", "\"", "\r", "\n");
     
     // build normal parameters
-    foreach ($assoc as $k =&gt; $v) {
+    foreach ($assoc as $k => $v) {
         $k = str_replace($disallow, "_", $k);
         $body[] = implode("\r\n", array(
             "Content-Disposition: form-data; name=\"{$k}\"",
@@ -31,7 +31,7 @@ function curl_custom_postfields($ch, array $assoc = array(), array $files = arra
     }
     
     // build file parameters
-    foreach ($files as $k =&gt; $v) {
+    foreach ($files as $k => $v) {
         switch (true) {
             case false === $v = realpath(filter_var($v)):
             case !is_file($v):
@@ -66,9 +66,9 @@ function curl_custom_postfields($ch, array $assoc = array(), array $files = arra
     
     // set options
     return @curl_setopt_array($ch, array(
-        CURLOPT_POST       =&gt; true,
-        CURLOPT_POSTFIELDS =&gt; implode("\r\n", $body),
-        CURLOPT_HTTPHEADER =&gt; array(
+        CURLOPT_POST       => true,
+        CURLOPT_POSTFIELDS => implode("\r\n", $body),
+        CURLOPT_HTTPHEADER => array(
             "Expect: 100-continue",
             "Content-Type: multipart/form-data; boundary={$boundary}", // change Content-Type
         ),
@@ -90,18 +90,18 @@ $target="http://youraddress.tld/example/upload.php";
 # http://php.net/manual/en/curlfile.construct.php
 
 // Create a CURLFile object / procedural method 
-$cfile = curl_file_create(&apos;resource/test.png&apos;,&apos;image/png&apos;,&apos;testpic&apos;); // try adding 
+$cfile = curl_file_create('resource/test.png','image/png','testpic'); // try adding 
 
 // Create a CURLFile object / oop method 
-#$cfile = new CURLFile(&apos;resource/test.png&apos;,&apos;image/png&apos;,&apos;testpic&apos;); // uncomment and use if the upper procedural method is not working.
+#$cfile = new CURLFile('resource/test.png','image/png','testpic'); // uncomment and use if the upper procedural method is not working.
 
 // Assign POST data
-$imgdata = array(&apos;myimage&apos; =&gt; $cfile);
+$imgdata = array('myimage' => $cfile);
 
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_URL, $target);
-curl_setopt($curl, CURLOPT_USERAGENT,&apos;Opera/9.80 (Windows NT 6.2; Win64; x64) Presto/2.12.388 Version/12.15&apos;);
-curl_setopt($curl, CURLOPT_HTTPHEADER,array(&apos;User-Agent: Opera/9.80 (Windows NT 6.2; Win64; x64) Presto/2.12.388 Version/12.15&apos;,&apos;Referer: http://someaddress.tld&apos;,&apos;Content-Type: multipart/form-data&apos;));
+curl_setopt($curl, CURLOPT_USERAGENT,'Opera/9.80 (Windows NT 6.2; Win64; x64) Presto/2.12.388 Version/12.15');
+curl_setopt($curl, CURLOPT_HTTPHEADER,array('User-Agent: Opera/9.80 (Windows NT 6.2; Win64; x64) Presto/2.12.388 Version/12.15','Referer: http://someaddress.tld','Content-Type: multipart/form-data'));
 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); // stop verifying certificate
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); 
 curl_setopt($curl, CURLOPT_POST, true); // enable posting

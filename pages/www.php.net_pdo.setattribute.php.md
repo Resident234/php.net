@@ -10,7 +10,7 @@ Because no examples are provided, and to alleviate any confusion as a result, th
 $dbConnection = new PDO($dsn, $user, $pass);
 
 // Set the case in which to return column_names.
-$dbConnection-&gt;setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
+$dbConnection->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
 ?>
 ```
 <br><br>Hope this helps some of you who learn by example (as is the case with me).<br><br>.Colin  
@@ -22,9 +22,9 @@ This is an update to a note I wrote earlier concerning how to set multiple attri
 ```
 <?php
 $options = [
-    PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_CASE =&gt; PDO::CASE_NATURAL,
-    PDO::ATTR_ORACLE_NULLS =&gt; PDO::NULL_EMPTY_STRING
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_CASE => PDO::CASE_NATURAL,
+    PDO::ATTR_ORACLE_NULLS => PDO::NULL_EMPTY_STRING
 ];
 
 // Now you create your connection string
@@ -32,9 +32,9 @@ try {
     // Then pass the options as the last parameter in the connection string
     $connection = new PDO("mysql:host=$host; dbname=$dbname", $user, $password, $options);
 
-    // That&apos;s how you can set multiple attributes
+    // That's how you can set multiple attributes
 } catch(PDOException $e) {
-    die("Database connection failed: " . $e-&gt;getMessage());
+    die("Database connection failed: " . $e->getMessage());
 }
 ?>
 ```
@@ -55,7 +55,7 @@ There is also a way to specifie the default fetch mode :<br>
 ```
 <?php
 $connection = new PDO($connection_string);
-$connection-&gt;setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+$connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 ?>
 ```
   

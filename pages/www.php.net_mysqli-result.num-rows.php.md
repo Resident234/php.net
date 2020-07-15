@@ -8,11 +8,11 @@ If you have problems making work this num_rows, you have to declare -&gt;store_r
 <?php
 $mysqli = new mysqli("localhost","root", "", "tables");
 
-$query = $mysqli-&gt;prepare("SELECT * FROM table1");
-$query-&gt;execute();
-$query-&gt;store_result();
+$query = $mysqli->prepare("SELECT * FROM table1");
+$query->execute();
+$query->store_result();
 
-$rows = $query-&gt;num_rows;
+$rows = $query->num_rows;
 
 echo $rows;
 

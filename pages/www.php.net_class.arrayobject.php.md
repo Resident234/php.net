@@ -8,11 +8,11 @@ As you know ArrayObject is not an array so you can&apos;t use the built in array
 <?php
     public function __call($func, $argv)
     {
-        if (!is_callable($func) || substr($func, 0, 6) !== &apos;array_&apos;)
+        if (!is_callable($func) || substr($func, 0, 6) !== 'array_')
         {
-            throw new BadMethodCallException(__CLASS__.&apos;-&gt;&apos;.$func);
+            throw new BadMethodCallException(__CLASS__.'->'.$func);
         }
-        return call_user_func_array($func, array_merge(array($this-&gt;getArrayCopy()), $argv));
+        return call_user_func_array($func, array_merge(array($this->getArrayCopy()), $argv));
     }
 ?>
 ```
@@ -23,7 +23,7 @@ Now you can do this with any array_* function:
 
 ```
 <?php
-$yourObject-&gt;array_keys();
+$yourObject->array_keys();
 ?>
 ```
 <br>- Don&apos;t forget to ommit the first parameter - it&apos;s automatic!<br><br>Note: You might want to write your own functions if you&apos;re working with large sets of data.  
@@ -40,21 +40,21 @@ I found the description of STD_PROP_LIST a bit vague, so I put together a simple
 <?php                                                     
                                                           
 $a = new ArrayObject(array(), ArrayObject::STD_PROP_LIST);
-    $a[&apos;arr&apos;] = &apos;array data&apos;;                             
-    $a-&gt;prop = &apos;prop data&apos;;                               
+    $a['arr'] = 'array data';                             
+    $a->prop = 'prop data';                               
 $b = new ArrayObject();                                   
-    $b[&apos;arr&apos;] = &apos;array data&apos;;                             
-    $b-&gt;prop = &apos;prop data&apos;;                               
+    $b['arr'] = 'array data';                             
+    $b->prop = 'prop data';                               
                                                           
 // ArrayObject Object                                     
 // (                                                      
-//      [prop] =&gt; prop data                               
+//      [prop] => prop data                               
 // )                                                      
 print_r($a);                                              
                                                           
 // ArrayObject Object                                     
 // (                                                      
-//      [arr] =&gt; array data                               
+//      [arr] => array data                               
 // )                                                      
 print_r($b);                                              
                                                           
@@ -68,24 +68,24 @@ I don&apos;t believe the same performance is true since PHP 5.3. Using the same 
 
 ```
 <?php
-require_once &apos;Benchmark/Timer.php&apos;;
+require_once 'Benchmark/Timer.php';
 
-define(&apos;KEYS&apos;, 10000);
+define('KEYS', 10000);
 
 function fill(&amp;$arr) {
     for ($i = 1; $i &lt;= KEYS; $i++) {
-        $arr[&apos;key-&apos; . $i] = $i;
+        $arr['key-' . $i] = $i;
     }
 }
 
 function read_key(&amp;$arr) {
     for ($i = 1; $i &lt;= KEYS; $i++) {
-        $v = $arr[&apos;key-&apos; . $i];
+        $v = $arr['key-' . $i];
     }
 }
 
 function fe(&amp;$arr) {
-    foreach ($arr as $key =&gt; $value) {
+    foreach ($arr as $key => $value) {
         $v = $value;
     }
 }

@@ -7,11 +7,11 @@ Transformation is possible WITHOUT using loops:<br><br>
 ```
 <?php 
     $bytes = disk_free_space("."); 
-    $si_prefix = array( &apos;B&apos;, &apos;KB&apos;, &apos;MB&apos;, &apos;GB&apos;, &apos;TB&apos;, &apos;EB&apos;, &apos;ZB&apos;, &apos;YB&apos; );
+    $si_prefix = array( 'B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB' );
     $base = 1024;
     $class = min((int)log($bytes , $base) , count($si_prefix) - 1);
-    echo $bytes . &apos;&lt;br /&gt;&apos;;
-    echo sprintf(&apos;%1.2f&apos; , $bytes / pow($base,$class)) . &apos; &apos; . $si_prefix[$class] . &apos;&lt;br /&gt;&apos;;
+    echo $bytes . '&lt;br /&gt;';
+    echo sprintf('%1.2f' , $bytes / pow($base,$class)) . ' ' . $si_prefix[$class] . '&lt;br /&gt;';
 ?>
 ```
   
