@@ -9,7 +9,7 @@ Included files will default to the global namespace.<br>
 //test.php
 namespace test {
   include 'test1.inc';
-  echo '-',__NAMESPACE__,'-&lt;br /&gt;';
+  echo '-',__NAMESPACE__,'-<br />';
 }
 ?>
 ```
@@ -20,7 +20,7 @@ namespace test {
 ```
 <?php
 //test1.inc
-  echo '-',__NAMESPACE__,'-&lt;br /&gt;';
+  echo '-',__NAMESPACE__,'-<br />';
 ?>
 ```
 <br><br>Results of test.php:<br><br>--<br>-test-  

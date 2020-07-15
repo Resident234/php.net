@@ -35,8 +35,8 @@ You can remove these from a decrypted string in PHP by counting the number of ti
 <?php
     $block = mcrypt_get_block_size('tripledes', 'cbc');
     $packing = ord($text{strlen($text) - 1});
-    if($packing and ($packing &lt; $block)){
-      for($P = strlen($text) - 1; $P &gt;= strlen($text) - $packing; $P--){
+    if($packing and ($packing < $block)){
+      for($P = strlen($text) - 1; $P >= strlen($text) - $packing; $P--){
     if(ord($text{$P}) != $packing){
       $packing = 0;
     }

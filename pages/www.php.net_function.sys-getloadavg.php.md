@@ -32,7 +32,7 @@ Function to get current CPU load as percentage value under Windows and Linux.<br
                     // Found!
                     if
                     (
-                        (count($statLineData) &gt;= 5) &amp;&amp;
+                        (count($statLineData) >= 5) &amp;&amp;
                         ($statLineData[0] == "cpu")
                     )
                     {

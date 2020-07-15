@@ -8,7 +8,7 @@ After having problems with fwrite() returning 0 in cases where one would fully e
 <?php
 // BROKEN function - infinite loop when fwrite() returns 0s
 function fwrite_stream($fp, $string) {
-    for ($written = 0; $written &lt; strlen($string); $written += $fwrite) {
+    for ($written = 0; $written < strlen($string); $written += $fwrite) {
         $fwrite = fwrite($fp, substr($string, $written));
         if ($fwrite === false) {
             return $written;

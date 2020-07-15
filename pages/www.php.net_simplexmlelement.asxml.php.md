@@ -8,13 +8,13 @@ To prevent asXML from encoding vowels unwantedly, simply use an approriate XML h
 <?php
 
 $xmlstr =
-'&lt;?xml version="1.0" encoding="UTF-8"?>
+'<?xml version="1.0" encoding="UTF-8"?>
 ```
 
-&lt;keys&gt;
-  &lt;key lang="en"&gt;&amp;lt;Insert&amp;gt;&lt;/key&gt;
-  &lt;key lang="de"&gt;&amp;lt;Einf&#xFC;gen&amp;gt;&lt;/key&gt;
-&lt;/keys&gt;';
+<keys>
+  <key lang="en">&amp;lt;Insert&amp;gt;</key>
+  <key lang="de">&amp;lt;Einf&#xFC;gen&amp;gt;</key>
+</keys>';
 
 $sxe = new SimpleXMLElement($xmlstr);
 

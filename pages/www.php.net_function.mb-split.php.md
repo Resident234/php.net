@@ -63,7 +63,7 @@ In addition to Sezer Yalcin&apos;s tip.<br><br>This function splits a multibyte 
 function mb_str_split( $string ) {
     # Split at all position not after the start: ^
     # and not before the end: $
-    return preg_split('/(?&lt;!^)(?!$)/u', $string );
+    return preg_split('/(?<!^)(?!$)/u', $string );
 }
 
 $string   = '&#x706B;&#x8F66;&#x7968;';

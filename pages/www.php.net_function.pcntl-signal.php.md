@@ -27,11 +27,11 @@ Remember that signal handlers are called immediately, so every time when your pr
   while (TRUE) {
     $stamp = time();
     do {
-      if ($stamp &gt;= $next) { break; }
+      if ($stamp >= $next) { break; }
       $diff = $next - $stamp;
       sleep($diff);
       $stamp = time();
-    } while ($stamp &lt; $next);
+    } while ($stamp < $next);
     
     everyMinute();
     

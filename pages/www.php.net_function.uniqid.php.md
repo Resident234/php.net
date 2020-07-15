@@ -21,7 +21,7 @@ class UUID {
     $nstr = '';
 
     // Convert Namespace UUID to bits
-    for($i = 0; $i &lt; strlen($nhex); $i+=2) {
+    for($i = 0; $i < strlen($nhex); $i+=2) {
       $nstr .= chr(hexdec($nhex[$i].$nhex[$i+1]));
     }
 
@@ -83,7 +83,7 @@ class UUID {
     $nstr = '';
 
     // Convert Namespace UUID to bits
-    for($i = 0; $i &lt; strlen($nhex); $i+=2) {
+    for($i = 0; $i < strlen($nhex); $i+=2) {
       $nstr .= chr(hexdec($nhex[$i].$nhex[$i+1]));
     }
 
@@ -137,7 +137,7 @@ Seriously, avoid using this function. Here&apos;s an example of why:<br><br>
 
 ```
 <?php
-for($i=0;$i&lt;20;$i++) {
+for($i=0;$i<20;$i++) {
     echo uniqid(), PHP_EOL;
 }
 ?>
@@ -193,7 +193,7 @@ Test:
 
 ```
 <?php
-for($i=0;$i&lt;20;$i++) {
+for($i=0;$i<20;$i++) {
     echo uniqid(), "\t", uniqidReal(), PHP_EOL;
 }
 ?>
@@ -284,13 +284,13 @@ And here's a demonstration:
 
 ```
 <?php
-for ($i = 1; $i &lt;= 3; ++$i) {
-  echo 'microtime = ' . microtime(true) . '&lt;br/&gt;';
-  echo "V1 UUID: " . UUID::v1() . '&lt;br/&gt;';
-  echo "V3 UUID of URL='abc': " . UUID::v3('abc') . '&lt;br/&gt;';
-  echo "V4 UUID: " . UUID::v4() . '&lt;br/&gt;';
-  echo "V5 UUID of URL=null: " . UUID::v5(null) . '&lt;br/&gt;';
-  echo '&lt;hr/&gt;';
+for ($i = 1; $i <= 3; ++$i) {
+  echo 'microtime = ' . microtime(true) . '<br/>';
+  echo "V1 UUID: " . UUID::v1() . '<br/>';
+  echo "V3 UUID of URL='abc': " . UUID::v3('abc') . '<br/>';
+  echo "V4 UUID: " . UUID::v4() . '<br/>';
+  echo "V5 UUID of URL=null: " . UUID::v5(null) . '<br/>';
+  echo '<hr/>';
 }
 ?>
 ```

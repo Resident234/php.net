@@ -69,13 +69,13 @@ Some examples:
 
 /* @var $i DirectoryIterator */
 
-foreach (new AdvancedDirectoryIterator('.') as $i) echo $i->getPathname() . '&lt;br/&gt;';
+foreach (new AdvancedDirectoryIterator('.') as $i) echo $i->getPathname() . '<br/>';
 // will output all files and directories in CWD
 
-foreach (new AdvancedDirectoryIterator('-R *.php') as $i) echo $i->getPathname() . '&lt;br/&gt;';
+foreach (new AdvancedDirectoryIterator('-R *.php') as $i) echo $i->getPathname() . '<br/>';
 // will output all php files in CWD and all subdirectories
 
-foreach (new AdvancedDirectoryIterator('-R js/jquery-*.js') as $i) echo $i->getPathname() . '&lt;br/&gt;';
+foreach (new AdvancedDirectoryIterator('-R js/jquery-*.js') as $i) echo $i->getPathname() . '<br/>';
 // will output all jQuery versions in directory js, or throw an exception if directory js doesn't exist
 
 ?>

@@ -22,7 +22,7 @@ if (!function_exists('random_int')) {
             $max = (int)$max;
         }
         
-        if ($min &gt; $max) {
+        if ($min > $max) {
             trigger_error('$max can\'t be lesser than $min', E_USER_WARNING);
             return null;
         }
@@ -30,14 +30,14 @@ if (!function_exists('random_int')) {
         $range = $counter = $max - $min;
         $bits = 1;
         
-        while ($counter &gt;&gt;= 1) {
+        while ($counter >>= 1) {
             ++$bits;
         }
         
         $bytes = (int)max(ceil($bits/8), 1);
         $bitmask = pow(2, $bits) - 1;
  
-        if ($bitmask &gt;= PHP_INT_MAX) {
+        if ($bitmask >= PHP_INT_MAX) {
             $bitmask = PHP_INT_MAX;
         }
  
@@ -47,7 +47,7 @@ if (!function_exists('random_int')) {
                     mcrypt_create_iv($bytes, MCRYPT_DEV_URANDOM)
                 )
             ) &amp; $bitmask;
-        } while ($result &gt; $range);
+        } while ($result > $range);
  
         return $result + $min;
     }
@@ -67,7 +67,7 @@ $test = 1000000;
 
 $array = array_fill(0, $max, 0);
 
-for ($i = 0; $i &lt; $test; ++$i) {
+for ($i = 0; $i < $test; ++$i) {
     ++$array[random_int(0, $max-1)];
 }
 

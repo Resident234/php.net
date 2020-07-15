@@ -34,7 +34,7 @@ try {
     }
 
     // You should also check filesize here. 
-    if ($_FILES['upfile']['size'] &gt; 1000000) {
+    if ($_FILES['upfile']['size'] > 1000000) {
         throw new RuntimeException('Exceeded filesize limit.');
     }
 

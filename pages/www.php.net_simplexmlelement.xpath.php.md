@@ -6,13 +6,13 @@ To run an xpath query on an XML document that has a namespace, the namespace mus
 
 ```
 <?php
-$strXml= &lt;&lt;&lt;XML
-&lt;?xml version="1.0" encoding="UTF-8"?>
+$strXml= <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
 ```
 
-&lt;mydoc xmlns="http://www.url.com/myns"&gt;
-    &lt;message&gt;Test message&lt;/message&gt;
-&lt;/mydoc&gt;
+<mydoc xmlns="http://www.url.com/myns">
+    <message>Test message</message>
+</mydoc>
 XML;
 
 $xmlDoc=new \SimpleXMLElement($strXml);
@@ -46,13 +46,13 @@ xpath() can also be used to select elements by their attributes. For a good XPat
 
 ```
 <?php
-$string = &lt;&lt;&lt;XML
-&lt;sizes&gt;
-    &lt;size label="Square" width="75" height="75" /&gt;
-    &lt;size label="Thumbnail" width="100" height="62" /&gt;
-    &lt;size label="Small" width="112" height="69" /&gt;
-    &lt;size label="Large" width="112" height="69" /&gt;
-&lt;/sizes&gt;
+$string = <<<XML
+<sizes>
+    <size label="Square" width="75" height="75" />
+    <size label="Thumbnail" width="100" height="62" />
+    <size label="Small" width="112" height="69" />
+    <size label="Large" width="112" height="69" />
+</sizes>
 XML;
 
 $xml = simplexml_load_string($string);
@@ -75,7 +75,7 @@ $xmlStr = file_get_contents('data/books.xml');
 $xml = new SimpleXMLElement($xmlStr);
 // seach records by tag value:
 // find all book records with price higher than 40$
-$res = $xml->xpath("book/price[.&gt;'40']/parent::*");
+$res = $xml->xpath("book/price[.>'40']/parent::*");
 print_r($res);
 
 ?>

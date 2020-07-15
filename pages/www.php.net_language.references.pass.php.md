@@ -10,7 +10,7 @@ By removing the ability to include the reference sign on function calls where pa
 
 ```
 <?php 
-// PHP &gt;= 5.6
+// PHP >= 5.6
 
 // Here we use the 'use' operator to create a variable within the scope of the function. Although it may seem that the newly created variable has something to do with '$x' that is outside the function, we are actually creating a '$x' variable within the function that has nothing to do with the '$x' variable outside the function. We are talking about the same names but different content locations in memory.
 $x = 10;

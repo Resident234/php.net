@@ -174,7 +174,7 @@ $array = [
 ];
 
 foreach ($array as list($a, $b, list($c, $d))) {
-    echo "A: $a; B: $b; C: $c; D: $d;&lt;br&gt;";
+    echo "A: $a; B: $b; C: $c; D: $d;<br>";
 };
 ?>
 ```
@@ -196,7 +196,7 @@ $array = [
 ];
 
 foreach ($array as list($a, $b, list($c, list($d, $e)))) {
-    echo "A: $a; B: $b; C: $c; D: $d; E: $e;&lt;br&gt;";
+    echo "A: $a; B: $b; C: $c; D: $d; E: $e;<br>";
 };
 Will output:
 A: 1; B: 2; C: 3; D: 4; E: 5;

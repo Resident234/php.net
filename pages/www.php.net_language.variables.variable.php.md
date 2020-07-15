@@ -204,7 +204,7 @@ Then, we can easily pull everything back out again using a basic array function:
 //...
    foreach($array as $key=>$object){
 
-      echo $key." -- ".$object->print_fcn()." &lt;br/&gt;\n";
+      echo $key." -- ".$object->print_fcn()." <br/>\n";
 
    } // end foreach   
 
@@ -241,7 +241,7 @@ Adding an element directly to an array using variables:<br><br>
 <?php
 $tab = array("one", "two", "three") ;
 $a = "tab" ;
-$a[] ="four" ; // &lt;==== fatal error
+$a[] ="four" ; // <==== fatal error
 print_r($tab) ;
 ?>
 ```
@@ -258,7 +258,7 @@ This is not a bug, you need to use the {} syntax to remove the ambiguity.
 <?php
 $tab = array("one", "two", "three") ;
 $a = "tab" ;
-${$a}[] =  "four" ; // &lt;==== this is the correct way to do it
+${$a}[] =  "four" ; // <==== this is the correct way to do it
 print_r($tab) ;
 ?>
 ```

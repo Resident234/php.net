@@ -20,7 +20,7 @@ I&apos;ve written a simple function to convert an UTF-8 string to URL encoded st
 function mb_rawurlencode($url){
 $encoded='';
 $length=mb_strlen($url);
-for($i=0;$i&lt;$length;$i++){
+for($i=0;$i<$length;$i++){
 $encoded.='%'.wordwrap(bin2hex(mb_substr($url,$i,1)),2,'%',true);
 }
 return $encoded;

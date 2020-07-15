@@ -22,7 +22,7 @@ I found this function useful when uploading a file through FTP. One of the files
     fwrite($fSetup,$setup);
     fseek($fSetup,0);
     if (!ftp_fput($ftp,"inc/setup.inc",$fSetup,FTP_ASCII)) {
-        echo "&lt;br /&gt;&lt;i&gt;Setup file NOT inserted&lt;/i&gt;&lt;br /&gt;&lt;br /&gt;";
+        echo "<br /><i>Setup file NOT inserted</i><br /><br />";
     }
     fclose($fSetup);
 ?>

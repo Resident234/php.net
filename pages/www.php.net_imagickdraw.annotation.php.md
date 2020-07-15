@@ -20,7 +20,7 @@ may help someone...<br><br>
         
         $lines = array();
         $i=0;
-        while ($i &lt; count($words)) 
+        while ($i < count($words)) 
         {//as long as there are words
 
             $line = "";
@@ -40,11 +40,11 @@ may help someone...<br><br>
                 //messure size of line + next word
                 $linePreview = $line." ".$words[$i];
                 $metrics = $this->canvas->queryFontMetrics($draw, $linePreview);
-                //echo $line."($i)".$metrics["textWidth"].":".$maxWidth."&lt;br&gt;";
+                //echo $line."($i)".$metrics["textWidth"].":".$maxWidth."<br>";
                 
-            }while($metrics["textWidth"] &lt;= $maxWidth);
+            }while($metrics["textWidth"] <= $maxWidth);
             
-            //echo "&lt;hr&gt;".$line."&lt;br&gt;";
+            //echo "<hr>".$line."<br>";
             $lines[] = $line;
         }
         

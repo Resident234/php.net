@@ -16,13 +16,13 @@ function html_parse($file)
        {
         switch($temp)
          {
-          case "&lt;":
+          case "<":
            between($text);
            $text = "";
            $count = true;
            $end = false;
            break;
-          case "&gt;":
+          case ">":
            if($end == true) {end_tag($text);}
            else {start_tag($text);}
            $text = "";
@@ -45,7 +45,7 @@ It calls functions start_tag() , between() and end_tag() just like the original 
 
 But it has a few differences:
   - It does NOT check the code. Just resends values to that three functions, no matter, if they are right
-  - It works with parameters. For example: from tag &lt;sth b="42"&gt; sends sth b="42"
+  - It works with parameters. For example: from tag <sth b="42"> sends sth b="42"
   - It works wit diacritics. The original parser sometimes wrapped the text before the first diacritics appearance.
   - Works with all encoding. If the input is UTF-8, the output will be UTF-8 too
   - It works with strings. Not with file pointers.

@@ -222,7 +222,7 @@ $T805->Weapon();
 $T805->Health();
 $T805->Shields();
 
-echo "&lt;hr /&gt;";
+echo "<hr />";
 
 $T806 = new T806();
 $T806->Weapon();
@@ -233,7 +233,7 @@ $T806->Shields();
 string(4) "T805"
 string(12) "T805::Health"
 string(13) "T805->Shields"
-&lt;hr /&gt;string(4) "T806"
+<hr />string(4) "T806"
 string(12) "T805::Health"
 string(13) "T806->Shields"
 */
@@ -273,7 +273,7 @@ class T806 extends T805 implements Auxiliary_Platform {
 $T805 = new T805();
 $T805->Weapon();
 
-echo "&lt;hr /&gt;";
+echo "<hr />";
 
 $T806 = new T806();
 $T806->Weapon();
@@ -282,7 +282,7 @@ $T806->Shields();
 
 /* Output:
 string(4) "T805"
-&lt;hr /&gt;string(4) "T805"
+<hr />string(4) "T805"
 string(12) "T806::Health"
 string(13) "T806->Shields"
 */

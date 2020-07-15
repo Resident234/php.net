@@ -37,7 +37,7 @@ if (!$mysqli->error) {
 
 
 This would output something like:
-Unexpected PHP error [mysqli::query() [&lt;a href='function.query'&gt;function.query&lt;/a&gt;]: (42S22/1054): Unknown column 'XXname' in 'field list'] severity [E_WARNING] in [G:\database.php] line [249]
+Unexpected PHP error [mysqli::query() [<a href='function.query'>function.query</a>]: (42S22/1054): Unknown column 'XXname' in 'field list'] severity [E_WARNING] in [G:\database.php] line [249]
 
 Very frustrating as I wanted to also catch the sql error and print out the stack trace. 
 
@@ -56,9 +56,9 @@ $res = $mysqli->query($query);
 
 if ($mysqli->error) {
     try {    
-        throw new Exception("MySQL error $mysqli->error &lt;br&gt; Query:&lt;br&gt; $query", $msqli->errno);    
+        throw new Exception("MySQL error $mysqli->error <br> Query:<br> $query", $msqli->errno);    
     } catch(Exception $e ) {
-        echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "&lt;br &gt;";
+        echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
         echo nl2br($e->getTraceAsString());
     }
 }

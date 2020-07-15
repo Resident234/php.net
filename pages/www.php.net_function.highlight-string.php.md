@@ -34,12 +34,12 @@ function highlightText($text)
 ```
 <?php " . $text, true);  // highlight_string() requires opening PHP tag or otherwise it will not colorize the text
     $text = trim($text);
-    $text = preg_replace("|^\\&lt;code\\&gt;\\&lt;span style\\=\"color\\: #[a-fA-F0-9]{0,6}\"\\&gt;|", "", $text, 1);  // remove prefix
-    $text = preg_replace("|\\&lt;/code\\&gt;\$|", "", $text, 1);  // remove suffix 1
+    $text = preg_replace("|^\\<code\\>\\<span style\\=\"color\\: #[a-fA-F0-9]{0,6}\"\\>|", "", $text, 1);  // remove prefix
+    $text = preg_replace("|\\</code\\>\$|", "", $text, 1);  // remove suffix 1
     $text = trim($text);  // remove line breaks
-    $text = preg_replace("|\\&lt;/span\\&gt;\$|", "", $text, 1);  // remove suffix 2
+    $text = preg_replace("|\\</span\\>\$|", "", $text, 1);  // remove suffix 2
     $text = trim($text);  // remove line breaks
-    $text = preg_replace("|^(\\&lt;span style\\=\"color\\: #[a-fA-F0-9]{0,6}\"\\&gt;)(&amp;lt;\\?php&amp;nbsp;)(.*?)(\\&lt;/span\\&gt;)|", "\$1\$3\$4", $text);  // remove custom added "
+    $text = preg_replace("|^(\\<span style\\=\"color\\: #[a-fA-F0-9]{0,6}\"\\>)(&amp;lt;\\?php&amp;nbsp;)(.*?)(\\</span\\>)|", "\$1\$3\$4", $text);  // remove custom added "
 
 ```
 <?php "
@@ -50,7 +50,7 @@ function highlightText($text)
 ```
 
 
-Note, that it will remove the &lt;code&gt; tag too, so you get the formatted text directly, which gives you more freedom to work with the result.
+Note, that it will remove the <code> tag too, so you get the formatted text directly, which gives you more freedom to work with the result.
 
 I personally suggest to combine both things to have a nice highlighting function for different file types with different highlight coloring sets:
 
@@ -84,12 +84,12 @@ function highlightText($text, $fileExt="")
 ```
 <?php " . $text, true);  // highlight_string() requires opening PHP tag or otherwise it will not colorize the text
     $text = trim($text);
-    $text = preg_replace("|^\\&lt;code\\&gt;\\&lt;span style\\=\"color\\: #[a-fA-F0-9]{0,6}\"\\&gt;|", "", $text, 1);  // remove prefix
-    $text = preg_replace("|\\&lt;/code\\&gt;\$|", "", $text, 1);  // remove suffix 1
+    $text = preg_replace("|^\\<code\\>\\<span style\\=\"color\\: #[a-fA-F0-9]{0,6}\"\\>|", "", $text, 1);  // remove prefix
+    $text = preg_replace("|\\</code\\>\$|", "", $text, 1);  // remove suffix 1
     $text = trim($text);  // remove line breaks
-    $text = preg_replace("|\\&lt;/span\\&gt;\$|", "", $text, 1);  // remove suffix 2
+    $text = preg_replace("|\\</span\\>\$|", "", $text, 1);  // remove suffix 2
     $text = trim($text);  // remove line breaks
-    $text = preg_replace("|^(\\&lt;span style\\=\"color\\: #[a-fA-F0-9]{0,6}\"\\&gt;)(&amp;lt;\\?php&amp;nbsp;)(.*?)(\\&lt;/span\\&gt;)|", "\$1\$3\$4", $text);  // remove custom added "
+    $text = preg_replace("|^(\\<span style\\=\"color\\: #[a-fA-F0-9]{0,6}\"\\>)(&amp;lt;\\?php&amp;nbsp;)(.*?)(\\</span\\>)|", "\$1\$3\$4", $text);  // remove custom added "
 
 ```
 <?php "

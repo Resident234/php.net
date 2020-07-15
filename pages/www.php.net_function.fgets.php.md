@@ -10,7 +10,7 @@ A better example, to illustrate the differences in speed for large files, betwee
         $plaintext=str_replace("\n"," ",$plaintext); # Get rid of newlines
 
         $fp=fopen("/tmp/SourceFile.txt","w");
-        for($i=0;$i&lt;100000;$i++) {
+        for($i=0;$i<100000;$i++) {
                 fputs($fp,substr($plaintext,0,rand(4096,65534)) . "\n");
         }
         fclose($fp);
@@ -34,7 +34,7 @@ A better example, to illustrate the differences in speed for large files, betwee
         $delta2=($end - $start);
 
         $pdiff=$delta1/$delta2;
-        print "stream_get_line is " . ($pdiff&gt;1?"faster":"slower") . " than fgets - pdiff is $pdiff\n";
+        print "stream_get_line is " . ($pdiff>1?"faster":"slower") . " than fgets - pdiff is $pdiff\n";
 ?>
 ```
 <br><br>$ ./testcase.php <br>stream_get_line is faster than fgets - pdiff is 1.760398041785<br><br>Note that, in a vast majority of situations in which php is employed, tiny differences in speed between system calls are of negligible importance.  

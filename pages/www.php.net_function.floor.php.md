@@ -48,7 +48,7 @@ But, if you want the number closest to zero, you could use this:<br>
 
 ```
 <?php
-  if($foo &gt; 0) {
+  if($foo > 0) {
     floor($foo);
   } else {
     ceil($foo);

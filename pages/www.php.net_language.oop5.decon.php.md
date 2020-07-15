@@ -158,7 +158,7 @@ abstract class Animal
    */ 
   public static function compare($a, $b)
   {
-    if($a->name &lt; $b->name) return -1;
+    if($a->name < $b->name) return -1;
     else if($a->name == $b->name) return 0;
     else return 1;
   }
@@ -222,7 +222,7 @@ $animals = array(
 usort($animals, array("Animal", "compare"));
 
 # print out the sorted results - calls Animal->__toString().
-foreach($animals as $animal) echo "$animal&lt;br&gt;\n";
+foreach($animals as $animal) echo "$animal<br>\n";
 
 ?>
 ```

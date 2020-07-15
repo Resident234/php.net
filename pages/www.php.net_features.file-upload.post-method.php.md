@@ -16,11 +16,11 @@ foreach ($_FILES["attachment"]["error"] as $key => $error)
     if ($error == UPLOAD_ERR_OK)
     {
         if ( move_uploaded_file($tmp_name, "/tmp/".$name) )
-            $uploaded_array[] .= "Uploaded file '".$name."'.&lt;br/&gt;\n";
+            $uploaded_array[] .= "Uploaded file '".$name."'.<br/>\n";
         else
-            $errormsg .= "Could not move uploaded file '".$tmp_name."' to '".$name."'&lt;br/&gt;\n";
+            $errormsg .= "Could not move uploaded file '".$tmp_name."' to '".$name."'<br/>\n";
     }
-    else $errormsg .= "Upload error. [".$error."] on file '".$name."'&lt;br/&gt;\n";
+    else $errormsg .= "Upload error. [".$error."] on file '".$name."'<br/>\n";
 }
 ?>
 ```

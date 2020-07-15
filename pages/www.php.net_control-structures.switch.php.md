@@ -54,7 +54,7 @@ php 7.2.8.<br>The answer to the eternal question " what is faster?":<br>1 000 00
 ```
 <?php
 $s = time();
-for ($i = 0; $i &lt; 1000000000; ++$i) {
+for ($i = 0; $i < 1000000000; ++$i) {
   $x = $i%10;
   if ($x == 1) {
     $y = $x * 1;
@@ -81,7 +81,7 @@ for ($i = 0; $i &lt; 1000000000; ++$i) {
 print("if: ".(time() - $s)."sec\n");
  
 $s = time();
-for ($i = 0; $i &lt; 1000000000; ++$i) {
+for ($i = 0; $i < 1000000000; ++$i) {
   $x = $i%10;
   switch ($x) {
   case 1:
@@ -262,7 +262,7 @@ Something not mentioned in the documentation itself, and only touched on momenta
 
 ```
 <?php
-for($i=0; $i&lt;8; ++$i)
+for($i=0; $i<8; ++$i)
 {
     echo $i,"\t";
     switch($i)

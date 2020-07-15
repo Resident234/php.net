@@ -37,10 +37,10 @@ ob_start();
 $body=ob_get_contents(); ob_end_clean();
 
 # Common Headers
-$headers .= 'From: Jonny &lt;jon@example.com&gt;'.$eol;
-$headers .= 'Reply-To: Jonny &lt;jon@example.com&gt;'.$eol; 
-$headers .= 'Return-Path: Jonny &lt;jon@example.com&gt;'.$eol;     // these two to set reply address
-$headers .= "Message-ID:&lt;".$now." TheSystem@".$_SERVER['SERVER_NAME']."&gt;".$eol;
+$headers .= 'From: Jonny <jon@example.com>'.$eol;
+$headers .= 'Reply-To: Jonny <jon@example.com>'.$eol; 
+$headers .= 'Return-Path: Jonny <jon@example.com>'.$eol;     // these two to set reply address
+$headers .= "Message-ID:<".$now." TheSystem@".$_SERVER['SERVER_NAME'].">".$eol;
 $headers .= "X-Mailer: PHP v".phpversion().$eol;           // These two to help avoid spam-filters
 # Boundry for marking the split &amp; Multitype Headers
 $mime_boundary=md5(time());

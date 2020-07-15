@@ -29,7 +29,7 @@ Just a note for people trying to use interactive mode from the commandline.<br><
 <?php echo "hi!"; ?>
 ```
 
-&lt;note, here we would press CTRL-D to parse everything we've entered so far&gt;
+<note, here we would press CTRL-D to parse everything we've entered so far>
 hi!
 
 
@@ -37,7 +37,7 @@ hi!
 <?php exit(); ?>
 ```
 
-&lt;ctrl-d here again&gt;
+<ctrl-d here again>
 [root@localhost ?>
 ```
 4.3.4]#<br><br>I noticed this somehow got ommited from the docs, hope it helps someone!  

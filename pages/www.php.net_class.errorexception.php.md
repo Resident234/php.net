@@ -44,7 +44,7 @@ E_USER_WARNING, E_USER_NOTICE, and any other non-terminating error codes, are us
     try
         trigger_error("First error", E_USER_NOTICE);
     catch ( ErrorException $e )
-        print("Caught the error: ".$e->getMessage."&lt;br /&gt;\r\n" );
+        print("Caught the error: ".$e->getMessage."<br />\r\n" );
     
     trigger_error("This event WILL fire", E_USER_NOTICE);
     

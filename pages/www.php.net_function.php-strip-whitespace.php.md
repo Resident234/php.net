@@ -15,9 +15,9 @@ function compress_php_src($src) {
         T_BOOLEAN_AND,              // &amp;&amp;
         T_BOOLEAN_OR,               // ||
         T_IS_EQUAL,                 // ==
-        T_IS_NOT_EQUAL,             // != or &lt;&gt;
-        T_IS_SMALLER_OR_EQUAL,      // &lt;=
-        T_IS_GREATER_OR_EQUAL,      // &gt;=
+        T_IS_NOT_EQUAL,             // != or <>
+        T_IS_SMALLER_OR_EQUAL,      // <=
+        T_IS_GREATER_OR_EQUAL,      // >=
         T_INC,                      // ++
         T_DEC,                      // --
         T_PLUS_EQUAL,               // +=
@@ -34,10 +34,10 @@ function compress_php_src($src) {
         T_MOD_EQUAL,                // %=
         T_XOR_EQUAL,                // ^=
         T_OR_EQUAL,                 // |=
-        T_SL,                       // &lt;&lt;
-        T_SR,                       // &gt;&gt;
-        T_SL_EQUAL,                 // &lt;&lt;=
-        T_SR_EQUAL,                 // &gt;&gt;=
+        T_SL,                       // <<
+        T_SR,                       // >>
+        T_SL_EQUAL,                 // <<=
+        T_SR_EQUAL,                 // >>=
     );
     if(is_file($src)) {
         if(!$src = file_get_contents($src)) {
@@ -52,7 +52,7 @@ function compress_php_src($src) {
     $ih = false; // in HEREDOC
     $ls = "";    // last sign
     $ot = null;  // open tag
-    for($i = 0; $i &lt; $c; $i++) {
+    for($i = 0; $i < $c; $i++) {
         $token = $tokens[$i];
         if(is_array($token)) {
             list($tn, $ts) = $token; // tokens: number, string, line
@@ -100,14 +100,14 @@ function compress_php_src($src) {
                     }
                     $iw = false;
                 } elseif($tn == T_START_HEREDOC) {
-                    $new .= "&lt;&lt;&lt;S\n";
+                    $new .= "<<<S\n";
                     $iw = false;
                     $ih = true; // in HEREDOC
                 } elseif($tn == T_END_HEREDOC) {
                     $new .= "S;";
                     $iw = true;
                     $ih = false; // in HEREDOC
-                    for($j = $i+1; $j &lt; $c; $j++) {
+                    for($j = $i+1; $j < $c; $j++) {
                         if(is_string($tokens[$j]) &amp;&amp; $tokens[$j] == ";") {
                             $i = $j;
                             break;
@@ -147,13 +147,13 @@ For example:
 ```
 <?php
 
-$src = &lt;&lt;&lt;EOT
+$src = <<<EOT
 
 
 ```
 <?php
 // some comment
-for ( $i = 0; $i &lt; 99; $i ++ ) {
+for ( $i = 0; $i < 99; $i ++ ) {
    echo "i=${ i }\n";
    /* ... */
 }
@@ -166,9 +166,9 @@ abc();
 ?>
 ```
 
-&lt;h1&gt;&lt;?= "Some text " . str_repeat("_-x-_ ", 32);;; ?>
+<h1><?= "Some text " . str_repeat("_-x-_ ", 32);;; ?>
 ```
-&lt;/h1&gt;
+</h1>
 EOT;
 var_dump(compress_php_src($src));
 ?>
@@ -179,10 +179,10 @@ And the result is:
 string(125) "
 
 ```
-<?php for(=0;&lt;99;++){echo "i=\n";}function abc(){return "abc";};abc(); ?>
+<?php for(=0;<99;++){echo "i=\n";}function abc(){return "abc";};abc(); ?>
 ```
 
-&lt;h1&gt;&lt;?="Some text ".str_repeat("_-x-_ ",32)?>
+<h1><?="Some text ".str_repeat("_-x-_ ",32)?>
 ```
 &lt;/h1&gt;"  
 

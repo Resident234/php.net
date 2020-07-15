@@ -71,8 +71,8 @@ class staticchild extends staticparent {
 $a = new staticparent;
 $a = new staticchild;
 
-echo 'Parent: parent_only=', staticparent::$parent_only, ', both_distinct=', staticparent::$both_distinct, "&lt;br/&gt;\r\n";
-echo 'Child:  parent_only=', staticchild::$parent_only, ', both_distinct=', staticchild::$both_distinct, ', child_only=', staticchild::$child_only, "&lt;br/&gt;\r\n";
+echo 'Parent: parent_only=', staticparent::$parent_only, ', both_distinct=', staticparent::$both_distinct, "<br/>\r\n";
+echo 'Child:  parent_only=', staticchild::$parent_only, ', both_distinct=', staticchild::$both_distinct, ', child_only=', staticchild::$child_only, "<br/>\r\n";
 ?>
 ```
 <br><br>will output:<br>Parent: parent_only=fromchild, both_distinct=fromparent<br>Child: parent_only=fromchild, both_distinct=fromchild, child_only=fromchild  

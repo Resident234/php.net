@@ -74,11 +74,11 @@ Please note, that PDO format numbers according to current locale. So if, locale 
 ```
 <?php
 setlocale(LC_ALL, 'pl_PL');
-$sth = $dbh->prepare('SELECT name FROM products WHERE price &lt; :price');
+$sth = $dbh->prepare('SELECT name FROM products WHERE price < :price');
 $sth->bindParam(':price', 123.45, PDO::PARAM_STR);
 $sth->execute();
 // result:
-// SELECT name FROM products WHERE price &lt; '123,45';
+// SELECT name FROM products WHERE price < '123,45';
 ?>
 ```
   
@@ -89,7 +89,7 @@ Do not try to use the same named parameter twice in a single SQL statement, for 
 
 ```
 <?php
-$sql = 'SELECT * FROM some_table WHERE  some_value &gt; :value OR some_value &lt; :value';
+$sql = 'SELECT * FROM some_table WHERE  some_value > :value OR some_value < :value';
 $stmt = $dbh->prepare($sql);
 $stmt->execute( array( ':value' => 3 ) );
 ?>

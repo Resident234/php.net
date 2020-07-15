@@ -102,11 +102,11 @@ function ago( $datetime )
 {
     $interval = date_create('now')->diff( $datetime );
     $suffix = ( $interval->invert ? ' ago' : '' );
-    if ( $v = $interval->y &gt;= 1 ) return pluralize( $interval->y, 'year' ) . $suffix;
-    if ( $v = $interval->m &gt;= 1 ) return pluralize( $interval->m, 'month' ) . $suffix;
-    if ( $v = $interval->d &gt;= 1 ) return pluralize( $interval->d, 'day' ) . $suffix;
-    if ( $v = $interval->h &gt;= 1 ) return pluralize( $interval->h, 'hour' ) . $suffix;
-    if ( $v = $interval->i &gt;= 1 ) return pluralize( $interval->i, 'minute' ) . $suffix;
+    if ( $v = $interval->y >= 1 ) return pluralize( $interval->y, 'year' ) . $suffix;
+    if ( $v = $interval->m >= 1 ) return pluralize( $interval->m, 'month' ) . $suffix;
+    if ( $v = $interval->d >= 1 ) return pluralize( $interval->d, 'day' ) . $suffix;
+    if ( $v = $interval->h >= 1 ) return pluralize( $interval->h, 'hour' ) . $suffix;
+    if ( $v = $interval->i >= 1 ) return pluralize( $interval->i, 'minute' ) . $suffix;
     return pluralize( $interval->s, 'second' ) . $suffix;
 }
 ?>
@@ -124,10 +124,10 @@ $val2 = '2014-03-18 10:34:09.940';
 
 $datetime1 = new DateTime($val1);
 $datetime2 = new DateTime($val2);
-echo "&lt;pre&gt;";
+echo "<pre>";
 var_dump($datetime1->diff($datetime2));
 
-if($datetime1 &gt; $datetime2)
+if($datetime1 > $datetime2)
   echo "1 is bigger";
 else
   echo "2 is bigger";
@@ -145,9 +145,9 @@ Example:
 
 ```
 <?php
-if($datetime1 &gt; $datetime2)
+if($datetime1 > $datetime2)
   echo "1 is bigger";
-else if ($datetime1->format('u') &gt; $datetime2->format('u'))
+else if ($datetime1->format('u') > $datetime2->format('u'))
   echo "1 is bigger";
 else
   echo "2 is bigger";
@@ -190,23 +190,23 @@ function get_timespan_string($older, $newer) {
   $s2 = $newer->format('s');
   $s = $s2 - $s1;
 
-  if($s &lt; 0) {
+  if($s < 0) {
     $i = $i -1;
     $s = $s + 60;
   }
-  if($i &lt; 0) {
+  if($i < 0) {
     $H = $H - 1;
     $i = $i + 60;
   }
-  if($H &lt; 0) {
+  if($H < 0) {
     $d = $d - 1;
     $H = $H + 24;
   }
-  if($d &lt; 0) {
+  if($d < 0) {
     $m = $m - 1;
     $d = $d + get_days_for_previous_month($m2, $Y2);
   }
-  if($m &lt; 0) {
+  if($m < 0) {
     $Y = $Y - 1;
     $m = $m + 12;
   }
@@ -240,23 +240,23 @@ function create_timespan_string($Y, $m, $d, $H, $i, $s)
 {
   $timespan_string = '';
   $found_first_diff = false;
-  if($Y &gt;= 1) {
+  if($Y >= 1) {
     $found_first_diff = true;
     $timespan_string .= pluralize($Y, 'year').' ';
   }
-  if($m &gt;= 1 || $found_first_diff) {
+  if($m >= 1 || $found_first_diff) {
     $found_first_diff = true;
     $timespan_string .= pluralize($m, 'month').' ';
   }
-  if($d &gt;= 1 || $found_first_diff) {
+  if($d >= 1 || $found_first_diff) {
     $found_first_diff = true;
     $timespan_string .= pluralize($d, 'day').' ';
   }
-  if($H &gt;= 1 || $found_first_diff) {
+  if($H >= 1 || $found_first_diff) {
     $found_first_diff = true;
     $timespan_string .= pluralize($H, 'hour').' ';
   }
-  if($i &gt;= 1 || $found_first_diff) {
+  if($i >= 1 || $found_first_diff) {
     $found_first_diff = true;
     $timespan_string .= pluralize($i, 'minute').' ';
   }

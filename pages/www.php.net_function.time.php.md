@@ -8,11 +8,11 @@ The documentation should have this info. The function time() returns always time
 <?php
 date_default_timezone_set("UTC"); 
 echo "UTC:".time();
-echo "&lt;br&gt;";
+echo "<br>";
 
 date_default_timezone_set("Europe/Helsinki"); 
 echo "Europe/Helsinki:".time();
-echo "&lt;br&gt;";
+echo "<br>";
 ?>
 ```
 <br><br>Local time as string can be get by strftime() and local timestamp (if ever needed) by mktime().  
@@ -35,7 +35,7 @@ function time_elapsed_A($secs){
         );
         
     foreach($bit as $k => $v)
-        if($v &gt; 0)$ret[] = $v . $k;
+        if($v > 0)$ret[] = $v . $k;
         
     return join(' ', $ret);
     }
@@ -52,7 +52,7 @@ function time_elapsed_B($secs){
         );
         
     foreach($bit as $k => $v){
-        if($v &gt; 1)$ret[] = $v . $k . 's';
+        if($v > 1)$ret[] = $v . $k . 's';
         if($v == 1)$ret[] = $v . $k;
         }
     array_splice($ret, count($ret)-1, 0, 'and');
@@ -106,7 +106,7 @@ function nicetime($date)
     }
 
     // is it future date or past date
-    if($now &gt; $unix_date) {    
+    if($now > $unix_date) {    
         $difference     = $now - $unix_date;
         $tense         = "ago";
         
@@ -115,7 +115,7 @@ function nicetime($date)
         $tense         = "from now";
     }
     
-    for($j = 0; $difference &gt;= $lengths[$j] &amp;&amp; $j &lt; count($lengths)-1; $j++) {
+    for($j = 0; $difference >= $lengths[$j] &amp;&amp; $j < count($lengths)-1; $j++) {
         $difference /= $lengths[$j];
     }
     

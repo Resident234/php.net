@@ -46,7 +46,7 @@ A simple alternative to an if statement, which is almost like a ternary operator
           print $value;
      }
 
-     print '&lt;br /&gt;';
+     print '<br />';
 
      // This is an alternative
      isset( $value ) AND print( $value );
@@ -197,9 +197,9 @@ If you wan&apos;t to use the alternative syntax for switch statements this won&a
 <?php case 1: ?>
 ```
 
-&lt;div&gt;
+<div>
 Newspage
-&lt;/div&gt;
+</div>
 
 
 ```
@@ -212,9 +212,9 @@ Newspage
 <?php case 2: ?>
 ```
 
-&lt;/div&gt;
+</div>
 Forum
-&lt;div&gt;
+<div>
 
 
 ```
@@ -227,11 +227,11 @@ Forum
 <?php endswitch;?>
 ```
 
-&lt;/div&gt;
+</div>
 
 Instead you have to workaround like this:
 
-&lt;div&gt;
+<div>
 
 
 ```
@@ -239,9 +239,9 @@ Instead you have to workaround like this:
 case 1: ?>
 ```
 
-&lt;div&gt;
+<div>
 Newspage
-&lt;/div&gt;
+</div>
 
 
 ```
@@ -254,9 +254,9 @@ Newspage
 <?php case 2: ?>
 ```
 
-&lt;/div&gt;
+</div>
 Forum
-&lt;div&gt;
+<div>
 
 
 ```

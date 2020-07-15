@@ -162,7 +162,7 @@ Example:
 <?php
 $a = !!array();   // This will === false; (as expected)
 /* 
-This can be a substitute for count($array) &gt; 0 or !(empty($array)) to check to see if an array is empty or not  (you would use: !!$array).
+This can be a substitute for count($array) > 0 or !(empty($array)) to check to see if an array is empty or not  (you would use: !!$array).
 */
 
 $status = (!!$array ? 'complete' : 'incomplete');

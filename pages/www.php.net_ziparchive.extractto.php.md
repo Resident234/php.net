@@ -11,7 +11,7 @@ $path = 'zipfile.zip'
 
 $zip = new ZipArchive;
 if ($zip->open($path) === true) {
-    for($i = 0; $i &lt; $zip->numFiles; $i++) {
+    for($i = 0; $i < $zip->numFiles; $i++) {
         $filename = $zip->getNameIndex($i);
         $fileinfo = pathinfo($filename);
         copy("zip://".$path."#".$filename, "/your/new/destination/".$fileinfo['basename']);

@@ -16,7 +16,7 @@ class IDN {
     ) {
         $delta = $firsttime ? $delta / 700 : $delta / 2; 
         $delta += $delta / $numpoints;
-        for ($k = 0; $delta &gt; 455; $k += 36)
+        for ($k = 0; $delta > 455; $k += 36)
             $delta = intval($delta / 35);
         return $k + (36 * $delta) / ($delta + 38);
     }
@@ -24,25 +24,25 @@ class IDN {
     // translate character to punycode number
     private static function decodeDigit($cp) {
         $cp = strtolower($cp);
-        if ($cp &gt;= 'a' &amp;&amp; $cp &lt;= 'z')
+        if ($cp >= 'a' &amp;&amp; $cp <= 'z')
             return ord($cp) - ord('a');
-        elseif ($cp &gt;= '0' &amp;&amp; $cp &lt;= '9')
+        elseif ($cp >= '0' &amp;&amp; $cp <= '9')
             return ord($cp) - ord('0')+26;
     }
  
     // make utf8 string from unicode codepoint number
     private static function utf8($cp) {
-        if ($cp &lt; 128) return chr($cp);
-        if ($cp &lt; 2048) 
-            return chr(192+($cp &gt;&gt; 6)).chr(128+($cp &amp; 63));
-        if ($cp &lt; 65536) return 
-            chr(224+($cp &gt;&gt; 12)).
-            chr(128+(($cp &gt;&gt; 6) &amp; 63)).
+        if ($cp < 128) return chr($cp);
+        if ($cp < 2048) 
+            return chr(192+($cp >> 6)).chr(128+($cp &amp; 63));
+        if ($cp < 65536) return 
+            chr(224+($cp >> 12)).
+            chr(128+(($cp >> 6) &amp; 63)).
             chr(128+($cp &amp; 63));
-        if ($cp &lt; 2097152) return 
-            chr(240+($cp &gt;&gt; 18)).
-            chr(128+(($cp &gt;&gt; 12) &amp; 63)).
-            chr(128+(($cp &gt;&gt; 6) &amp; 63)).
+        if ($cp < 2097152) return 
+            chr(240+($cp >> 18)).
+            chr(128+(($cp >> 12) &amp; 63)).
+            chr(128+(($cp >> 6) &amp; 63)).
             chr(128+($cp &amp; 63));
         // it should never get here 
     }
@@ -53,7 +53,7 @@ class IDN {
             return $input;
         $input = substr($input,4); // discard prefix
         $a = explode("-",$input);
-        if (count($a) &gt; 1) {
+        if (count($a) > 1) {
             $input = str_split(array_pop($a));
             $output = str_split(implode("-",$a));
         } else {
@@ -67,10 +67,10 @@ class IDN {
             for ($k = 36;;$k += 36) {
                 $digit = IDN::decodeDigit(array_shift($input));
                 $i += $digit * $w;
-                if ($k &lt;= $bias) $t = 1;
-                elseif ($k &gt;= $bias + 26) $t = 26;
+                if ($k <= $bias) $t = 1;
+                elseif ($k >= $bias + 26) $t = 26;
                 else $t = $k - $bias;
-                if ($digit &lt; $t) break;
+                if ($digit < $t) break;
                 $w *= intval(36 - $t);
             }
             $bias = IDN::punyAdapt(

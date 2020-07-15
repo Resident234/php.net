@@ -8,7 +8,7 @@ You can use one variable to check execution $time as follow:<br><br>
 <?php
 $time = -microtime(true);
 $hash = 0;
-for ($i=0; $i &lt; rand(1000,4000); ++$i) {
+for ($i=0; $i < rand(1000,4000); ++$i) {
     $hash ^= md5(substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, rand(1,10)));
 }
 $time += microtime(true);

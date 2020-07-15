@@ -37,7 +37,7 @@ function xmlToArray(SimpleXMLElement $xml): array
         }
 
         foreach ($nodes as $nodeName => $nodeValue) {
-            if (count($nodeValue->xpath('../' . $nodeName)) &lt; 2) {
+            if (count($nodeValue->xpath('../' . $nodeName)) < 2) {
                 $collection[$nodeName] = $parser($nodeValue);
                 continue;
             }

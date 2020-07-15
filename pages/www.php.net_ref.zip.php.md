@@ -57,7 +57,7 @@ function unzip($src_file, $dest_dir=false, $create_zip_name_dir=true, $overwrite
             file_put_contents($file_name, $fstream );
             // Set the rights
             chmod($file_name, 0777);
-            echo "save: ".$file_name."&lt;br /&gt;";
+            echo "save: ".$file_name."<br />";
           }
           
           // Close the entry

@@ -18,7 +18,7 @@ class ArrayAccessImpl implements ArrayAccess {
   public function offsetUnset($index) {}
 
   public function offsetSet($index, $value) {
-//    echo ("SET: ".$index."&lt;br&gt;");
+//    echo ("SET: ".$index."<br>");
     
     if(isset($data[$index])) {
         unset($data[$index]);
@@ -34,7 +34,7 @@ class ArrayAccessImpl implements ArrayAccess {
   }
 
   public function offsetGet($index) {
-//    echo ("GET: ".$index."&lt;br&gt;");
+//    echo ("GET: ".$index."<br>");
 
     if(!isset($this->data[$index]))
         $this->data[$index]=new ArrayAccessImpl();
@@ -43,11 +43,11 @@ class ArrayAccessImpl implements ArrayAccess {
   }
 
   public function offsetExists($index) {
-//    echo ("EXISTS: ".$index."&lt;br&gt;");
+//    echo ("EXISTS: ".$index."<br>");
     
     if(isset($this->data[$index])) {
         if($this->data[$index] instanceof ArrayAccessImpl) {
-            if(count($this->data[$index]->data)&gt;0)
+            if(count($this->data[$index]->data)>0)
                 return true;
             else
                 return false;
@@ -59,7 +59,7 @@ class ArrayAccessImpl implements ArrayAccess {
 
 }
 
-echo "ArrayAccess implementation that behaves like a multi-level array&lt;hr /&gt;";
+echo "ArrayAccess implementation that behaves like a multi-level array<hr />";
 
 $data = new ArrayAccessImpl();
 
@@ -70,12 +70,12 @@ $data['array']['some_object']=new stdClass();
 $data['array']['another_array']['x']['y']="LOL @ Whoever said it can't be done !";
 $data['blank_array']=array();
 
-echo "'array' Isset? "; print_r(isset($data['array'])); echo "&lt;hr /&gt;";
-echo "&lt;pre&gt;"; print_r($data['array']['non_existent']); echo "&lt;/pre&gt;If attempting to read an offset that doesn't exist it returns a blank object! Use isset() to check if it exists!&lt;br&gt;";
-echo "'non_existent' Isset? "; print_r(isset($data['array']['non_existent'])); echo "&lt;br /&gt;";
-echo "&lt;pre&gt;"; print_r($data['blank_array']); echo "&lt;/pre&gt;A blank array unfortunately returns similar results :(&lt;br /&gt;";
-echo "'blank_array' Isset? "; print_r(isset($data['blank_array'])); echo "&lt;hr /&gt;";
-echo "&lt;pre&gt;"; print_r($data); echo "&lt;/pre&gt; (non_existent remains in the structure. If someone can help to solve this I'll appreciate it)&lt;hr /&gt;";
+echo "'array' Isset? "; print_r(isset($data['array'])); echo "<hr />";
+echo "<pre>"; print_r($data['array']['non_existent']); echo "</pre>If attempting to read an offset that doesn't exist it returns a blank object! Use isset() to check if it exists!<br>";
+echo "'non_existent' Isset? "; print_r(isset($data['array']['non_existent'])); echo "<br />";
+echo "<pre>"; print_r($data['blank_array']); echo "</pre>A blank array unfortunately returns similar results :(<br />";
+echo "'blank_array' Isset? "; print_r(isset($data['blank_array'])); echo "<hr />";
+echo "<pre>"; print_r($data); echo "</pre> (non_existent remains in the structure. If someone can help to solve this I'll appreciate it)<hr />";
 
 echo "Display some value that exists: ".$data['array']['another_string'];
 

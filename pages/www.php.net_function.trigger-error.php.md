@@ -45,7 +45,7 @@ here's a function to do that:
 
 function error($message, $level=E_USER_NOTICE) {
 $caller = next(debug_backtrace());
-trigger_error($message.' in &lt;strong&gt;'.$caller['function'].'&lt;/strong&gt; called from &lt;strong&gt;'.$caller['file'].'&lt;/strong&gt; on line &lt;strong&gt;'.$caller['line'].'&lt;/strong&gt;'."\n&lt;br /&gt;error handler", $level);
+trigger_error($message.' in <strong>'.$caller['function'].'</strong> called from <strong>'.$caller['file'].'</strong> on line <strong>'.$caller['line'].'</strong>'."\n<br />error handler", $level);
 }
 ?>
 ```
@@ -80,7 +80,7 @@ function doFunction($var) {
 
 function error($message, $level=E_USER_NOTICE) {
     $caller = next(debug_backtrace());
-    trigger_error($message.' in &lt;strong&gt;'.$caller['function'].'&lt;/strong&gt; called from &lt;strong&gt;'.$caller['file'].'&lt;/strong&gt; on line &lt;strong&gt;'.$caller['line'].'&lt;/strong&gt;'."\n&lt;br /&gt;error handler", $level);
+    trigger_error($message.' in <strong>'.$caller['function'].'</strong> called from <strong>'.$caller['file'].'</strong> on line <strong>'.$caller['line'].'</strong>'."\n<br />error handler", $level);
 }
 ?>
 ```

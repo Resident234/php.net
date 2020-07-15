@@ -12,7 +12,7 @@ function setTransparency($new_image,$image_source)
             $transparencyIndex = imagecolortransparent($image_source);
             $transparencyColor = array('red' => 255, 'green' => 255, 'blue' => 255);
              
-            if ($transparencyIndex &gt;= 0) {
+            if ($transparencyIndex >= 0) {
                 $transparencyColor    = imagecolorsforindex($image_source, $transparencyIndex);    
             }
             

@@ -42,7 +42,7 @@ Then use:
 ```
 <?php
 foreach ($article_list as $row => $link) {
-  echo  '&lt;a href="'.  $link['FMarticle_id'].'"&gt;' . $link['title']. '&lt;/a&gt;&lt;/br&gt;';
+  echo  '<a href="'.  $link['FMarticle_id'].'">' . $link['title']. '</a></br>';
   }
 ?>
 ```
@@ -203,7 +203,7 @@ If you are going to loop through the output array of fetchAll(), instead use fet
 ```
 <?php
 while ($arr = $stmt->fetch()) {
-    echo round(memory_get_usage() / (1024*1024),3) .' MB&lt;br /&gt;';
+    echo round(memory_get_usage() / (1024*1024),3) .' MB<br />';
     // do_other_stuff();
 }
 // Last line for the same query shows only 28.973 MB usage
@@ -222,23 +222,23 @@ $stmt = $dbh->prepare("SELECT * FROM tablename");
 $stmt->execute();
 $arrValues = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // open the table
-print "&lt;table wdith=\"100%\"&gt;\n";
-print "&lt;tr&gt;\n";
+print "<table wdith=\"100%\">\n";
+print "<tr>\n";
 // add the table headers
 foreach ($arrValues[0] as $key => $useless){
-    print "&lt;th&gt;$key&lt;/th&gt;";
+    print "<th>$key</th>";
 }
-print "&lt;/tr&gt;";
+print "</tr>";
 // display data
 foreach ($arrValues as $row){
-    print "&lt;tr&gt;";
+    print "<tr>";
     foreach ($row as $key => $val){
-        print "&lt;td&gt;$val&lt;/td&gt;";
+        print "<td>$val</td>";
     }
-    print "&lt;/tr&gt;\n";
+    print "</tr>\n";
 }
 // close the table
-print "&lt;/table&gt;\n";
+print "</table>\n";
 ?>
 ```
   

@@ -9,7 +9,7 @@ while setting the set_time_limit(), the duration of sleep() will be ignored in t
 
 set_time_limit(20);
 
-while ($i&lt;=10)
+while ($i<=10)
 {
         echo "i=$i ";
         sleep(100);
@@ -32,7 +32,7 @@ function my_background_exec($function_name, $params, $str_requires, $timeout=600
           $path_run=dirname($_SERVER['SCRIPT_FILENAME']);
           $my_target_exec="/usr/bin/php -r \"chdir('{$path_run}');{$str_requires} \\\$params=json_decode(file_get_contents('php://stdin'),true);call_user_func_array('{$function_name}', \\\$params);\"";
           $my_target_exec=strtr(strtr($my_target_exec, $map), $map);
-          $my_background_exec="(/usr/bin/php -r \"chdir('{$path_run}');{$str_requires} my_timeout_exec(\\\"{$my_target_exec}\\\", file_get_contents('php://stdin'), {$timeout});\" &lt;&amp;3 &amp;) 3&lt;&amp;0";//php by default use "sh", and "sh" don't support "&lt;&amp;0"
+          $my_background_exec="(/usr/bin/php -r \"chdir('{$path_run}');{$str_requires} my_timeout_exec(\\\"{$my_target_exec}\\\", file_get_contents('php://stdin'), {$timeout});\" <&amp;3 &amp;) 3<&amp;0";//php by default use "sh", and "sh" don't support "<&amp;0"
           my_timeout_exec($my_background_exec, json_encode($params), 2);
          }
 
@@ -60,7 +60,7 @@ function my_timeout_exec($cmd, $stdin='', $timeout)
                 {$stdout.=stream_get_contents($pipes[1]);
                  $stderr.=stream_get_contents($pipes[2]);
 
-                 if (time()-$start&gt;$timeout)
+                 if (time()-$start>$timeout)
                     {//proc_terminate($process, 9);    //only terminate subprocess, won't terminate sub-subprocess
                      posix_kill(-$status['pid'], 9);    //sends SIGKILL to all processes inside group(negative means GPID, all subprocesses share the top process group, except nested my_timeout_exec)
                      //file_put_contents('debug.txt', time().":kill group {$status['pid']}\n", FILE_APPEND);
@@ -160,19 +160,19 @@ I was having trouble with script timeouts in applications where the user prompte
    // User answer after submission.
    if ( $post ) {
       cURL_prompt($curlURL) ;
-      echo '&lt;div style="margin:25px;"&gt;&lt;title&gt;Background CLI&lt;/title&gt;';
-      echo 'O.K. If all goes well, &lt;b&gt;'.$script.'&lt;/b&gt; is working hard in the background with no ' ;
-      echo 'timeout limitations. &lt;br&gt;&lt;br&gt;&lt;form action='.$scriptURL.' method=GET&gt;' ;
-      echo '&lt;input type=submit value=" RESET BACKGROUND CLI "&gt;&lt;/form&gt;&lt;/div&gt;' ;
+      echo '<div style="margin:25px;"><title>Background CLI</title>';
+      echo 'O.K. If all goes well, <b>'.$script.'</b> is working hard in the background with no ' ;
+      echo 'timeout limitations. <br><br><form action='.$scriptURL.' method=GET>' ;
+      echo '<input type=submit value=" RESET BACKGROUND CLI "></form></div>' ;
       exit ;
    }
    // Start screen.
    if ( !$CLI AND !$runscript ) {
-      echo '&lt;title&gt;Background CLI&lt;/title&gt;&lt;div style="margin:25px;"&gt;' ;
-      echo '&lt;form action='.$scriptURL.' method=POST&gt;' ;
-      echo 'Click to run &lt;b&gt;'.$script.'&lt;/b&gt; from the PHP CLI command line, in the background.&lt;br&gt;&lt;br&gt;' ;
-      echo '&lt;input type=hidden value=1 name=post&gt;' ;
-      echo '&lt;input type=submit value=" RUN IN BACKGROUND "&gt;&lt;/form&gt;&lt;/div&gt;' ;
+      echo '<title>Background CLI</title><div style="margin:25px;">' ;
+      echo '<form action='.$scriptURL.' method=POST>' ;
+      echo 'Click to run <b>'.$script.'</b> from the PHP CLI command line, in the background.<br><br>' ;
+      echo '<input type=hidden value=1 name=post>' ;
+      echo '<input type=submit value=" RUN IN BACKGROUND "></form></div>' ;
       exit ;
    }
 

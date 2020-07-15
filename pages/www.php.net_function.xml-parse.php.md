@@ -77,7 +77,7 @@ class xx_xml {
         $total = count($this->stack)-1;
         $i=0;
         foreach ($this->stack as $key => $val)    {
-            if (count($this->stack) &gt; 1) {
+            if (count($this->stack) > 1) {
                 if ($total == $i)
                     $keys .= $key;
                 else
@@ -106,9 +106,9 @@ class xx_xml {
     }
 
     function error($msg)    {
-        echo "&lt;div align=\"center\"&gt;
-            &lt;font color=\"red\"&gt;&lt;b&gt;Error: $msg&lt;/b&gt;&lt;/font&gt;
-            &lt;/div&gt;";
+        echo "<div align=\"center\">
+            <font color=\"red\"><b>Error: $msg</b></font>
+            </div>";
         exit();
     }
 }

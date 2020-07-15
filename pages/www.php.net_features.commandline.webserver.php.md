@@ -29,7 +29,7 @@ To output debugging information on the command line you can write output to php:
 $path = $_SERVER["SCRIPT_FILENAME"];
 
 file_put_contents("php://stdout", "\nRequested: $path");
-echo "&lt;p&gt;Hello World&lt;/p&gt;";
+echo "<p>Hello World</p>";
 ?>
 ```
   

@@ -14,13 +14,13 @@ var = "foo";
 $ref1 =&amp; $var; // new object that references $var
 $ref2 =&amp; $ref1; // references $var directly, not $ref1!!!!!
 
-echo $ref; // &gt;foo
+echo $ref; // >foo
 
 unset($ref);
 
-echo $ref1; // &gt;Notice:  Undefined variable: ref1
-echo $ref2; // &gt;foo
-echo $var; // &gt;foo
+echo $ref1; // >Notice:  Undefined variable: ref1
+echo $ref2; // >foo
+echo $var; // >foo
 ?>
 ```
 
@@ -36,8 +36,8 @@ $ref =&amp; $var;
 
 unset($var);
 
-echo $var; // &gt;Notice:  Undefined variable: var
-echo $ref; // &gt;foo
+echo $var; // >Notice:  Undefined variable: var
+echo $ref; // >foo
 ?>
 ```
 

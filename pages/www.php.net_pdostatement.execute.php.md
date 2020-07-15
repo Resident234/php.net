@@ -43,7 +43,7 @@ $calories = 150;
 $colour = 'red';
 $sth = $dbh->prepare('SELECT name, colour, calories
    FROM fruit
-   WHERE calories &lt; :calories AND colour = :colour');
+   WHERE calories < :calories AND colour = :colour');
 // instead of:
 //     $sth->execute(array(':calories' => $calories, ':colour' => $colour));
 // this works fine, too:

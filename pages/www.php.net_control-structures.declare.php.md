@@ -20,7 +20,7 @@ In the following example:<br><br>
 ```
 <?php
 function handler(){
-    print "hello &lt;br /&gt;";
+    print "hello <br />";
 }
 
 register_tick_function("handler");

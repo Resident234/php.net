@@ -45,13 +45,13 @@ function xml_to_object($xml) {
 
 // For example:
 $xml = '
-&lt;parser&gt;
-   &lt;name language="en-us"&gt;Fred Parser&lt;/name&gt;
-   &lt;category&gt;
-       &lt;name&gt;Nomenclature&lt;/name&gt;
-       &lt;note&gt;Noteworthy&lt;/note&gt;
-   &lt;/category&gt;
-&lt;/parser&gt;
+<parser>
+   <name language="en-us">Fred Parser</name>
+   <category>
+       <name>Nomenclature</name>
+       <note>Noteworthy</note>
+   </category>
+</parser>
 ';
 print_r(xml_to_object($xml));
 ?>

@@ -28,9 +28,9 @@ As PHP doesn&apos;t have a a native number truncate function, this is my solutio
 ```
 <?php
 /**
- * Truncate a float number, example: &lt;code&gt;truncate(-1.49999, 2); // returns -1.49
+ * Truncate a float number, example: <code>truncate(-1.49999, 2); // returns -1.49
  * truncate(.49999, 3); // returns 0.499
- * &lt;/code&gt;
+ * </code>
  * @param float $val Float number to be truncate
  * @param int f Number of precision
  * @return float

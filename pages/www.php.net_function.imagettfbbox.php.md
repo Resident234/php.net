@@ -19,7 +19,7 @@ function calculateTextBox($font_size, $font_angle, $font_file, $text) {
   $left   = abs( $min_x ) + $width;
   $top    = abs( $min_y ) + $height;
   // to calculate the exact bounding box i write the text in a large image
-  $img     = @imagecreatetruecolor( $width &lt;&lt; 2, $height &lt;&lt; 2 );
+  $img     = @imagecreatetruecolor( $width << 2, $height << 2 );
   $white   =  imagecolorallocate( $img, 255, 255, 255 );
   $black   =  imagecolorallocate( $img, 0, 0, 0 );
   imagefilledrectangle($img, 0, 0, imagesx($img), imagesy($img), $black);
@@ -28,12 +28,12 @@ function calculateTextBox($font_size, $font_angle, $font_file, $text) {
                 $font_angle, $left, $top,
                 $white, $font_file, $text);
   // start scanning (0=> black => empty)
-  $rleft  = $w4 = $width&lt;&lt;2;
+  $rleft  = $w4 = $width<<2;
   $rright = 0;
   $rbottom   = 0;
-  $rtop = $h4 = $height&lt;&lt;2;
-  for( $x = 0; $x &lt; $w4; $x++ )
-    for( $y = 0; $y &lt; $h4; $y++ )
+  $rtop = $h4 = $height<<2;
+  for( $x = 0; $x < $w4; $x++ )
+    for( $y = 0; $y < $h4; $y++ )
       if( imagecolorat( $img, $x, $y ) ){
         $rleft   = min( $rleft, $x );
         $rright  = max( $rright, $x );

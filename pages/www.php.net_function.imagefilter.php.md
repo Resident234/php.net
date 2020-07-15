@@ -38,7 +38,7 @@ function blur($gdImageResource, $blurFactor = 3)
   $prevHeight = $originalHeight;
 
   // scale way down and gradually scale back up, blurring all the way
-  for($i = 0; $i &lt; $blurFactor; $i += 1)
+  for($i = 0; $i < $blurFactor; $i += 1)
   {    
     // determine dimensions of next image
     $nextWidth = $smallestWidth * pow(2, $i);
@@ -86,9 +86,9 @@ function rgba_colorize($img, $color)
 
     $img_x = imagesx($img);
     $img_y = imagesy($img);
-    for ($x = 0; $x &lt; $img_x; ++$x)
+    for ($x = 0; $x < $img_x; ++$x)
     {
-        for ($y = 0; $y &lt; $img_y; ++$y)
+        for ($y = 0; $y < $img_y; ++$y)
         {
             $rgba = imagecolorsforindex($img, imagecolorat($img, $x, $y));
             $color_alpha = imagecolorallocatealpha($img, $color[0], $color[1], $color[2], $rgba['alpha']);

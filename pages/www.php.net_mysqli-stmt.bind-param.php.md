@@ -115,7 +115,7 @@ function execSQL($sql, $params, $close){
    }
    
     function refValues($arr){
-        if (strnatcmp(phpversion(),'5.3') &gt;= 0) //Reference is required for PHP 5.3+
+        if (strnatcmp(phpversion(),'5.3') >= 0) //Reference is required for PHP 5.3+
         {
             $refs = array();
             foreach($arr as $key => $value)
@@ -295,7 +295,7 @@ I used to have problems with call_user_func_array and bind_param after migrating
 ```
 <?php
 function refValues($arr){
-    if (strnatcmp(phpversion(),'5.3') &gt;= 0) //Reference is required for PHP 5.3+
+    if (strnatcmp(phpversion(),'5.3') >= 0) //Reference is required for PHP 5.3+
     {
         $refs = array();
         foreach($arr as $key => $value)
@@ -383,7 +383,7 @@ $query .= implode(' OR ', $qArray);
 
 //call_user_func_array( array($stm, 'bind_param'), $bindParam->get());
 
-echo $query . '&lt;br/&gt;';
+echo $query . '<br/>';
 var_dump($bindParam->get());
 ?>
 ```

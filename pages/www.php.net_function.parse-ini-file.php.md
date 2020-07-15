@@ -177,7 +177,7 @@ function explodeExplode( $string, $array )
         {
             $returnArray[$tmpArray[0]] = $tmpArray[1];
         }
-        else if( count( $tmpArray ) &gt; 2 )
+        else if( count( $tmpArray ) > 2 )
         {
             $implodeBack = array();
             $firstLoop      = true;

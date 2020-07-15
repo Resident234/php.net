@@ -91,7 +91,7 @@ glob() isn&apos;t limited to one directory:<br><br>
 ```
 <?php
 $results=glob("{includes/*.php,core/*.php}",GLOB_BRACE);
-echo '&lt;pre&gt;',print_r($results,true),'&lt;/pre&gt;';
+echo '<pre>',print_r($results,true),'</pre>';
 ?>
 ```
 <br><br>Just be careful when using GLOB_BRACE regarding spaces around the comma:<br>{includes/*.php,core/*.php} works as expected, but<br>{includes/*.php, core/*.php} with a leading space, will only match the former as expected but not the latter<br>unless you have a directory named " core" on your machine with a leading space.<br>PHP can create such directories quite easily like so:<br>mkdir(" core");  

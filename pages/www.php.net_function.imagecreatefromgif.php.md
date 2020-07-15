@@ -18,13 +18,13 @@ function is_ani($filename) {
     
     // We read through the file til we reach the end of the file, or we've found 
     // at least 2 frame headers
-    while(!feof($fh) &amp;&amp; $count &lt; 2) {
+    while(!feof($fh) &amp;&amp; $count < 2) {
         $chunk = fread($fh, 1024 * 100); //read 100kb at a time
         $count += preg_match_all('#\x00\x21\xF9\x04.{4}\x00(\x2C|\x21)#s', $chunk, $matches);
    }
     
     fclose($fh);
-    return $count &gt; 1;
+    return $count > 1;
 }
 ?>
 ```

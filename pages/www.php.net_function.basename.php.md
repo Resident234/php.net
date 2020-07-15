@@ -26,7 +26,7 @@ function mb_basename($file)
 {
     return end(explode('/',$file));
 }
-&gt;&lt;
+><
 
 It is intented for UNIX servers?>
 ```

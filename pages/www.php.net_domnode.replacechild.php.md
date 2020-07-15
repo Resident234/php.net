@@ -12,11 +12,11 @@ $xml->load('docfile.xml');
 
 $elements = $xml->getElementsByTagNameNS('http://www.example.com/NS/', '*');
 $i = $elements->length - 1;
-while ($i &gt; -1) {
+while ($i > -1) {
     $element = $elements->item($i);
     $ignore = false;
 
-    $newelement = $xml&gt;createTextNode('Some new node!');
+    $newelement = $xml>createTextNode('Some new node!');
     $element->parentNode->replaceChild($newelement, $element);
     $i--;
 }
@@ -31,28 +31,28 @@ Here is a simple example for replacing a node:<br><br>Let&apos;s define our XML 
 
 ```
 <?php
-$xml = &lt;&lt;&lt;XML
-&lt;?xml version="1.0"?>
+$xml = <<<XML
+<?xml version="1.0"?>
 ```
 
-&lt;root&gt;
-  &lt;parent&gt;
-     &lt;child&gt;bar&lt;/child&gt;
-     &lt;child&gt;foo&lt;/child&gt;
-  &lt;/parent&gt;
-&lt;/root&gt;
+<root>
+  <parent>
+     <child>bar</child>
+     <child>foo</child>
+  </parent>
+</root>
 XML;
 ?>
 ```
 
 
-If we wanted to replace the entire &lt;parent&gt; node, we could do something like this:
+If we wanted to replace the entire <parent> node, we could do something like this:
 
 
 
 ```
 <?php
-// Create a new document fragment to hold the new &lt;parent&gt; node
+// Create a new document fragment to hold the new <parent> node
 $parent = new DomDocument;
 $parent_node = $parent ->createElement('parent');
 
@@ -105,7 +105,7 @@ echo $dom->saveXML();
 
 Our new node is successfully imported:
 
-&lt;?xml version="1.0"?>
+<?xml version="1.0"?>
 ```
 <br>&lt;root&gt;<br>&lt;parent&gt;&lt;child&gt;somevalue&lt;/child&gt;&lt;child&gt;anothervalue&lt;/child&gt;&lt;/parent&gt;<br>&lt;/root&gt;  
 

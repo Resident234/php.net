@@ -24,14 +24,14 @@ function log_exception( Exception $e )
     
     if ( $config["debug"] == true )
     {
-        print "&lt;div style='text-align: center;'&gt;";
-        print "&lt;h2 style='color: rgb(190, 50, 50);'&gt;Exception Occured:&lt;/h2&gt;";
-        print "&lt;table style='width: 800px; display: inline-block;'&gt;";
-        print "&lt;tr style='background-color:rgb(230,230,230);'&gt;&lt;th style='width: 80px;'&gt;Type&lt;/th&gt;&lt;td&gt;" . get_class( $e ) . "&lt;/td&gt;&lt;/tr&gt;";
-        print "&lt;tr style='background-color:rgb(240,240,240);'&gt;&lt;th&gt;Message&lt;/th&gt;&lt;td&gt;{$e->getMessage()}&lt;/td&gt;&lt;/tr&gt;";
-        print "&lt;tr style='background-color:rgb(230,230,230);'&gt;&lt;th&gt;File&lt;/th&gt;&lt;td&gt;{$e->getFile()}&lt;/td&gt;&lt;/tr&gt;";
-        print "&lt;tr style='background-color:rgb(240,240,240);'&gt;&lt;th&gt;Line&lt;/th&gt;&lt;td&gt;{$e->getLine()}&lt;/td&gt;&lt;/tr&gt;";
-        print "&lt;/table&gt;&lt;/div&gt;";
+        print "<div style='text-align: center;'>";
+        print "<h2 style='color: rgb(190, 50, 50);'>Exception Occured:</h2>";
+        print "<table style='width: 800px; display: inline-block;'>";
+        print "<tr style='background-color:rgb(230,230,230);'><th style='width: 80px;'>Type</th><td>" . get_class( $e ) . "</td></tr>";
+        print "<tr style='background-color:rgb(240,240,240);'><th>Message</th><td>{$e->getMessage()}</td></tr>";
+        print "<tr style='background-color:rgb(230,230,230);'><th>File</th><td>{$e->getFile()}</td></tr>";
+        print "<tr style='background-color:rgb(240,240,240);'><th>Line</th><td>{$e->getLine()}</td></tr>";
+        print "</table></div>";
     }
     else
     {
@@ -122,7 +122,7 @@ class UserDeprecatedException       extends ErrorException {}?>
  * is set and display_errors is off
  * @uses used in prod env for logging all type of error of php code in a file for further debugging
  * and code performance
- * @author Aditya Mehrotra&lt;aditycse@gmail.com&gt;
+ * @author Aditya Mehrotra<aditycse@gmail.com>
  */
 error_reporting(E_ALL);
 ini_set("display_errors", "off");

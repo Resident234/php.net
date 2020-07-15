@@ -9,11 +9,11 @@ I was having a heck of a time finding help on making asynchronous encryption/dec
 
 if (isset($_SERVER['HTTPS']) )
 {
-    echo "SECURE: This page is being accessed through a secure connection.&lt;br&gt;&lt;br&gt;";
+    echo "SECURE: This page is being accessed through a secure connection.<br><br>";
 }
 else
 {
-    echo "UNSECURE: This page is being access through an unsecure connection.&lt;br&gt;&lt;br&gt;";
+    echo "UNSECURE: This page is being access through an unsecure connection.<br><br>";
 }
 
 // Create the keypair
@@ -26,19 +26,19 @@ openssl_pkey_export($res, $privatekey);
 $publickey=openssl_pkey_get_details($res);
 $publickey=$publickey["key"];
 
-echo "Private Key:&lt;BR&gt;$privatekey&lt;br&gt;&lt;br&gt;Public Key:&lt;BR&gt;$publickey&lt;BR&gt;&lt;BR&gt;";
+echo "Private Key:<BR>$privatekey<br><br>Public Key:<BR>$publickey<BR><BR>";
 
 $cleartext = '1234 5678 9012 3456';
 
-echo "Clear text:&lt;br&gt;$cleartext&lt;BR&gt;&lt;BR&gt;";
+echo "Clear text:<br>$cleartext<BR><BR>";
 
 openssl_public_encrypt($cleartext, $crypttext, $publickey);
 
-echo "Crypt text:&lt;br&gt;$crypttext&lt;BR&gt;&lt;BR&gt;";
+echo "Crypt text:<br>$crypttext<BR><BR>";
 
 openssl_private_decrypt($crypttext, $decrypted, $privatekey);
 
-echo "Decrypted text:&lt;BR&gt;$decrypted&lt;br&gt;&lt;br&gt;";
+echo "Decrypted text:<BR>$decrypted<br><br>";
 ?>
 ```
 <br><br>Many thanks to other contributors in the docs for making this less painful.<br><br>Note that you will want to use these sorts of functions to generate a key ONCE - save your privatekey offline for decryption, and put your public key in your scripts/configuration file. If your data is compromised you don&apos;t care about the encrypted stuff or the public key, it&apos;s only the private key and cleartext that really matter.<br><br>Good luck!  

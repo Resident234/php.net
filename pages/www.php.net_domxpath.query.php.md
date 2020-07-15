@@ -6,17 +6,17 @@ If the query() function seems to ignore your $contextnode, and instead returns a
 
 ```
 <?php
-    $xml = "&lt;?xml version='1.0' encoding='UTF-8'?>
+    $xml = "<?xml version='1.0' encoding='UTF-8'?>
 ```
 
-        &lt;test&gt;
-            &lt;tag1&gt;
-                &lt;uselesstag&gt;
-                    &lt;tag2&gt;test&lt;/tag2&gt;
-                &lt;/uselesstag&gt;
-            &lt;/tag1&gt;
-            &lt;tag2&gt;test2&lt;/tag2&gt;
-        &lt;/test&gt;";
+        <test>
+            <tag1>
+                <uselesstag>
+                    <tag2>test</tag2>
+                </uselesstag>
+            </tag1>
+            <tag2>test2</tag2>
+        </test>";
    
     $dom = new DomDocument();
     $dom->loadXML($xml);

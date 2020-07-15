@@ -108,26 +108,26 @@ Here is an example of a clean query into a html table<br><br>&lt;table&gt;<br>  
 <?php while ($row = $myquery->fetch_assoc()) { ?>
 ```
 
-   &lt;tr&gt;
-     &lt;td&gt;
+   <tr>
+     <td>
 
 ```
 <?php echo $row["firstname"]; ?>
 ```
-&lt;/td&gt;
-     &lt;td&gt;
+</td>
+     <td>
 
 ```
 <?php echo $row["lastname"]; ?>
 ```
-&lt;/td&gt;
-     &lt;td&gt;
+</td>
+     <td>
 
 ```
 <?php echo $row["city"];?>
 ```
-&lt;/td&gt;
-   &lt;/tr&gt;
+</td>
+   </tr>
    
 
 ```

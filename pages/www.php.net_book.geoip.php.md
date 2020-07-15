@@ -28,15 +28,7 @@ print($record->city->name . "\n");
 print($record->postal->code . "\n");
 print($record->location->latitude . "\n");
 print($record->location->longitude . "\n");
-
-
-```
-<?php/releases<br><br>
-
-```
-<?php<br>require_once("geoip2.phar");<br>use GeoIp2\Database\Reader;<br>// City DB<br>$reader = new Reader(&apos;/path/to/GeoLite2-City.mmdb&apos;);<br>$record = $reader-&gt;city($_SERVER[&apos;REMOTE_ADDR&apos;]);<br>// or for Country DB<br>// $reader = new Reader(&apos;/path/to/GeoLite2-Country.mmdb&apos;);<br>// $record = $reader-&gt;country($_SERVER[&apos;REMOTE_ADDR&apos;]);<br>print($record-&gt;country-&gt;isoCode . "\n");<br>print($record-&gt;country-&gt;name . "\n");<br>print($record-&gt;country-&gt;names[&apos;zh-CN&apos;] . "\n");<br>print($record-&gt;mostSpecificSubdivision-&gt;name . "\n");<br>print($record-&gt;mostSpecificSubdivision-&gt;isoCode . "\n");<br>print($record-&gt;city-&gt;name . "\n");<br>print($record-&gt;postal-&gt;code . "\n");<br>print($record-&gt;location-&gt;latitude . "\n");<br>print($record-&gt;location-&gt;longitude . "\n");<br>$&gt;?>
-```
-gt;?>
+$>?>
 ```
   
 

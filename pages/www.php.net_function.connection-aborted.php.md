@@ -36,8 +36,8 @@ do{
         exit;
     }
     usleep(50000);
-    vPrint("I get echo'ed every itteration (every .5 second)&lt;br /&gt;\n");
-}while($i++ &lt; 200);
+    vPrint("I get echo'ed every itteration (every .5 second)<br />\n");
+}while($i++ < 200);
 endPacket();
 ?>
 ```

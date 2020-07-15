@@ -13,7 +13,7 @@ I&apos;ve been trying to find the charset of a norwegian (with a lot of &#xF8;, 
 $text = "A strange string to pass, maybe with some &#xF8;, &#xE6;, &#xE5; characters.";
 
 foreach(mb_list_encodings() as $chr){
-        echo mb_convert_encoding($text, 'UTF-8', $chr)." : ".$chr."&lt;br&gt;";    
+        echo mb_convert_encoding($text, 'UTF-8', $chr)." : ".$chr."<br>";    
  } 
 ?>
 ```

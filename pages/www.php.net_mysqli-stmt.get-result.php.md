@@ -49,7 +49,7 @@ function iimysqli_result_fetch_array(&amp;$result)
     $ret = array();
     $code = "return mysqli_stmt_bind_result(\$result->stmt ";
 
-    for ($i=0; $i&lt;$result->nCols; $i++)
+    for ($i=0; $i<$result->nCols; $i++)
     {
         $ret[$i] = NULL;
         $code .= ", \$ret['" .$i ."']";

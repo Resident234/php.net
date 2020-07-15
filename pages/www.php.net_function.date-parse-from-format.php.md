@@ -37,7 +37,7 @@ if (!function_exists('date_parse_from_format')) {
             $lastChar = isset($chars[$n - 1]) ? $chars[$n - 1] : '';
             $skipCurrent = '\\' == $lastChar;
             if (!$skipCurrent &amp;&amp; isset($keys[$char])) {
-                $regex .= '(?P&lt;' . $keys[$char][0] . '&gt;' . $keys[$char][1] . ')';
+                $regex .= '(?P<' . $keys[$char][0] . '>' . $keys[$char][1] . ')';
             } else if ('\\' == $char) {
                 $regex .= $char;
             } else {

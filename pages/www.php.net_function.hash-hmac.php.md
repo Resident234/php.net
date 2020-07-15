@@ -48,7 +48,7 @@ Option 2: always compare the whole string.
         }
 
         $status = 0;
-        for ($i = 0; $i &lt; $len; $i++) {
+        for ($i = 0; $i < $len; $i++) {
             $status |= ord($a[$i]) ^ ord($b[$i]);
         }
         return $status === 0;

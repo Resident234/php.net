@@ -97,7 +97,7 @@ Here&apos;s a good way to using parse_url () gets the youtube link.<br>This func
 function youtube($url, $width=560, $height=315, $fullscreen=true)
 {
     parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
-    $youtube= '&lt;iframe allowtransparency="true" scrolling="no" width="'.$width.'" height="'.$height.'" src="//www.youtube.com/embed/'.$my_array_of_vars['v'].'" frameborder="0"'.($fullscreen?' allowfullscreen':NULL).'&gt;&lt;/iframe&gt;';
+    $youtube= '<iframe allowtransparency="true" scrolling="no" width="'.$width.'" height="'.$height.'" src="//www.youtube.com/embed/'.$my_array_of_vars['v'].'" frameborder="0"'.($fullscreen?' allowfullscreen':NULL).'></iframe>';
     return $youtube;
 }
 

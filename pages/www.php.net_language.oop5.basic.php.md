@@ -105,11 +105,11 @@ protected  $prot = 'Protected' ;
 function __construct( ){  }
 
 public function showMe( ){
-    print '&lt;br&gt; self::STAT: '  .  self::STAT ; // refer to a (static) constant like this
-    print '&lt;br&gt; self::$stat: ' . self::$stat ; // static variable
-    print '&lt;br&gt;$this->stat: '  . $this->stat ; // legal, but not what you might think: empty result
-    print '&lt;br&gt;$this->publ: '  . $this->publ ; // refer to an object variable like this
-    print '&lt;br&gt;' ;
+    print '<br> self::STAT: '  .  self::STAT ; // refer to a (static) constant like this
+    print '<br> self::$stat: ' . self::$stat ; // static variable
+    print '<br>$this->stat: '  . $this->stat ; // legal, but not what you might think: empty result
+    print '<br>$this->publ: '  . $this->publ ; // refer to an object variable like this
+    print '<br>' ;
 }
 }
 $me = new Classy( ) ;
@@ -205,9 +205,9 @@ class Line3D
 /*
  * create and display objects of type Line3D.
  */
-echo '&lt;p&gt;' . (new Line3D()) . "&lt;/p&gt;\n";
-echo '&lt;p&gt;' . (new Line3D(0, 0, 0, 100, 100, 0)) . "&lt;/p&gt;\n";
-echo '&lt;p&gt;' . (new Line3D(0, 0, 0, 100, 100, 100)) . "&lt;/p&gt;\n";
+echo '<p>' . (new Line3D()) . "</p>\n";
+echo '<p>' . (new Line3D(0, 0, 0, 100, 100, 0)) . "</p>\n";
+echo '<p>' . (new Line3D(0, 0, 0, 100, 100, 100)) . "</p>\n";
 
 ?>
 ```
@@ -377,7 +377,7 @@ class Customer {
   // function to deal with user-input / validation
   // function to build string for output
   // function to write -> database
-  // function to  read &lt;- database
+  // function to  read <- database
   // etc, etc
 }
 
@@ -389,7 +389,7 @@ class Item {
   // function to deal with user-input / validation
   // function to build string for output
   // function to write -> database
-  // function to  read &lt;- database
+  // function to  read <- database
   // etc, etc
 }
 ?>

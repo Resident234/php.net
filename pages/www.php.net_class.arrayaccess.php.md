@@ -19,7 +19,7 @@ The indexes used in an ArrayAccess object are not limited to strings and integer
  * ArrayAndObjectAccess
  * Yes you can access class as array and the same time as object
  *
- * @author Yousef Ismaeil &lt;cliprz@gmail.com&gt;
+ * @author Yousef Ismaeil <cliprz@gmail.com>
  */
 
 class ArrayAndObjectAccess implements ArrayAccess {

@@ -86,7 +86,7 @@ $template->render($post, 'tpl.php');
 #############
 tpl.php
 ############
-&lt;h1&gt;
+<h1>
 
 ```
 <?php echo $this->title;?>

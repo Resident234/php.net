@@ -71,7 +71,7 @@ The simillar situation, but problem occurs during runtime:
 <?php
 class library {
     function allocate($x) {
-        if ($x&lt;1000)
+        if ($x<1000)
             throw new RangeException ("Value is too low!")
     }
 }

@@ -32,7 +32,7 @@ make an http POST request and return the response content and headers
 @param string $url    url of the requested script
 @param array $data    hash array of request variables
 @return returns a hash array with response content and headers in the following form:
-    array ('content'=>'&lt;html&gt;&lt;/html&gt;'
+    array ('content'=>'<html></html>'
         , 'headers'=>array ('HTTP/1.1 200 OK', 'Connection: close', ...)
         )
 */

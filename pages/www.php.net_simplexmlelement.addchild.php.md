@@ -67,8 +67,8 @@ To complete Volker Grabsch&apos;s comment, stating :<br>"Note that although addC
 
 ```
 <?php
-$xmlelement->value = 'my value &lt; &gt; &amp;';
-// results in &lt;value&gt;my value &amp;lt; &amp;gt; &amp;amp;&lt;/value&gt;
+$xmlelement->value = 'my value < > &amp;';
+// results in <value>my value &amp;lt; &amp;gt; &amp;amp;</value>
 ?>
 ```
 
@@ -79,8 +79,8 @@ instead of doing :
 
 ```
 <?php
-$xmlelement->addChild('value', 'my value &lt; &gt; &amp;');
-// results in &lt;value&gt;my value &amp;lt; &amp;gt; &amp;&lt;/value&gt; (invalid XML)
+$xmlelement->addChild('value', 'my value < > &amp;');
+// results in <value>my value &amp;lt; &amp;gt; &amp;</value> (invalid XML)
 ?>
 ```
 <br><br>See also: http://stackoverflow.com/questions/552957 (Rationale behind SimpleXMLElement&apos;s handling of text values in addChild and addAttribute)<br><br>HTH  

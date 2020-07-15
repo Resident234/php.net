@@ -7,7 +7,7 @@ The remark "in PHP the switch statement is considered a looping structure for th
 ```
 <?php
 
-    for( $i = 0; $i &lt; 3; ++ $i )
+    for( $i = 0; $i < 3; ++ $i )
     {
         echo ' [', $i, '] ';
         switch( $i )
@@ -16,7 +16,7 @@ The remark "in PHP the switch statement is considered a looping structure for th
             case 1: echo 'one' ; XXXX;
             case 2: echo 'two' ; break;
         }
-        echo ' &lt;' , $i, '&gt; ';
+        echo ' <' , $i, '> ';
     }
 
 ?>
@@ -34,7 +34,7 @@ $stack = array('first', 'second', 'third', 'fourth', 'fifth');
 foreach($stack AS $v){
     if($v == 'second')continue;
     if($v == 'fourth')break;
-    echo $v.'&lt;br&gt;';
+    echo $v.'<br>';
 }
 /*
 
@@ -48,7 +48,7 @@ foreach($stack2 AS $k=>$v){
     if($v == 'second')continue;
     if($k == 'three')continue;
     if($v == 'fifth')break;
-    echo $k.' ::: '.$v.'&lt;br&gt;';
+    echo $k.' ::: '.$v.'<br>';
 }
 /*
 

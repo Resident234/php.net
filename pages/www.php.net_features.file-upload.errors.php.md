@@ -159,7 +159,7 @@ if($_FILES['userfile']['error']==0) {
 }
 
 // In a loop...
-for($x=0,$y=count($_FILES['userfile']['error']);$x&lt;$y;++$x) {
+for($x=0,$y=count($_FILES['userfile']['error']);$x<$y;++$x) {
   if($_FILES['userfile']['error'][$x]==0) {
     // process
   } else {

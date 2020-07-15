@@ -36,7 +36,7 @@ function base64url_decode( $data ){
 }
 
 // proof
-for( $i = 0, $s = ''; $i &lt; 24; ++$i, $s .= substr("$i", -1 )){
+for( $i = 0, $s = ''; $i < 24; ++$i, $s .= substr("$i", -1 )){
   $base64_encoded    = base64_encode(    $s );
   $base64url_encoded = base64url_encode( $s );
   $base64url_decoded = base64url_decode( $base64url_encoded );
@@ -44,7 +44,7 @@ for( $i = 0, $s = ''; $i &lt; 24; ++$i, $s .= substr("$i", -1 )){
                      . str_repeat('=',
                          3 - ( 3 + strlen( $base64url_encoded )) % 4
                        );
-  echo "$s&lt;br&gt;$base64url_decoded&lt;br&gt;$base64_encoded&lt;br&gt;$base64_restored&lt;br&gt;$base64url_encoded&lt;br&gt;&lt;br&gt;";
+  echo "$s<br>$base64url_decoded<br>$base64_encoded<br>$base64_restored<br>$base64url_encoded<br><br>";
 }
 ?>
 ```
@@ -87,7 +87,7 @@ function base64_encode_image ($filename=string,$filetype=string) {
 
 used as so
 
-&lt;style type="text/css"&gt;
+<style type="text/css">
 .logo {
     background: url("
 
@@ -96,11 +96,11 @@ used as so
 ```
 ") no-repeat right 5px;
 }
-&lt;/style&gt;
+</style>
 
 or
 
-&lt;img src="
+<img src="
 
 ```
 <?php echo base64_encode_image ('img/logo.png','png'); ?>
@@ -138,7 +138,7 @@ while (1) {
     $b64 = base64_encode($row);
     $put = '';
 
-    if (strlen($b64) &lt; 76) {
+    if (strlen($b64) < 76) {
         if ($eof) {
             $put = $b64."\n";
             $cache = '';
@@ -146,11 +146,11 @@ while (1) {
             $cache = $row;
         }
 
-    } elseif (strlen($b64) &gt; 76) {
+    } elseif (strlen($b64) > 76) {
         do {
             $put .= substr($b64, 0, 76)."\n";
             $b64 = substr($b64, 76);
-        } while (strlen($b64) &gt; 76);
+        } while (strlen($b64) > 76);
 
         $cache = base64_decode($b64);
 

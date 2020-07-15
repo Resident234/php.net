@@ -119,7 +119,7 @@ You are also allowed to jump backwards with a goto statement. To run a block of 
     
     
     if (false) iw_link_begin:
-        echo '&lt;a href="#"&gt;';
+        echo '<a href="#">';
     goto iw__link_begin;
     
     if (false) iw_link_text:
@@ -127,7 +127,7 @@ You are also allowed to jump backwards with a goto statement. To run a block of 
     goto iw__link_text;
     
     if (false) iw_link_end:
-        echo '&lt;/a&gt;';
+        echo '</a>';
     goto iw__link_end;
     
     iw_end_gt:

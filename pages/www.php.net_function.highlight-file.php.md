@@ -10,25 +10,25 @@ This is my try on linenumbers<br>
           //Strip code and first span
         $code = substr(highlight_file($file, true), 36, -15);
         //Split lines
-        $lines = explode('&lt;br /&gt;', $code);
+        $lines = explode('<br />', $code);
         //Count
         $lineCount = count($lines);
         //Calc pad length
         $padLength = strlen($lineCount);
         
         //Re-Print the code and span again
-        echo "&lt;code&gt;&lt;span style=\"color: #000000\"&gt;";
+        echo "<code><span style=\"color: #000000\">";
         
         //Loop lines
         foreach($lines as $i => $line) {
             //Create line number
             $lineNumber = str_pad($i + 1,  $padLength, '0', STR_PAD_LEFT);
             //Print line
-            echo sprintf('&lt;br&gt;&lt;span style="color: #999999"&gt;%s | &lt;/span&gt;%s', $lineNumber, $line);
+            echo sprintf('<br><span style="color: #999999">%s | </span>%s', $lineNumber, $line);
         }
         
         //Close span
-        echo "&lt;/span&gt;&lt;/code&gt;";
+        echo "</span></code>";
     }
 
 ?>

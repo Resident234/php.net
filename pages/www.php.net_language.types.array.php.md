@@ -14,11 +14,11 @@ Beware that if you&apos;re using strings as indices in the $_POST array, that pe
 
 ```
 <?php
-    printf("POST: "); print_r($_POST); printf("&lt;br/&gt;");
+    printf("POST: "); print_r($_POST); printf("<br/>");
 ?>
 ```
 
-&lt;form method="post" action="
+<form method="post" action="
 
 ```
 <?php echo $_SERVER['PHP_SELF']; ?>

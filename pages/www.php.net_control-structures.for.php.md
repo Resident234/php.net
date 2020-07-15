@@ -10,7 +10,7 @@ The point about the speed in loops is, that the middle and the last expression a
 
 ```
 <?php
-for ($i = 0; $i &lt;= somewhat_calcMax(); $i++) {
+for ($i = 0; $i <= somewhat_calcMax(); $i++) {
   somewhat_doSomethingWith($i);
 }
 ?>
@@ -24,7 +24,7 @@ Faster would be:
 ```
 <?php
 $maxI = somewhat_calcMax();
-for ($i = 0; $i &lt;= $maxI; $i++) {
+for ($i = 0; $i <= $maxI; $i++) {
   somewhat_doSomethingWith($i);
 }
 ?>
@@ -38,7 +38,7 @@ And here a little trick:
 ```
 <?php
 $maxI = somewhat_calcMax();
-for ($i = 0; $i &lt;= $maxI; somewhat_doSomethingWith($i++)) ;
+for ($i = 0; $i <= $maxI; somewhat_doSomethingWith($i++)) ;
 ?>
 ```
 <br><br>The $i gets changed after the copy for the function (post-increment).  
@@ -49,8 +49,8 @@ You can use strtotime with for loops to loop through dates<br><br>
 
 ```
 <?php
-for ($date = strtotime("2014-01-01"); $date &lt; strtotime("2014-02-01"); $date = strtotime("+1 day", $date)) {
-    echo date("Y-m-d", $date)."&lt;br /&gt;";
+for ($date = strtotime("2014-01-01"); $date < strtotime("2014-02-01"); $date = strtotime("+1 day", $date)) {
+    echo date("Y-m-d", $date)."<br />";
 }
 ?>
 ```

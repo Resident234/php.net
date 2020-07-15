@@ -26,10 +26,10 @@ function scaleImageFileToBlob($file) {
     $x_ratio = $max_width / $width;
     $y_ratio = $max_height / $height;
 
-    if( ($width &lt;= $max_width) &amp;&amp; ($height &lt;= $max_height) ){
+    if( ($width <= $max_width) &amp;&amp; ($height <= $max_height) ){
         $tn_width = $width;
         $tn_height = $height;
-        }elseif (($x_ratio * $height) &lt; $max_height){
+        }elseif (($x_ratio * $height) < $max_height){
             $tn_height = ceil($x_ratio * $height);
             $tn_width = $max_width;
         }else{

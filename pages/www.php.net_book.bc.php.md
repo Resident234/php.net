@@ -18,11 +18,11 @@ Note that when you use implementation of factorial that ClaudiuS made, you get r
  */
 function bcfact($num)
 {
-    if (!filter_var($num, FILTER_VALIDATE_INT) || $num &lt;= 0) {
+    if (!filter_var($num, FILTER_VALIDATE_INT) || $num <= 0) {
         throw new InvalidArgumentException(sprintf('Argument must be natural number, "%s" given.', $num));
     }
 
-    for ($result = '1'; $num &gt; 0; $num--) {
+    for ($result = '1'; $num > 0; $num--) {
         $result = bcmul($result, $num);
     }
 
@@ -43,7 +43,7 @@ Needed to compute some permutations and found the BC extension great but poor on
  */
 function bcfact($n){
     $factorial=$n;
-    while (--$n&gt;1) $factorial=bcmul($factorial,$n);
+    while (--$n>1) $factorial=bcmul($factorial,$n);
     return $factorial;
 }
 

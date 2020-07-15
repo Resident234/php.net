@@ -12,7 +12,7 @@ These functions DO NOT round off your values. No arbitrary precision libraries d
 <?php
         function bcround($number, $scale=0) {
                 $fix = "5";
-                for ($i=0;$i&lt;$scale;$i++) $fix="0$fix";
+                for ($i=0;$i<$scale;$i++) $fix="0$fix";
                 $number = bcadd($number, "0.$fix", $scale+1);
                 return    bcdiv($number, "1.0",    $scale);
         }

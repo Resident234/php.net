@@ -40,7 +40,7 @@ You can then use the array to test for the different conditions
         echo "This operation matched rows, but none required updating.\n";
     }
 
-    if ($info ['Changed'] &lt; $info ['Rows matched']) {
+    if ($info ['Changed'] < $info ['Rows matched']) {
         echo ($info ['Rows matched'] - $info ['Changed'])." rows matched but were not changed.\n";
     }
 ?>

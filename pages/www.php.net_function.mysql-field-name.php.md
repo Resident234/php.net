@@ -11,7 +11,7 @@ This function is slightly stupid to be honest, why not just make an array of fie
     
         $field = mysql_num_fields( $query );
     
-        for ( $i = 0; $i &lt; $field; $i++ ) {
+        for ( $i = 0; $i < $field; $i++ ) {
         
             $names[] = mysql_field_name( $query, $i );
         

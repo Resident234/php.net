@@ -9,9 +9,9 @@ I couldn&apos;t find any how-to example for getting the filenames, so I made an 
 $zip = new ZipArchive;
 if ($zip->open('items.zip'))
 {
-     for($i = 0; $i &lt; $zip->numFiles; $i++)
+     for($i = 0; $i < $zip->numFiles; $i++)
      {   
-          echo 'Filename: ' . $zip->getNameIndex($i) . '&lt;br /&gt;';
+          echo 'Filename: ' . $zip->getNameIndex($i) . '<br />';
      }
 }
 else

@@ -46,7 +46,7 @@ if ($mbox=imap_open( $authhost, $user, $pass))
 }
 else
 {
-    echo "&lt;h1&gt;FAIL!&lt;/h1&gt;\n";
+    echo "<h1>FAIL!</h1>\n";
 }
 
 ?>

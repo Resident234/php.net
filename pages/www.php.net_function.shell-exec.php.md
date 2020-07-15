@@ -11,7 +11,7 @@ To run a command in background, the output must be redirected to /dev/null. This
 ```
 <?php
 # this doesn't work!
-shell_exec("my_script.sh 2&gt;&amp;1 &gt;&gt; /tmp/mylog &amp;");
+shell_exec("my_script.sh 2>&amp;1 >> /tmp/mylog &amp;");
 ?>
 ```
 
@@ -25,7 +25,7 @@ Seems like you have to add exactly "/dev/null" to the command line. For instance
 ```
 <?php
 # works, but output is lost
-shell_exec("my_script.sh 2&gt;/dev/null &gt;/dev/null &amp;");
+shell_exec("my_script.sh 2>/dev/null >/dev/null &amp;");
 ?>
 ```
 
@@ -36,7 +36,7 @@ But I wanted the output, so I used this:
 
 ```
 <?php
-shell_exec("my_script.sh 2&gt;&amp;1 | tee -a /tmp/mylog 2&gt;/dev/null &gt;/dev/null &amp;");
+shell_exec("my_script.sh 2>&amp;1 | tee -a /tmp/mylog 2>/dev/null >/dev/null &amp;");
 ?>
 ```
 <br><br>Hope this helps someone.  

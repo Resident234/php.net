@@ -53,9 +53,9 @@ tempnam() function does not support custom stream wrappers registered by stream_
 ```
 <?php
 
-// &lt;&lt; ...custom stream wrapper goes somewhere here...&gt;&gt;
+// << ...custom stream wrapper goes somewhere here...>>
 
-echo '&lt;pre&gt;';
+echo '<pre>';
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 clearstatcache();
@@ -65,11 +65,11 @@ mkdir('test://aaa');
 mkdir('test://aaa/cc');
 mkdir('test://aaa/dd'); 
 echo 'PHP '.PHP_VERSION;
-echo '&lt;br /&gt;node exists: '.file_exists('test://aaa/cc');
-echo '&lt;br /&gt;node is writable: '.is_writable('test://aaa/cc');
-echo '&lt;br /&gt;node is dir: '.is_dir('test://aaa/cc');
-echo '&lt;br /&gt;tempnam in dir: '.tempnam('test://aaa/cc', 'tmp');
-echo "&lt;br /&gt;&lt;/pre&gt;";
+echo '<br />node exists: '.file_exists('test://aaa/cc');
+echo '<br />node is writable: '.is_writable('test://aaa/cc');
+echo '<br />node is dir: '.is_dir('test://aaa/cc');
+echo '<br />tempnam in dir: '.tempnam('test://aaa/cc', 'tmp');
+echo "<br /></pre>";
 
 ?>
 ```

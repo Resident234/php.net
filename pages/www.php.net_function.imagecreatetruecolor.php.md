@@ -11,7 +11,7 @@ define ("MAXMEM", 32*1024*1024);  //--- memory limit (32M) ---
 
 //-------------------------------------------------- ENOUGH MEMORY ?
 function enoughmem ($x, $y, $rgb=3) {
-    return ( $x * $y * $rgb * 1.7 &lt; MAXMEM - memory_get_usage() );
+    return ( $x * $y * $rgb * 1.7 < MAXMEM - memory_get_usage() );
 }
 
 //-------------------------------------------------- SIMPLE EXAMPLE
@@ -19,7 +19,7 @@ list ($x, $y) = @getimagesize ('your_img.jpg');  //--- get size of img ---
 if (enoughmem($x,$y)) {
     $img = @imagecreatefromjpeg ('your_img.jpg');  //--- open img file ---
     $thumb = 200;  //--- max. size of thumb ---
-    if ($x &gt; $y) {
+    if ($x > $y) {
         $tx = $thumb;  //--- landscape ---
         $ty = round($thumb / $x * $y);
     } else {

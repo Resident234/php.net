@@ -10,7 +10,7 @@ The documentation does not mention, but a closing semicolon at the end of the he
 
 ```
 <?php
-$foo = &lt;&lt;&lt;END
+$foo = <<<END
 abcd
 END;
 ?>
@@ -23,7 +23,7 @@ This does not:
 
 ```
 <?php
-foo(&lt;&lt;&lt;END
+foo(<<<END
 abcd
 END;
 );
@@ -38,7 +38,7 @@ Without semicolon, it works fine:
 
 ```
 <?php
-foo(&lt;&lt;&lt;END
+foo(<<<END
 abcd
 END
 );
@@ -126,10 +126,10 @@ To save Your mind don&apos;t read previous comments about dates  ;)<br><br>When 
 
 ```
 <?php
-var_dump('1.22' &gt; '01.23'); // bool(false)
-var_dump('1.22.00' &gt; '01.23.00'); // bool(true)
-var_dump('1-22-00' &gt; '01-23-00'); // bool(true)
-var_dump((float)'1.22.00' &gt; (float)'01.23.00'); // bool(false)
+var_dump('1.22' > '01.23'); // bool(false)
+var_dump('1.22.00' > '01.23.00'); // bool(true)
+var_dump('1-22-00' > '01-23-00'); // bool(true)
+var_dump((float)'1.22.00' > (float)'01.23.00'); // bool(false)
 ?>
 ```
   

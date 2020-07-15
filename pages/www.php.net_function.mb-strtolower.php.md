@@ -12,7 +12,7 @@ $text = "L&#xF6;rem ip&#xDF;&#xFC;m d&#xF6;l&#xF6;r &#xDF;it &#xE4;met, c&#xF6;n
 // mb_strtolower()
 $timeMB = microtime(true);     
               
-    for($i=0;$i&lt;30000;$i++) 
+    for($i=0;$i<30000;$i++) 
         $lower = mb_strtolower("$text/no-cache-$i");
 
 $timeMB = microtime(true) - $timeMB;
@@ -21,15 +21,15 @@ $timeMB = microtime(true) - $timeMB;
 $timeSQL = microtime(true);    
 
     mysql_query("set names latin1");               
-    for($i=0;$i&lt;30000;$i++) { 
+    for($i=0;$i<30000;$i++) { 
         $r = mysql_fetch_row(mysql_query("select lower('$text/no-cache-$i')"));
         $lower = $r[0];
     }
 
 $timeSQL = microtime(true) - $timeSQL;
 
-echo "mb: ".sprintf("%.5f",$timeMB)." sek.&lt;br /&gt;";
-echo "sql: ".sprintf("%.5f",$timeSQL)." sek.&lt;br /&gt;";
+echo "mb: ".sprintf("%.5f",$timeMB)." sek.<br />";
+echo "sql: ".sprintf("%.5f",$timeSQL)." sek.<br />";
 
 // Result on my notebook:
 // mb: 11.50642 sek.

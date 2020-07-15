@@ -71,7 +71,7 @@ function FileSizeConvert($bytes)
 
     foreach($arBytes as $arItem)
     {
-        if($bytes &gt;= $arItem["VALUE"])
+        if($bytes >= $arItem["VALUE"])
         {
             $result = $bytes / $arItem["VALUE"];
             $result = str_replace(".", "," , strval(round($result, 2)))." ".$arItem["UNIT"];
@@ -92,7 +92,7 @@ function FileSizeConvert($bytes)
 ```
 <?php
 /**
- * Return file size (even for file &gt; 2 Gb)
+ * Return file size (even for file > 2 Gb)
  * For file size over PHP_INT_MAX (2 147 483 647), PHP filesize function loops from -PHP_INT_MAX to PHP_INT_MAX.
  *
  * @param string $path Path of the file
@@ -108,8 +108,8 @@ function realFileSize($path)
     if (!($file = fopen($path, 'rb')))
         return false;
     
-    if ($size &gt;= 0)
-    {//Check if it really is a small file (&lt; 2 GB)
+    if ($size >= 0)
+    {//Check if it really is a small file (< 2 GB)
         if (fseek($file, 0, SEEK_END) === 0)
         {//It really is a small file
             fclose($file);

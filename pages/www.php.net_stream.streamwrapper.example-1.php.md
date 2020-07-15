@@ -24,7 +24,7 @@ class DBStream {
                 $this->_ps = $this->_pdo->prepare('INSERT INTO data VALUES(null, ?, NOW())');
                 break;
             case 'r' : 
-                $this->_ps = $this->_pdo->prepare('SELECT id, data FROM data WHERE id &gt; ? LIMIT 1');
+                $this->_ps = $this->_pdo->prepare('SELECT id, data FROM data WHERE id > ? LIMIT 1');
                 break;
             default  : return false;
         }
@@ -75,7 +75,7 @@ $al = $alg[array_rand($alg)];
 $data = hash($al, rand(rand(0, 9), rand(10, 999))); // Some random data to be written
 fwrite($fw, $data); // Writing the data to the wrapper
 while($a = fread($fr, 256)){ //A loop for reading from the wrapper
-    echo $a . '&lt;br /&gt;';
+    echo $a . '<br />';
 }
 ?>
 ```

@@ -25,7 +25,7 @@ $elements = $xpath->query("*/div[@id='yourTagIdHere']");
 
 if (!is_null($elements)) {
   foreach ($elements as $element) {
-    echo "&lt;br/&gt;[". $element->nodeName. "]";
+    echo "<br/>[". $element->nodeName. "]";
 
     $nodes = $element->childNodes;
     foreach ($nodes as $node) {

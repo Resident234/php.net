@@ -199,8 +199,8 @@ A bitwise operators practical case :<br><br>
     // We want to know the red, green and blue values of this color :
     $color = 0xFEA946 ;
 
-    $red = $color &gt;&gt; 16 ;
-    $green = ($color &amp; 0x00FF00) &gt;&gt; 8 ;
+    $red = $color >> 16 ;
+    $green = ($color &amp; 0x00FF00) >> 8 ;
     $blue = $color &amp; 0x0000FF ;
 
     printf('Red : %X (%d), Green : %X (%d), Blue : %X (%d)',

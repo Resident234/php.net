@@ -139,13 +139,13 @@ class zip extends ZipArchive
             {
                 $Tree = array();
                 $pathArray = array();
-                for($i=0; $i&lt;$this->numFiles; $i++)
+                for($i=0; $i<$this->numFiles; $i++)
                     {
                         $path = $this->getNameIndex($i);
                         $pathBySlash = array_values(explode('/',$path));
                         $c = count($pathBySlash);
                         $temp = &amp;$Tree;
-                        for($j=0; $j&lt;$c-1; $j++)
+                        for($j=0; $j<$c-1; $j++)
                             if(isset($temp[$pathBySlash[$j]]))
                                 $temp = &amp;$temp[$pathBySlash[$j]];
                             else

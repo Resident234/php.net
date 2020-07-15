@@ -56,7 +56,7 @@ public function formatDateDiff($start, $end=null) {
     }
     
     $interval = $end->diff($start);
-    $doPlural = function($nb,$str){return $nb&gt;1?$str.'s':$str;}; // adds plurals
+    $doPlural = function($nb,$str){return $nb>1?$str.'s':$str;}; // adds plurals
     
     $format = array();
     if($interval->y !== 0) {
@@ -83,7 +83,7 @@ public function formatDateDiff($start, $end=null) {
     }
     
     // We use the two biggest parts
-    if(count($format) &gt; 1) {
+    if(count($format) > 1) {
         $format = array_shift($format)." and ".array_shift($format);
     } else {
         $format = array_pop($format);

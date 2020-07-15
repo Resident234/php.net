@@ -31,8 +31,8 @@ Using arrays is the way to go.  Assuming that we know the unique numerical ident
 
 Our HTML code to display the buttons will become:
 
-&lt;input type="submit" value="Delete" name="action_button[0000000002]"&gt;
-&lt;input type="submit" value="Modify" name="action_button[0000000002]"&gt;
+<input type="submit" value="Delete" name="action_button[0000000002]">
+<input type="submit" value="Modify" name="action_button[0000000002]">
 
 The 0000000002 is of course the unique numerical identifier for this particular user.
 

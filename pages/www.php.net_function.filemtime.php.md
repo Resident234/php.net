@@ -6,7 +6,7 @@ This is a very handy function for dealing with browser caching. For example, say
 
 ```
 <?php
-echo '&lt;link rel="stylesheet" type="text/css" href="style.css?' . filemtime('style.css') . '" /&gt;';
+echo '<link rel="stylesheet" type="text/css" href="style.css?' . filemtime('style.css') . '" />';
 ?>
 ```
 <br><br>Sample output:<br><br>&lt;link rel="stylesheet" type="text/css" href="style.css?1203291283" /&gt;<br><br>By appending a GET value (the UNIX timestamp) to the stylesheet URL, you make the browser think the stylesheet is dynamic, so it&apos;ll reload the stylesheet every time the modification date changes.  
@@ -25,7 +25,7 @@ $cache_file = 'URI to cache file';
 $cache_life = '120'; //caching time, in seconds
 
 $filemtime = @filemtime($cache_file);  // returns FALSE if file does not exist
-if (!$filemtime or (time() - $filemtime &gt;= $cache_life)){
+if (!$filemtime or (time() - $filemtime >= $cache_life)){
     ob_start();
     resource_consuming_function();
     file_put_contents($cache_file,ob_get_flush());

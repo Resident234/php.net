@@ -27,16 +27,16 @@ To correctly extract a value from a CDATA just make sure you cast the SimpleXML 
 
 ```
 <?php
-$xml = '&lt;?xml version="1.0" encoding="UTF-8" ?>
+$xml = '<?xml version="1.0" encoding="UTF-8" ?>
 ```
 
-&lt;rss&gt;
-    &lt;channel&gt;
-        &lt;item&gt;
-            &lt;title&gt;&lt;![CDATA[Tom &amp; Jerry]]&gt;&lt;/title&gt;
-        &lt;/item&gt;
-    &lt;/channel&gt;
-&lt;/rss&gt;';
+<rss>
+    <channel>
+        <item>
+            <title><![CDATA[Tom &amp; Jerry]]></title>
+        </item>
+    </channel>
+</rss>';
 
 $xml = simplexml_load_string($xml);
 

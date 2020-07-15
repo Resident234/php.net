@@ -27,7 +27,7 @@ Example:
 
 ```
 <?php
-$xml_object=simplexml_load_string('&lt;SOME XML DATA');
+$xml_object=simplexml_load_string('<SOME XML DATA');
 $xml_array=object2array($xml_object);
 ?>
 ```
@@ -39,7 +39,7 @@ There seems to be a lot of talk about SimpleXML having a "problem" with CDATA, a
 
 ```
 <?php
-$xml = simplexml_load_string('&lt;foo&gt;Text1 &amp;amp; XML entities&lt;/foo&gt;');
+$xml = simplexml_load_string('<foo>Text1 &amp;amp; XML entities</foo>');
 print_r($xml);
 /*
 SimpleXMLElement Object
@@ -48,7 +48,7 @@ SimpleXMLElement Object
 )
 */
 
-$xml2 = simplexml_load_string('&lt;foo&gt;&lt;![CDATA[Text2 &amp; raw data]]&gt;&lt;/foo&gt;');
+$xml2 = simplexml_load_string('<foo><![CDATA[Text2 &amp; raw data]]></foo>');
 print_r($xml2);
 /*
 SimpleXMLElement Object

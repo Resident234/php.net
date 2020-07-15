@@ -78,16 +78,16 @@ echo $birthday;
 // Result: 1879-03-14 00:00
 
 // Example 2
-echo '&lt;p&gt;Albert Einstein would now be ', $birthday->getAge(), ' years old.&lt;/p&gt;';
-// Result: &lt;p&gt;Albert Einstein would now be 130 years old.&lt;/p&gt;
+echo '<p>Albert Einstein would now be ', $birthday->getAge(), ' years old.</p>';
+// Result: <p>Albert Einstein would now be 130 years old.</p>
 
 // Example 3
-echo '&lt;p&gt;Albert Einstein would now be ', $birthday->diff()->format('%y Years, %m Months, %d Days'), ' old.&lt;/p&gt;';
-// Result: &lt;p&gt;Albert Einstein would now be 130 Years, 10 Months, 10 Days old.&lt;/p&gt;
+echo '<p>Albert Einstein would now be ', $birthday->diff()->format('%y Years, %m Months, %d Days'), ' old.</p>';
+// Result: <p>Albert Einstein would now be 130 Years, 10 Months, 10 Days old.</p>
 
 // Example 4
-echo '&lt;p&gt;Albert Einstein was on 2010-10-10 ', $birthday->getAge('2010-10-10'), ' years old.&lt;/p&gt;';
-// Result: &lt;p&gt;Albert Einstein was on 2010-10-10 131 years old.&lt;/p&gt;
+echo '<p>Albert Einstein was on 2010-10-10 ', $birthday->getAge('2010-10-10'), ' years old.</p>';
+// Result: <p>Albert Einstein was on 2010-10-10 131 years old.</p>
 
 ?>
 ```

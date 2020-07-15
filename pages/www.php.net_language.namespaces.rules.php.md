@@ -31,7 +31,7 @@ class foo
 
 ```
 <?php
-//GLOBAL SPACE &lt;--
+//GLOBAL SPACE <--
 function __autoload($c)
 {
     require_once $c . ".php";
@@ -42,7 +42,7 @@ class foo extends ns\foo // ns\foo is loaded here
     public function __construct()
     {
         parent::__construct();
-        echo "&lt;br /&gt;foo" . $this->say;
+        echo "<br />foo" . $this->say;
     }
 }
 $a = new ns\foo(); // ns\foo also loads ns/foo.php just fine here.

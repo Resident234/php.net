@@ -7,7 +7,7 @@ Hi All, I&apos;wrote a class to connect to MSSQL/Azure databases with Transactio
 ```
 <?php
 /**
-*    @author     Johan Kasselman &lt;johankasselman@live.com&gt;
+*    @author     Johan Kasselman <johankasselman@live.com>
 *    @since         2015-09-28    V1
 *
 */
@@ -44,7 +44,7 @@ class pdo_dblib_mssql{
 
     public function rollBack(){
         
-        while(count($this->childTrans) &gt; 0){
+        while(count($this->childTrans) > 0){
             $cTmp = array_shift($this->childTrans);
             $stmt = $this->db->prepare("ROLLBACK TRAN [$cTmp];");
             $stmt->execute();
@@ -55,7 +55,7 @@ class pdo_dblib_mssql{
 
     public function commit(){
 
-        while(count($this->childTrans) &gt; 0){
+        while(count($this->childTrans) > 0){
             $cTmp = array_shift($this->childTrans);
             $stmt = $this->db->prepare("COMMIT TRAN [$cTmp];");
             $stmt->execute();

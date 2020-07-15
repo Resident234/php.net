@@ -9,7 +9,7 @@
 
 if (! function_exists('pcntl_fork')) die('PCNTL functions not available on this PHP installation');
 
-for ($x = 1; $x &lt; 5; $x++) {
+for ($x = 1; $x < 5; $x++) {
    switch ($pid = pcntl_fork()) {
       case -1:
          // @fail
@@ -45,11 +45,11 @@ function fork_process($options)
 {
     $shared_memory_monitor = shmop_open(ftok(__FILE__, chr(0)), "c", 0644, count($options['process']));
     $shared_memory_ids = (object) array();
-    for ($i = 1; $i &lt;= count($options['process']); $i++) 
+    for ($i = 1; $i <= count($options['process']); $i++) 
     {
         $shared_memory_ids->$i = shmop_open(ftok(__FILE__, chr($i)), "c", 0644, $options['size']);
     }
-    for ($i = 1; $i &lt;= count($options['process']); $i++) 
+    for ($i = 1; $i <= count($options['process']); $i++) 
     { 
         $pid = pcntl_fork(); 
         if (!$pid) 
@@ -119,7 +119,7 @@ Its been easy to fork process with pcntl_fork.. but how can we control or proces
 
 ```
 <?php
-for ($i = 1; $i &lt;= 5; ++$i) {
+for ($i = 1; $i <= 5; ++$i) {
         $pid = pcntl_fork();
 
         if (!$pid) {
@@ -194,7 +194,7 @@ function index()
 
         register_shutdown_function('shutdown');
 
-        if (posix_setsid() &lt; 0)
+        if (posix_setsid() < 0)
             return;
 
         if ($pid = pcntl_fork())

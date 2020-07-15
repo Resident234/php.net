@@ -8,9 +8,9 @@ With a bit of rooting about with reflection, I spotted that the mysqli_warning c
 <?php
 $r = mysqli_query($db, "INSERT INTO blah SET z = '1'");
 $j = mysqli_warning_count($db);
-if ($j &gt; 0) {
+if ($j > 0) {
     $e = mysqli_get_warnings($db);
-    for ($i = 0; $i &lt; $j; $i++) {
+    for ($i = 0; $i < $j; $i++) {
         var_dump($e);
         $e->next();
     }

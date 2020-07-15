@@ -7,7 +7,7 @@ Hi !<br><br>If you don&apos;t have the GMP extension, the sign function is reall
 ```
 <?php
 function sign( $number ) {
-    return ( $number &gt; 0 ) ? 1 : ( ( $number &lt; 0 ) ? -1 : 0 );
+    return ( $number > 0 ) ? 1 : ( ( $number < 0 ) ? -1 : 0 );
 }
 
 echo sign( 500 ); // Return 1

@@ -8,10 +8,10 @@ To write all the lines of the file in other words to read the file line by line 
 <?php
 $names=file('name.txt');
 // To check the number of lines 
-echo count($names).'&lt;br&gt;';
+echo count($names).'<br>';
 foreach($names as $name)
 {
-   echo $name.'&lt;br&gt;';
+   echo $name.'<br>';
 }
 ?>
 ```

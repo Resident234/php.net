@@ -24,7 +24,7 @@ if ($fin !== FALSE) {
     $con = TRUE;
     $fsize = 0;
     while (($con !== FALSE) &amp;&amp; !feof($fin)) {
-        // deflate works best with buffers &gt;32K
+        // deflate works best with buffers >32K
         $con = fread($fin, 64 * 1024);
         if ($con !== FALSE) {
         hash_update($hctx, $con);

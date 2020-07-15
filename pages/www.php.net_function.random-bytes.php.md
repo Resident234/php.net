@@ -7,7 +7,7 @@ I used below function to create random token, and also a salt from the token. I 
 ```
 <?php
 function RandomToken($length = 32){
-    if(!isset($length) || intval($length) &lt;= 8 ){
+    if(!isset($length) || intval($length) <= 8 ){
       $length = 32;
     }
     if (function_exists('random_bytes')) {
@@ -34,7 +34,7 @@ echo "\n";
 This function is same as above but its only used for debugging
 */
 function RandomTokenDebug($length = 32){
-    if(!isset($length) || intval($length) &lt;= 8 ){
+    if(!isset($length) || intval($length) <= 8 ){
       $length = 32;
     }
     $randoms = array();

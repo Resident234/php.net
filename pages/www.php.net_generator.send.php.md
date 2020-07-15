@@ -7,7 +7,7 @@ Reading the example, it is a bit difficult to understand what exactly to do with
 ```
 <?php
 function nums() {
-    for ($i = 0; $i &lt; 5; ++$i) {
+    for ($i = 0; $i < 5; ++$i) {
                 //get a value from the caller
         $cmd = (yield $i);
         

@@ -8,9 +8,9 @@ Isolde is kind of wrong. The error handlers are stacked with set_error_handler()
 <?php
     mysql_connect("inexistent"); //Generate an error. The actual error handler is set by default
 
-    function foo1() {echo "&lt;br&gt;Error foo1&lt;br&gt;";}
-    function foo2() {echo "&lt;br&gt;Error foo2&lt;br&gt;";}
-    function foo3() {echo "&lt;br&gt;Error foo3&lt;br&gt;";}
+    function foo1() {echo "<br>Error foo1<br>";}
+    function foo2() {echo "<br>Error foo2<br>";}
+    function foo3() {echo "<br>Error foo3<br>";}
     
     set_error_handler("foo1");    //current error handler: foo1
     set_error_handler("foo2");    //current error handler: foo2

@@ -112,7 +112,7 @@ class scanDir {
             }
         }
 
-        if($path_errors){echo "The following directories do not exists&lt;br /&gt;";die(var_dump($path_errors));}
+        if($path_errors){echo "The following directories do not exists<br />";die(var_dump($path_errors));}
     }
 
     // This is how we scan directories

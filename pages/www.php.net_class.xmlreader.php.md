@@ -11,7 +11,7 @@ Wrapper XMLReader class, for simple SAX-reading huge xml:<br>https://github.com/
  * Simple XML Reader
  *
  * @license Public Domain
- * @author Dmitry Pyatkov(aka dkrnl) &lt;dkrnl@yandex.ru&gt;
+ * @author Dmitry Pyatkov(aka dkrnl) <dkrnl@yandex.ru>
  * @url http://github.com/dkrnl/SimpleXMLReader
  */
 class SimpleXMLReader extends XMLReader
@@ -153,16 +153,16 @@ Guys, I hope this example will help<br>you can erase prints showing the process-
 <?php 
 function xml2assoc($xml, $name)
 { 
-    print "&lt;ul&gt;";
+    print "<ul>";
 
     $tree = null;
-    print("I'm inside " . $name . "&lt;br&gt;");
+    print("I'm inside " . $name . "<br>");
     
     while($xml->read()) 
     {
         if($xml->nodeType == XMLReader::END_ELEMENT)
         {
-            print "&lt;/ul&gt;";
+            print "</ul>";
             return $tree;
         }
         
@@ -170,7 +170,7 @@ function xml2assoc($xml, $name)
         {
             $node = array();
             
-            print("Adding " . $xml->name ."&lt;br&gt;");
+            print("Adding " . $xml->name ."<br>");
             $node['tag'] = $xml->name;
 
             if($xml->hasAttributes)
@@ -178,7 +178,7 @@ function xml2assoc($xml, $name)
                 $attributes = array();
                 while($xml->moveToNextAttribute()) 
                 {
-                    print("Adding attr " . $xml->name ." = " . $xml->value . "&lt;br&gt;");
+                    print("Adding attr " . $xml->name ." = " . $xml->value . "<br>");
                     $attributes[$xml->name] = $xml->value;
                 }
                 $node['attr'] = $attributes;
@@ -190,7 +190,7 @@ function xml2assoc($xml, $name)
                 $node['childs'] = $childs;
             }
             
-            print($node['tag'] . " added &lt;br&gt;");
+            print($node['tag'] . " added <br>");
             $tree[] = $node;
         }
         
@@ -199,17 +199,17 @@ function xml2assoc($xml, $name)
             $node = array();
             $node['text'] = $xml->value;
             $tree[] = $node;
-            print "text added = " . $node['text'] . "&lt;br&gt;";
+            print "text added = " . $node['text'] . "<br>";
         }
     }
     
-    print "returning " . count($tree) . " childs&lt;br&gt;";
-    print "&lt;/ul&gt;";
+    print "returning " . count($tree) . " childs<br>";
+    print "</ul>";
     
     return $tree; 
 }
 
-echo "&lt;PRE&gt;";
+echo "<PRE>";
 
 $xml = new XMLReader(); 
 $xml->open('test.xml'); 
@@ -217,7 +217,7 @@ $assoc = xml2assoc($xml, "root");
 $xml->close();
 
 print_r($assoc);
-echo "&lt;/PRE&gt;";
+echo "</PRE>";
 
 ?>
 ```

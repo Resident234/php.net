@@ -40,29 +40,29 @@ a slightly more compact way of getting the month shift<br><br>
 //TEST
 
 $x = new DateTime('2017-01-30');
-echo( $x->format('Y-m-d')." past end of feb, but not dec&lt;br&gt;");
-echo('b ' . MonthShifter($x,1)->format(('Y-m-d'))."&lt;br&gt;");
-echo('c ' . MonthShifter($x,-1)->format(('Y-m-d'))."&lt;br&gt;");
+echo( $x->format('Y-m-d')." past end of feb, but not dec<br>");
+echo('b ' . MonthShifter($x,1)->format(('Y-m-d'))."<br>");
+echo('c ' . MonthShifter($x,-1)->format(('Y-m-d'))."<br>");
 
 $x = new DateTime('2017-01-15');
-echo("&lt;br&gt;" . $x->format('Y-m-d')." middle of the month &lt;br&gt;");
-echo('d ' . MonthShifter($x,1)->format(('Y-m-d'))."&lt;br&gt;");
-echo('e ' . MonthShifter($x,-1)->format(('Y-m-d'))."&lt;br&gt;");
+echo("<br>" . $x->format('Y-m-d')." middle of the month <br>");
+echo('d ' . MonthShifter($x,1)->format(('Y-m-d'))."<br>");
+echo('e ' . MonthShifter($x,-1)->format(('Y-m-d'))."<br>");
 
 $x = new DateTime('2017-02-28');
-echo("&lt;br&gt;" . $x->format('Y-m-d')." end of Feb&lt;br&gt;");
-echo('f ' . MonthShifter($x,1)->format(('Y-m-d'))."&lt;br&gt;");
-echo('g ' . MonthShifter($x,-1)->format(('Y-m-d'))."&lt;br&gt;");
+echo("<br>" . $x->format('Y-m-d')." end of Feb<br>");
+echo('f ' . MonthShifter($x,1)->format(('Y-m-d'))."<br>");
+echo('g ' . MonthShifter($x,-1)->format(('Y-m-d'))."<br>");
 
 $x = new DateTime('2017-01-31');
-echo("&lt;br&gt;" .  $x->format('Y-m-d')." end of Jan&lt;br&gt;");
-echo('h ' . MonthShifter($x,1)->format(('Y-m-d'))."&lt;br&gt;");
-echo('i ' . MonthShifter($x,-1)->format(('Y-m-d'))."&lt;br&gt;");
+echo("<br>" .  $x->format('Y-m-d')." end of Jan<br>");
+echo('h ' . MonthShifter($x,1)->format(('Y-m-d'))."<br>");
+echo('i ' . MonthShifter($x,-1)->format(('Y-m-d'))."<br>");
 
 $x = new DateTime('2017-01-31');
-echo("&lt;br&gt;" .  $x->format('Y-m-d')." end of Jan +/- 1 years diff, leap year respected&lt;br&gt;");
-echo('j ' . MonthShifter($x,13)->format(('Y-m-d'))."&lt;br&gt;");
-echo('k ' . MonthShifter($x,-11)->format(('Y-m-d'))."&lt;br&gt;");
+echo("<br>" .  $x->format('Y-m-d')." end of Jan +/- 1 years diff, leap year respected<br>");
+echo('j ' . MonthShifter($x,13)->format(('Y-m-d'))."<br>");
+echo('k ' . MonthShifter($x,-11)->format(('Y-m-d'))."<br>");
 
 //returns
 
@@ -116,11 +116,11 @@ These functions makes sure that adding months or years always ends up in the mon
         }
         
         /*
-        if($months&lt;0&amp;&amp;$date->format('m')&gt;$init->format('m'))
+        if($months<0&amp;&amp;$date->format('m')>$init->format('m'))
         while($date->format('m')-12-$init->format('m')!=$months%12)
         $date->modify('-1 day');
         else
-        if($months&gt;0&amp;&amp;$date->format('m')&lt;$init->format('m'))
+        if($months>0&amp;&amp;$date->format('m')<$init->format('m'))
         while($date->format('m')+12-$init->format('m')!=$months%12)
         $date->modify('-1 day');
         else

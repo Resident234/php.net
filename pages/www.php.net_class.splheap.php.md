@@ -21,7 +21,7 @@ class JupilerLeague extends SplHeap
         $values1 = array_values($array1);
         $values2 = array_values($array2);
         if ($values1[0] === $values2[0]) return 0;
-        return $values1[0] &lt; $values2[0] ? -1 : 1;
+        return $values1[0] < $values2[0] ? -1 : 1;
     }
 }
 

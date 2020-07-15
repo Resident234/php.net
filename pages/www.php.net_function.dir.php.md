@@ -55,7 +55,7 @@ class RecDir
 
    public function closeChildren()
    {
-      while(count($this->recursiveTree)&gt;1 &amp;&amp; false !== ($d = array_pop($this->recursiveTree)))
+      while(count($this->recursiveTree)>1 &amp;&amp; false !== ($d = array_pop($this->recursiveTree)))
       {
          $d->close();
          return true;
@@ -83,7 +83,7 @@ class RecDir
    
    public function read()
    {
-      while(count($this->recursiveTree)&gt;0)
+      while(count($this->recursiveTree)>0)
       {
          $d = end($this->recursiveTree);
          if((false !== ($entry = $d->read())))

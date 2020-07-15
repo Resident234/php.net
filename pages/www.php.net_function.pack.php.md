@@ -124,7 +124,7 @@ If you need to unpack a signed short from big-endian or little-endian specifical
 <?php
 $foo = unpack("n", $signedbigendianshort);
 $foo = $foo[1];
-if($foo &gt;= pow(2, 15)) $foo -= pow(2, 16);
+if($foo >= pow(2, 15)) $foo -= pow(2, 16);
 ?>
 ```
   

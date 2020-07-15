@@ -147,7 +147,7 @@ final class PDOStatement extends \PDOStatement {
 
             $queryString = sprintf('SELECT COUNT(*) AS T FROM (%s) DT', $queryString);
 
-            if (($placeholders = substr_count($queryString, '?')) &lt; count($inputParams))
+            if (($placeholders = substr_count($queryString, '?')) < count($inputParams))
                 $inputParams = array_slice($inputParams, 0, $placeholders);
 
             if (($sth = $this->PDO->prepare($queryString)) &amp;&amp; $sth->bindValues($inputParams) &amp;&amp; $sth->execute())

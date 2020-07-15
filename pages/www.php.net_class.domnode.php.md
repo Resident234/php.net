@@ -25,7 +25,7 @@ This example shows what happens:
 ```
 <?php
 
-$doc = DOMDocument::loadXML('&lt;node&gt;old content&lt;/node&gt;');
+$doc = DOMDocument::loadXML('<node>old content</node>');
 $node = $doc->getElementsByTagName('node')->item(0);
 echo "Content 1: ".$node->textContent."\n";
 
@@ -58,7 +58,7 @@ If you want to have a CDATA section, use this:
 
 ```
 <?php
-$doc = DOMDocument::loadXML('&lt;node&gt;old content&lt;/node&gt;');
+$doc = DOMDocument::loadXML('<node>old content</node>');
 $node = $doc->getElementsByTagName('node')->item(0);
 $node->removeChild($node->firstChild);
 $newText = $doc->createCDATASection('new cdata content');

@@ -10,7 +10,7 @@ function fib($n)
 {
     $cur = 1;
     $prev = 0;
-    for ($i = 0; $i &lt; $n; $i++) {
+    for ($i = 0; $i < $n; $i++) {
         yield $cur;
 
         $temp = $cur;

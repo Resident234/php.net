@@ -40,14 +40,14 @@ class MyDateTime extends DateTime
         list($y, $m, $d) = explode('-', $date);
 
         $m += $num;
-        while ($m &gt; 12)
+        while ($m > 12)
         {
             $m -= 12;
             $y++;
         }
 
         $last_day = date('t', strtotime("$y-$m-1"));
-        if ($d &gt; $last_day)
+        if ($d > $last_day)
         {
             $d = $last_day;
         }

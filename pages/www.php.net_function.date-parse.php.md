@@ -15,7 +15,7 @@ var_dump($info);
 array(12) { 
     ["year"]=> int(2010)
     ["month"]=> int(2)
-    ["day"]=> int(1)    //&lt;---expected false like below
+    ["day"]=> int(1)    //<---expected false like below
     ["hour"]=> bool(false)
     ["minute"]=> bool(false)
     ["second"]=> bool(false)

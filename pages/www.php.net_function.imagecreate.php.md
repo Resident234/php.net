@@ -38,7 +38,7 @@ function ImageCreateFromBMP($filename)
 
  //3 : Chargement des couleurs de la palette
    $PALETTE = array();
-   if ($BMP['colors'] &lt; 16777216)
+   if ($BMP['colors'] < 16777216)
    {
     $PALETTE = unpack('V'.$BMP['colors'], fread($f1,$BMP['colors']*4));
    }
@@ -50,10 +50,10 @@ function ImageCreateFromBMP($filename)
    $res = imagecreatetruecolor($BMP['width'],$BMP['height']);
    $P = 0;
    $Y = $BMP['height']-1;
-   while ($Y &gt;= 0)
+   while ($Y >= 0)
    {
     $X=0;
-    while ($X &lt; $BMP['width'])
+    while ($X < $BMP['width'])
     {
      if ($BMP['bits_per_pixel'] == 24)
         $COLOR = unpack("V",substr($IMG,$P,3).$VIDE);
@@ -70,19 +70,19 @@ function ImageCreateFromBMP($filename)
      elseif ($BMP['bits_per_pixel'] == 4)
      {
         $COLOR = unpack("n",$VIDE.substr($IMG,floor($P),1));
-        if (($P*2)%2 == 0) $COLOR[1] = ($COLOR[1] &gt;&gt; 4) ; else $COLOR[1] = ($COLOR[1] &amp; 0x0F);
+        if (($P*2)%2 == 0) $COLOR[1] = ($COLOR[1] >> 4) ; else $COLOR[1] = ($COLOR[1] &amp; 0x0F);
         $COLOR[1] = $PALETTE[$COLOR[1]+1];
      }
      elseif ($BMP['bits_per_pixel'] == 1)
      {
         $COLOR = unpack("n",$VIDE.substr($IMG,floor($P),1));
-        if     (($P*8)%8 == 0) $COLOR[1] =  $COLOR[1]        &gt;&gt;7;
-        elseif (($P*8)%8 == 1) $COLOR[1] = ($COLOR[1] &amp; 0x40)&gt;&gt;6;
-        elseif (($P*8)%8 == 2) $COLOR[1] = ($COLOR[1] &amp; 0x20)&gt;&gt;5;
-        elseif (($P*8)%8 == 3) $COLOR[1] = ($COLOR[1] &amp; 0x10)&gt;&gt;4;
-        elseif (($P*8)%8 == 4) $COLOR[1] = ($COLOR[1] &amp; 0x8)&gt;&gt;3;
-        elseif (($P*8)%8 == 5) $COLOR[1] = ($COLOR[1] &amp; 0x4)&gt;&gt;2;
-        elseif (($P*8)%8 == 6) $COLOR[1] = ($COLOR[1] &amp; 0x2)&gt;&gt;1;
+        if     (($P*8)%8 == 0) $COLOR[1] =  $COLOR[1]        >>7;
+        elseif (($P*8)%8 == 1) $COLOR[1] = ($COLOR[1] &amp; 0x40)>>6;
+        elseif (($P*8)%8 == 2) $COLOR[1] = ($COLOR[1] &amp; 0x20)>>5;
+        elseif (($P*8)%8 == 3) $COLOR[1] = ($COLOR[1] &amp; 0x10)>>4;
+        elseif (($P*8)%8 == 4) $COLOR[1] = ($COLOR[1] &amp; 0x8)>>3;
+        elseif (($P*8)%8 == 5) $COLOR[1] = ($COLOR[1] &amp; 0x4)>>2;
+        elseif (($P*8)%8 == 6) $COLOR[1] = ($COLOR[1] &amp; 0x2)>>1;
         elseif (($P*8)%8 == 7) $COLOR[1] = ($COLOR[1] &amp; 0x1);
         $COLOR[1] = $PALETTE[$COLOR[1]+1];
      }

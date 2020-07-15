@@ -57,7 +57,7 @@ class xmlToArrayParser {
   public function get_xml_error() {
     if($this->parse_error) { 
       $errCode = xml_get_error_code ($this->parser);
-      $thisError =  "Error Code [". $errCode ."] \"&lt;strong style='color:red;'&gt;" . xml_error_string($errCode)."&lt;/strong&gt;\", 
+      $thisError =  "Error Code [". $errCode ."] \"<strong style='color:red;'>" . xml_error_string($errCode)."</strong>\", 
                             at char ".xml_get_current_column_number($this->parser) . " 
                             on line ".xml_get_current_line_number($this->parser)."";
     }else $thisError = $this->parse_error;
@@ -127,7 +127,7 @@ Key phrase: Fully functional, fully tested, error free XML To Array parser.
   1. 'attrib' and 'cdata' are keys added to the array when the element contains both attributes and content.
   2. Ignores content that is not in between it's own set of tags.
   3. Don't know if it recognizes processing instructions nor do I know about processing instructions.
-     &lt;\?some_pi some_attr="some_value"?>
+     <\?some_pi some_attr="some_value"?>
 ```
   This is the same as a document declaration.
   4. Empty elements are not included unless they have attributes.
@@ -141,17 +141,17 @@ Key phrase: Fully functional, fully tested, error free XML To Array parser.
     $elemVal = $domArr['element']
   
   Example:
-    $xml = '&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    $xml = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 ```
 
-    &lt;top&gt;
-      &lt;element1&gt;element content 1&lt;/element1&gt;
-      &lt;element2 var2="val2" /&gt;
-      &lt;element3 var3="val3" var4="val4"&gt;element content 3&lt;/element3&gt; 
-      &lt;element3 var5="val5"&gt;element content 4&lt;/element3&gt;
-      &lt;element3 var6="val6" /&gt;
-      &lt;element3&gt;element content 7&lt;/element3&gt;
-    &lt;/top&gt;';
+    <top>
+      <element1>element content 1</element1>
+      <element2 var2="val2" />
+      <element3 var3="val3" var4="val4">element content 3</element3> 
+      <element3 var5="val5">element content 4</element3>
+      <element3 var6="val6" />
+      <element3>element content 7</element3>
+    </top>';
     
     $domObj = new xmlToArrayParser($xml);
     $domArr = $domObj->array;

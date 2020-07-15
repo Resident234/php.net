@@ -18,7 +18,7 @@ class Database extends PDO
             return parent::beginTransaction();
         }
         $this->exec('SAVEPOINT trans'.$this->transactionCounter);
-        return $this->transactionCounter &gt;= 0;
+        return $this->transactionCounter >= 0;
     }
 
     public function commit()
@@ -26,7 +26,7 @@ class Database extends PDO
         if (!--$this->transactionCounter) {
             return parent::commit();
         }
-        return $this->transactionCounter &gt;= 0;
+        return $this->transactionCounter >= 0;
     }
 
     public function rollback()
@@ -55,19 +55,19 @@ class Database extends \\PDO
     {
         if(!$this->transactionCounter++)
             return parent::beginTransaction();
-       return $this->transactionCounter &gt;= 0;
+       return $this->transactionCounter >= 0;
     }
 
     function commit()
     {
        if(!--$this->transactionCounter)
            return parent::commit();
-       return $this->transactionCounter &gt;= 0;
+       return $this->transactionCounter >= 0;
     }
 
     function rollback()
     {
-        if($this->transactionCounter &gt;= 0)
+        if($this->transactionCounter >= 0)
         {
             $this->transactionCounter = 0;
             return parent::rollback();

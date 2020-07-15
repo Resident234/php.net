@@ -168,7 +168,7 @@ function exceptionTest()
     }
 }
 
-echo '&lt;pre&gt;' . exceptionTest() . '&lt;/pre&gt;';
+echo '<pre>' . exceptionTest() . '</pre>';
 ?>
 ```
 <br><br>Here&apos;s a sample output:<br><br>Caught TestException (&apos;Unknown TestException&apos;)<br>TestException &apos;Unknown TestException&apos; in C:\xampp\htdocs\CustomException\CustomException.php(31)<br>#0 C:\xampp\htdocs\CustomException\ExceptionTest.php(19): CustomException-&gt;__construct()<br>#1 C:\xampp\htdocs\CustomException\ExceptionTest.php(43): exceptionTest()<br>#2 {main}  
@@ -188,7 +188,7 @@ catch doesn&apos;t check for the existence of the Exception class, so avoid typo
    {
       throw new MyException(...);
    }
-   catch (MuException $e) // &lt;--- typo
+   catch (MuException $e) // <--- typo
    {
       ...
    }

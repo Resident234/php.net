@@ -136,7 +136,7 @@ strtotime() also returns time by year and weeknumber. (I use PHP 5.2.8, PHP 4 do
 <?php
 // Get timestamp of 32nd week in 2009.
 strtotime('2009W32'); // returns timestamp for Mon, 03 Aug 2009 00:00:00
-// Weeknumbers &lt; 10 must be padded with zero:
+// Weeknumbers < 10 must be padded with zero:
 strtotime('2009W01'); // returns timestamp for Mon, 29 Dec 2008 00:00:00
 // strtotime('2009W1'); // error! returns false
 

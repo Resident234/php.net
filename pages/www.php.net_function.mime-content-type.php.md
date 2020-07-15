@@ -11,10 +11,10 @@ define('APACHE_MIME_TYPES_URL','http://svn.apache.org/repos/asf/httpd/httpd/trun
 function generateUpToDateMimeArray($url){
     $s=array();
     foreach(@explode("\n",@file_get_contents($url))as $x)
-        if(isset($x[0])&amp;&amp;$x[0]!=='#'&amp;&amp;preg_match_all('#([^\s]+)#',$x,$out)&amp;&amp;isset($out[1])&amp;&amp;($c=count($out[1]))&gt;1)
-            for($i=1;$i&lt;$c;$i++)
+        if(isset($x[0])&amp;&amp;$x[0]!=='#'&amp;&amp;preg_match_all('#([^\s]+)#',$x,$out)&amp;&amp;isset($out[1])&amp;&amp;($c=count($out[1]))>1)
+            for($i=1;$i<$c;$i++)
                 $s[]='&amp;nbsp;&amp;nbsp;&amp;nbsp;\''.$out[1][$i].'\' => \''.$out[1][0].'\'';
-    return @sort($s)?'$mime_types = array(&lt;br /&gt;'.implode($s,',&lt;br /&gt;').'&lt;br /&gt;);':false;
+    return @sort($s)?'$mime_types = array(<br />'.implode($s,',<br />').'<br />);':false;
 }
 
 echo

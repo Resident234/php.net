@@ -42,9 +42,9 @@ file4:
   use foo as feline;
   use bar as canine;
   use animate;
-  echo \feline\Cat::says(), "&lt;br /&gt;\n";
-  echo \canine\Dog::says(), "&lt;br /&gt;\n";
-  echo \animate\Animal::breathes(), "&lt;br /&gt;\n";  ?>
+  echo \feline\Cat::says(), "<br />\n";
+  echo \canine\Dog::says(), "<br />\n";
+  echo \animate\Animal::breathes(), "<br />\n";  ?>
 ```
 
 
@@ -120,9 +120,9 @@ file4:
   use foo as feline;
   use bar as canine;
   use other\animate;       //use other\animate as animate;
-  echo feline\Cat::says(), "&lt;br /&gt;\n";
-  echo canine\Dog::says(), "&lt;br /&gt;\n";
-  echo \animate\Animal::breathes(), "&lt;br /&gt;\n";  ?>
+  echo feline\Cat::says(), "<br />\n";
+  echo canine\Dog::says(), "<br />\n";
+  echo \animate\Animal::breathes(), "<br />\n";  ?>
 ```
   
 

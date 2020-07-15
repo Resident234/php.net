@@ -121,7 +121,7 @@ class mc {
    }
 
    private function walkIt($val) {
-       echo $val . "&lt;br /&gt;";
+       echo $val . "<br />";
    }
 
     public function export() {
@@ -191,7 +191,7 @@ function callableType($callable, $strict = true, callable&amp; $norm = null) {
         return 'Closure' === get_class($callable) ? 'closure' : 'invocable';
       case is_string($callable):
         $m    = null;
-        if (preg_match('~^(?&lt;class&gt;[a-z_][a-z0-9_]*)::(?&lt;method&gt;[a-z_][a-z0-9_]*)$~i', $callable, $m)) {
+        if (preg_match('~^(?<class>[a-z_][a-z0-9_]*)::(?<method>[a-z_][a-z0-9_]*)$~i', $callable, $m)) {
           list($left, $right) = [$m['class'], $m['method']];
           if (!$strict || (new \ReflectionMethod($left, $right))->isStatic()) {
             $norm = [$left, $right];
@@ -204,7 +204,7 @@ function callableType($callable, $strict = true, callable&amp; $norm = null) {
         break;
       case is_array($callable):
         $m = null;
-        if (preg_match('~^(:?(?&lt;reference&gt;self|parent)::)?(?&lt;method&gt;[a-z_][a-z0-9_]*)$~i', $callable[1], $m)) {
+        if (preg_match('~^(:?(?<reference>self|parent)::)?(?<method>[a-z_][a-z0-9_]*)$~i', $callable[1], $m)) {
           if (is_string($callable[0])) {
             if ('parent' === strtolower($m['reference'])) {
               list($left, $right) = [get_parent_class($callable[0]), $m['method']];

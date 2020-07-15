@@ -24,7 +24,7 @@ I was curious about hashes behavior (time and length), so i ran this code (yeah,
 <?php
   echo "Building data...";
   $data = "";
-  for($i = 0; $i &lt; 1500; $i++)
+  for($i = 0; $i < 1500; $i++)
     $data .= sha1("H:k - $i - k:H");
 
   echo "OK! (".strlen($data)." bytes)".PHP_EOL;
@@ -86,7 +86,7 @@ echo 'Building random data ...' . PHP_EOL;
 @ob_flush();flush();
 
 $data = '';
-for ($i = 0; $i &lt; 64000; $i++)
+for ($i = 0; $i < 64000; $i++)
     $data .= hash('md5', rand(), true);
 
 echo strlen($data) . ' bytes of random data built !' . PHP_EOL . PHP_EOL . 'Testing hash algorithms ...' . PHP_EOL; 

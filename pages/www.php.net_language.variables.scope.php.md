@@ -64,7 +64,7 @@ Note that unlike Java and C++, variables declared inside blocks such as loops or
 
 ```
 <?php
-for($j=0; $j&lt;3; $j++)
+for($j=0; $j<3; $j++)
 {
      if($j == 1)
         $a = 4;
@@ -85,11 +85,11 @@ function foo(){
     
     function bar(){
         global $f_a;
-        echo '"f_a" in BAR is: ' . $f_a . '&lt;br /&gt;';  // doesn't work, var is empty!
+        echo '"f_a" in BAR is: ' . $f_a . '<br />';  // doesn't work, var is empty!
     }
     
     bar();
-    echo '"f_a" in FOO is: ' . $f_a . '&lt;br /&gt;';
+    echo '"f_a" in FOO is: ' . $f_a . '<br />';
 }
 ?>
 ```
@@ -102,16 +102,16 @@ This will...
 ```
 <?php
 function foo(){
-    global $f_a;   // &lt;- Notice to this
+    global $f_a;   // <- Notice to this
     $f_a = 'a';
     
     function bar(){
         global $f_a;
-        echo '"f_a" in BAR is: ' . $f_a . '&lt;br /&gt;';  // work!, var is 'a'
+        echo '"f_a" in BAR is: ' . $f_a . '<br />';  // work!, var is 'a'
     }
     
     bar();
-    echo '"f_a" in FOO is: ' . $f_a . '&lt;br /&gt;';
+    echo '"f_a" in FOO is: ' . $f_a . '<br />';
 }
 ?>
 ```

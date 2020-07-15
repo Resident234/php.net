@@ -19,8 +19,8 @@ function hex2RGB($hexStr, $returnAsString = false, $seperator = ',') {
     $rgbArray = array();
     if (strlen($hexStr) == 6) { //If a proper hex code, convert using bitwise operation. No overhead... faster
         $colorVal = hexdec($hexStr);
-        $rgbArray['red'] = 0xFF &amp; ($colorVal &gt;&gt; 0x10);
-        $rgbArray['green'] = 0xFF &amp; ($colorVal &gt;&gt; 0x8);
+        $rgbArray['red'] = 0xFF &amp; ($colorVal >> 0x10);
+        $rgbArray['green'] = 0xFF &amp; ($colorVal >> 0x8);
         $rgbArray['blue'] = 0xFF &amp; $colorVal;
     } elseif (strlen($hexStr) == 3) { //if shorthand notation, need some string manipulations
         $rgbArray['red'] = hexdec(str_repeat(substr($hexStr, 0, 1), 2));

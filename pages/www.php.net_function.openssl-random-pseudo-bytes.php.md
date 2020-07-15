@@ -17,21 +17,21 @@ $b = imagecolorallocate($img,0, 0, 255);
 imagefilledrectangle($img, 0, 0, 3 * $sizex, $sizey, imagecolorallocate($img, 255, 255, 255));
 
 $p = 0;
-for($i=0; $i &lt; 100000; $i++) {
+for($i=0; $i < 100000; $i++) {
     $np = rand(0,$sizex);
     imagesetpixel($img, $p, $np, $r);
     $p = $np;
 }
 
 $p = 0;
-for($i=0; $i &lt; 100000; $i++) {
+for($i=0; $i < 100000; $i++) {
     $np = mt_rand(0,$sizex);
     imagesetpixel($img, $p + $sizex, $np, $g);
     $p = $np;
 }
 
 $p = 0;
-for($i=0; $i &lt; 100000; $i++) {
+for($i=0; $i < 100000; $i++) {
     $np = floor($sizex*(hexdec(bin2hex(openssl_random_pseudo_bytes(4)))/0xffffffff));
     imagesetpixel($img, $p + (2*$sizex), $np, $b);
     $p = $np;
@@ -63,11 +63,11 @@ function crypto_rand_secure($min, $max) {
         $log = log($range, 2);
         $bytes = (int) ($log / 8) + 1; // length in bytes
         $bits = (int) $log + 1; // length in bits
-        $filter = (int) (1 &lt;&lt; $bits) - 1; // set all lower bits to 1
+        $filter = (int) (1 << $bits) - 1; // set all lower bits to 1
         do {
             $rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes, $s)));
             $rnd = $rnd &amp; $filter; // discard irrelevant bits
-        } while ($rnd &gt;= $range);
+        } while ($rnd >= $range);
         return $min + $rnd;
 }
 ?>

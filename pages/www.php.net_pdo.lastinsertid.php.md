@@ -30,10 +30,10 @@ try {
         print $dbh->lastInsertId();
     } catch(PDOExecption $e) {
         $dbh->rollback();
-        print "Error!: " . $e->getMessage() . "&lt;/br&gt;";
+        print "Error!: " . $e->getMessage() . "</br>";
     }
 } catch( PDOExecption $e ) {
-    print "Error!: " . $e->getMessage() . "&lt;/br&gt;";
+    print "Error!: " . $e->getMessage() . "</br>";
 }
 ?>
 ```

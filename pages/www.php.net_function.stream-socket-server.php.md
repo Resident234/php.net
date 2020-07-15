@@ -27,7 +27,7 @@ Just a small example how to use this function and also stream_select() to make a
 $master = array();
 $socket = stream_socket_server("tcp://0.0.0.0:8000", $errno, $errstr);
 if (!$socket) {
-    echo "$errstr ($errno)&lt;br /&gt;\n";
+    echo "$errstr ($errno)<br />\n";
 } else {
     $master[] = $socket;
     $read = $master;
@@ -37,7 +37,7 @@ if (!$socket) {
         if ($mod_fd === FALSE) {
             break;
         }
-        for ($i = 0; $i &lt; $mod_fd; ++$i) {
+        for ($i = 0; $i < $mod_fd; ++$i) {
             if ($read[$i] === $socket) {
                 $conn = stream_socket_accept($socket);
                 fwrite($conn, "Hello! The time is ".date("n/j/Y g:i a")."\n");
@@ -73,7 +73,7 @@ stream_client.php:
 <?php
 $fp = stream_socket_client("tcp://127.0.0.1:8000", $errno, $errstr, 30);
 if (!$fp) {
-    echo "$errstr ($errno)&lt;br /&gt;\n";
+    echo "$errstr ($errno)<br />\n";
 } else {
     fwrite($fp, "Aloha");
     while (!feof($fp)) {

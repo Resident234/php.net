@@ -24,10 +24,10 @@ function spellCheckWord($word) {
 
     // Auto-correct with the first suggestion, color green
     if ($autocorrect &amp;&amp; $suggestions = pspell_suggest($pspell,$word))
-        return '&lt;span style="color:#00FF00;"&gt;'.current($suggestions).'&lt;/span&gt;';
+        return '<span style="color:#00FF00;">'.current($suggestions).'</span>';
     
     // No suggestions, color red
-    return '&lt;span style="color:#FF0000;"&gt;'.$word.'&lt;/span&gt;';
+    return '<span style="color:#FF0000;">'.$word.'</span>';
 }
 
 function spellCheck($string) {

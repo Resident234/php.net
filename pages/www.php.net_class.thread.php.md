@@ -20,7 +20,7 @@ class workerThread extends Thread {
  }
 }
 
-for($i=0;$i&lt;50;$i++){
+for($i=0;$i<50;$i++){
  $workers[$i]=new workerThread($i);
  $workers[$i]->start();
 }

@@ -26,14 +26,14 @@ function image_resize($src, $dst, $width, $height, $crop=0){
 
   // resize
   if($crop){
-    if($w &lt; $width or $h &lt; $height) return "Picture is too small!";
+    if($w < $width or $h < $height) return "Picture is too small!";
     $ratio = max($width/$w, $height/$h);
     $h = $height / $ratio;
     $x = ($w - $width / $ratio) / 2;
     $w = $width / $ratio;
   }
   else{
-    if($w &lt; $width and $h &lt; $height) return "Picture is too small!";
+    if($w < $width and $h < $height) return "Picture is too small!";
     $ratio = min($width/$w, $height/$h);
     $width = $w * $ratio;
     $height = $h * $ratio;
@@ -159,11 +159,11 @@ class imaging
     {
 
         // Resize
-        if($this->x_input &gt; $size &amp;&amp; $this->y_input &gt; $size)
+        if($this->x_input > $size &amp;&amp; $this->y_input > $size)
         {
 
             // Wide
-            if($this->x_input &gt;= $this->y_input)
+            if($this->x_input >= $this->y_input)
             {
 
                 $this->x_output = $size;

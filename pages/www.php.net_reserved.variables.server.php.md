@@ -47,16 +47,16 @@ Just a PHP file to put on your local server (as I don&apos;t have enough memory)
 'PATH_INFO',
 'ORIG_PATH_INFO') ;
 
-echo '&lt;table cellpadding="10"&gt;' ;
+echo '<table cellpadding="10">' ;
 foreach ($indicesServer as $arg) {
     if (isset($_SERVER[$arg])) {
-        echo '&lt;tr&gt;&lt;td&gt;'.$arg.'&lt;/td&gt;&lt;td&gt;' . $_SERVER[$arg] . '&lt;/td&gt;&lt;/tr&gt;' ;
+        echo '<tr><td>'.$arg.'</td><td>' . $_SERVER[$arg] . '</td></tr>' ;
     }
     else {
-        echo '&lt;tr&gt;&lt;td&gt;'.$arg.'&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;' ;
+        echo '<tr><td>'.$arg.'</td><td>-</td></tr>' ;
     }
 }
-echo '&lt;/table&gt;' ;
+echo '</table>' ;
 
 /*
 

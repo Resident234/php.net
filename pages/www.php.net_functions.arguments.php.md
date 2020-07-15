@@ -8,7 +8,7 @@ To experiment on performance of pass-by-reference and pass-by-value, I used this
 <?php
 function sum($array,$max){   //For Reference, use:  "&amp;$array"
     $sum=0;
-    for ($i=0; $i&lt;2; $i++){
+    for ($i=0; $i<2; $i++){
         #$array[$i]++;        //Uncomment this line to modify the array within the function.
         $sum += $array[$i];  
     }
@@ -19,7 +19,7 @@ $max = 1E7                  //10 M data points.
 $data = range(0,$max,1);
 
 $start = microtime(true);
-for ($x = 0 ; $x &lt; 100; $x++){
+for ($x = 0 ; $x < 100; $x++){
     $sum = sum($data, $max);
 }
 $end =  microtime(true);

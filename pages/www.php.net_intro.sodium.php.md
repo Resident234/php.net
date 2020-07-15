@@ -47,7 +47,7 @@ function safeDecrypt($encrypted, $key)
     if ($decoded === false) {
         throw new Exception('Scream bloody murder, the encoding failed');
     }
-    if (mb_strlen($decoded, '8bit') &lt; (SODIUM_CRYPTO_SECRETBOX_NONCEBYTES + SODIUM_CRYPTO_SECRETBOX_MACBYTES)) {
+    if (mb_strlen($decoded, '8bit') < (SODIUM_CRYPTO_SECRETBOX_NONCEBYTES + SODIUM_CRYPTO_SECRETBOX_MACBYTES)) {
         throw new Exception('Scream bloody murder, the message was truncated');
     }
     $nonce = mb_substr($decoded, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit');
@@ -69,7 +69,7 @@ function safeDecrypt($encrypted, $key)
 $key = sodium_crypto_secretbox_keygen();
 $enc = safeEncrypt('Abdul Rafay Hingoro', $key); //generates random  encrypted string (Base64 related)
 echo $enc;
-echo '&lt;br&gt;';
+echo '<br>';
 $dec = safeDecrypt($enc, $key); //decrypts encoded string generated via safeEncrypt function 
 echo $dec;
 ?>

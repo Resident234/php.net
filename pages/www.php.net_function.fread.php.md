@@ -12,7 +12,7 @@ function dl_file_resumable($file, $is_resume=TRUE)
     //First, see if the file exists
     if (!is_file($file))
     {
-        die("&lt;b&gt;404 File not found!&lt;/b&gt;");
+        die("<b>404 File not found!</b>");
     }
 
     //Gather relevent info about file
@@ -65,13 +65,13 @@ function dl_file_resumable($file, $is_resume=TRUE)
     //set start and end based on range (if set), else set defaults
     //also check for invalid ranges.
     $seek_end = (empty($seek_end)) ? ($size - 1) : min(abs(intval($seek_end)),($size - 1));
-    $seek_start = (empty($seek_start) || $seek_end &lt; abs(intval($seek_start))) ? 0 : max(abs(intval($seek_start)),0);
+    $seek_start = (empty($seek_start) || $seek_end < abs(intval($seek_start))) ? 0 : max(abs(intval($seek_start)),0);
 
     //add headers if resumable
     if ($is_resume)
     {
         //Only send partial content header if downloading a piece of the file (IE workaround)
-        if ($seek_start &gt; 0 || $seek_end &lt; ($size - 1))
+        if ($seek_start > 0 || $seek_end < ($size - 1))
         {
             header('HTTP/1.1 206 Partial Content');
         }
@@ -141,7 +141,7 @@ function readfile_chunked_remote($filename, $seek = 0, $retbytes = true, $timeou
 
     while (!feof($handle)) {
 
-        if ($remotereadfile &amp;&amp; $seek != 0 &amp;&amp; $cnt+$chunksize &gt; $seek)
+        if ($remotereadfile &amp;&amp; $seek != 0 &amp;&amp; $cnt+$chunksize > $seek)
             $chunksize = $seek-$cnt;
         else
             $chunksize = $defaultchunksize;
@@ -152,7 +152,7 @@ function readfile_chunked_remote($filename, $seek = 0, $retbytes = true, $timeou
             $cnt += strlen($buffer);
         }
 
-        if (!$remotereadfile || ($remotereadfile &amp;&amp; $cnt &gt; $seek))
+        if (!$remotereadfile || ($remotereadfile &amp;&amp; $cnt > $seek))
             echo $buffer;
 
         ob_flush();
@@ -184,7 +184,7 @@ I had a fread script that hanged forever (from php manual):<br><br>
 <?php
 $fp = fsockopen("example.host.com", 80);
 if (!$fp) {
-    echo "$errstr ($errno)&lt;br /&gt;\n";
+    echo "$errstr ($errno)<br />\n";
 } else {
     fwrite($fp, "Data sent by socket");
     $content = "";
@@ -207,14 +207,14 @@ I solved it using the stream_get_meta_data function and a break statement as the
 <?php
 $fp = fsockopen("example.host.com", 80);
 if (!$fp) {
-    echo "$errstr ($errno)&lt;br /&gt;\n";
+    echo "$errstr ($errno)<br />\n";
 } else {
     fwrite($fp, "Data sent by socket");
     $content = "";
     while (!feof($fp)) {  
         $content .= fread($fp, 1024);
         $stream_meta_data = stream_get_meta_data($fp); //Added line
-         if($stream_meta_data['unread_bytes'] &lt;= 0) break; //Added line
+         if($stream_meta_data['unread_bytes'] <= 0) break; //Added line
     }
     fclose($fp);
     echo $content;

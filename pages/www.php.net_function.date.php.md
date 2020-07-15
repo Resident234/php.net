@@ -70,7 +70,7 @@ this how you make an HTML5 &lt;time&gt; tag correctly<br><br>
 ```
 <?php
 
-echo '&lt;time datetime="'.date('c').'"&gt;'.date('Y - m - d').'&lt;/time&gt;';
+echo '<time datetime="'.date('c').'">'.date('Y - m - d').'</time>';
 
 ?>
 ```
@@ -110,10 +110,10 @@ function _date($format="r", $timestamp=false, $timezone=false)
 }
 
 /* Example */
-echo 'System Date/Time: '.date("Y-m-d | h:i:sa").'&lt;br&gt;';
-echo 'New York Date/Time: '._date("Y-m-d | h:i:sa", false, 'America/New_York').'&lt;br&gt;';
-echo 'Belgrade Date/Time: '._date("Y-m-d | h:i:sa", false, 'Europe/Belgrade').'&lt;br&gt;';
-echo 'Belgrade Date/Time: '._date("Y-m-d | h:i:sa", 514640700, 'Europe/Belgrade').'&lt;br&gt;';
+echo 'System Date/Time: '.date("Y-m-d | h:i:sa").'<br>';
+echo 'New York Date/Time: '._date("Y-m-d | h:i:sa", false, 'America/New_York').'<br>';
+echo 'Belgrade Date/Time: '._date("Y-m-d | h:i:sa", false, 'Europe/Belgrade').'<br>';
+echo 'Belgrade Date/Time: '._date("Y-m-d | h:i:sa", 514640700, 'Europe/Belgrade').'<br>';
 ?>
 ```
 <br>This is the best and fastest solution for this problem. Working almost identical to date() function only as a supplement has the time zone option.  

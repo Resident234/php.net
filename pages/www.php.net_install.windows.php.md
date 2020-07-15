@@ -5,7 +5,7 @@
 If you make changes to your PHP.ini file, consider the following.<br><br>(I&apos;m running IIS5 on W2K server. I don&apos;t know about 2K3)<br><br>PHP will not "take" the changes until the webserver is restarted, and that doesn&apos;t mean through the MMC.  Usually folks just reboot. But you can also use the following commands, for a much faster "turnaround".  At a command line prompt, type:<br><br>iisreset /stop<br><br>and that will stop the webserver service.  Then type:<br><br>net start w3svc<br><br>and that will start the webserver service again.  MUCH faster than a reboot, and you can check your changes faster as a result with the old:<br><br>
 
 ```
-<?php&gt;
+<?php>
 phpinfo();
 ?>
 ```

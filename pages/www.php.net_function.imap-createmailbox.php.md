@@ -14,7 +14,7 @@ class Imap {
     public function login($user, $pass) {
         $mbox = @imap_open("{imap.example.org:143}", $user, $pass);
         if(!$mbox)
-            return ('Your login failed for user &lt;strong&gt;'.$user.'&lt;/strong&gt;. Please try to enter your username and password again.&lt;br /&gt;');
+            return ('Your login failed for user <strong>'.$user.'</strong>. Please try to enter your username and password again.<br />');
 
         // Login worked, let us begin!!!!....
 
@@ -33,9 +33,9 @@ class Imap {
         $this->connection = $mbox;
 
         if(1 === $fldrs_made)
-            return ('User logged in successfully as '.$user.'. This is your first time logging in, welcome to our webmail!!!&lt;br /&gt;');
+            return ('User logged in successfully as '.$user.'. This is your first time logging in, welcome to our webmail!!!<br />');
         else
-            return ('User logged in successfully as '.$user.'.&lt;br /&gt;');
+            return ('User logged in successfully as '.$user.'.<br />');
     }
     private function create_default_folders($imap_stream, $folders) {
         $change=0;
@@ -81,7 +81,7 @@ if($_POST['imap_username'] &amp;&amp; $_POST['imap_password']) {
     // show the folders....
     print_r($imap_login->folders, true);
     
-    print '&lt;br /&gt;&lt;hr size="1" noshade /&gt;';
+    print '<br /><hr size="1" noshade />';
     
     print_r($message_headers, true);
     

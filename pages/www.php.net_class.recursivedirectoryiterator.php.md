@@ -43,7 +43,7 @@ Remember this simple rule of thumb:
 
 &#x2192; A RecursiveDirectoryIterator must be FILTERED or you have a solid reason for why it shouldn't.
 
-On PHP &lt;5.4, implement the following - your custom conditions move into a proper filter:
+On PHP <5.4, implement the following - your custom conditions move into a proper filter:
 
 
 
@@ -141,7 +141,7 @@ foreach ($ritit as $splFileInfo) {
          ? array($splFileInfo->getFilename() => array())
          : array($splFileInfo->getFilename());
 
-   for ($depth = $ritit->getDepth() - 1; $depth &gt;= 0; $depth--) {
+   for ($depth = $ritit->getDepth() - 1; $depth >= 0; $depth--) {
        $path = array($ritit->getSubIterator($depth)->current()->getFilename() => $path);
    }
    $r = array_merge_recursive($r, $path);

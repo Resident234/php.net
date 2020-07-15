@@ -6,14 +6,14 @@ When using simplexml to access a element the returned object may be a SimpleXMLE
 
 ```
 <?php
-$string = &lt;&lt;&lt;XML
-&lt;?xml version='1.0'?>
+$string = <<<XML
+<?xml version='1.0'?>
 ```
 
-&lt;document&gt;
-    &lt;cmd&gt;login&lt;/cmd&gt;
-    &lt;login&gt;Richard&lt;/login&gt;
-&lt;/document&gt;
+<document>
+    <cmd>login</cmd>
+    <login>Richard</login>
+</document>
 XML;
                                                                         
                                            

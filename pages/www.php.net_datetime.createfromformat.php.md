@@ -22,8 +22,8 @@ $date1 = DateTime::createFromFormat('Y-m-d', '2012-10-17');
 sleep(2);
 $date2 = DateTime::createFromFormat('Y-m-d', '2012-10-17');
 var_dump($date1 == $date2); //will be false
-var_dump($date1 &gt;= $date2); //will be false
-var_dump($date1 &lt; $date2); //will be true
+var_dump($date1 >= $date2); //will be false
+var_dump($date1 < $date2); //will be true
 ?>
 ```
   
@@ -40,8 +40,8 @@ $date2 = DateTime::createFromFormat('!Y-m-d', '2012-10-17');
 /* 
  $date1 and $date2 will both be set to a timestamp of "2012-10-17 00:00:00"
  var_dump($date1 == $date2); //will be true
- var_dump($date1 &gt; $date2); //will be false
- var_dump($date1 &lt; $date2); //will be false
+ var_dump($date1 > $date2); //will be false
+ var_dump($date1 < $date2); //will be false
 */
 ?>
 ```
@@ -57,8 +57,8 @@ $date1 = DateTime::createFromFormat('Y-m-d', '2012-10-17');
 sleep(2);
 $date2 = DateTime::createFromFormat('Y-m-d', '2012-10-17');
 var_dump($date1 == $date2); //will be false
-var_dump($date1 &gt;= $date2); //will be false
-var_dump($date1 &lt; $date2); //will be true
+var_dump($date1 >= $date2); //will be false
+var_dump($date1 < $date2); //will be true
 ?>
 ```
   
@@ -169,7 +169,7 @@ It seems that a pipe (&apos;|&apos;) option in formating string works only with 
 <?php
 $timezone = new DateTimeZone('UTC');
 $dateTime = DateTime::createFromFormat('dmY|', '01011972', $timezone);
-//$dateTime is FALSE in PHP v &lt;5.3.8
+//$dateTime is FALSE in PHP v <5.3.8
 ?>
 ```
 

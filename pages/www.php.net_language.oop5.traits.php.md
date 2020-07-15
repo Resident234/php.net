@@ -586,23 +586,23 @@ trait SortStrategy {
     }
     private function num_asc($item1, $item2) {
         if ($item1[$this->sort_field] == $item2[$this->sort_field]) return 0;
-        return ($item1[$this->sort_field] &lt; $item2[$this->sort_field] ? -1 : 1 );
+        return ($item1[$this->sort_field] < $item2[$this->sort_field] ? -1 : 1 );
     }
     private function num_desc($item1, $item2) {
         if ($item1[$this->sort_field] == $item2[$this->sort_field]) return 0;
-        return ($item1[$this->sort_field] &gt; $item2[$this->sort_field] ? -1 : 1 );
+        return ($item1[$this->sort_field] > $item2[$this->sort_field] ? -1 : 1 );
     }
     private function date_asc($item1, $item2) {
         $date1 = intval(str_replace('-', '', $item1[$this->sort_field]));
         $date2 = intval(str_replace('-', '', $item2[$this->sort_field]));
         if ($date1 == $date2) return 0;
-        return ($date1 &lt; $date2 ? -1 : 1 );
+        return ($date1 < $date2 ? -1 : 1 );
     }
     private function date_desc($item1, $item2) {
         $date1 = intval(str_replace('-', '', $item1[$this->sort_field]));
         $date2 = intval(str_replace('-', '', $item2[$this->sort_field]));
         if ($date1 == $date2) return 0;
-        return ($date1 &gt; $date2 ? -1 : 1 );
+        return ($date1 > $date2 ? -1 : 1 );
     }
 }
 
@@ -643,7 +643,7 @@ class Product {
 $product = new Product();
 $product->get();
 $product->sort_by('name');
-echo '&lt;pre&gt;'.print_r($product->data, true).'&lt;/pre&gt;';
+echo '<pre>'.print_r($product->data, true).'</pre>';
 ?>
 ```
   

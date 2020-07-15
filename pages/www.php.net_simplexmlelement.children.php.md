@@ -9,42 +9,42 @@ Here&apos;s a simple, recursive, function to transform XML data into pseudo E4X 
 error_reporting(E_ALL);
 
 $xml = new SimpleXMLElement(
-'&lt;Patriarch&gt;
-   &lt;name&gt;Bill&lt;/name&gt;
-   &lt;wife&gt;
-     &lt;name&gt;Vi&lt;/name&gt;
-   &lt;/wife&gt;
-   &lt;son&gt;
-     &lt;name&gt;Bill&lt;/name&gt;
-   &lt;/son&gt;
-   &lt;daughter&gt;
-     &lt;name&gt;Jeri&lt;/name&gt;
-     &lt;husband&gt;
-       &lt;name&gt;Mark&lt;/name&gt;
-     &lt;/husband&gt;
-     &lt;son&gt;
-       &lt;name&gt;Greg&lt;/name&gt;
-     &lt;/son&gt;
-     &lt;son&gt;
-       &lt;name&gt;Tim&lt;/name&gt;
-     &lt;/son&gt;     
-     &lt;son&gt;
-       &lt;name&gt;Mark&lt;/name&gt;
-     &lt;/son&gt;     
-     &lt;son&gt;
-       &lt;name&gt;Josh&lt;/name&gt;
-         &lt;wife&gt;
-           &lt;name&gt;Kristine&lt;/name&gt;
-         &lt;/wife&gt; 
-         &lt;son&gt;
-           &lt;name&gt;Blake&lt;/name&gt;
-         &lt;/son&gt;
-         &lt;daughter&gt;
-           &lt;name&gt;Liah&lt;/name&gt;
-         &lt;/daughter&gt;
-     &lt;/son&gt;
-   &lt;/daughter&gt;
-&lt;/Patriarch&gt;');
+'<Patriarch>
+   <name>Bill</name>
+   <wife>
+     <name>Vi</name>
+   </wife>
+   <son>
+     <name>Bill</name>
+   </son>
+   <daughter>
+     <name>Jeri</name>
+     <husband>
+       <name>Mark</name>
+     </husband>
+     <son>
+       <name>Greg</name>
+     </son>
+     <son>
+       <name>Tim</name>
+     </son>     
+     <son>
+       <name>Mark</name>
+     </son>     
+     <son>
+       <name>Josh</name>
+         <wife>
+           <name>Kristine</name>
+         </wife> 
+         <son>
+           <name>Blake</name>
+         </son>
+         <daughter>
+           <name>Liah</name>
+         </daughter>
+     </son>
+   </daughter>
+</Patriarch>');
 
 RecurseXML($xml);
 
@@ -56,7 +56,7 @@ function RecurseXML($xml,$parent="")
       $child_count++;     
       if(RecurseXML($value,$parent.".".$key) == 0)  // no childern, aka "leaf node"
       {
-         print($parent . "." . (string)$key . " = " . (string)$value . "&lt;BR&gt;\n");        
+         print($parent . "." . (string)$key . " = " . (string)$value . "<BR>\n");        
       }     
    }
    return $child_count;

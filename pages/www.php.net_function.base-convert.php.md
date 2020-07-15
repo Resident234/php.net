@@ -43,7 +43,7 @@ function convBase($numberInput, $fromBaseInput, $toBaseInput)
     if ($toBaseInput == '0123456789')
     {
         $retval=0;
-        for ($i = 1;$i &lt;= $numberLen; $i++)
+        for ($i = 1;$i <= $numberLen; $i++)
             $retval = bcadd($retval, bcmul(array_search($number[$i-1], $fromBase),bcpow($fromLen,$numberLen-$i)));
         return $retval;
     }
@@ -51,7 +51,7 @@ function convBase($numberInput, $fromBaseInput, $toBaseInput)
         $base10=convBase($numberInput, $fromBaseInput, '0123456789');
     else
         $base10 = $numberInput;
-    if ($base10&lt;strlen($toBaseInput))
+    if ($base10<strlen($toBaseInput))
         return $toBase[$base10];
     while($base10 != '0')
     {
@@ -73,7 +73,7 @@ Short arabic2roman conveter:<br><br>
 function rome($N){
         $c='IVXLCDM';
         for($a=5,$b=$s='';$N;$b++,$a^=7)
-                for($o=$N%$a,$N=$N/$a^0;$o--;$s=$c[$o&gt;2?$b+$N-($N&amp;=-2)+$o=1:$b].$s);
+                for($o=$N%$a,$N=$N/$a^0;$o--;$s=$c[$o>2?$b+$N-($N&amp;=-2)+$o=1:$b].$s);
         return $s;
 }
 ?>
@@ -92,7 +92,7 @@ function str_baseconvert($str, $frombase=10, $tobase=36) {
     if (intval($frombase) != 10) {
         $len = strlen($str);
         $q = 0;
-        for ($i=0; $i&lt;$len; $i++) {
+        for ($i=0; $i<$len; $i++) {
             $r = base_convert($str[$i], $frombase, 10);
             $q = bcadd(bcmul($q, $frombase), $r);
         }
@@ -101,7 +101,7 @@ function str_baseconvert($str, $frombase=10, $tobase=36) {
  
     if (intval($tobase) != 10) {
         $s = '';
-        while (bccomp($q, '0', 0) &gt; 0) {
+        while (bccomp($q, '0', 0) > 0) {
             $r = intval(bcmod($q, $tobase));
             $s = base_convert($r, 10, $tobase) . $s;
             $q = bcdiv($q, $tobase, 0);
@@ -144,7 +144,7 @@ If you need to use base_convert with numbers larger then 32 bit, the following g
 ```
 <?php
 
-/*use gmp library to convert base. gmp will convert numbers &gt; 32bit*/
+/*use gmp library to convert base. gmp will convert numbers > 32bit*/
 function gmp_convert($num, $base_a, $base_b)
 {
         return gmp_strval ( gmp_init($num, $base_a), $base_b );
@@ -171,7 +171,7 @@ If you would like to convert numbers into just the uppercase alphabet base and v
  */
 function num2alpha($n) {
     $r = '';
-    for ($i = 1; $n &gt;= 0 &amp;&amp; $i &lt; 10; $i++) {
+    for ($i = 1; $n >= 0 &amp;&amp; $i < 10; $i++) {
         $r = chr(0x41 + ($n % pow(26, $i) / pow(26, $i - 1))) . $r;
         $n -= pow(26, $i);
     }
@@ -188,7 +188,7 @@ function num2alpha($n) {
 function alpha2num($a) {
     $r = 0;
     $l = strlen($a);
-    for ($i = 0; $i &lt; $l; $i++) {
+    for ($i = 0; $i < $l; $i++) {
         $r += pow(26, $i) * (ord($a[$l - $i - 1]) - 0x40);
     }
     return $r - 1;

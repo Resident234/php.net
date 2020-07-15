@@ -21,7 +21,7 @@ I have this function in my main files, it allows for easier SEO for some pages w
             //Remove first empty item
             unset($tmp[0]);
             //Loop through and apend it into the $_GET superglobal.
-            for($i=1;$i&lt;=count($tmp);$i+=2){ $_GET[$tmp[$i]] = $tmp[$i+1];}
+            for($i=1;$i<=count($tmp);$i+=2){ $_GET[$tmp[$i]] = $tmp[$i+1];}
         }
     }
 ?>

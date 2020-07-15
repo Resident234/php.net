@@ -26,8 +26,8 @@ if (!$validated) {
 }
 
 // If arrives here, is a valid user.
-echo "&lt;p&gt;Welcome $user.&lt;/p&gt;";
-echo "&lt;p&gt;Congratulation, you are into the system.&lt;/p&gt;";
+echo "<p>Welcome $user.</p>";
+echo "<p>Congratulation, you are into the system.</p>";
 
 ?>
 ```

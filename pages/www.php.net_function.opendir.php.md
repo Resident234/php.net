@@ -32,7 +32,7 @@ if (preg_match('#[\x{0600}-\x{06FF}]#iu', $dir) )
          {
              
              
-             echo "filename: ".$file ." filetype : ".filetype($dir.$file)."&lt;br/&gt;";
+             echo "filename: ".$file ." filetype : ".filetype($dir.$file)."<br/>";
              
              
          }

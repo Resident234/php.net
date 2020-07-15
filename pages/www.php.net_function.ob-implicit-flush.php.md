@@ -7,7 +7,7 @@ Note that the name ob_implicit_flush is misleading. Despite its name, this funct
 ```
 <?php
   ob_implicit_flush();
-  for($i = 0; $i &lt; 10; $i++)
+  for($i = 0; $i < 10; $i++)
   {
     echo "$i\n";
     sleep(1);
@@ -22,7 +22,7 @@ will be equivalent to this one:
 
 ```
 <?php
-  for ($i = 0; $i &lt; 10; $i++)
+  for ($i = 0; $i < 10; $i++)
   {
     echo "$i\n";
     flush();
@@ -42,7 +42,7 @@ If you want the output to come out as it is generated, one solution is to *also*
 <?php
   ob_end_flush();
   ob_implicit_flush();
-  for ($i = 0; $i &lt; 10; $i++)
+  for ($i = 0; $i < 10; $i++)
   {
     echo "$i\n";
     sleep(1);
@@ -63,7 +63,7 @@ This will output as it goes. This is only a problem if you only want one part of
   echo "This output is buffered.\n";
   echo "As is this.\n";
 
-  for ($i = 0; $i &lt; 10; $i++)
+  for ($i = 0; $i < 10; $i++)
   {
     echo "$i\n";
     ob_flush();

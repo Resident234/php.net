@@ -15,7 +15,7 @@ $interval = new DateInterval('P1D');
 $daterange = new DatePeriod($begin, $interval ,$end);
 
 foreach($daterange as $date){
-    echo $date->format("Ymd") . "&lt;br&gt;";
+    echo $date->format("Ymd") . "<br>";
 }
 ?>
 ```

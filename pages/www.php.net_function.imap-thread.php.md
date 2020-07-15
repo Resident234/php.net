@@ -53,7 +53,7 @@ if(is_array($results)) {
 //sort keys so we get threads in chronological order 
 ksort($threads);
 
-echo '&lt;pre&gt;'.print_r($threads, true).'&lt;/pre&gt;';
+echo '<pre>'.print_r($threads, true).'</pre>';
 exit;
 ?>
 ```
@@ -123,7 +123,7 @@ foreach ($emails as $email) {
 }    
 
 //there is no need to sort, the threads will automagically in chronological order
-echo '&lt;pre&gt;'.print_r($threads, true).'&lt;/pre&gt;';
+echo '<pre>'.print_r($threads, true).'</pre>';
 imap_close($imap);
 exit;
 ?>

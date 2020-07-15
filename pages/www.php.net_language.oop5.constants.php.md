@@ -27,8 +27,8 @@ class dbAdmin extends dbPerson
     const TABLE_NAME='admins';
 }
 
-echo dbPerson::GetAll()."&lt;br&gt;";//output: "SELECT * FROM `persons`"
-echo dbAdmin::GetAll()."&lt;br&gt;";//output: "SELECT * FROM `admins`"
+echo dbPerson::GetAll()."<br>";//output: "SELECT * FROM `persons`"
+echo dbAdmin::GetAll()."<br>";//output: "SELECT * FROM `admins`"
 
 ?>
 ```
@@ -250,16 +250,16 @@ class Dimension
   }
 
   protected static function clamp($value){
-    if($value &lt; self::MIN) $value = self::MIN;
-    if($value &gt; self::MAX) $value = self::MAX;
+    if($value < self::MIN) $value = self::MIN;
+    if($value > self::MAX) $value = self::MAX;
     return $value;
   }
 }
 
-echo (new Dimension()) . '&lt;br&gt;';
-echo (new Dimension(1500, 97)) . '&lt;br&gt;';
-echo (new Dimension(14, -20)) . '&lt;br&gt;';
-echo (new Dimension(240, 80)) . '&lt;br&gt;';
+echo (new Dimension()) . '<br>';
+echo (new Dimension(1500, 97)) . '<br>';
+echo (new Dimension(14, -20)) . '<br>';
+echo (new Dimension(240, 80)) . '<br>';
 
 ?>
 ```

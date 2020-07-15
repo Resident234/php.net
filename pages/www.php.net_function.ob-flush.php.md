@@ -7,15 +7,15 @@ some problems with ob_flush() and flush() could be resolved by defining content 
 ```
 <?php
 header( 'Content-type: text/html; charset=utf-8' );
-echo 'Begin ...&lt;br /&gt;';
-for( $i = 0 ; $i &lt; 10 ; $i++ )
+echo 'Begin ...<br />';
+for( $i = 0 ; $i < 10 ; $i++ )
 {
-    echo $i . '&lt;br /&gt;';
+    echo $i . '<br />';
     flush();
     ob_flush();
     sleep(1);
 }
-echo 'End ...&lt;br /&gt;';
+echo 'End ...<br />';
 ?>
 ```
   

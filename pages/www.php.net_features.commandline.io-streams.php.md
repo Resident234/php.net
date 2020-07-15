@@ -16,14 +16,14 @@ The command line interface data in STDIN is not made available until return is p
     fclose($resSTDIN);
     
 // Demo WITH readline_callback_handler_install('', function(){});
-// This line removes the wait for &lt;CR&gt; on STDIN
+// This line removes the wait for <CR> on STDIN
     readline_callback_handler_install('', function(){});
     
     $resSTDIN=fopen("php://stdin","r");
     echo("We have now run: readline_callback_handler_install('', function(){});\n");
     echo("Press the 'y' key");
     $strChar = stream_get_contents($resSTDIN, 1);
-    echo("\nYou pressed: ".$strChar."\nBut did not have to press &lt;cr&gt;\n");
+    echo("\nYou pressed: ".$strChar."\nBut did not have to press <cr>\n");
     fclose($resSTDIN);
     readline_callback_handler_remove ();
     echo("\nGoodbye\n")

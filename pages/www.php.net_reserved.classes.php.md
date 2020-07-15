@@ -18,13 +18,13 @@ If you call var_export() on an instance of stdClass, it attempts to export it us
  */
 function improved_var_export ($variable, $return = false) {
     if ($variable instanceof stdClass) {
-        $result = &apos;(object) &apos;.improved_var_export(get_object_vars($variable), true);
+        $result = '(object) '.improved_var_export(get_object_vars($variable), true);
     } else if (is_array($variable)) {
         $array = array ();
-        foreach ($variable as $key =&gt; $value) {
-            $array[] = var_export($key, true).&apos; =&gt; &apos;.improved_var_export($value, true);
+        foreach ($variable as $key => $value) {
+            $array[] = var_export($key, true).' => '.improved_var_export($value, true);
         }
-        $result = &apos;array (&apos;.implode(&apos;, &apos;, $array).&apos;)&apos;;
+        $result = 'array ('.implode(', ', $array).')';
     } else {
         $result = var_export($variable, true);
     }
@@ -39,21 +39,21 @@ function improved_var_export ($variable, $return = false) {
 
 // Example usage:
 $obj = new stdClass;
-$obj-&gt;test = &apos;abc&apos;;
-$obj-&gt;other = 6.2;
-$obj-&gt;arr = array (1, 2, 3);
+$obj->test = 'abc';
+$obj->other = 6.2;
+$obj->arr = array (1, 2, 3);
 
 improved_var_export((object) array (
-    &apos;prop1&apos; =&gt; true,
-    &apos;prop2&apos; =&gt; $obj,
-    &apos;assocArray&apos; =&gt; array (
-        &apos;apple&apos; =&gt; &apos;good&apos;,
-        &apos;orange&apos; =&gt; &apos;great&apos;
+    'prop1' => true,
+    'prop2' => $obj,
+    'assocArray' => array (
+        'apple' => 'good',
+        'orange' => 'great'
     )
 ));
 
 /* Output:
-(object) array (&apos;prop1&apos; =&gt; true, &apos;prop2&apos; =&gt; (object) array (&apos;test&apos; =&gt; &apos;abc&apos;, &apos;other&apos; =&gt; 6.2, &apos;arr&apos; =&gt; array (0 =&gt; 1, 1 =&gt; 2, 2 =&gt; 3)), &apos;assocArray&apos; =&gt; array (&apos;apple&apos; =&gt; &apos;good&apos;, &apos;orange&apos; =&gt; &apos;great&apos;))
+(object) array ('prop1' => true, 'prop2' => (object) array ('test' => 'abc', 'other' => 6.2, 'arr' => array (0 => 1, 1 => 2, 2 => 3)), 'assocArray' => array ('apple' => 'good', 'orange' => 'great'))
 */
 ?>
 ```
@@ -67,8 +67,8 @@ if you want a Dynamic class you can extend from, add atributes AND methods on th
 <?php
     class Dynamic extends stdClass{
         public function __call($key,$params){
-            if(!isset($this-&gt;{$key})) throw new Exception("Call to undefined method ".get_class($this)."::".$key."()");
-            $subject = $this-&gt;{$key};
+            if(!isset($this->{$key})) throw new Exception("Call to undefined method ".get_class($this)."::".$key."()");
+            $subject = $this->{$key};
             call_user_func_array($subject,$params);
         }
     }
@@ -81,10 +81,10 @@ this will accept both arrays, strings and Closures:
 
 ```
 <?php
-    $dynamic-&gt;myMethod = "thatFunction";
-    $dynamic-&gt;hisMethod = array($instance,"aMethod");
-    $dynamic-&gt;newMethod = array(SomeClass,"staticMethod");
-    $dynamic-&gt;anotherMethod = function(){
+    $dynamic->myMethod = "thatFunction";
+    $dynamic->hisMethod = array($instance,"aMethod");
+    $dynamic->newMethod = array(SomeClass,"staticMethod");
+    $dynamic->anotherMethod = function(){
         echo "Hey there";
     };
 ?>

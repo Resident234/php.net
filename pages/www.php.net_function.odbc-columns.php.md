@@ -6,13 +6,13 @@
 
 ```
 <?php
-include('connect.inc'); // &lt;== Put all your database connection parameters in here. (DSN, PWD, USR, mssql_connect, etc.; returns $connection)
+include('connect.inc'); // <== Put all your database connection parameters in here. (DSN, PWD, USR, mssql_connect, etc.; returns $connection)
 
 $outval = odbc_columns($connection, "your DB name", "%", "your table name", "%");
 
 $pages = array();
 while (odbc_fetch_into($outval, $pages)) {
-        echo $pages[3] . "&lt;br /&gt;\n"; // presents all fields of the array $pages in a new line until the array pointer reaches the end of array data
+        echo $pages[3] . "<br />\n"; // presents all fields of the array $pages in a new line until the array pointer reaches the end of array data
     }
 ?>
 ```

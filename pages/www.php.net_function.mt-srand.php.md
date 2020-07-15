@@ -10,7 +10,7 @@ Looks like mt_rand() gives same result for different seeds when the lowest bits 
 $min = -17;
 $max = $min + 48; // 48 is to fit the results in my console
 
-for ($testseed=$min; $testseed&lt;$max; $testseed++)
+for ($testseed=$min; $testseed<$max; $testseed++)
 {
     mt_srand( $testseed );
     $r = mt_rand();

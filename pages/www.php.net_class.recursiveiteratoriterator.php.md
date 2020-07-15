@@ -44,7 +44,7 @@ foreach ( [100, 1000, 10000, 100000, 1000000] as $num )
 {
     $array = [];
     
-    for ( $i = 0; ++$i &lt; $num; )
+    for ( $i = 0; ++$i < $num; )
         $array[] = [1,2,3=>[4,5,6=>[7,8,9=>10,11,12=>[13,14,15=>[16,17,18]]]]];
     
     $timer();
@@ -96,7 +96,7 @@ foreach ($recursiveIterator as $key => $value) {
 
         // Get the current depth and traverse back up the tree, saving the modifications
         $currentDepth = $recursiveIterator->getDepth();
-        for ($subDepth = $currentDepth; $subDepth &gt;= 0; $subDepth--) {
+        for ($subDepth = $currentDepth; $subDepth >= 0; $subDepth--) {
             // Get the current level iterator
             $subIterator = $recursiveIterator->getSubIterator($subDepth); 
             // If we are on the level we want to change, use the replacements ($value) other wise set the key to the parent iterators value

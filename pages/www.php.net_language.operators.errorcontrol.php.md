@@ -21,7 +21,7 @@ If you&apos;re wondering what the performance impact of using the @ operator is,
 ```
 <?php
 function x() { }
-for ($i = 0; $i &lt; 1000000; $i++) { x(); }
+for ($i = 0; $i < 1000000; $i++) { x(); }
 ?>
 ```
 
@@ -37,7 +37,7 @@ vs
 ```
 <?php
 function x() { }
-for ($i = 0; $i &lt; 1000000; $i++) { @x(); }
+for ($i = 0; $i < 1000000; $i++) { @x(); }
 ?>
 ```
 <br><br>real    0m13.333s<br>user    0m12.437s<br>sys    0m0.836s  

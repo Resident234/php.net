@@ -51,15 +51,15 @@ Note that you must provide the namespace if you want to access an attribute of a
 
 ```
 <?php
-$xml = &lt;&lt;&lt;XML
-&lt;?xml version="1.0"?>
+$xml = <<<XML
+<?xml version="1.0"?>
 ```
 
-&lt;Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"&gt;
- &lt;Table Foo="Bar" ss:ExpandedColumnCount="7"&gt;
- &lt;/Table&gt;
-&lt;/Workbook&gt;
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+ <Table Foo="Bar" ss:ExpandedColumnCount="7">
+ </Table>
+</Workbook>
 XML;
 
 $sxml = new SimpleXMLElement($xml);

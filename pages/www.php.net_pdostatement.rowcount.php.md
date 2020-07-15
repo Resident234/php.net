@@ -26,7 +26,7 @@ To display information only when the query is not empty, I do something like thi
     
     if ($data = $stmt->fetch()) {
         do {
-            echo $data['model'] . '&lt;br&gt;';
+            echo $data['model'] . '<br>';
         } while ($data = $stmt->fetch());
     } else {
         echo 'Empty Query';

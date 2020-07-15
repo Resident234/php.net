@@ -22,7 +22,7 @@ vlad at vlad dot neosurge dot net wrote on 04-Jan-2003 04:21<br><br>&gt; Just an
 $a = 'Apple';
 switch ($a) {
     default:
-        echo '$a is not an orange&lt;br&gt;';
+        echo '$a is not an orange<br>';
     case 'Orange':
         echo '$a is an orange';
 }

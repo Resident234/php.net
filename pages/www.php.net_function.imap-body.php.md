@@ -14,7 +14,7 @@ if( $imap ) {
      $num = imap_num_msg($imap);
 
      //if there is a message in your inbox
-     if( $num &gt;0 ) {
+     if( $num >0 ) {
           //read that mail recently arrived
           echo imap_qprint(imap_body($imap, $num));
      }

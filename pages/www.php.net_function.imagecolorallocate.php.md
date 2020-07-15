@@ -11,7 +11,7 @@ Note that you can only assign 255 colors to any image palette.  If you try assig
      $c2 = mt_rand(50,200); //g(reen)
      $c3 = mt_rand(50,200); //b(lue)
      //test if we have used up palette
-     if(imagecolorstotal($pic)&gt;=255) {
+     if(imagecolorstotal($pic)>=255) {
           //palette used up; pick closest assigned color
           $color = imagecolorclosest($pic, $c1, $c2, $c3);
      } else {
@@ -69,7 +69,7 @@ And, for nerdy-ness sake, we can put the two ideas together:
      if($color==-1) {
           //color does not exist...
           //test if we have used up palette
-          if(imagecolorstotal($pic)&gt;=255) {
+          if(imagecolorstotal($pic)>=255) {
                //palette used up; pick closest assigned color
                $color = imagecolorclosest($pic, $c1, $c2, $c3);
           } else {
@@ -92,7 +92,7 @@ Or as a function:
           if($color==-1) {
                //color does not exist...
                //test if we have used up palette
-               if(imagecolorstotal($pic)&gt;=255) {
+               if(imagecolorstotal($pic)>=255) {
                     //palette used up; pick closest assigned color
                     $color = imagecolorclosest($pic, $c1, $c2, $c3);
                } else {
@@ -103,7 +103,7 @@ Or as a function:
           return $color;
      }
 
-     for($i=0; $i&lt;1000; $i++) { //1000 because it is significantly greater than 255
+     for($i=0; $i<1000; $i++) { //1000 because it is significantly greater than 255
           //assign random rgb values
           $c1 = mt_rand(50,200); //r(ed)
           $c2 = mt_rand(50,200); //g(reen)

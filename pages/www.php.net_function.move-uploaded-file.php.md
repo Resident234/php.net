@@ -39,7 +39,7 @@ as in example :
  */
 function check_file_uploaded_length ($filename)
 {
-    return (bool) ((mb_strlen($filename,"UTF-8") &gt; 225) ? true : false);
+    return (bool) ((mb_strlen($filename,"UTF-8") > 225) ? true : false);
 }
 
 ?>

@@ -24,11 +24,11 @@ This is nice when you want to make alternating-color rows on a table, or divs.
 
 ```
 <?php
-  for ($i = 1; $i &lt;= 10; $i++) {
+  for ($i = 1; $i <= 10; $i++) {
     if(($i % 2) == 1)  //odd
-      {echo "&lt;div class=\"dark\"&gt;$i&lt;/div&gt;";}
+      {echo "<div class=\"dark\">$i</div>";}
     else   //even
-      {echo "&lt;div class=\"light\"&gt;$i&lt;/div&gt;";}
+      {echo "<div class=\"light\">$i</div>";}
    }
 ?>
 ```

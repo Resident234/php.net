@@ -56,7 +56,7 @@ For a page with multiple forms here is one way of processing the different POST 
     // a warning rather than this. 
     if (count($postIdentifierArr) != 1)
     {
-        count($postIdentifierArr) &lt; 1 or
+        count($postIdentifierArr) < 1 or
             die("\$_POST contained more than one post identifier: " .
                implode(" ", $postIdentifierArr));
 

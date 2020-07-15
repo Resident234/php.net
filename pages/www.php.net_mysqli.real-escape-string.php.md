@@ -182,15 +182,15 @@ To escape for the purposes of having your queries made successfully, and to prev
           
           // This will output safe HTML entities if they went in
           // They will be displayed, but not interpreted
-          echo "&lt;tr&gt;&lt;td&gt;" . $row['c_name'] . "&lt;/td&gt;";
-          echo "&lt;td&gt;" . $row['c_comments'] . "&lt;/td&gt;&lt;/tr&gt;";
+          echo "<tr><td>" . $row['c_name'] . "</td>";
+          echo "<td>" . $row['c_comments'] . "</td></tr>";
 
           // BUT, if you make this mistake...
-          echo "&lt;tr&gt;&lt;td&gt;" . htmlspecialchars_decode($row['c_name']) . "&lt;/td&gt;";
-          echo "&lt;td&gt;" . htmlspecialchars_decode($row['c_comments']) . "&lt;/td&gt;&lt;/tr&gt;";
+          echo "<tr><td>" . htmlspecialchars_decode($row['c_name']) . "</td>";
+          echo "<td>" . htmlspecialchars_decode($row['c_comments']) . "</td></tr>";
 
           // ... then your entities will reflect back as the characters, so
-          // input such as this: "&gt;&lt;img src=x onerror=alert('xss')&gt;
+          // input such as this: "><img src=x onerror=alert('xss')>
           // will display the 'xss' in an alert box in the browser.
      }
 

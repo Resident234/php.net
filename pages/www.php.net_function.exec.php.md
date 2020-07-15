@@ -11,7 +11,7 @@ function execInBackground($cmd) {
         pclose(popen("start /B ". $cmd, "r"));  
     }
     else {
-        exec($cmd . " &gt; /dev/null &amp;");   
+        exec($cmd . " > /dev/null &amp;");   
     }
 }
 ?>
@@ -70,7 +70,7 @@ class Process{
         }
     }
     private function runCom(){
-        $command = 'nohup '.$this->command.' &gt; /dev/null 2&gt;&amp;1 &amp; echo $!';
+        $command = 'nohup '.$this->command.' > /dev/null 2>&amp;1 &amp; echo $!';
         exec($command ,$op);
         $this->pid = (int)$op[0];
     }

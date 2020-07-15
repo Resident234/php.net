@@ -73,13 +73,13 @@ require_once 'Benchmark/Timer.php';
 define('KEYS', 10000);
 
 function fill(&amp;$arr) {
-    for ($i = 1; $i &lt;= KEYS; $i++) {
+    for ($i = 1; $i <= KEYS; $i++) {
         $arr['key-' . $i] = $i;
     }
 }
 
 function read_key(&amp;$arr) {
-    for ($i = 1; $i &lt;= KEYS; $i++) {
+    for ($i = 1; $i <= KEYS; $i++) {
         $v = $arr['key-' . $i];
     }
 }

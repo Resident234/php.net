@@ -7,7 +7,7 @@ A note on the above example...<br><br>with PHP 4 &gt;= 4.2.0, PHP 5 you can use 
 ```
 <?php
 
-while (ob_get_level() &gt; 0) {
+while (ob_get_level() > 0) {
     ob_end_flush();
 }
 
@@ -35,7 +35,7 @@ best way to compress a css code:<br><br>
   include('./template/main.css');
   include('./template/classes.css');
 
-&lt;?php
+<?php
   ob_end_flush();
 ?>
 ```

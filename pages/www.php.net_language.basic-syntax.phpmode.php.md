@@ -9,8 +9,8 @@ When the documentation says that the PHP parser ignores everything outside the
 ```
  tags, it means literally EVERYTHING. Including things you normally wouldn't consider "valid", such as the following:
 
-&lt;html&gt;&lt;body&gt;
-&lt;p
+<html><body>
+<p
 
 ```
 <?php if ($highlight): ?>
@@ -20,8 +20,8 @@ When the documentation says that the PHP parser ignores everything outside the
 ```
 <?php endif;?>
 ```
->This is a paragraph.&lt;/p&gt;
-&lt;/body&gt;&lt;/html&gt;
+>This is a paragraph.</p>
+</body></html>
 
 Notice how the PHP code is embedded in the middle of an HTML opening tag. The PHP parser doesn't care that it's in the middle of an opening tag, and doesn't require that it be closed. It also doesn't care that after the closing ?>
 ```
@@ -69,7 +69,7 @@ The cure is to either comment it out using /* */ tags, or re-write the line as:
 
 ```
 <?php
-  $file_contents  = '&lt;' . '?php die(); ?' . '&gt;' . "\n";
+  $file_contents  = '<' . '?php die(); ?' . '>' . "\n";
 ?>
 ```
   
@@ -79,7 +79,7 @@ The cure is to either comment it out using /* */ tags, or re-write the line as:
 Although not specifically pointed out in the main text, escaping from HTML also applies to other control statements:<br><br>
 
 ```
-<?php for ($i = 0; $i &lt; 5; ++$i): ?>
+<?php for ($i = 0; $i < 5; ++$i): ?>
 ```
 
 Hello, there!

@@ -32,9 +32,9 @@ test("1234", "1234 ");
 test("1234", "1234\n");
 
 function test($v1, $v2) {
-    echo "&lt;h1&gt;[".show_cr($v1)."] vs [".show_cr($v2)."]&lt;/h1&gt;";
-    echo my_var_dump($v1)."&lt;br /&gt;";
-    echo my_var_dump($v2)."&lt;br /&gt;";
+    echo "<h1>[".show_cr($v1)."] vs [".show_cr($v2)."]</h1>";
+    echo my_var_dump($v1)."<br />";
+    echo my_var_dump($v2)."<br />";
     if($v1 == $v2) {
         echo "EQUAL !";
     }
@@ -116,7 +116,7 @@ var_dump('0xafebac' == '0XAFEBAC'); // true
 var_dump('0xeb' == '+235e-0'); // true
 var_dump('0.235' == '+.235'); // true
 var_dump('0.2e-10' == '2.0E-11'); // true
-var_dump('61529519452809720693702583126814' == '61529519452809720000000000000000'); // true in php &lt; 5.4.4?>
+var_dump('61529519452809720693702583126814' == '61529519452809720000000000000000'); // true in php < 5.4.4?>
 ```
   
 
@@ -131,11 +131,11 @@ echo "\n\n######----------- trinary operator associativity\n\n";
 
 function trinaryTest($foo){
 
-    $bar    = $foo &gt; 20
+    $bar    = $foo > 20
             ? "greater than 20"
-            : $foo &gt; 10
+            : $foo > 10
                 ? "greater than 10"
-                : $foo &gt; 5
+                : $foo > 5
                     ? "greater than 5"
                     : "not worthy of consideration";    
     echo $foo." =>  ".$bar."\n";
@@ -149,11 +149,11 @@ trinaryTest(4);
 
 function trinaryTestParens($foo){
     
-    $bar    = $foo &gt; 20
+    $bar    = $foo > 20
             ? "greater than 20"
-            : ($foo &gt; 10
+            : ($foo > 10
                 ? "greater than 10"
-                : ($foo &gt; 5
+                : ($foo > 5
                     ? "greater than 5"
                     : "not worthy of consideration"));    
     echo $foo." =>  ".$bar."\n";
@@ -246,9 +246,9 @@ A quick way to do mysql bit comparison in php is to use the special character it
 ```
 <?php
                                         if ($AvailableRequests['OngoingService'] == '')
-                                            echo '&lt;td&gt;Yes&lt;/td&gt;';
+                                            echo '<td>Yes</td>';
                                         else
-                                            echo '&lt;td&gt;No&lt;/td&gt;';
+                                            echo '<td>No</td>';
 
 ?>
 ```
@@ -443,9 +443,9 @@ If you need nested ifs on I var its important to group the if so it works.<br>Ex
 <?php
 //Dont Works
 //Parse error: parse error, unexpected ':' 
- $var='&lt;option value="1" '.$status == "1" ? 'selected="selected"' :''.'&gt;Value 1&lt;/option&gt;';
+ $var='<option value="1" '.$status == "1" ? 'selected="selected"' :''.'>Value 1</option>';
  //Works:
- $var='&lt;option value="1" '.($status == "1" ? 'selected="selected"' :'').'&gt;Value 1&lt;/option&gt;';
+ $var='<option value="1" '.($status == "1" ? 'selected="selected"' :'').'>Value 1</option>';
 
 echo $var;
 ?>

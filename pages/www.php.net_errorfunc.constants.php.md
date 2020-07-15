@@ -7,8 +7,8 @@
 ```
 <?php
 $errLvl = error_reporting();
-for ($i = 0; $i &lt; 15;  $i++ ) {
-    print FriendlyErrorType($errLvl &amp; pow(2, $i)) . "&lt;br&gt;\\n"; 
+for ($i = 0; $i < 15;  $i++ ) {
+    print FriendlyErrorType($errLvl &amp; pow(2, $i)) . "<br>\\n"; 
 }
 
 function FriendlyErrorType($type)

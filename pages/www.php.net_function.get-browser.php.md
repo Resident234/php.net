@@ -142,8 +142,8 @@ function getBrowser()
     
     // finally get the correct version number
     $known = array('Version', $ub, 'other');
-    $pattern = '#(?&lt;browser&gt;' . join('|', $known) .
-    ')[/ ]+(?&lt;version&gt;[0-9.|a-zA-Z.]*)#';
+    $pattern = '#(?<browser>' . join('|', $known) .
+    ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
     if (!preg_match_all($pattern, $u_agent, $matches)) {
         // we have no matching number just continue
     }
@@ -153,7 +153,7 @@ function getBrowser()
     if ($i != 1) {
         //we will have two since we are not using 'other' argument yet
         //see if version is before or after the name
-        if (strripos($u_agent,"Version") &lt; strripos($u_agent,$ub)){
+        if (strripos($u_agent,"Version") < strripos($u_agent,$ub)){
             $version= $matches['version'][0];
         }
         else {
@@ -178,7 +178,7 @@ function getBrowser()
 
 // now try it
 $ua=getBrowser();
-$yourbrowser= "Your browser: " . $ua['name'] . " " . $ua['version'] . " on " .$ua['platform'] . " reports: &lt;br &gt;" . $ua['userAgent'];
+$yourbrowser= "Your browser: " . $ua['name'] . " " . $ua['version'] . " on " .$ua['platform'] . " reports: <br >" . $ua['userAgent'];
 print_r($yourbrowser);
 ?>
 ```

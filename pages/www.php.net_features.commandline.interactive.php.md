@@ -37,7 +37,7 @@ It seems the interactive shell cannot be made to work in WIN environments at the
 $fp = fopen("php://stdin", "r");
 $in = '';
 while($in != "quit") {
-    echo "php&gt; ";
+    echo "php> ";
     $in=trim(fgets($fp));
     eval ($in);
     echo "\n";

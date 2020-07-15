@@ -60,7 +60,7 @@ Here's the example code:
 <?php
 class A {
     public function exc() {
-        throw new \Exception('Thrown from class A');    // &lt;-- line 46
+        throw new \Exception('Thrown from class A');    // <-- line 46
     }
 }
 
@@ -68,39 +68,39 @@ class B {
     public function exc() {
         try {
             $a = new A;
-            $a->exc();    // &lt;-- line 61
+            $a->exc();    // <-- line 61
         }
         catch(\Exception $e1) {
-            throw new \Exception('Thrown from class B', 0, $e1);    // &lt;-- line 64
+            throw new \Exception('Thrown from class B', 0, $e1);    // <-- line 64
         }
     }
 }
 class C {
     public function doexc() {
-        $this->exc();    // &lt;-- line 70
+        $this->exc();    // <-- line 70
     }
     public function exc() {
         try {
             $b = new B;
-            $b->exc();    // &lt;-- line 75
+            $b->exc();    // <-- line 75
         }
         catch(\Exception $e1) {
-            throw new \Exception('Thrown from class C', 0, $e1);    // &lt;-- line 78
+            throw new \Exception('Thrown from class C', 0, $e1);    // <-- line 78
         }
     }
 }
 
 function fail2() {
     $c = new C;
-    $c->doexc();    // &lt;-- line 85
+    $c->doexc();    // <-- line 85
 }
 
 function fail1() {
-    fail2();            // &lt;-- line 89
+    fail2();            // <-- line 89
 }
 
 try {
-    fail1();            // &lt;-- line 93
+    fail1();            // <-- line 93
 }
 catch(\Exception $e) {
     echo jTraceEx($e);

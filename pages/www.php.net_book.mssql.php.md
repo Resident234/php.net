@@ -22,15 +22,15 @@ $sltml = array_count_values($tables); // HOW MANY COLUMNS ARE IN THE TABLE
 
 foreach($sltml as $table_name => $id) {
  
- echo "&lt;h2&gt;". $table_name ." (". $id .")&lt;/h2&gt;&lt;ol&gt;";
+ echo "<h2>". $table_name ." (". $id .")</h2><ol>";
  
-    for($i = 0; $i &lt;= $id-1; $i++) {
+    for($i = 0; $i <= $id-1; $i++) {
     
-    echo "&lt;li&gt;". $columns[$i] ."&lt;/li&gt;";
+    echo "<li>". $columns[$i] ."</li>";
     
     }
     
-  echo"&lt;/ol&gt;";
+  echo"</ol>";
  
 }
 ?>

@@ -9,7 +9,7 @@ Shows us all files and catalogues in directory except "." and "..".<br><br>
 
 foreach (new DirectoryIterator('../moodle') as $fileInfo) {
     if($fileInfo->isDot()) continue;
-    echo $fileInfo->getFilename() . "&lt;br&gt;\n";
+    echo $fileInfo->getFilename() . "<br>\n";
 }
 
 ?>

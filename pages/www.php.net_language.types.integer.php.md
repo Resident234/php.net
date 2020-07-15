@@ -22,7 +22,7 @@ Here are some tricks to convert from a "dotted" IP address to a LONG int, and ba
 
 IP as BIGINT read from db back to dotted form:
 
-Keep in mind, PHP integer operators are INTEGER -- not long. Also, since there is no integer divide in PHP, we save a couple of S-L-O-W floor (&lt;division&gt;)'s by doing bitshifts. We must use floor(/) for $ipArr[0] because though $ipVal is stored as a long value, $ipVal &gt;&gt; 24 will operate on a truncated, integer value of $ipVal! $ipVint is, however, a nice integer, so 
+Keep in mind, PHP integer operators are INTEGER -- not long. Also, since there is no integer divide in PHP, we save a couple of S-L-O-W floor (<division>)'s by doing bitshifts. We must use floor(/) for $ipArr[0] because though $ipVal is stored as a long value, $ipVal >> 24 will operate on a truncated, integer value of $ipVal! $ipVint is, however, a nice integer, so 
 we can enjoy the bitshifts.
 
 
@@ -33,8 +33,8 @@ we can enjoy the bitshifts.
         $ipArr = array(0 =>
                     floor(  $ipVal               / 0x1000000) );
         $ipVint   = $ipVal-($ipArr[0]*0x1000000); // for clarity
-        $ipArr[1] = ($ipVint &amp; 0xFF0000)  &gt;&gt; 16;
-        $ipArr[2] = ($ipVint &amp; 0xFF00  )  &gt;&gt; 8;
+        $ipArr[1] = ($ipVint &amp; 0xFF0000)  >> 16;
+        $ipArr[2] = ($ipVint &amp; 0xFF00  )  >> 8;
         $ipArr[3] =  $ipVint &amp; 0xFF;
         $ipDotted = implode('.', $ipArr);
 ?>

@@ -20,16 +20,16 @@ function get_process_count() {
   
   // check if php version supports clearstatcache params, but only check once
   if ( is_null( $ver ) )
-    $ver = version_compare( PHP_VERSION, '5.3.0', '&gt;=' );
+    $ver = version_compare( PHP_VERSION, '5.3.0', '>=' );
  
   // Only call clearstatcache() if function called more than once */
-  if ( $runs++ &gt; 0 ) { // checks if $runs &gt; 0, then increments $runs by one.
+  if ( $runs++ > 0 ) { // checks if $runs > 0, then increments $runs by one.
     
-    // if php version is &gt;= 5.3.0
+    // if php version is >= 5.3.0
     if ( $ver ) {
       clearstatcache( true, '/proc' );
     } else {
-      // if php version is &lt; 5.3.0
+      // if php version is < 5.3.0
       clearstatcache();
     }
   }

@@ -132,7 +132,7 @@ $obj->getInfo();
 $num = array("Garha","sitamarhi","canada","patna"); //create an array
 $obj = (object)$num; //change array to stdClass object 
 
-echo "&lt;pre&gt;";
+echo "<pre>";
 print_r($obj); //stdClass Object created by casting of array 
 
 $newobj = new stdClass();//create a new 
@@ -141,7 +141,7 @@ $newobj->work = "Development";
 $newobj->address="patna";
 
 $new = (array)$newobj;//convert stdClass to array
-echo "&lt;pre&gt;";
+echo "<pre>";
 print_r($new); //print new object
 
 ##How deals with Associative Array
@@ -149,10 +149,10 @@ print_r($new); //print new object
 $test = [Details=>['name','roll number','college','mobile'],values=>['Naman Kumar','100790310868','Pune college','9988707202']];
 $val = json_decode(json_encode($test),false);//convert array into stdClass object
 
-echo "&lt;pre&gt;";
+echo "<pre>";
 print_r($val);
 
-echo ((is_array($val) == true ?  1 : 0 ) == 1 ? "array" : "not an array" )."&lt;/br&gt;"; // check whether it is array or not
+echo ((is_array($val) == true ?  1 : 0 ) == 1 ? "array" : "not an array" )."</br>"; // check whether it is array or not
 echo ((is_object($val) == true ?  1 : 0 ) == 1 ? "object" : "not an object" );//check whether it is object or not 
 ?>
 ```
@@ -165,7 +165,7 @@ CAUTION:<br>"Arrays convert to an object with properties named by keys, and corr
 ```
 <?php
 $x = (object) array('a'=>'A', 'b'=>'B', 'C');
-echo '&lt;pre&gt;'.print_r($x, true).'&lt;/pre&gt;';
+echo '<pre>'.print_r($x, true).'</pre>';
 ?>
 ```
 
@@ -182,9 +182,9 @@ But this:
 
 ```
 <?php
-echo '&lt;br /&gt;'.$x->a;
-echo '&lt;br /&gt;'.$x->b;
-echo '&lt;br /&gt;'.$x->{0}; # (don't use $x->0, which is obviously a syntax error)
+echo '<br />'.$x->a;
+echo '<br />'.$x->b;
+echo '<br />'.$x->{0}; # (don't use $x->0, which is obviously a syntax error)
 ?>
 ```
 <br>fails and displays:<br>A<br>B<br>Notice: Undefined property: stdClass::$0 in...  

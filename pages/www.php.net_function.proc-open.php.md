@@ -61,7 +61,7 @@ while ($read_error != false or $read_output != false)
         }
     }
     
-    if ($buffer_len &gt; $prev_buffer_len)
+    if ($buffer_len > $prev_buffer_len)
     {
         $prev_buffer_len = $buffer_len;
         $ms = 10;
@@ -69,7 +69,7 @@ while ($read_error != false or $read_output != false)
     else 
     {
         usleep($ms * 1000); // sleep for $ms milliseconds
-        if ($ms &lt; 160)
+        if ($ms < 160)
         {
             $ms = $ms * 2;
         }

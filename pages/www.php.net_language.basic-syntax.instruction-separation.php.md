@@ -9,8 +9,8 @@ Do not mis interpret<br><br>
 
 with
 
-&lt;?php echo 'Ending tag excluded';
-&lt;p&gt;But html is still visible&lt;/p&gt;
+<?php echo 'Ending tag excluded';
+<p>But html is still visible</p>
 
 The second one would give error. Exclude ?>
 ```

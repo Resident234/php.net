@@ -115,8 +115,8 @@ Comments in PHP can be used for several purposes, a very interesting one being t
 ```
 <?php
 /**
-* The second * here opens the DocBook commentblock, which could later on&lt;br&gt;
-* in your development cycle save you a lot of time by preventing you having to rewrite&lt;br&gt;
+* The second * here opens the DocBook commentblock, which could later on<br>
+* in your development cycle save you a lot of time by preventing you having to rewrite<br>
 * major documentation parts to generate some usable form of documentation.
 */
 ?>
@@ -186,14 +186,14 @@ Comments do NOT take up processing power.<br><br>So, for all the people who argu
 <?php
 
 // Control
-echo microtime(), "&lt;br /&gt;"; // 0.25163600 1292450508
-echo microtime(), "&lt;br /&gt;"; // 0.25186000 1292450508
+echo microtime(), "<br />"; // 0.25163600 1292450508
+echo microtime(), "<br />"; // 0.25186000 1292450508
 
 // Test
-echo microtime(), "&lt;br /&gt;"; // 0.25189700 1292450508
+echo microtime(), "<br />"; // 0.25189700 1292450508
 # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
 # .. Above comment repeated 18809 times ..
-echo microtime(), "&lt;br /&gt;"; // 0.25192100 1292450508
+echo microtime(), "<br />"; // 0.25192100 1292450508
 
 ?>
 ```

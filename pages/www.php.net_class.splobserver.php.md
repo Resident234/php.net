@@ -62,7 +62,7 @@ class Reader implements SplObserver{
     }
     
     public function update(\SplSubject $subject) {
-        echo $this->name.' is reading breakout news &lt;b&gt;'.$subject->getContent().'&lt;/b&gt;&lt;br&gt;';
+        echo $this->name.' is reading breakout news <b>'.$subject->getContent().'</b><br>';
     }
 }
 

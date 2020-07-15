@@ -133,7 +133,7 @@ function big_endian_unpack ($format, $data) {
     }
     if ($f_v{0} != 'd') { $i += $repeater; continue; }
     $j = $i + $repeater;
-    for ($a = $i; $a &lt; $j; ++$a)
+    for ($a = $i; $a < $j; ++$a)
     {
         $p = pack ('d',$vals[$i]);
         $p = strrev ($p);

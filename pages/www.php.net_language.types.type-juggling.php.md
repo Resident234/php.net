@@ -38,7 +38,7 @@ class MyClass {
 }
 
 $test = new MyClass();
-echo '&lt;pre&gt;';
+echo '<pre>';
 print_r((array) $test);
 
 /*
@@ -64,11 +64,11 @@ Yes, that looks like an array with two keys with the same name and it looks like
 
 foreach ((array) $test as $key => $value) {
     $len = strlen($key);
-    echo "{$key} ({$len}) => {$value}&lt;br /&gt;";
-    for ($i = 0; $i &lt; $len; ++$i) {
+    echo "{$key} ({$len}) => {$value}<br />";
+    for ($i = 0; $i < $len; ++$i) {
         echo ord($key[$i]) . ' ';
     }
-    echo '&lt;hr /&gt;';
+    echo '<hr />';
 }
 
 /*

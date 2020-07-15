@@ -38,13 +38,13 @@ $o2->prop2 = 25;
 $o2->prop3 = 200;
 $o2->prop4 = 9999;
 
-echo (int)($o1 &lt; $o2); // 0
-echo (int)($o1 &gt; $o2); // 1
+echo (int)($o1 < $o2); // 0
+echo (int)($o1 > $o2); // 1
 
 $o1->prop3 = 200;
 
-echo (int)($o1 &lt; $o2); // 1
-echo (int)($o1 &gt; $o2); // 0
+echo (int)($o1 < $o2); // 1
+echo (int)($o1 > $o2); // 0
 
 ?>
 ```

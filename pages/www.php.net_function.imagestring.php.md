@@ -16,7 +16,7 @@ error_reporting(E_ALL);
  * @param int $size 
  * @param int $weight font-weight/size
  * @return sesource
- * @author Nicolas 'KeksNicoh' Heimann &lt;www.salamipla.net&gt;
+ * @author Nicolas 'KeksNicoh' Heimann <www.salamipla.net>
  * @date 02nov08
  */
 function pixelfuck($url, $chars='ewk34543&#xA7;G&#xA7;
@@ -31,8 +31,8 @@ function pixelfuck($url, $chars='ewk34543&#xA7;G&#xA7;
     $img = imagecreatetruecolor($w*$size,$h*$size);
 
     $cc = strlen($chars);
-    for($y=0;$y &lt;$h;$y+=$shrpns) 
-        for($x=0;$x &lt;$w;$x+=$shrpns)
+    for($y=0;$y <$h;$y+=$shrpns) 
+        for($x=0;$x <$w;$x+=$shrpns)
             imagestring($img,$weight,$x*$size,$y*$size, $chars{@++$p%$cc}, imagecolorat($resource, $x, $y));
     return $img;
 }

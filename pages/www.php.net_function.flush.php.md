@@ -9,9 +9,9 @@ This will show each line at a time with a pause of 2 seconds.<br>(Tested under I
 
 if (ob_get_level() == 0) ob_start();
 
-for ($i = 0; $i&lt;10; $i++){
+for ($i = 0; $i<10; $i++){
 
-        echo "&lt;br&gt; Line to show.";
+        echo "<br> Line to show.";
         echo str_pad('',4096)."\n";    
 
         ob_flush();
@@ -41,7 +41,7 @@ This is what I use to turn off pretty much anything that could cause unwanted ou
     @apache_setenv('no-gzip', 1);
     @ini_set('zlib.output_compression', 0);
     @ini_set('implicit_flush', 1);
-    for ($i = 0; $i &lt; ob_get_level(); $i++) { ob_end_flush(); }
+    for ($i = 0; $i < ob_get_level(); $i++) { ob_end_flush(); }
     ob_implicit_flush(1);
 
 ?>
