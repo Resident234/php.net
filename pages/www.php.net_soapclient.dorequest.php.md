@@ -22,9 +22,9 @@ catch (Exception $e) {
     //nor was this code reached either
     $exception = $e;
 }
-if((isset($this-&gt;__soap_fault)) &amp;&amp; ($this-&gt;__soap_fault != null)) {
+if((isset($this->__soap_fault)) &amp;&amp; ($this->__soap_fault != null)) {
     //this is where the exception from __doRequest is stored
-    $exception = $this-&gt;__soap_fault;
+    $exception = $this->__soap_fault;
 }
 
 //decide what to do about the exception here
@@ -33,7 +33,7 @@ if((isset($this-&gt;__soap_fault)) &amp;&amp; ($this-&gt;__soap_fault != null)) 
 if($exception != null) {
     throw $exception;
 }
-//note: you may want to unset the __soap_fault value if you don&apos;t want it thrown again up the call stack
+//note: you may want to unset the __soap_fault value if you don't want it thrown again up the call stack
 ?>
 ```
   
@@ -49,9 +49,9 @@ class MSSoapClient extends SoapClient {
     function __doRequest($request, $location, $action, $version) {
         $namespace = "http://tempuri.com";
 
-        $request = preg_replace(&apos;/&lt;ns1:(\w+)/&apos;, &apos;&lt;$1 xmlns="&apos;.$namespace.&apos;"&apos;, $request, 1);
-        $request = preg_replace(&apos;/&lt;ns1:(\w+)/&apos;, &apos;&lt;$1&apos;, $request);
-        $request = str_replace(array(&apos;/ns1:&apos;, &apos;xmlns:ns1="&apos;.$namespace.&apos;"&apos;), array(&apos;/&apos;, &apos;&apos;), $request);
+        $request = preg_replace('/&lt;ns1:(\w+)/', '&lt;$1 xmlns="'.$namespace.'"', $request, 1);
+        $request = preg_replace('/&lt;ns1:(\w+)/', '&lt;$1', $request);
+        $request = str_replace(array('/ns1:', 'xmlns:ns1="'.$namespace.'"'), array('/', ''), $request);
 
         // parent call
         return parent::__doRequest($request, $location, $action, $version);

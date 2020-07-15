@@ -11,15 +11,15 @@ You almost for sure will need to wrap a try/catch block around your SOAP call in
 ```
 <?php
     $soapClient = new SoapClient($url);
-    echo htmlentities($soapClient-&gt;__getFunctions());
-    //Assume that has output &apos;someFunction&apos; (among others)
+    echo htmlentities($soapClient->__getFunctions());
+    //Assume that has output 'someFunction' (among others)
     try {
-        $results = $soapClient-&gt;someFunction(...);
+        $results = $soapClient->someFunction(...);
     }
     catch (SoapFault $soapFault) {
         var_dump($soapFault);
-        echo "Request :&lt;br&gt;", htmlentities($soapClient-&gt;__getLastRequest()), "&lt;br&gt;";
-        echo "Response :&lt;br&gt;", htmlentities($soapClient-&gt;__getLastResponse()), "&lt;br&gt;";
+        echo "Request :&lt;br&gt;", htmlentities($soapClient->__getLastRequest()), "&lt;br&gt;";
+        echo "Response :&lt;br&gt;", htmlentities($soapClient->__getLastResponse()), "&lt;br&gt;";
     }
 ?>
 ```

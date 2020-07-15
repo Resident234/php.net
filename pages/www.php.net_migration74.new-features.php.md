@@ -14,9 +14,9 @@ class User
 }
 
 $user = new User;
-var_dump(is_null($user-&gt;id)); // bool(true)
-var_dump(is_null($user-&gt;name)); // PHP Fatal error: Typed property User::$name must not be accessed before initialization
-var_dump(is_null($user-&gt;age));// bool(true)
+var_dump(is_null($user->id)); // bool(true)
+var_dump(is_null($user->name)); // PHP Fatal error: Typed property User::$name must not be accessed before initialization
+var_dump(is_null($user->age));// bool(true)
 ?>
 ```
 <br><br>Another thing worth noting is that it&apos;s not possible to initialize a property of type object to anything other than null.  Since the evaluation of properties happens at compile-time and object instantiation happens at runtime. One last thing, callable type is not supported due to its context-dependent behavior.  

@@ -6,8 +6,8 @@ Note that calling __soapCall and calling the generated method from WSDL requires
 
 ```
 <?php
-$params = array(&apos;username&apos;=&gt;&apos;name&apos;, &apos;password&apos;=&gt;&apos;secret&apos;);
-$client-&gt;login($params);
+$params = array('username'=>'name', 'password'=>'secret');
+$client->login($params);
 ?>
 ```
 
@@ -17,7 +17,7 @@ If you want to call __soapCall, you must wrap the arguments in another array as 
 
 ```
 <?php
-$client-&gt;__soapCall(&apos;login&apos;, array($params));
+$client->__soapCall('login', array($params));
 ?>
 ```
   
@@ -28,31 +28,31 @@ One thing to note.<br><br>This happened to me and it took a while until I discov
 
 ```
 <?php
-$obj = $client-&gt;__soapCall($SOAPCall, array(&apos;parameters&apos;=&gt;$SoapCallParameters));
+$obj = $client->__soapCall($SOAPCall, array('parameters'=>$SoapCallParameters));
 ?>
 ```
 
 
-meaning that you must put an array as the second argument with &apos;parameters&apos; as the key and the soap call parameters as the value.
+meaning that you must put an array as the second argument with 'parameters' as the key and the soap call parameters as the value.
 
 Also make sure that the parameter variable, in my case $SoapCallParameters is in the form of what is requested by the webservice.
 
-So, don&apos;t just make an array of the form:
+So, don't just make an array of the form:
 
 
 ```
 <?php
 
 (
-   [0] =&gt; &apos;Mary&apos;,
-   [1] =&gt; 1983
+   [0] => 'Mary',
+   [1] => 1983
 )
 
 ?>
 ```
 
 
-but if the webservice requests a &apos;muid&apos; variable as &apos;Mary&apos; and a &apos;birthyear&apos; as 1983, then make your array like this:
+but if the webservice requests a 'muid' variable as 'Mary' and a 'birthyear' as 1983, then make your array like this:
 
 
 
@@ -60,8 +60,8 @@ but if the webservice requests a &apos;muid&apos; variable as &apos;Mary&apos; a
 <?php
 
 (
-   [muid] =&gt; &apos;Mary&apos;,
-   [birthyear] =&gt; 1983
+   [muid] => 'Mary',
+   [birthyear] => 1983
 )
 
 ?>

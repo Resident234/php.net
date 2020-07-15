@@ -7,11 +7,11 @@ What&apos;s not mentioned here is that DOMNode::appendChild() can also be used t
 ```
 <?php
 $doc = new DOMDocument();
-$doc-&gt;loadXML("&lt;foobar&gt;&lt;bar/&gt;&lt;foo/&gt;&lt;/foobar&gt;");
-$bar = $doc-&gt;documentElement-&gt;firstChild;
-$foo = $doc-&gt;documentElement-&gt;lastChild;
-$foo-&gt;appendChild($bar);
-print $doc-&gt;saveXML();
+$doc->loadXML("&lt;foobar&gt;&lt;bar/&gt;&lt;foo/&gt;&lt;/foobar&gt;");
+$bar = $doc->documentElement->firstChild;
+$foo = $doc->documentElement->lastChild;
+$foo->appendChild($bar);
+print $doc->saveXML();
 ?>
 ```
 

@@ -6,7 +6,7 @@ I had a hard time finding this documented, so posting it here in case it helps s
 
 ```
 <?php
-$xml = simplexml_load_string($string, &apos;SimpleXMLElement&apos;, LIBXML_NOCDATA | LIBXML_NOBLANKS);
+$xml = simplexml_load_string($string, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
 ?>
 ```
   
@@ -27,7 +27,7 @@ Example:
 
 ```
 <?php
-$xml_object=simplexml_load_string(&apos;&lt;SOME XML DATA&apos;);
+$xml_object=simplexml_load_string('&lt;SOME XML DATA');
 $xml_array=object2array($xml_object);
 ?>
 ```
@@ -39,25 +39,25 @@ There seems to be a lot of talk about SimpleXML having a "problem" with CDATA, a
 
 ```
 <?php
-$xml = simplexml_load_string(&apos;&lt;foo&gt;Text1 &amp;amp; XML entities&lt;/foo&gt;&apos;);
+$xml = simplexml_load_string('&lt;foo&gt;Text1 &amp;amp; XML entities&lt;/foo&gt;');
 print_r($xml);
 /*
 SimpleXMLElement Object
 (
-    [0] =&gt; Text1 &amp; XML entities
+    [0] => Text1 &amp; XML entities
 )
 */
 
-$xml2 = simplexml_load_string(&apos;&lt;foo&gt;&lt;![CDATA[Text2 &amp; raw data]]&gt;&lt;/foo&gt;&apos;);
+$xml2 = simplexml_load_string('&lt;foo&gt;&lt;![CDATA[Text2 &amp; raw data]]&gt;&lt;/foo&gt;');
 print_r($xml2);
 /*
 SimpleXMLElement Object
 (
 )
 */
-// Where&apos;s my CDATA?
+// Where's my CDATA?
 
-// Let&apos;s try explicit casts
+// Let's try explicit casts
 print_r( (string)$xml );
 print_r( (string)$xml2 );
 /*

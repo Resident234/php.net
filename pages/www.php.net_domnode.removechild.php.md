@@ -6,10 +6,10 @@ You can&apos;t remove DOMNodes from a DOMNodeList as you&apos;re iterating over 
 
 ```
 <?php
-$domNodeList = $domDocument-&gt;getElementsByTagname(&apos;p&apos;);
+$domNodeList = $domDocument->getElementsByTagname('p');
 foreach ( $domNodeList as $domElement ) {
   //  ...do stuff with $domElement...
-  $domElement-&gt;parentNode-&gt;removeChild($domElement);
+  $domElement->parentNode->removeChild($domElement);
 }
 ?>
 ```
@@ -21,14 +21,14 @@ foreach ( $domNodeList as $domElement ) {
 
 ```
 <?php
-$domNodeList = $domDocument-&gt;getElementsByTagname(&apos;p&apos;);
+$domNodeList = $domDocument->getElementsByTagname('p');
 $domElemsToRemove = array();
 foreach ( $domNodeList as $domElement ) {
   // ...do stuff with $domElement...
   $domElemsToRemove[] = $domElement;
 }
 foreach( $domElemsToRemove as $domElement ){
-  $domElement-&gt;parentNode-&gt;removeChild($domElement);
+  $domElement->parentNode->removeChild($domElement);
 }
 ?>
 ```
@@ -42,14 +42,14 @@ These two functions might be helpful to anyone trying to delete a node and all o
 <?php
 function deleteNode($node) {
     deleteChildren($node);
-    $parent = $node-&gt;parentNode;
-    $oldnode = $parent-&gt;removeChild($node);
+    $parent = $node->parentNode;
+    $oldnode = $parent->removeChild($node);
 }
 
 function deleteChildren($node) {
-    while (isset($node-&gt;firstChild)) {
-        deleteChildren($node-&gt;firstChild);
-        $node-&gt;removeChild($node-&gt;firstChild);
+    while (isset($node->firstChild)) {
+        deleteChildren($node->firstChild);
+        $node->removeChild($node->firstChild);
     }
 }
 ?>

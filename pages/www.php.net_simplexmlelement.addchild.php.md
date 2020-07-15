@@ -21,8 +21,8 @@ class ExSimpleXMLElement extends SimpleXMLElement
   private function addCData($cdata_text)
   {
    $node= dom_import_simplexml($this);
-   $no = $node-&gt;ownerDocument;
-   $node-&gt;appendChild($no-&gt;createCDATASection($cdata_text));
+   $no = $node->ownerDocument;
+   $node->appendChild($no->createCDATASection($cdata_text));
   }
 
   /**
@@ -32,8 +32,8 @@ class ExSimpleXMLElement extends SimpleXMLElement
    */
     public function addChildCData($name,$cdata_text)
     {
-        $child = $this-&gt;addChild($name);
-        $child-&gt;addCData($cdata_text);
+        $child = $this->addChild($name);
+        $child->addCData($cdata_text);
     }
 
     /**
@@ -44,15 +44,15 @@ class ExSimpleXMLElement extends SimpleXMLElement
     {
         if ($append) {
             if (strlen(trim((string) $append))==0) {
-                $xml = $this-&gt;addChild($append-&gt;getName());
-                foreach($append-&gt;children() as $child) {
-                    $xml-&gt;appendXML($child);
+                $xml = $this->addChild($append->getName());
+                foreach($append->children() as $child) {
+                    $xml->appendXML($child);
                 }
             } else {
-                $xml = $this-&gt;addChild($append-&gt;getName(), (string) $append);
+                $xml = $this->addChild($append->getName(), (string) $append);
             }
-            foreach($append-&gt;attributes() as $n =&gt; $v) {
-                $xml-&gt;addAttribute($n, $v);
+            foreach($append->attributes() as $n => $v) {
+                $xml->addAttribute($n, $v);
             }
         }
     }
@@ -67,7 +67,7 @@ To complete Volker Grabsch&apos;s comment, stating :<br>"Note that although addC
 
 ```
 <?php
-$xmlelement-&gt;value = &apos;my value &lt; &gt; &amp;&apos;;
+$xmlelement->value = 'my value &lt; &gt; &amp;';
 // results in &lt;value&gt;my value &amp;lt; &amp;gt; &amp;amp;&lt;/value&gt;
 ?>
 ```
@@ -79,7 +79,7 @@ instead of doing :
 
 ```
 <?php
-$xmlelement-&gt;addChild(&apos;value&apos;, &apos;my value &lt; &gt; &amp;&apos;);
+$xmlelement->addChild('value', 'my value &lt; &gt; &amp;');
 // results in &lt;value&gt;my value &amp;lt; &amp;gt; &amp;&lt;/value&gt; (invalid XML)
 ?>
 ```

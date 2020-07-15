@@ -14,22 +14,22 @@ For more detailed feedback from DOMDocument::schemaValidate, disable libxml erro
 function libxml_display_error($error)
 {
     $return = "&lt;br/&gt;\n";
-    switch ($error-&gt;level) {
+    switch ($error->level) {
         case LIBXML_ERR_WARNING:
-            $return .= "&lt;b&gt;Warning $error-&gt;code&lt;/b&gt;: ";
+            $return .= "&lt;b&gt;Warning $error->code&lt;/b&gt;: ";
             break;
         case LIBXML_ERR_ERROR:
-            $return .= "&lt;b&gt;Error $error-&gt;code&lt;/b&gt;: ";
+            $return .= "&lt;b&gt;Error $error->code&lt;/b&gt;: ";
             break;
         case LIBXML_ERR_FATAL:
-            $return .= "&lt;b&gt;Fatal Error $error-&gt;code&lt;/b&gt;: ";
+            $return .= "&lt;b&gt;Fatal Error $error->code&lt;/b&gt;: ";
             break;
     }
-    $return .= trim($error-&gt;message);
-    if ($error-&gt;file) {
-        $return .=    " in &lt;b&gt;$error-&gt;file&lt;/b&gt;";
+    $return .= trim($error->message);
+    if ($error->file) {
+        $return .=    " in &lt;b&gt;$error->file&lt;/b&gt;";
     }
-    $return .= " on line &lt;b&gt;$error-&gt;line&lt;/b&gt;\n";
+    $return .= " on line &lt;b&gt;$error->line&lt;/b&gt;\n";
 
     return $return;
 }
@@ -46,10 +46,10 @@ function libxml_display_errors() {
 libxml_use_internal_errors(true);
 
 $xml = new DOMDocument(); 
-$xml-&gt;load(&apos;example.xml&apos;); 
+$xml->load('example.xml'); 
 
-if (!$xml-&gt;schemaValidate(&apos;example.xsd&apos;)) {
-    print &apos;&lt;b&gt;DOMDocument::schemaValidate() Generated Errors!&lt;/b&gt;&apos;;
+if (!$xml->schemaValidate('example.xsd')) {
+    print '&lt;b&gt;DOMDocument::schemaValidate() Generated Errors!&lt;/b&gt;';
     libxml_display_errors();
 }
 

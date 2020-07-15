@@ -9,32 +9,32 @@ Here&apos;s my solution to make SOAP-headers based authentication.<br><br>1). Fi
 
 class SOAP_Service_Secure
 {
-    protected $class_name    = &apos;&apos;;
+    protected $class_name    = '';
     protected $authenticated = false;
 
     // -----
 
     public function __construct($class_name)
     {
-        $this-&gt;class_name = $class_name;
+        $this->class_name = $class_name;
 
     }
 
     public function AuthHeader($Header)
     {
-        if($Header-&gt;username == &apos;foo&apos; &amp;&amp; $Header-&gt;password == &apos;bar&apos;)
-            $this-&gt;authenticated = true;
+        if($Header->username == 'foo' &amp;&amp; $Header->password == 'bar')
+            $this->authenticated = true;
 
     }
 
     public function __call($method_name, $arguments)
     {
-        if(!method_exists($this-&gt;class_name, $method_name))
-            throw new Exception(&apos;method not found&apos;);
+        if(!method_exists($this->class_name, $method_name))
+            throw new Exception('method not found');
 
-        $this-&gt;checkAuth();
+        $this->checkAuth();
 
-        return call_user_func_array(array($this-&gt;class_name, $method_name), $arguments);
+        return call_user_func_array(array($this->class_name, $method_name), $arguments);
 
     }
 
@@ -42,7 +42,7 @@ class SOAP_Service_Secure
 
     protected function checkAuth()
     {
-        if(!$this-&gt;authenticated)
+        if(!$this->authenticated)
             HTML_Output::error(403);
 
     }
@@ -60,13 +60,13 @@ class SOAP_Service_Secure
 ```
 <?php
 
-    $Service = new SOAP_Service_Secure(&apos;My_Service&apos;);
+    $Service = new SOAP_Service_Secure('My_Service');
 
-    $Server = new SoapServer(&apos;my-service.wsdl&apos;);
+    $Server = new SoapServer('my-service.wsdl');
 
-    $Server-&gt;setObject($Service);
+    $Server->setObject($Service);
 
-    $Server-&gt;handle();
+    $Server->handle();
 
 ?>
 ```
@@ -88,24 +88,24 @@ class AuthHeader
 
 // -----
 
-$Client = new SoapClient(&apos;http://example.com/my-service.wsdl&apos;, array(
-    &apos;exceptions&apos; =&gt; true
+$Client = new SoapClient('http://example.com/my-service.wsdl', array(
+    'exceptions' => true
 ));
 
 // -----
 
 $AuthHeader = new AuthHeader();
 
-$AuthHeader-&gt;username = &apos;foo&apos;;
-$AuthHeader-&gt;password = &apos;bar&apos;;
+$AuthHeader->username = 'foo';
+$AuthHeader->password = 'bar';
 
-$Headers[] = new SoapHeader(&apos;http://example.com&apos;, &apos;AuthHeader&apos;, $AuthHeader);
+$Headers[] = new SoapHeader('http://example.com', 'AuthHeader', $AuthHeader);
 
-$Client-&gt;__setSoapHeaders($Headers);
+$Client->__setSoapHeaders($Headers);
 
 // -----
 
-$Result = $Client-&gt;someMethod();
+$Result = $Client->someMethod();
 
 ?>
 ```

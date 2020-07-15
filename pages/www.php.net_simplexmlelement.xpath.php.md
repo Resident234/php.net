@@ -17,14 +17,14 @@ XML;
 
 $xmlDoc=new \SimpleXMLElement($strXml);
 
-foreach($xmlDoc-&gt;getDocNamespaces() as $strPrefix =&gt; $strNamespace) {
+foreach($xmlDoc->getDocNamespaces() as $strPrefix => $strNamespace) {
     if(strlen($strPrefix)==0) {
         $strPrefix="a"; //Assign an arbitrary namespace prefix.
     }
-    $xmlDoc-&gt;registerXPathNamespace($strPrefix,$strNamespace);
+    $xmlDoc->registerXPathNamespace($strPrefix,$strNamespace);
 }
 
-print($xmlDoc-&gt;xpath("//a:message")[0]); //Use the arbitrary namespace prefix in the query.
+print($xmlDoc->xpath("//a:message")[0]); //Use the arbitrary namespace prefix in the query.
 ?>
 ```
 <br><br>This will output:<br><br>Test message  
@@ -35,7 +35,7 @@ On a xml that have namespace you need to do this before your xpath request (or e
 
 ```
 <?php
-$string = str_replace(&apos;xmlns=&apos;, &apos;ns=&apos;, $string); //$string is a string that contains xml...
+$string = str_replace('xmlns=', 'ns=', $string); //$string is a string that contains xml...
 ?>
 ```
   
@@ -56,10 +56,10 @@ $string = &lt;&lt;&lt;XML
 XML;
 
 $xml = simplexml_load_string($string);
-$result = $xml-&gt;xpath("//size[@label=&apos;Large&apos;]");
+$result = $xml->xpath("//size[@label='Large']");
 
 // print the first (and only) member of the array
-echo $result[0]-&gt;asXml();
+echo $result[0]->asXml();
 ?>
 ```
 <br><br>The script would print: <br>&lt;size label="Large" width="112" height="69"/&gt;  
@@ -71,11 +71,11 @@ If you want to find easly all records satisfying some condition in XML data like
 ```
 <?php
 
-$xmlStr = file_get_contents(&apos;data/books.xml&apos;);
+$xmlStr = file_get_contents('data/books.xml');
 $xml = new SimpleXMLElement($xmlStr);
 // seach records by tag value:
 // find all book records with price higher than 40$
-$res = $xml-&gt;xpath("book/price[.&gt;&apos;40&apos;]/parent::*");
+$res = $xml->xpath("book/price[.&gt;'40']/parent::*");
 print_r($res);
 
 ?>

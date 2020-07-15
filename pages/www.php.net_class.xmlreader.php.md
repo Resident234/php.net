@@ -34,13 +34,13 @@ class SimpleXMLReader extends XMLReader
      */
     public function registerCallback($name, $callback, $nodeType = XMLREADER::ELEMENT)
     {
-        if (isset($this-&gt;callback[$nodeType][$name])) {
+        if (isset($this->callback[$nodeType][$name])) {
             throw new Exception("Already exists callback $name($nodeType).");
         }
         if (!is_callable($callback)) {
             throw new Exception("Already exists parser callback $name($nodeType).");
         }
-        $this-&gt;callback[$nodeType][$name] = $callback;
+        $this->callback[$nodeType][$name] = $callback;
         return $this;
     }
 
@@ -53,10 +53,10 @@ class SimpleXMLReader extends XMLReader
      */
     public function unRegisterCallback($name, $nodeType = XMLREADER::ELEMENT)
     {
-        if (!isset($this-&gt;callback[$nodeType][$name])) {
+        if (!isset($this->callback[$nodeType][$name])) {
             throw new Exception("Unknow parser callback $name($nodeType).");
         }
-        unset($this-&gt;callback[$nodeType][$name]);
+        unset($this->callback[$nodeType][$name]);
         return $this;
     }
 
@@ -67,13 +67,13 @@ class SimpleXMLReader extends XMLReader
      */
     public function parse()
     {
-        if (empty($this-&gt;callback)) {
+        if (empty($this->callback)) {
             throw new Exception("Empty parser callback.");
         }
         $continue = true;
-        while ($continue &amp;&amp; $this-&gt;read()) {
-            if (isset($this-&gt;callback[$this-&gt;nodeType][$this-&gt;name])) {
-                $continue = call_user_func($this-&gt;callback[$this-&gt;nodeType][$this-&gt;name], $this);
+        while ($continue &amp;&amp; $this->read()) {
+            if (isset($this->callback[$this->nodeType][$this->name])) {
+                $continue = call_user_func($this->callback[$this->nodeType][$this->name], $this);
             }
         }
     }
@@ -88,7 +88,7 @@ class SimpleXMLReader extends XMLReader
      */
     public function expandXpath($path, $version = "1.0", $encoding = "UTF-8")
     {
-        return $this-&gt;expandSimpleXml($version, $encoding)-&gt;xpath($path);
+        return $this->expandSimpleXml($version, $encoding)->xpath($path);
     }
 
     /**
@@ -100,7 +100,7 @@ class SimpleXMLReader extends XMLReader
      */
     public function expandString($version = "1.0", $encoding = "UTF-8")
     {
-        return $this-&gt;expandSimpleXml($version, $encoding)-&gt;asXML();
+        return $this->expandSimpleXml($version, $encoding)->asXML();
     }
 
     /**
@@ -113,10 +113,10 @@ class SimpleXMLReader extends XMLReader
      */
     public function expandSimpleXml($version = "1.0", $encoding = "UTF-8", $className = null)
     {
-        $element = $this-&gt;expand();
+        $element = $this->expand();
         $document = new DomDocument($version, $encoding);
-        $node = $document-&gt;importNode($element, true);
-        $document-&gt;appendChild($node);
+        $node = $document->importNode($element, true);
+        $document->appendChild($node);
         return simplexml_import_dom($node, $className);
     }
 
@@ -129,10 +129,10 @@ class SimpleXMLReader extends XMLReader
      */
     public function expandDomDocument($version = "1.0", $encoding = "UTF-8")
     {
-        $element = $this-&gt;expand();
+        $element = $this->expand();
         $document = new DomDocument($version, $encoding);
-        $node = $document-&gt;importNode($element, true);
-        $document-&gt;appendChild($node);
+        $node = $document->importNode($element, true);
+        $document->appendChild($node);
         return $document;
     }
 
@@ -156,50 +156,50 @@ function xml2assoc($xml, $name)
     print "&lt;ul&gt;";
 
     $tree = null;
-    print("I&apos;m inside " . $name . "&lt;br&gt;");
+    print("I'm inside " . $name . "&lt;br&gt;");
     
-    while($xml-&gt;read()) 
+    while($xml->read()) 
     {
-        if($xml-&gt;nodeType == XMLReader::END_ELEMENT)
+        if($xml->nodeType == XMLReader::END_ELEMENT)
         {
             print "&lt;/ul&gt;";
             return $tree;
         }
         
-        else if($xml-&gt;nodeType == XMLReader::ELEMENT)
+        else if($xml->nodeType == XMLReader::ELEMENT)
         {
             $node = array();
             
-            print("Adding " . $xml-&gt;name ."&lt;br&gt;");
-            $node[&apos;tag&apos;] = $xml-&gt;name;
+            print("Adding " . $xml->name ."&lt;br&gt;");
+            $node['tag'] = $xml->name;
 
-            if($xml-&gt;hasAttributes)
+            if($xml->hasAttributes)
             {
                 $attributes = array();
-                while($xml-&gt;moveToNextAttribute()) 
+                while($xml->moveToNextAttribute()) 
                 {
-                    print("Adding attr " . $xml-&gt;name ." = " . $xml-&gt;value . "&lt;br&gt;");
-                    $attributes[$xml-&gt;name] = $xml-&gt;value;
+                    print("Adding attr " . $xml->name ." = " . $xml->value . "&lt;br&gt;");
+                    $attributes[$xml->name] = $xml->value;
                 }
-                $node[&apos;attr&apos;] = $attributes;
+                $node['attr'] = $attributes;
             }
             
-            if(!$xml-&gt;isEmptyElement)
+            if(!$xml->isEmptyElement)
             {
-                $childs = xml2assoc($xml, $node[&apos;tag&apos;]);
-                $node[&apos;childs&apos;] = $childs;
+                $childs = xml2assoc($xml, $node['tag']);
+                $node['childs'] = $childs;
             }
             
-            print($node[&apos;tag&apos;] . " added &lt;br&gt;");
+            print($node['tag'] . " added &lt;br&gt;");
             $tree[] = $node;
         }
         
-        else if($xml-&gt;nodeType == XMLReader::TEXT)
+        else if($xml->nodeType == XMLReader::TEXT)
         {
             $node = array();
-            $node[&apos;text&apos;] = $xml-&gt;value;
+            $node['text'] = $xml->value;
             $tree[] = $node;
-            print "text added = " . $node[&apos;text&apos;] . "&lt;br&gt;";
+            print "text added = " . $node['text'] . "&lt;br&gt;";
         }
     }
     
@@ -212,9 +212,9 @@ function xml2assoc($xml, $name)
 echo "&lt;PRE&gt;";
 
 $xml = new XMLReader(); 
-$xml-&gt;open(&apos;test.xml&apos;); 
+$xml->open('test.xml'); 
 $assoc = xml2assoc($xml, "root"); 
-$xml-&gt;close();
+$xml->close();
 
 print_r($assoc);
 echo "&lt;/PRE&gt;";

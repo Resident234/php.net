@@ -9,12 +9,12 @@ The phunction PHP framework (http://sourceforge.net/projects/phunction/) uses th
 
 function GUID()
 {
-    if (function_exists(&apos;com_create_guid&apos;) === true)
+    if (function_exists('com_create_guid') === true)
     {
-        return trim(com_create_guid(), &apos;{}&apos;);
+        return trim(com_create_guid(), '{}');
     }
 
-    return sprintf(&apos;%04X%04X-%04X-%04X-%04X-%04X%04X%04X&apos;, mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+    return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
 }
 
 ?>
@@ -40,19 +40,19 @@ Here&apos;s my final version of a GUIDv4 function (based on others work here) th
 function GUIDv4 ($trim = true)
 {
     // Windows
-    if (function_exists(&apos;com_create_guid&apos;) === true) {
+    if (function_exists('com_create_guid') === true) {
         if ($trim === true)
-            return trim(com_create_guid(), &apos;{}&apos;);
+            return trim(com_create_guid(), '{}');
         else
             return com_create_guid();
     }
 
     // OSX/Linux
-    if (function_exists(&apos;openssl_random_pseudo_bytes&apos;) === true) {
+    if (function_exists('openssl_random_pseudo_bytes') === true) {
         $data = openssl_random_pseudo_bytes(16);
         $data[6] = chr(ord($data[6]) &amp; 0x0f | 0x40);    // set version to 0100
         $data[8] = chr(ord($data[8]) &amp; 0x3f | 0x80);    // set bits 6-7 to 10
-        return vsprintf(&apos;%s%s-%s-%s-%s-%s%s%s&apos;, str_split(bin2hex($data), 4));
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
 
     // Fallback (PHP 4.2+)

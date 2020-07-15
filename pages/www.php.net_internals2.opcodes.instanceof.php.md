@@ -9,17 +9,17 @@ When checking instanceof against a subclass of the class in question, it will re
 
 class Foo {
 
-    public $foobar = &apos;Foo&apos;;
+    public $foobar = 'Foo';
     
     public function test() {
-        echo $this-&gt;foobar . "\n";
+        echo $this->foobar . "\n";
     }
 
 }
 
 class Bar extends Foo {
 
-    public $foobar = &apos;Bar&apos;;
+    public $foobar = 'Bar';
 
 }
 
@@ -27,8 +27,8 @@ $a = new Foo();
 $b = new Bar();
 
 echo "use of test() method\n";
-$a-&gt;test();
-$b-&gt;test();
+$a->test();
+$b->test();
 
 echo "instanceof Foo\n";
 var_dump($a instanceof Foo); // TRUE
@@ -39,12 +39,12 @@ var_dump($a instanceof Bar); // FALSE
 var_dump($b instanceof Bar); // TRUE
 
 echo "subclass of Foo\n";
-var_dump(is_subclass_of($a, &apos;Foo&apos;)); // FALSE
-var_dump(is_subclass_of($b, &apos;Foo&apos;)); // TRUE
+var_dump(is_subclass_of($a, 'Foo')); // FALSE
+var_dump(is_subclass_of($b, 'Foo')); // TRUE
 
 echo "subclass of Bar\n";
-var_dump(is_subclass_of($a, &apos;Bar&apos;)); // FALSE
-var_dump(is_subclass_of($b, &apos;Bar&apos;)); // FALSE
+var_dump(is_subclass_of($a, 'Bar')); // FALSE
+var_dump(is_subclass_of($b, 'Bar')); // FALSE
 
 ?>
 ```
@@ -55,7 +55,16 @@ var_dump(is_subclass_of($b, &apos;Bar&apos;)); // FALSE
 Please note, that you get no warnings on non-existent classes:<br><br>
 
 ```
-<?php<br>class A() {<br>}<br><br>$a = new A();<br><br>$exists = ($a instanceof A); //TRUE<br>$exists = ($a instanceof NonExistentClass); //FALSE  
+<?php
+class A() {
+}
+
+$a = new A();
+
+$exists = ($a instanceof A); //TRUE
+$exists = ($a instanceof NonExistentClass); //FALSE?>
+```
+  
 
 #
 
@@ -64,10 +73,10 @@ I&apos;m commenting here because the note from "admin at torntech" is incomplete
 ```
 <?php
 $object = new \stdClass();
-$class_name = &apos;\stdClass&apos;;
+$class_name = '\stdClass';
 
 var_dump($object instanceof $class_name);    // bool(true)
-var_dump($object instanceof &apos;\stdClass&apos;);    // Parse error: syntax error, unexpected &apos;&apos;\stdClass&apos;&apos; (T_CONSTANT_ENCAPSED_STRING)
+var_dump($object instanceof '\stdClass');    // Parse error: syntax error, unexpected ''\stdClass'' (T_CONSTANT_ENCAPSED_STRING)
 ?>
 ```
 <br><br>Please go to Type Operators page for more details about "instanceof": http://php.net/manual/en/language.operators.type.php  
@@ -89,16 +98,16 @@ class ExampleClass implements ExampleInterface
 {
     public function interfaceMethod()
     {
-        return &apos;Hello World!&apos;;
+        return 'Hello World!';
     }
 }
 
 $exampleInstance = new ExampleClass();
 
 if($exampleInstance instanceof ExampleInterface)
-    echo &apos;Yes, it is&apos;;
+    echo 'Yes, it is';
 else
-    echo &apos;No, it is not&apos;;
+    echo 'No, it is not';
 
 ?>
 ```

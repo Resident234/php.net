@@ -13,8 +13,8 @@ class exampleChannelAdvisorAuth
 
     public function __construct($key, $pass)
     {
-        $this-&gt;DeveloperKey = $key;
-        $this-&gt;Password = $pass;
+        $this->DeveloperKey = $key;
+        $this->Password = $pass;
     }
 }
 
@@ -24,23 +24,23 @@ $accountId    = "";
 
 // Create the SoapClient instance
 $url         = "";
-$client     = new SoapClient($url, array("trace" =&gt; 1, "exception" =&gt; 0));
+$client     = new SoapClient($url, array("trace" => 1, "exception" => 0));
 
 // Create the header
 $auth         = new ChannelAdvisorAuth($devKey, $password);
 $header     = new SoapHeader("http://www.example.com/webservices/", "APICredentials", $auth, false);
 
 // Call wsdl function
-$result = $client-&gt;__soapCall("DeleteMarketplaceAd", array(
-    "DeleteMarketplaceAd" =&gt; array(
-        "accountID"        =&gt; $accountId,
-        "marketplaceAdID"    =&gt; "9938745"        // The ads ID
+$result = $client->__soapCall("DeleteMarketplaceAd", array(
+    "DeleteMarketplaceAd" => array(
+        "accountID"        => $accountId,
+        "marketplaceAdID"    => "9938745"        // The ads ID
     )
 ), NULL, $header);
 
 // Echo the result
 echo "&lt;pre&gt;".print_r($result, true)."&lt;/pre&gt;";
-if($result-&gt;DeleteMarketplaceAdResult-&gt;Status == "Success")
+if($result->DeleteMarketplaceAdResult->Status == "Success")
 {
     echo "Item deleted!";
 }

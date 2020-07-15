@@ -7,8 +7,8 @@ You may use undocumented and invisible property $e-&gt;faultcode to access strin
 ```
 <?php
 $e = new SoapFault("test", "msg");
-var_dump($e-&gt;getCode()); // prints "0"
-var_dump($e-&gt;faultcode); // prints "test"
+var_dump($e->getCode()); // prints "0"
+var_dump($e->faultcode); // prints "test"
 ?>
 ```
 
@@ -31,9 +31,9 @@ A bit more digging in ext/soap/soap.c and the set_soap_fault function reveals th
 ```
 <?php
 try {
-    throw new SoapFault(&apos;code&apos;, &apos;string&apos;, &apos;actor&apos;, &apos;detail&apos;, &apos;name&apos;, &apos;header&apos;);
+    throw new SoapFault('code', 'string', 'actor', 'detail', 'name', 'header');
 } catch (Exception $ex) {
-    var_dump($ex-&gt;faultcode, $ex-&gt;faultstring, $ex-&gt;faultactor, $ex-&gt;detail, $ex-&gt;_name, $ex-&gt;headerfault);
+    var_dump($ex->faultcode, $ex->faultstring, $ex->faultactor, $ex->detail, $ex->_name, $ex->headerfault);
 }
 ?>
 ```

@@ -12,20 +12,20 @@ Walk through nested arrays/objects and utf8 encode all strings.<br><br>
 <?php
 // Usage
 class Foo {
-    public $somevar = &apos;whoop whoop&apos;;
+    public $somevar = 'whoop whoop';
 }
 
 $structure = array(
-    &apos;object&apos; =&gt; (object) array(
-        &apos;entry&apos; =&gt; &apos;hello w&#xF6;rld&apos;,
-        &apos;another_array&apos; =&gt; array(
-            &apos;string&apos;,
+    'object' => (object) array(
+        'entry' => 'hello w&#xF6;rld',
+        'another_array' => array(
+            'string',
             1234,
-            &apos;another string&apos;
+            'another string'
         )
     ),
-    &apos;string&apos; =&gt; &apos;foo&apos;,
-    &apos;foo_object&apos; =&gt; new Foo
+    'string' => 'foo',
+    'foo_object' => new Foo
 );
 
 utf8_encode_deep($structure);
@@ -47,7 +47,7 @@ function utf8_encode_deep(&amp;$input) {
         $vars = array_keys(get_object_vars($input));
 
         foreach ($vars as $var) {
-            utf8_encode_deep($input-&gt;$var);
+            utf8_encode_deep($input->$var);
         }
     }
 }

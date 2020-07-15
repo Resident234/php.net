@@ -7,12 +7,12 @@ To get back to the "old behavior" with self-signed ("snakeoil") certificates to 
 ```
 <?php
             $streamContext = stream_context_create([
-                &apos;ssl&apos; =&gt; [
-                    &apos;verify_peer&apos;      =&gt; false,
-                    &apos;verify_peer_name&apos; =&gt; false
+                'ssl' => [
+                    'verify_peer'      => false,
+                    'verify_peer_name' => false
                 ]
             ]);
-            $contents = file_get_contents(&apos;https://url&apos;, false, $streamContext);
+            $contents = file_get_contents('https://url', false, $streamContext);
 ?>
 ```
   

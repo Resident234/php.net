@@ -7,20 +7,20 @@ To create complex SOAP Headers, you can do something like this:<br><br>Required 
 ```
 <?php
 
-$ns = &apos;http://namespace.example.com/&apos;; //Namespace of the WS.
+$ns = 'http://namespace.example.com/'; //Namespace of the WS.
 
 //Body of the Soap Header.
-$headerbody = array(&apos;Token&apos; =&gt; $someToken,
-                    &apos;Version&apos; =&gt; $someVersion,
-                    &apos;MerchantID&apos;=&gt;$someMerchantId,
-                      &apos;UserCredentials&apos;=&gt;array(&apos;UserID&apos;=&gt;$UserID,
-                                             &apos;Password&apos;=&gt;$Pwd));
+$headerbody = array('Token' => $someToken,
+                    'Version' => $someVersion,
+                    'MerchantID'=>$someMerchantId,
+                      'UserCredentials'=>array('UserID'=>$UserID,
+                                             'Password'=>$Pwd));
 
 //Create Soap Header.        
-$header = new SOAPHeader($ns, &apos;RequestorCredentials&apos;, $headerbody);        
+$header = new SOAPHeader($ns, 'RequestorCredentials', $headerbody);        
         
 //set the Headers of Soap Client.
-$soap_client-&gt;__setSoapHeaders($header);
+$soap_client->__setSoapHeaders($header);
 
 ?>
 ```

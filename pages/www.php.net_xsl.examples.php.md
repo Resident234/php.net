@@ -8,14 +8,14 @@ Here&apos;s a very simple example on how to use PHP5 to transform a XML file usi
 <?php
 
    $xslDoc = new DOMDocument();
-   $xslDoc-&gt;load("collection.xsl");
+   $xslDoc->load("collection.xsl");
 
    $xmlDoc = new DOMDocument();
-   $xmlDoc-&gt;load("collection.xml");
+   $xmlDoc->load("collection.xml");
 
    $proc = new XSLTProcessor();
-   $proc-&gt;importStylesheet($xslDoc);
-   echo $proc-&gt;transformToXML($xmlDoc);
+   $proc->importStylesheet($xslDoc);
+   echo $proc->transformToXML($xmlDoc);
 
 ?>
 ```

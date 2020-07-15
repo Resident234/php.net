@@ -7,7 +7,7 @@ When using simplexml to access a element the returned object may be a SimpleXMLE
 ```
 <?php
 $string = &lt;&lt;&lt;XML
-&lt;?xml version=&apos;1.0&apos;?>
+&lt;?xml version='1.0'?>
 ```
 
 &lt;document&gt;
@@ -19,9 +19,9 @@ XML;
                                            
 $xml = simplexml_load_string($string);
 print_r($xml);
-$login = $xml-&gt;login;
+$login = $xml->login;
 print_r($login);
-$login = (string) $xml-&gt;login;
+$login = (string) $xml->login;
 print_r($login);
 ?>
 ```

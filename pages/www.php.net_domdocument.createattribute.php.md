@@ -7,18 +7,18 @@ Just in case it isn&apos;t clear (like I had), an example:<br><br>
 ```
 <?php
 
-$domDocument = new DOMDocument(&apos;1.0&apos;, "UTF-8");
-$domElement = $domDocument-&gt;createElement(&apos;field&apos;,&apos;some random data&apos;);
-$domAttribute = $domDocument-&gt;createAttribute(&apos;name&apos;);
+$domDocument = new DOMDocument('1.0', "UTF-8");
+$domElement = $domDocument->createElement('field','some random data');
+$domAttribute = $domDocument->createAttribute('name');
 
 // Value for the created attribute
-$domAttribute-&gt;value = &apos;attributevalue&apos;;
+$domAttribute->value = 'attributevalue';
 
-// Don&apos;t forget to append it to the element
-$domElement-&gt;appendChild($domAttribute);
+// Don't forget to append it to the element
+$domElement->appendChild($domAttribute);
 
 // Append it to the document itself
-$domDocument-&gt;appendChild($domElement);
+$domDocument->appendChild($domElement);
 
 ?>
 ```

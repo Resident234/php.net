@@ -16,29 +16,29 @@ class XDOMElement extends DOMElement {
 class XDOMDocument extends DOMDocument {
     function __construct($version = null, $encoding = null) {
         parent::__construct($version, $encoding);
-        $this-&gt;registerNodeClass(&apos;DOMElement&apos;, &apos;XDOMElement&apos;);
+        $this->registerNodeClass('DOMElement', 'XDOMElement');
     }
 
     function createElement($name, $value = null, $namespaceURI = null) {
         $element = new XDOMElement($name, $value, $namespaceURI);
-        $element = $this-&gt;importNode($element);
+        $element = $this->importNode($element);
         if (!empty($value)) {
-            $element-&gt;appendChild(new DOMText($value));
+            $element->appendChild(new DOMText($value));
         }
         return $element;
     }
 }
 
 $doc1 = new XDOMDocument();
-$doc1_e1 = $doc1-&gt;createElement(&apos;foo&apos;, &apos;bar &amp; baz&apos;);
-$doc1-&gt;appendChild($doc1_e1);
-echo $doc1-&gt;saveXML();
+$doc1_e1 = $doc1->createElement('foo', 'bar &amp; baz');
+$doc1->appendChild($doc1_e1);
+echo $doc1->saveXML();
 
 $doc2 = new XDOMDocument();
-$doc2_e1 = $doc2-&gt;createElement(&apos;foo&apos;);
-$doc2-&gt;appendChild($doc2_e1);
-$doc2_e1-&gt;appendChild($doc2-&gt;createTextNode(&apos;bar &amp; baz&apos;));
-echo $doc2-&gt;saveXML();
+$doc2_e1 = $doc2->createElement('foo');
+$doc2->appendChild($doc2_e1);
+$doc2_e1->appendChild($doc2->createTextNode('bar &amp; baz'));
+echo $doc2->saveXML();
 
 ?>
 ```

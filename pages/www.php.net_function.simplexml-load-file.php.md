@@ -6,7 +6,7 @@ Sometimes we have xml&apos;s with hyphens nodes, like<br><br>&lt;my_xml&gt;<br> 
 
 ```
 <?php
-$simpleXmlObj-&gt;{&apos;some-node&apos;}
+$simpleXmlObj->{'some-node'}
 ?>
 ```
 
@@ -16,7 +16,7 @@ instead of
 
 ```
 <?php
-$simpleXmlObj-&gt;some-node;
+$simpleXmlObj->some-node;
 ?>
 ```
   
@@ -27,7 +27,7 @@ To correctly extract a value from a CDATA just make sure you cast the SimpleXML 
 
 ```
 <?php
-$xml = &apos;&lt;?xml version="1.0" encoding="UTF-8" ?>
+$xml = '&lt;?xml version="1.0" encoding="UTF-8" ?>
 ```
 
 &lt;rss&gt;
@@ -36,18 +36,18 @@ $xml = &apos;&lt;?xml version="1.0" encoding="UTF-8" ?>
             &lt;title&gt;&lt;![CDATA[Tom &amp; Jerry]]&gt;&lt;/title&gt;
         &lt;/item&gt;
     &lt;/channel&gt;
-&lt;/rss&gt;&apos;;
+&lt;/rss&gt;';
 
 $xml = simplexml_load_string($xml);
 
 // echo does the casting for you
-echo $xml-&gt;channel-&gt;item-&gt;title;
+echo $xml->channel->item->title;
 
 // but vardump (or print_r) not!
-var_dump($xml-&gt;channel-&gt;item-&gt;title);
+var_dump($xml->channel->item->title);
 
-// so cast the SimpleXML Element to &apos;string&apos; solve this issue
-var_dump((string) $xml-&gt;channel-&gt;item-&gt;title);
+// so cast the SimpleXML Element to 'string' solve this issue
+var_dump((string) $xml->channel->item->title);
 ?>
 ```
 <br><br>Above will output:<br><br>Tom &amp; Jerry<br><br>object(SimpleXMLElement)#4 (0) {}<br><br>string(11) "Tom &amp; Jerry"  

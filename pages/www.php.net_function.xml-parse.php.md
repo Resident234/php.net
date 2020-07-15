@@ -19,90 +19,90 @@ class xx_xml {
     var $path;
     
     // either you pass url atau contents. 
-    // Use &apos;url&apos; or &apos;contents&apos; for the parameter
+    // Use 'url' or 'contents' for the parameter
     var $type;
 
     // function with the default parameter value
-    function xx_xml($url=&apos;http://www.example.com&apos;, $type=&apos;url&apos;) {
-        $this-&gt;type = $type;
-        $this-&gt;url  = $url;
-        $this-&gt;parse();
+    function xx_xml($url='http://www.example.com', $type='url') {
+        $this->type = $type;
+        $this->url  = $url;
+        $this->parse();
     }
     
     // parse XML data
     function parse()
     {
-        $data = &apos;&apos;;
-        $this-&gt;parser = xml_parser_create();
-        xml_set_object($this-&gt;parser, $this);
-        xml_set_element_handler($this-&gt;parser, &apos;startXML&apos;, &apos;endXML&apos;);
-        xml_set_character_data_handler($this-&gt;parser, &apos;charXML&apos;);
+        $data = '';
+        $this->parser = xml_parser_create();
+        xml_set_object($this->parser, $this);
+        xml_set_element_handler($this->parser, 'startXML', 'endXML');
+        xml_set_character_data_handler($this->parser, 'charXML');
 
-        xml_parser_set_option($this-&gt;parser, XML_OPTION_CASE_FOLDING, false);
+        xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, false);
 
-        if ($this-&gt;type == &apos;url&apos;) {
-            // if use type = &apos;url&apos; now we open the XML with fopen
+        if ($this->type == 'url') {
+            // if use type = 'url' now we open the XML with fopen
             
-            if (!($fp = @fopen($this-&gt;url, &apos;rb&apos;))) {
-                $this-&gt;error("Cannot open {$this-&gt;url}");
+            if (!($fp = @fopen($this->url, 'rb'))) {
+                $this->error("Cannot open {$this->url}");
             }
 
             while (($data = fread($fp, 8192))) {
-                if (!xml_parse($this-&gt;parser, $data, feof($fp))) {
-                    $this-&gt;error(sprintf(&apos;XML error at line %d column %d&apos;, 
-                    xml_get_current_line_number($this-&gt;parser), 
-                    xml_get_current_column_number($this-&gt;parser)));
+                if (!xml_parse($this->parser, $data, feof($fp))) {
+                    $this->error(sprintf('XML error at line %d column %d', 
+                    xml_get_current_line_number($this->parser), 
+                    xml_get_current_column_number($this->parser)));
                 }
             }
-        } else if ($this-&gt;type == &apos;contents&apos;) {
+        } else if ($this->type == 'contents') {
             // Now we can pass the contents, maybe if you want 
             // to use CURL, SOCK or other method.
-            $lines = explode("\n",$this-&gt;url);
+            $lines = explode("\n",$this->url);
             foreach ($lines as $val) {
-                if (trim($val) == &apos;&apos;)
+                if (trim($val) == '')
                     continue;
                 $data = $val . "\n";
-                if (!xml_parse($this-&gt;parser, $data)) {
-                    $this-&gt;error(sprintf(&apos;XML error at line %d column %d&apos;, 
-                    xml_get_current_line_number($this-&gt;parser), 
-                    xml_get_current_column_number($this-&gt;parser)));
+                if (!xml_parse($this->parser, $data)) {
+                    $this->error(sprintf('XML error at line %d column %d', 
+                    xml_get_current_line_number($this->parser), 
+                    xml_get_current_column_number($this->parser)));
                 }
             }
         }
     }
 
     function startXML($parser, $name, $attr)    {
-        $this-&gt;stack[$name] = array();
-        $keys = &apos;&apos;;
-        $total = count($this-&gt;stack)-1;
+        $this->stack[$name] = array();
+        $keys = '';
+        $total = count($this->stack)-1;
         $i=0;
-        foreach ($this-&gt;stack as $key =&gt; $val)    {
-            if (count($this-&gt;stack) &gt; 1) {
+        foreach ($this->stack as $key => $val)    {
+            if (count($this->stack) &gt; 1) {
                 if ($total == $i)
                     $keys .= $key;
                 else
-                    $keys .= $key . &apos;|&apos;; // The saparator
+                    $keys .= $key . '|'; // The saparator
             }
             else
                 $keys .= $key;
             $i++;
         }
-        if (array_key_exists($keys, $this-&gt;data))    {
-            $this-&gt;data[$keys][] = $attr;
+        if (array_key_exists($keys, $this->data))    {
+            $this->data[$keys][] = $attr;
         }    else
-            $this-&gt;data[$keys] = $attr;
-        $this-&gt;keys = $keys;
+            $this->data[$keys] = $attr;
+        $this->keys = $keys;
     }
 
     function endXML($parser, $name)    {
-        end($this-&gt;stack);
-        if (key($this-&gt;stack) == $name)
-            array_pop($this-&gt;stack);
+        end($this->stack);
+        if (key($this->stack) == $name)
+            array_pop($this->stack);
     }
 
     function charXML($parser, $data)    {
-        if (trim($data) != &apos;&apos;)
-            $this-&gt;data[$this-&gt;keys][&apos;data&apos;][] = trim(str_replace("\n", &apos;&apos;, $data));
+        if (trim($data) != '')
+            $this->data[$this->keys]['data'][] = trim(str_replace("\n", '', $data));
     }
 
     function error($msg)    {
@@ -136,14 +136,14 @@ curl_close($ch);
 
 // We want to pass only a ready XML content instead of URL
 // But if you want to use URL , skip the curl functions above and use this 
-// $xx4 = new xx_xml("url here",&apos;url&apos;);
+// $xx4 = new xx_xml("url here",'url');
 
-$xx4 = new xx_xml($thecontents,&apos;contents&apos;); 
-// As you can see, we use saparator &apos;|&apos; instead of long array
-$Code = $xx4-&gt;data [&apos;rss|channel|item|yweather:condition&apos;][&apos;code&apos;] ;
-$Celcius = $xx4-&gt;data [&apos;rss|channel|item|yweather:condition&apos;][&apos;temp&apos;] ;
-$Text = $xx4-&gt;data [&apos;rss|channel|item|yweather:condition&apos;][&apos;text&apos;] ;
-$Cityname = $xx4-&gt;data [&apos;rss|channel|yweather:location&apos;][&apos;city&apos;] ;
+$xx4 = new xx_xml($thecontents,'contents'); 
+// As you can see, we use saparator '|' instead of long array
+$Code = $xx4->data ['rss|channel|item|yweather:condition']['code'] ;
+$Celcius = $xx4->data ['rss|channel|item|yweather:condition']['temp'] ;
+$Text = $xx4->data ['rss|channel|item|yweather:condition']['text'] ;
+$Cityname = $xx4->data ['rss|channel|yweather:location']['city'] ;
 
 ?>
 ```

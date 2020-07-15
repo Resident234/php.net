@@ -8,12 +8,12 @@ It is really simple to access attributes using array form. However, you must con
 <?php
 SimpleXMLElement Object
 (
-    [@attributes] =&gt; Array
+    [@attributes] => Array
         (
-            [id] =&gt; 55555
+            [id] => 55555
         )
 
-    [text] =&gt; "hello world"
+    [text] => "hello world"
 )
 ?>
 ```
@@ -40,7 +40,7 @@ I can get the "id" like this
 
 ```
 <?php
-print xml_attribute($xml, &apos;id&apos;); //prints "55555"
+print xml_attribute($xml, 'id'); //prints "55555"
 ?>
 ```
   
@@ -67,17 +67,17 @@ $sxml = new SimpleXMLElement($xml);
 /**
  * Access attribute of default namespace
  */
-var_dump((string) $sxml-&gt;Table[0][&apos;Foo&apos;]);
-// outputs: &apos;Bar&apos;
+var_dump((string) $sxml->Table[0]['Foo']);
+// outputs: 'Bar'
 
 /**
  * Access attribute of non-default namespace
  */
-var_dump((int) $sxml-&gt;Table[0][&apos;ExpandedColumnCount&apos;]);
+var_dump((int) $sxml->Table[0]['ExpandedColumnCount']);
 // outputs: 0
 
-var_dump((int) $sxml-&gt;Table[0]-&gt;attributes(&apos;ss&apos;, TRUE)-&gt;ExpandedColumnCount);
-// outputs: &apos;7&apos;
+var_dump((int) $sxml->Table[0]->attributes('ss', TRUE)->ExpandedColumnCount);
+// outputs: '7'
 ?>
 ```
   
@@ -88,16 +88,16 @@ var_dump((int) $sxml-&gt;Table[0]-&gt;attributes(&apos;ss&apos;, TRUE)-&gt;Expan
 
 ```
 <?php
-$att = &apos;attribueName&apos;;
+$att = 'attribueName';
 
-// You can access an element&apos;s attribute just like this :
-$attribute = $element-&gt;attributes()-&gt;$att;
+// You can access an element's attribute just like this :
+$attribute = $element->attributes()->$att;
 
 // This will save the value of the attribute, and not the objet
-$attribute = (string)$element-&gt;attributes()-&gt;$att;
+$attribute = (string)$element->attributes()->$att;
 
 // You also can edit it this way :
-$element-&gt;attributes()-&gt;$att = &apos;New value of the attribute&apos;;
+$element->attributes()->$att = 'New value of the attribute';
 ?>
 ```
   

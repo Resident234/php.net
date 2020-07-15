@@ -10,26 +10,26 @@
 
 $file = $DOCUMENT_ROOT. "test.html";
 $doc = new DOMDocument();
-$doc-&gt;loadHTMLFile($file);
+$doc->loadHTMLFile($file);
 
 $xpath = new DOMXpath($doc);
 
 // example 1: for everything with an id
-//$elements = $xpath-&gt;query("//*[@id]");
+//$elements = $xpath->query("//*[@id]");
 
 // example 2: for node data in a selected id
-//$elements = $xpath-&gt;query("/html/body/div[@id=&apos;yourTagIdHere&apos;]");
+//$elements = $xpath->query("/html/body/div[@id='yourTagIdHere']");
 
 // example 3: same as above with wildcard
-$elements = $xpath-&gt;query("*/div[@id=&apos;yourTagIdHere&apos;]");
+$elements = $xpath->query("*/div[@id='yourTagIdHere']");
 
 if (!is_null($elements)) {
   foreach ($elements as $element) {
-    echo "&lt;br/&gt;[". $element-&gt;nodeName. "]";
+    echo "&lt;br/&gt;[". $element->nodeName. "]";
 
-    $nodes = $element-&gt;childNodes;
+    $nodes = $element->childNodes;
     foreach ($nodes as $node) {
-      echo $node-&gt;nodeValue. "\n";
+      echo $node->nodeValue. "\n";
     }
   }
 }

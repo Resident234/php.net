@@ -22,22 +22,22 @@ Map xml to array (with attributes)<br><br>
 function xmlToArray(SimpleXMLElement $xml): array
 {
     $parser = function (SimpleXMLElement $xml, array $collection = []) use (&amp;$parser) {
-        $nodes = $xml-&gt;children();
-        $attributes = $xml-&gt;attributes();
+        $nodes = $xml->children();
+        $attributes = $xml->attributes();
 
         if (0 !== count($attributes)) {
-            foreach ($attributes as $attrName =&gt; $attrValue) {
-                $collection[&apos;attributes&apos;][$attrName] = strval($attrValue);
+            foreach ($attributes as $attrName => $attrValue) {
+                $collection['attributes'][$attrName] = strval($attrValue);
             }
         }
 
-        if (0 === $nodes-&gt;count()) {
-            $collection[&apos;value&apos;] = strval($xml);
+        if (0 === $nodes->count()) {
+            $collection['value'] = strval($xml);
             return $collection;
         }
 
-        foreach ($nodes as $nodeName =&gt; $nodeValue) {
-            if (count($nodeValue-&gt;xpath(&apos;../&apos; . $nodeName)) &lt; 2) {
+        foreach ($nodes as $nodeName => $nodeValue) {
+            if (count($nodeValue->xpath('../' . $nodeName)) &lt; 2) {
                 $collection[$nodeName] = $parser($nodeValue);
                 continue;
             }
@@ -49,7 +49,7 @@ function xmlToArray(SimpleXMLElement $xml): array
     };
 
     return [
-        $xml-&gt;getName() =&gt; $parser($xml)
+        $xml->getName() => $parser($xml)
     ];
 }?>
 ```
@@ -62,7 +62,7 @@ Warning to anyone trying to parse XML with a key name that includes a hyphen ie.
 ```
 <?php
 $xml = simplexml_load_string($input);
-$callback = $xml-&gt;{"callback-url"};
+$callback = $xml->{"callback-url"};
 ?>
 ```
 <br>If you attempt to do it without the curly braces and quotes you will find out that you are returned a 0 instead of what you want.  
@@ -85,10 +85,10 @@ function XML2JSON($xml) {
                 $data = get_object_vars($data);
             }
             if (is_array($data)) {
-                foreach ($data as $key =&gt; $value) {
+                foreach ($data as $key => $value) {
                     $res = null;
                     normalizeSimpleXML($value, $res);
-                    if (($key == &apos;@attributes&apos;) &amp;&amp; ($key)) {
+                    if (($key == '@attributes') &amp;&amp; ($key)) {
                         $result = $res;
                     } else {
                         $result[$key] = $res;

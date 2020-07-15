@@ -9,7 +9,7 @@
 class MyClass {
   public function helloWorld() {
 
-    return &apos;Hallo Welt &apos;. print_r(func_get_args(), true);
+    return 'Hallo Welt '. print_r(func_get_args(), true);
   }
 }
  
@@ -17,16 +17,16 @@ try {
   $server = new SOAPServer(
     NULL,
     array(
-     &apos;uri&apos; =&gt; &apos;http://localhost/soap/server.php&apos;
+     'uri' => 'http://localhost/soap/server.php'
     )
   );
  
-  $server-&gt;setClass(&apos;MyClass&apos;);
-  $server-&gt;handle();
+  $server->setClass('MyClass');
+  $server->handle();
 }
  
 catch (SOAPFault $f) {
-  print $f-&gt;faultstring;
+  print $f->faultstring;
 }
 
 ?>
@@ -40,11 +40,11 @@ catch (SOAPFault $f) {
 ```
 <?php
 $client = new SoapClient(null, array(
-      &apos;location&apos; =&gt; "http://localhost/soap/server.php",
-      &apos;uri&apos;      =&gt; "http://localhost/soap/server.php",
-      &apos;trace&apos;    =&gt; 1 ));
+      'location' => "http://localhost/soap/server.php",
+      'uri'      => "http://localhost/soap/server.php",
+      'trace'    => 1 ));
 
-echo $return = $client-&gt;__soapCall("helloWorld",array("world"));
+echo $return = $client->__soapCall("helloWorld",array("world"));
 ?>
 ```
 <br><br>// Hope you like it  

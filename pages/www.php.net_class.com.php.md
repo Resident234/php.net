@@ -7,15 +7,15 @@ Took me a while to figure this out by trial and error:<br><br>If your frustrated
 ```
 <?php
 
-$com = new COM(&apos;Some.Class.Name&apos;);
+$com = new COM('Some.Class.Name');
 
 // This will fail
-$var = &apos;a&apos;;
-$com-&gt;DoSomething($var);
+$var = 'a';
+$com->DoSomething($var);
 
 // This works correctly
-$var = new VARIANT(ord(&apos;a&apos;), VT_UI1);
-$com-&gt;DoSomething($var);
+$var = new VARIANT(ord('a'), VT_UI1);
+$com->DoSomething($var);
 
 ?>
 ```

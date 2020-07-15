@@ -25,24 +25,24 @@ function array2XML($arr,$root) {
 $xml = new SimpleXMLElement("&lt;?xml version=\"1.0\" encoding=\"utf-8\" ?>
 ```
 &lt;{$root}&gt;&lt;/{$root}&gt;"); 
-$f = create_function(&apos;$f,$c,$a&apos;,&apos; 
+$f = create_function('$f,$c,$a',' 
         foreach($a as $v) {
             if(isset($v["@text"])) {
-                $ch = $c-&gt;addChild($v["@tag"],$v["@text"]);
+                $ch = $c->addChild($v["@tag"],$v["@text"]);
             } else {
-                $ch = $c-&gt;addChild($v["@tag"]);
+                $ch = $c->addChild($v["@tag"]);
                 if(isset($v["@items"])) {
                     $f($f,$ch,$v["@items"]);
                 }
             }
             if(isset($v["@attr"])) {
-                foreach($v["@attr"] as $attr =&gt; $val) {
-                    $ch-&gt;addAttribute($attr,$val);
+                foreach($v["@attr"] as $attr => $val) {
+                    $ch->addAttribute($attr,$val);
                 }
             }
-        }&apos;);
+        }');
 $f($f,$xml,$arr);
-return $xml-&gt;asXML();
+return $xml->asXML();
 }
 ?>
 ```

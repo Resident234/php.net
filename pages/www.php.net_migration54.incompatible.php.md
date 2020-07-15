@@ -18,14 +18,14 @@ echo htmlentities($input);
 Missing some chars like german umlauts after use of htmlspecialchars? That&apos;s because the third param encoding has changed it&apos;s default value in PHP 5.4 from ISO-8859-1 to UTF-8. <br><br>Possible solution #1:<br>Change your code from this ...<br>
 
 ```
-<?php htmlspecialchars( &apos;&#xE4;&#xF6;&#xFC;&apos; ); ?>
+<?php htmlspecialchars( '&#xE4;&#xF6;&#xFC;' ); ?>
 ```
 
 ... to this:
 
 
 ```
-<?php htmlspecialchars ( &apos;&#xE4;&#xF6;&#xFC;&apos; , ENT_COMPAT | ENT_HTML401 , &apos;ISO-8859-1&apos; ); ?>
+<?php htmlspecialchars ( '&#xE4;&#xF6;&#xFC;' , ENT_COMPAT | ENT_HTML401 , 'ISO-8859-1' ); ?>
 ```
 
 
@@ -38,7 +38,7 @@ Example of a wrapper function:
 ```
 <?php
 function isohtmlspecialchars( $str ){
-   return htmlspecialchars ( $str , ENT_COMPAT | ENT_HTML401 , &apos;ISO-8859-1&apos; );
+   return htmlspecialchars ( $str , ENT_COMPAT | ENT_HTML401 , 'ISO-8859-1' );
 }
 ?>
 ```

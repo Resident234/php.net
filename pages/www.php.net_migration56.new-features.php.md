@@ -31,7 +31,22 @@ Note the order of operations in that exponentiation operator, as it was opposite
 
 
 ```
-<?php<br><br>function array_zip(...$arrays) {<br>    return array_merge(...array_map(NULL, ...$arrays));<br>}<br><br>$a = array(1, 4, 7);<br>$b = array(2, 5, 8);<br>$c = array(3, 6, 9);<br><br>var_dump(implode(&apos;, &apos;, array_zip($a, $b, $c)));<br><br>// Output<br>string(25) "1, 2, 3, 4, 5, 6, 7, 8, 9"  
+<?php
+
+function array_zip(...$arrays) {
+    return array_merge(...array_map(NULL, ...$arrays));
+}
+
+$a = array(1, 4, 7);
+$b = array(2, 5, 8);
+$c = array(3, 6, 9);
+
+var_dump(implode(', ', array_zip($a, $b, $c)));
+
+// Output
+string(25) "1, 2, 3, 4, 5, 6, 7, 8, 9"?>
+```
+  
 
 #
 

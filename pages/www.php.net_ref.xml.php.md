@@ -11,13 +11,13 @@
  * 
  *  Usage:
  *     $domObj = new xmlToArrayParser($xml);
- *     $domArr = $domObj-&gt;array;
+ *     $domArr = $domObj->array;
  *     
- *     if($domObj-&gt;parse_error) echo $domObj-&gt;get_xml_error();
+ *     if($domObj->parse_error) echo $domObj->get_xml_error();
  *     else print_r($domArr);
  * 
  *     On Success: 
- *     eg. $domArr[&apos;top&apos;][&apos;element2&apos;][&apos;attrib&apos;][&apos;var2&apos;] =&gt; val2
+ *     eg. $domArr['top']['element2']['attrib']['var2'] => val2
  * 
  *     On Error:
  *     eg. Error Code [76] "Mismatched tag", at char 58 on line 3
@@ -26,14 +26,14 @@
 /**
  * Convert an xml file or string to an associative array (including the tag attributes): 
  * $domObj = new xmlToArrayParser($xml); 
- * $elemVal = $domObj-&gt;array[&apos;element&apos;]
- * Or:  $domArr=$domObj-&gt;array;  $elemVal = $domArr[&apos;element&apos;].
+ * $elemVal = $domObj->array['element']
+ * Or:  $domArr=$domObj->array;  $elemVal = $domArr['element'].
  * 
  * @version  2.0
  * @param Str $xml file/string.
  */
 class xmlToArrayParser {
-  /** The array created by the parser can be assigned to any variable: $anyVarArr = $domObj-&gt;array.*/
+  /** The array created by the parser can be assigned to any variable: $anyVarArr = $domObj->array.*/
   public  $array = array();
   public  $parse_error = false;
   private $parser;
@@ -41,68 +41,68 @@ class xmlToArrayParser {
   
   /** Constructor: $domObj = new xmlToArrayParser($xml); */
   public function __construct($xml) {
-    $this-&gt;pointer =&amp; $this-&gt;array;
-    $this-&gt;parser = xml_parser_create("UTF-8");
-    xml_set_object($this-&gt;parser, $this);
-    xml_parser_set_option($this-&gt;parser, XML_OPTION_CASE_FOLDING, false);
-    xml_set_element_handler($this-&gt;parser, "tag_open", "tag_close");
-    xml_set_character_data_handler($this-&gt;parser, "cdata"); 
-    $this-&gt;parse_error = xml_parse($this-&gt;parser, ltrim($xml))? false : true;
+    $this->pointer =&amp; $this->array;
+    $this->parser = xml_parser_create("UTF-8");
+    xml_set_object($this->parser, $this);
+    xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, false);
+    xml_set_element_handler($this->parser, "tag_open", "tag_close");
+    xml_set_character_data_handler($this->parser, "cdata"); 
+    $this->parse_error = xml_parse($this->parser, ltrim($xml))? false : true;
   }
   
   /** Free the parser. */
-  public function __destruct() { xml_parser_free($this-&gt;parser);}
+  public function __destruct() { xml_parser_free($this->parser);}
 
   /** Get the xml error if an an error in the xml file occured during parsing. */
   public function get_xml_error() {
-    if($this-&gt;parse_error) { 
-      $errCode = xml_get_error_code ($this-&gt;parser);
-      $thisError =  "Error Code [". $errCode ."] \"&lt;strong style=&apos;color:red;&apos;&gt;" . xml_error_string($errCode)."&lt;/strong&gt;\", 
-                            at char ".xml_get_current_column_number($this-&gt;parser) . " 
-                            on line ".xml_get_current_line_number($this-&gt;parser)."";
-    }else $thisError = $this-&gt;parse_error;
+    if($this->parse_error) { 
+      $errCode = xml_get_error_code ($this->parser);
+      $thisError =  "Error Code [". $errCode ."] \"&lt;strong style='color:red;'&gt;" . xml_error_string($errCode)."&lt;/strong&gt;\", 
+                            at char ".xml_get_current_column_number($this->parser) . " 
+                            on line ".xml_get_current_line_number($this->parser)."";
+    }else $thisError = $this->parse_error;
     return $thisError;
   }
   
   private function tag_open($parser, $tag, $attributes) {
-    $this-&gt;convert_to_array($tag, &apos;attrib&apos;);
-    $idx=$this-&gt;convert_to_array($tag, &apos;cdata&apos;); 
+    $this->convert_to_array($tag, 'attrib');
+    $idx=$this->convert_to_array($tag, 'cdata'); 
     if(isset($idx)) { 
-      $this-&gt;pointer[$tag][$idx] = Array(&apos;@idx&apos; =&gt; $idx,&apos;@parent&apos; =&gt; &amp;$this-&gt;pointer);
-      $this-&gt;pointer =&amp; $this-&gt;pointer[$tag][$idx];
+      $this->pointer[$tag][$idx] = Array('@idx' => $idx,'@parent' => &amp;$this->pointer);
+      $this->pointer =&amp; $this->pointer[$tag][$idx];
     }else {
-      $this-&gt;pointer[$tag] = Array(&apos;@parent&apos; =&gt; &amp;$this-&gt;pointer);
-      $this-&gt;pointer =&amp; $this-&gt;pointer[$tag];
+      $this->pointer[$tag] = Array('@parent' => &amp;$this->pointer);
+      $this->pointer =&amp; $this->pointer[$tag];
     }
-    if (!empty($attributes)) { $this-&gt;pointer[&apos;attrib&apos;] = $attributes; }
+    if (!empty($attributes)) { $this->pointer['attrib'] = $attributes; }
   }
 
   /** Adds the current elements content to the current pointer[cdata] array. */
-  private function cdata($parser, $cdata) { $this-&gt;pointer[&apos;cdata&apos;] = trim($cdata); }
+  private function cdata($parser, $cdata) { $this->pointer['cdata'] = trim($cdata); }
 
   private function tag_close($parser, $tag) {
-    $current = &amp; $this-&gt;pointer;
-    if(isset($this-&gt;pointer[&apos;@idx&apos;])) {unset($current[&apos;@idx&apos;]);}
+    $current = &amp; $this->pointer;
+    if(isset($this->pointer['@idx'])) {unset($current['@idx']);}
     
-    $this-&gt;pointer = &amp; $this-&gt;pointer[&apos;@parent&apos;];
-    unset($current[&apos;@parent&apos;]);
+    $this->pointer = &amp; $this->pointer['@parent'];
+    unset($current['@parent']);
     
-    if(isset($current[&apos;cdata&apos;]) &amp;&amp; count($current) == 1) { $current = $current[&apos;cdata&apos;];}
-    else if(empty($current[&apos;cdata&apos;])) {unset($current[&apos;cdata&apos;]);}
+    if(isset($current['cdata']) &amp;&amp; count($current) == 1) { $current = $current['cdata'];}
+    else if(empty($current['cdata'])) {unset($current['cdata']);}
   }
   
   /** Converts a single element item into array(element[0]) if a second element of the same name is encountered. */
   private function convert_to_array($tag, $item) { 
-    if(isset($this-&gt;pointer[$tag][$item])) { 
-      $content = $this-&gt;pointer[$tag];
-      $this-&gt;pointer[$tag] = array((0) =&gt; $content);
+    if(isset($this->pointer[$tag][$item])) { 
+      $content = $this->pointer[$tag];
+      $this->pointer[$tag] = array((0) => $content);
       $idx = 1;
-    }else if (isset($this-&gt;pointer[$tag])) { 
-      $idx = count($this-&gt;pointer[$tag]); 
-      if(!isset($this-&gt;pointer[$tag][0])) { 
-        foreach ($this-&gt;pointer[$tag] as $key =&gt; $value) {
-            unset($this-&gt;pointer[$tag][$key]);
-            $this-&gt;pointer[$tag][0][$key] = $value;
+    }else if (isset($this->pointer[$tag])) { 
+      $idx = count($this->pointer[$tag]); 
+      if(!isset($this->pointer[$tag][0])) { 
+        foreach ($this->pointer[$tag] as $key => $value) {
+            unset($this->pointer[$tag][$key]);
+            $this->pointer[$tag][0][$key] = $value;
     }}}else $idx = null;
     return $idx;
   }
@@ -124,9 +124,9 @@ Key phrase: Fully functional, fully tested, error free XML To Array parser.
  * class xmlToArrayParser
  * 
   Notes: 
-  1. &apos;attrib&apos; and &apos;cdata&apos; are keys added to the array when the element contains both attributes and content.
-  2. Ignores content that is not in between it&apos;s own set of tags.
-  3. Don&apos;t know if it recognizes processing instructions nor do I know about processing instructions.
+  1. 'attrib' and 'cdata' are keys added to the array when the element contains both attributes and content.
+  2. Ignores content that is not in between it's own set of tags.
+  3. Don't know if it recognizes processing instructions nor do I know about processing instructions.
      &lt;\?some_pi some_attr="some_value"?>
 ```
   This is the same as a document declaration.
@@ -135,13 +135,13 @@ Key phrase: Fully functional, fully tested, error free XML To Array parser.
   
   Usage:
     $domObj = new xmlToArrayParser($xml);
-    $elemVal = $domObj-&gt;array[&apos;element&apos;]
+    $elemVal = $domObj->array['element']
     Or assign the entire array to its own variable:
-    $domArr = $domObj-&gt;array;
-    $elemVal = $domArr[&apos;element&apos;]
+    $domArr = $domObj->array;
+    $elemVal = $domArr['element']
   
   Example:
-    $xml = &apos;&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    $xml = '&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?>
 ```
 
     &lt;top&gt;
@@ -151,24 +151,24 @@ Key phrase: Fully functional, fully tested, error free XML To Array parser.
       &lt;element3 var5="val5"&gt;element content 4&lt;/element3&gt;
       &lt;element3 var6="val6" /&gt;
       &lt;element3&gt;element content 7&lt;/element3&gt;
-    &lt;/top&gt;&apos;;
+    &lt;/top&gt;';
     
     $domObj = new xmlToArrayParser($xml);
-    $domArr = $domObj-&gt;array;
+    $domArr = $domObj->array;
     
-    if($domObj-&gt;parse_error) echo $domObj-&gt;get_xml_error();
+    if($domObj->parse_error) echo $domObj->get_xml_error();
     else print_r($domArr);
 
     On Success:
-    $domArr[&apos;top&apos;][&apos;element1&apos;] =&gt; element content 1
-    $domArr[&apos;top&apos;][&apos;element2&apos;][&apos;attrib&apos;][&apos;var2&apos;] =&gt; val2
-    $domArr[&apos;top&apos;][&apos;element3&apos;][&apos;0&apos;][&apos;attrib&apos;][&apos;var3&apos;] =&gt; val3
-    $domArr[&apos;top&apos;][&apos;element3&apos;][&apos;0&apos;][&apos;attrib&apos;][&apos;var4&apos;] =&gt; val4
-    $domArr[&apos;top&apos;][&apos;element3&apos;][&apos;0&apos;][&apos;cdata&apos;] =&gt; element content 3
-    $domArr[&apos;top&apos;][&apos;element3&apos;][&apos;1&apos;][&apos;attrib&apos;][&apos;var5&apos;] =&gt; val5
-    $domArr[&apos;top&apos;][&apos;element3&apos;][&apos;1&apos;][&apos;cdata&apos;] =&gt; element content 4
-    $domArr[&apos;top&apos;][&apos;element3&apos;][&apos;2&apos;][&apos;attrib&apos;][&apos;var6&apos;] =&gt; val6
-    $domArr[&apos;top&apos;][&apos;element3&apos;][&apos;3&apos;] =&gt; element content 7
+    $domArr['top']['element1'] => element content 1
+    $domArr['top']['element2']['attrib']['var2'] => val2
+    $domArr['top']['element3']['0']['attrib']['var3'] => val3
+    $domArr['top']['element3']['0']['attrib']['var4'] => val4
+    $domArr['top']['element3']['0']['cdata'] => element content 3
+    $domArr['top']['element3']['1']['attrib']['var5'] => val5
+    $domArr['top']['element3']['1']['cdata'] => element content 4
+    $domArr['top']['element3']['2']['attrib']['var6'] => val6
+    $domArr['top']['element3']['3'] => element content 7
     
     On Error:
     Error Code [76] "Mismatched tag", at char 58 on line 3

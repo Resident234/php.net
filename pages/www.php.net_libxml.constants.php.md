@@ -6,10 +6,10 @@ When inserting XML DOM Elements inside existing XML DOM Elements that I loaded f
 
 ```
 <?php 
-$dom = DOMDocument::load(&apos;file.xml&apos;); 
-$dom-&gt;formatOutput = true;
-//$dom-&gt;add some new elements with child nodes somewhere inside the loaded XML using insertBefore();
-$dom-&gt;saveXML();
+$dom = DOMDocument::load('file.xml'); 
+$dom->formatOutput = true;
+//$dom->add some new elements with child nodes somewhere inside the loaded XML using insertBefore();
+$dom->saveXML();
 //output: everything looks normal but the new nodes are all on one line.
 ?>
 ```
@@ -20,10 +20,10 @@ I found I could pass LIBXML_NOBLANKS to the load method and it would reformat th
 
 ```
 <?php 
-$dom = DOMDocument::load(&apos;file.xml&apos;, LIBXML_NOBLANKS); 
-$dom-&gt;formatOutput = true;
-//$dom-&gt;add some new elements with child nodes somewhere inside the loaded XML using insertBefore();
-$dom-&gt;saveXML();
+$dom = DOMDocument::load('file.xml', LIBXML_NOBLANKS); 
+$dom->formatOutput = true;
+//$dom->add some new elements with child nodes somewhere inside the loaded XML using insertBefore();
+$dom->saveXML();
 //output: everything looks newly formatted, including new nodes
 ?>
 ```

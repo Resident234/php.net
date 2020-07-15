@@ -8,13 +8,13 @@ You can also load HTML as UTF-8 using this simple hack:<br><br>
 <?php
 
 $doc = new DOMDocument();
-$doc-&gt;loadHTML(&apos;&lt;?xml encoding="UTF-8"&gt;&apos; . $html);
+$doc->loadHTML('&lt;?xml encoding="UTF-8"&gt;' . $html);
 
 // dirty fix
-foreach ($doc-&gt;childNodes as $item)
-    if ($item-&gt;nodeType == XML_PI_NODE)
-        $doc-&gt;removeChild($item); // remove hack
-$doc-&gt;encoding = &apos;UTF-8&apos;; // insert proper
+foreach ($doc->childNodes as $item)
+    if ($item->nodeType == XML_PI_NODE)
+        $doc->removeChild($item); // remove hack
+$doc->encoding = 'UTF-8'; // insert proper
 
 ?>
 ```
@@ -31,8 +31,8 @@ When using loadHTML() to process UTF-8 pages, you may meet the problem that the 
 ```
 <?php
     $pageDom = new DomDocument();    
-    $searchPage = mb_convert_encoding($htmlUTF8Page, &apos;HTML-ENTITIES&apos;, "UTF-8"); 
-    @$pageDom-&gt;loadHTML($searchPage);
+    $searchPage = mb_convert_encoding($htmlUTF8Page, 'HTML-ENTITIES', "UTF-8"); 
+    @$pageDom->loadHTML($searchPage);
 
 ?>
 ```

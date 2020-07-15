@@ -8,7 +8,7 @@ If you want to recurse over a DOM then this might help: <br>
 <?php 
 
 /**
- * PHP&apos;s DOM classes are recursive but don&apos;t provide an implementation of 
+ * PHP's DOM classes are recursive but don't provide an implementation of 
  * RecursiveIterator. This class provides a RecursiveIterator for looping over DOMNodeList
  */
 class DOMNodeRecursiveIterator extends ArrayIterator implements RecursiveIterator {
@@ -29,12 +29,12 @@ class DOMNodeRecursiveIterator extends ArrayIterator implements RecursiveIterato
   }
   
   public function hasChildren () {
-    return $this-&gt;current()-&gt;hasChildNodes();
+    return $this->current()->hasChildNodes();
   }
 
   
   public function getChildren () {
-    return new self($this-&gt;current()-&gt;childNodes);
+    return new self($this->current()->childNodes);
   }
   
 }

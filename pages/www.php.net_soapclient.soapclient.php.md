@@ -10,15 +10,15 @@ class clsWSSEAuth {
           private $Username; 
           private $Password;  
         function __construct($username, $password) {
-                 $this-&gt;Username=$username;
-                 $this-&gt;Password=$password;
+                 $this->Username=$username;
+                 $this->Password=$password;
               }
 }
 
 class clsWSSEToken {
         private $UsernameToken;
         function __construct ($innerVal){
-            $this-&gt;UsernameToken = $innerVal;
+            $this->UsernameToken = $innerVal;
         }
 }
 ?>
@@ -60,7 +60,7 @@ Step4: Create SoapVar out of object of Auth class
 
 ```
 <?php
-$objSoapVarWSSEAuth = new SoapVar($objWSSEAuth, SOAP_ENC_OBJECT, NULL, $strWSSENS, &apos;UsernameToken&apos;, $strWSSENS);
+$objSoapVarWSSEAuth = new SoapVar($objWSSEAuth, SOAP_ENC_OBJECT, NULL, $strWSSENS, 'UsernameToken', $strWSSENS);
 ?>
 ```
 
@@ -82,18 +82,18 @@ Step6: Create SoapVar out of object of Token class
 
 ```
 <?php
-$objSoapVarWSSEToken = new SoapVar($objWSSEToken, SOAP_ENC_OBJECT, NULL, $strWSSENS, &apos;UsernameToken&apos;, $strWSSENS);
+$objSoapVarWSSEToken = new SoapVar($objWSSEToken, SOAP_ENC_OBJECT, NULL, $strWSSENS, 'UsernameToken', $strWSSENS);
 ?>
 ```
 
 
-Step7: Create SoapVar for &apos;Security&apos; node
+Step7: Create SoapVar for 'Security' node
 
 
 
 ```
 <?php
-$objSoapVarHeaderVal=new SoapVar($objSoapVarWSSEToken, SOAP_ENC_OBJECT, NULL, $strWSSENS, &apos;Security&apos;, $strWSSENS);
+$objSoapVarHeaderVal=new SoapVar($objSoapVarWSSEToken, SOAP_ENC_OBJECT, NULL, $strWSSENS, 'Security', $strWSSENS);
 ?>
 ```
 
@@ -104,10 +104,10 @@ Step8: Create header object out of security soapvar
 
 ```
 <?php
-$objSoapVarWSSEHeader = new SoapHeader($strWSSENS, &apos;Security&apos;, $objSoapVarHeaderVal,true, &apos;http://abce.com&apos;);
+$objSoapVarWSSEHeader = new SoapHeader($strWSSENS, 'Security', $objSoapVarHeaderVal,true, 'http://abce.com');
 
-//Third parameter here makes &apos;mustUnderstand=1
-//Forth parameter generates &apos;actor="http://abce.com"&apos;
+//Third parameter here makes 'mustUnderstand=1
+//Forth parameter generates 'actor="http://abce.com"'
 ?>
 ```
 
@@ -129,7 +129,7 @@ Step10: Set headers for soapclient object
 
 ```
 <?php
-$objClient-&gt;__setSoapHeaders(array($objSoapVarWSSEHeader));
+$objClient->__setSoapHeaders(array($objSoapVarWSSEHeader));
 ?>
 ```
 
@@ -140,7 +140,7 @@ Step 11: Final call to method
 
 ```
 <?php
-$objResponse = $objClient-&gt;__soapCall($strMethod, $requestPayloadString);
+$objResponse = $objClient->__soapCall($strMethod, $requestPayloadString);
 ?>
 ```
   
@@ -158,28 +158,28 @@ if you need to use ws-security with a nonce and a timestamp, you can use this :<
 
 class WsseAuthHeader extends SoapHeader {
 
-private $wss_ns = &apos;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd&apos;;
-private $wsu_ns = &apos;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd&apos;;
+private $wss_ns = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+private $wsu_ns = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
 
 function __construct($user, $pass) {
 
-    $created = gmdate(&apos;Y-m-d\TH:i:s\Z&apos;);
+    $created = gmdate('Y-m-d\TH:i:s\Z');
     $nonce = mt_rand();
-    $passdigest = base64_encode( pack(&apos;H*&apos;, sha1( pack(&apos;H*&apos;, $nonce) . pack(&apos;a*&apos;,$created).  pack(&apos;a*&apos;,$pass))));
+    $passdigest = base64_encode( pack('H*', sha1( pack('H*', $nonce) . pack('a*',$created).  pack('a*',$pass))));
 
     $auth = new stdClass();
-    $auth-&gt;Username = new SoapVar($user, XSD_STRING, NULL, $this-&gt;wss_ns, NULL, $this-&gt;wss_ns);
-    $auth-&gt;Password = new SoapVar($pass, XSD_STRING, NULL, $this-&gt;wss_ns, NULL, $this-&gt;wss_ns);
-    $auth-&gt;Nonce = new SoapVar($passdigest, XSD_STRING, NULL, $this-&gt;wss_ns, NULL, $this-&gt;wss_ns);
-    $auth-&gt;Created = new SoapVar($created, XSD_STRING, NULL, $this-&gt;wss_ns, NULL, $this-&gt;wsu_ns);
+    $auth->Username = new SoapVar($user, XSD_STRING, NULL, $this->wss_ns, NULL, $this->wss_ns);
+    $auth->Password = new SoapVar($pass, XSD_STRING, NULL, $this->wss_ns, NULL, $this->wss_ns);
+    $auth->Nonce = new SoapVar($passdigest, XSD_STRING, NULL, $this->wss_ns, NULL, $this->wss_ns);
+    $auth->Created = new SoapVar($created, XSD_STRING, NULL, $this->wss_ns, NULL, $this->wsu_ns);
 
     $username_token = new stdClass();
-    $username_token-&gt;UsernameToken = new SoapVar($auth, SOAP_ENC_OBJECT, NULL, $this-&gt;wss_ns, &apos;UsernameToken&apos;, $this-&gt;wss_ns);
+    $username_token->UsernameToken = new SoapVar($auth, SOAP_ENC_OBJECT, NULL, $this->wss_ns, 'UsernameToken', $this->wss_ns);
 
     $security_sv = new SoapVar(
-        new SoapVar($username_token, SOAP_ENC_OBJECT, NULL, $this-&gt;wss_ns, &apos;UsernameToken&apos;, $this-&gt;wss_ns),
-        SOAP_ENC_OBJECT, NULL, $this-&gt;wss_ns, &apos;Security&apos;, $this-&gt;wss_ns);
-    parent::__construct($this-&gt;wss_ns, &apos;Security&apos;, $security_sv, true);
+        new SoapVar($username_token, SOAP_ENC_OBJECT, NULL, $this->wss_ns, 'UsernameToken', $this->wss_ns),
+        SOAP_ENC_OBJECT, NULL, $this->wss_ns, 'Security', $this->wss_ns);
+    parent::__construct($this->wss_ns, 'Security', $security_sv, true);
 }
 }
 
@@ -194,7 +194,7 @@ and with your SoapClient do :
 ```
 <?php
 $client = new SoapClient("http://host/path");
-$client-&gt;__setSoapHeaders(Array(new WsseAuthHeader("user", "pass")));
+$client->__setSoapHeaders(Array(new WsseAuthHeader("user", "pass")));
 ?>
 ```
 <br><br>works for me. based on a stackoverlfow post which only did the username and password, not the nonce and the timestamp  
@@ -206,7 +206,7 @@ This doesn&apos;t seem to be documented, but when you want to use compression fo
 ```
 <?php
  $client = new SoapClient("some.wsdl", 
-  array(&apos;compression&apos; =&gt; SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 9));
+  array('compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 9));
 ?>
 ```
 <br><br>This can be really usefull if you want to send large amounts of data.<br><br>Source: https://bugs.php.net/bug.php?id=36283  
@@ -226,25 +226,25 @@ Example for a soap client with HTTP authentication over a proxy:<br><br>
 ```
 <?php
 new SoapClient(
-    &apos;service.wsdl&apos;,
+    'service.wsdl',
     array(
         // Stuff for development.
-        &apos;trace&apos; =&gt; 1,
-        &apos;exceptions&apos; =&gt; true,
-        &apos;cache_wsdl&apos; =&gt; WSDL_CACHE_NONE,
-        &apos;features&apos; =&gt; SOAP_SINGLE_ELEMENT_ARRAYS,
+        'trace' => 1,
+        'exceptions' => true,
+        'cache_wsdl' => WSDL_CACHE_NONE,
+        'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
 
         // Auth credentials for the SOAP request.
-        &apos;login&apos; =&gt; &apos;username&apos;,
-        &apos;password&apos; =&gt; &apos;password&apos;,
+        'login' => 'username',
+        'password' => 'password',
 
         // Proxy url.
-        &apos;proxy_host&apos; =&gt; &apos;example.com&apos;, // Do not add the schema here (http or https). It won&apos;t work.
-        &apos;proxy_port&apos; =&gt; 44300,
+        'proxy_host' => 'example.com', // Do not add the schema here (http or https). It won't work.
+        'proxy_port' => 44300,
 
         // Auth credentials for the proxy.
-        &apos;proxy_login&apos; =&gt; NULL,
-        &apos;proxy_password&apos; =&gt; NULL,
+        'proxy_login' => NULL,
+        'proxy_password' => NULL,
     )
 );
 ?>

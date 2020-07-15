@@ -7,15 +7,15 @@ It took some searching to figure this one out. I didn&apos;t see much in the way
 ```
 <?php
     $dom = new DOMDocument();
-    $dom-&gt;load ("test.xml");
-    $dom-&gt;formatOutput = true;
+    $dom->load ("test.xml");
+    $dom->formatOutput = true;
 
-    $new_tag = $dom-&gt;createElement (&apos;testNode&apos;);
-    $new_tag-&gt;appendChild (
-        $dom-&gt;createElement (&apos;test&apos;, &apos;this is a test&apos;));
-    $dom-&gt;documentElement-&gt;appendChild ($new_tag);
+    $new_tag = $dom->createElement ('testNode');
+    $new_tag->appendChild (
+        $dom->createElement ('test', 'this is a test'));
+    $dom->documentElement->appendChild ($new_tag);
 
-    printf ("&lt;pre&gt;%s&lt;/pre&gt;", htmlentities ($dom-&gt;saveXML()));
+    printf ("&lt;pre&gt;%s&lt;/pre&gt;", htmlentities ($dom->saveXML()));
 ?>
 ```
 
@@ -29,16 +29,16 @@ By adding the preserveWhiteSpace = false; BEFORE the load() the formatOutput wor
 ```
 <?php
     $dom = new DOMDocument();
-    $dom-&gt;preserveWhiteSpace = false;
-    $dom-&gt;load ("test.xml");
-    $dom-&gt;formatOutput = true;
+    $dom->preserveWhiteSpace = false;
+    $dom->load ("test.xml");
+    $dom->formatOutput = true;
 
-    $new_tag = $dom-&gt;createElement (&apos;testNode&apos;);
-    $new_tag-&gt;appendChild (
-        $dom-&gt;createElement (&apos;test&apos;, &apos;this is a test&apos;));
-    $dom-&gt;documentElement-&gt;appendChild ($new_tag);
+    $new_tag = $dom->createElement ('testNode');
+    $new_tag->appendChild (
+        $dom->createElement ('test', 'this is a test'));
+    $dom->documentElement->appendChild ($new_tag);
 
-    printf ("&lt;pre&gt;%s&lt;/pre&gt;", htmlentities ($dom-&gt;saveXML()));
+    printf ("&lt;pre&gt;%s&lt;/pre&gt;", htmlentities ($dom->saveXML()));
 ?>
 ```
 
@@ -65,7 +65,7 @@ WORKS:
 ```
 
 &lt;root&gt;
-  &lt;!-- comment --&gt;
+  &lt;!-- comment -->
 &lt;/root&gt;
 
 WORKS:
@@ -79,7 +79,7 @@ if you are storing multi-byte characters in XML, then saving the XML using saveX
 
 ```
 <?php
-$str = domdoc-&gt;saveXML(); // gives "&amp;x#1245;" some encoded data
+$str = domdoc->saveXML(); // gives "&amp;x#1245;" some encoded data
 ?>
 ```
 
@@ -90,7 +90,7 @@ Instead do the following
 
 ```
 <?php
-$str = domdoc-&gt;saveXML(domdoc-&gt;documentElement); // gives "&#x4FDD;&#x5B58;&#x3057;&#x307E;&#x3057;&#x305F;" correct multi-byte data
+$str = domdoc->saveXML(domdoc->documentElement); // gives "&#x4FDD;&#x5B58;&#x3057;&#x307E;&#x3057;&#x305F;" correct multi-byte data
 ?>
 ```
   

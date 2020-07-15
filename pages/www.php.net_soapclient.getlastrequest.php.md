@@ -7,7 +7,7 @@ Adding htmlentities() can be helpful since it makes the XML visible in your brow
 ```
 <?php
 
-echo "REQUEST:\n" . htmlentities($client-&gt;__getLastRequest()) . "\n";
+echo "REQUEST:\n" . htmlentities($client->__getLastRequest()) . "\n";
 
 ?>
 ```
@@ -23,20 +23,20 @@ I guess many peoples calls getLastRequest and it returns nothing. "Heey where is
 
 ```
 <?php
-// below $option=array(&apos;trace&apos;,1);
+// below $option=array('trace',1);
 // correct one is below
-$option=array(&apos;trace&apos;=&gt;1);
+$option=array('trace'=>1);
 
-$client=new SoapClient(&apos;some.wsdl&apos;,$option);
+$client=new SoapClient('some.wsdl',$option);
 
 try{
-  $client-&gt;aMethodAtRemote();
+  $client->aMethodAtRemote();
 }catch(SoapFault $fault){
   // &lt;xmp&gt; tag displays xml output in html
-  echo &apos;Request : &lt;br/&gt;&lt;xmp&gt;&apos;,
-  $client-&gt;__getLastRequest(),
-  &apos;&lt;/xmp&gt;&lt;br/&gt;&lt;br/&gt; Error Message : &lt;br/&gt;&apos;,
-  $fault-&gt;getMessage();
+  echo 'Request : &lt;br/&gt;&lt;xmp&gt;',
+  $client->__getLastRequest(),
+  '&lt;/xmp&gt;&lt;br/&gt;&lt;br/&gt; Error Message : &lt;br/&gt;',
+  $fault->getMessage();
 }
 ?>
 ```

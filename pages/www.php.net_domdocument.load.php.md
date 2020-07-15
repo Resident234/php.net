@@ -7,8 +7,8 @@ I had a problem with loading documents over HTTP. I would get errors looking lik
 ```
 <?php
 $opts = array(
-    &apos;http&apos; =&gt; array(
-        &apos;user_agent&apos; =&gt; &apos;PHP libxml agent&apos;,
+    'http' => array(
+        'user_agent' => 'PHP libxml agent',
     )
 );
 
@@ -16,7 +16,7 @@ $context = stream_context_create($opts);
 libxml_set_streams_context($context);
 
 // request a file through HTTP
-$doc = DOMDocument::load(&apos;http://www.example.com/file.xml&apos;);
+$doc = DOMDocument::load('http://www.example.com/file.xml');
 ?>
 ```
   

@@ -22,13 +22,13 @@ XML;
      
     */
     
-    $doc = new DOMDocument( &apos;1.0&apos; );
-    $doc-&gt;loadXML( $source );
+    $doc = new DOMDocument( '1.0' );
+    $doc->loadXML( $source );
     
-    // (1) We just create a "namespace&apos;d" attribute without appending it to any element.
-    $attr_ns = $doc-&gt;createAttributeNS( &apos;{namespace_uri_here}&apos;, &apos;example:attr&apos; );
+    // (1) We just create a "namespace'd" attribute without appending it to any element.
+    $attr_ns = $doc->createAttributeNS( '{namespace_uri_here}', 'example:attr' );
     
-    print $doc-&gt;saveXML() . "\n";
+    print $doc->saveXML() . "\n";
     
     /*
       Result: The namespace declaration appears, having been added to the document element. Output:
@@ -41,13 +41,13 @@ XML;
     */
     
     // (2) Next, we give the attribute a value and insert it.
-    $attr_ns-&gt;value = &apos;value&apos;; 
-    $doc-&gt;getElementsByTagName( &apos;tag&apos; )-&gt;item(0)-&gt;appendChild( $attr_ns );
+    $attr_ns->value = 'value'; 
+    $doc->getElementsByTagName( 'tag' )->item(0)->appendChild( $attr_ns );
     
-    print $doc-&gt;saveXML() . "\n";
+    print $doc->saveXML() . "\n";
     
     /*
-      Result: The "namespace&apos;d" attribute shows up as well. Output:
+      Result: The "namespace'd" attribute shows up as well. Output:
       
       &lt;?xml version="1.0" encoding="UTF-8"?>
 ```
@@ -64,13 +64,13 @@ XML;
      
     */
     
-    $doc = new DOMDocument( &apos;1.0&apos; );
-    $doc-&gt;loadXML( $source );
+    $doc = new DOMDocument( '1.0' );
+    $doc->loadXML( $source );
     
-    // (1) We create a "namespace&apos;d" element without inserting it into the document.
-    $elem_ns = $doc-&gt;createElementNS( &apos;{namespace_uri_here}&apos;, &apos;example:newtag&apos; );
+    // (1) We create a "namespace'd" element without inserting it into the document.
+    $elem_ns = $doc->createElementNS( '{namespace_uri_here}', 'example:newtag' );
     
-    print $doc-&gt;saveXML() . "\n";
+    print $doc->saveXML() . "\n";
     
     /*
       Result: The document remains unchanged. Output:
@@ -83,9 +83,9 @@ XML;
     */
     
     // (2) Next, we insert the new element.
-    $doc-&gt;getElementsByTagName( &apos;tag&apos; )-&gt;item(0)-&gt;appendChild( $elem_ns );
+    $doc->getElementsByTagName( 'tag' )->item(0)->appendChild( $elem_ns );
     
-    print $doc-&gt;saveXML() . "\n";
+    print $doc->saveXML() . "\n";
     
     /*
       Result: The namespace declaration appears, and it is embedded in the element using it. Output:

@@ -13,22 +13,22 @@ function xml2array($fname){
 
 function sxiToArray($sxi){
   $a = array();
-  for( $sxi-&gt;rewind(); $sxi-&gt;valid(); $sxi-&gt;next() ) {
-    if(!array_key_exists($sxi-&gt;key(), $a)){
-      $a[$sxi-&gt;key()] = array();
+  for( $sxi->rewind(); $sxi->valid(); $sxi->next() ) {
+    if(!array_key_exists($sxi->key(), $a)){
+      $a[$sxi->key()] = array();
     }
-    if($sxi-&gt;hasChildren()){
-      $a[$sxi-&gt;key()][] = sxiToArray($sxi-&gt;current());
+    if($sxi->hasChildren()){
+      $a[$sxi->key()][] = sxiToArray($sxi->current());
     }
     else{
-      $a[$sxi-&gt;key()][] = strval($sxi-&gt;current());
+      $a[$sxi->key()][] = strval($sxi->current());
     }
   }
   return $a;
 }
 
 // Read cats.xml and print the results:
-$catArray = xml2array(&apos;cats.xml&apos;);
+$catArray = xml2array('cats.xml');
 print_r($catArray);
 ?>
 ```

@@ -6,7 +6,7 @@ If the query() function seems to ignore your $contextnode, and instead returns a
 
 ```
 <?php
-    $xml = "&lt;?xml version=&apos;1.0&apos; encoding=&apos;UTF-8&apos;?>
+    $xml = "&lt;?xml version='1.0' encoding='UTF-8'?>
 ```
 
         &lt;test&gt;
@@ -19,14 +19,14 @@ If the query() function seems to ignore your $contextnode, and instead returns a
         &lt;/test&gt;";
    
     $dom = new DomDocument();
-    $dom-&gt;loadXML($xml);
+    $dom->loadXML($xml);
     $xpath = new DomXPath($dom);
    
-    $tag1 = $dom-&gt;getElementsByTagName("tag1")-&gt;item(0);
+    $tag1 = $dom->getElementsByTagName("tag1")->item(0);
    
-    echo $xpath-&gt;query("//tag2")-&gt;length; //output 2 -&gt; correct
-    echo $xpath-&gt;query("//tag2", $tag1)-&gt;length; //output 2 -&gt; wrong, the query is not relative
-    echo $xpath-&gt;query(".//tag2", $tag1)-&gt;length; //output 1 -&gt; correct (note the dot in front of //)
+    echo $xpath->query("//tag2")->length; //output 2 -> correct
+    echo $xpath->query("//tag2", $tag1)->length; //output 2 -> wrong, the query is not relative
+    echo $xpath->query(".//tag2", $tag1)->length; //output 1 -> correct (note the dot in front of //)
 ?>
 ```
 <br><br>See that i couldn&apos;t use $xpath-&gt;query("tag2", $tag1) as per the documentation, since "tag2" is not a direct child of "tag1".<br>I don&apos;t know why this note was deleted, i just tested it and it&apos;s correct.<br>It&apos;s not a bug, it&apos;s simply not written in the documentation.  

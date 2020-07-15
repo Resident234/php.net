@@ -6,8 +6,8 @@ Return if there are no matches is an empty DOMNodeList. Check using length prope
 
 ```
 <?php
-$nodes=$domDocument-&gt;getElementsByTagName(&apos;book&apos;) ; 
-if ($nodes-&gt;length==0) {
+$nodes=$domDocument->getElementsByTagName('book') ; 
+if ($nodes->length==0) {
    // no results
 }
 ?>
@@ -20,12 +20,12 @@ Note that when using getElementsByTagName that it is a dynamic list. Thus if you
 
 ```
 <?php
- $nodes = $xml-&gt;getElementsByTagName ("oldtag");
+ $nodes = $xml->getElementsByTagName ("oldtag");
 
- $nodeListLength = $nodes-&gt;length; // this value will also change
+ $nodeListLength = $nodes->length; // this value will also change
  for ($i = 0; $i &lt; $nodeListLength; $i ++)
  {
-    $node = $nodes-&gt;item(0);
+    $node = $nodes->item(0);
 
     // some code to change the tag name from "oldtag" to something else
     // e.g. encrypting a tag element

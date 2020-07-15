@@ -10,7 +10,7 @@ Hi to get the value of DOMElement just get the nodeValue public parameter (it is
 
 ```
 <?php 
-echo $domElement-&gt;nodeValue; 
+echo $domElement->nodeValue; 
 ?>
 ```
 <br>Everything is obvious if you now about this thing ;-)  
@@ -26,10 +26,10 @@ Hi!<br><br>Combining all th comments, the easiest way to get inner HTML of the n
 ```
 <?php
 function get_inner_html( $node ) {
-    $innerHTML= &apos;&apos;;
-    $children = $node-&gt;childNodes;
+    $innerHTML= '';
+    $children = $node->childNodes;
     foreach ($children as $child) {
-        $innerHTML .= $child-&gt;ownerDocument-&gt;saveXML( $child );
+        $innerHTML .= $child->ownerDocument->saveXML( $child );
     }
 
     return $innerHTML;

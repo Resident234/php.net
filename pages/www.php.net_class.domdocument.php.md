@@ -14,33 +14,33 @@ header( "content-type: application/xml; charset=ISO-8859-15" );
 $xml = new DOMDocument( "1.0", "ISO-8859-15" );
 
 // Create some elements.
-$xml_album = $xml-&gt;createElement( "Album" );
-$xml_track = $xml-&gt;createElement( "Track", "The ninth symphony" );
+$xml_album = $xml->createElement( "Album" );
+$xml_track = $xml->createElement( "Track", "The ninth symphony" );
 
 // Set the attributes.
-$xml_track-&gt;setAttribute( "length", "0:01:15" );
-$xml_track-&gt;setAttribute( "bitrate", "64kb/s" );
-$xml_track-&gt;setAttribute( "channels", "2" );
+$xml_track->setAttribute( "length", "0:01:15" );
+$xml_track->setAttribute( "bitrate", "64kb/s" );
+$xml_track->setAttribute( "channels", "2" );
 
 // Create another element, just to show you can add any (realistic to computer) number of sublevels.
-$xml_note = $xml-&gt;createElement( "Note", "The last symphony composed by Ludwig van Beethoven." );
+$xml_note = $xml->createElement( "Note", "The last symphony composed by Ludwig van Beethoven." );
 
 // Append the whole bunch.
-$xml_track-&gt;appendChild( $xml_note );
-$xml_album-&gt;appendChild( $xml_track );
+$xml_track->appendChild( $xml_note );
+$xml_album->appendChild( $xml_track );
 
 // Repeat the above with some different values..
-$xml_track = $xml-&gt;createElement( "Track", "Highway Blues" );
+$xml_track = $xml->createElement( "Track", "Highway Blues" );
 
-$xml_track-&gt;setAttribute( "length", "0:01:33" );
-$xml_track-&gt;setAttribute( "bitrate", "64kb/s" );
-$xml_track-&gt;setAttribute( "channels", "2" );
-$xml_album-&gt;appendChild( $xml_track );
+$xml_track->setAttribute( "length", "0:01:33" );
+$xml_track->setAttribute( "bitrate", "64kb/s" );
+$xml_track->setAttribute( "channels", "2" );
+$xml_album->appendChild( $xml_track );
 
-$xml-&gt;appendChild( $xml_album );
+$xml->appendChild( $xml_album );
 
 // Parse the XML.
-print $xml-&gt;saveXML();
+print $xml->saveXML();
 
 ?>
 ```
@@ -57,7 +57,7 @@ Output:
   &lt;Track length="0:01:33" bitrate="64kb/s" channels="2"&gt;Highway Blues&lt;/Track&gt;
 &lt;/Album&gt;
 
-If you want your PHP-&gt;DOM code to run under the .xml extension, you should set your webserver up to run the .xml extension with PHP ( Refer to the installation/configuration configuration for PHP on how to do this ).
+If you want your PHP->DOM code to run under the .xml extension, you should set your webserver up to run the .xml extension with PHP ( Refer to the installation/configuration configuration for PHP on how to do this ).
 
 Note that this:
 
@@ -65,10 +65,10 @@ Note that this:
 ```
 <?php
 $xml = new DOMDocument( "1.0", "ISO-8859-15" );
-$xml_album = $xml-&gt;createElement( "Album" );
-$xml_track = $xml-&gt;createElement( "Track" );
-$xml_album-&gt;appendChild( $xml_track );
-$xml-&gt;appendChild( $xml_album );
+$xml_album = $xml->createElement( "Album" );
+$xml_track = $xml->createElement( "Track" );
+$xml_album->appendChild( $xml_track );
+$xml->appendChild( $xml_album );
 ?>
 ```
 
@@ -82,8 +82,8 @@ is NOT the same as this:
 $xml = new DOMDocument( "1.0", "ISO-8859-15" );
 $xml_album = new DOMElement( "Album" );
 $xml_track = new DOMElement( "Track" );
-$xml_album-&gt;appendChild( $xml_track );
-$xml-&gt;appendChild( $xml_album );
+$xml_album->appendChild( $xml_track );
+$xml->appendChild( $xml_album );
 ?>
 ```
 
@@ -95,7 +95,7 @@ although this will work:
 <?php
 $xml = new DOMDocument( "1.0", "ISO-8859-15" );
 $xml_album = new DOMElement( "Album" );
-$xml-&gt;appendChild( $xml_album );
+$xml->appendChild( $xml_album );
 ?>
 ```
   
@@ -107,22 +107,22 @@ For those landing here and checking for encoding issue with utf-8 characteres, i
 ```
 <?php
 
-            // checks if the content we&apos;re receiving isn&apos;t empty, to avoid the warning
+            // checks if the content we're receiving isn't empty, to avoid the warning
             if ( empty( $content ) ) {
                 return false;
             }
 
             // converts all special characters to utf-8
-            $content = mb_convert_encoding($content, &apos;HTML-ENTITIES&apos;, &apos;UTF-8&apos;);
+            $content = mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8');
 
             // creating new document
-            $doc = new DOMDocument(&apos;1.0&apos;, &apos;utf-8&apos;);
+            $doc = new DOMDocument('1.0', 'utf-8');
 
             //turning off some errors
             libxml_use_internal_errors(true);
 
             // it loads the content without adding enclosing html/body tags and also the doctype declaration
-            $doc-&gt;LoadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $doc->LoadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
             // do whatever you want to do with this code now
 
@@ -151,15 +151,15 @@ function get_links($url) {
     // Create a new DOM Document to hold our webpage structure
     $xml = new DOMDocument();
  
-    // Load the url&apos;s contents into the DOM
-    $xml-&gt;loadHTMLFile($url);
+    // Load the url's contents into the DOM
+    $xml->loadHTMLFile($url);
  
     // Empty array to hold all links to return
     $links = array();
  
     //Loop through each &lt;a&gt; tag in the dom and add it to the link array
-    foreach($xml-&gt;getElementsByTagName(&apos;a&apos;) as $link) {
-        $links[] = array(&apos;url&apos; =&gt; $link-&gt;getAttribute(&apos;href&apos;), &apos;text&apos; =&gt; $link-&gt;nodeValue);
+    foreach($xml->getElementsByTagName('a') as $link) {
+        $links[] = array('url' => $link->getAttribute('href'), 'text' => $link->nodeValue);
     }
  
     //Return the links
@@ -175,7 +175,7 @@ For anyone else who has been having issues with formatOuput not working, here is
 
 ```
 <?php
-$outXML = $xml-&gt;saveXML();
+$outXML = $xml->saveXML();
 ?>
 ```
 
@@ -186,12 +186,12 @@ force it to reload the XML from scratch, then it will format correctly:
 
 ```
 <?php
-$outXML = $xml-&gt;saveXML();
+$outXML = $xml->saveXML();
 $xml = new DOMDocument();
-$xml-&gt;preserveWhiteSpace = false;
-$xml-&gt;formatOutput = true;
-$xml-&gt;loadXML($outXML);
-$outXML = $xml-&gt;saveXML();
+$xml->preserveWhiteSpace = false;
+$xml->formatOutput = true;
+$xml->loadXML($outXML);
+$outXML = $xml->saveXML();
 ?>
 ```
   

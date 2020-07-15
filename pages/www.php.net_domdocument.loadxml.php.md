@@ -22,9 +22,9 @@ function HandleXmlError($errno, $errstr, $errfile, $errline)
 
 function XmlLoader($strXml)
 {
-    set_error_handler(&apos;HandleXmlError&apos;);
+    set_error_handler('HandleXmlError');
     $dom = new DOMDocument();
-    $dom-&gt;loadXml($strXml);    
+    $dom->loadXml($strXml);    
     restore_error_handler();
     return $dom;
  }

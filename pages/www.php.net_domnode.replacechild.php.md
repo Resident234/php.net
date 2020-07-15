@@ -8,16 +8,16 @@ If you are trying to replace more than one node at once, you have to be careful 
 <?php
 
 $xml = new DOMDocument;
-$xml-&gt;load(&apos;docfile.xml&apos;);
+$xml->load('docfile.xml');
 
-$elements = $xml-&gt;getElementsByTagNameNS(&apos;http://www.example.com/NS/&apos;, &apos;*&apos;);
-$i = $elements-&gt;length - 1;
+$elements = $xml->getElementsByTagNameNS('http://www.example.com/NS/', '*');
+$i = $elements->length - 1;
 while ($i &gt; -1) {
-    $element = $elements-&gt;item($i);
+    $element = $elements->item($i);
     $ignore = false;
 
-    $newelement = $xml&gt;createTextNode(&apos;Some new node!&apos;);
-    $element-&gt;parentNode-&gt;replaceChild($newelement, $element);
+    $newelement = $xml&gt;createTextNode('Some new node!');
+    $element->parentNode->replaceChild($newelement, $element);
     $i--;
 }
 
@@ -54,15 +54,15 @@ If we wanted to replace the entire &lt;parent&gt; node, we could do something li
 <?php
 // Create a new document fragment to hold the new &lt;parent&gt; node
 $parent = new DomDocument;
-$parent_node = $parent -&gt;createElement(&apos;parent&apos;);
+$parent_node = $parent ->createElement('parent');
 
 // Add some children
-$parent_node-&gt;appendChild($parent-&gt;createElement(&apos;child&apos;, &apos;somevalue&apos;));
-$parent_node-&gt;appendChild($parent-&gt;createElement(&apos;child&apos;, &apos;anothervalue&apos;));
+$parent_node->appendChild($parent->createElement('child', 'somevalue'));
+$parent_node->appendChild($parent->createElement('child', 'anothervalue'));
 
 // Add the keywordset into the new document
 // The $parent variable now holds the new node as a document fragment
-$parent-&gt;appendChild($parent_node);
+$parent->appendChild($parent_node);
 ?>
 ```
 
@@ -75,12 +75,12 @@ Next, we need to locate the old node:
 <?php
 // Load the XML
 $dom = new DomDocument;
-$dom-&gt;loadXML($xml);
+$dom->loadXML($xml);
 
 // Locate the old parent node
 $xpath = new DOMXpath($dom);
-$nodelist = $xpath-&gt;query(&apos;/root/parent&apos;);
-$oldnode = $nodelist-&gt;item(0);
+$nodelist = $xpath->query('/root/parent');
+$oldnode = $nodelist->item(0);
 ?>
 ```
 
@@ -92,13 +92,13 @@ We then import and replace the new node:
 ```
 <?php
 // Load the $parent document fragment into the current document
-$newnode = $dom-&gt;importNode($parent-&gt;documentElement, true);
+$newnode = $dom->importNode($parent->documentElement, true);
 
 // Replace
-$oldnode-&gt;parentNode-&gt;replaceChild($newnode, $oldnode);
+$oldnode->parentNode->replaceChild($newnode, $oldnode);
 
 // Display
-echo $dom-&gt;saveXML();
+echo $dom->saveXML();
 ?>
 ```
 

@@ -10,7 +10,7 @@ After much headache and looking through PHP source code, I finally found out why
 <?php
 $parser = xml_parser_create("UTF-8");
 if (!xml_parse($parser,$HTTP_RAW_POST_DATA,true)){
-   $webService-&gt;fault("500", "Cannot parse XML: ".
+   $webService->fault("500", "Cannot parse XML: ".
       xml_error_string(xml_get_error_code($parser)).
        " at line: ".xml_get_current_line_number($parser).
        ", column: ".xml_get_current_column_number($parser));

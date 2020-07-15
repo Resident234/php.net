@@ -6,12 +6,12 @@ C14N() returns an empty string if the node is not included in the document tree:
 
 ```
 <?php
-$d = new DOMDocument(&apos;1.0&apos;);
-$d-&gt;loadXML(&apos;&lt;foo&gt;&lt;/foo&gt;&apos;);
-$n = $d-&gt;createElement(&apos;bar&apos;);
-var_dump($n-&gt;C14N());
-$d-&gt;documentElement-&gt;appendChild($n);
-var_dump($n-&gt;C14N());
+$d = new DOMDocument('1.0');
+$d->loadXML('&lt;foo&gt;&lt;/foo&gt;');
+$n = $d->createElement('bar');
+var_dump($n->C14N());
+$d->documentElement->appendChild($n);
+var_dump($n->C14N());
 ?>
 ```
 <br>output:<br>string(0) ""<br>string(11) "&lt;bar&gt;&lt;/bar&gt;"  

@@ -24,18 +24,18 @@ function xml_to_object($xml) {
   $stack = array();
   foreach ($tags as $tag) {
     $index = count($elements);
-    if ($tag[&apos;type&apos;] == "complete" || $tag[&apos;type&apos;] == "open") {
+    if ($tag['type'] == "complete" || $tag['type'] == "open") {
       $elements[$index] = new XmlElement;
-      $elements[$index]-&gt;name = $tag[&apos;tag&apos;];
-      $elements[$index]-&gt;attributes = $tag[&apos;attributes&apos;];
-      $elements[$index]-&gt;content = $tag[&apos;value&apos;];
-      if ($tag[&apos;type&apos;] == "open") {  // push
-        $elements[$index]-&gt;children = array();
+      $elements[$index]->name = $tag['tag'];
+      $elements[$index]->attributes = $tag['attributes'];
+      $elements[$index]->content = $tag['value'];
+      if ($tag['type'] == "open") {  // push
+        $elements[$index]->children = array();
         $stack[count($stack)] = &amp;$elements;
-        $elements = &amp;$elements[$index]-&gt;children;
+        $elements = &amp;$elements[$index]->children;
       }
     }
-    if ($tag[&apos;type&apos;] == "close") {  // pop
+    if ($tag['type'] == "close") {  // pop
       $elements = &amp;$stack[count($stack) - 1];
       unset($stack[count($stack) - 1]);
     }
@@ -44,7 +44,7 @@ function xml_to_object($xml) {
 }
 
 // For example:
-$xml = &apos;
+$xml = '
 &lt;parser&gt;
    &lt;name language="en-us"&gt;Fred Parser&lt;/name&gt;
    &lt;category&gt;
@@ -52,7 +52,7 @@ $xml = &apos;
        &lt;note&gt;Noteworthy&lt;/note&gt;
    &lt;/category&gt;
 &lt;/parser&gt;
-&apos;;
+';
 print_r(xml_to_object($xml));
 ?>
 ```

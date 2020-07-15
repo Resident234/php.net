@@ -9,7 +9,7 @@ Here&apos;s a simple, recursive, function to transform XML data into pseudo E4X 
 error_reporting(E_ALL);
 
 $xml = new SimpleXMLElement(
-&apos;&lt;Patriarch&gt;
+'&lt;Patriarch&gt;
    &lt;name&gt;Bill&lt;/name&gt;
    &lt;wife&gt;
      &lt;name&gt;Vi&lt;/name&gt;
@@ -44,14 +44,14 @@ $xml = new SimpleXMLElement(
          &lt;/daughter&gt;
      &lt;/son&gt;
    &lt;/daughter&gt;
-&lt;/Patriarch&gt;&apos;);
+&lt;/Patriarch&gt;');
 
 RecurseXML($xml);
 
 function RecurseXML($xml,$parent="")
 {
    $child_count = 0;
-   foreach($xml as $key=&gt;$value)
+   foreach($xml as $key=>$value)
    {
       $child_count++;     
       if(RecurseXML($value,$parent.".".$key) == 0)  // no childern, aka "leaf node"

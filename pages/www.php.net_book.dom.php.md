@@ -7,9 +7,9 @@ If you need simple interface to DOM check out phpQuery - jQuery port to PHP:<br>
 ```
 <?php
 // just one file to include
-require(&apos;phpQuery/phpQuery.php&apos;);
+require('phpQuery/phpQuery.php');
 
-$html = &apos;
+$html = '
 &lt;div&gt;
     mydiv
     &lt;ul&gt;
@@ -17,25 +17,25 @@ $html = &apos;
         &lt;li&gt;2&lt;/li&gt;
         &lt;li&gt;3&lt;/li&gt;
     &lt;/ul&gt;
-&lt;/div&gt;&apos;;
+&lt;/div&gt;';
 
 // intialize new DOM from markup
 phpQuery::newDocument($markup)
-    -&gt;find(&apos;ul &gt; li&apos;)
-        -&gt;addClass(&apos;my-new-class&apos;)
-        -&gt;filter(&apos;:last&apos;)
-            -&gt;addClass(&apos;last-li&apos;);
+    ->find('ul &gt; li')
+        ->addClass('my-new-class')
+        ->filter(':last')
+            ->addClass('last-li');
 
 // query all unordered lists in last used DOM
-pq(&apos;ul&apos;)-&gt;insertAfter(&apos;div&apos;);
+pq('ul')->insertAfter('div');
 
 // iterate all LIs from last used DOM
-foreach(pq(&apos;li&apos;) as $li) {
+foreach(pq('li') as $li) {
     // iteration returns plain DOM nodes, not phpQuery objects
-    pq($li)-&gt;addClass(&apos;my-second-new-class&apos;);
+    pq($li)->addClass('my-second-new-class');
 }
 
-// same as pq(&apos;anything&apos;)-&gt;htmlOuter()
+// same as pq('anything')->htmlOuter()
 // but on document root (returns doctype etc)
 print phpQuery::getDocument();
 ?>

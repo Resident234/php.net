@@ -11,8 +11,8 @@ You cannot simply overwrite $textContent, to replace the text content of a DOMNo
 ```
 <?php
 
-$node-&gt;removeChild($node-&gt;firstChild);
-$node-&gt;appendChild(new DOMText(&apos;new text content&apos;));
+$node->removeChild($node->firstChild);
+$node->appendChild(new DOMText('new text content'));
 
 ?>
 ```
@@ -25,21 +25,21 @@ This example shows what happens:
 ```
 <?php
 
-$doc = DOMDocument::loadXML(&apos;&lt;node&gt;old content&lt;/node&gt;&apos;);
-$node = $doc-&gt;getElementsByTagName(&apos;node&apos;)-&gt;item(0);
-echo "Content 1: ".$node-&gt;textContent."\n";
+$doc = DOMDocument::loadXML('&lt;node&gt;old content&lt;/node&gt;');
+$node = $doc->getElementsByTagName('node')->item(0);
+echo "Content 1: ".$node->textContent."\n";
 
-$node-&gt;textContent = &apos;new content&apos;;
-echo "Content 2: ".$node-&gt;textContent."\n";
+$node->textContent = 'new content';
+echo "Content 2: ".$node->textContent."\n";
 
-$newText = new DOMText(&apos;new content&apos;);
+$newText = new DOMText('new content');
 
-$node-&gt;appendChild($newText);
-echo "Content 3: ".$node-&gt;textContent."\n";
+$node->appendChild($newText);
+echo "Content 3: ".$node->textContent."\n";
 
-$node-&gt;removeChild($node-&gt;firstChild);
-$node-&gt;appendChild($newText);
-echo "Content 4: ".$node-&gt;textContent."\n";
+$node->removeChild($node->firstChild);
+$node->appendChild($newText);
+echo "Content 4: ".$node->textContent."\n";
 
 ?>
 ```
@@ -48,7 +48,7 @@ echo "Content 4: ".$node-&gt;textContent."\n";
 The output is:
 
 Content 1: old content // starting content
-Content 2: old content // trying to replace overwriting $node-&gt;textContent
+Content 2: old content // trying to replace overwriting $node->textContent
 Content 3: old contentnew content // simply appending the new text node
 Content 4: new content // removing firstchild before appending the new text node
 
@@ -58,12 +58,12 @@ If you want to have a CDATA section, use this:
 
 ```
 <?php
-$doc = DOMDocument::loadXML(&apos;&lt;node&gt;old content&lt;/node&gt;&apos;);
-$node = $doc-&gt;getElementsByTagName(&apos;node&apos;)-&gt;item(0);
-$node-&gt;removeChild($node-&gt;firstChild);
-$newText = $doc-&gt;createCDATASection(&apos;new cdata content&apos;);
-$node-&gt;appendChild($newText);
-echo "Content withCDATA: ".$doc-&gt;saveXML($node)."\n";
+$doc = DOMDocument::loadXML('&lt;node&gt;old content&lt;/node&gt;');
+$node = $doc->getElementsByTagName('node')->item(0);
+$node->removeChild($node->firstChild);
+$newText = $doc->createCDATASection('new cdata content');
+$node->appendChild($newText);
+echo "Content withCDATA: ".$doc->saveXML($node)."\n";
 ?>
 ```
   

@@ -7,10 +7,10 @@ I spent hours trying to find how to send a request where an element is repeated.
 ```
 <?php
 $parm = array();
-$parm[] = new SoapVar(&apos;123&apos;, XSD_STRING, null, null, &apos;customerNo&apos; );
-$parm[] = new SoapVar(&apos;THIS&apos;, XSD_STRING, null, null, &apos;selection&apos; );
-$parm[] = new SoapVar(&apos;THAT&apos;, XSD_STRING, null, null, &apos;selection&apos; );
-$resp = $client-&gt;getStuff( new SoapVar($parm, SOAP_ENC_OBJECT) );
+$parm[] = new SoapVar('123', XSD_STRING, null, null, 'customerNo' );
+$parm[] = new SoapVar('THIS', XSD_STRING, null, null, 'selection' );
+$parm[] = new SoapVar('THAT', XSD_STRING, null, null, 'selection' );
+$resp = $client->getStuff( new SoapVar($parm, SOAP_ENC_OBJECT) );
 ?>
 ```
 <br><br>This will send something like:<br>&lt;getStuff&gt;<br>  &lt;customerNo&gt;123&lt;/customerNo&gt;<br>  &lt;selection&gt;THIS&lt;/selection&gt;<br>  &lt;selection&gt;THAT&lt;/selection&gt;<br>&lt;/getStuff&gt;<br><br>Hope this will save someone else&apos;s time.  

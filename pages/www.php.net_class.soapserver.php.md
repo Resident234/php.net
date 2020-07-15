@@ -10,8 +10,8 @@ class MySoapService {
   private $user_is_valid;
 
   function MyHeader($header) {
-    if ((isset($header-&gt;Username)) &amp;&amp; (isset($header-&gt;Password))) {
-      if (ValidateUser($header-&gt;Username, $header-&gt;Password)) {
+    if ((isset($header->Username)) &amp;&amp; (isset($header->Password))) {
+      if (ValidateUser($header->Username, $header->Password)) {
         $user_is_valid = true;
       }
     }
