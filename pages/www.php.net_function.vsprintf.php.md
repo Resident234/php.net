@@ -23,7 +23,7 @@ Instead of inventing own functions in case you&apos;d like to use array keys as 
  * '%s' without argument name works fine too. Everything vsprintf() can do
  * is supported.
  *
- * @author Josef Kufner &lt;jkufner(at)gmail.com&gt;
+ * @author Josef Kufner <jkufner(at)gmail.com>
  */
 function vksprintf($str, $args)
 {

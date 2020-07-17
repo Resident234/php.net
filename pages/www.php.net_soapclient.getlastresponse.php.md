@@ -18,8 +18,8 @@ You almost for sure will need to wrap a try/catch block around your SOAP call in
     }
     catch (SoapFault $soapFault) {
         var_dump($soapFault);
-        echo "Request :&lt;br&gt;", htmlentities($soapClient->__getLastRequest()), "&lt;br&gt;";
-        echo "Response :&lt;br&gt;", htmlentities($soapClient->__getLastResponse()), "&lt;br&gt;";
+        echo "Request :<br>", htmlentities($soapClient->__getLastRequest()), "<br>";
+        echo "Response :<br>", htmlentities($soapClient->__getLastResponse()), "<br>";
     }
 ?>
 ```

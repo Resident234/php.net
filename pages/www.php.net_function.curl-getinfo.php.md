@@ -35,7 +35,7 @@ if (empty($ret)) {
         $http_codes = parse_ini_file("path/to/the/ini/file/I/pasted/above");
         
         // echo results
-        echo "The server responded: &lt;br /&gt;";
+        echo "The server responded: <br />";
         echo $info['http_code'] . " " . $http_codes[$info['http_code']];
     }
 

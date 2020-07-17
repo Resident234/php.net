@@ -57,7 +57,7 @@ The argument of array_key_exists() vs. isset() came up in the workplace today, s
     $arraykeyexists_result = array();
 
     $start = microtime(true);
-    for ($i = 0; $i &lt; 100000; $i++) {
+    for ($i = 0; $i < 100000; $i++) {
         if (array_key_exists($i,$array)) {
             $arraykeyexists_result[] = 1;
         }
@@ -68,7 +68,7 @@ The argument of array_key_exists() vs. isset() came up in the workplace today, s
     $arrtime = round(microtime(true)-$start,3);
     
     $start = microtime(true);
-    for ($i = 0; $i &lt; 100000; $i++) {
+    for ($i = 0; $i < 100000; $i++) {
         if (isset($array[$i])) {
             $arraykeyexists_result[] = 1;
         }

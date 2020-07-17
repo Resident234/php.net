@@ -90,7 +90,7 @@ It&apos;s often faster to use a foreache and array_keys than array_unique:<br><b
     }
     $res2 = array_keys($res2);
     $time += microtime(true);
-    echo "&lt;br /&gt;deduped to ".count($res2)." in ".$time;
+    echo "<br />deduped to ".count($res2)." in ".$time;
     // deduped to 666667 in 0.84372591972351
 
     ?>

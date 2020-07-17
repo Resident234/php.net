@@ -59,7 +59,7 @@ $begin = microtime(true);
 
 $file_path = '../backup_file1.tar.gz';
 $result = explode("  ", exec("md5sum $file_path"));
-echo "Hash = ".$result[0]."&lt;br /&gt;";
+echo "Hash = ".$result[0]."<br />";
 
 # Here 7 other big files (20-300 MB)
 

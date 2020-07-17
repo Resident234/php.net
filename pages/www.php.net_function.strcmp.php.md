@@ -12,27 +12,27 @@ i hope this will give you a clear idea how strcmp works internally.<br><br>
 <?php
 $str1 = "b";
 echo ord($str1); //98
-echo "&lt;br/&gt;";
+echo "<br/>";
 $str2 = "t";
 echo ord($str2); //116
-echo "&lt;br/&gt;";
+echo "<br/>";
 echo ord($str1)-ord($str2);//-18
 $str1 = "bear";
 $str2 = "tear";
 $str3 = "";
-echo "&lt;pre&gt;";
+echo "<pre>";
 echo strcmp($str1, $str2); // -18
-echo "&lt;br/&gt;";
+echo "<br/>";
 echo strcmp($str2, $str1); //18
-echo "&lt;br/&gt;";
+echo "<br/>";
 echo strcmp($str2, $str2); //0
-echo "&lt;br/&gt;";
+echo "<br/>";
 echo strcmp($str2, $str3); //4
-echo "&lt;br/&gt;";
+echo "<br/>";
 echo strcmp($str3, $str2); //-4
-echo "&lt;br/&gt;";
+echo "<br/>";
 echo strcmp($str3, $str3); // 0
-echo "&lt;/pre&gt;";
+echo "</pre>";
 ?>
 ```
   
@@ -46,21 +46,21 @@ One big caveat - strings retrieved from the backtick operation may be zero termi
 $sz = `pwd`;
 $ps = "/var/www";
 
-echo "Zero-terminated string:&lt;br /&gt;sz = ".$sz."&lt;br /&gt;str_split(sz) = "; print_r(str_split($sz));
-echo "&lt;br /&gt;&lt;br /&gt;";
+echo "Zero-terminated string:<br />sz = ".$sz."<br />str_split(sz) = "; print_r(str_split($sz));
+echo "<br /><br />";
 
-echo "Pascal-style string:&lt;br /&gt;ps = ".$ps."&lt;br /&gt;str_split(ps) = "; print_r(str_split($ps));
-echo "&lt;br /&gt;&lt;br /&gt;";
+echo "Pascal-style string:<br />ps = ".$ps."<br />str_split(ps) = "; print_r(str_split($ps));
+echo "<br /><br />";
 
-echo "Normal results of comparison:&lt;br /&gt;";
-echo "sz == ps = ".($sz == $ps ? "true" : "false")."&lt;br /&gt;";
+echo "Normal results of comparison:<br />";
+echo "sz == ps = ".($sz == $ps ? "true" : "false")."<br />";
 echo "strcmp(sz,ps) = ".strcmp($sz,$ps);
-echo "&lt;br /&gt;&lt;br /&gt;";
+echo "<br /><br />";
 
-echo "Comparison with trim()'d zero-terminated string:&lt;br /&gt;";
-echo "trim(sz) = ".trim($sz)."&lt;br /&gt;";
-echo "str_split(trim(sz)) = "; print_r(str_split(trim($sz))); echo "&lt;br /&gt;";
-echo "trim(sz) == ps = ".(trim($sz) == $ps ? "true" : "false")."&lt;br /&gt;";
+echo "Comparison with trim()'d zero-terminated string:<br />";
+echo "trim(sz) = ".trim($sz)."<br />";
+echo "str_split(trim(sz)) = "; print_r(str_split(trim($sz))); echo "<br />";
+echo "trim(sz) == ps = ".(trim($sz) == $ps ? "true" : "false")."<br />";
 echo "strcmp(trim(sz),ps) = ".strcmp(trim($sz),$ps);
 ?>
 ```

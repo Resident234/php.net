@@ -10,19 +10,19 @@ $memcache = new Memcache();
 $memcache->connect("127.0.0.1", 11211);
 
 // Since memcache truncates the keys at 250 bytes both the get "250 a's" and "251 a's" will find the key in the cache
-echo "*** Truncate key test ***&lt;br&gt;";
-echo "set 251: " . ($memcache->set(str_repeat("a", 251), "value", 0, 1) ? "t" : "f") . "&lt;br&gt;";
+echo "*** Truncate key test ***<br>";
+echo "set 251: " . ($memcache->set(str_repeat("a", 251), "value", 0, 1) ? "t" : "f") . "<br>";
 
-echo "get 249: " . (($ret = $memcache->get(str_repeat("a", 249))) !== false ? "'$ret'" : "f") . "&lt;br&gt;";
-echo "get 250: " . (($ret = $memcache->get(str_repeat("a", 250))) !== false ? "'$ret'" : "f") . "&lt;br&gt;";
-echo "get 251: " . (($ret = $memcache->get(str_repeat("a", 251))) !== false ? "'$ret'" : "f") . "&lt;br&gt;";
-echo "delete: " . ($memcache->delete(str_repeat("a", 250)) ? "t" : "f") . "&lt;br&gt;&lt;br&gt;";
+echo "get 249: " . (($ret = $memcache->get(str_repeat("a", 249))) !== false ? "'$ret'" : "f") . "<br>";
+echo "get 250: " . (($ret = $memcache->get(str_repeat("a", 250))) !== false ? "'$ret'" : "f") . "<br>";
+echo "get 251: " . (($ret = $memcache->get(str_repeat("a", 251))) !== false ? "'$ret'" : "f") . "<br>";
+echo "delete: " . ($memcache->delete(str_repeat("a", 250)) ? "t" : "f") . "<br><br>";
 
-echo "*** Compress value test ***&lt;br&gt;";
-echo "set 1024*1024-42: " . ($memcache->set("test", str_repeat("a", 1024*1024-42), 0, 1) ? "t" : "f") . "&lt;br&gt;";
-echo "set 1024*1024-41: " . ($memcache->set("test", str_repeat("a", 1024*1024-41), 0, 1) ? "t" : "f") . "&lt;br&gt;";
-echo "set 1024*1024 compressed: " . ($memcache->set("test", str_repeat("a", 1024*1024), MEMCACHE_COMPRESSED, 1) ? "t" : "f") . "&lt;br&gt;";
-echo "delete: " . ($memcache->delete("test") ? "t" : "f") . "&lt;br&gt;";
+echo "*** Compress value test ***<br>";
+echo "set 1024*1024-42: " . ($memcache->set("test", str_repeat("a", 1024*1024-42), 0, 1) ? "t" : "f") . "<br>";
+echo "set 1024*1024-41: " . ($memcache->set("test", str_repeat("a", 1024*1024-41), 0, 1) ? "t" : "f") . "<br>";
+echo "set 1024*1024 compressed: " . ($memcache->set("test", str_repeat("a", 1024*1024), MEMCACHE_COMPRESSED, 1) ? "t" : "f") . "<br>";
+echo "delete: " . ($memcache->delete("test") ? "t" : "f") . "<br>";
 $memcache->close();
 ?>
 ```

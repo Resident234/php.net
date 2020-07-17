@@ -13,8 +13,8 @@ function partition( $list, $p ) {
     $partrem = $listlen % $p;
     $partition = array();
     $mark = 0;
-    for ($px = 0; $px &lt; $p; $px++) {
-        $incr = ($px &lt; $partrem) ? $partlen + 1 : $partlen;
+    for ($px = 0; $px < $p; $px++) {
+        $incr = ($px < $partrem) ? $partlen + 1 : $partlen;
         $partition[$px] = array_slice( $list, $mark, $incr );
         $mark += $incr;
     }
@@ -42,13 +42,13 @@ Here my array_chunk_values( ) with values distributed by lines (columns are bala
 
         // The map
         $per_columns = array( ) ;
-        for ( $i = 0 ; $i &lt; $columns ; $i++ ) {
-            $per_columns[$i] = $per_column + ($i &lt; $rest ? 1 : 0) ;
+        for ( $i = 0 ; $i < $columns ; $i++ ) {
+            $per_columns[$i] = $per_column + ($i < $rest ? 1 : 0) ;
         }
 
         $tabular = array( ) ;
         foreach ( $per_columns as $rows ) {
-            for ( $i = 0 ; $i &lt; $rows ; $i++ ) {
+            for ( $i = 0 ; $i < $rows ; $i++ ) {
                 $tabular[$i][ ] = array_shift($data) ;
             }
         }

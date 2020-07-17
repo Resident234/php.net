@@ -105,7 +105,7 @@ Adding on to what bond at noellebond dot com said, if you want to remove an inde
 <?php
  $x = array(1, 2);
 
- for ($i = 0; $i &lt; 5; $i++)
+ for ($i = 0; $i < 5; $i++)
  {
     unset($x[(count($x)-1)]); //remove last set key in the array
 
@@ -133,7 +133,7 @@ The way around this is to use array_pop() instead of unset() as array_pop() refr
 <?php
  $x = array(1, 2);
 
- for ($i = 0; $i &lt; 5; $i++)
+ for ($i = 0; $i < 5; $i++)
  {
     array_pop($x); // removes the last item in the array
 
@@ -194,7 +194,7 @@ echo $myarray;
 
 
 Output with unset is:
-&lt;?
+<?
 HelloWorld
 
 Notice: Undefined offset: 0 in C:\webpages\dainsider\myarray.php on line 10
@@ -206,7 +206,7 @@ Output with $myarray=array(); is:
 ```
 
 
-&lt;?
+<?
 HelloWorld
 
 Notice: Undefined offset: 0 in C:\webpages\dainsider\myarray.php on line 10
@@ -236,27 +236,27 @@ function remove_element (&amp;$array, $key) // pass array by reference
 
 $scalar = 'Hello, there';
 echo 'Value of $scalar is: ';
-print_r ($scalar); echo '&lt;br /&gt;';
+print_r ($scalar); echo '<br />';
 // Value of $scalar is: Hello, there
 
 remove_variable($scalar); // try to unset the variable
 echo 'Value of $scalar is: ';
-print_r ($scalar); echo '&lt;br /&gt;';
+print_r ($scalar); echo '<br />';
 // Value of $scalar is: Hello, there
 
 $array = array('one' => 1, 'two' => 2, 'three' => 3);
 echo 'Value of $array is: ';
-print_r ($array); echo '&lt;br /&gt;';
+print_r ($array); echo '<br />';
 // Value of $array is: Array ( [one] => 1 [two] => 2 [three] => 3 )
 
 remove_variable($array); // try to unset the array
 echo 'Value of $array is: ';
-print_r ($array); echo '&lt;br /&gt;';
+print_r ($array); echo '<br />';
 // Value of $array is: Array ( [one] => 1 [two] => 2 [three] => 3 )
 
 remove_element($array, 'two'); // successfully remove an element from the array
 echo 'Value of $array is: ';
-print_r ($array); echo '&lt;br /&gt;';
+print_r ($array); echo '<br />';
 // Value of $array is: Array ( [one] => 1 [three] => 3 )
 
 ?>
@@ -371,11 +371,11 @@ $x = 10;
 function test() {
     // don't need to do ' global $x; '
     unset ($GLOBALS['x']);
-    echo 'x: ' . $GLOBALS['x'] . '&lt;br /&gt;';
+    echo 'x: ' . $GLOBALS['x'] . '<br />';
 }
 
 test();
-echo "x: $x&lt;br /&gt;";
+echo "x: $x<br />";
 
 // will result in
 /*

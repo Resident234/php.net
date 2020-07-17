@@ -2,16 +2,14 @@
 
 
 
-It may be good to note that PHP does not allow arbitrary session ids. The session id validation in PHP source is defined in ext/session/session.c in the function php_session_valid_key:<br><br>https://github.com/php/?>
-```
-src/blob/master/ext/session/session.c<br><br>To put it short, a valid session id may consists of digits, letters A to Z (both upper and lower case), comma and dash. Described as a character class, it would be [-,a-zA-Z0-9]. A valid session id may have the length between 1 and 128 characters. To validate session ids, the easiest way to do it use a function like:<br><br>
+It may be good to note that PHP does not allow arbitrary session ids. The session id validation in PHP source is defined in ext/session/session.c in the function php_session_valid_key:<br><br>https://github.com/php/php-src/blob/master/ext/session/session.c<br><br>To put it short, a valid session id may consists of digits, letters A to Z (both upper and lower case), comma and dash. Described as a character class, it would be [-,a-zA-Z0-9]. A valid session id may have the length between 1 and 128 characters. To validate session ids, the easiest way to do it use a function like:<br><br>
 
 ```
 <?php
 
 function session_valid_id($session_id)
 {
-    return preg_match('/^[-,a-zA-Z0-9]{1,128}$/', $session_id) &gt; 0;
+    return preg_match('/^[-,a-zA-Z0-9]{1,128}$/', $session_id) > 0;
 }
 
 ?>

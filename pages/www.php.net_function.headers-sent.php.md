@@ -10,12 +10,12 @@ function redirect($filename) {
     if (!headers_sent())
         header('Location: '.$filename);
     else {
-        echo '&lt;script type="text/javascript"&gt;';
+        echo '<script type="text/javascript">';
         echo 'window.location.href="'.$filename.'";';
-        echo '&lt;/script&gt;';
-        echo '&lt;noscript&gt;';
-        echo '&lt;meta http-equiv="refresh" content="0;url='.$filename.'" /&gt;';
-        echo '&lt;/noscript&gt;';
+        echo '</script>';
+        echo '<noscript>';
+        echo '<meta http-equiv="refresh" content="0;url='.$filename.'" />';
+        echo '</noscript>';
     }
 }
 redirect('http://www.google.com');

@@ -105,7 +105,7 @@ I created this function a while back to save on having to combine mysql_real_esc
 function mressf()
 {
     $args = func_get_args();
-    if (count($args) &lt; 2)
+    if (count($args) < 2)
         return false;
     $query = array_shift($args);
     $args = array_map('mysql_real_escape_string', $args);

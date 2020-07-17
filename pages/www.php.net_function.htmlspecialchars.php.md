@@ -63,7 +63,7 @@ $text = htmlspecialchars($text);
 $text = preg_replace("/=/", "=\"\"", $text);
 $text = preg_replace("/&amp;quot;/", "&amp;quot;\"", $text);
 $tags = "/&amp;lt;(\/|)(\w*)(\ |)(\w*)([\\\=]*)(?|(\")\"&amp;quot;\"|)(?|(.*)?&amp;quot;(\")|)([\ ]?)(\/|)&amp;gt;/i";
-$replacement = "&lt;$1$2$3$4$5$6$7$8$9$10&gt;";
+$replacement = "<$1$2$3$4$5$6$7$8$9$10>";
 $text = preg_replace($tags, $replacement, $text);
 $text = preg_replace("/=\"\"/", "=", $text);
 return $text;
@@ -79,11 +79,11 @@ an example:
 ```
 <?php
 $string = "
-this is smaller &lt; than this&lt;br /&gt; 
-this is greater &gt; than this&lt;br /&gt;
-this is the same = as this&lt;br /&gt;
-&lt;a href=\"http://www.example.com/example.php?test=test\"&gt;This is a link&lt;/a&gt;&lt;br /&gt;
-&lt;b&gt;Bold&lt;/b&gt; &lt;i&gt;italic&lt;/i&gt; etc...";
+this is smaller < than this<br /> 
+this is greater > than this<br />
+this is the same = as this<br />
+<a href=\"http://www.example.com/example.php?test=test\">This is a link</a><br />
+<b>Bold</b> <i>italic</i> etc...";
 echo fixtags($string);
 ?>
 ```

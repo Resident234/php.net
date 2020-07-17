@@ -11,11 +11,11 @@ function str_rot($s, $n = 13) {
     $n = (int)$n % 26;
     if (!$n) return $s;
     if ($n == 13) return str_rot13($s);
-    for ($i = 0, $l = strlen($s); $i &lt; $l; $i++) {
+    for ($i = 0, $l = strlen($s); $i < $l; $i++) {
         $c = $s[$i];
-        if ($c &gt;= 'a' &amp;&amp; $c &lt;= 'z') {
+        if ($c >= 'a' &amp;&amp; $c <= 'z') {
             $s[$i] = $letters[(ord($c) - 71 + $n) % 26];
-        } else if ($c &gt;= 'A' &amp;&amp; $c &lt;= 'Z') {
+        } else if ($c >= 'A' &amp;&amp; $c <= 'Z') {
             $s[$i] = $letters[(ord($c) - 39 + $n) % 26 + 26];
         }
     }
@@ -35,7 +35,7 @@ function str_rot($s, $n = 13) {
     static $letters = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz';
     $n = (int)$n % 26;
     if (!$n) return $s;
-    if ($n &lt; 0) $n += 26;
+    if ($n < 0) $n += 26;
     if ($n == 13) return str_rot13($s);
     $rep = substr($letters, $n * 2) . substr($letters, 0, $n * 2);
     return strtr($s, $letters, $rep);
@@ -54,10 +54,10 @@ Happy coding!
 
 ```
 <?php
-for ($k = 0; $k &lt; 10; $k++) {
+for ($k = 0; $k < 10; $k++) {
     $s = 'The quick brown fox jumps over the lazy dog.';
     $t = microtime(1);
-    for ($i = 0; $i &lt; 1000; $i++) $s = str_rot($s, $i);
+    for ($i = 0; $i < 1000; $i++) $s = str_rot($s, $i);
     $t = microtime(1) - $t;
     echo number_format($t, 3) . "\n";
 }

@@ -160,37 +160,6 @@ echo ((is_object($val) == true ?  1 : 0 ) == 1 ? "object" : "not an object" );//
 
 #
 
-CAUTION:<br>"Arrays convert to an object with properties named by keys, and corresponding values".<br><br>This is ALWAYS true, which means that even numeric keys are accepted when converting.<br>But the resulting properties cannot be accessed, since they don&apos;t match the variables naming rules.<br><br>So this:<br>
-
-```
-<?php
-$x = (object) array('a'=>'A', 'b'=>'B', 'C');
-echo '<pre>'.print_r($x, true).'</pre>';
-?>
-```
-
-works and displays:
-stdClass Object
-(
-    [a] => A
-    [b] => B
-    [0] => C
-)
-
-But this:
-
-
-```
-<?php
-echo '<br />'.$x->a;
-echo '<br />'.$x->b;
-echo '<br />'.$x->{0}; # (don't use $x->0, which is obviously a syntax error)
-?>
-```
-<br>fails and displays:<br>A<br>B<br>Notice: Undefined property: stdClass::$0 in...  
-
-#
-
 [Official documentation page](https://www.php.net/manual/en/language.types.object.php)
 
 **[To root](/README.md)**

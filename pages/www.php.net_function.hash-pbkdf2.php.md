@@ -6,12 +6,38 @@ Please pay great attention to the **$length** parameter! It is exactly the **ret
 
 #
 
-This is a light-weight drop-in replacement for PHP&apos;s hash_pbkdf2(); written for compatibility with older versions of PHP.<br>Written, formatted and tested by myself, but using code and ideas based on the following:<br>https://defuse.ca/?>
-```
-pbkdf2.htm<br>https://github.com/rchouinard/hash_pbkdf2-compat/blob/master/src/hash_pbkdf2.php<br>https://gist.github.com/rsky/5104756<br><br>My main goals:<br>1) Maximum compatibility with PHP hash_pbkdf2(), ie. a drop-in replacement function<br>2) Minimum code size/bloat<br>3) Easy to copy/paste<br>4) No classes, and not encapsulated in a class! Why write a class when a simple function will do?<br>5) Eliminate calls to sprintf(). (used by other examples for the error reporting)<br>6) No other dependencies, ie. extra required functions<br><br>
+This is a light-weight drop-in replacement for PHP&apos;s hash_pbkdf2(); written for compatibility with older versions of PHP.<br>Written, formatted and tested by myself, but using code and ideas based on the following:<br>https://defuse.ca/php-pbkdf2.htm<br>https://github.com/rchouinard/hash_pbkdf2-compat/blob/master/src/hash_pbkdf2.php<br>https://gist.github.com/rsky/5104756<br><br>My main goals:<br>1) Maximum compatibility with PHP hash_pbkdf2(), ie. a drop-in replacement function<br>2) Minimum code size/bloat<br>3) Easy to copy/paste<br>4) No classes, and not encapsulated in a class! Why write a class when a simple function will do?<br>5) Eliminate calls to sprintf(). (used by other examples for the error reporting)<br>6) No other dependencies, ie. extra required functions<br><br>
 
 ```
-<?php<br>if (!function_exists(&apos;hash_pbkdf2&apos;))<br>{<br>    function hash_pbkdf2($algo, $password, $salt, $count, $length = 0, $raw_output = false)<br>    {<br>        if (!in_array(strtolower($algo), hash_algos())) trigger_error(__FUNCTION__ . &apos;(): Unknown hashing algorithm: &apos; . $algo, E_USER_WARNING);<br>        if (!is_numeric($count)) trigger_error(__FUNCTION__ . &apos;(): expects parameter 4 to be long, &apos; . gettype($count) . &apos; given&apos;, E_USER_WARNING);<br>        if (!is_numeric($length)) trigger_error(__FUNCTION__ . &apos;(): expects parameter 5 to be long, &apos; . gettype($length) . &apos; given&apos;, E_USER_WARNING);<br>        if ($count &lt;= 0) trigger_error(__FUNCTION__ . &apos;(): Iterations must be a positive integer: &apos; . $count, E_USER_WARNING);<br>        if ($length &lt; 0) trigger_error(__FUNCTION__ . &apos;(): Length must be greater than or equal to 0: &apos; . $length, E_USER_WARNING);<br><br>        $output = &apos;&apos;;<br>        $block_count = $length ? ceil($length / strlen(hash($algo, &apos;&apos;, $raw_output))) : 1;<br>        for ($i = 1; $i &lt;= $block_count; $i++)<br>        {<br>            $last = $xorsum = hash_hmac($algo, $salt . pack(&apos;N&apos;, $i), $password, true);<br>            for ($j = 1; $j &lt; $count; $j++)<br>            {<br>                $xorsum ^= ($last = hash_hmac($algo, $last, $password, true));<br>            }<br>            $output .= $xorsum;<br>        }<br><br>        if (!$raw_output) $output = bin2hex($output);<br>        return $length ? substr($output, 0, $length) : $output;<br>    }<br>}  
+<?php
+if (!function_exists('hash_pbkdf2'))
+{
+    function hash_pbkdf2($algo, $password, $salt, $count, $length = 0, $raw_output = false)
+    {
+        if (!in_array(strtolower($algo), hash_algos())) trigger_error(__FUNCTION__ . '(): Unknown hashing algorithm: ' . $algo, E_USER_WARNING);
+        if (!is_numeric($count)) trigger_error(__FUNCTION__ . '(): expects parameter 4 to be long, ' . gettype($count) . ' given', E_USER_WARNING);
+        if (!is_numeric($length)) trigger_error(__FUNCTION__ . '(): expects parameter 5 to be long, ' . gettype($length) . ' given', E_USER_WARNING);
+        if ($count <= 0) trigger_error(__FUNCTION__ . '(): Iterations must be a positive integer: ' . $count, E_USER_WARNING);
+        if ($length < 0) trigger_error(__FUNCTION__ . '(): Length must be greater than or equal to 0: ' . $length, E_USER_WARNING);
+
+        $output = '';
+        $block_count = $length ? ceil($length / strlen(hash($algo, '', $raw_output))) : 1;
+        for ($i = 1; $i <= $block_count; $i++)
+        {
+            $last = $xorsum = hash_hmac($algo, $salt . pack('N', $i), $password, true);
+            for ($j = 1; $j < $count; $j++)
+            {
+                $xorsum ^= ($last = hash_hmac($algo, $last, $password, true));
+            }
+            $output .= $xorsum;
+        }
+
+        if (!$raw_output) $output = bin2hex($output);
+        return $length ? substr($output, 0, $length) : $output;
+    }
+}?>
+```
+  
 
 #
 

@@ -17,10 +17,10 @@ foreach (array(
         '"much.more unusual"@example.com',
         'postbox@com',
         'admin@mailserver1',
-        '"()&lt;&gt;[]:,;@\\"\\\\!#$%&amp;\'*+-/=?^_`{}| ~.a"@example.org',
+        '"()<>[]:,;@\\"\\\\!#$%&amp;\'*+-/=?^_`{}| ~.a"@example.org',
         '" "@example.org',
     ) as $address) {
-    echo "&lt;p&gt;$address is &lt;b&gt;".(filter_var($address, FILTER_VALIDATE_EMAIL) ? '' : 'not')." valid&lt;/b&gt;&lt;/p&gt;";
+    echo "<p>$address is <b>".(filter_var($address, FILTER_VALIDATE_EMAIL) ? '' : 'not')." valid</b></p>";
 }
 ?>
 ```

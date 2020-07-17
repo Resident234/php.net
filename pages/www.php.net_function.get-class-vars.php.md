@@ -27,7 +27,7 @@ $class_vars = $Foo->GetClassVars();
 
 foreach ($class_vars as $cvar)
 {
-    echo $cvar . "&lt;br /&gt;\n";
+    echo $cvar . "<br />\n";
 }
 ?>
 ```

@@ -79,7 +79,7 @@ $family->sortMembers(array("firstName" => "ASC", "age" => "DESC", "hairColor" =>
 // output all family members
 foreach ($family->members as $member)
 {
-    echo $member->firstName." - ".$member->age." - ".$member->hairColor."&lt;br /&gt;";
+    echo $member->firstName." - ".$member->age." - ".$member->hairColor."<br />";
 }
 ?>
 ```

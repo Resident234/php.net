@@ -16,7 +16,7 @@ function getDiff($start, $end) {
 
 $lim=10000000;
 $arr = array();
-for ($i=0; $i&lt;$lim; $i++) {
+for ($i=0; $i<$lim; $i++) {
     $arr[$i] = $i/2;
 }
 

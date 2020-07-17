@@ -48,15 +48,15 @@ function similarity($str1, $str2) {
     $max = max($len1, $len2);
     $similarity = $i = $j = 0;
     
-    while (($i &lt; $len1) &amp;&amp; isset($str2[$j])) {
+    while (($i < $len1) &amp;&amp; isset($str2[$j])) {
         if ($str1[$i] == $str2[$j]) {
             $similarity++;
             $i++;
             $j++;
-        } elseif ($len1 &lt; $len2) {
+        } elseif ($len1 < $len2) {
             $len1++;
             $j++;
-        } elseif ($len1 &gt; $len2) {
+        } elseif ($len1 > $len2) {
             $i++;
             $len1--;
         } else {
@@ -114,7 +114,7 @@ $query = mysql_query("select * from $table") or die("Query failed");
 
 while ($row = mysql_fetch_array($query)) {
       similar_text(strtoupper($_POST['name']), strtoupper($row['reserved']), $similarity_pst);
-      if (number_format($similarity_pst, 0) &gt; 90){
+      if (number_format($similarity_pst, 0) > 90){
         $too_similar = $row['reserved'];
         print "The name you entered is too similar the reserved name &amp;quot;".$row['reserved']."&amp;quot;";
         break;

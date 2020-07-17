@@ -34,7 +34,7 @@ if ($v1===$v2)
     {
     return 0;
     }
-if ($v1 &gt; $v2) return 1;
+if ($v1 > $v2) return 1;
 return -1;
 }
 $a1=array(1, 2, 4);

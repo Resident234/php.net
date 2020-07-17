@@ -40,7 +40,7 @@ $_SESSION['hello'] = 'World';
 var_dump($_SESSION);
 
 // AN XML STRING FOR TEST DATA
-$xml = '&lt;?xml version="1.0"?>
+$xml = '<?xml version="1.0"?>
 ```
 <br>&lt;families&gt;<br>  &lt;parent&gt;<br>    &lt;child index="1" value="Category 1"&gt;Child One&lt;/child&gt;<br>  &lt;/parent&gt;<br>&lt;/families&gt;&apos;;<br><br>// MAKE AN OBJECT (GIVES SimpleXMLElement)<br>$obj = SimpleXML_Load_String($xml);<br><br>// STORE THE OBJECT IN THE SESSION<br>$_SESSION[&apos;obj&apos;] = $obj;  
 

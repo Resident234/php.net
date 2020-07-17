@@ -6,8 +6,8 @@ FILTER_SANITIZE_STRING doesn&apos;t behavior the same as strip_tags function.   
 
 ```
 <?php
-$smaller = "not a tag &lt; 5";
-echo strip_tags($smaller);    // -> not a tag &lt; 5
+$smaller = "not a tag < 5";
+echo strip_tags($smaller);    // -> not a tag < 5
 echo filter_var ( $smaller, FILTER_SANITIZE_STRING); // -> not a tag
 ?>
 ```
@@ -37,7 +37,7 @@ $postfilter =    // set up the filters to be used with the trimmed post array
         );
 
 $revised_post_array = filter_var_array($_POST, $postfilter);    // must be referenced via a variable which is now an array that takes the place of $_POST[]
-echo (nl2br($revised_post_array['user_tasks']));    //-- use nl2br() upon output like so, for the ['user_tasks'] array value so that the newlines are formatted, since this is our HTML &lt;textarea&gt; field and we want to maintain newlines
+echo (nl2br($revised_post_array['user_tasks']));    //-- use nl2br() upon output like so, for the ['user_tasks'] array value so that the newlines are formatted, since this is our HTML <textarea> field and we want to maintain newlines
 ?>
 ```
   

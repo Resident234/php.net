@@ -30,7 +30,7 @@ Looks like this function has a strange randomness.<br><br>If you take any number
 <?php
 $valeurs = range(1, 40);
 $proba = array_fill(1, 40, 0);
-for ($i = 0; $i &lt; 10000; ++$i)
+for ($i = 0; $i < 10000; ++$i)
 {
     $tirage_tab = array_rand($valeurs, 10);
     foreach($tirage_tab as $key => $value)
@@ -40,10 +40,10 @@ for ($i = 0; $i &lt; 10000; ++$i)
 }
 
 asort($proba);
-echo "Proba : &lt;br/&gt;\n";
+echo "Proba : <br/>\n";
 foreach($proba as $key => $value)
 {
-    echo "$key : $value&lt;br/&gt;\n";
+    echo "$key : $value<br/>\n";
 }
 ?>
 ```
@@ -77,7 +77,7 @@ function array_random($arr, $num = 1) {
     shuffle($arr);
     
     $r = array();
-    for ($i = 0; $i &lt; $num; $i++) {
+    for ($i = 0; $i < $num; $i++) {
         $r[] = $arr[$i];
     }
     return $num == 1 ? $r[0] : $r;
@@ -108,7 +108,7 @@ function array_random_assoc($arr, $num = 1) {
     shuffle($keys);
     
     $r = array();
-    for ($i = 0; $i &lt; $num; $i++) {
+    for ($i = 0; $i < $num; $i++) {
         $r[$keys[$i]] = $arr[$keys[$i]];
     }
     return $r;
@@ -145,7 +145,7 @@ print_r(array_random_assoc($a, 2));
  */
 function array_random(array $array, int $n = 1): array
 {
-    if ($n &lt; 1 || $n &gt; count($array)) {
+    if ($n < 1 || $n > count($array)) {
         throw new OutOfBoundsException();
     }
 
@@ -166,7 +166,7 @@ $s=1;    // Start value
 $c=50;    // Count / End value
 $test=array_fill($s, $c, 0);
 $ts=microtime(true);
-for($i=0; $i&lt;5000000; $i++){
+for($i=0; $i<5000000; $i++){
     $idx=mt_rand($s, $c);    // Try it with rand() - simpler but more evenly distributed than mt_rand()
     $test[$idx]++;
 }
@@ -174,8 +174,8 @@ $te=microtime(true);
 $te=($te-$ts)*1000.0;    // Loop time in miliseconds
 
 asort($test);
-echo "Test mt_rand() in ".$te." ms: &lt;br/&gt;\n";
-foreach($test as $k=>$v) echo "$k :\t$v &lt;br/&gt;\n";
+echo "Test mt_rand() in ".$te." ms: <br/>\n";
+foreach($test as $k=>$v) echo "$k :\t$v <br/>\n";
 ?>
 ```
 <br><br>And it appears to me that simple "$idx=rand(0, count($test)-1);" is much better than "$idx=array_rand($test, 1);".<br>And what&apos;s more the simpler and a bit slower (0 ms up to total 712.357 ms at 5 mln cycles) "rand()" is better than "mt_rand()" in simple everyday use cases because it is more evenly distributed (difference least vs. most often numbers: ca. 0.20-1.28 % for "rand()" vs. ca. 1.43-1.68 % for "mt_rand()").<br>Try it for yourself... although it depends on your software and hardware configuration, range of numbers to choose from (due to random patterns), number of cycles in the loop, and temporary (public) server load as well.  

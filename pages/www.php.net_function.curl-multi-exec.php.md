@@ -10,7 +10,7 @@ Solve CPU 100% usage, a more simple and right way:<br><br>
 do {
     curl_multi_exec($mh, $running);
     curl_multi_select($mh);
-} while ($running &gt; 0);
+} while ($running > 0);
 
 ?>
 ```

@@ -21,9 +21,7 @@ Instead, PHP uses a non-standards compliant practice of including brackets in fi
 
 ```
 <?php
-# bizarre ?>
-```
-specific behavior
+# bizarre php-specific behavior
 parse_str('foo[]=1&amp;foo[]=2&amp;foo[]=3');
 
 # the above produces:
@@ -85,7 +83,7 @@ if you need custom arg separator, you can use this function. it returns parsed  
 /**
  * Parses http query string into an array
  * 
- * @author Alxcube &lt;alxcube@gmail.com&gt;
+ * @author Alxcube <alxcube@gmail.com>
  * 
  * @param string $queryString String to parse
  * @param string $argSeparator Query arguments separator

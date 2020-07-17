@@ -10,7 +10,7 @@ This function can be used to sort multidimensional arrays with almost no work wh
      usort($results, "custom_sort");
      // Define the custom sort function
      function custom_sort($a,$b) {
-          return $a['some_sub_var']&gt;$b['some_sub_var'];
+          return $a['some_sub_var']>$b['some_sub_var'];
      }
 ?>
 ```
@@ -131,11 +131,11 @@ $airports = array
     array( "code" => "LGW", "name" => "Gatwick" ),
 );
 
-printf("Before: &lt;pre&gt;%s&lt;/pre&gt;", print_r($airports, true));
+printf("Before: <pre>%s</pre>", print_r($airports, true));
 
 $airports = record_sort($airports, "name");
 
-printf("After: &lt;pre&gt;%s&lt;/pre&gt;", print_r($airports, true));
+printf("After: <pre>%s</pre>", print_r($airports, true));
 
 ?>
 ```

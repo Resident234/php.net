@@ -55,11 +55,7 @@ unset($_SESSION["newsession"]);
 /*session deleted. if you try using this you've got an error*/
 ?>
 ```
-
-
-Reference: http://gencbilgin.net/?>
-```
-session-kullanimi.html  
+<br><br>Reference: http://gencbilgin.net/php-session-kullanimi.html  
 
 #
 

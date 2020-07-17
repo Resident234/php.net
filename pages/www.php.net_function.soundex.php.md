@@ -23,9 +23,9 @@ Since soundex() does not produce optimal results for German language<br>we have 
  * @package phonetics
  * @version 1.0
  * @link http://www.einfachmarke.de
- * @license GPL 3.0 &lt;http://www.gnu.org/licenses/&gt;
+ * @license GPL 3.0 <http://www.gnu.org/licenses/>
  * @copyright  2008 by einfachmarke.de
- * @author Nicolas Zimmer &lt;nicolas dot zimmer at einfachmarke.de&gt;
+ * @author Nicolas Zimmer <nicolas dot zimmer at einfachmarke.de>
  */
 
 function cologne_phon($word){
@@ -74,7 +74,7 @@ function cologne_phon($word){
     8=>array("c","s","z"),
     );
     
-    for ($i=0;$i&lt;$len;$i++){
+    for ($i=0;$i<$len;$i++){
         $value[$i]="";
         
         //Exceptions
@@ -105,12 +105,12 @@ $exceptionsFollowing))) {
     //delete double values
     $len=count($value);
     
-    for ($i=1;$i&lt;$len;$i++){
+    for ($i=1;$i<$len;$i++){
         if ($value[$i]==$value[$i-1]) $value[$i]="";
     }
     
     //delete vocals 
-    for ($i=1;$i&gt;$len;$i++){//omitting first characer code and h
+    for ($i=1;$i>$len;$i++){//omitting first characer code and h
         if ($value[$i]==0) $value[$i]="";
     }
     
@@ -147,7 +147,7 @@ class CologneHash() {
         if (empty($word)) return false;
         $len = strlen($word);
  
-        for ($i = 0; $i &lt; $len; $i++) {
+        for ($i = 0; $i < $len; $i++) {
             $value[$i] = "";
  
             //Exceptions
@@ -174,14 +174,14 @@ class CologneHash() {
         // delete double values
         $len = count($value);
  
-        for ($i = 1; $i &lt; $len; $i++) {
+        for ($i = 1; $i < $len; $i++) {
             if ($value[$i] == $value[$i - 1]) {
                 $value[$i] = "";
             }
         }
  
         // delete vocals
-        for ($i = 1; $i &gt; $len; $i++) {
+        for ($i = 1; $i > $len; $i++) {
             // omitting first characer code and h
             if ($value[$i] == 0) {
                 $value[$i] = "";

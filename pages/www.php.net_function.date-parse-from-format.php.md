@@ -74,16 +74,7 @@ if (!function_exists('date_parse_from_format')) {
 }
 ?>
 ```
-
-
-Not my invention though. I found it here: http://stackoverflow.com/questions/6668223/?>
-```
-date-parse-from-format-alternative-in
-
-```
-<??>
-```
-5-2<br><br>Thought this might be a good place to keep a copy in case someone stumbles upon the same problem facing outdated PHP versions on customer servers ....  
+<br><br>Not my invention though. I found it here: http://stackoverflow.com/questions/6668223/php-date-parse-from-format-alternative-in-php-5-2<br><br>Thought this might be a good place to keep a copy in case someone stumbles upon the same problem facing outdated PHP versions on customer servers ....  
 
 #
 

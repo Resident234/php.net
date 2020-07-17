@@ -15,7 +15,7 @@ It took some searching to figure this one out. I didn&apos;t see much in the way
         $dom->createElement ('test', 'this is a test'));
     $dom->documentElement->appendChild ($new_tag);
 
-    printf ("&lt;pre&gt;%s&lt;/pre&gt;", htmlentities ($dom->saveXML()));
+    printf ("<pre>%s</pre>", htmlentities ($dom->saveXML()));
 ?>
 ```
 
@@ -38,7 +38,7 @@ By adding the preserveWhiteSpace = false; BEFORE the load() the formatOutput wor
         $dom->createElement ('test', 'this is a test'));
     $dom->documentElement->appendChild ($new_tag);
 
-    printf ("&lt;pre&gt;%s&lt;/pre&gt;", htmlentities ($dom->saveXML()));
+    printf ("<pre>%s</pre>", htmlentities ($dom->saveXML()));
 ?>
 ```
 
@@ -48,28 +48,28 @@ CAUTION: If your loaded xml file (test.xml) has an empty root node that is not s
 Example:
 
 DOES NOT WORK:
-&lt;?xml version="1.0"?>
+<?xml version="1.0"?>
 ```
 
-&lt;root&gt;
-&lt;/root&gt;
+<root>
+</root>
 
 WORKS:
-&lt;?xml version="1.0"?>
+<?xml version="1.0"?>
 ```
 
-&lt;root/&gt;
+<root/>
 
 WORKS:
-&lt;?xml version="1.0"?>
+<?xml version="1.0"?>
 ```
 
-&lt;root&gt;
-  &lt;!-- comment -->
-&lt;/root&gt;
+<root>
+  <!-- comment -->
+</root>
 
 WORKS:
-&lt;?xml version="1.0"?>
+<?xml version="1.0"?>
 ```
 <br>&lt;root&gt;<br>  &lt;child/&gt;<br>&lt;/root&gt;  
 

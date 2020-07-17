@@ -10,9 +10,7 @@ Note that given two different objects spl_object_hash() can return values that l
 
 #
 
-Please note that since PHP 7.2 there&apos;s new function available spl_object_id() which returns int instead of string. It&apos;s (supposed to be) more performant. Due to lack of documentation I recommend you reading the PR https://github.com/php/?>
-```
-src/pull/2611  
+Please note that since PHP 7.2 there&apos;s new function available spl_object_id() which returns int instead of string. It&apos;s (supposed to be) more performant. Due to lack of documentation I recommend you reading the PR https://github.com/php/php-src/pull/2611  
 
 #
 

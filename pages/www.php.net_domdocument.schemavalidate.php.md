@@ -13,23 +13,23 @@ For more detailed feedback from DOMDocument::schemaValidate, disable libxml erro
 
 function libxml_display_error($error)
 {
-    $return = "&lt;br/&gt;\n";
+    $return = "<br/>\n";
     switch ($error->level) {
         case LIBXML_ERR_WARNING:
-            $return .= "&lt;b&gt;Warning $error->code&lt;/b&gt;: ";
+            $return .= "<b>Warning $error->code</b>: ";
             break;
         case LIBXML_ERR_ERROR:
-            $return .= "&lt;b&gt;Error $error->code&lt;/b&gt;: ";
+            $return .= "<b>Error $error->code</b>: ";
             break;
         case LIBXML_ERR_FATAL:
-            $return .= "&lt;b&gt;Fatal Error $error->code&lt;/b&gt;: ";
+            $return .= "<b>Fatal Error $error->code</b>: ";
             break;
     }
     $return .= trim($error->message);
     if ($error->file) {
-        $return .=    " in &lt;b&gt;$error->file&lt;/b&gt;";
+        $return .=    " in <b>$error->file</b>";
     }
-    $return .= " on line &lt;b&gt;$error->line&lt;/b&gt;\n";
+    $return .= " on line <b>$error->line</b>\n";
 
     return $return;
 }
@@ -49,7 +49,7 @@ $xml = new DOMDocument();
 $xml->load('example.xml'); 
 
 if (!$xml->schemaValidate('example.xsd')) {
-    print '&lt;b&gt;DOMDocument::schemaValidate() Generated Errors!&lt;/b&gt;';
+    print '<b>DOMDocument::schemaValidate() Generated Errors!</b>';
     libxml_display_errors();
 }
 

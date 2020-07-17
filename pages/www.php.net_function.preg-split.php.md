@@ -6,8 +6,8 @@ Sometimes PREG_SPLIT_DELIM_CAPTURE does strange results.<br><br>
 
 ```
 <?php
-$content = '&lt;strong&gt;Lorem ipsum dolor&lt;/strong&gt; sit &lt;img src="test.png" /&gt;amet &lt;span class="test" style="color:red"&gt;consec&lt;i&gt;tet&lt;/i&gt;uer&lt;/span&gt;.';
-$chars = preg_split('/&lt;[^&gt;]*[^\/]&gt;/i', $content, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+$content = '<strong>Lorem ipsum dolor</strong> sit <img src="test.png" />amet <span class="test" style="color:red">consec<i>tet</i>uer</span>.';
+$chars = preg_split('/<[^>]*[^\/]>/i', $content, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 print_r($chars);
 ?>
 ```
@@ -16,7 +16,7 @@ Produces:
 Array
 (
     [0] => Lorem ipsum dolor
-    [1] =>  sit &lt;img src="test.png" /&gt;amet 
+    [1] =>  sit <img src="test.png" />amet 
     [2] => consec
     [3] => tet
     [4] => uer
@@ -28,7 +28,7 @@ So that the delimiter patterns are missing. If you wanna get these patters remem
 
 ```
 <?php
-$chars = preg_split('/(&lt;[^&gt;]*[^\/]&gt;)/i', $content, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+$chars = preg_split('/(<[^>]*[^\/]>)/i', $content, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 print_r($chars); //parentheses added
 ?>
 ```
@@ -54,7 +54,7 @@ If you want to split by a char, but want to ignore that char in case it is escap
 ```
 <?php
 $string='a:b:c\:d';
-$array=preg_split('#(?&lt;!\\\)\:#',$string);
+$array=preg_split('#(?<!\\\)\:#',$string);
 print_r($array);
 ?>
 ```

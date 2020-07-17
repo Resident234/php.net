@@ -6,9 +6,23 @@ I was miffed that array_map didn&apos;t have a way to pass values *and* keys to 
 
 #
 
-If you need to call a static method from array_map, this will NOT work:<br><br>&lt;?PHP<br>array_map(&apos;myclass::myMethod&apos; , $value);<br>?>
+If you need to call a static method from array_map, this will NOT work:<br><br>
+
 ```
-<br><br>Instead, you need to do this:<br><br>&lt;?PHP<br>array_map( array(&apos;myclass&apos;,&apos;myMethod&apos;) , $value);<br>?>
+<?php
+array_map('myclass::myMethod' , $value);
+?>
+```
+
+
+Instead, you need to do this:
+
+
+
+```
+<?php
+array_map( array('myclass','myMethod') , $value);
+?>
 ```
 <br><br>It is helpful to remember that this will work with any PHP function which expects a callback argument.  
 

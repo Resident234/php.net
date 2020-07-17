@@ -8,13 +8,13 @@ Here&apos;s a different approach to search result keyword highlighting that will
 <?php
 function highlightStr($haystack, $needle, $highlightColorValue) {
      // return $haystack if there is no highlight color or strings given, nothing to do.
-    if (strlen($highlightColorValue) &lt; 1 || strlen($haystack) &lt; 1 || strlen($needle) &lt; 1) {
+    if (strlen($highlightColorValue) < 1 || strlen($haystack) < 1 || strlen($needle) < 1) {
         return $haystack;
     }
     preg_match_all("/$needle+/i", $haystack, $matches);
-    if (is_array($matches[0]) &amp;&amp; count($matches[0]) &gt;= 1) {
+    if (is_array($matches[0]) &amp;&amp; count($matches[0]) >= 1) {
         foreach ($matches[0] as $match) {
-            $haystack = str_replace($match, '&lt;span style="background-color:'.$highlightColorValue.';"&gt;'.$match.'&lt;/span&gt;', $haystack);
+            $haystack = str_replace($match, '<span style="background-color:'.$highlightColorValue.';">'.$match.'</span>', $haystack);
         }
     }
     return $haystack;
@@ -48,7 +48,7 @@ function SQL_DEBUG( $query )
     if( !isset($SQL_INT) ) $SQL_INT = 0;
 
     //[dv] this has to come first or you will have goofy results later.
-    $query = preg_replace("/['\"]([^'\"]*)['\"]/i", "'&lt;FONT COLOR='#FF6600'&gt;$1&lt;/FONT&gt;'", $query, -1);
+    $query = preg_replace("/['\"]([^'\"]*)['\"]/i", "'<FONT COLOR='#FF6600'>$1</FONT>'", $query, -1);
 
     $query = str_ireplace(
                             array (
@@ -72,29 +72,29 @@ function SQL_DEBUG( $query )
                                     'ON '
                                   ),
                             array (
-                                    "&lt;FONT COLOR='#FF6600'&gt;&lt;B&gt;*&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;SELECT&lt;/B&gt; &lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;UPDATE&lt;/B&gt; &lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;DELETE&lt;/B&gt; &lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;INSERT&lt;/B&gt; &lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;INTO&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;VALUES&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;FROM&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#00CC00'&gt;&lt;B&gt;LEFT&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#00CC00'&gt;&lt;B&gt;JOIN&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;WHERE&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#AA0000'&gt;&lt;B&gt;LIMIT&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#00AA00'&gt;&lt;B&gt;ORDER BY&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#0000AA'&gt;&lt;B&gt;AND&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#0000AA'&gt;&lt;B&gt;OR&lt;/B&gt; &lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#0000AA'&gt;&lt;B&gt;DESC&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#0000AA'&gt;&lt;B&gt;ASC&lt;/B&gt;&lt;/FONT&gt;",
-                                    "&lt;FONT COLOR='#00DD00'&gt;&lt;B&gt;ON&lt;/B&gt; &lt;/FONT&gt;"
+                                    "<FONT COLOR='#FF6600'><B>*</B></FONT>",
+                                    "<FONT COLOR='#00AA00'><B>SELECT</B> </FONT>",
+                                    "<FONT COLOR='#00AA00'><B>UPDATE</B> </FONT>",
+                                    "<FONT COLOR='#00AA00'><B>DELETE</B> </FONT>",
+                                    "<FONT COLOR='#00AA00'><B>INSERT</B> </FONT>",
+                                    "<FONT COLOR='#00AA00'><B>INTO</B></FONT>",
+                                    "<FONT COLOR='#00AA00'><B>VALUES</B></FONT>",
+                                    "<FONT COLOR='#00AA00'><B>FROM</B></FONT>",
+                                    "<FONT COLOR='#00CC00'><B>LEFT</B></FONT>",
+                                    "<FONT COLOR='#00CC00'><B>JOIN</B></FONT>",
+                                    "<FONT COLOR='#00AA00'><B>WHERE</B></FONT>",
+                                    "<FONT COLOR='#AA0000'><B>LIMIT</B></FONT>",
+                                    "<FONT COLOR='#00AA00'><B>ORDER BY</B></FONT>",
+                                    "<FONT COLOR='#0000AA'><B>AND</B></FONT>",
+                                    "<FONT COLOR='#0000AA'><B>OR</B> </FONT>",
+                                    "<FONT COLOR='#0000AA'><B>DESC</B></FONT>",
+                                    "<FONT COLOR='#0000AA'><B>ASC</B></FONT>",
+                                    "<FONT COLOR='#00DD00'><B>ON</B> </FONT>"
                                   ),
                             $query
                           );
 
-    echo "&lt;FONT COLOR='#0000FF'&gt;&lt;B&gt;SQL[".$SQL_INT."]:&lt;/B&gt; ".$query."&lt;FONT COLOR='#FF0000'&gt;;&lt;/FONT&gt;&lt;/FONT&gt;&lt;BR&gt;\n";
+    echo "<FONT COLOR='#0000FF'><B>SQL[".$SQL_INT."]:</B> ".$query."<FONT COLOR='#FF0000'>;</FONT></FONT><BR>\n";
 
     $SQL_INT++;
 

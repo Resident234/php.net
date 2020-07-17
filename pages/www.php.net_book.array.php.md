@@ -6,7 +6,14 @@ For newbies like me.<br><br>Creating new arrays:-<br>//Creates a blank array.<br
 
 #
 
-To delete an individual array element use the unset function<br><br>For example:<br><br>&lt;?PHP<br>    $arr = array( "A", "B", "C" );<br>    unset( $arr[1] );<br>    // now $arr = array( "A", "C" );<br>?>
+To delete an individual array element use the unset function<br><br>For example:<br><br>
+
+```
+<?php
+    $arr = array( "A", "B", "C" );
+    unset( $arr[1] );
+    // now $arr = array( "A", "C" );
+?>
 ```
 <br><br>Unlink is for deleting files.  
 

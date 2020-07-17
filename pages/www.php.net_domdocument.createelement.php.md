@@ -45,13 +45,13 @@ echo $doc2->saveXML();
 
 
 Text specified in createElement:
-&lt;?xml version=""?>
+<?xml version=""?>
 ```
 
-&lt;foo&gt;bar &amp;amp; baz&lt;/foo&gt;
+<foo>bar &amp;amp; baz</foo>
 
 Text added via createTextNode:
-&lt;?xml version=""?>
+<?xml version=""?>
 ```
 <br>&lt;foo&gt;bar &amp;amp; baz&lt;/foo&gt;  
 

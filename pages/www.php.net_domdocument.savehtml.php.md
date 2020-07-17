@@ -14,13 +14,13 @@ I am using this solution to prevent tags and the doctype from being added to the
 
 ```
 <?php
-$html = '&lt;h1&gt;Hello world!&lt;/h1&gt;';
-$html = '&lt;div&gt;' . $html . '&lt;/div&gt;';
+$html = '<h1>Hello world!</h1>';
+$html = '<div>' . $html . '</div>';
 $doc = new DOMDocument;
 $doc->loadHTML($html);
 echo substr($doc->saveXML($doc->getElementsByTagName('div')->item(0)), 5, -6)
 
-// Outputs: "&lt;h1&gt;Hello world!&lt;/h1&gt;"
+// Outputs: "<h1>Hello world!</h1>"
 ?>
 ```
   

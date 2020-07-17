@@ -25,24 +25,24 @@ echo $filename; // "index.html"
  * The character selected may be retained or discarded.
  * 
  * Example usage:
- * &lt;code&gt;
+ * <code>
  * $example = 'http://example.com/path/file.php';
  * $cwd_relative[] = cut_string_using_last('/', $example, 'left', true);
  * $cwd_relative[] = cut_string_using_last('/', $example, 'left', false);
  * $cwd_relative[] = cut_string_using_last('/', $example, 'right', true);
  * $cwd_relative[] = cut_string_using_last('/', $example, 'right', false);
  * foreach($cwd_relative as $string) {
- *     echo "$string &lt;br&gt;".PHP_EOL;
+ *     echo "$string <br>".PHP_EOL;
  * }
- * &lt;/code&gt;
+ * </code>
  * 
  * Outputs:
- * &lt;code&gt;
+ * <code>
  * http://example.com/path/
  * http://example.com/path
  * /file.php
  * file.php
- * &lt;/code&gt;
+ * </code>
  * 
  * @param string $character the character to search for.
  * @param string $string the string to search through.

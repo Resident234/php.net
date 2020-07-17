@@ -34,7 +34,7 @@ class mxlookup
          $this->parse_data($this->dns_repl_domain);
          $this->cIx+=7;
 
-         for($ic=1;$ic&lt;=$this->ANCOUNT;$ic++)
+         for($ic=1;$ic<=$this->ANCOUNT;$ic++)
          {
            $QTYPE = ord($this->gdi($this->cIx));
            if($QTYPE!==15){print("[MX Record not returned]"); die();}
@@ -64,7 +64,7 @@ class mxlookup
           }
           $retval="";
           $bCount = $byte;
-          for($b=0;$b&lt;$bCount;$b++)
+          for($b=0;$b<$bCount;$b++)
           {
             $retval .= $this->gdi($this->cIx);
           }
@@ -95,7 +95,7 @@ class mxlookup
       function gord($ln=1)
       {
         $reply="";
-        for($i=0;$i&lt;$ln;$i++){
+        for($i=0;$i<$ln;$i++){
          $reply.=ord(substr($this->dns_reply,$this->cIx,1));
          $this->cIx++;
          }
@@ -131,7 +131,7 @@ class mxlookup
 $mx = new mxlookup("php.net");
 
 print $mx->ANCOUNT." MX Records\n";
-print "Records returned for ".$mx->dns_repl_domain.":\n&lt;pre&gt;";
+print "Records returned for ".$mx->dns_repl_domain.":\n<pre>";
 print_r($mx->arrMX);
 
 ?>

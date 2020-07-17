@@ -7,7 +7,7 @@ Aoccdrnig to rseearch at an Elingsh uinervtisy, it deosn&apos;t mttaer in waht o
 ```
 <?php
     function scramble_word($word) {
-        if (strlen($word) &lt; 2)
+        if (strlen($word) < 2)
             return $word;
         else
             return $word{0} . str_shuffle(substr($word, 1, -1)) . $word{strlen($word) - 1};
@@ -25,11 +25,11 @@ This function is affected by srand():<br><br>
 ```
 <?php
 srand(12345);
-echo str_shuffle('Randomize me') . '&lt;br/&gt;'; // "demmiezr aon"
-echo str_shuffle('Randomize me') . '&lt;br/&gt;'; // "izadmeo rmen"
+echo str_shuffle('Randomize me') . '<br/>'; // "demmiezr aon"
+echo str_shuffle('Randomize me') . '<br/>'; // "izadmeo rmen"
 
 srand(12345);
-echo str_shuffle('Randomize me') . '&lt;br/&gt;'; // "demmiezr aon" again
+echo str_shuffle('Randomize me') . '<br/>'; // "demmiezr aon" again
 ?>
 ```
   

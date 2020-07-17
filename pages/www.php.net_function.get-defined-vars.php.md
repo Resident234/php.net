@@ -38,8 +38,8 @@ Notice that $_SERVER isn't there.  It seems that php only loads the superglobal 
 
 ```
 <?php
-print '&lt;pre&gt;' . htmlspecialchars(print_r(get_defined_vars(), true)) . '&lt;/pre&gt;';
-print '&lt;pre&gt;' . htmlspecialchars(print_r($_SERVER, true)) . '&lt;/pre&gt;';
+print '<pre>' . htmlspecialchars(print_r(get_defined_vars(), true)) . '</pre>';
+print '<pre>' . htmlspecialchars(print_r($_SERVER, true)) . '</pre>';
 ?>
 ```
 <br><br>And then $_SERVER will appear in both lists.  I guess it&apos;s not really a gotcha, because nothing bad will happen either way, but it&apos;s an interesting curiosity nonetheless.  
@@ -60,9 +60,9 @@ $bar = 'bar';
 // Get all the variables defined in current scope
 $vars = array_diff(get_defined_vars(),$vars);
 
-echo '&lt;pre&gt;';
+echo '<pre>';
 print_r($vars);
-echo '&lt;/pre&gt;';
+echo '</pre>';
 ?>
 ```
   

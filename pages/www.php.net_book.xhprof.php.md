@@ -2,9 +2,7 @@
 
 
 
-A profiler based on XHProf but for PHP7+ can be found at https://github.com/tideways/?>
-```
-xhprof-extension  
+A profiler based on XHProf but for PHP7+ can be found at https://github.com/tideways/php-xhprof-extension  
 
 #
 

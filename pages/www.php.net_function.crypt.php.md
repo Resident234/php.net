@@ -32,7 +32,7 @@ function generate_hash($password, $cost=11){
          * of the settings, separated by dollar signs
          */
         $param='  .implode('  ,array(
-                "2y", //select the most secure version of blowfish (&gt;=PHP 5.3.7)
+                "2y", //select the most secure version of blowfish (>=PHP 5.3.7)
                 str_pad($cost,2,"0",STR_PAD_LEFT), //add the cost in two digits
                 $salt //add the salt
         ));

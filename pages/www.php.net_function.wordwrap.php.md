@@ -53,11 +53,11 @@ For those interested in wrapping text to fit a width in *pixels* (instead of cha
 
         #    Check if imagettfbbox is expecting font-size to be declared in points or pixels.
         static $mult;
-        $mult    =    $mult ?: version_compare(GD_VERSION, '2.0', '&gt;=') ? .75 : 1;
+        $mult    =    $mult ?: version_compare(GD_VERSION, '2.0', '>=') ? .75 : 1;
 
         #    Text already fits the designated space without wrapping.
         $box    =    imagettfbbox($size * $mult, 0, $font, $text);
-        if($box[2] - $box[0] / $mult &lt; $width)    return $text;
+        if($box[2] - $box[0] / $mult < $width)    return $text;
 
         #    Start measuring each line of our input and inject line-breaks when overflow's detected.
         $output        =    '';
@@ -65,7 +65,7 @@ For those interested in wrapping text to fit a width in *pixels* (instead of cha
 
         $words        =    preg_split('/\b(?=\S)|(?=\s)/', $text);
         $word_count    =    count($words);
-        for($i = 0; $i &lt; $word_count; ++$i){
+        for($i = 0; $i < $word_count; ++$i){
 
             #    Newline
             if(PHP_EOL === $words[$i])
@@ -78,13 +78,13 @@ For those interested in wrapping text to fit a width in *pixels* (instead of cha
             $m        =    $box[2] - $box[0] / $mult;
 
             #    This is one honkin' long word, so try to hyphenate it.
-            if(($diff = $width - $m) &lt;= 0){
+            if(($diff = $width - $m) <= 0){
                 $diff    =    abs($diff);
 
                 #    Figure out which end of the word to start measuring from. Saves a few extra cycles in an already heavy-duty function.
-                if($diff - $width &lt;= 0)    for($s = strlen($words[$i]); $s; --$s){
+                if($diff - $width <= 0)    for($s = strlen($words[$i]); $s; --$s){
                     $box    =    imagettfbbox($size * $mult, 0, $font, substr($words[$i], 0, $s) . '-');
-                    if($width &gt; ($box[2] - $box[0] / $mult) + $size){
+                    if($width > ($box[2] - $box[0] / $mult) + $size){
                         $breakpoint    =    $s;
                         break;
                     }
@@ -92,9 +92,9 @@ For those interested in wrapping text to fit a width in *pixels* (instead of cha
 
                 else{
                     $word_length    =    strlen($words[$i]);
-                    for($s = 0; $s &lt; $word_length; ++$s){
+                    for($s = 0; $s < $word_length; ++$s){
                         $box    =    imagettfbbox($size * $mult, 0, $font, substr($words[$i], 0, $s+1) . '-');
-                        if($width &lt; ($box[2] - $box[0] / $mult) + $size){
+                        if($width < ($box[2] - $box[0] / $mult) + $size){
                             $breakpoint    =    $s;
                             break;
                         }
@@ -114,7 +114,7 @@ For those interested in wrapping text to fit a width in *pixels* (instead of cha
             }
 
             #    If there's no more room on the current line to fit the next word, start a new line.
-            if($length &gt; 0 &amp;&amp; $length + $m &gt;= $width){
+            if($length > 0 &amp;&amp; $length + $m >= $width){
                 $output    .=    PHP_EOL;
                 $length    =    0;
 
@@ -142,15 +142,15 @@ If you&apos;d like to break long strings of text but avoid breaking html you may
 <?php
     function textWrap($text) {
         $new_text = '';
-        $text_1 = explode('&gt;',$text);
+        $text_1 = explode('>',$text);
         $sizeof = sizeof($text_1);
-        for ($i=0; $i&lt;$sizeof; ++$i) {
-            $text_2 = explode('&lt;',$text_1[$i]);
+        for ($i=0; $i<$sizeof; ++$i) {
+            $text_2 = explode('<',$text_1[$i]);
             if (!empty($text_2[0])) {
                 $new_text .= preg_replace('#([^\n\r .]{25})#i', '\\1  ', $text_2[0]);
             }
             if (!empty($text_2[1])) {
-                $new_text .= '&lt;' . $text_2[1] . '&gt;';    
+                $new_text .= '<' . $text_2[1] . '>';    
             }
         }
         return $new_text;

@@ -172,7 +172,7 @@ $testCase = array (
 );
 
 foreach ($testCase as $key => $case ) {
-    echo "$key is_multiArrayEmpty= ".is_multiArrayEmpty($case)."&lt;br&gt;";
+    echo "$key is_multiArrayEmpty= ".is_multiArrayEmpty($case)."<br>";
 }
 ?>
 ```

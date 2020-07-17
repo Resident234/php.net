@@ -38,7 +38,7 @@ function getDN($ad, $samaccountname, $basedn) {
         "(samaccountname={$samaccountname})", $attributes);
     if ($result === FALSE) { return ''; }
     $entries = ldap_get_entries($ad, $result);
-    if ($entries['count']&gt;0) { return $entries[0]['dn']; }
+    if ($entries['count']>0) { return $entries[0]['dn']; }
     else { return ''; };
 }
 
@@ -59,7 +59,7 @@ function checkGroup($ad, $userdn, $groupdn) {
     $result = ldap_read($ad, $userdn, "(memberof={$groupdn})", $attributes);
     if ($result === FALSE) { return FALSE; };
     $entries = ldap_get_entries($ad, $result);
-    return ($entries['count'] &gt; 0);
+    return ($entries['count'] > 0);
 }
 
 /*
@@ -71,9 +71,9 @@ function checkGroupEx($ad, $userdn, $groupdn) {
     $result = ldap_read($ad, $userdn, '(objectclass=*)', $attributes);
     if ($result === FALSE) { return FALSE; };
     $entries = ldap_get_entries($ad, $result);
-    if ($entries['count'] &lt;= 0) { return FALSE; };
+    if ($entries['count'] <= 0) { return FALSE; };
     if (empty($entries[0]['memberof'])) { return FALSE; } else {
-        for ($i = 0; $i &lt; $entries[0]['memberof']['count']; $i++) {
+        for ($i = 0; $i < $entries[0]['memberof']['count']; $i++) {
             if ($entries[0]['memberof'][$i] == $groupdn) { return TRUE; }
             elseif (checkGroupEx($ad, $entries[0]['memberof'][$i], $groupdn)) { return TRUE; };
         };

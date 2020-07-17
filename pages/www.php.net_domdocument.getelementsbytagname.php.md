@@ -23,7 +23,7 @@ Note that when using getElementsByTagName that it is a dynamic list. Thus if you
  $nodes = $xml->getElementsByTagName ("oldtag");
 
  $nodeListLength = $nodes->length; // this value will also change
- for ($i = 0; $i &lt; $nodeListLength; $i ++)
+ for ($i = 0; $i < $nodeListLength; $i ++)
  {
     $node = $nodes->item(0);
 

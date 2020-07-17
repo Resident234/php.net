@@ -7,10 +7,10 @@ A proper unicode string split;<br><br>
 ```
 <?php
 function str_split_unicode($str, $l = 0) {
-    if ($l &gt; 0) {
+    if ($l > 0) {
         $ret = array();
         $len = mb_strlen($str, "UTF-8");
-        for ($i = 0; $i &lt; $len; $i += $l) {
+        for ($i = 0; $i < $len; $i += $l) {
             $ret[] = mb_substr($str, $i, $l, "UTF-8");
         }
         return $ret;
@@ -29,7 +29,7 @@ A new version of "str_split_unicode" prev.<br><br>
 <?php
 function str_split_unicode($str, $length = 1) {
     $tmp = preg_split('~~u', $str, -1, PREG_SPLIT_NO_EMPTY);
-    if ($length &gt; 1) {
+    if ($length > 1) {
         $chunks = array_chunk($tmp, $length);
         foreach ($chunks as $i => $chunk) {
             $chunks[$i] = join('', (array) $chunk);

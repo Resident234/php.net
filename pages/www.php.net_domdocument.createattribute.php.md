@@ -25,7 +25,7 @@ $domDocument->appendChild($domElement);
 
 
 Will output:
-&lt;?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 ```
 <br>&lt;field name="attributevalue"&gt;some random data&lt;/field&gt;  
 

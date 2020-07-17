@@ -12,7 +12,7 @@ function array_sort($array, $on, $order=SORT_ASC)
     $new_array = array();
     $sortable_array = array();
 
-    if (count($array) &gt; 0) {
+    if (count($array) > 0) {
         foreach ($array as $k => $v) {
             if (is_array($v)) {
                 foreach ($v as $k2 => $v2) {

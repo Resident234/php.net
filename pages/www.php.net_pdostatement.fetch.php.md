@@ -71,10 +71,9 @@ A quick one liner to get the first entry returned.  This is nice for very basic 
 ```
 <?php
 $count = current($db->query("select count(*) from table")->fetch());
-php
-
+?>
 ```
-<?php  
+php  
 
 #
 

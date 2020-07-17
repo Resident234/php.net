@@ -60,7 +60,7 @@ Here&apos;s a function that will filter a multi-demensional array. This filter w
      * filtering an array
      */
     function filter_by_value ($array, $index, $value){ 
-        if(is_array($array) &amp;&amp; count($array)&gt;0)  
+        if(is_array($array) &amp;&amp; count($array)>0)  
         { 
             foreach(array_keys($array) as $key){
                 $temp[$key] = $array[$key][$index];
@@ -182,7 +182,7 @@ You can access the current key of array by passing a reference to array into cal
 <?php
 $data = array('first' => 1, 'second' => 2, 'third' => 3);
 $data = array_filter($data, function ($item) use (&amp;$data) {
-    echo "Filtering key ", key($data), '&lt;br&gt;', PHP_EOL;
+    echo "Filtering key ", key($data), '<br>', PHP_EOL;
     next($data);
     return false;
 });

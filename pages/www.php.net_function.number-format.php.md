@@ -8,7 +8,7 @@ It&apos;s not explicitly documented; number_format also rounds:<br><br>
 <?php
 $numbers = array(0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009);
 foreach ($numbers as $number)
-    print $number."->".number_format($number, 2, '.', ',')."&lt;br&gt;";
+    print $number."->".number_format($number, 2, '.', ',')."<br>";
 ?>
 ```
 <br><br>0.001-&gt;0.00<br>0.002-&gt;0.00<br>0.003-&gt;0.00<br>0.004-&gt;0.00<br>0.005-&gt;0.01<br>0.006-&gt;0.01<br>0.007-&gt;0.01<br>0.008-&gt;0.01<br>0.009-&gt;0.01  
@@ -33,10 +33,10 @@ Outputs a human readable number.<br><br>
         if(!is_numeric($n)) return false;
         
         // now filter it;
-        if($n&gt;1000000000000) return round(($n/1000000000000),1).' trillion';
-        else if($n&gt;1000000000) return round(($n/1000000000),1).' billion';
-        else if($n&gt;1000000) return round(($n/1000000),1).' million';
-        else if($n&gt;1000) return round(($n/1000),1).' thousand';
+        if($n>1000000000000) return round(($n/1000000000000),1).' trillion';
+        else if($n>1000000000) return round(($n/1000000000),1).' billion';
+        else if($n>1000000) return round(($n/1000000),1).' million';
+        else if($n>1000) return round(($n/1000),1).' thousand';
         
         return number_format($n);
     }

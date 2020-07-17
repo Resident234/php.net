@@ -36,7 +36,7 @@ class Session {
     private static function unserialize_php($session_data) {
         $return_data = array();
         $offset = 0;
-        while ($offset &lt; strlen($session_data)) {
+        while ($offset < strlen($session_data)) {
             if (!strstr(substr($session_data, $offset), "|")) {
                 throw new Exception("invalid data, remaining: " . substr($session_data, $offset));
             }
@@ -54,7 +54,7 @@ class Session {
     private static function unserialize_phpbinary($session_data) {
         $return_data = array();
         $offset = 0;
-        while ($offset &lt; strlen($session_data)) {
+        while ($offset < strlen($session_data)) {
             $num = ord($session_data[$offset]);
             $offset += 1;
             $varname = substr($session_data, $offset, $num);

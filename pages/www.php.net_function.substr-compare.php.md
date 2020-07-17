@@ -9,8 +9,8 @@ When you came to this page, you may have been looking for something a little sim
 
 function contains_substr($mainStr, $str, $loc = false) {
     if ($loc === false) return (strpos($mainStr, $str) !== false);
-    if (strlen($mainStr) &lt; strlen($str)) return false;
-    if (($loc + strlen($str)) &gt; strlen($mainStr)) return false;
+    if (strlen($mainStr) < strlen($str)) return false;
+    if (($loc + strlen($str)) > strlen($mainStr)) return false;
     return (strcmp(substr($mainStr, $loc, strlen($str)), $str) == 0);
 }
 

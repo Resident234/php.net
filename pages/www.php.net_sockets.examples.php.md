@@ -40,7 +40,7 @@ do {
     $read = array_merge($read,$clients);
     
     // Set up a blocking call to socket_select
-    if(socket_select($read,$write = NULL, $except = NULL, $tv_sec = 5) &lt; 1)
+    if(socket_select($read,$write = NULL, $except = NULL, $tv_sec = 5) < 1)
     {
         //    SocketServer::debug("Problem blocking socket_select?");
         continue;

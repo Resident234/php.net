@@ -34,7 +34,7 @@ And if you should ever want to access these servers in PHP:
 
 $servers = explode(",", ini_get("session.save_path"));
 $c = count($servers);
-for ($i = 0; $i &lt; $c; ++$i) {
+for ($i = 0; $i < $c; ++$i) {
   $servers[$i] = explode(":", $servers[$i]);
 }
 $memcached = new \Memcached();

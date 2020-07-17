@@ -11,22 +11,22 @@ For those without the BBCode extension, here&apos;s a relatively elegant functio
         while (preg_match_all('`\[('.$tags.')=?(.*?)\](.+?)\[/\1\]`', $string, $matches)) foreach ($matches[0] as $key => $match) {
             list($tag, $param, $innertext) = array($matches[1][$key], $matches[2][$key], $matches[3][$key]); 
             switch ($tag) { 
-                case 'b': $replacement = "&lt;strong&gt;$innertext&lt;/strong&gt;"; break; 
-                case 'i': $replacement = "&lt;em&gt;$innertext&lt;/em&gt;"; break; 
-                case 'size': $replacement = "&lt;span style=\"font-size: $param;\"&gt;$innertext&lt;/span&gt;"; break; 
-                case 'color': $replacement = "&lt;span style=\"color: $param;\"&gt;$innertext&lt;/span&gt;"; break; 
-                case 'center': $replacement = "&lt;div class=\"centered\"&gt;$innertext&lt;/div&gt;"; break; 
-                case 'quote': $replacement = "&lt;blockquote&gt;$innertext&lt;/blockquote&gt;" . $param? "&lt;cite&gt;$param&lt;/cite&gt;" : ''; break; 
-                case 'url': $replacement = '&lt;a href="' . ($param? $param : $innertext) . "\"&gt;$innertext&lt;/a&gt;"; break; 
+                case 'b': $replacement = "<strong>$innertext</strong>"; break; 
+                case 'i': $replacement = "<em>$innertext</em>"; break; 
+                case 'size': $replacement = "<span style=\"font-size: $param;\">$innertext</span>"; break; 
+                case 'color': $replacement = "<span style=\"color: $param;\">$innertext</span>"; break; 
+                case 'center': $replacement = "<div class=\"centered\">$innertext</div>"; break; 
+                case 'quote': $replacement = "<blockquote>$innertext</blockquote>" . $param? "<cite>$param</cite>" : ''; break; 
+                case 'url': $replacement = '<a href="' . ($param? $param : $innertext) . "\">$innertext</a>"; break; 
                 case 'img': 
                     list($width, $height) = preg_split('`[Xx]`', $param); 
-                    $replacement = "&lt;img src=\"$innertext\" " . (is_numeric($width)? "width=\"$width\" " : '') . (is_numeric($height)? "height=\"$height\" " : '') . '/&gt;'; 
+                    $replacement = "<img src=\"$innertext\" " . (is_numeric($width)? "width=\"$width\" " : '') . (is_numeric($height)? "height=\"$height\" " : '') . '/>'; 
                 break; 
                 case 'video': 
                     $videourl = parse_url($innertext); 
                     parse_str($videourl['query'], $videoquery); 
-                    if (strpos($videourl['host'], 'youtube.com') !== FALSE) $replacement = '&lt;embed src="http://www.youtube.com/v/' . $videoquery['v'] . '" type="application/x-shockwave-flash" width="425" height="344"&gt;&lt;/embed&gt;'; 
-                    if (strpos($videourl['host'], 'google.com') !== FALSE) $replacement = '&lt;embed src="http://video.google.com/googleplayer.swf?docid=' . $videoquery['docid'] . '" width="400" height="326" type="application/x-shockwave-flash"&gt;&lt;/embed&gt;'; 
+                    if (strpos($videourl['host'], 'youtube.com') !== FALSE) $replacement = '<embed src="http://www.youtube.com/v/' . $videoquery['v'] . '" type="application/x-shockwave-flash" width="425" height="344"></embed>'; 
+                    if (strpos($videourl['host'], 'google.com') !== FALSE) $replacement = '<embed src="http://video.google.com/googleplayer.swf?docid=' . $videoquery['docid'] . '" width="400" height="326" type="application/x-shockwave-flash"></embed>'; 
                 break; 
             } 
             $string = str_replace($match, $replacement, $string); 

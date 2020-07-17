@@ -84,7 +84,7 @@ class Method {
     public static function inMultiArray($element, array $array, bool $strict = true) : bool {
         self::$currentMultiArrayExec++;
 
-        if(self::$currentMultiArrayExec &gt;= ini_get("xdebug.max_nesting_level")) return false;
+        if(self::$currentMultiArrayExec >= ini_get("xdebug.max_nesting_level")) return false;
 
         foreach($array as $key => $value){
             $bool = $strict ? $element === $key : $element == $key;
@@ -189,7 +189,7 @@ If you found yourself in need of a multidimensional array in_array like function
     {
         $top = sizeof($array) - 1;
         $bottom = 0;
-        while($bottom &lt;= $top)
+        while($bottom <= $top)
         {
             if($array[$bottom] == $elem)
                 return true;

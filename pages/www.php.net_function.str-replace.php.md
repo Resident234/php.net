@@ -45,8 +45,8 @@ Note that this does not replace strings that become part of replacement strings.
 ```
 <?php
 $challenge = '-aaa----b-c-----d--e---f';
-echo str_replace('--', '-', $challenge).'&lt;br&gt;';
-echo preg_replace('/--+/', '-', $challenge).'&lt;br&gt;';
+echo str_replace('--', '-', $challenge).'<br>';
+echo preg_replace('/--+/', '-', $challenge).'<br>';
 ?>
 ```
 <br><br>This outputs the following:<br>-aaa--b-c---d-e--f<br>-aaa-b-c-d-e-f  

@@ -7,11 +7,11 @@ If a new namespace is introduced while creating and inserting an attribute, crea
 ```
 <?php
     
-    $source = &lt;&lt;&lt;XML
-&lt;?xml version="1.0" encoding="UTF-8"?>
+    $source = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
 ```
 
-&lt;root&gt;&lt;tag&gt;&lt;/tag&gt;&lt;/root&gt;
+<root><tag></tag></root>
 XML;
     
     /*
@@ -33,10 +33,10 @@ XML;
     /*
       Result: The namespace declaration appears, having been added to the document element. Output:
       
-      &lt;?xml version="1.0" encoding="UTF-8"?>
+      <?xml version="1.0" encoding="UTF-8"?>
 ```
 
-      &lt;root xmlns:example="{namespace_uri_here}"&gt;&lt;tag/&gt;&lt;/root&gt;
+      <root xmlns:example="{namespace_uri_here}"><tag/></root>
       
     */
     
@@ -49,10 +49,10 @@ XML;
     /*
       Result: The "namespace'd" attribute shows up as well. Output:
       
-      &lt;?xml version="1.0" encoding="UTF-8"?>
+      <?xml version="1.0" encoding="UTF-8"?>
 ```
 
-      &lt;root xmlns:example="{namespace_uri_here}"&gt;&lt;tag example:attr="value"/&gt;&lt;/root&gt;
+      <root xmlns:example="{namespace_uri_here}"><tag example:attr="value"/></root>
       
     */
     
@@ -75,10 +75,10 @@ XML;
     /*
       Result: The document remains unchanged. Output:
       
-      &lt;?xml version="1.0" encoding="UTF-8"?>
+      <?xml version="1.0" encoding="UTF-8"?>
 ```
 
-      &lt;root&gt;&lt;tag/&gt;&lt;/root&gt;
+      <root><tag/></root>
       
     */
     
@@ -90,10 +90,10 @@ XML;
     /*
       Result: The namespace declaration appears, and it is embedded in the element using it. Output:
       
-      &lt;?xml version="1.0" encoding="UTF-8"?>
+      <?xml version="1.0" encoding="UTF-8"?>
 ```
 
-      &lt;root&gt;&lt;tag&gt;&lt;example:newtag xmlns:example="{namespace_uri_here}"/&gt;&lt;/tag&gt;&lt;/root&gt;
+      <root><tag><example:newtag xmlns:example="{namespace_uri_here}"/></tag></root>
       
     */
     

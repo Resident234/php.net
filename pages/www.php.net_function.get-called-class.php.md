@@ -57,7 +57,63 @@ new static();
 
 #
 
-get_called_class() in closure-scopes:<br><br>&lt;?PHP<br>    ABSTRACT CLASS Base<br>    {<br>        protected static $stub = [&apos;baz&apos;];<br>        <br>        //final public function boot()<br>        static public function boot()<br>        {<br>            print __METHOD__.&apos;-&gt; &apos;.get_called_class().PHP_EOL;<br>            <br>            array_walk(static::$stub, function()<br>            {<br>                print __METHOD__.&apos;-&gt; &apos;.get_called_class().PHP_EOL;<br>            });<br>        }<br>        <br>        public function __construct()<br>        {<br>            self::boot();<br>            print __METHOD__.&apos;-&gt; &apos;.get_called_class().PHP_EOL;<br>            <br>            array_walk(static::$stub, function()<br>            {<br>                print __METHOD__.&apos;-&gt; &apos;.get_called_class().PHP_EOL;<br>            });<br>        }<br>    }<br>    <br>    CLASS Sub EXTENDS Base<br>    {<br>    }<br>    <br>    // static boot<br>        Base::boot(); print PHP_EOL;<br>            // Base::boot        -&gt; Base<br>            // Base::{closure}    -&gt; Base<br>            <br>        Sub::boot(); print PHP_EOL;<br>            // Base::boot        -&gt; Sub<br>            // Base::{closure}    -&gt; Base<br>            <br>        new sub;<br>            // Base::boot        -&gt; Sub<br>            // Base::{closure}    -&gt; Base<br>            // Base-&gt;__construct    -&gt; Sub<br>            // Base-&gt;{closure}    -&gt; Sub<br>    <br>    // instance boot<br>        new sub;<br>            // Base-&gt;boot        -&gt; Sub<br>            // Base-&gt;{closure}    -&gt; Sub<br>            // Base-&gt;__construct    -&gt; Sub<br>            // Base-&gt;{closure}    -&gt; Sub<br>?>
+get_called_class() in closure-scopes:<br><br>
+
+```
+<?php
+    ABSTRACT CLASS Base
+    {
+        protected static $stub = ['baz'];
+        
+        //final public function boot()
+        static public function boot()
+        {
+            print __METHOD__.'-> '.get_called_class().PHP_EOL;
+            
+            array_walk(static::$stub, function()
+            {
+                print __METHOD__.'-> '.get_called_class().PHP_EOL;
+            });
+        }
+        
+        public function __construct()
+        {
+            self::boot();
+            print __METHOD__.'-> '.get_called_class().PHP_EOL;
+            
+            array_walk(static::$stub, function()
+            {
+                print __METHOD__.'-> '.get_called_class().PHP_EOL;
+            });
+        }
+    }
+    
+    CLASS Sub EXTENDS Base
+    {
+    }
+    
+    // static boot
+        Base::boot(); print PHP_EOL;
+            // Base::boot        -> Base
+            // Base::{closure}    -> Base
+            
+        Sub::boot(); print PHP_EOL;
+            // Base::boot        -> Sub
+            // Base::{closure}    -> Base
+            
+        new sub;
+            // Base::boot        -> Sub
+            // Base::{closure}    -> Base
+            // Base->__construct    -> Sub
+            // Base->{closure}    -> Sub
+    
+    // instance boot
+        new sub;
+            // Base->boot        -> Sub
+            // Base->{closure}    -> Sub
+            // Base->__construct    -> Sub
+            // Base->{closure}    -> Sub
+?>
 ```
   
 

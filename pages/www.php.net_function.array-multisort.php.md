@@ -158,7 +158,7 @@ USort function can be used to sort multidimensional arrays with almost no work w
      usort($results, "custom_sort");
      // Define the custom sort function
      function custom_sort($a,$b) {
-          return $a['some_sub_var']&gt;$b['some_sub_var'];
+          return $a['some_sub_var']>$b['some_sub_var'];
      }
 ?>
 ```
@@ -180,7 +180,7 @@ foreach($multiArray as &amp;$ma)
     $tmp[] = &amp;$ma["name"];
 array_multisort($tmp, $multiArray);
 foreach($multiArray as &amp;$ma)
-    echo $ma["name"]."&lt;br/&gt;";
+    echo $ma["name"]."<br/>";
                 
 /* Outputs
     Abcd

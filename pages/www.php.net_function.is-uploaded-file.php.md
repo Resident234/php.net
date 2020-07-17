@@ -2,9 +2,7 @@
 
 
 
-Note that calling this function before move_uploaded_file() is not necessary, as it does the exact same checks already. It provides no extra security. Only when you&apos;re trying to use an uploaded file for something other than moving it to a new location.<br><br>Reference:<br>https://github.com/php/?>
-```
-src/blob/master/ext/standard/basic_functions.c#L5796  
+Note that calling this function before move_uploaded_file() is not necessary, as it does the exact same checks already. It provides no extra security. Only when you&apos;re trying to use an uploaded file for something other than moving it to a new location.<br><br>Reference:<br>https://github.com/php/php-src/blob/master/ext/standard/basic_functions.c#L5796  
 
 #
 

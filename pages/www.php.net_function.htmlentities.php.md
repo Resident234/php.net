@@ -18,7 +18,7 @@ XSS possible (insecure):
 ```
 <?php
 $href = htmlEntities($_GET['a']);
-print "&lt;body bgcolor='$href'&gt;"; # results in: &lt;body bgcolor='#000' onload='alert(document.cookie)'&gt;
+print "<body bgcolor='$href'>"; # results in: <body bgcolor='#000' onload='alert(document.cookie)'>
 ?>
 ```
 
@@ -30,7 +30,7 @@ Use the 'ENT_QUOTES' quote style option, to ensure no XSS is possible and your a
 ```
 <?php
 $href = htmlEntities($_GET['a'], ENT_QUOTES);
-print "&lt;body bgcolor='$href'&gt;"; # results in: &lt;body bgcolor='#000&amp;#039; onload=&amp;#039;alert(document.cookie)'&gt;
+print "<body bgcolor='$href'>"; # results in: <body bgcolor='#000&amp;#039; onload=&amp;#039;alert(document.cookie)'>
 ?>
 ```
 
@@ -43,7 +43,7 @@ The 'ENT_QUOTES' option doesn't protect you against javascript evaluation in cer
 <?php
 $_GET['a'] = 'javascript:alert(document.cookie)';
 $href = htmlEntities($_GET['a'], ENT_QUOTES);
-print "&lt;a href='$href'&gt;link&lt;/a&gt;"; # results in: &lt;a href='javascript:alert(document.cookie)'&gt;link&lt;/a&gt;
+print "<a href='$href'>link</a>"; # results in: <a href='javascript:alert(document.cookie)'>link</a>
 ?>
 ```
   
@@ -70,7 +70,7 @@ function encode_named_entities($str) {
     global $entities_table;
     
     $encoded_str = '';
-    for($i = 0; $i &lt; strlen($str); $i++) {
+    for($i = 0; $i < strlen($str); $i++) {
         $ent = @$entities_table[ord($str{$i})];
         if($ent) {
             $encoded_str .= "&amp;$ent;";
@@ -111,18 +111,18 @@ The following will make a string completely safe for XML:<br><br>
 function philsXMLClean($strin) {
         $strout = null;
 
-        for ($i = 0; $i &lt; strlen($strin); $i++) {
+        for ($i = 0; $i < strlen($strin); $i++) {
                 $ord = ord($strin[$i]);
 
-                if (($ord &gt; 0 &amp;&amp; $ord &lt; 32) || ($ord &gt;= 127)) {
+                if (($ord > 0 &amp;&amp; $ord < 32) || ($ord >= 127)) {
                         $strout .= "&amp;amp;#{$ord};";
                 }
                 else {
                         switch ($strin[$i]) {
-                                case '&lt;':
+                                case '<':
                                         $strout .= '&amp;lt;';
                                         break;
-                                case '&gt;':
+                                case '>':
                                         $strout .= '&amp;gt;';
                                         break;
                                 case '&amp;':

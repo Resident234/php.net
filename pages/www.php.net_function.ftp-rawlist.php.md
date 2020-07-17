@@ -21,7 +21,7 @@ Here&apos;s a simple function that&apos;ll parse the data returned by ftp_rawlis
             return $items;
         }
 
-        // Throw exception or return false &lt; up to you
+        // Throw exception or return false < up to you
     }
 ?>
 ```

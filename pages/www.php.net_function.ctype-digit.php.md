@@ -8,7 +8,7 @@ All basic PHP functions which i tried returned unexpected results. I would just 
 <?php
     /**
      * Check input for existing only of digits (numbers)
-     * @author Tim Boormans &lt;info@directwebsolutions.nl&gt;
+     * @author Tim Boormans <info@directwebsolutions.nl>
      * @param $digit
      * @return bool
      */
@@ -41,11 +41,39 @@ Also note that<br><br>
 
 #
 
-Interesting to note that you must pass a STRING to this function, other values won&apos;t be typecasted (I figured it would even though above explicitly says string $text).<br><br>I.E.<br><br>&lt;?PHP<br>$val = 42; //Answer to life<br>$x = ctype_digit($val);<br>?>
+Interesting to note that you must pass a STRING to this function, other values won&apos;t be typecasted (I figured it would even though above explicitly says string $text).<br><br>I.E.<br><br>
+
 ```
-<br><br>Will return false, even though, when typecasted to string, it would be true.<br><br>&lt;?PHP<br>$val = &apos;42&apos;;<br>$x = ctype_digit($val);<br>?>
+<?php
+$val = 42; //Answer to life
+$x = ctype_digit($val);
+?>
 ```
-<br><br>Returns True.<br><br>Could do this too:<br><br>&lt;?PHP<br>$val = 42;<br>$x = ctype_digit((string) $val);<br>?>
+
+
+Will return false, even though, when typecasted to string, it would be true.
+
+
+
+```
+<?php
+$val = '42';
+$x = ctype_digit($val);
+?>
+```
+
+
+Returns True.
+
+Could do this too:
+
+
+
+```
+<?php
+$val = 42;
+$x = ctype_digit((string) $val);
+?>
 ```
 <br><br>Which will also return true, as it should.  
 

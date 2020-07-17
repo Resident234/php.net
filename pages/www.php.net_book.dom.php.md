@@ -10,18 +10,18 @@ If you need simple interface to DOM check out phpQuery - jQuery port to PHP:<br>
 require('phpQuery/phpQuery.php');
 
 $html = '
-&lt;div&gt;
+<div>
     mydiv
-    &lt;ul&gt;
-        &lt;li&gt;1&lt;/li&gt;
-        &lt;li&gt;2&lt;/li&gt;
-        &lt;li&gt;3&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/div&gt;';
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</div>';
 
 // intialize new DOM from markup
 phpQuery::newDocument($markup)
-    ->find('ul &gt; li')
+    ->find('ul > li')
         ->addClass('my-new-class')
         ->filter(':last')
             ->addClass('last-li');

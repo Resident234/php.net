@@ -32,7 +32,7 @@ A simple PHP script using socket_select() to manage multiple connections.<br>con
         
         // get a list of all the clients that have data to be read from
         // if there are no clients with data, go to next iteration
-        if (socket_select($read, $write = NULL, $except = NULL, 0) &lt; 1)
+        if (socket_select($read, $write = NULL, $except = NULL, 0) < 1)
             continue;
         
         // check if there is a client trying to connect

@@ -12,7 +12,7 @@ $list = json_decode('{"706":2,"703":2,"702":2,"696":2,"658":2}', true);
 print_r($list);
 
 arsort($list);
-echo "&lt;br&gt;";
+echo "<br>";
 
 print_r($list);
 

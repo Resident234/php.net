@@ -29,7 +29,7 @@ function str_pad_unicode($str, $pad_len, $pad_str = ' ', $dir = STR_PAD_RIGHT) {
     if (!$str_len &amp;&amp; ($dir == STR_PAD_RIGHT || $dir == STR_PAD_LEFT)) {
         $str_len = 1; // @debug
     }
-    if (!$pad_len || !$pad_str_len || $pad_len &lt;= $str_len) {
+    if (!$pad_len || !$pad_str_len || $pad_len <= $str_len) {
         return $str;
     }
     
@@ -62,7 +62,7 @@ Test;
 <?php
 // needs ie. "test.php" file encoded in "utf-8 without bom"
 $s = '...';
-for ($i = 3; $i &lt;= 1000; $i++) {
+for ($i = 3; $i <= 1000; $i++) {
     $s1 = str_pad($s, $i, 'AO', STR_PAD_BOTH); // can not inculde unicode char!!!
     $s2 = str_pad_unicode($s, $i, '&#xC4;&#xD6;', STR_PAD_BOTH);
     $sl1 = strlen($s1);

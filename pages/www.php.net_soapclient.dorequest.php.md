@@ -49,8 +49,8 @@ class MSSoapClient extends SoapClient {
     function __doRequest($request, $location, $action, $version) {
         $namespace = "http://tempuri.com";
 
-        $request = preg_replace('/&lt;ns1:(\w+)/', '&lt;$1 xmlns="'.$namespace.'"', $request, 1);
-        $request = preg_replace('/&lt;ns1:(\w+)/', '&lt;$1', $request);
+        $request = preg_replace('/<ns1:(\w+)/', '<$1 xmlns="'.$namespace.'"', $request, 1);
+        $request = preg_replace('/<ns1:(\w+)/', '<$1', $request);
         $request = str_replace(array('/ns1:', 'xmlns:ns1="'.$namespace.'"'), array('/', ''), $request);
 
         // parent call

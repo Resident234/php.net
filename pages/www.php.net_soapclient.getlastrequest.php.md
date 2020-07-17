@@ -32,10 +32,10 @@ $client=new SoapClient('some.wsdl',$option);
 try{
   $client->aMethodAtRemote();
 }catch(SoapFault $fault){
-  // &lt;xmp&gt; tag displays xml output in html
-  echo 'Request : &lt;br/&gt;&lt;xmp&gt;',
+  // <xmp> tag displays xml output in html
+  echo 'Request : <br/><xmp>',
   $client->__getLastRequest(),
-  '&lt;/xmp&gt;&lt;br/&gt;&lt;br/&gt; Error Message : &lt;br/&gt;',
+  '</xmp><br/><br/> Error Message : <br/>',
   $fault->getMessage();
 }
 ?>

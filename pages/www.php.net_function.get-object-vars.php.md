@@ -21,7 +21,7 @@ class Potatoe {
 
 $Obj = new Potatoe ( 1, 2, 3 );
 
-echo "&lt;pre&gt;\n";
+echo "<pre>\n";
 echo "Using get_object_vars:\n";
 
 $vars = get_object_vars ( $Obj );
@@ -83,7 +83,7 @@ function obj2array ( &amp;$Instance ) {
 ```
 
 
-I've created also a &lt;i&gt;bless&lt;/i&gt; function that works similar to Perl's bless, so you can further recast the array converting it in an object of an specific class:
+I've created also a <i>bless</i> function that works similar to Perl's bless, so you can further recast the array converting it in an object of an specific class:
 
 
 
@@ -144,7 +144,7 @@ class Potatoe {
 
 $Obj = new Potatoe ( 1, 2, 3 );
 
-echo "&lt;pre&gt;\n";
+echo "<pre>\n";
 echo "Using get_object_vars:\n";
 
 $vars = get_object_vars ( $Obj );

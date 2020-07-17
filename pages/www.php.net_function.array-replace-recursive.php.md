@@ -37,7 +37,7 @@ if (!function_exists('array_replace_recursive'))
     {
       return $array;
     }
-    for ($i = 1; $i &lt; count($args); $i++)
+    for ($i = 1; $i < count($args); $i++)
     {
       if (is_array($args[$i]))
       {

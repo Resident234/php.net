@@ -88,9 +88,31 @@ if (array_key_exists('myvar', get_defined_vars())) {
 
 #
 
-in PHP5, if you have <br><br>&lt;?PHP<br>class Foo<br>{<br>    protected $data = array(&apos;bar&apos; =&gt; null);<br><br>    function __get($p)<br>    {<br>        if( isset($this-&gt;data[$p]) ) return $this-&gt;data[$p];<br>    }<br>}<br>?>
+in PHP5, if you have <br><br>
+
 ```
-<br><br>and<br>&lt;?PHP<br>$foo = new Foo;<br>echo isset($foo-&gt;bar);<br>?>
+<?php
+class Foo
+{
+    protected $data = array('bar' => null);
+
+    function __get($p)
+    {
+        if( isset($this->data[$p]) ) return $this->data[$p];
+    }
+}
+?>
+```
+
+
+and
+
+
+```
+<?php
+$foo = new Foo;
+echo isset($foo->bar);
+?>
 ```
 <br>will always echo &apos;false&apos;. because the isset() accepts VARIABLES as it parameters, but in this case, $foo-&gt;bar is NOT a VARIABLE. it is a VALUE returned from the __get() method of the class Foo. thus the isset($foo-&gt;bar) expreesion will always equal &apos;false&apos;.  
 
@@ -196,7 +218,7 @@ function nz_int($arr_or_obj, $key_or_prop, $else){
 }
 
 $my_id = nz_int($_REQUEST, 'id', 0);
-if($my_id &gt; 0){
+if($my_id > 0){
   //why?
 }
 ?>
@@ -210,7 +232,7 @@ Sometimes you have to check if an array has some keys. To achieve it you can use
 ```
 <?php
 function isset_array() {
-    if (func_num_args() &lt; 2) return true;
+    if (func_num_args() < 2) return true;
     $args = func_get_args();
     $array = array_shift($args);
     if (!is_array($array)) return false;

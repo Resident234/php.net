@@ -88,20 +88,6 @@ $date = DateTime::createFromFormat("Y-m-d\TH:i:s.uP", "2017-07-25T15:25:16.12345
 
 #
 
-Say if there is a string with  $date = "today is 2014 January 1";   and you need to extract "2014 January" using DateTime::createFromFormat().  As you can see in the string there is something odd like "today is" .Since that string (today is) does not correspond to a date format, we need to escape that. <br><br>In this case, each and every character on that string has to be escaped as shown below.<br><br>The code.<br><br>
-
-```
-<?php
-$paragraph = "today is 2014 January 1";
-$date = DateTime::createFromFormat('\t\o\d\a\y \i\s Y F j', $paragraph);
-echo $date->format('Y F'); //"prints" 2014 January
-
-- Shankar Damodaran?>
-```
-  
-
-#
-
 createFromFormat(&apos;U&apos;) has a strange behaviour: it ignores the datetimezone and the resulting DateTime object will always have GMT+0000 timezone.<br><br>
 
 ```
@@ -129,6 +115,20 @@ $dt = \DateTime::createFromFormat('U.u', microtime(true))->setTimezone(new \Date
 
 #
 
+Say if there is a string with  $date = "today is 2014 January 1";   and you need to extract "2014 January" using DateTime::createFromFormat().  As you can see in the string there is something odd like "today is" .Since that string (today is) does not correspond to a date format, we need to escape that. <br><br>In this case, each and every character on that string has to be escaped as shown below.<br><br>The code.<br><br>
+
+```
+<?php
+$paragraph = "today is 2014 January 1";
+$date = DateTime::createFromFormat('\t\o\d\a\y \i\s Y F j', $paragraph);
+echo $date->format('Y F'); //"prints" 2014 January
+
+- Shankar Damodaran?>
+```
+  
+
+#
+
 Reportedly, microtime() may return a timestamp number without a fractional part if the microseconds are exactly zero.  I.e., "1463772747" instead of the expected "1463772747.000000".  number_format() can create a correct string representation of the microsecond timestamp every time, which can be useful for creating DateTime objects when used with DateTime::createFromFormat():<br><br>
 
 ```
@@ -140,12 +140,7 @@ var_dump($now->format('Y-m-d H:i:s.u')); // E.g., string(26) "2016-05-20 19:36:2
 
 #
 
-If you&apos;re here because you&apos;re trying to create a date from a week number, you want to be using setISODate, as I discovered here:<br><br>http://www.lornajane.net/posts/2011/getting-dates-from-week-numbers-in
-
-```
-<?php?>
-```
-  
+If you&apos;re here because you&apos;re trying to create a date from a week number, you want to be using setISODate, as I discovered here:<br><br>http://www.lornajane.net/posts/2011/getting-dates-from-week-numbers-in-php  
 
 #
 

@@ -28,7 +28,7 @@ If you want to keep the order when two members compare as equal, use this.<br>
 <?php
 
 function stable_uasort(&amp;$array, $cmp_function) {
-    if(count($array) &lt; 2) {
+    if(count($array) < 2) {
         return;
     }
     $halfway = count($array) / 2;
@@ -37,7 +37,7 @@ function stable_uasort(&amp;$array, $cmp_function) {
 
     stable_uasort($array1, $cmp_function);
     stable_uasort($array2, $cmp_function);
-    if(call_user_func($cmp_function, end($array1), reset($array2)) &lt; 1) {
+    if(call_user_func($cmp_function, end($array1), reset($array2)) < 1) {
         $array = $array1 + $array2;
         return;
     }
@@ -45,7 +45,7 @@ function stable_uasort(&amp;$array, $cmp_function) {
     reset($array1);
     reset($array2);
     while(current($array1) &amp;&amp; current($array2)) {
-        if(call_user_func($cmp_function, current($array1), current($array2)) &lt; 1) {
+        if(call_user_func($cmp_function, current($array1), current($array2)) < 1) {
             $array[key($array1)] = current($array1);
             next($array1);
         } else {
@@ -68,7 +68,7 @@ function cmp($a, $b) {
     if($a['n'] == $b['n']) {
         return 0;
     }
-    return ($a['n'] &gt; $b['n']) ? -1 : 1;
+    return ($a['n'] > $b['n']) ? -1 : 1;
 }
 
 $a = $b = array(

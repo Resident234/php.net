@@ -36,11 +36,11 @@ function money_format($format, $number)
         $flags = array(
             'fillchar'  => preg_match('/\=(.)/', $fmatch[1], $match) ?
                            $match[1] : ' ',
-            'nogroup'   => preg_match('/\^/', $fmatch[1]) &gt; 0,
+            'nogroup'   => preg_match('/\^/', $fmatch[1]) > 0,
             'usesignal' => preg_match('/\+|\(/', $fmatch[1], $match) ?
                            $match[0] : '+',
-            'nosimbol'  => preg_match('/\!/', $fmatch[1]) &gt; 0,
-            'isleft'    => preg_match('/\-/', $fmatch[1]) &gt; 0
+            'nosimbol'  => preg_match('/\!/', $fmatch[1]) > 0,
+            'isleft'    => preg_match('/\-/', $fmatch[1]) > 0
         );
         $width      = trim($fmatch[2]) ? (int)$fmatch[2] : 0;
         $left       = trim($fmatch[3]) ? (int)$fmatch[3] : 0;
@@ -48,7 +48,7 @@ function money_format($format, $number)
         $conversion = $fmatch[5];
 
         $positive = true;
-        if ($value &lt; 0) {
+        if ($value < 0) {
             $positive = false;
             $value  *= -1;
         }
@@ -90,7 +90,7 @@ function money_format($format, $number)
         $value = @explode($locale['mon_decimal_point'], $value);
 
         $n = strlen($prefix) + strlen($currency) + strlen($value[0]);
-        if ($left &gt; 0 &amp;&amp; $left &gt; $n) {
+        if ($left > 0 &amp;&amp; $left > $n) {
             $value[0] = str_repeat($flags['fillchar'], $left - $n) . $value[0];
         }
         $value = implode($locale['mon_decimal_point'], $value);
@@ -99,7 +99,7 @@ function money_format($format, $number)
         } else {
             $value = $prefix . $value . $space . $currency . $suffix;
         }
-        if ($width &gt; 0) {
+        if ($width > 0) {
             $value = str_pad($value, $width, $flags['fillchar'], $flags['isleft'] ?
                      STR_PAD_RIGHT : STR_PAD_LEFT);
         }

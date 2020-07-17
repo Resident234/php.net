@@ -8,12 +8,12 @@ As ord() doesn&apos;t work with utf-8, and if you do not have access to mb_* fun
 <?php
 function ordutf8($string, &amp;$offset) {
     $code = ord(substr($string, $offset,1)); 
-    if ($code &gt;= 128) {        //otherwise 0xxxxxxx
-        if ($code &lt; 224) $bytesnumber = 2;                //110xxxxx
-        else if ($code &lt; 240) $bytesnumber = 3;        //1110xxxx
-        else if ($code &lt; 248) $bytesnumber = 4;    //11110xxx
-        $codetemp = $code - 192 - ($bytesnumber &gt; 2 ? 32 : 0) - ($bytesnumber &gt; 3 ? 16 : 0);
-        for ($i = 2; $i &lt;= $bytesnumber; $i++) {
+    if ($code >= 128) {        //otherwise 0xxxxxxx
+        if ($code < 224) $bytesnumber = 2;                //110xxxxx
+        else if ($code < 240) $bytesnumber = 3;        //1110xxxx
+        else if ($code < 248) $bytesnumber = 4;    //11110xxx
+        $codetemp = $code - 192 - ($bytesnumber > 2 ? 32 : 0) - ($bytesnumber > 3 ? 16 : 0);
+        for ($i = 2; $i <= $bytesnumber; $i++) {
             $offset ++;
             $code2 = ord(substr($string, $offset, 1)) - 128;        //10xxxxxx
             $codetemp = $codetemp*64 + $code2;
@@ -21,7 +21,7 @@ function ordutf8($string, &amp;$offset) {
         $code = $codetemp;
     }
     $offset += 1;
-    if ($offset &gt;= strlen($string)) $offset = -1;
+    if ($offset >= strlen($string)) $offset = -1;
     return $code;
 }
 ?>
@@ -34,7 +34,7 @@ $offset is a reference, as it is not easy to split a utf-8 char-by-char. Useful 
 <?php
 $text = "abc&#xE0;&#xEA;&#xDF;&#x20AC;abc";
 $offset = 0;
-while ($offset &gt;= 0) {
+while ($offset >= 0) {
     echo $offset.": ".ordutf8($text, $offset)."\n";
 }
 /* returns:

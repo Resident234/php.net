@@ -50,8 +50,8 @@ The recursion in regular expressions is the only way to allow the parsing of HTM
 // test function:
 function parse($html) {
     // I have split the pattern in two lines not to have long lines alerts by the PHP.net form:
-    $pattern = "/&lt;([\w]+)([^&gt;]*?)(([\s]*\/&gt;)|".
-    "(&gt;((([^&lt;]*?|&lt;\!\-\-.*?\-\->)|(?R))*)&lt;\/\\1[\s]*&gt;))/sm";
+    $pattern = "/<([\w]+)([^>]*?)(([\s]*\/>)|".
+    "(>((([^<]*?|<\!\-\-.*?\-\->)|(?R))*)<\/\\1[\s]*>))/sm";
     preg_match_all($pattern, $html, $matches, PREG_OFFSET_CAPTURE);
     $elements = array();
     
@@ -61,7 +61,7 @@ function parse($html) {
             'offset' => $match[1],
             'tagname' => $matches[1][$key][0],
             'attributes' => isset($matches[2][$key][0]) ? $matches[2][$key][0] : '',
-            'omittag' => ($matches[4][$key][1] &gt; -1), // boolean
+            'omittag' => ($matches[4][$key][1] > -1), // boolean
             'inner_html' => isset($matches[6][$key][0]) ? $matches[6][$key][0] : ''
         );
     }
@@ -69,40 +69,40 @@ function parse($html) {
 }
 
 // random html nodes as example:
-$html = &lt;&lt;&lt;EOD
-&lt;div id="airport"&gt;
-    &lt;div geo:position="1.234324,3.455546" class="index"&gt;
-        &lt;!-- comment test:
-        &lt;div class="index_top" /&gt;
+$html = <<<EOD
+<div id="airport">
+    <div geo:position="1.234324,3.455546" class="index">
+        <!-- comment test:
+        <div class="index_top" />
         -->
-        &lt;div class="element decorator"&gt;
-                &lt;ul class="lister"&gt;
-                    &lt;li onclick="javascript:item.showAttribute('desc');"&gt;
-                        &lt;h3 class="outline"&gt;
-                            &lt;a href="http://php.net/manual/en/regexp.reference.recursive.php" onclick="openPopup()"&gt;Link&lt;/a&gt;
-                        &lt;/h3&gt;
-                        &lt;div class="description"&gt;Sample description&lt;/div&gt;
-                    &lt;/li&gt;
-                &lt;/ul&gt;
-        &lt;/div&gt;
-        &lt;div class="clean-line"&gt;&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="omittag_test" rel="rootChild" /&gt;
+        <div class="element decorator">
+                <ul class="lister">
+                    <li onclick="javascript:item.showAttribute('desc');">
+                        <h3 class="outline">
+                            <a href="http://php.net/manual/en/regexp.reference.recursive.php" onclick="openPopup()">Link</a>
+                        </h3>
+                        <div class="description">Sample description</div>
+                    </li>
+                </ul>
+        </div>
+        <div class="clean-line"></div>
+    </div>
+</div>
+<div id="omittag_test" rel="rootChild" />
 EOD;
 
 // application:
 $elements = parse($html);
 
-if (count($elements) &gt; 0) {
-    echo "Elements found: &lt;b&gt;".count($elements)."&lt;/b&gt;&lt;br /&gt;";
+if (count($elements) > 0) {
+    echo "Elements found: <b>".count($elements)."</b><br />";
     
     foreach ($elements as $element) {
-        echo "&lt;p&gt;Tpl node: &lt;pre&gt;".htmlentities($element->node)."&lt;/pre&gt;
-        Tagname: &lt;tt&gt;".$element->tagname."&lt;/tt&gt;&lt;br /&gt;
-        Attributes: &lt;tt&gt;".$element->attributes."&lt;/tt&gt;&lt;br /&gt;
-        Omittag: &lt;tt&gt;".($element->omittag ? 'true' : 'false')."&lt;/tt&gt;&lt;br /&gt;
-        Inner HTML: &lt;pre&gt;".htmlentities($element->inner_html)."&lt;/pre&gt;&lt;/p&gt;";
+        echo "<p>Tpl node: <pre>".htmlentities($element->node)."</pre>
+        Tagname: <tt>".$element->tagname."</tt><br />
+        Attributes: <tt>".$element->attributes."</tt><br />
+        Omittag: <tt>".($element->omittag ? 'true' : 'false')."</tt><br />
+        Inner HTML: <pre>".htmlentities($element->inner_html)."</pre></p>";
     }
 }
 ?>

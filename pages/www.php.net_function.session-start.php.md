@@ -139,7 +139,7 @@ $data->nickname = 'Someone';
 $data->age = 18;
 
 // Let's display datas
-printf( '&lt;p&gt;My name is %s and I\'m %d years old.&lt;/p&gt;' , $data->nickname , $data->age );
+printf( '<p>My name is %s and I\'m %d years old.</p>' , $data->nickname , $data->age );
 
 /*
     It will display:
@@ -151,7 +151,7 @@ printf( '&lt;p&gt;My name is %s and I\'m %d years old.&lt;/p&gt;' , $data->nickn
     )
 */
 
-printf( '&lt;pre&gt;%s&lt;/pre&gt;' , print_r( $_SESSION , TRUE ));
+printf( '<pre>%s</pre>' , print_r( $_SESSION , TRUE ));
 
 // TRUE
 var_dump( isset( $data->nickname ));
@@ -230,14 +230,7 @@ session_write_close();
 do_something_slow();
 ?>
 ```
-
-
-Found this out from http://konrness.com/php5/how-to-prevent-blocking
-
-```
-<??>
-```
-requests/  
+<br><br>Found this out from http://konrness.com/php5/how-to-prevent-blocking-php-requests/  
 
 #
 
@@ -274,7 +267,7 @@ session_start(); //initiate / open session
 $_SESSION['count'] = 0; // store something in the session
 session_write_close(); //now close it, 
 # from here every other script can be run (and makes it seem like multitasking)
-for($i=0; $i&lt;=100; $i++){ //do 100 cycles
+for($i=0; $i<=100; $i++){ //do 100 cycles
     session_start(); //open the session again for editing a variable
     $_SESSION['count'] += 1; //change variable
     session_write_close(); //now close the session again!

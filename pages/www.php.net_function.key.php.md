@@ -34,7 +34,7 @@ $array = array(
 
 while ($fruit_name = current($array)) {
 
-        echo key($array).'&lt;br /&gt;';
+        echo key($array).'<br />';
        next($array);
 }
 
@@ -43,7 +43,7 @@ while ($fruit_name = current($array)) {
 // correct approach
 while ( ($fruit_name = current($array)) !== FALSE ) {
 
-        echo key($array).'&lt;br /&gt;';
+        echo key($array).'<br />';
        next($array);
 }
 //this will work properly

@@ -11,7 +11,7 @@ I&apos;ve done a small comparison between array_push() and the $array[] method a
 ```
 <?php
 $array = array();
-for ($x = 1; $x &lt;= 100000; $x++)
+for ($x = 1; $x <= 100000; $x++)
 {
     $array[] = $x;
 }
@@ -27,7 +27,7 @@ and
 ```
 <?php
 $array = array();
-for ($x = 1; $x &lt;= 100000; $x++)
+for ($x = 1; $x <= 100000; $x++)
 {
     array_push($array, $x);
 }
@@ -104,7 +104,7 @@ class timer
 echo "Adding 100k elements to array with []\n\n";
 $ta = array();
 $test = new Timer();
-for ($i = 0; $i &lt; 100000; $i++)
+for ($i = 0; $i < 100000; $i++)
 {
         $ta[] = $i;
 }
@@ -113,7 +113,7 @@ echo $test->GetDiff();
 
 echo "\n\nAdding 100k elements to array with array_push\n\n";
 $test->Reset();
-for ($i = 0; $i &lt; 100000; $i++)
+for ($i = 0; $i < 100000; $i++)
 {
         array_push($ta,$i);
 }
@@ -122,7 +122,7 @@ echo $test->GetDiff();
 
 echo "\n\nAdding 100k elements to array with [] 10 per iteration\n\n";
 $test->Reset();
-for ($i = 0; $i &lt; 10000; $i++)
+for ($i = 0; $i < 10000; $i++)
 {
         $ta[] = $i;
         $ta[] = $i;
@@ -140,7 +140,7 @@ echo $test->GetDiff();
 
 echo "\n\nAdding 100k elements to array with array_push 10 per iteration\n\n";
 $test->Reset();
-for ($i = 0; $i &lt; 10000; $i++)
+for ($i = 0; $i < 10000; $i++)
 {
         array_push($ta,$i,$i,$i,$i,$i,$i,$i,$i,$i,$i);
 }

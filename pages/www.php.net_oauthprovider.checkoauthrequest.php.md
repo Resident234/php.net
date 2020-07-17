@@ -39,7 +39,7 @@ public function tokenHandler ( $provider )
 {
     $token = $this->dbModel->getToken( $provider->token );
 
-    if( time() &gt; $token['expire'] )
+    if( time() > $token['expire'] )
     {
         return OAUTH_TOKEN_EXPIRED;
     }

@@ -27,7 +27,7 @@ function fillArray($depth, $max){
     if (is_null($seed)){
         $seed = array('a', 2, 'c', 4, 'e', 6, 'g', 8, 'i', 10);
     }
-    if ($depth &lt; $max){
+    if ($depth < $max){
         $node = array();
         foreach ($seed as $key){
             $node[$key] = fillArray( $depth + 1, $max );
@@ -43,7 +43,7 @@ function testSpeed($testArray, $iterations = 100){
     $serialize_time = array();
     $test_start = microtime(true);
 
-    for ($x = 1; $x &lt;= $iterations; $x++){
+    for ($x = 1; $x <= $iterations; $x++){
         $start = microtime(true);
         json_encode($testArray);
         $json_time[] = microtime(true) - $start;
@@ -57,15 +57,15 @@ function testSpeed($testArray, $iterations = 100){
     $json_average = array_sum($json_time) / count($json_time);
     $serialize_average = array_sum($serialize_time) / count($serialize_time);
 
-    $result = "PHP serialized in ".$serialize_average." seconds average&lt;br&gt;";
-    $result .= "JSON encoded in ".$json_average." seconds average&lt;br&gt;";
+    $result = "PHP serialized in ".$serialize_average." seconds average<br>";
+    $result .= "JSON encoded in ".$json_average." seconds average<br>";
 
-    if ($json_average &lt; $serialize_average){
-        $result .= "json_encode() was roughly ".number_format( ($serialize_average / $json_average - 1 ) * 100, 2 )."% faster than serialize()&lt;br&gt;";
-    } else if ( $serializeTime &lt; $jsonTime ){
-        $result .= "serialize() was roughly ".number_format( ($json_average / $serialize_average - 1 ) * 100, 2 )."% faster than json_encode()&lt;br&gt;";
+    if ($json_average < $serialize_average){
+        $result .= "json_encode() was roughly ".number_format( ($serialize_average / $json_average - 1 ) * 100, 2 )."% faster than serialize()<br>";
+    } else if ( $serializeTime < $jsonTime ){
+        $result .= "serialize() was roughly ".number_format( ($json_average / $serialize_average - 1 ) * 100, 2 )."% faster than json_encode()<br>";
     } else {
-        $result .= "No way!&lt;br&gt;";
+        $result .= "No way!<br>";
     }
 
     $result .= "Test took ".$test_lenght." seconds with ".$iterations." iterations.";

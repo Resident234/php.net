@@ -83,10 +83,10 @@ class shutdownScheduler {
     }
     // test methods:
     public function dynamicTest() {
-        echo '_REQUEST array is '.count($_REQUEST).' elements long.&lt;br /&gt;';
+        echo '_REQUEST array is '.count($_REQUEST).' elements long.<br />';
     }
     public static function staticTest() {
-        echo '_SERVER array is '.count($_SERVER).' elements long.&lt;br /&gt;';
+        echo '_SERVER array is '.count($_SERVER).' elements long.<br />';
     }
 }
 ?>
@@ -101,7 +101,7 @@ A simple application:
 <?php
 // a generic function
 function say($a = 'a generic greeting', $b = '') {
-    echo "Saying {$a} {$b}&lt;br /&gt;";
+    echo "Saying {$a} {$b}<br />";
 }
 
 $scheduler = new shutdownScheduler();
@@ -120,22 +120,16 @@ $scheduler->registerShutdownEvent('scheduler::staticTest');
 
 #
 
-When using ?>
-```
-fpm, fastcgi_finish_request() should be used instead of register_shutdown_function() and exit()<br><br>For example, under nginx and ?>
-```
-fpm 5.3+, this will make browsers wait 10 seconds to show output:<br><br>
+When using php-fpm, fastcgi_finish_request() should be used instead of register_shutdown_function() and exit()<br><br>For example, under nginx and php-fpm 5.3+, this will make browsers wait 10 seconds to show output:<br><br>
 
 ```
 <?php
-    echo "You have to wait 10 seconds to see this.&lt;br&gt;";
+    echo "You have to wait 10 seconds to see this.<br>";
     register_shutdown_function('shutdown');
     exit;
     function shutdown(){
         sleep(10);
-        echo "Because exit() doesn't terminate ?>
-```
-fpm calls immediately.&lt;br&gt;";
+        echo "Because exit() doesn't terminate php-fpm calls immediately.<br>";
     }
 ?>
 ```
@@ -147,7 +141,7 @@ This doesn't:
 
 ```
 <?php
-    echo "You can see this from the browser immediately.&lt;br&gt;";
+    echo "You can see this from the browser immediately.<br>";
     fastcgi_finish_request();
     sleep(10);
     echo "You can't see this form the browser.";
@@ -162,11 +156,11 @@ register_shutdown_function seems to be immune to whatever value was set with set
 ```
 <?php
 function asdf() {
-    echo microtime(true) . '&lt;br&gt;';
+    echo microtime(true) . '<br>';
     sleep(1);
-    echo microtime(true) . '&lt;br&gt;';
+    echo microtime(true) . '<br>';
     sleep(1);
-    echo microtime(true) . '&lt;br&gt;';
+    echo microtime(true) . '<br>';
 }
 register_shutdown_function('asdf');
 set_time_limit(1);

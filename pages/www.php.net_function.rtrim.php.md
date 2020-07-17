@@ -142,9 +142,9 @@ $this->cleaner = $pinfo;
 
 }
 
-$pinfo = "Well... I'm really bored...&lt;br /&gt;&lt;br&gt;&amp;nbsp;    \n\t&amp;nbsp;&lt;br&gt;&lt;br /&gt;&lt;br&gt;&amp;nbsp;    \r\r&amp;nbsp;&lt;br&gt;\r&lt;br /&gt;&lt;br&gt;\r&amp;nbsp;    &amp;nbsp;\n&lt;br&gt;      &lt;br /&gt;\t";
+$pinfo = "Well... I'm really bored...<br /><br>&amp;nbsp;    \n\t&amp;nbsp;<br><br /><br>&amp;nbsp;    \r\r&amp;nbsp;<br>\r<br /><br>\r&amp;nbsp;    &amp;nbsp;\n<br>      <br />\t";
 
-$cuts = array('\n','\r','\t',' ',' ','&amp;nbsp;','&lt;br /&gt;','&lt;br&gt;','&lt;br/&gt;');
+$cuts = array('\n','\r','\t',' ',' ','&amp;nbsp;','<br />','<br>','<br/>');
 
 $pinfo = new cleaner($cuts,$pinfo);
 $pinfo = $pinfo->cleaner;

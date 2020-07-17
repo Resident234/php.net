@@ -47,15 +47,15 @@ print $xml->saveXML();
 
 
 Output:
-&lt;Album&gt;
-  &lt;Track length="0:01:15" bitrate="64kb/s" channels="2"&gt;
+<Album>
+  <Track length="0:01:15" bitrate="64kb/s" channels="2">
     The ninth symphony
-    &lt;Note&gt;
+    <Note>
       The last symphony composed by Ludwig van Beethoven.
-    &lt;/Note&gt;
-  &lt;/Track&gt;
-  &lt;Track length="0:01:33" bitrate="64kb/s" channels="2"&gt;Highway Blues&lt;/Track&gt;
-&lt;/Album&gt;
+    </Note>
+  </Track>
+  <Track length="0:01:33" bitrate="64kb/s" channels="2">Highway Blues</Track>
+</Album>
 
 If you want your PHP->DOM code to run under the .xml extension, you should set your webserver up to run the .xml extension with PHP ( Refer to the installation/configuration configuration for PHP on how to do this ).
 
@@ -157,7 +157,7 @@ function get_links($url) {
     // Empty array to hold all links to return
     $links = array();
  
-    //Loop through each &lt;a&gt; tag in the dom and add it to the link array
+    //Loop through each <a> tag in the dom and add it to the link array
     foreach($xml->getElementsByTagName('a') as $link) {
         $links[] = array('url' => $link->getAttribute('href'), 'text' => $link->nodeValue);
     }

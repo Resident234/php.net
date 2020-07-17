@@ -14,12 +14,12 @@ echo implode("",range(9,"Q"));
 // prints 9876543210
 
 echo implode("",range("9 ","Q"));  //space after the 9
-// prints 9:;&lt;=>?@ABCDEFGHIJKLMNOPQ
+// prints 9:;<=>?@ABCDEFGHIJKLMNOPQ
 
 echo implode("",range("q","9 "));
 // prints qponmlkjihgfedcba`_^]\[ZYXWVUTSRQPONMLKJIHGFEDCBA@?>
 ```
-=&lt;;:987654
+=<;:987654
 ?>
 ```
 <br><br>I wouldn&apos;t call this a bug, because IMO it is even more useful than the stock usage of the function.  
@@ -31,7 +31,7 @@ foreach(range()) whilst efficiant in other languages, such as python, it is not 
 ```
 <?php
 //efficiant
-for($i = $start; $i &lt; $end; $i+=$step) 
+for($i = $start; $i < $end; $i+=$step) 
 {
         //do something with array 
 }

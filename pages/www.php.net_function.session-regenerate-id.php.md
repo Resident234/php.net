@@ -65,7 +65,7 @@ function regenerateSession($reload = false)
 function checkSession()
 {
     try{
-        if($_SESSION['OBSOLETE'] &amp;&amp; ($_SESSION['EXPIRES'] &lt; time()))
+        if($_SESSION['OBSOLETE'] &amp;&amp; ($_SESSION['EXPIRES'] < time()))
             throw new Exception('Attempt to use expired session.');
 
         if(!is_numeric($_SESSION['user_id']))

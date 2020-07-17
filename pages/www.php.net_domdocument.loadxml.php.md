@@ -12,7 +12,7 @@ loadXml reports an error instead of throwing an exception when the xml is not we
 <?php
 function HandleXmlError($errno, $errstr, $errfile, $errline)
 {
-    if ($errno==E_WARNING &amp;&amp; (substr_count($errstr,"DOMDocument::loadXML()")&gt;0))
+    if ($errno==E_WARNING &amp;&amp; (substr_count($errstr,"DOMDocument::loadXML()")>0))
     {
         throw new DOMException($errstr);
     }

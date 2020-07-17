@@ -10,9 +10,9 @@ it should be noted that an array with one or no elements works fine. for example
     $a2 = array("a");
     $a3 = array();
     
-    echo "a1 is: '".implode("','",$a1)."'&lt;br&gt;";
-    echo "a2 is: '".implode("','",$a2)."'&lt;br&gt;";
-    echo "a3 is: '".implode("','",$a3)."'&lt;br&gt;";
+    echo "a1 is: '".implode("','",$a1)."'<br>";
+    echo "a2 is: '".implode("','",$a2)."'<br>";
+    echo "a3 is: '".implode("','",$a3)."'<br>";
 ?>
 ```
 <br><br>will produce:<br>===========<br>a1 is: &apos;1&apos;,&apos;2&apos;,&apos;3&apos;<br>a2 is: &apos;a&apos;<br>a3 is: &apos;&apos;  
@@ -42,7 +42,7 @@ Can also be used for building tags or complex lists, like the following:<br><br>
 
 $elements = array('a', 'b', 'c');
 
-echo "&lt;ul&gt;&lt;li&gt;" . implode("&lt;/li&gt;&lt;li&gt;", $elements) . "&lt;/li&gt;&lt;/ul&gt;";
+echo "<ul><li>" . implode("</li><li>", $elements) . "</li></ul>";
 
 ?>
 ```

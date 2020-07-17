@@ -39,7 +39,7 @@ var_dump($_SERVER);
 foreach ( array_keys($_SERVER) as $b ) {
     var_dump($b, filter_input(INPUT_SERVER, $b));
 }
-echo '&lt;hr&gt;';
+echo '<hr>';
 var_dump($_ENV);
 foreach ( array_keys($_ENV) as $b ) {
     var_dump($b, filter_input(INPUT_ENV, $b));
@@ -81,7 +81,7 @@ $_GET['search'] = 'foo'; // This has no effect on the filter_input
 $search_html = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
 $search_url = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_ENCODED);
 echo "You have searched for $search_html.\n";
-echo "&lt;a href='?search=$search_url'&gt;Search again.&lt;/a&gt;";
+echo "<a href='?search=$search_url'>Search again.</a>";
 ?>
 ```
 <br><br>If you need to set a default input value and filter that, use filter_var on your required input variable instead  

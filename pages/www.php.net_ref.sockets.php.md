@@ -52,7 +52,7 @@ while (true)
     {
         if (is_resource($newsock))
         {
-            socket_write($newsock, "$j&gt;", 2).chr(0);
+            socket_write($newsock, "$j>", 2).chr(0);
             
             echo "New client connected $j";
 

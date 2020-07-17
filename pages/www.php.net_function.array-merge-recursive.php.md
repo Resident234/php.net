@@ -28,8 +28,8 @@ I refactored the Daniel&apos;s function and I got it:<br><br>
  * @param array $array1
  * @param array $array2
  * @return array
- * @author Daniel &lt;daniel (at) danielsmedegaardbuus (dot) dk&gt;
- * @author Gabriel Sobrinho &lt;gabriel (dot) sobrinho (at) gmail (dot) com&gt;
+ * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
+ * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
  */
 function array_merge_recursive_distinct ( array &amp;$array1, array &amp;$array2 )
 {
@@ -94,7 +94,7 @@ There are a lot of examples here for recursion that are meant to behave more lik
 
 function array_merge_recursive_simple() {
 
-    if (func_num_args() &lt; 2) {
+    if (func_num_args() < 2) {
         trigger_error(__FUNCTION__ .' needs two or more array arguments', E_USER_WARNING);
         return;
     }

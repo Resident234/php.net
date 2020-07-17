@@ -6,7 +6,7 @@ There is a nuance we found with session timing out although the user is still ac
 
 ```
 <?php
-if( !isset($_SESSION['last_access']) || (time() - $_SESSION['last_access']) &gt; 60 )
+if( !isset($_SESSION['last_access']) || (time() - $_SESSION['last_access']) > 60 )
   $_SESSION['last_access'] = time();
 ?>
 ```

@@ -83,19 +83,19 @@ function server_loop($address, $port)
 {
     GLOBAL $__server_listening;
 
-    if(($sock = socket_create(AF_INET, SOCK_STREAM, 0)) &lt; 0)
+    if(($sock = socket_create(AF_INET, SOCK_STREAM, 0)) < 0)
     {
         echo "failed to create socket: ".socket_strerror($sock)."\n";
         exit();
     }
 
-    if(($ret = socket_bind($sock, $address, $port)) &lt; 0)
+    if(($ret = socket_bind($sock, $address, $port)) < 0)
     {
         echo "failed to bind socket: ".socket_strerror($ret)."\n";
         exit();
     }
 
-    if( ( $ret = socket_listen( $sock, 0 ) ) &lt; 0 )
+    if( ( $ret = socket_listen( $sock, 0 ) ) < 0 )
     {
         echo "failed to listen to socket: ".socket_strerror($ret)."\n";
         exit();
@@ -111,7 +111,7 @@ function server_loop($address, $port)
         if ($connection === false)
         {
             usleep(100);
-        }elseif ($connection &gt; 0)
+        }elseif ($connection > 0)
         {
             handle_client($sock, $connection);
         }else

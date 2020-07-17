@@ -10,7 +10,7 @@ A simple and very fast function to check against CIDR.<br><br>Your previous exam
     list ($net, $mask) = split ("/", $CIDR);
     
     $ip_net = ip2long ($net);
-    $ip_mask = ~((1 &lt;&lt; (32 - $mask)) - 1);
+    $ip_mask = ~((1 << (32 - $mask)) - 1);
 
     $ip_ip = ip2long ($IP);
 

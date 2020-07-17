@@ -230,7 +230,28 @@ var_dump([ $base1->test(), $base2->test(), $derived1->test(), $derived2->test() 
 
 #
 
-Note that if you declare a variable in a function, then set it as global in that function, its value will not be retained outside of that function.  This was tripping me up for a while so I thought it would be worth noting.<br><br>&lt;?PHP<br><br>foo();<br>echo $a; // echoes nothing<br><br>bar();<br>echo $b; //echoes "b";<br><br>function foo() {<br>  $a = "a"; <br>  global $a;<br>}<br><br>function bar() {<br>  global $b;<br>  $b = "b";<br>}<br><br>?>
+Note that if you declare a variable in a function, then set it as global in that function, its value will not be retained outside of that function.  This was tripping me up for a while so I thought it would be worth noting.<br><br>
+
+```
+<?php
+
+foo();
+echo $a; // echoes nothing
+
+bar();
+echo $b; //echoes "b";
+
+function foo() {
+  $a = "a"; 
+  global $a;
+}
+
+function bar() {
+  global $b;
+  $b = "b";
+}
+
+?>
 ```
   
 

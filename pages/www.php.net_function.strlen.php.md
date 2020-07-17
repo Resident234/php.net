@@ -10,7 +10,7 @@ I want to share something seriously important for newbies or beginners of PHP wh
 $utf8 = "&#x627;&#x644;&#x633;&#x644;&#x627;&#x645; &#x639;&#x644;&#x6CC;&#x6A9;&#x645; &#x648;&#x631;&#x62D;&#x645;&#x629; &#x627;&#x644;&#x644;&#x647; &#x648;&#x628;&#x631;&#x6A9;&#x627;&#x62A;&#x647;!";
 
 var_export( strlen($utf8) ); // 59
-echo "&lt;br&gt;";
+echo "<br>";
 var_export( mb_strlen($utf8, 'utf8') ); // 32
 ?>
 ```
@@ -63,24 +63,24 @@ $foo = null;
 $len = strlen(null);
 $bar = '';
 
-echo "Length: " . strlen($foo) . "&lt;br&gt;";
-echo "Length: $len &lt;br&gt;";
-echo "Length: " . strlen(null) . "&lt;br&gt;";
+echo "Length: " . strlen($foo) . "<br>";
+echo "Length: $len <br>";
+echo "Length: " . strlen(null) . "<br>";
 
-if (strlen($foo) === 0) echo 'Null length is Zero &lt;br&gt;';
-if ($len === 0) echo 'Null length is still Zero &lt;br&gt;';
+if (strlen($foo) === 0) echo 'Null length is Zero <br>';
+if ($len === 0) echo 'Null length is still Zero <br>';
 
-if (strlen($foo) == 0 &amp;&amp; !is_null($foo)) echo '!is_null(): $foo is truly an empty string &lt;br&gt;';
-else echo '!is_null(): $foo is probably null &lt;br&gt;';
+if (strlen($foo) == 0 &amp;&amp; !is_null($foo)) echo '!is_null(): $foo is truly an empty string <br>';
+else echo '!is_null(): $foo is probably null <br>';
 
-if (strlen($foo) == 0 &amp;&amp; isset($foo)) echo 'isset(): $foo is truly an empty string &lt;br&gt;';
-else echo 'isset(): $foo is probably null &lt;br&gt;';
+if (strlen($foo) == 0 &amp;&amp; isset($foo)) echo 'isset(): $foo is truly an empty string <br>';
+else echo 'isset(): $foo is probably null <br>';
 
-if (strlen($bar) == 0 &amp;&amp; !is_null($bar)) echo '!is_null(): $bar is truly an empty string &lt;br&gt;';
-else echo '!is_null(): $foo is probably null &lt;br&gt;';
+if (strlen($bar) == 0 &amp;&amp; !is_null($bar)) echo '!is_null(): $bar is truly an empty string <br>';
+else echo '!is_null(): $foo is probably null <br>';
 
-if (strlen($bar) == 0 &amp;&amp; isset($bar)) echo 'isset(): $bar is truly an empty string &lt;br&gt;';
-else echo 'isset(): $foo is probably null &lt;br&gt;';
+if (strlen($bar) == 0 &amp;&amp; isset($bar)) echo 'isset(): $bar is truly an empty string <br>';
+else echo 'isset(): $foo is probably null <br>';
 ?>
 ```
 <br><br>// Begin Output:<br>Length: 0<br>Length: 0 <br>Length: 0<br><br>Null length is Zero <br>Null length is still Zero <br><br>!is_null(): $foo is probably null <br>isset(): $foo is probably null <br><br>!is_null(): $bar is truly an empty string <br>isset(): $bar is truly an empty string <br>// End Output<br><br>So it would seem you need either is_null() or isset() in addition to strlen() if you care whether or not the original value was null.  

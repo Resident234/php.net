@@ -29,7 +29,7 @@ class SysSession implements SessionHandlerInterface
     }
     public function read($id)
     {
-        $result = mysqli_query($this->link,"SELECT Session_Data FROM Session WHERE Session_Id = '".$id."' AND Session_Expires &gt; '".date('Y-m-d H:i:s')."'");
+        $result = mysqli_query($this->link,"SELECT Session_Data FROM Session WHERE Session_Id = '".$id."' AND Session_Expires > '".date('Y-m-d H:i:s')."'");
         if($row = mysqli_fetch_assoc($result)){
             return $row['Session_Data'];
         }else{
@@ -58,7 +58,7 @@ class SysSession implements SessionHandlerInterface
     }
     public function gc($maxlifetime)
     {
-        $result = mysqli_query($this->link,"DELETE FROM Session WHERE ((UNIX_TIMESTAMP(Session_Expires) + ".$maxlifetime.") &lt; ".$maxlifetime.")");
+        $result = mysqli_query($this->link,"DELETE FROM Session WHERE ((UNIX_TIMESTAMP(Session_Expires) + ".$maxlifetime.") < ".$maxlifetime.")");
         if($result){
             return true;
         }else{

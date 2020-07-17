@@ -6,7 +6,7 @@ It&apos;s important to remember that this function does NOT replace newlines wit
 
 ```
 <?php
-$Result = str_replace( "\n", '&lt;br /&gt;', $Text );
+$Result = str_replace( "\n", '<br />', $Text );
 ?>
 ```
   
@@ -18,7 +18,7 @@ to replace all linebreaks to &lt;br /&gt;<br>the best solution (IMO) is:<br><br>
 ```
 <?php
 function nl2br2($string) {
-$string = str_replace(array("\r\n", "\r", "\n"), "&lt;br /&gt;", $string);
+$string = str_replace(array("\r\n", "\r", "\n"), "<br />", $string);
 return $string;
 }
 ?>
@@ -39,7 +39,7 @@ Here&apos;s a more simple one:<br><br>
  */
 function br2nl($string)
 {
-    return preg_replace('/\&lt;br(\s*)?\/?\&gt;/i', "\n", $string);
+    return preg_replace('/\<br(\s*)?\/?\>/i', "\n", $string);
 }
 ?>
 ```
@@ -59,7 +59,7 @@ Starting from PHP 4.3.10 and PHP 5.0.2, this should be the most correct way to r
  */
 function br2nl ( $string )
 {
-    return preg_replace('/\&lt;br(\s*)?\/?\&gt;/i', PHP_EOL, $string);
+    return preg_replace('/\<br(\s*)?\/?\>/i', PHP_EOL, $string);
 }
 ?>
 ```
@@ -81,7 +81,7 @@ You might also want to be "platform specific", and therefore this function might
 function br2nl ( $string, $separator = PHP_EOL )
 {
     $separator = in_array($separator, array("\n", "\r", "\r\n", "\n\r", chr(30), chr(155), PHP_EOL)) ? $separator : PHP_EOL;  // Checks if provided $separator is valid.
-    return preg_replace('/\&lt;br(\s*)?\/?\&gt;/i', $separator, $string);
+    return preg_replace('/\<br(\s*)?\/?\>/i', $separator, $string);
 }
 ?>
 ```
@@ -95,7 +95,7 @@ Seeing all these suggestions on a br2nl function, I can also see that neither wo
 <?php
 function br2nl($text)
 {
-    return  preg_replace('/&lt;br\\s*?\/??>
+    return  preg_replace('/<br\\s*?\/??>
 ```
 /i', '', $text);
 }

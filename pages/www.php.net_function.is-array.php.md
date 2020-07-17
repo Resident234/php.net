@@ -76,7 +76,7 @@ if ( (array) $unknown !== $unknown ) {
 
 You can use this script to test the speed of both methods.
 
-&lt;pre&gt;
+<pre>
 What's faster for determining arrays?
 
 
@@ -94,7 +94,7 @@ $test4 = 42;
 $i = $start_time = $end_time = 0;
 
 $start_time = microtime(true);
-for ($i = 0; $i &lt; $count; $i++) {
+for ($i = 0; $i < $count; $i++) {
     if (!is_array($test) || is_array($test2) || is_array($test3) || is_array($test4)) {
         echo 'error';
         break;
@@ -104,7 +104,7 @@ $end_time = microtime(true);
 echo 'is_array  :  '.($end_time - $start_time)."\n";
 
 $start_time = microtime(true);
-for ($i = 0; $i &lt; $count; $i++) {
+for ($i = 0; $i < $count; $i++) {
     if (!(array) $test === $test || (array) $test2 === $test2 || (array) $test3 === $test3 || (array) $test4 === $test4) {
         echo 'error';
         break;

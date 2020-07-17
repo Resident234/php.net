@@ -44,9 +44,7 @@ else {
 
 #
 
-regarding php5:<br>i found out that there is already a disscussion @?>
-```
-dev  about readfile() and fpassthru() where only exactly 2 MB will be delivered.<br><br>so you may use this on php5 to get lager files<br>
+regarding php5:<br>i found out that there is already a disscussion @php-dev  about readfile() and fpassthru() where only exactly 2 MB will be delivered.<br><br>so you may use this on php5 to get lager files<br>
 
 ```
 <?php

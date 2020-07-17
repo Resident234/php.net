@@ -41,6 +41,10 @@ but on a 32 bits system:
 
 #
 
+Since 5.4 STRICT standards dictate that you cannot wrap array_keys in a function like array_shift that attempts to reference the array.  <br><br>Invalid:<br>echo array_shift( array_keys( array(&apos;a&apos; =&gt; &apos;apple&apos;) ) );<br><br>Valid:<br>$keys = array_keys( array(&apos;a&apos; =&gt; &apos;apple&apos;) );<br>echo array_shift( $keys );<br><br>But Wait! Since PHP (currently) allows you to break a reference by wrapping a variable in parentheses, you can currently use:<br><br>echo array_shift( ( array_keys( array(&apos;a&apos; =&gt; &apos;apple&apos;) ) ) );<br><br>However I would expect in time the PHP team will modify the rules of parentheses.  
+
+#
+
 Here&apos;s how to get the first key, the last key, the first value or the last value of a (hash) array without explicitly copying nor altering the original array:<br><br>
 
 ```
@@ -64,16 +68,12 @@ Here&apos;s how to get the first key, the last key, the first value or the last 
 
 #
 
-Since 5.4 STRICT standards dictate that you cannot wrap array_keys in a function like array_shift that attempts to reference the array.  <br><br>Invalid:<br>echo array_shift( array_keys( array(&apos;a&apos; =&gt; &apos;apple&apos;) ) );<br><br>Valid:<br>$keys = array_keys( array(&apos;a&apos; =&gt; &apos;apple&apos;) );<br>echo array_shift( $keys );<br><br>But Wait! Since PHP (currently) allows you to break a reference by wrapping a variable in parentheses, you can currently use:<br><br>echo array_shift( ( array_keys( array(&apos;a&apos; =&gt; &apos;apple&apos;) ) ) );<br><br>However I would expect in time the PHP team will modify the rules of parentheses.  
-
-#
-
 There&apos;s a lot of multidimensional array_keys function out there, but each of them only merges all the keys in one flat array.<br><br>Here&apos;s a way to find all the keys from a multidimensional  array while keeping the array structure. An optional MAXIMUM DEPTH parameter can be set for testing purpose in case of very large arrays.<br><br>NOTE: If the sub element isn&apos;t an array, it will be ignore.<br><br>
 
 ```
 <?php
 function array_keys_recursive($myArray, $MAXDEPTH = INF, $depth = 0, $arrayKeys = array()){
-       if($depth &lt; $MAXDEPTH){
+       if($depth < $MAXDEPTH){
             $depth++;
             $keys = array_keys($myArray);
             foreach($keys as $key){

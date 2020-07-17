@@ -7,9 +7,9 @@ I add this function to the global scope on just about every project I do, it mak
 ```
 <?php
 function print_r2($val){
-        echo '&lt;pre&gt;';
+        echo '<pre>';
         print_r($val);
-        echo  '&lt;/pre&gt;';
+        echo  '</pre>';
 }
 ?>
 ```
@@ -34,7 +34,7 @@ function print_r_reverse($in) {
             $spaces = $match[1];
             $spaces_length = strlen($spaces);
             $lines_total = count($lines);
-            for ($i = 0; $i &lt; $lines_total; $i++) {
+            for ($i = 0; $i < $lines_total; $i++) {
                 if (substr($lines[$i], 0, $spaces_length) == $spaces) {
                     $lines[$i] = substr($lines[$i], $spaces_length);
                 }
@@ -45,7 +45,7 @@ function print_r_reverse($in) {
         array_pop($lines); // )
         $in = implode("\n", $lines);
         // make sure we only match stuff with 4 preceding spaces (stuff for this array and not a nested one)
-        preg_match_all("/^\s{4}\[(.+?)\] \=\&gt; /m", $in, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER);
+        preg_match_all("/^\s{4}\[(.+?)\] \=\> /m", $in, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER);
         $pos = array();
         $previous_key = '';
         $in_length = strlen($in);

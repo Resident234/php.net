@@ -99,27 +99,27 @@ if (function_exists('mb_substr_replace') === false)
         {
             $string_length = (is_null($encoding) === true) ? mb_strlen($string) : mb_strlen($string, $encoding);
             
-            if ($start &lt; 0)
+            if ($start < 0)
             {
                 $start = max(0, $string_length + $start);
             }
             
-            else if ($start &gt; $string_length)
+            else if ($start > $string_length)
             {
                 $start = $string_length;
             }
             
-            if ($length &lt; 0)
+            if ($length < 0)
             {
                 $length = max(0, $string_length - $start + $length);
             }
             
-            else if ((is_null($length) === true) || ($length &gt; $string_length))
+            else if ((is_null($length) === true) || ($length > $string_length))
             {
                 $length = $string_length;
             }
             
-            if (($start + $length) &gt; $string_length)
+            if (($start + $length) > $string_length)
             {
                 $length = $string_length - $start;
             }

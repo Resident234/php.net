@@ -54,7 +54,7 @@ function array_value_recursive($key, array $arr){
     array_walk_recursive($arr, function($v, $k) use($key, &amp;$val){
         if($k == $key) array_push($val, $v);
     });
-    return count($val) &gt; 1 ? $val : array_pop($val);
+    return count($val) > 1 ? $val : array_pop($val);
 }
 
 $arr = array(

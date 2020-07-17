@@ -68,12 +68,7 @@ function curl_get($url, array $get = NULL, array $options = array())
 
 #
 
-Don&apos;t disable SSL verification! You don&apos;t need to, and it&apos;s super easy to stay secure! If you found that turning off "CURLOPT_SSL_VERIFYHOST" and "CURLOPT_SSL_VERIFYPEER" solved your problem, odds are you&apos;re just on a Windows box. Takes 2 min to solve the problem. Walkthrough here:<br><br>https://snippets.webaware.com.au/howto/stop-turning-off-curlopt_ssl_verifypeer-and-fix-your
-
-```
-<??>
-```
-config/  
+Don&apos;t disable SSL verification! You don&apos;t need to, and it&apos;s super easy to stay secure! If you found that turning off "CURLOPT_SSL_VERIFYHOST" and "CURLOPT_SSL_VERIFYPEER" solved your problem, odds are you&apos;re just on a Windows box. Takes 2 min to solve the problem. Walkthrough here:<br><br>https://snippets.webaware.com.au/howto/stop-turning-off-curlopt_ssl_verifypeer-and-fix-your-php-config/  
 
 #
 

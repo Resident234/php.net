@@ -50,7 +50,7 @@ $test_array = array (
 
 // [ACTION]
 array_splice ($test_array, 2, 0, array ('rowX' => array ('colX' => 'foobar2')));
-echo '&lt;pre&gt;'; print_r ($test_array); echo '&lt;/pre&gt;';
+echo '<pre>'; print_r ($test_array); echo '</pre>';
 ?>
 ```
 
@@ -92,7 +92,7 @@ function array_insert (&amp;$array, $position, $insert_array) {
 // [ACTION]
 
 array_insert ($test_array, 2, array ('rowX' => array ('colX' => 'foobar2')));
-echo '&lt;pre&gt;'; print_r ($test_array); echo '&lt;/pre&gt;';
+echo '<pre>'; print_r ($test_array); echo '</pre>';
 ?>
 ```
 <br><br>[RESULT]<br><br>Array (<br>    [row1] =&gt; Array (<br>            [col1] =&gt; foobar!<br>            [col2] =&gt; foobar!<br>        )<br><br>    [row2] =&gt; Array (<br>            [col1] =&gt; foobar!<br>            [col2] =&gt; foobar!<br>        )<br><br>    [rowX] =&gt; Array (<br>            [colX] =&gt; foobar2<br>        )<br><br>    [row3] =&gt; Array (<br>            [col1] =&gt; foobar!<br>            [col2] =&gt; foobar!<br>        )<br>)<br><br>[NOTE]<br><br>The position "0" will insert the array in the first position (like array_shift). If you try a position higher than the langth of the array, you add it to the array like the function array_push.  
@@ -112,7 +112,7 @@ just useful functions to move an element using array_splice.<br><br>
 function moveUp($input,$index) {
       $new_array = $input;
       
-       if((count($new_array)&gt;$index) &amp;&amp; ($index&gt;0)){
+       if((count($new_array)>$index) &amp;&amp; ($index>0)){
                  array_splice($new_array, $index-1, 0, $input[$index]);
                  array_splice($new_array, $index+1, 1);
              } 
@@ -123,7 +123,7 @@ function moveUp($input,$index) {
 function moveDown($input,$index) {
        $new_array = $input;
          
-       if(count($new_array)&gt;$index) {
+       if(count($new_array)>$index) {
                  array_splice($new_array, $index+2, 0, $input[$index]);
                  array_splice($new_array, $index, 1);
              } 

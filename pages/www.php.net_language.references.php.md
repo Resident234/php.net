@@ -56,12 +56,7 @@ print_r($arr);
 
 #
 
-Here is a good magazine article (PDF format) that explains the internals of PHP&apos;s reference mechanism in detail: http://derickrethans.nl/files/phparch
-
-```
-<??>
-```
-variables-article.pdf<br><br>It should explain some of the odd behavior PHP sometimes seems to exhibit, as well as why you can&apos;t create "references to references" (unlike in C++), and why you should never attempt to use references to speed up passing of large strings or arrays (it will make no difference, or it will slow things down).<br><br>It was written for PHP 4 but it still applies. The only difference is in how PHP 5 handles objects: passing object variables by value only copies an internal pointer to the object. Objects in PHP 5 are only ever duplicated if you explicitly use the clone keyword.  
+Here is a good magazine article (PDF format) that explains the internals of PHP&apos;s reference mechanism in detail: http://derickrethans.nl/files/phparch-php-variables-article.pdf<br><br>It should explain some of the odd behavior PHP sometimes seems to exhibit, as well as why you can&apos;t create "references to references" (unlike in C++), and why you should never attempt to use references to speed up passing of large strings or arrays (it will make no difference, or it will slow things down).<br><br>It was written for PHP 4 but it still applies. The only difference is in how PHP 5 handles objects: passing object variables by value only copies an internal pointer to the object. Objects in PHP 5 are only ever duplicated if you explicitly use the clone keyword.  
 
 #
 

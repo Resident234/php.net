@@ -2,7 +2,16 @@
 
 
 
-I tried to ftp a 7mb file today off my webserver.<br><br>I copied this example directly and it told me.<br><br>Port command successful<br>"there was a problem"<br><br>I thought it was because of the size.<br>But I guessed it might be cause of my firewall.<br><br>So I made the ftp connection passive:<br><br>&lt;?PHP<br>  <br>  ...<br>  $login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);<br>  ftp_pasv($conn_id, true);<br><br>?>
+I tried to ftp a 7mb file today off my webserver.<br><br>I copied this example directly and it told me.<br><br>Port command successful<br>"there was a problem"<br><br>I thought it was because of the size.<br>But I guessed it might be cause of my firewall.<br><br>So I made the ftp connection passive:<br><br>
+
+```
+<?php
+  
+  ...
+  $login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+  ftp_pasv($conn_id, true);
+
+?>
 ```
 <br><br>Ran the script again &amp; it worked fine.<br><br>Hope this helps someone  
 

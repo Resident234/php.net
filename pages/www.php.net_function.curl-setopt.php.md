@@ -134,7 +134,7 @@ if (!isset($_GET['foo'])) {
         $curl_error = curl_error($ch);
         curl_close($ch);
 
-        if ($curl_errno &gt; 0) {
+        if ($curl_errno > 0) {
                 echo "cURL Error ($curl_errno): $curl_error\n";
         } else {
                 echo "Data received: $data\n";
@@ -157,7 +157,7 @@ If you wish to find the size of the file you are streaming and use it as your he
 
 function write_function($curl_resource, $string)
 {
-    if(curl_getinfo($curl_resource, CURLINFO_SIZE_DOWNLOAD) &lt;= 2000)
+    if(curl_getinfo($curl_resource, CURLINFO_SIZE_DOWNLOAD) <= 2000)
     {
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -288,9 +288,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 #
 
-Sometimes you can&apos;t use CURLOPT_COOKIEJAR and CURLOPT_COOKIEFILE becoz of the server ?>
-```
-settings(They say u may grab any files from server using these options). Here is the solution<br>1)Don&apos;t use CURLOPT_FOLLOWLOCATION<br>2)Use curl_setopt($ch, CURLOPT_HEADER, 1)<br>3)Grab from the header cookies like this:<br>preg_match_all(&apos;|Set-Cookie: (.*);|U&apos;, $content, $results);    <br>$cookies = implode(&apos;;&apos;, $results[1]);<br>4)Set them using curl_setopt($ch, CURLOPT_COOKIE,  $cookies);<br><br>Good Luck, Yevgen  
+Sometimes you can&apos;t use CURLOPT_COOKIEJAR and CURLOPT_COOKIEFILE becoz of the server php-settings(They say u may grab any files from server using these options). Here is the solution<br>1)Don&apos;t use CURLOPT_FOLLOWLOCATION<br>2)Use curl_setopt($ch, CURLOPT_HEADER, 1)<br>3)Grab from the header cookies like this:<br>preg_match_all(&apos;|Set-Cookie: (.*);|U&apos;, $content, $results);    <br>$cookies = implode(&apos;;&apos;, $results[1]);<br>4)Set them using curl_setopt($ch, CURLOPT_COOKIE,  $cookies);<br><br>Good Luck, Yevgen  
 
 #
 
@@ -341,11 +339,11 @@ Handling redirections with curl if safe_mode or open_basedir is enabled. The fun
 function curl_exec_follow(/*resource*/ $ch, /*int*/ &amp;$maxredirect = null) {
     $mr = $maxredirect === null ? 5 : intval($maxredirect);
     if (ini_get('open_basedir') == '' &amp;&amp; ini_get('safe_mode' == 'Off')) {
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $mr &gt; 0);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $mr > 0);
         curl_setopt($ch, CURLOPT_MAXREDIRS, $mr);
     } else {
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
-        if ($mr &gt; 0) {
+        if ($mr > 0) {
             $newurl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 
             $rch = curl_copy_handle($ch);

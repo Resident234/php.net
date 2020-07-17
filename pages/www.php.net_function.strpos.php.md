@@ -35,7 +35,7 @@ $found = strpos_recursive($string, $search);
 
 if($found) {
     foreach($found as $pos) {
-        echo 'Found "'.$search.'" in string "'.$string.'" at position &lt;b&gt;'.$pos.'&lt;/b&gt;&lt;br /&gt;';
+        echo 'Found "'.$search.'" in string "'.$string.'" at position <b>'.$pos.'</b><br />';
     }    
 } else {
     echo '"'.$search.'" not found in "'.$string.'"';

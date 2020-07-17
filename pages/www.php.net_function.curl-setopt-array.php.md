@@ -44,7 +44,7 @@ $curl_data = "var1=60&amp;var2=test";
 $url = "https://www.example.com";
 $response = get_web_page($url,$curl_data);
 
-print '&lt;pre&gt;';
+print '<pre>';
 print_r($response);
 
 ?>

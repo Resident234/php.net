@@ -37,7 +37,7 @@ while (!$done) {
    $lenSkipped = strlen($skippedMany); // 0 when false
    if (0!==$lenSkipped) {
       $last = strlen($skippedMany) -1;
-      for($i=0; $i&lt;=$last; $i++){
+      for($i=0; $i<=$last; $i++){
          $skipped = $skippedMany[$i];
          $cur += strlen($skipped);
          echo "skipped: $skipped\n";

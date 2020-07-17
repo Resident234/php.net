@@ -19,7 +19,7 @@ declare(strict_types=1);
 $fruits = array("butter" => 5.3, "meat" => 7, "banana" => 3);
 
 function test_print(int $item2, $key) {
-    echo "$key: $item2&lt;br /&gt;\n";
+    echo "$key: $item2<br />\n";
 }
 
 array_walk($fruits, 'test_print');

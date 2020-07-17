@@ -49,7 +49,7 @@ This sample regexp may be useful if you are working with DB field types. <br><br
 ```
 <?php
    $type = 'varchar(255)';  // type of field
-   preg_match('/(?P&lt;type&gt;\w+)($|\((?P&lt;length&gt;(\d+|(.*)))\))/', $type, $field);
+   preg_match('/(?P<type>\w+)($|\((?P<length>(\d+|(.*)))\))/', $type, $field);
    print_r($field);
 ?>
 ```
@@ -61,7 +61,7 @@ I just learned about named groups from a Python friend today and was curious if 
 
 ```
 <?php
-   preg_match("/(?P&lt;foo&gt;abc)(.*)(?P&lt;bar&gt;xyz)/",
+   preg_match("/(?P<foo>abc)(.*)(?P<bar>xyz)/",
                        'abcdefghijklmnopqrstuvwxyz',
                        $matches);
    print_r($matches);
@@ -109,7 +109,7 @@ Bugs of preg_match (PHP-version 5.2.5)<br><br>In most cases, the following examp
 
 $text = "test=";
 // creates a rather long text
-for ($i = 0; $i++ &lt; 100000;)
+for ($i = 0; $i++ < 100000;)
     $text .= "%AB";
 
 // a typical URL_query validity-checker (the pattern's function does not matter for this example)
@@ -230,11 +230,11 @@ I see a lot of people trying to put together phone regex&apos;s and struggling (
 <?php
 
 // all on one line...
-$regex = '/^(?:1(?:[. -])?)?(?:\((?=\d{3}\)))?([2-9]\d{2})(?:(?&lt;=\(\d{3})\))? ?(?:(?&lt;=\d{3})[.-])?([2-9]\d{2})[. -]?(\d{4})(?: (?i:ext)\.? ?(\d{1,5}))?$/';
+$regex = '/^(?:1(?:[. -])?)?(?:\((?=\d{3}\)))?([2-9]\d{2})(?:(?<=\(\d{3})\))? ?(?:(?<=\d{3})[.-])?([2-9]\d{2})[. -]?(\d{4})(?: (?i:ext)\.? ?(\d{1,5}))?$/';
 
 // or broken up
 $regex = '/^(?:1(?:[. -])?)?(?:\((?=\d{3}\)))?([2-9]\d{2})'
-        .'(?:(?&lt;=\(\d{3})\))? ?(?:(?&lt;=\d{3})[.-])?([2-9]\d{2})'
+        .'(?:(?<=\(\d{3})\))? ?(?:(?<=\d{3})[.-])?([2-9]\d{2})'
         .'[. -]?(\d{4})(?: (?i:ext)\.? ?(\d{1,5}))?$/';
 
 ?>
@@ -307,15 +307,15 @@ function is_clean_file ($file)
     {
         return true;
     }
-    elseif (preg_match("#(&lt;[^&gt;]+)style=([\`\'\"]*).*expression\([^&gt;]*&gt;#iU", $contents))
+    elseif (preg_match("#(<[^>]+)style=([\`\'\"]*).*expression\([^>]*>#iU", $contents))
     {
         return true;
     }
-    elseif (preg_match("#(&lt;[^&gt;]+)style=([\`\'\"]*).*behaviour\([^&gt;]*&gt;#iU", $contents))
+    elseif (preg_match("#(<[^>]+)style=([\`\'\"]*).*behaviour\([^>]*>#iU", $contents))
     {
         return true;
     }
-    elseif (preg_match("#&lt;/*(applet|link|style|script|iframe|frame|frameset|html|body|title|div|p|form)[^&gt;]*&gt;#i", $contents))
+    elseif (preg_match("#</*(applet|link|style|script|iframe|frame|frameset|html|body|title|div|p|form)[^>]*>#i", $contents))
     {
         return true;
     }

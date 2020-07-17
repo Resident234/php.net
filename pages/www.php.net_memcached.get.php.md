@@ -2,11 +2,7 @@
 
 
 
-As of some version of php7 (i was not able to determine which exactly).<br>The $cas_token is no longer valid argument. It has been removed in favor of flags argument, as it appears to be causing issues when subclassing the Memcached class.<br><br>See https://github.com/?>
-```
-memcached-dev/?>
-```
-memcached/pull/214 for more details.<br><br>Basically you need to <br>
+As of some version of php7 (i was not able to determine which exactly).<br>The $cas_token is no longer valid argument. It has been removed in favor of flags argument, as it appears to be causing issues when subclassing the Memcached class.<br><br>See https://github.com/php-memcached-dev/php-memcached/pull/214 for more details.<br><br>Basically you need to <br>
 
 ```
 <?php

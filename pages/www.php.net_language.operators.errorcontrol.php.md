@@ -10,7 +10,15 @@ I was confused as to what the @ symbol actually does, and after a few experiment
 
 #
 
-Be aware of using error control operator in statements before include() like this:<br><br>&lt;?PHP<br><br>(@include("file.php"))<br> OR die("Could not find file.php!");<br><br>?>
+Be aware of using error control operator in statements before include() like this:<br><br>
+
+```
+<?php
+
+(@include("file.php"))
+ OR die("Could not find file.php!");
+
+?>
 ```
 <br><br>This cause, that error reporting level is set to zero also for the included file. So if there are some errors in the included file, they will be not displayed.  
 

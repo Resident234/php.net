@@ -13,8 +13,8 @@ When specifying the character mask, <br>make sure that you use double quotes<br>
   $hello = " 
       Hello World   "; //here is a string with some trailing and leading whitespace
 
-  $trimmed_correct   = trim($hello, " \t\n\r"); //&lt;--------OKAY
-  $trimmed_incorrect = trim($hello, ' \t\n\r'); //&lt;--------NOT AS EXPECTED
+  $trimmed_correct   = trim($hello, " \t\n\r"); //<--------OKAY
+  $trimmed_incorrect = trim($hello, ' \t\n\r'); //<--------NOT AS EXPECTED
 
   print("----------------------------");
   print("TRIMMED OK:".PHP_EOL);
@@ -43,9 +43,9 @@ $converted = strtr($myHTML, array_flip(get_html_translation_table(HTML_ENTITIES,
 $converted = trim($converted);
 
 // &amp;nbsp; are translated to 0xA0, so use:
-$converted = trim($converted, "\xA0"); // &lt;- THIS DOES NOT WORK
+$converted = trim($converted, "\xA0"); // <- THIS DOES NOT WORK
 
-// EDITED&gt;&gt;
+// EDITED>>
 // UTF encodes it as chr(0xC2).chr(0xA0)
 $converted = trim($converted,chr(0xC2).chr(0xA0)); // should work
 

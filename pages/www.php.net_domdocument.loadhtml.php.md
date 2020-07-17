@@ -8,7 +8,7 @@ You can also load HTML as UTF-8 using this simple hack:<br><br>
 <?php
 
 $doc = new DOMDocument();
-$doc->loadHTML('&lt;?xml encoding="UTF-8"&gt;' . $html);
+$doc->loadHTML('<?xml encoding="UTF-8">' . $html);
 
 // dirty fix
 foreach ($doc->childNodes as $item)

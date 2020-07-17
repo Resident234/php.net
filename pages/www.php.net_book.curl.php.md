@@ -6,7 +6,7 @@ I wrote the following to see if a submitted URL has a valid http response code a
 
 ```
 <?php
-$is_ok = http_response($url); // returns true only if http response code &lt; 400
+$is_ok = http_response($url); // returns true only if http response code < 400
 ?>
 ```
 
@@ -64,7 +64,7 @@ function http_response($url, $status = null, $wait = 3)
             
             if($status === null)
             {
-                if($httpCode &lt; 400)
+                if($httpCode < 400)
                 {
                     return TRUE;
                 }
@@ -82,7 +82,7 @@ function http_response($url, $status = null, $wait = 3)
             pcntl_wait($status); //Protect against Zombie children
         } else {
             // we are the child
-            while(microtime(true) &lt; $expire)
+            while(microtime(true) < $expire)
             {
             sleep(0.5);
             }

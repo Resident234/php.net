@@ -23,7 +23,7 @@ for( $i = 5000; $i--; ) {
     $x += $callc();
     if( $x != 3 ) die( 'Bad numbers' );
 }
-echo( "Variable functions took " . (microtime( true ) - $time) . " seconds.&lt;br /&gt;" );
+echo( "Variable functions took " . (microtime( true ) - $time) . " seconds.<br />" );
 
 $time = microtime( true );
 for( $i = 5000; $i--; ) {
@@ -33,7 +33,7 @@ for( $i = 5000; $i--; ) {
     $x += call_user_func('fc', '');
     if( $x != 3 ) die( 'Bad numbers' );
 }
-echo( "call_user_func took " . (microtime( true ) - $time) . " seconds.&lt;br /&gt;" );
+echo( "call_user_func took " . (microtime( true ) - $time) . " seconds.<br />" );
 
 $time = microtime( true );
 for( $i = 5000; $i--; ) {
@@ -43,7 +43,7 @@ for( $i = 5000; $i--; ) {
     eval( '$x += ' . $callc . '();' );
     if( $x != 3 ) die( 'Bad numbers' );
 }
-echo( "eval took " . (microtime( true ) - $time) . " seconds.&lt;br /&gt;" );
+echo( "eval took " . (microtime( true ) - $time) . " seconds.<br />" );
 
 ?>
 ```

@@ -68,14 +68,14 @@ $file_array[1] = "dingoboy2.gif"; // the file
 $file_array[2] = "dingoboy3.gif"; // the file 
 $content_type = "image/gif"; // the file mime type
 //$content_type = "text/plain";
-//echo "file_array[0]:$file_array[0]&lt;br&gt;&lt;br&gt;";
+//echo "file_array[0]:$file_array[0]<br><br>";
 
 srand((double)microtime()*1000000);
 $boundary = "---------------------------".substr(md5(rand(0,32000)),0,10);
 
 $data = "--$boundary";
 
-for($i=0;$i&lt;count($file_array);$i++){
+for($i=0;$i<count($file_array);$i++){
    $content_file = join("", file($file_array[$i]));
 
    $data.="

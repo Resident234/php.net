@@ -14,7 +14,7 @@ If you have problems using count_chars with a multibyte string, you can change t
 function mb_count_chars($input) {
     $l = mb_strlen($input, 'UTF-8');
     $unique = array();
-    for($i = 0; $i &lt; $l; $i++) {
+    for($i = 0; $i < $l; $i++) {
         $char = mb_substr($input, $i, 1, 'UTF-8');
         if(!array_key_exists($char, $unique))
             $unique[$char] = 0;

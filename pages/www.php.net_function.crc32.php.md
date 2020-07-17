@@ -8,7 +8,7 @@ This function returns an unsigned integer from a 64-bit Linux platform.  It does
 <?php
 function get_signed_int($in) {
     $int_max = pow(2, 31)-1;
-    if ($in &gt; $int_max){
+    if ($in > $int_max){
         $out = $in - $int_max * 2 - 2;
     }
     else {

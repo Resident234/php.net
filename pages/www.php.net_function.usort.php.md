@@ -8,14 +8,14 @@ Just wanted to show off the beauty of PHPs spaceship operator in this use case.<
 <?php // tested on PHP 7.1
 $a = [2, 1, 3, 6, 5, 4, 7];
 $asc = $desc = $a;
-usort($asc, function (int $a, int $b) { return ($a &lt;=> $b); });
-usort($desc, function (int $a, int $b) { return -($a &lt;=> $b); });
+usort($asc, function (int $a, int $b) { return ($a <=> $b); });
+usort($desc, function (int $a, int $b) { return -($a <=> $b); });
 print_r([ $a, $asc, $desc ]);
 
 /**
  * Getting ahead of myself but... If arrow function syntax was possible:
- * usort($asc, (int $a, int $b) => ($a &lt;=> $b));
- * usort($desc, (int $a, int $b) => -($a &lt;=> $b));
+ * usort($asc, (int $a, int $b) => ($a <=> $b));
+ * usort($desc, (int $a, int $b) => -($a <=> $b));
  */
 ?>
 ```
@@ -36,7 +36,7 @@ usort($priorities, function($a, $b)
         echo "a ($a) is same priority as b ($b), keeping the same\n";
         return 0;
     }
-    else if ($a &gt; $b)
+    else if ($a > $b)
     {
         echo "a ($a) is higher priority than b ($b), moving b down array\n";
         return -1;
@@ -75,7 +75,7 @@ function multiSort() {
     //get args of the function
     $args = func_get_args();
     $c = count($args);
-    if ($c &lt; 2) {
+    if ($c < 2) {
         return false;
     }
     //get the array to sort
@@ -87,7 +87,7 @@ function multiSort() {
         $i = 0;
         $c = count($args);
         $cmp = 0;
-        while($cmp == 0 &amp;&amp; $i &lt; $c)
+        while($cmp == 0 &amp;&amp; $i < $c)
         {
             $cmp = strcmp($a[ $args[ $i ] ], $b[ $args[ $i ] ]);
             $i++;
@@ -173,7 +173,7 @@ class Utility {
         }
 
         $fnBody = '';
-        for($i = count($keyAry) - 1; $i &gt;= 0; $i--) {
+        for($i = count($keyAry) - 1; $i >= 0; $i--) {
             $k = $keyAry[$i];
             $t = $dirAry[$i];
             $f = -1 * $t;
@@ -186,11 +186,11 @@ class Utility {
 
             if($fnBody == '') {
                 $fnBody .= "if({$aStr} == {$bStr}) { return 0; }\n";
-                $fnBody .= "return ({$aStr} &lt; {$bStr}) ? {$t} : {$f};\n";                
+                $fnBody .= "return ({$aStr} < {$bStr}) ? {$t} : {$f};\n";                
             } else {
                 $fnBody = "if({$aStr} == {$bStr}) {\n" . $fnBody;
                 $fnBody .= "}\n";
-                $fnBody .= "return ({$aStr} &lt; {$bStr}) ? {$t} : {$f};\n";
+                $fnBody .= "return ({$aStr} < {$bStr}) ? {$t} : {$f};\n";
             }
         }
 
@@ -309,8 +309,8 @@ As the manual says, "If two members compare as equal, their order in the sorted 
 ```
 <?php
 function mergesort(&amp;$array, $cmp_function = 'strcmp') {
-    // Arrays of size &lt; 2 require no action.
-    if (count($array) &lt; 2) return;
+    // Arrays of size < 2 require no action.
+    if (count($array) < 2) return;
     // Split the array in half
     $halfway = count($array) / 2;
     $array1 = array_slice($array, 0, $halfway);
@@ -318,16 +318,16 @@ function mergesort(&amp;$array, $cmp_function = 'strcmp') {
     // Recurse to sort the two halves
     mergesort($array1, $cmp_function);
     mergesort($array2, $cmp_function);
-    // If all of $array1 is &lt;= all of $array2, just append them.
-    if (call_user_func($cmp_function, end($array1), $array2[0]) &lt; 1) {
+    // If all of $array1 is <= all of $array2, just append them.
+    if (call_user_func($cmp_function, end($array1), $array2[0]) < 1) {
         $array = array_merge($array1, $array2);
         return;
     }
     // Merge the two sorted arrays into a single sorted array
     $array = array();
     $ptr1 = $ptr2 = 0;
-    while ($ptr1 &lt; count($array1) &amp;&amp; $ptr2 &lt; count($array2)) {
-        if (call_user_func($cmp_function, $array1[$ptr1], $array2[$ptr2]) &lt; 1) {
+    while ($ptr1 < count($array1) &amp;&amp; $ptr2 < count($array2)) {
+        if (call_user_func($cmp_function, $array1[$ptr1], $array2[$ptr2]) < 1) {
             $array[] = $array1[$ptr1++];
         }
         else {
@@ -335,8 +335,8 @@ function mergesort(&amp;$array, $cmp_function = 'strcmp') {
         }
     }
     // Merge the remainder
-    while ($ptr1 &lt; count($array1)) $array[] = $array1[$ptr1++];
-    while ($ptr2 &lt; count($array2)) $array[] = $array2[$ptr2++];
+    while ($ptr1 < count($array1)) $array[] = $array1[$ptr1++];
+    while ($ptr2 < count($array2)) $array[] = $array2[$ptr2++];
     return;
 }
 ?>

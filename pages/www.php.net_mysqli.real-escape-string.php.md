@@ -17,12 +17,7 @@ $more_escaped = addcslashes($escaped, '%_');
 
 #
 
-Presenting several UTF-8 / Multibyte-aware escape functions.<br><br>These functions represent alternatives to mysqli::real_escape_string, as long as your DB connection and Multibyte extension are using the same character set (UTF-8), they will produce the same results by escaping the same characters as mysqli::real_escape_string.<br><br>This is based on research I did for my SQL Query Builder class:<br>https://github.com/twister
-
-```
-<?php/sql
-
-
+Presenting several UTF-8 / Multibyte-aware escape functions.<br><br>These functions represent alternatives to mysqli::real_escape_string, as long as your DB connection and Multibyte extension are using the same character set (UTF-8), they will produce the same results by escaping the same characters as mysqli::real_escape_string.<br><br>This is based on research I did for my SQL Query Builder class:<br>https://github.com/twister-php/sql<br><br>
 
 ```
 <?php

@@ -11,20 +11,20 @@ ATTENTION:<br><br>Put the upload progress session name input field BEFORE your f
 ```
 <?php echo ini_get("session.upload_progress.name"); ?>
 ```
-" value="123" /&gt;
-  &lt;input type="file" name="file1" /&gt;
-  &lt;input type="file" name="file2" /&gt;
-  &lt;input type="submit" /&gt;
-  &lt;/form&gt;
+" value="123" />
+  <input type="file" name="file1" />
+  <input type="file" name="file2" />
+  <input type="submit" />
+  </form>
 
 If you make it after your file field, you'll waste a lot of time figuring why (just like me ...)
 
 The following form will make you crazy and waste really a lot of time:
 
-&lt;form action="upload.php" method="POST" enctype="multipart/form-data"&gt;
- &lt;input type="file" name="file1" /&gt;
- &lt;input type="file" name="file2" /&gt;
- &lt;input type="hidden" name="
+<form action="upload.php" method="POST" enctype="multipart/form-data">
+ <input type="file" name="file1" />
+ <input type="file" name="file2" />
+ <input type="hidden" name="
 
 ```
 <?php echo ini_get("session.upload_progress.name"); ?>

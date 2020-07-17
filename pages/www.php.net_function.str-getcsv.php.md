@@ -85,7 +85,7 @@ Like some other users here noted, str_getcsv() cannot be used if you want to com
 
 function parse_csv ($csv_string, $delimiter = ",", $skip_empty_lines = true, $trim_fields = true)
 {
-    $enc = preg_replace('/(?&lt;!")""/', '!!Q!!', $csv_string);
+    $enc = preg_replace('/(?<!")""/', '!!Q!!', $csv_string);
     $enc = preg_replace_callback(
         '/"(.*?)"/s',
         function ($field) {
@@ -141,7 +141,7 @@ function parse_csv ($csv_string, $delimiter = ",", $skip_empty_lines = true, $tr
                 function ($field) {
                     return urlencode(utf8_encode($field[1]));
                 },
-                $enc = preg_replace('/(?&lt;!")""/', '!!Q!!', $csv_string)
+                $enc = preg_replace('/(?<!")""/', '!!Q!!', $csv_string)
             )
         )
     );

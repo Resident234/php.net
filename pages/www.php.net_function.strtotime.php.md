@@ -64,12 +64,7 @@ $date = date_create_from_format('d/m/y', '27/05/1990');
 
 #
 
-WARNING when using "next month", "last month", "+1 month",  "-1 month" or any combination of +/-X months. It will give non-intuitive results on Jan 30th and 31st. <br><br>As described at : http://derickrethans.nl/obtaining-the-next-month-in
-
-```
-<?php.html
-
-
+WARNING when using "next month", "last month", "+1 month",  "-1 month" or any combination of +/-X months. It will give non-intuitive results on Jan 30th and 31st. <br><br>As described at : http://derickrethans.nl/obtaining-the-next-month-in-php.html<br><br>
 
 ```
 <?php
