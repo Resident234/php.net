@@ -6,11 +6,11 @@ In order to set project specific configuration options, simply add a php.ini fil
 
 #
 
-I painfully experienced behaviour that I can&apos;t seem to find documented here so I wanted to save everyone from repeating my mistake by giving the following heads up:<br><br>When starting php -S on a mac (in my case macOS Sierra) to host a local server, I had trouble with connecting from legacy Java. <br><br>As it turned out, if you started the php server with <br>"php -S localhost:80" <br>the server will be started with ipv6 support only!<br><br>To access it via ipv4, you need to change the start up command like so:<br> "php -S 127.0.0.1:80"<br>which starts server in ipv4 mode only.  
+It&#x2019;s not mentioned directly, and may not be obvious, but you can also use this to create a virtual host. This, of course, requires the help of your hosts file.<br><br>Here are the steps:<br><br>1    /etc/hosts<br>    127.0.0.1    www.example.com<br><br>2    cd [root folder]<br>    php -S www.example.com:8000<br><br>3    Browser:<br>    http://www.example.com:8000/index.php<br><br>Combined with a simple SQLite database, you have a very handy testing environment.  
 
 #
 
-It&#x2019;s not mentioned directly, and may not be obvious, but you can also use this to create a virtual host. This, of course, requires the help of your hosts file.<br><br>Here are the steps:<br><br>1    /etc/hosts<br>    127.0.0.1    www.example.com<br><br>2    cd [root folder]<br>    php -S www.example.com:8000<br><br>3    Browser:<br>    http://www.example.com:8000/index.php<br><br>Combined with a simple SQLite database, you have a very handy testing environment.  
+I painfully experienced behaviour that I can&apos;t seem to find documented here so I wanted to save everyone from repeating my mistake by giving the following heads up:<br><br>When starting php -S on a mac (in my case macOS Sierra) to host a local server, I had trouble with connecting from legacy Java. <br><br>As it turned out, if you started the php server with <br>"php -S localhost:80" <br>the server will be started with ipv6 support only!<br><br>To access it via ipv4, you need to change the start up command like so:<br> "php -S 127.0.0.1:80"<br>which starts server in ipv4 mode only.  
 
 #
 
@@ -19,20 +19,6 @@ If your URI contains a dot, you&apos;ll lose the $_SERVER[&apos;PATH_INFO&apos;]
 #
 
 On Windows you may find useful to have a phpserver.bat file in shell:sendto with the folowing:<br>explorer http://localhost:8888<br>rem check if arg is file or dir<br>if exist "%~1\" (<br>  php -S localhost:8888 -t "%~1"<br>) else (<br>  php -S localhost:8888 -t "%~dp1"<br>)<br><br>then for fast web testing you only have to SendTo a file or folder to this bat and it will open your explorer and run the server.  
-
-#
-
-To output debugging information on the command line you can write output to php://stdout:<br><br>
-
-```
-<?php
-$path = $_SERVER["SCRIPT_FILENAME"];
-
-file_put_contents("php://stdout", "\nRequested: $path");
-echo "<p>Hello World</p>";
-?>
-```
-  
 
 #
 

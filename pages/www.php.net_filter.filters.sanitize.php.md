@@ -63,6 +63,10 @@ echo filter_var($a, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
 
 #
 
+Please be aware that when using filter_var() with FILTER_SANITIZE_NUMBER_FLOAT and FILTER_SANITIZE_NUMBER_INT the result will be a string, even if the input value is actually a float or an int.<br><br>Use FILTER_VALIDATE_FLOAT and FILTER_VALIDATE_INT, which will convert the result to the expected type.  
+
+#
+
 Just to clarify, since this may be unknown for a lot of people:<br><br>ASCII characters above 127 are known as "Extended" and they represent characters such as greek letters and accented letters in latin alphabets, used in languages such as pt_BR.<br><br>A good ASCII quick reference (aside from the already mentioned Wikipedia article) can be found at: http://www.asciicodes.com/  
 
 #
