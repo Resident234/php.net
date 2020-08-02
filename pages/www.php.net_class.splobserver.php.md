@@ -89,11 +89,11 @@ $newspaper->breakOutNews('USA break down!');
 ```
   
 
-#
+---
 
 Beware, you have written :<br><br>        if($key){<br>            unset($this-&gt;observers[$key]);<br>        }<br><br>When this should be :<br><br>        if(false !== $key){<br>            unset($this-&gt;observers[$key]);<br>        }<br><br>If the observer you want to delete is the first in your array, you will never delete it because the key would equal 0 and 0 == false as you know.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.splobserver.php)
 

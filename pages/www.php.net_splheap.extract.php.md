@@ -30,7 +30,7 @@ echo $heap->extract(), PHP_EOL; # B
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/splheap.extract.php)
 

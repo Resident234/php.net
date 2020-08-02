@@ -22,7 +22,7 @@ count(new Foo(), COUNT_RECURSIVE);
 ```
 <br><br>var_dump output:<br><br>array(0) {<br>}  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/countable.count.php)
 

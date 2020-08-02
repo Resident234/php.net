@@ -29,7 +29,7 @@ function unparse_url($parsed_url) {
 ```
   
 
-#
+---
 
 Here is utf-8 compatible parse_url() replacement function based on "laszlo dot janszky at gmail dot com" work. Original incorrectly handled URLs with user:pass. Also made PHP 5.5 compatible (got rid of now deprecated regex /e modifier).<br><br>
 
@@ -71,11 +71,11 @@ Here is utf-8 compatible parse_url() replacement function based on "laszlo dot j
 ```
   
 
-#
+---
 
 It may be worth reminding that the value of the #fragment never gets sent to the server.  Anchors processing is exclusively client-side.  
 
-#
+---
 
 I was writing unit tests and needed to cause this function to kick out an error and return FALSE in order to test a specific execution path. If anyone else needs to force a failure, the following inputs will work:<br><br>
 
@@ -88,7 +88,7 @@ parse_url("http://user@:80");
 ```
   
 
-#
+---
 
 Here&apos;s a good way to using parse_url () gets the youtube link.<br>This function I used in many works:<br><br>
 
@@ -108,7 +108,7 @@ $url='http://www.youtube.com/watch?v=yvTd6XxgCBE';
 ```
 <br><br>parse_url () allocates a unique youtube code and  put into iframe link and displayed on your page. The size of the videos choose yourself.<br><br>Enjoy.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.parse-url.php)
 

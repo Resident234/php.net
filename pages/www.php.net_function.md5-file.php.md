@@ -49,7 +49,7 @@ function files_identical($fn1, $fn2) {
 ```
   
 
-#
+---
 
 It&apos;s faster to use md5sum than openssl md5:<br><br>
 
@@ -73,7 +73,7 @@ echo "Time = $end";
 ```
 <br><br>About 3x faster  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.md5-file.php)
 

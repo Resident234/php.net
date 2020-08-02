@@ -57,11 +57,11 @@ while ($heap->valid()) {
 ```
 <br><br>This results in the following output:<br>Club Brugge: 21<br>Anderlecht: 20<br>Standard: 20<br>KV Mechelen: 18<br>STVV: 17<br>Zulte Waregem: 15<br>AA Gent: 15<br>G. Beerschot: 15<br>Charleroi: 12<br>Racing Genk: 11<br>Cercle Brugge: 11<br>Kortrijk: 10<br>Lokeren: 10<br>Westerlo: 10<br>Moeskroen: 7<br>Roeselare: 6<br><br>Hope this example paved the way for more complex implementations of SplHeap.  
 
-#
+---
 
 While Michelangelo Van Dam example (http://br2.php.net/manual/en/class.splheap.php#93930) is a great demonstration of what can be done with SplHeap, this implementation is exactly what SplPriorityQueue does - based on SplMaxHeap. If you&apos;re planning to copy that snippet, go no further! There&apos;s a SPL class that does exactly what you want :)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.splheap.php)
 

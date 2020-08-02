@@ -48,11 +48,11 @@ But your web page is probably encoded UTF-8, and you probably don't really want 
 ```
   
 
-#
+---
 
 Be careful using get_html_translation_table() in a loop, as it&apos;s very slow.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.get-html-translation-table.php)
 

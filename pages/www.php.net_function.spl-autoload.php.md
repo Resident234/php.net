@@ -22,7 +22,7 @@ Note, that the default autoload implementation is written in C land and is alway
 ```
 <br><br>This also works with namespaces out of the box. So you can write code like "use My\Name\Object" and it will map to "class/My/Name/Object.class.php" file path!  
 
-#
+---
 
 One small example that shows how you can use spl_autoload function in your MVC, Framewrk&apos;s applications. For example, will use the Loader class.<br> <br><br>
 
@@ -193,11 +193,11 @@ One small example that shows how you can use spl_autoload function in your MVC, 
 ```
   
 
-#
+---
 
 Note this function will LOWERCASE the class names its looking for, dont be confused when it cant find Foo_Bar.php<br><br>also, unlike most other autoloader code snippets, this function DOES NOT translate underscores to slashes.<br><br>class Foo_Bar {}<br>will load foo_bar.php and will not try to load foo/bar.php<br><br>You can get around this with<br>spl_autoload_register(function($class) { return spl_autoload(str_replace(&apos;_&apos;, &apos;/&apos;, $class));});  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.spl-autoload.php)
 

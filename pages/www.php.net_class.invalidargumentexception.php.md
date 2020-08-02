@@ -22,7 +22,7 @@ $x = tripleInteger('4'); //exception will throw as '4' is also a string
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.invalidargumentexception.php)
 

@@ -81,7 +81,7 @@ while($a = fread($fr, 256)){ //A loop for reading from the wrapper
 ```
 <br><br>Hope it helps, cheers ;)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/stream.streamwrapper.example-1.php)
 

@@ -95,7 +95,7 @@ function compress_php_src($src) {
                     $iw = true;
                 } elseif($tn == T_WHITESPACE) {
                     $nt = @$tokens[$i+1];
-                    if(!$iw &amp;&amp; (!is_string($nt) || $nt == '&lt;/h1&gt;"  ) &amp;&amp; !in_array($nt[0], $IW)) {
+                    if(!$iw &amp;&amp; (!is_string($nt) || $nt == '</h1>"  ) &amp;&amp; !in_array($nt[0], $IW)) {
                         $new .= " ";
                     }
                     $iw = false;
@@ -148,9 +148,6 @@ For example:
 <?php
 
 $src = <<<EOT
-
-
-```
 <?php
 // some comment
 for ( $i = 0; $i < 99; $i ++ ) {
@@ -164,11 +161,7 @@ function abc() {
 
 abc();
 ?>
-```
-
-<h1><?= "Some text " . str_repeat("_-x-_ ", 32);;; ?>
-```
-</h1>
+<h1><?= "Some text " . str_repeat("_-x-_ ", 32);;; ?></h1>
 EOT;
 var_dump(compress_php_src($src));
 ?>
@@ -182,11 +175,14 @@ string(125) "
 <?php for(=0;<99;++){echo "i=\n";}function abc(){return "abc";};abc(); ?>
 ```
 
-<h1><?="Some text ".str_repeat("_-x-_ ",32)?>
-```
-&lt;/h1&gt;"  
+<h1>
 
-#
+```
+<?php="Some text ".str_repeat("_-x-_ ",32)?>
+```
+</h1>"  
+
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.php-strip-whitespace.php)
 

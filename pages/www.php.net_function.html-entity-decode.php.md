@@ -17,7 +17,7 @@ echo $output;
 ```
   
 
-#
+---
 
 Use the following to decode all entities:<br>
 
@@ -26,7 +26,7 @@ Use the following to decode all entities:<br>
 ```
 <br><br>I&apos;ve checked these special entities: <br>- double quotes (&amp;#34;)<br>- single quotes (&amp;#39; and &amp;apos;) <br>- non printable chars (e.g. &amp;#13;)<br>With other $flags some or all won&apos;t be decoded.<br><br>It seems that ENT_XML1 and ENT_XHTML are identical when decoding.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.html-entity-decode.php)
 

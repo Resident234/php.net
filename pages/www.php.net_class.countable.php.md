@@ -43,7 +43,7 @@ echo count($countable); //result is "3" as expected
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.countable.php)
 

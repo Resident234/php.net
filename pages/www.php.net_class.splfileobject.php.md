@@ -23,7 +23,7 @@ print 'File deleted!';
 ```
 <br>---------------------------------------------------------------------<br><br>which will output:<br><br>---------------------------------------------------------------------<br>Declaring file object <br>Trying to delete file... <br><br>Warning: unlink(example.txt): Permission denied in file.php on line 6<br>Closing file object <br>Deleting file... <br>File deleted!<br>---------------------------------------------------------------------  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.splfileobject.php)
 

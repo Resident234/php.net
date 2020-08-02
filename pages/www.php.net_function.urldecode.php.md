@@ -51,11 +51,11 @@ $x = to_utf8( $_GET['myvar'] );
 ```
 <br><br>$x store: in the first case "&#xBA;" (good) and in the second case "&#xBA;" (good)<br><br>Solve a lot of i18n problems.<br><br>Please fix the auto-urldecode of $_GET var in the next PHP version.<br><br>Bye.<br><br>Alejandro Salamanca  
 
-#
+---
 
 If you are escaping strings in javascript and want to decode them in PHP with urldecode (or want PHP to decode them automatically when you&apos;re putting them in the query string or post request), you should use the javascript function encodeURIComponent() instead of escape(). Then you won&apos;t need any of the fancy custom utf_urldecode functions from the previous comments.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.urldecode.php)
 

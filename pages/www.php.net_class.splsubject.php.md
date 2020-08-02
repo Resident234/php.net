@@ -78,7 +78,7 @@ MyObserver1 - test
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.splsubject.php)
 

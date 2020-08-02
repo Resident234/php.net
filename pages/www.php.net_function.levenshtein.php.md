@@ -49,7 +49,7 @@ function levenshtein_utf8($s1, $s2)
 ```
 <br><br>Results (for about 6000 calls)<br>- reference time core C function (single-byte) : 30 ms<br>- utf8 to ext-ascii conversion + core function : 90 ms<br>- full php implementation : 3000 ms  
 
-#
+---
 
 [EDITOR&apos;S NOTE: original post and 2 corrections combined into 1 -- mgf]<br><br>Here is an implementation of the Levenshtein Distance calculation that only uses a one-dimensional array and doesn&apos;t have a limit to the string length. This implementation was inspired by maze generation algorithms that also use only one-dimensional arrays.<br><br>I have tested this function with two 532-character strings and it completed in 0.6-0.8 seconds. <br><br>
 
@@ -107,11 +107,11 @@ function LevenshteinDistance($s1, $s2)
 ```
   
 
-#
+---
 
 It&apos;s also useful if you want to make some sort of registration page and you want to make sure that people who register don&apos;t pick usernames that are very similar to their passwords.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.levenshtein.php)
 

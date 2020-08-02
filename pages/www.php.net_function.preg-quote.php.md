@@ -4,7 +4,7 @@
 
 Wondering why your preg_replace fails, even if you have used preg_quote?<br><br>Try adding the delimiter / - preg_quote($string, &apos;/&apos;);  
 
-#
+---
 
 To escape characters with special meaning, like: .-[]() and so on, use \Q and \E.<br><br>For example:<br><br>
 
@@ -24,7 +24,7 @@ But:
 ```
 <br><br>Will result in: nomatch  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.preg-quote.php)
 

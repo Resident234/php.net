@@ -10,7 +10,7 @@ echo array_flip(get_defined_constants(true)['pcre'])[preg_last_error()];?>
 ```
   
 
-#
+---
 
 Here is a more advanced function to convert an error code to text:<br><br>
 
@@ -35,7 +35,7 @@ function preg_errtxt($errcode)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.preg-last-error.php)
 

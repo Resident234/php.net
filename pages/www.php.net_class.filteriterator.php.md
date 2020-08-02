@@ -46,7 +46,7 @@ foreach ($iterator as $result) {
 ```
 <br>Regards.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.filteriterator.php)
 

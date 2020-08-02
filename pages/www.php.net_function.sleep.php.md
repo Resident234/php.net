@@ -18,11 +18,11 @@ will not work as expected. The 0.25 is cast to an integer, so this is equivalent
 ```
   
 
-#
+---
 
 re: "mitigating the chances of a full bruit force attack by a limit of 30 lookups a minute."<br><br>Not really - the attacker could do 100 requests. Each request might take 2 seconds but it doesn&apos;t stop the number of requests done. You need to stop processing more than one request every 2 seconds rather than delay it by 2 seconds on each execution.  
 
-#
+---
 
 Maybe obvious, but this my function to delay script execution using decimals for seconds (to mimic sleep(1.5) for example):<br><br>
 
@@ -43,19 +43,19 @@ function msleep($time)
 ```
   
 
-#
+---
 
 You should put sleep into both the pass and fail branches, since an attacker can check whether the response is slow and use that as an indicator - cutting down the delay time. But a delay in both branches eliminates this possibility.  
 
-#
+---
 
 Note: The set_time_limit() function and the configuration directive max_execution_time only affect the execution time of the script itself. Any time spent on activity that happens outside the execution of the script such as system calls using system(), the sleep() function, database queries, etc. is not included when determining the maximum time that the script has been running.  
 
-#
+---
 
 it is a bad idea to use sleep() for delayed output effects as<br><br>1) you have to flush() output before you sleep<br><br>2) depending on your setup flush() will not work all the way to the browser as the web server might apply buffering of its own or the browser might not render output it thinks not to be complete<br><br>netscape for example will only display complete lines and will not show table parts until the &lt;/table&gt; tag arrived<br><br>so use sleep if you have to wait  for events and don&apos;t want to burn  to much cycles, but don&apos;t use it for silly delayed output effects!  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.sleep.php)
 

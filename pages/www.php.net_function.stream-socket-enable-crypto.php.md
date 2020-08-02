@@ -18,7 +18,7 @@ stream_socket_enable_crypto($socket, true, $crypto_method);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.stream-socket-enable-crypto.php)
 
