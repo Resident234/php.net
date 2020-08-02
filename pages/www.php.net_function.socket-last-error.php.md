@@ -41,7 +41,7 @@ define('ECANCELED',     125);   /* Operation Canceled */
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.socket-last-error.php)
 

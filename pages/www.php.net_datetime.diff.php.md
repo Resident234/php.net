@@ -4,11 +4,11 @@
 
 It is worth noting, IMO, and it is implied in the docs but not explicitly stated, that the object on which diff is called is subtracted from the object that is passed to diff.<br><br>i.e. $now-&gt;diff($tomorrow) is positive.  
 
-#
+---
 
 Be careful using:<br><br>$date1 = new DateTime(&apos;now&apos;);<br>$date2 = new DateTime(&apos;tomorrow&apos;);<br><br>$interval = date_diff($date1, $date2);<br><br>echo $interval-&gt;format(&apos;In %a days&apos;);<br><br>In some situations, this won&apos;t say "in 1 days", but "in 0 days".<br>I think this is because "now" is the current time, while "tomorrow" is the current day +1 but at a default time, lets say:<br><br>Now: 08:00pm, 01.01.2015<br>Tomorrow: 00:00am, 02.01.2015<br><br>In this case, the difference is not 24 hour, so it will says 0 days.<br><br>Better use "today", which should also use a default value like:<br><br>Today: 00:00am, 01.01.2015<br>Tomorrow: 00:00am, 02.01.2015<br><br>which now is 24 hour and represents 1 day.<br><br>This may sound logical and many will say "of course, this is right", but if you use it in a naiv way (like I did without thinking), you can come to this moment and facepalm yourself.<br><br>Conclusion: "Now" is "Today", but in a different clock time, but still the same day!  
 
-#
+---
 
 After wrestling with DateTime::diff for a while it finally dawned on me the problem was both in the formatting of the input string and the formatting of the output.<br><br>The task was to calculate the duration between two date/times.<br><br>### Calculating Duration <br><br>1. Make sure you have a valid date variable.  Both of these strings are valid:<br><br>
 
@@ -25,7 +25,7 @@ After wrestling with DateTime::diff for a while it finally dawned on me the prob
 
 
 2. Next convert the string to a date variable
-~~~
+
 
 
 ```
@@ -37,10 +37,10 @@ After wrestling with DateTime::diff for a while it finally dawned on me the prob
 ?>
 ```
 
-~~~
+
 
 3. Calculate the difference
-~~~
+
 
 
 ```
@@ -51,10 +51,10 @@ After wrestling with DateTime::diff for a while it finally dawned on me the prob
 ?>
 ```
 
-~~~
+
 
 4. Format the output
-~~~
+
 
 
 ```
@@ -70,9 +70,9 @@ After wrestling with DateTime::diff for a while it finally dawned on me the prob
 
 ?>
 ```
-<br>~~~<br><br>[Modified by moderator for clarify]  
+<br><br><br>[Modified by moderator for clarify]  
 
-#
+---
 
 Using the identical (===) comparision operator in different but equal objects will return false<br><br>
 
@@ -87,7 +87,7 @@ var_dump( $d == $c ); #true
 ```
   
 
-#
+---
 
 If you want to quickly scan through the resulting intervals, you can use the undocumented properties of DateInterval.<br><br>The function below returns a single number of years, months, days, hours, minutes or seconds between the current date and the provided date.  If the date occurs in the past (is negative/inverted), it suffixes it with &apos;ago&apos;.<br><br>
 
@@ -113,7 +113,7 @@ function ago( $datetime )
 ```
   
 
-#
+---
 
 It seems that while DateTime in general does preserve microseconds, DateTime::diff doesn&apos;t appear to account for it when comparing.  <br><br>Example:<br><br>
 
@@ -124,7 +124,7 @@ $val2 = '2014-03-18 10:34:09.940';
 
 $datetime1 = new DateTime($val1);
 $datetime2 = new DateTime($val2);
-echo "<pre>";
+echo "";
 var_dump($datetime1->diff($datetime2));
 
 if($datetime1 > $datetime2)
@@ -155,11 +155,11 @@ else
 ```
   
 
-#
+---
 
 Warning, there&apos;s a bug on windows platforms: the result is always 6015 days (and not 42...)<br><br>http://bugs.php.net/bug.php?id=51184  
 
-#
+---
 
 Though I found a number of people who ran into the issue of 5.2 and lower not supporting this function, I was unable to find any solid examples to get around it. Therefore I hope this can help some others:<br><br>
 
@@ -275,7 +275,7 @@ function pluralize( $count, $text )
 ```
   
 
-#
+---
 
 I needed to get the exact number of days between 2 dates and was relying on the this diff function, but found that I was getting a peculiar result with:<br><br>
 
@@ -301,7 +301,7 @@ I had to end up using :
 ```
 <br><br>to get 30.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/datetime.diff.php)
 

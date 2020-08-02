@@ -13,7 +13,7 @@ function imap_utf8_fix($string) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-utf8.php)
 

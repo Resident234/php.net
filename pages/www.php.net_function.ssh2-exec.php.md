@@ -26,7 +26,7 @@ fclose($stream);
 ```
 <br><br>My initial suspicion is that either a) I&apos;ve done something wrong  or b) the blocking nature of both streams means that by the time first stream has received data and returned, the buffer for the second stream has already emptied.<br><br>I&apos;ve done preliminary tests with blocking disabled, but haven&apos;t had any luck there either.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ssh2-exec.php)
 

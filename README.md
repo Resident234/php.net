@@ -134,3 +134,45 @@
 
 [umask](/pages/www.php.net_function.umask.php.md)
 
+[unlink](/pages/www.php.net_function.unlink.php.md)
+
+#### Inotify
+
+##### Inotify Functions
+
+[inotify_init](/pages/www.php.net_function.inotify-init.php.md)
+
+### Human Language and Character Encoding Support
+
+[Gettext](/pages/www.php.net_book.gettext.php.md)
+
+#### Gettext
+
+[Gettext Functions](/pages/www.php.net_ref.gettext.php.md)
+
+##### Gettext Functions
+
+[dcgettext](/pages/www.php.net_function.dcgettext.php.md)
+
+#### iconv
+
+##### iconv Functions
+
+[iconv_strlen](/pages/www.php.net_function.iconv-strlen.php.md)
+
+[iconv](/pages/www.php.net_function.iconv.php.md)
+
+#### intl
+
+[Installation](/pages/www.php.net_intl.installation.php.md)
+
+[The NumberFormatter class](/pages/www.php.net_class.numberformatter.php.md)
+
+##### NumberFormatter
+
+[NumberFormatter::formatCurrency](/pages/www.php.net_numberformatter.formatcurrency.php.md)
+
+##### Locale
+
+[Locale::acceptFromHttp](/pages/www.php.net_locale.acceptfromhttp.php.md)
+

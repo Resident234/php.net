@@ -18,7 +18,7 @@ fclose($whandle);
 ```
 <br><br>NOTE: To find the proper filter you need to check the encoding given by the structure of the body.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-savebody.php)
 

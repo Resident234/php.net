@@ -93,7 +93,7 @@ socket_close($sock);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.sockets.php)
 

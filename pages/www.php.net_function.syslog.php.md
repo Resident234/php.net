@@ -12,7 +12,7 @@ syslog("My syslog message");
 ```
 <br><br>From here on out, this Apache thread will write ErrorLog to local0 and under the process name "myprogram" and not httpd!  Calling closelog() will fix this.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.syslog.php)
 

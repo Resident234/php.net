@@ -43,7 +43,7 @@ try {
 ```
 <br><br>For the test I&apos;ve sent three files with total size of 6kB, and the times to send including connect to the server were:<br><br>SFTP -&gt; 15 sec.<br>ssh2_scp_send -&gt; 22 sec.<br><br>Cheers,<br><br>Pimmy  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ssh2-scp-send.php)
 

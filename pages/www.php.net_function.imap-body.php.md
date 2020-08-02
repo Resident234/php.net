@@ -26,7 +26,7 @@ if( $imap ) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-body.php)
 

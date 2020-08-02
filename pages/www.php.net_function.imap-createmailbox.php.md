@@ -94,7 +94,7 @@ if($_POST['imap_username'] &amp;&amp; $_POST['imap_password']) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-createmailbox.php)
 

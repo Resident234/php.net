@@ -60,7 +60,7 @@ class NiceSSH {
 ```
 <br><br>[EDIT BY danbrown AT php DOT net: Contains two bugfixes suggested by &apos;AlainC&apos; in user note #109185 (removed) on 26-JUN-2012.]  
 
-#
+---
 
 Be careful when providing a specific hostkey order. <br><br>
 
@@ -84,7 +84,7 @@ ssh2_connect('IP', 'port',   array('hostkey'=>'ssh-rsa,ssh-dss'));
 ```
 <br><br>Will work. The HOSTKEY method is overriden using exactly what you write, so no empty spaces are allowed.<br><br>This took me some time that you could save ;)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ssh2-connect.php)
 

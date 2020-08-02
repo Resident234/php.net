@@ -14,7 +14,7 @@ string '&#xC9;tats-Unis' (length=11)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/locale.getdisplayregion.php)
 
