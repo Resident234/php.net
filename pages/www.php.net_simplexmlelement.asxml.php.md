@@ -8,7 +8,7 @@ To prevent asXML from encoding vowels unwantedly, simply use an approriate XML h
 <?php
 
 $xmlstr =
-'<?xml version="1.0" encoding="UTF-8" ?>;
+'``<?xml version="1.0" encoding="UTF-8" ?>``;
 <keys>
   <key lang="en">&amp;lt;Insert&amp;gt;</key>
   <key lang="de">&amp;lt;Einf&#xFC;gen&amp;gt;</key>

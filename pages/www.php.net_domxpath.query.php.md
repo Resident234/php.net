@@ -6,7 +6,7 @@ If the query() function seems to ignore your $contextnode, and instead returns a
 
 ```
 <?php
-    $xml = "<?xml version="1.0" encoding="UTF-8" ?>;
+    $xml = "``<?xml version="1.0" encoding="UTF-8" ?>``;
         <test>
             <tag1>
                 <uselesstag>
@@ -35,7 +35,7 @@ Note that if your DOMDocument was loaded from HTML, where element and attribute 
 
 ---
 
-Please note that what clochix says is valid for *any* document which has a default namespace (as it is the case for XHTML).<br><br>This document :<br><br><?xml version="1.0" encoding="UTF-8" ?>;<br><br>&lt;root xmlns="http://www.exemple.org/namespace"&gt;<br><br>    &lt;element id="1"&gt;<br>    ...<br>    &lt;/element&gt;<br><br>    &lt;element id="2"&gt;<br>    ...<br>    &lt;/element&gt;<br><br>&lt;/element&gt;<br><br>must be accessed this way :<br><br>$document = new DOMDocument();<br>$document-&gt;load(&apos;document.xml&apos;);<br><br>$xpath = new DOMXPath($document);<br>$xpath-&gt;registerNameSpace(&apos;fakeprefix&apos;, &apos;http://www.exemple.org/namespace&apos;);<br><br>$elements = $xpath-&gt;query(&apos;//fakeprefix:element&apos;);<br><br>Of course, there is no prefix in the original document, but the DOMXPath class *needs* one, whatever it is, if you use a default namespace. It *doesn&apos;t work* if you specify an empty prefix like this :<br><br>$xpath-&gt;registerNameSpace(&apos;&apos;, &apos;http://www.exemple.org/namespace&apos;);<br><br>Hope this help to spare some time...  
+Please note that what clochix says is valid for *any* document which has a default namespace (as it is the case for XHTML).<br><br>This document :<br><br>``<?xml version="1.0" encoding="UTF-8" ?>``;<br><br>&lt;root xmlns="http://www.exemple.org/namespace"&gt;<br><br>    &lt;element id="1"&gt;<br>    ...<br>    &lt;/element&gt;<br><br>    &lt;element id="2"&gt;<br>    ...<br>    &lt;/element&gt;<br><br>&lt;/element&gt;<br><br>must be accessed this way :<br><br>$document = new DOMDocument();<br>$document-&gt;load(&apos;document.xml&apos;);<br><br>$xpath = new DOMXPath($document);<br>$xpath-&gt;registerNameSpace(&apos;fakeprefix&apos;, &apos;http://www.exemple.org/namespace&apos;);<br><br>$elements = $xpath-&gt;query(&apos;//fakeprefix:element&apos;);<br><br>Of course, there is no prefix in the original document, but the DOMXPath class *needs* one, whatever it is, if you use a default namespace. It *doesn&apos;t work* if you specify an empty prefix like this :<br><br>$xpath-&gt;registerNameSpace(&apos;&apos;, &apos;http://www.exemple.org/namespace&apos;);<br><br>Hope this help to spare some time...  
 
 ---
 

@@ -4,7 +4,7 @@
 
 Keep in mind if you have xdebug installed it will limit the var_dump() output of array elements and object properties to 3 levels deep.<br><br>To change the default, edit your xdebug.ini file and add the folllowing line:<br>xdebug.var_display_max_depth=n<br><br>More information here:<br>http://www.xdebug.org/docs/display  
 
-#
+---
 
 If you&apos;re like me and uses var_dump whenever you&apos;re debugging, you might find these two "wrapper" functions helpful.<br><br>This one automatically adds the PRE tags around the var_dump output so you get nice formatted arrays.<br><br>
 
@@ -41,7 +41,7 @@ function var_dump_ret($mixed = null) {
 ```
 <br><br>Fairly simple functions, but they&apos;re infinitely helpful (I use var_dump_pre() almost exclusively now).  
 
-#
+---
 
 I post a new var_dump function with colors and collapse features. It can also adapt to terminal output if you execute it from there. No need to wrap it in a pre tag to get it to work in browsers. <br><br>
 
@@ -169,7 +169,7 @@ function dump_debug($input, $collapse=false) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.var-dump.php)
 

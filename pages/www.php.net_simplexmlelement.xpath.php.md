@@ -7,7 +7,7 @@ To run an xpath query on an XML document that has a namespace, the namespace mus
 ```
 <?php
 $strXml= <<<XML
-<?xml version="1.0" encoding="UTF-8" ?>;
+``<?xml version="1.0" encoding="UTF-8" ?>``;
 <mydoc xmlns="http://www.url.com/myns">
     <message>Test message</message>
 </mydoc>

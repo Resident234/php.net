@@ -32,7 +32,7 @@ Here is a simple example for replacing a node:<br><br>Let&apos;s define our XML 
 ```
 <?php
 $xml = <<<XML
-<?xml version="1.0"?>;
+``<?xml version="1.0"?>``;
 <root>
   <parent>
      <child>bar</child>
@@ -99,7 +99,7 @@ $oldnode->parentNode->replaceChild($newnode, $oldnode);
 echo $dom->saveXML();
 ?>
 ```
-<br><br>Our new node is successfully imported:<br><br><?xml version="1.0"?>;<br>&lt;root&gt;<br>&lt;parent&gt;&lt;child&gt;somevalue&lt;/child&gt;&lt;child&gt;anothervalue&lt;/child&gt;&lt;/parent&gt;<br>&lt;/root&gt;  
+<br><br>Our new node is successfully imported:<br><br>``<?xml version="1.0"?>``;<br>&lt;root&gt;<br>&lt;parent&gt;&lt;child&gt;somevalue&lt;/child&gt;&lt;child&gt;anothervalue&lt;/child&gt;&lt;/parent&gt;<br>&lt;/root&gt;  
 
 ---
 

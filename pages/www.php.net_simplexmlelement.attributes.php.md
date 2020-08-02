@@ -52,7 +52,7 @@ Note that you must provide the namespace if you want to access an attribute of a
 ```
 <?php
 $xml = <<<XML
-<?xml version="1.0"?>;
+``<?xml version="1.0"?>``;
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
  <Table Foo="Bar" ss:ExpandedColumnCount="7">

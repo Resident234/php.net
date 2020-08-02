@@ -22,7 +22,7 @@ The BIGGEST differece between an XML and a PHP array is that in an XML file, the
 ```
 <?php
 function array2XML($arr,$root) {
-$xml = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"utf-8\" ?>;<{$root}></{$root}>"); 
+$xml = new SimpleXMLElement("``<?xml version=\"1.0\" encoding=\"utf-8\" ?>``;<{$root}></{$root}>"); 
 $f = create_function('$f,$c,$a',' 
         foreach($a as $v) {
             if(isset($v["@text"])) {

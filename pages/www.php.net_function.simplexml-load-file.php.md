@@ -27,7 +27,7 @@ To correctly extract a value from a CDATA just make sure you cast the SimpleXML 
 
 ```
 <?php
-$xml = '<?xml version="1.0" encoding="UTF-8" ?>;
+$xml = '``<?xml version="1.0" encoding="UTF-8" ?>``;
 <rss>
     <channel>
         <item>

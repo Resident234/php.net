@@ -7,7 +7,7 @@ When using simplexml to access a element the returned object may be a SimpleXMLE
 ```
 <?php
 $string = <<<XML
-<?xml version="1.0"?>;
+``<?xml version="1.0"?>``;
 <document>
     <cmd>login</cmd>
     <login>Richard</login>
