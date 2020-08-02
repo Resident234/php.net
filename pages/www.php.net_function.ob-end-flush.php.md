@@ -35,11 +35,19 @@ best way to compress a css code:<br><br>
   include('./template/main.css');
   include('./template/classes.css');
 
-<?php
+
+
+```
+<?phpphp
   ob_end_flush();
 ?>
 ```
-<br><br>Include in &lt;head&gt;:<br>&lt;link rel="stylesheet" type="text/css" href="/design.php" media="all" /&gt;  
+
+
+Include in <head>:
+<link rel="stylesheet" type="text/css" href="/design.php" media="all" />?>
+```
+  
 
 ---
 
