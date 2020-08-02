@@ -44,7 +44,7 @@ Also note that<br><br>
 Interesting to note that you must pass a STRING to this function, other values won&apos;t be typecasted (I figured it would even though above explicitly says string $text).<br><br>I.E.<br><br>
 
 ```
-<?phpPHP
+<?php
 $val = 42; //Answer to life
 $x = ctype_digit($val);
 ?>
@@ -56,7 +56,7 @@ Will return false, even though, when typecasted to string, it would be true.
 
 
 ```
-<?phpPHP
+<?php
 $val = '42';
 $x = ctype_digit($val);
 ?>
@@ -70,7 +70,7 @@ Could do this too:
 
 
 ```
-<?phpPHP
+<?php
 $val = 42;
 $x = ctype_digit((string) $val);
 ?>

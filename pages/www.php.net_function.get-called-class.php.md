@@ -60,7 +60,7 @@ new static();
 get_called_class() in closure-scopes:<br><br>
 
 ```
-<?phpPHP
+<?php
     ABSTRACT CLASS Base
     {
         protected static $stub = ['baz'];

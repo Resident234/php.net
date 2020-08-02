@@ -12,10 +12,23 @@ foreach($array as $value)
 }
 ?>
 ```
-<br><br>and experiencing errors (the pointer of the array is already moved to the next item, so instead of getting the key for $value, you will get the key to the next value in the array)<br><br>CORRECT:<br>
+
+
+and experiencing errors (the pointer of the array is already moved to the next item, so instead of getting the key for $value, you will get the key to the next value in the array)
+
+CORRECT:
+
 
 ```
-<?php<br>foreach($array as $key =&gt; $value)<br>{<br>  $mykey = $key;<br>}<br><br>A noob error, but felt it might help someone else out there.  
+<?php
+foreach($array as $key => $value)
+{
+  $mykey = $key;
+}
+
+A noob error, but felt it might help someone else out there.?>
+```
+  
 
 ---
 
