@@ -23,7 +23,7 @@ generateUpToDateMimeArray(APACHE_MIME_TYPES_URL);
 ```
 <br><br>Output:<br>$mime_types = array(<br>   &apos;123&apos; =&gt; &apos;application/vnd.lotus-1-2-3&apos;,<br>   &apos;3dml&apos; =&gt; &apos;text/vnd.in3d.3dml&apos;,<br>   &apos;3g2&apos; =&gt; &apos;video/3gpp2&apos;,<br>   &apos;3gp&apos; =&gt; &apos;video/3gpp&apos;,<br>   &apos;7z&apos; =&gt; &apos;application/x-7z-compressed&apos;,<br>   &apos;aab&apos; =&gt; &apos;application/x-authorware-bin&apos;,<br>   &apos;aac&apos; =&gt; &apos;audio/x-aac&apos;,<br>   &apos;aam&apos; =&gt; &apos;application/x-authorware-map&apos;,<br>   &apos;aas&apos; =&gt; &apos;application/x-authorware-seg&apos;,<br>...<br><br>Enjoy.  
 
-#
+---
 
 There is a composer package that will do this:<br>https://github.com/ralouphie/mimey<br><br>
 
@@ -39,7 +39,7 @@ $mimes->getExtension('application/json'); // json?>
 ```
   
 
-#
+---
 
 using <br>
 
@@ -58,7 +58,7 @@ function detectFileMimeType($filename='')
 ```
 <br>should work on most shared linux hosts without errors. It should also work on Windows hosts with msysgit installed.  
 
-#
+---
 
 
 
@@ -143,11 +143,11 @@ if(!function_exists('mime_content_type')) {
 ```
   
 
-#
+---
 
 Lukas V is IMO missing some point. The MIME type of a file may not be corresponding to the file suffix.<br><br>Imagine someone would obfuscate some PHP code in a .gif file, the file suffix would be &apos;GIF&apos; but the MIME would be text/plain or even text/html.<br><br>Another example is files fetched via a distant server (wget / fopen / file / fsockopen...). The server can issue an error, i.e. 404 Not Found, wich again is text/html, whatever you save the file to (download_archive.rar).<br><br>His provided function should begin by the test of the function existancy like :<br><br>function MIMEalternative($file)<br>{<br>    if(function_exists(&apos;mime_content_type&apos;))<br>        return mime_content_type($file);<br>    else<br>        return &lt;lukas_v.MIMEfunction&gt;($file);<br>}  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.mime-content-type.php)
 

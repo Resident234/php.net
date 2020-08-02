@@ -32,9 +32,9 @@ if($ldapconn) {
         $data = ldap_get_entries($ldapconn, $result);
         
         // SHOW ALL DATA
-        echo '<h1>Dump all data</h1><pre>';
+        echo '<h1>Dump all data</h1>';
         print_r($data);    
-        echo '</pre>';
+        echo '';
         
         
         // iterate over array and print data for each entry
@@ -62,11 +62,11 @@ ldap_close($ldapconn);
 ```
   
 
-#
+---
 
 Here are a couple of resources for proper construction of filters. <br><br>http://msdn2.microsoft.com/En-US/library/aa746475.aspx<br><br>http://technet.microsoft.com/en-us/library/aa996205.aspx<br><br>Before finding these I had been stumped for hours on how to do something like "all users starting with "a" except those from OU &apos;foo&apos;"  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ldap-search.php)
 

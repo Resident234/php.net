@@ -21,7 +21,7 @@ If you want to compare permission
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.fileperms.php)
 

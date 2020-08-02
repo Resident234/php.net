@@ -20,7 +20,7 @@ ldap_close($ds);
 ```
  <br><br>This prints out the specified users mail and surname for example.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ldap-read.php)
 

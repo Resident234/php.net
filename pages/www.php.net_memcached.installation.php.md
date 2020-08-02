@@ -23,7 +23,7 @@ var_dump($arr);
 ```
 <br><br>Hoping to help someone.<br>~Kerem  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/memcached.installation.php)
 

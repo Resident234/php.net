@@ -34,7 +34,7 @@ A test:
 ```
 <br>Returns: string(14) "this/a/test/is" <br><br>As you can so, it also produces Yoda-speak. :)  
 
-#
+---
 
 
 
@@ -109,7 +109,7 @@ class Path
 ```
   
 
-#
+---
 
 Needed a method to normalize a virtual path that could handle .. references that go beyond the initial folder reference. So I created the following.<br>
 
@@ -151,11 +151,11 @@ function normalizePath($path)
 ```
 <br><br>Will convert /path/to/test/.././..//..///..///../one/two/../three/filename<br>to ../../one/three/filename  
 
-#
+---
 
 Note: If you use this to check if a file exists, it&apos;s path will be cached, and returns true even if the file is removed (use file_exists instead).  
 
-#
+---
 
 Here&apos;s a function to canonicalize a URL containing relative paths. Ran into the problem when pulling links from a remote page.<br><br>
 
@@ -183,7 +183,7 @@ echo canonicalize($url); //http://www.example.com/else
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.realpath.php)
 

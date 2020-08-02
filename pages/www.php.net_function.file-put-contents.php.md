@@ -18,11 +18,11 @@ File put contents fails if you try to put a file in a directory that doesn&apos;
 ```
   
 
-#
+---
 
 It should be obvious that this should only be used if you&apos;re making one write, if you are writing multiple times to the same file you should handle it yourself with fopen and fwrite, the fclose when you are done writing.<br><br>Benchmark below:<br><br>file_put_contents() for 1,000,000 writes - average of 3 benchmarks:<br><br> real 0m3.932s<br> user 0m2.487s<br> sys 0m1.437s<br><br>fopen() fwrite() for 1,000,000 writes, fclose() -  average of 3 benchmarks:<br><br> real 0m2.265s<br> user 0m1.819s<br> sys 0m0.445s  
 
-#
+---
 
 A slightly simplified version of the method: http://php.net/manual/ru/function.file-put-contents.php#84180<br><br>
 
@@ -44,7 +44,7 @@ file_force_contents( ROOT.'/newpath/file.txt', 'message', LOCK_EX );
 ```
   
 
-#
+---
 
 Please note that when saving using an FTP host, an additional stream context must be passed through telling PHP to overwrite the file.<br><br>
 
@@ -70,7 +70,7 @@ Please note that when saving using an FTP host, an additional stream context mus
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.file-put-contents.php)
 

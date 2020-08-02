@@ -93,7 +93,7 @@ function http_response($url, $status = null, $wait = 3)
 ```
 <br><br>Hope this example helps.  It is not 100% tested, so any feedback [sent directly to me by email] is appreciated.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.curl.php)
 

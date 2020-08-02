@@ -4,7 +4,7 @@
 
 For those confuse about the memcached extension and the memcache extension, the short story is that both of them are clients of memcached server, and the memcached extension offer more features than the memcache extension.  
 
-#
+---
 
 GOTCHA: Recently I was tasked with moving from PECL memcache to PECL memcached and ran into a major problem -- memcache and memcached serialize data differently, meaning that data written with one library can&apos;t necessarily be read with the other library.<br><br>For example, If you write an object or an array with memcache, it&apos;s interpreted as an integer by memcached.  If you write it with memcached, it&apos;s interpreted as a string by memcache.<br><br>tl;dr - You can&apos;t safely switch between memcache and memcached without a either a cache flush or isolated cache environments.<br><br>
 
@@ -49,7 +49,7 @@ foreach ($checks as $i => $value) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.memcached.php)
 

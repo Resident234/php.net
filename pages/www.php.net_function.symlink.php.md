@@ -30,7 +30,7 @@ Header("Location: " . $downloadURL . $string . "/" . $filename);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.symlink.php)
 

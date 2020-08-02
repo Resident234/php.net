@@ -76,7 +76,7 @@ If your version of PHP does not include this function:<br><br>
 ```
 <br><br>In this example I am using $GLOBALS, but you can use whatever storage mechanism you like... I don&apos;t think there is a way to return the current status code:<br><br>https://bugs.php.net/bug.php?id=52555<br><br>For reference the error codes I got from PHP&apos;s source code:<br><br>http://lxr.php.net/opengrok/xref/PHP_5_4/sapi/cgi/cgi_main.c#354<br><br>And how the current http header is sent, with the variables it uses:<br><br>http://lxr.php.net/opengrok/xref/PHP_5_4/main/SAPI.c#856  
 
-#
+---
 
 Note that you can NOT set arbitrary response codes with this function, only those that are known to PHP (or the SAPI PHP is running on). <br><br>The following codes currently work as expected (with PHP running as Apache module):<br>200 &#x2013; 208, 226<br>300 &#x2013; 305, 307, 308<br>400 &#x2013; 417, 422 &#x2013; 424, 426, 428 &#x2013; 429, 431<br>500 &#x2013; 508, 510 &#x2013; 511<br><br>Codes 0, 100, 101, and 102 will be sent as "200 OK".<br><br>Everything else will result in "500 Internal Server Error".<br><br>If you want to send responses with a freestyle status line, you need to use the `header()` function:<br><br>
 
@@ -85,7 +85,7 @@ Note that you can NOT set arbitrary response codes with this function, only thos
 ```
   
 
-#
+---
 
 You can also create a enum by extending the SplEnum class.<br>
 
@@ -139,7 +139,7 @@ class HttpStatusCode extends SplEnum {
 ```
   
 
-#
+---
 
 Status codes as an array:<br><br>
 
@@ -150,7 +150,7 @@ $http_status_codes = array(100 => "Continue", 101 => "Switching Protocols", 102 
 ```
 <br><br>Source: Wikipedia "List_of_HTTP_status_codes"  
 
-#
+---
 
 The note above from "Anonymous" is wrong. I&apos;m running this behind the AWS Elastic Loadbalancer and trying the header(&apos;:&apos;.$error_code...) method mentioned above is treated as invalid HTTP.<br><br>The documentation for the header() function has the right way to implement this if you&apos;re still on &lt; php 5.4:<br><br>
 
@@ -161,7 +161,7 @@ header("HTTP/1.0 404 Not Found");
 ```
   
 
-#
+---
 
 If you don&apos;t have PHP 5.4 and want to change the returned status code, you can simply write:<br>
 
@@ -172,7 +172,7 @@ header(':', true, $statusCode);
 ```
 <br><br>The &apos;:&apos; are mandatory, or it won&apos;t work  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.http-response-code.php)
 

@@ -47,7 +47,7 @@ if(!$fp){
 ```
   
 
-#
+---
 
 
 
@@ -110,7 +110,7 @@ fclose($f);
 ```
   
 
-#
+---
 
 This script checks specific ports so you need to have the correct port open on the server for this to work.<br><br>E.g if i have a windows domain controller and it is servering LDAP then the following would be used to check it is online:<br>
 
@@ -167,7 +167,7 @@ function chkServer($host, $port)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.fsockopen.php)
 

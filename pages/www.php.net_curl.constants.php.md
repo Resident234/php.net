@@ -77,11 +77,11 @@ $curl_errno = array(
 ```
   
 
-#
+---
 
 Beware of CURLE_* constants!<br><br>On the official site:<br><br>http://curl.haxx.se/libcurl/c/libcurl-errors.html<br><br>some constants are different, some missing compared to the PHP implementation.<br><br>Some examples:<br><br>in PHP the curl error number 28 is called<br><br>CURLE_OPERATION_TIMEOUTED<br><br>while in the official site is:<br><br>CURLE_OPERATION_TIMEDOUT<br><br>So if you use the second, it won&apos;t march the error 28 because in PHP it is not defined that way.<br><br>The same is for these:<br><br>CURLE_HTTP_RETURNED_ERROR<br>CURLE_UPLOAD_FAILED<br>CURLE_INTERFACE_FAILED<br>CURLE_SSL_CERTPROBLEM<br>CURLE_SEND_FAIL_REWIND<br>CURLE_LOGIN_DENIED<br>CURLE_AGAIN<br><br>that are in someway named differently or missing from PHP.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/curl.constants.php)
 

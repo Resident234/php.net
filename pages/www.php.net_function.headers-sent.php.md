@@ -23,7 +23,7 @@ redirect('http://www.google.com');
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.headers-sent.php)
 

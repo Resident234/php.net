@@ -39,7 +39,7 @@ A better example, to illustrate the differences in speed for large files, betwee
 ```
 <br><br>$ ./testcase.php <br>stream_get_line is faster than fgets - pdiff is 1.760398041785<br><br>Note that, in a vast majority of situations in which php is employed, tiny differences in speed between system calls are of negligible importance.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.fgets.php)
 

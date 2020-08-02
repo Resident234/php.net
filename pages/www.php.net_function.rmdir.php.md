@@ -17,7 +17,7 @@ public static function delTree($dir) {
 ```
   
 
-#
+---
 
 Never ever use jurchiks101 at gmail dot com code!!! It contains command injection vulnerability!!!<br>If you want to do it that way, use something like this instead:<br><br>
 
@@ -35,11 +35,11 @@ else
 ```
 <br><br>Note the escapeshellarg usage to escape any possible unwanted character, this avoids putting commands in $path variable so the possibility of someone "pwning" the server with this code  
 
-#
+---
 
 The function delTree is dangerous when you dont take really care. I for example always deleted a temporary directory with it. Everthing went fine until the moment where the var containing this temporary directory wasnt set. The var didnt contain the path but an empty string. The function delTree  was called and deleted all the files at my host!<br>So dont use this function when you dont have a proper handling coded. Dont think about using this function only for testing without such a handling.<br>Luckily nothing is lost because I had the local copy...  
 
-#
+---
 
 some implementations of recursive folder delete don&apos;t work so well (some give warnings, other don&apos;t delete hidden files etc).<br><br>this one is working fine:<br>
 
@@ -67,7 +67,7 @@ function rrmdir($src) {
 ```
   
 
-#
+---
 
 Another simple way to recursively delete a directory that is not empty:<br><br>
 
@@ -89,7 +89,7 @@ Another simple way to recursively delete a directory that is not empty:<br><br>
 ```
   
 
-#
+---
 
 I was working on some Dataoperation, and just wanted to share an OOP method with you.<br><br>It just removes any contents of a Directory but not the target Directory itself! Its really nice if you want to clean a BackupDirectory or Log.<br><br>Also you can test on it if something went wrong or if it just done its Work!<br><br>I have it in a FileHandler class for example, enjoy!<br><br>
 
@@ -120,7 +120,7 @@ I was working on some Dataoperation, and just wanted to share an OOP method with
 ```
   
 
-#
+---
 
 It is rather dangerous to recurse into symbolically linked directories. The delTree should be modified to check for links.<br><br>
 
@@ -137,7 +137,7 @@ public static function delTree($dir) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.rmdir.php)
 

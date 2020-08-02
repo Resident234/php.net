@@ -44,11 +44,11 @@ if (empty($ret)) {
 ```
   
 
-#
+---
 
 CURLINFO_SSL_VERIFYRESULT error codes:<br>0: ok the operation was successful. <br>2 : unable to get issuer certificate<br>3: unable to get certificate CRL<br>4: unable to decrypt certificate&apos;s signature<br>5: unable to decrypt CRL&apos;s signature<br>6: unable to decode issuer public key<br>7: certificate signature failure<br>8: CRL signature failure<br>9: certificate is not yet valid<br>10: certificate has expired<br>11: CRL is not yet valid<br>12:CRL has expired<br>13: format error in certificate&apos;s notBefore field<br>14: format error in certificate&apos;s notAfter field<br>15: format error in CRL&apos;s lastUpdate field<br>16: format error in CRL&apos;s nextUpdate field<br>17: out of memory<br>18: self signed certificate<br>19: self signed certificate in certificate chain<br>20: unable to get local issuer certificate<br>21:unable to verify the first certificate<br>22: certificate chain too long<br>23: certificate revoked<br>24: invalid CA certificate<br>25: path length constraint exceeded<br>26: unsupported certificate purpose<br>27: certificate not trusted<br>28: certificate rejected<br>29: subject issuer mismatch<br>30: authority and subject key identifier mismatch<br>31: authority and issuer serial number mismatch<br>32: key usage does not include certificate signing<br>50: application verification failure<br>details at http://www.openssl.org/docs/apps/verify.html#VERIFY_OPERATION  
 
-#
+---
 
 CURLINFO_HTTP_CODE does not return a string, as the docs say, but rather an integer.<br><br>
 
@@ -62,7 +62,7 @@ CURLINFO_HTTP_CODE does not return a string, as the docs say, but rather an inte
 ```
 <br><br>returns<br><br>"CURLINFO_HTTP_CODE returns an integer."  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-getinfo.php)
 

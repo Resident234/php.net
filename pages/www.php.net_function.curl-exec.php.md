@@ -66,11 +66,11 @@ function curl_get($url, array $get = NULL, array $options = array())
 ```
   
 
-#
+---
 
 Don&apos;t disable SSL verification! You don&apos;t need to, and it&apos;s super easy to stay secure! If you found that turning off "CURLOPT_SSL_VERIFYHOST" and "CURLOPT_SSL_VERIFYPEER" solved your problem, odds are you&apos;re just on a Windows box. Takes 2 min to solve the problem. Walkthrough here:<br><br>https://snippets.webaware.com.au/howto/stop-turning-off-curlopt_ssl_verifypeer-and-fix-your-php-config/  
 
-#
+---
 
 Be careful when using curl_exec() and the CURLOPT_RETURNTRANSFER option. According to the manual and assorted documentation:<br>Set CURLOPT_RETURNTRANSFER to TRUE to return the transfer as a string of the return value of curl_exec() instead of outputting it out directly.<br><br>When retrieving a document with no content (ie. 0 byte file), curl_exec() will return bool(true), not an empty string. I&apos;ve not seen any mention of this in the manual.<br><br>Example code to reproduce this:<br>
 
@@ -98,7 +98,7 @@ Be careful when using curl_exec() and the CURLOPT_RETURNTRANSFER option. Accordi
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-exec.php)
 

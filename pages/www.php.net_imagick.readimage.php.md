@@ -44,7 +44,7 @@ $imagick->writeImage('page_one.jpg');
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagick.readimage.php)
 

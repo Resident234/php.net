@@ -20,11 +20,11 @@ function fwrite_stream($fp, $string) {
 ```
   
 
-#
+---
 
 Some people say that when writing to a socket not all of the bytes requested to be written may be written. You may have to call fwrite again to write bytes that were not written the first time. (At least this is how the write() system call in UNIX works.)<br><br>This is helpful code (warning: not tested with multi-byte character sets)<br><br>function fwrite_with_retry($sock, &amp;$data)<br>{<br>    $bytes_to_write = strlen($data);<br>    $bytes_written = 0;<br><br>    while ( $bytes_written &lt; $bytes_to_write )<br>    {<br>        if ( $bytes_written == 0 ) {<br>            $rv = fwrite($sock, $data);<br>        } else {<br>            $rv = fwrite($sock, substr($data, $bytes_written));<br>        }<br><br>        if ( $rv === false || $rv == 0 )<br>            return( $bytes_written == 0 ? false : $bytes_written );<br><br>        $bytes_written += $rv;<br>    }<br><br>    return $bytes_written;<br>}<br><br>Call this like so:<br><br>    $rv = fwrite_with_retry($sock, $request_string);<br><br>    if ( ! $rv )<br>        die("unable to write request_string to socket");<br>    if ( $rv != strlen($request_string) )<br>        die("sort write to socket on writing request_string");  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.fwrite.php)
 

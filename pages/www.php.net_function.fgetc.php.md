@@ -19,7 +19,7 @@ if ($input == 'y')
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.fgetc.php)
 

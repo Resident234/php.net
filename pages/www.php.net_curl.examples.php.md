@@ -24,7 +24,7 @@ Following code returns the curl output as a string.<br><br>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/curl.examples.php)
 

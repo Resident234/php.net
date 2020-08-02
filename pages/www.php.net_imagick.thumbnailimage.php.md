@@ -39,7 +39,7 @@ $image->destroy();
 ```
 <br><br>I found setCompression to not function at all and had to use setImageCompression. The stripImage call is needed and strips out unneeded meta data. You can choose whatever filter you want, but i found lanczos to be the best for image reduction, though it is more computationally heavy.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagick.thumbnailimage.php)
 

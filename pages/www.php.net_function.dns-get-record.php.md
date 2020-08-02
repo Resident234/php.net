@@ -4,7 +4,7 @@
 
 This method has no error handling, it simply puts out "false" and it is impossible to check for NXDOMAIN, SERVFAIL, TIMEOUT or any other error...  
 
-#
+---
 
 Get more than one type at once like this:<br>
 
@@ -30,7 +30,7 @@ print_r($dnsr);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.dns-get-record.php)
 

@@ -4,13 +4,91 @@
 
 Sometimes when using $_SERVER[&apos;HTTP_X_FORWARDED_FOR&apos;] OR $_SERVER[&apos;REMOTE_ADDR&apos;] more than 1 IP address is returned, for example &apos;155.240.132.261, 196.250.25.120&apos;. When this string is passed as an argument for gethostbyaddr() PHP gives the following error: Warning: Address is not a valid IPv4 or IPv6 address in... <br><br>To work around this I use the following code to extract the first IP address from the string and discard the rest. (If you wish to use the other IPs they will be in the other elements of the $ips array).<br><br>if (strstr($remoteIP, &apos;, &apos;)) {<br>    $ips = explode(&apos;, &apos;, $remoteIP);<br>    $remoteIP = $ips[0];<br>}<br><br>Hope this helps someone :)  
 
-#
+---
 
-The problem of broken DNS servers was causing me a problem because i had a page for user statistics that required around 20 reverse dns lookups to be done, and even as many as 5/6 of them being broken was causing a huge delay in loading the page. so i wrote a function that uses a UDP socket to talk directly to the DNS server (instead of going via the normal gethostbyaddr function) this let me set a timeout.<br><br>The only requirement is that your DNS server must be able to do recursive lookups, it wont go to other DNS servers if its told to... and of course you need to know your DNS servers IP address :-)<br><br>&lt;?<br>function gethostbyaddr_timeout($ip, $dns, $timeout=1000)<br>{<br>    // random transaction number (for routers etc to get the reply back)<br>    $data = rand(0, 99);<br>    // trim it to 2 bytes<br>    $data = substr($data, 0, 2);<br>    // request header<br>    $data .= "\1\0\0\1\0\0\0\0\0\0";<br>    // split IP up<br>    $bits = explode(".", $ip);<br>    // error checking<br>    if (count($bits) != 4) return "ERROR";<br>    // there is probably a better way to do this bit...<br>    // loop through each segment<br>    for ($x=3; $x&gt;=0; $x--)<br>    {<br>        // needs a byte to indicate the length of each segment of the request<br>        switch (strlen($bits[$x]))<br>        {<br>            case 1: // 1 byte long segment<br>                $data .= "\1"; break;<br>            case 2: // 2 byte long segment<br>                $data .= "\2"; break;<br>            case 3: // 3 byte long segment<br>                $data .= "\3"; break;<br>            default: // segment is too big, invalid IP<br>                return "INVALID";<br>        }<br>        // and the segment itself<br>        $data .= $bits[$x];<br>    }<br>    // and the final bit of the request<br>    $data .= "\7in-addr\4arpa\0\0\x0C\0\1";<br>    // create UDP socket<br>    $handle = @fsockopen("udp://$dns", 53);<br>    // send our request (and store request size so we can cheat later)<br>    $requestsize=@fwrite($handle, $data);<br><br>    @socket_set_timeout($handle, $timeout - $timeout%1000, $timeout%1000);<br>    // hope we get a reply<br>    $response = @fread($handle, 1000);<br>    @fclose($handle);<br>    if ($response == "")<br>        return $ip;<br>    // find the response type<br>    $type = @unpack("s", substr($response, $requestsize+2));<br>    if ($type[1] == 0x0C00)  // answer<br>    {<br>        // set up our variables<br>        $host="";<br>        $len = 0;<br>        // set our pointer at the beginning of the hostname<br>        // uses the request size from earlier rather than work it out<br>        $position=$requestsize+12;<br>        // reconstruct hostname<br>        do<br>        {<br>            // get segment size<br>            $len = unpack("c", substr($response, $position));<br>            // null terminated string, so length 0 = finished<br>            if ($len[1] == 0)<br>                // return the hostname, without the trailing .<br>                return substr($host, 0, strlen($host) -1);<br>            // add segment to our host<br>            $host .= substr($response, $position+1, $len[1]) . ".";<br>            // move pointer on to the next segment<br>            $position += $len[1] + 1;<br>        }<br>        while ($len != 0);<br>        // error - return the hostname we constructed (without the . on the end)<br>        return $ip;<br>    }<br>    return $ip;<br>}<br>?>
+The problem of broken DNS servers was causing me a problem because i had a page for user statistics that required around 20 reverse dns lookups to be done, and even as many as 5/6 of them being broken was causing a huge delay in loading the page. so i wrote a function that uses a UDP socket to talk directly to the DNS server (instead of going via the normal gethostbyaddr function) this let me set a timeout.<br><br>The only requirement is that your DNS server must be able to do recursive lookups, it wont go to other DNS servers if its told to... and of course you need to know your DNS servers IP address :-)<br><br>
+
+```
+<?php
+function gethostbyaddr_timeout($ip, $dns, $timeout=1000)
+{
+    // random transaction number (for routers etc to get the reply back)
+    $data = rand(0, 99);
+    // trim it to 2 bytes
+    $data = substr($data, 0, 2);
+    // request header
+    $data .= "\1\0\0\1\0\0\0\0\0\0";
+    // split IP up
+    $bits = explode(".", $ip);
+    // error checking
+    if (count($bits) != 4) return "ERROR";
+    // there is probably a better way to do this bit...
+    // loop through each segment
+    for ($x=3; $x>=0; $x--)
+    {
+        // needs a byte to indicate the length of each segment of the request
+        switch (strlen($bits[$x]))
+        {
+            case 1: // 1 byte long segment
+                $data .= "\1"; break;
+            case 2: // 2 byte long segment
+                $data .= "\2"; break;
+            case 3: // 3 byte long segment
+                $data .= "\3"; break;
+            default: // segment is too big, invalid IP
+                return "INVALID";
+        }
+        // and the segment itself
+        $data .= $bits[$x];
+    }
+    // and the final bit of the request
+    $data .= "\7in-addr\4arpa\0\0\x0C\0\1";
+    // create UDP socket
+    $handle = @fsockopen("udp://$dns", 53);
+    // send our request (and store request size so we can cheat later)
+    $requestsize=@fwrite($handle, $data);
+
+    @socket_set_timeout($handle, $timeout - $timeout%1000, $timeout%1000);
+    // hope we get a reply
+    $response = @fread($handle, 1000);
+    @fclose($handle);
+    if ($response == "")
+        return $ip;
+    // find the response type
+    $type = @unpack("s", substr($response, $requestsize+2));
+    if ($type[1] == 0x0C00)  // answer
+    {
+        // set up our variables
+        $host="";
+        $len = 0;
+        // set our pointer at the beginning of the hostname
+        // uses the request size from earlier rather than work it out
+        $position=$requestsize+12;
+        // reconstruct hostname
+        do
+        {
+            // get segment size
+            $len = unpack("c", substr($response, $position));
+            // null terminated string, so length 0 = finished
+            if ($len[1] == 0)
+                // return the hostname, without the trailing .
+                return substr($host, 0, strlen($host) -1);
+            // add segment to our host
+            $host .= substr($response, $position+1, $len[1]) . ".";
+            // move pointer on to the next segment
+            $position += $len[1] + 1;
+        }
+        while ($len != 0);
+        // error - return the hostname we constructed (without the . on the end)
+        return $ip;
+    }
+    return $ip;
+}
+?>
 ```
 <br><br>This could be expanded quite a bit and improved but it works and i&apos;ve seen quite a few people trying various methods to achieve something like this so i decided to post it here. on most servers it should also be more efficient than other methods such as calling nslookup because it doesn&apos;t need to run external programs<br><br>Note: I&apos;m more a C person than a PHP person, so just ignore it if anything hasn&apos;t been done the *recomended* way :-)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.gethostbyaddr.php)
 

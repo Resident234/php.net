@@ -2,79 +2,135 @@
 
 ## Function Reference
 
-### Other Basic Extensions
+### File System Related Extensions
 
-#### Misc.
+#### Fileinfo
 
-##### Misc. Functions
+[Fileinfo Functions](/pages/www.php.net_ref.fileinfo.php.md)
 
-[php_strip_whitespace](/pages/www.php.net_function.php-strip-whitespace.php.md)
+##### Fileinfo Functions
 
-[sleep](/pages/www.php.net_function.sleep.php.md)
+[finfo_buffer](/pages/www.php.net_function.finfo-buffer.php.md)
 
-[sys_getloadavg](/pages/www.php.net_function.sys-getloadavg.php.md)
+[finfo_file](/pages/www.php.net_function.finfo-file.php.md)
 
-[uniqid](/pages/www.php.net_function.uniqid.php.md)
+[finfo_open](/pages/www.php.net_function.finfo-open.php.md)
 
-[unpack](/pages/www.php.net_function.unpack.php.md)
+[mime_content_type](/pages/www.php.net_function.mime-content-type.php.md)
 
-[usleep](/pages/www.php.net_function.usleep.php.md)
+#### Filesystem
 
-#### SPL
+##### Installing/Configuring
 
-##### Datastructures
+[Runtime Configuration](/pages/www.php.net_filesystem.configuration.php.md)
 
-[The SplDoublyLinkedList class](/pages/www.php.net_class.spldoublylinkedlist.php.md)
+[Filesystem Functions](/pages/www.php.net_ref.filesystem.php.md)
 
-[The SplStack class](/pages/www.php.net_class.splstack.php.md)
+##### Filesystem Functions
 
-[The SplQueue class](/pages/www.php.net_class.splqueue.php.md)
+[basename](/pages/www.php.net_function.basename.php.md)
 
-###### SplQueue
+[chmod](/pages/www.php.net_function.chmod.php.md)
 
-[SplQueue::dequeue](/pages/www.php.net_splqueue.dequeue.php.md)
+[clearstatcache](/pages/www.php.net_function.clearstatcache.php.md)
 
-[The SplHeap class](/pages/www.php.net_class.splheap.php.md)
+[copy](/pages/www.php.net_function.copy.php.md)
 
-###### SplHeap
+[dirname](/pages/www.php.net_function.dirname.php.md)
 
-[SplHeap::extract](/pages/www.php.net_splheap.extract.php.md)
+[disk_free_space](/pages/www.php.net_function.disk-free-space.php.md)
 
-[The SplPriorityQueue class](/pages/www.php.net_class.splpriorityqueue.php.md)
+[fclose](/pages/www.php.net_function.fclose.php.md)
 
-###### SplPriorityQueue
+[feof](/pages/www.php.net_function.feof.php.md)
 
-[SplPriorityQueue::compare](/pages/www.php.net_splpriorityqueue.compare.php.md)
+[fgetc](/pages/www.php.net_function.fgetc.php.md)
 
-[The SplFixedArray class](/pages/www.php.net_class.splfixedarray.php.md)
+[fgetcsv](/pages/www.php.net_function.fgetcsv.php.md)
 
-[The SplObjectStorage class](/pages/www.php.net_class.splobjectstorage.php.md)
+[fgets](/pages/www.php.net_function.fgets.php.md)
 
-##### Iterators
+[file_exists](/pages/www.php.net_function.file-exists.php.md)
 
-[The AppendIterator class](/pages/www.php.net_class.appenditerator.php.md)
+[file_get_contents](/pages/www.php.net_function.file-get-contents.php.md)
 
-[The ArrayIterator class](/pages/www.php.net_class.arrayiterator.php.md)
+[file_put_contents](/pages/www.php.net_function.file-put-contents.php.md)
 
-[The CallbackFilterIterator class](/pages/www.php.net_class.callbackfilteriterator.php.md)
+[file](/pages/www.php.net_function.file.php.md)
 
-[The DirectoryIterator class](/pages/www.php.net_class.directoryiterator.php.md)
+[filectime](/pages/www.php.net_function.filectime.php.md)
 
-###### DirectoryIterator
+[filemtime](/pages/www.php.net_function.filemtime.php.md)
 
-[DirectoryIterator::__construct](/pages/www.php.net_directoryiterator.construct.php.md)
+[fileperms](/pages/www.php.net_function.fileperms.php.md)
 
-[The FilesystemIterator class](/pages/www.php.net_class.filesystemiterator.php.md)
+[filesize](/pages/www.php.net_function.filesize.php.md)
 
-[The FilterIterator class](/pages/www.php.net_class.filteriterator.php.md)
+[filetype](/pages/www.php.net_function.filetype.php.md)
 
-[The InfiniteIterator class](/pages/www.php.net_class.infiniteiterator.php.md)
+[flock](/pages/www.php.net_function.flock.php.md)
 
-[The IteratorIterator class](/pages/www.php.net_class.iteratoriterator.php.md)
+[fopen](/pages/www.php.net_function.fopen.php.md)
 
-[The MultipleIterator class](/pages/www.php.net_class.multipleiterator.php.md)
+[fpassthru](/pages/www.php.net_function.fpassthru.php.md)
 
-[The RecursiveArrayIterator class](/pages/www.php.net_class.recursivearrayiterator.php.md)
+[fputcsv](/pages/www.php.net_function.fputcsv.php.md)
 
-[The RecursiveDirectoryIterator class](/pages/www.php.net_class.recursivedirectoryiterator.php.md)
+[fread](/pages/www.php.net_function.fread.php.md)
+
+[fscanf](/pages/www.php.net_function.fscanf.php.md)
+
+[fseek](/pages/www.php.net_function.fseek.php.md)
+
+[ftruncate](/pages/www.php.net_function.ftruncate.php.md)
+
+[fwrite](/pages/www.php.net_function.fwrite.php.md)
+
+[glob](/pages/www.php.net_function.glob.php.md)
+
+[is_dir](/pages/www.php.net_function.is-dir.php.md)
+
+[is_executable](/pages/www.php.net_function.is-executable.php.md)
+
+[is_file](/pages/www.php.net_function.is-file.php.md)
+
+[is_uploaded_file](/pages/www.php.net_function.is-uploaded-file.php.md)
+
+[is_writeable](/pages/www.php.net_function.is-writeable.php.md)
+
+[linkinfo](/pages/www.php.net_function.linkinfo.php.md)
+
+[mkdir](/pages/www.php.net_function.mkdir.php.md)
+
+[move_uploaded_file](/pages/www.php.net_function.move-uploaded-file.php.md)
+
+[parse_ini_file](/pages/www.php.net_function.parse-ini-file.php.md)
+
+[parse_ini_string](/pages/www.php.net_function.parse-ini-string.php.md)
+
+[pathinfo](/pages/www.php.net_function.pathinfo.php.md)
+
+[popen](/pages/www.php.net_function.popen.php.md)
+
+[readfile](/pages/www.php.net_function.readfile.php.md)
+
+[realpath_cache_size](/pages/www.php.net_function.realpath-cache-size.php.md)
+
+[realpath](/pages/www.php.net_function.realpath.php.md)
+
+[rename](/pages/www.php.net_function.rename.php.md)
+
+[rmdir](/pages/www.php.net_function.rmdir.php.md)
+
+[stat](/pages/www.php.net_function.stat.php.md)
+
+[symlink](/pages/www.php.net_function.symlink.php.md)
+
+[tempnam](/pages/www.php.net_function.tempnam.php.md)
+
+[tmpfile](/pages/www.php.net_function.tmpfile.php.md)
+
+[touch](/pages/www.php.net_function.touch.php.md)
+
+[umask](/pages/www.php.net_function.umask.php.md)
 

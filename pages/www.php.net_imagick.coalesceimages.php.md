@@ -22,7 +22,7 @@ $image->writeImages($file_dst, true);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagick.coalesceimages.php)
 

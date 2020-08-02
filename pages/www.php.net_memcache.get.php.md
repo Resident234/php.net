@@ -24,7 +24,7 @@ var_dump($flags); // bool(false) - untouched
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/memcache.get.php)
 

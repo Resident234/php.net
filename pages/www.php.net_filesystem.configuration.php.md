@@ -13,7 +13,7 @@ ini_set("auto_detect_line_endings", true);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/filesystem.configuration.php)
 

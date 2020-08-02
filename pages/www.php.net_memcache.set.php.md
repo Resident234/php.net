@@ -28,7 +28,7 @@ $memcache->close();
 ```
 <br><br>Output:<br>*** Truncate key test ***<br>set 251: t<br>get 249: f<br>get 250: &apos;value&apos;<br>get 251: &apos;value&apos;<br>delete: t<br><br>*** Compress value test ***<br>set 1024*1024-42: t<br>set 1024*1024-41: f<br>set 1024*1024 compressed: t<br>delete: t  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/memcache.set.php)
 

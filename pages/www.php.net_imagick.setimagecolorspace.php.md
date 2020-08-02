@@ -30,7 +30,7 @@ $img->stripImage (); // this will drop down the size of the image dramatically (
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagick.setimagecolorspace.php)
 

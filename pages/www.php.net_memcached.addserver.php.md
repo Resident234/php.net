@@ -30,7 +30,7 @@ class Cache {
 ```
   
 
-#
+---
 
 As of version 2.0.0b1 you can use Unix socket.<br><br>
 
@@ -42,7 +42,7 @@ $m->addServer('/path/to/socket',0);
 ```
 <br><br>Not to be confused with Memcache that use &apos;unix:///path/to/socket&apos;  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/memcached.addserver.php)
 

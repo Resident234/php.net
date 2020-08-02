@@ -15,7 +15,7 @@ Since I feel this is rather vague and non-helpful, I thought I&apos;d make a pos
 ```
 <br><br>glob also does not support lookbehinds, lookaheads, atomic groupings, capturing, or any of the &apos;higher level&apos; regex functions.<br><br>glob does not support &apos;shortkey&apos; meta-characters like \w or \d.  
 
-#
+---
 
 Those of you with PHP 5 don&apos;t have to come up with these wild functions to scan a directory recursively: the SPL can do it.<br><br>
 
@@ -55,7 +55,7 @@ echo "\nTotal file size: ", $size, " bytes\n";
 ```
 <br><br>\Luna\luna.msstyles: 4190352 B; modified 2008-04-13<br>\Luna\Shell\Homestead\shellstyle.dll: 362496 B; modified 2006-02-28<br>\Luna\Shell\Metallic\shellstyle.dll: 362496 B; modified 2006-02-28<br>\Luna\Shell\NormalColor\shellstyle.dll: 361472 B; modified 2006-02-28<br>\Luna.theme: 1222 B; modified 2006-02-28<br>\Windows Classic.theme: 3025 B; modified 2006-02-28<br><br>Total file size: 5281063 bytes  
 
-#
+---
 
 Please note that glob(&apos;*&apos;) ignores all &apos;hidden&apos; files by default. This means it does not return files that start with a dot (e.g. ".file").<br>If you want to match those files too, you can use "{,.}*" as the pattern with the GLOB_BRACE flag.<br><br>
 
@@ -67,7 +67,7 @@ $files = glob('{,.}*', GLOB_BRACE);
 ```
 <br><br>Note: This also returns the directory special entries . and ..  
 
-#
+---
 
 glob is case sensitive, even on Windows systems.<br><br>It does support character classes though, so a case insensitive version of<br>
 
@@ -84,19 +84,19 @@ could be written as
 ```
   
 
-#
+---
 
 glob() isn&apos;t limited to one directory:<br><br>
 
 ```
 <?php
 $results=glob("{includes/*.php,core/*.php}",GLOB_BRACE);
-echo '<pre>',print_r($results,true),'</pre>';
+echo '',print_r($results,true),'';
 ?>
 ```
 <br><br>Just be careful when using GLOB_BRACE regarding spaces around the comma:<br>{includes/*.php,core/*.php} works as expected, but<br>{includes/*.php, core/*.php} with a leading space, will only match the former as expected but not the latter<br>unless you have a directory named " core" on your machine with a leading space.<br>PHP can create such directories quite easily like so:<br>mkdir(" core");  
 
-#
+---
 
 Note that in case you are using braces with glob you might retrieve duplicated entries for files that matche more than one item :<br><br>
 
@@ -110,7 +110,7 @@ print_r($a);
 ```
 <br><br>Result : <br>Array<br>(<br>    [0] =&gt; /path/file_foo.dat<br>    [1] =&gt; /path/file_foobar.dat<br>    [2] =&gt; /path/file_foobar.dat<br>)  
 
-#
+---
 
 Don&apos;t use glob() if you try to list files in a directory where very much files are stored (&gt;100.000). You get an "Allowed memory size of XYZ bytes exhausted ..." error.<br>You may try to increase the memory_limit variable in php.ini. Mine has 128MB set and the script will still reach this limit while glob()ing over 500.000 files.<br><br>The more stable way is to use readdir() on very large numbers of files:<br>
 
@@ -128,7 +128,7 @@ if ($handle = opendir($path)) {
 ```
   
 
-#
+---
 
 
 
@@ -156,7 +156,7 @@ if ( ! function_exists('glob_recursive'))
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.glob.php)
 

@@ -79,7 +79,7 @@ while (true) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.inotify-init.php)
 

@@ -49,7 +49,7 @@ function dirList ($directory, $sortOrder){
 ```
 <br><br>I hope this is useful to somebody.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.filectime.php)
 

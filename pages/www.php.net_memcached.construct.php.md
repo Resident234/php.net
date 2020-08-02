@@ -34,7 +34,7 @@ if (!count($mc->getServerList())) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/memcached.construct.php)
 

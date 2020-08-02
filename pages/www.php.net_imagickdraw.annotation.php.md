@@ -55,7 +55,7 @@ may help someone...<br><br>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagickdraw.annotation.php)
 

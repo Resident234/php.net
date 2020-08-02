@@ -44,14 +44,14 @@ $curl_data = "var1=60&amp;var2=test";
 $url = "https://www.example.com";
 $response = get_web_page($url,$curl_data);
 
-print '<pre>';
+print '';
 print_r($response);
 
 ?>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-setopt-array.php)
 
