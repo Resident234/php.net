@@ -4,7 +4,7 @@
 
 Instead of inventing own functions in case you&apos;d like to use array keys as placeholder names and replace corresponding array values in a string, just use the str_replace:<br><br>$string = &apos;Hello %name!&apos;;<br>$data = array(<br>  &apos;%name&apos; =&gt; &apos;John&apos;<br>);<br><br>$greeting = str_replace(array_keys($data), array_values($data), $string);  
 
-#
+---
 
 
 
@@ -40,7 +40,7 @@ function vksprintf($str, $args)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.vsprintf.php)
 

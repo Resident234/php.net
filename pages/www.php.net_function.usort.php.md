@@ -21,7 +21,7 @@ print_r([ $a, $asc, $desc ]);
 ```
   
 
-#
+---
 
 When trying to do some custom sorting with objects and an anonymous function it wasn&apos;t entirely clear how this usort function works. I think it probably uses a quicksort in the background. Basically it actually moves the $b variable up or down in respect to the $a variable. It does NOT move the $a variable inside the callback function. This is key to getting your logic right in the comparisons.<br><br>If you return -1 that moves the $b variable down the array, return 1 moves $b up the array and return 0 keeps $b in the same place. <br><br>To test I cut down my code to sorting a simple array from highest priority to lowest.<br><br>
 
@@ -53,7 +53,7 @@ var_dump($priorities);
 ```
 <br><br>Output:<br><br>b (8) is higher priority than a (3), moving b up array<br>b (5) is higher priority than a (3), moving b up array<br>b (7) is higher priority than a (3), moving b up array<br>a (3) is same priority as b (3), keeping the same<br>a (8) is higher priority than b (3), moving b down array<br>b (8) is higher priority than a (7), moving b up array<br>b (8) is higher priority than a (5), moving b up array<br>b (8) is higher priority than a (3), moving b up array<br>a (5) is higher priority than b (3), moving b down array<br>a (7) is higher priority than b (5), moving b down array<br><br>Sorted priorities:<br>array(5) {<br>  [0]=&gt; int(8)<br>  [1]=&gt; int(7)<br>  [2]=&gt; int(5)<br>  [3]=&gt; int(3)<br>  [4]=&gt; int(3)<br>}  
 
-#
+---
 
 this is a new multisort function for sorting on multiple subfield like it will be in sql : &apos;ORDER BY field1, field2&apos;<br>number of sort field is undefined<br>
 
@@ -104,7 +104,7 @@ function multiSort() {
 ```
 <br><br>output:<br>Array<br>(<br>    [0] =&gt; Array<br>        (<br>            [soc] =&gt; 1<br>            [code] =&gt; 1<br>        )<br><br>    [1] =&gt; Array<br>        (<br>            [soc] =&gt; 1<br>            [code] =&gt; 1<br>        )<br><br>    [2] =&gt; Array<br>        (<br>            [soc] =&gt; 1<br>            [code] =&gt; 2<br>        )<br><br>    [3] =&gt; Array<br>        (<br>            [soc] =&gt; 2<br>            [code] =&gt; 1<br>        )<br><br>    [4] =&gt; Array<br>        (<br>            [soc] =&gt; 2<br>            [code] =&gt; 5<br>        )<br><br>    [5] =&gt; Array<br>        (<br>            [soc] =&gt; 3<br>            [code] =&gt; 1<br>        )<br><br>    [6] =&gt; Array<br>        (<br>            [soc] =&gt; 3<br>            [code] =&gt; 2<br>        )<br><br>)  
 
-#
+---
 
 I wrote a wrapper for usort that lets you use something similar to an SQL ORDER BY clause. It can sort arrays of associative arrays and arrays of objects and I think it would work with some hybrid case.<br><br>Example of how the function works:<br><br>
 
@@ -204,7 +204,7 @@ class Utility {
 ```
   
 
-#
+---
 
 You can also sort multi-dimensional array for multiple values like as<br><br>
 
@@ -256,7 +256,7 @@ print_r($arr);
 ```
 <br><br>Output:<br><br>Array<br>(<br>    [0] =&gt; Array<br>        (<br>            [name] =&gt; Jackson<br>            [nick_name] =&gt; jack<br>            [availability] =&gt; 1<br>            [is_fav] =&gt; 1<br>        )<br><br>    [1] =&gt; Array<br>        (<br>            [name] =&gt; David<br>            [nick_name] =&gt; dav07<br>            [availability] =&gt; 0<br>            [is_fav] =&gt; 1<br>        )<br><br>    [2] =&gt; Array<br>        (<br>            [name] =&gt; Zen<br>            [nick_name] =&gt; zen<br>            [availability] =&gt; 1<br>            [is_fav] =&gt; 0<br>        )<br><br>    [3] =&gt; Array<br>        (<br>            [name] =&gt; Rohit<br>            [nick_name] =&gt; rod<br>            [availability] =&gt; 0<br>            [is_fav] =&gt; 0<br>        )<br><br>    [4] =&gt; Array<br>        (<br>            [name] =&gt; Sally<br>            [nick_name] =&gt; sal<br>            [availability] =&gt; 0<br>            [is_fav] =&gt; 0<br>        )<br><br>)  
 
-#
+---
 
 You can also sort multi-dimensional array for multiple values like as<br>
 
@@ -302,7 +302,7 @@ function arrayOrderBy(array &amp;$arr, $order = null) {
 ```
 <br><br>output:<br>Array<br>(<br>    [0] =&gt; Array<br>        (<br>            [id] =&gt; 1<br>            [age] =&gt; 1<br>            [sex] =&gt; 6<br>            [name] =&gt; a<br>        )<br><br>    [1] =&gt; Array<br>        (<br>            [id] =&gt; 4<br>            [age] =&gt; 2<br>            [sex] =&gt; 1<br>            [name] =&gt; d<br>        )<br><br>    [2] =&gt; Array<br>        (<br>            [id] =&gt; 2<br>            [age] =&gt; 3<br>            [sex] =&gt; 1<br>            [name] =&gt; c<br>        )<br><br>    [3] =&gt; Array<br>        (<br>            [id] =&gt; 3<br>            [age] =&gt; 3<br>            [sex] =&gt; 1<br>            [name] =&gt; b<br>        )<br><br>)  
 
-#
+---
 
 As the manual says, "If two members compare as equal, their order in the sorted array is undefined." This means that the sort used is not "stable" and may change the order of elements that compare equal.<br><br>Sometimes you really do need a stable sort. For example, if you sort a list by one field, then sort it again by another field, but don&apos;t want to lose the ordering from the previous field. In that case it is better to use usort with a comparison function that takes both fields into account, but if you can&apos;t do that then use the function below. It is a merge sort, which is guaranteed O(n*log(n)) complexity, which means it stays reasonably fast even when you use larger lists (unlike bubblesort and insertion sort, which are O(n^2)). <br><br>
 
@@ -343,7 +343,7 @@ function mergesort(&amp;$array, $cmp_function = 'strcmp') {
 ```
   
 
-#
+---
 
 If you want to sort an array according to another array acting as a priority list, you can use this function.<br><br>
 
@@ -388,7 +388,7 @@ print_r($array);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.usort.php)
 

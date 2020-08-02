@@ -84,7 +84,7 @@ substr_replace('abcd', 'x', 1, 0); //axbcd
 ```
   
 
-#
+---
 
 Forget all of the mb_substr_replace() implementations mentioned in this page, they&apos;re all buggy.<br><br>Here is a version that mimics the behavior of substr_replace() exactly:<br><br>
 
@@ -140,7 +140,7 @@ if (function_exists('mb_substr_replace') === false)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.substr-replace.php)
 

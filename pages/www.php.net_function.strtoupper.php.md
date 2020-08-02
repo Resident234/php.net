@@ -16,7 +16,7 @@ echo mb_strtoupper('Umlaute &#xE4;&#xF6;&#xFC; in uppercase', 'UTF-8'); // outpu
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.strtoupper.php)
 

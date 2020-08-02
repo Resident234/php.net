@@ -20,7 +20,7 @@ uasort($collection, array('self', 'myStaticSortMethod'));
 ```
   
 
-#
+---
 
 If you want to keep the order when two members compare as equal, use this.<br>
 
@@ -88,7 +88,7 @@ print_r($b);
 ```
 <br><br>returns<br><br>Array<br>(<br>    [e] =&gt; Array<br>        (<br>            [l] =&gt; E<br>            [n] =&gt; 2<br>        )<br><br>    [b] =&gt; Array<br>        (<br>            [l] =&gt; B<br>            [n] =&gt; 2<br>        )<br><br>    [d] =&gt; Array<br>        (<br>            [l] =&gt; D<br>            [n] =&gt; 2<br>        )<br><br>    [c] =&gt; Array<br>        (<br>            [l] =&gt; C<br>            [n] =&gt; 1<br>        )<br><br>    [a] =&gt; Array<br>        (<br>            [l] =&gt; A<br>            [n] =&gt; 1<br>        )<br><br>)<br>Array<br>(<br>    [b] =&gt; Array<br>        (<br>            [l] =&gt; B<br>            [n] =&gt; 2<br>        )<br><br>    [d] =&gt; Array<br>        (<br>            [l] =&gt; D<br>            [n] =&gt; 2<br>        )<br><br>    [e] =&gt; Array<br>        (<br>            [l] =&gt; E<br>            [n] =&gt; 2<br>        )<br><br>    [a] =&gt; Array<br>        (<br>            [l] =&gt; A<br>            [n] =&gt; 1<br>        )<br><br>    [c] =&gt; Array<br>        (<br>            [l] =&gt; C<br>            [n] =&gt; 1<br>        )<br>)<br><br>https://bugs.php.net/bug.php?id=53341  
 
-#
+---
 
 An Example using anonymous function.<br>Anonymous functions make some time the code easier to understand.<br>
 
@@ -104,7 +104,7 @@ print_r($fruits);
 ```
 <br>returns<br>Array<br>(<br>    [3] =&gt; Orange6<br>    [0] =&gt; Orange9<br>    [2] =&gt; Orange10<br>    [1] =&gt; Orange11<br>    [4] =&gt; Orange15<br>)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.uasort.php)
 

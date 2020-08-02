@@ -18,7 +18,7 @@ It is highly recommended not to use the __autoload() function any more. Now the 
 ```
   
 
-#
+---
 
 Even I have never been using this function, just a simple example in order to explain it;<br><br>./myClass.php<br>
 
@@ -71,7 +71,7 @@ $bar = new Bar();
 ```
 <br><br>Your class files will be included "automatically" when you call (init) them without these functions: "include, include_once, require, require_once".  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.autoload.php)
 

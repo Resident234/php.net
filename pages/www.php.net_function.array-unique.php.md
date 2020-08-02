@@ -65,7 +65,7 @@ $details = array(
 ```
   
 
-#
+---
 
 It&apos;s often faster to use a foreache and array_keys than array_unique:<br><br>    
 
@@ -97,7 +97,7 @@ It&apos;s often faster to use a foreache and array_keys than array_unique:<br><b
 ```
   
 
-#
+---
 
 For people looking at the flip flip method for getting unique values in a simple array. This is the absolute fastest method:<br><br>
 
@@ -128,7 +128,7 @@ $unique array_flip(array_flip($array)); // leaves gaps
 ```
 <br><br>It&apos;s still about twice as fast or fast as array_unique.<br><br>This tested on several different machines with 100000 random arrays. All machines used a version of PHP5.  
 
-#
+---
 
 I needed to identify email addresses in a data table that were replicated, so I wrote the array_not_unique() function:<br><br>
 
@@ -166,7 +166,7 @@ var_dump($common_stuff);
 ```
   
 
-#
+---
 
 Case insensitive; will keep first encountered value.<br><br>
 
@@ -182,7 +182,7 @@ function array_iunique($array) {
 ```
   
 
-#
+---
 
 recursive array unique for multiarrays<br><br>
 
@@ -206,7 +206,7 @@ function super_unique($array)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-unique.php)
 

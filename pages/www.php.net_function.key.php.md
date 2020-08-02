@@ -17,7 +17,7 @@ foreach($array as $value)
 ```
 <?php<br>foreach($array as $key =&gt; $value)<br>{<br>  $mykey = $key;<br>}<br><br>A noob error, but felt it might help someone else out there.  
 
-#
+---
 
 Suppose if the array values are in numbers and numbers contains `0` then the loop will be terminated. To overcome this you can user like this<br><br>
 
@@ -51,7 +51,7 @@ while ( ($fruit_name = current($array)) !== FALSE ) {
 ```
   
 
-#
+---
 
 Needed to get the index of the max/highest value in an assoc array.<br>max() only returned the value, no index, so I did this instead.<br><br>
 
@@ -64,7 +64,7 @@ $key_of_max = key($x);   // returns the index.
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.key.php)
 

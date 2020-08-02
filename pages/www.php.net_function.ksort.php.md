@@ -33,7 +33,7 @@ var_dump($people);
 ```
 <br><br>Output from first var_dump:<br><br>[0]=&amp;gt;<br>  array(3) {<br>    ["name"]=&amp;gt;<br>    string(3) "Bob"<br>    ["age"]=&amp;gt;<br>    int(8)<br>    ["colour"]=&amp;gt;<br>    string(3) "red"<br>  }<br>  [1]=&amp;gt;<br>  array(3) {<br>    ["name"]=&amp;gt;<br><br>    string(4) "Greg"<br>    ["age"]=&amp;gt;<br>    int(12)<br>    ["colour"]=&amp;gt;<br>    string(4) "blue"<br>  }<br>  [2]=&amp;gt;<br>  array(3) {<br>    ["name"]=&amp;gt;<br>    string(4) "Andy"<br>    ["age"]=&amp;gt;<br>    int(5)<br>    ["colour"]=&amp;gt;<br><br>    string(6) "purple"<br>  }<br>}<br><br>Output from 2nd var_dump:<br><br>array(3) {<br>  [0]=&amp;gt;<br>  array(3) {<br>    ["name"]=&amp;gt;<br>    string(4) "Greg"<br>    ["age"]=&amp;gt;<br>    int(12)<br>    ["colour"]=&amp;gt;<br>    string(4) "blue"<br>  }<br>  [1]=&amp;gt;<br>  array(3) {<br>    ["name"]=&amp;gt;<br><br>    string(3) "Bob"<br>    ["age"]=&amp;gt;<br>    int(8)<br>    ["colour"]=&amp;gt;<br>    string(3) "red"<br>  }<br>  [2]=&amp;gt;<br>  array(3) {<br>    ["name"]=&amp;gt;<br>    string(4) "Andy"<br>    ["age"]=&amp;gt;<br>    int(5)<br>    ["colour"]=&amp;gt;<br><br>    string(6) "purple"<br>  }<br><br>There&apos;s no checking on whether your array keys exist, or the array data you are searching on is actually there, but easy enough to add.  
 
-#
+---
 
 I wrote this function to sort the keys of an array using an array of keynames, in order.<br>
 
@@ -63,7 +63,7 @@ array_reorder_keys($seed_array, 'baz,foo,bar'); //returns array('baz'=>'foo', 'f
 ```
   
 
-#
+---
 
 Here is a function to sort an array by the key of his sub-array.<br><br>
 
@@ -127,7 +127,7 @@ var_dump($ifno);
 ```
 <br><br>This will be the output of the example:<br><br>/*DESCENDING SORT*/<br>array(3) {<br>  ["peter"]=&gt;<br>  array(2) {<br>    ["age"]=&gt;<br>    int(21)<br>    ["gender"]=&gt;<br>    string(4) "male"<br>  }<br>  ["mary"]=&gt;<br>  array(2) {<br>    ["age"]=&gt;<br>    int(20)<br>    ["gender"]=&gt;<br>    string(6) "female"<br>  }<br>  ["john"]=&gt;<br>  array(2) {<br>    ["age"]=&gt;<br>    int(19)<br>    ["gender"]=&gt;<br>    string(4) "male"<br>  }<br>}<br><br>/*ASCENDING SORT*/<br>array(3) {<br>  ["john"]=&gt;<br>  array(2) {<br>    ["age"]=&gt;<br>    int(19)<br>    ["gender"]=&gt;<br>    string(4) "male"<br>  }<br>  ["mary"]=&gt;<br>  array(2) {<br>    ["age"]=&gt;<br>    int(20)<br>    ["gender"]=&gt;<br>    string(6) "female"<br>  }<br>  ["peter"]=&gt;<br>  array(2) {<br>    ["age"]=&gt;<br>    int(21)<br>    ["gender"]=&gt;<br>    string(4) "male"<br>  }<br>}  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ksort.php)
 

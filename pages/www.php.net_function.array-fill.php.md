@@ -11,7 +11,7 @@ This is what I recently did to quickly create a two dimensional array (10x10), i
 ```
 <br><br>This should work for as many dimensions as you want, each time passing to array_fill() (as the 3rd argument) another array_fill() function.  
 
-#
+---
 
 If you need negative indices:<br>
 
@@ -25,7 +25,7 @@ print_r($c);
 ```
 <br>Here is result of the code above:<br>Array<br>(<br>    [-2] =&gt; pear<br>    [0] =&gt; pear<br>    [1] =&gt; pear<br>    [2] =&gt; pear<br>)<br>Array<br>(<br>    [-2] =&gt; pear<br>    [-1] =&gt; pear<br>    [0] =&gt; pear<br>    [1] =&gt; pear<br>)  
 
-#
+---
 
 Using objects with array_fill may cause unexpected results. Consider the following:<br><br>
 
@@ -76,7 +76,7 @@ array(2) {
 ```
 <br><br>Objects are filled in the array BY REFERENCE. They are not copied for each element in the array.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-fill.php)
 

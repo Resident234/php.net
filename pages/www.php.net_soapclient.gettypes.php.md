@@ -10,7 +10,7 @@
 
 $soap = new SoapClient('http://domain.com/ws.php?WSDL');
 
-echo '<pre>';
+echo '';
 echo '<h2>Types:</h2>';
 $types = $soap->__getTypes();
 foreach ($types as $type) {
@@ -22,7 +22,7 @@ foreach ($types as $type) {
     echo $type;
     echo "\n\n";
 }
-echo '</pre>';?>
+echo '';?>
 ```
   
 

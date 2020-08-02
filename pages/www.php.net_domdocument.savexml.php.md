@@ -15,7 +15,7 @@ It took some searching to figure this one out. I didn&apos;t see much in the way
         $dom->createElement ('test', 'this is a test'));
     $dom->documentElement->appendChild ($new_tag);
 
-    printf ("<pre>%s</pre>", htmlentities ($dom->saveXML()));
+    printf ("%s", htmlentities ($dom->saveXML()));
 ?>
 ```
 
@@ -38,7 +38,7 @@ By adding the preserveWhiteSpace = false; BEFORE the load() the formatOutput wor
         $dom->createElement ('test', 'this is a test'));
     $dom->documentElement->appendChild ($new_tag);
 
-    printf ("<pre>%s</pre>", htmlentities ($dom->saveXML()));
+    printf ("%s", htmlentities ($dom->saveXML()));
 ?>
 ```
 <br><br>CAUTION: If your loaded xml file (test.xml) has an empty root node that is not shortened or has no children this will NOT work.<br><br>Example:<br><br>DOES NOT WORK:<br>``<?xml version="1.0"?>``;<br>&lt;root&gt;<br>&lt;/root&gt;<br><br>WORKS:<br>``<?xml version="1.0"?>``;<br>&lt;root/&gt;<br><br>WORKS:<br>``<?xml version="1.0"?>``;<br>&lt;root&gt;<br>  &lt;!-- comment --&gt;<br>&lt;/root&gt;<br><br>WORKS:<br>``<?xml version="1.0"?>``;<br>&lt;root&gt;<br>  &lt;child/&gt;<br>&lt;/root&gt;  

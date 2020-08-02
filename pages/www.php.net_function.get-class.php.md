@@ -18,7 +18,7 @@ print $disp::class; // parse error?>
 ```
   
 
-#
+---
 
 A lot of people in other comments wanting to get the classname without the namespace. Some weird suggestions of code to do that - not what I would&apos;ve written! So wanted to add my own way.<br><br>
 
@@ -63,7 +63,7 @@ c(
 ```
   
 
-#
+---
 
 People seem to mix up what __METHOD__, get_class($obj) and get_class() do, related to class inheritance.<br><br>Here&apos;s a good example that should fix that for ever:<br><br>
 
@@ -124,7 +124,7 @@ $quux->doGetClass();
 ```
 <br><br>OUTPUT:<br><br>--doMethod--<br>Foo::doMethod<br>Foo::doMethod<br>Quux::doMethod<br><br>--doGetClassThis--<br>Foo::doThat<br>Bar::doThat<br>Quux::doThat<br><br>--doGetClass--<br>Foo::doThat<br>Foo::doThat<br>Quux::doThat  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.get-class.php)
 

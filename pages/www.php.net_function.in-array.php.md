@@ -43,7 +43,7 @@ in_array(array(), $array, true); // false
 ```
   
 
-#
+---
 
 If you&apos;re working with very large 2 dimensional arrays (eg 20,000+ elements) it&apos;s much faster to do this...<br><br>
 
@@ -61,7 +61,7 @@ if ( isset($flipped_haystack[$needle]) )
 ```
 <br><br>I had a script that went from 30+ seconds down to 2 seconds (when hunting through a 50,000 element array 50,000 times).<br><br>Remember to only flip it once at the beginning of your code though!  
 
-#
+---
 
 
 
@@ -118,7 +118,7 @@ if(Method::inMultiArray($search, $array, false)){
 ```
   
 
-#
+---
 
 For a case-insensitive in_array(), you can use array_map() to avoid a foreach statement, e.g.:<br><br>
 
@@ -131,7 +131,7 @@ For a case-insensitive in_array(), you can use array_map() to avoid a foreach st
 ```
   
 
-#
+---
 
 Determine whether an object field matches needle.<br><br>Usage Example:<br>---------------<br><br>
 
@@ -178,7 +178,7 @@ function in_array_field($needle, $needle_field, $haystack, $strict = false) {
 ```
   
 
-#
+---
 
 If you found yourself in need of a multidimensional array in_array like function you can use the one below. Works in a fair amount of time<br><br>
 
@@ -206,7 +206,7 @@ If you found yourself in need of a multidimensional array in_array like function
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.in-array.php)
 

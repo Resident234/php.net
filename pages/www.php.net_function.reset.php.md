@@ -15,7 +15,7 @@ var_dump(reset($a) === reset($b)); //bool(true)
 ```
 <br><br>So don&apos;t count on a false return being an empty array.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.reset.php)
 

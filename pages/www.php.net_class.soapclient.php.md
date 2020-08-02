@@ -39,7 +39,7 @@ $result = $client->__soapCall("DeleteMarketplaceAd", array(
 ), NULL, $header);
 
 // Echo the result
-echo "<pre>".print_r($result, true)."</pre>";
+echo "".print_r($result, true)."";
 if($result->DeleteMarketplaceAdResult->Status == "Success")
 {
     echo "Item deleted!";

@@ -32,7 +32,7 @@ Example #2 'short syntax associative array'
 ```
 <br><br>The above example will output:<br>Array<br>(<br>    [one] =&gt; 1<br>    [two] =&gt; 2<br>    [three] =&gt; 3<br>    [four] =&gt; 4<br>)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array.php)
 

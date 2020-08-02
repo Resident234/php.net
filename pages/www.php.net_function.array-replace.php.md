@@ -24,7 +24,7 @@ $allkeys = array_replace($keys, array_intersect_key($values, $keys));    // repl
 
 $notempty = array_filter($allkeys, 'strlen'); // strlen used as the callback-function with 0==false
 
-print '<pre>';
+print '';
 print_r($allkeys);
 print_r($notempty);
 
@@ -48,7 +48,7 @@ Array
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-replace.php)
 

@@ -13,7 +13,7 @@ current() also works on objects:<br><br>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.current.php)
 

@@ -14,7 +14,7 @@ function my_mb_ucfirst($str) {
 ```
   
 
-#
+---
 
 A proper Turkish solution;<br><br>
 
@@ -34,7 +34,7 @@ echo ucfirst_turkish($str); // &#x130;yilik g&#xFC;zelL&#x130;K
 ```
   
 
-#
+---
 
 I believe that mb_ucfirst will be soon added in PHP, but for now this could be useful<br>
 
@@ -52,7 +52,7 @@ if (!function_exists('mb_ucfirst') &amp;&amp; function_exists('mb_substr')) {
 ```
 <br><br>it also check is mb support enabled or not  
 
-#
+---
 
 Here&apos;s a function to capitalize segments of a name, and put the rest into lower case. You can pass the characters you want to use as delimiters.<br><br>i.e. 
 
@@ -92,7 +92,7 @@ function nameize($str,$a_char = array("'","-"," ")){
 ```
   
 
-#
+---
 
 This is what I use for converting strings to sentence case:<br><br>
 
@@ -116,7 +116,7 @@ print sentence_case('HMM. WOW! WHAT?');
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ucfirst.php)
 

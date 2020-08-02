@@ -41,11 +41,11 @@ var_dump( chinello_array_diff_assoc_recursive( $a1, $a2 ) );
 ```
 <br>array(1) {<br>  ["c"]=&gt;<br>  array(1) {<br>    ["d"]=&gt;<br>    NULL<br>  }<br>}<br><br>array(2) {<br>  ["b"]=&gt;<br>  NULL<br>  ["c"]=&gt;<br>  array(1) {<br>    ["d"]=&gt;<br>    NULL<br>  }<br>}  
 
-#
+---
 
 If you&apos;re looking for a true array_diff_assoc, comparing arrays to determine the difference between two, finding missing values from both, you can use this along with array_merge.<br><br>$a = array(&apos;a&apos;=&gt;1,&apos;b&apos;=&gt;2,&apos;c&apos;=&gt;3);<br>$b = array(&apos;a&apos;=&gt;1,&apos;b&apos;=&gt;2,&apos;d&apos;=&gt;4);<br>print_r(array_diff_assoc($a,$b));<br>// returns:<br>array<br>(<br>    [c] =&gt; 3<br>)<br><br>print_r(array_diff_assoc($b,$a));<br>// returns <br>array<br>(<br>    [d] =&gt; 4<br>)<br><br>print_r(array_merge(array_diff_assoc($a,$b),array_diff_assoc($b,$a)));<br>// returns<br>array<br>(<br>    [c] =&gt; 3<br>    [d] =&gt; 4<br>)  
 
-#
+---
 
 The direction of the arguments does actually make a difference:<br><br>
 
@@ -72,7 +72,7 @@ print_r(array_diff_assoc($b, $a));
 ```
 <br><br>echoes:<br><br>Array<br>(<br>)<br>Array<br>(<br>    [g] =&gt; g<br>)  
 
-#
+---
 
 The following will recursively do an array_diff_assoc, which will calculate differences on a multi-dimensional level.  This not display any notices if a key don&apos;t exist and if error_reporting is set to E_ALL:<br><br>
 
@@ -112,7 +112,7 @@ function array_diff_assoc_recursive($array1, $array2)
 ```
 <br><br>[NOTE BY danbrown AT php DOT net: This is a combination of efforts from previous notes deleted.  Contributors included (Michael Johnson), (jochem AT iamjochem DAWT com), (sc1n AT yahoo DOT com), and (anders DOT carlsson AT mds DOT mdh DOT se).]  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-diff-assoc.php)
 

@@ -18,7 +18,7 @@ function contains_substr($mainStr, $str, $loc = false) {
 ```
   
 
-#
+---
 
 Take note of the `length` parameter: "The default value is the largest of the length of the str compared to the length of main_str less the offset."<br><br>This is *not* the length of str as you might (I always) expect, so if you leave it out, you&apos;ll get unexpected results.  Example:<br><br>
 
@@ -32,7 +32,7 @@ var_dump(PHP_VERSION); # string(6) "5.3.14"
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.substr-compare.php)
 

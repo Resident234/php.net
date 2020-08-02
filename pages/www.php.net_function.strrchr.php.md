@@ -13,7 +13,7 @@ echo $filename; // "index.html"
 ```
   
 
-#
+---
 
 
 
@@ -75,7 +75,7 @@ function cut_string_using_last($character, $string, $side, $keep_character=true)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.strrchr.php)
 

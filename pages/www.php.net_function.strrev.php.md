@@ -19,7 +19,7 @@ echo mb_strrev("&#x2606;&#x2764;world"); // echo "dlrow&#x2764;&#x2606;"
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.strrev.php)
 

@@ -22,7 +22,7 @@ Bar::test();
 ```
 <br><br>Output:<br><br>string(3) "Foo"<br>string(3) "Bar"  
 
-#
+---
 
 SEE: http://php.net/manual/en/language.oop5.late-static-bindings.php<br><br>I think it is worth mentioning on this page, that many uses of the value returned by get_called_function() could be handled with the new use of the old keyword static, as in<br>
 
@@ -55,12 +55,12 @@ new static();
 ```
 <br><br>Since static:: is listed with the limitation: "Another difference is that static:: can only refer to static properties." one may still need to use a $that:: to call static functions; though I have not yet needed this semantic.  
 
-#
+---
 
 get_called_class() in closure-scopes:<br><br>
 
 ```
-<?php
+<?phpPHP
     ABSTRACT CLASS Base
     {
         protected static $stub = ['baz'];
@@ -117,7 +117,7 @@ get_called_class() in closure-scopes:<br><br>
 ```
   
 
-#
+---
 
 It is possible to write a completely self-contained Singleton base class in PHP 5.3 using get_called_class.<br><br>
 
@@ -165,7 +165,7 @@ $oDbConn = DatabaseConnection::getInstance();  // Returns single instance
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.get-called-class.php)
 

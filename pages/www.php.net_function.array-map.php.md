@@ -4,12 +4,12 @@
 
 I was miffed that array_map didn&apos;t have a way to pass values *and* keys to the callback, but then I realized I could do this:<br><br>function callback($k, $v) { ... }<br><br>array_map( "callback", array_keys($array), $array);  
 
-#
+---
 
 If you need to call a static method from array_map, this will NOT work:<br><br>
 
 ```
-<?php
+<?phpPHP
 array_map('myclass::myMethod' , $value);
 ?>
 ```
@@ -20,13 +20,13 @@ Instead, you need to do this:
 
 
 ```
-<?php
+<?phpPHP
 array_map( array('myclass','myMethod') , $value);
 ?>
 ```
 <br><br>It is helpful to remember that this will work with any PHP function which expects a callback argument.  
 
-#
+---
 
 PHP 5.3 enables us to use inline anonymous functions with array_map, cleaning up the syntax slightly.<br><br>
 
@@ -79,7 +79,7 @@ foreach ($data as $row) {
 ```
   
 
-#
+---
 
 You can use array_map with PHP native functions as well as user functions.  This is very handy if you need to sanitize arrays.  <br><br>
 
@@ -93,7 +93,7 @@ $safeStrings = array_map ('mysql_real_escape_string', $unsafeStrings);
 ```
   
 
-#
+---
 
 To transpose rectangular two-dimension array, use the following code:<br><br>array_unshift($array, null);<br>$array = call_user_func_array("array_map", $array);<br><br>If you need to rotate rectangular two-dimension array on 90 degree, add the following line before or after (depending on the rotation direction you need) the code above:<br>$array = array_reverse($array);<br><br>Here is example:<br><br>
 
@@ -109,7 +109,7 @@ print_r($a);
 ```
 <br><br>Output:<br><br>Array<br>(<br>    [0] =&gt; Array<br>        (<br>            [0] =&gt; 1<br>            [1] =&gt; 4<br>        )<br><br>    [1] =&gt; Array<br>        (<br>            [0] =&gt; 2<br>            [1] =&gt; 5<br>        )<br><br>    [2] =&gt; Array<br>        (<br>            [0] =&gt; 3<br>            [1] =&gt; 6<br>        )<br><br>)  
 
-#
+---
 
 Simplest array_map_recursive() implemention.<br><br>
 
@@ -122,7 +122,7 @@ function array_map_recursive(callable $func, array $array) {
 ```
   
 
-#
+---
 
 Let&apos;s assume we have following situation:<br><br>
 
@@ -144,7 +144,7 @@ class MyFilterClass {
 ```
 <br><br>This will work, because $this inside anonymous function (unlike for example javascript) is the instance of MyFilterClass inside which we called it.<br>I hope this would be useful for anyone.  
 
-#
+---
 
 Here is how to perform an operation on some of the elements of an array:<br><br>
 
@@ -168,11 +168,11 @@ $items_to_modify = array('item1', "item3");
 ```
 <br><br>This will take the original array and perform an action only on items specified on the second array items. Use of &amp; symbol in the use statement makes the array_map access the variable as a reference in an outer scope.<br><br>This makes code easily extendable.  
 
-#
+---
 
 array_map() can be applied to assoc arrays without affecting the keys  
 
-#
+---
 
 You may be looking for a method to extract values of a multidimensional array on a conditional basis (i.e. a mixture between array_map and array_filter) other than a for/foreach loop. If so, you can take advantage of the fact that 1) the callback method on array_map returns null if no explicit return value is specified (as with everything else) and 2) array_filter with no arguments removes falsy values. <br><br>So for example, provided you have:<br><br>
 
@@ -211,7 +211,7 @@ $names = array_filter(array_map(function($n) { if(!$n['smoker']) return $n['name
 ```
 <br><br>It&apos;s not necessarily better than a for/foreach loop, but the occasional one-liner for trivial tasks can help keep your code cleaner.  
 
-#
+---
 
 Find an interesting thing that in array_map&apos;s callable function, late static binding does not work:<br>
 
@@ -256,7 +256,7 @@ if I change A::test to
 ```
 <br><br>Then the result is as expected:<br>array (size=2)<br>  0 =&gt; string &apos;In B: alice&apos; (length=11)<br>  1 =&gt; string &apos;In B: bob&apos; (length=9)  
 
-#
+---
 
 In case of you need to recursively bypass a function over the itens of an array, you can use it<br><br>
 
@@ -389,7 +389,7 @@ array (
 ```
 <br><br>Hope it helps you.<br><br>Cheers.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-map.php)
 
