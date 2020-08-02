@@ -2,25 +2,33 @@
 
 ## Function Reference
 
-### Variable and Type Related Extensions
+### Text Processing
 
-#### Arrays
+#### PCRE
 
-##### Array Functions
+##### PCRE Patterns
 
-[range](/pages/www.php.net_function.range.php.md)
+###### PCRE regex syntax
 
-[reset](/pages/www.php.net_function.reset.php.md)
+[Recursive patterns](/pages/www.php.net_regexp.reference.recursive.php.md)
 
-[shuffle](/pages/www.php.net_function.shuffle.php.md)
+[Pattern Modifiers](/pages/www.php.net_reference.pcre.pattern.modifiers.php.md)
 
-[sizeof](/pages/www.php.net_function.sizeof.php.md)
+##### PCRE Functions
 
-[sort](/pages/www.php.net_function.sort.php.md)
+[preg_grep](/pages/www.php.net_function.preg-grep.php.md)
 
-[uasort](/pages/www.php.net_function.uasort.php.md)
+[preg_last_error](/pages/www.php.net_function.preg-last-error.php.md)
 
-[uksort](/pages/www.php.net_function.uksort.php.md)
+[preg_match_all](/pages/www.php.net_function.preg-match-all.php.md)
 
-[usort](/pages/www.php.net_function.usort.php.md)
+[preg_match](/pages/www.php.net_function.preg-match.php.md)
+
+[preg_quote](/pages/www.php.net_function.preg-quote.php.md)
+
+[preg_replace_callback](/pages/www.php.net_function.preg-replace-callback.php.md)
+
+[preg_replace](/pages/www.php.net_function.preg-replace.php.md)
+
+[preg_split](/pages/www.php.net_function.preg-split.php.md)
 
