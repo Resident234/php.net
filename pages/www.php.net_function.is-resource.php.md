@@ -13,7 +13,7 @@ function isResource ($possibleResource) { return !is_null(@get_resource_type($po
 ```
 <br><br>The @ operator suppresses the errors thrown by get_resource_type() so it returns null if $possibleResource isn&apos;t a resource.<br><br>I spent way too long trying to figure this stuff out, so I hope this comment helps someone out if they run into the same problem I did.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.is-resource.php)
 

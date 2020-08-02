@@ -4,7 +4,7 @@
 
 As of PHP 5.2, strval() will return the string value of an object, calling its __toString() method to determine what that value is.  
 
-#
+---
 
 If you want to convert an integer into an English word string, eg. 29 -&gt; twenty-nine, then here&apos;s a function to do it.<br><br>Note on use of fmod()<br>  I used the floating point fmod() in preference to the % operator, because % converts the operands to int, corrupting values outside of the range [-2147483648, 2147483647]<br><br>I haven&apos;t bothered with "billion" because the word means 10e9 or 10e12 depending who you ask.<br><br>The function returns &apos;#&apos; if the argument does not represent a whole number.<br><br>
 
@@ -81,7 +81,7 @@ echo 'There are currently '. int_to_words($count) . ' members logged on.';
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.strval.php)
 

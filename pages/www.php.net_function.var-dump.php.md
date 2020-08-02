@@ -12,9 +12,9 @@ If you&apos;re like me and uses var_dump whenever you&apos;re debugging, you mig
 <?php
 
 function var_dump_pre($mixed = null) {
-  echo '<pre>';
+  echo '';
   var_dump($mixed);
-  echo '</pre>';
+  echo '';
   return null;
 }
 

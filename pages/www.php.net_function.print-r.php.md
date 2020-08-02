@@ -7,15 +7,15 @@ I add this function to the global scope on just about every project I do, it mak
 ```
 <?php
 function print_r2($val){
-        echo '<pre>';
+        echo '';
         print_r($val);
-        echo  '</pre>';
+        echo  '';
 }
 ?>
 ```
 <br><br>It also makes sense in some cases to add an if statement to only display the output in certain scenarios, such as:<br><br>if(debug==true)<br>if($_SERVER[&apos;REMOTE_ADDR&apos;] == &apos;127.0.0.1&apos;)  
 
-#
+---
 
 Here is another version that parses the print_r() output. I tried the one posted, but I had difficulties with it. I believe it has a problem with nested arrays. This handles nested arrays without issue as far as I can tell. <br><br>
 
@@ -72,7 +72,7 @@ function print_r_reverse($in) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.print-r.php)
 

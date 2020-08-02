@@ -29,11 +29,11 @@ isfloat('a' + 0);  // false
 ```
 <br><br>YMMV  
 
-#
+---
 
 If you want to test whether a string is containing a float, rather than if a variable is a float, you can use this simple little function:<br><br>function isfloat($f) return ($f == (string)(float)$f);  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.is-float.php)
 
