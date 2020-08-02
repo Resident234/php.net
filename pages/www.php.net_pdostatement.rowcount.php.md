@@ -2,7 +2,12 @@
 
 
 
-When updating a Mysql table with identical values nothing&apos;s really affected so rowCount will return 0. As Mr. Perl below noted this is not always preferred behaviour and you can change it yourself since PHP 5.3.<br><br>Just create your PDO object with <br>&lt;? php<br>$p = new PDO($dsn, $u, $p, array(PDO::MYSQL_ATTR_FOUND_ROWS =&gt; true));<br>?>
+When updating a Mysql table with identical values nothing&apos;s really affected so rowCount will return 0. As Mr. Perl below noted this is not always preferred behaviour and you can change it yourself since PHP 5.3.<br><br>Just create your PDO object with <br>
+
+```
+<?php
+$p = new PDO($dsn, $u, $p, array(PDO::MYSQL_ATTR_FOUND_ROWS => true));
+?>
 ```
 <br>and rowCount() will tell you how many rows your update-query actually found/matched.  
 
