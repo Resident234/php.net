@@ -22,7 +22,7 @@ $client->__soapCall('login', array($params));
 ```
   
 
-#
+---
 
 One thing to note.<br><br>This happened to me and it took a while until I discovered what the problem was.<br><br>I was trying to get .NET objects from a provided web service, however it always seemed to return empty objects. It did return the backbone, but nothing within the objects that made up the structure.<br><br>Anyhow, it seems that you have to be very precise with the arrays when calling these functions. Par example, do this:<br><br>
 
@@ -68,7 +68,7 @@ but if the webservice requests a 'muid' variable as 'Mary' and a 'birthyear' as 
 ```
 <br><br>The above arrays refer to the $SoapCallParameters variable.<br><br>Hope this helps somebody, not having to spend too much time figuring out the problems.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/soapclient.soapcall.php)
 

@@ -48,7 +48,7 @@ if($result->DeleteMarketplaceAdResult->Status == "Success")
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.soapclient.php)
 

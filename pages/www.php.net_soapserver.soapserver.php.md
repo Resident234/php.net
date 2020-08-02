@@ -111,7 +111,7 @@ $Result = $Client->someMethod();
 ```
 <br><br>As you can see SoapServer uses our decorator class to answer client requests. If request contains "AuthHeader" SOAP-header then our wrapper checks the credentials and sets $authenticated parameter to TRUE (on success). Then SoapServer calls requested method on our wrapper, we are intercepting it with __call(), checking authentication and if everything is allright we are calling real method on the "My_Service" class.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/soapserver.soapserver.php)
 

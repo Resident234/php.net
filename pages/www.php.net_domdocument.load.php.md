@@ -21,7 +21,7 @@ $doc = DOMDocument::load('http://www.example.com/file.xml');
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.load.php)
 

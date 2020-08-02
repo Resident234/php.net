@@ -145,11 +145,23 @@ $objResponse = $objClient->__soapCall($strMethod, $requestPayloadString);
 ```
   
 
-#
+---
 
 As noted in the bug report http://bugs.php.net/bug.php?id=36226, it is considered a feature that sequences with a single element do not come out as arrays. To override this "feature" you can do the following:<br><br>$x = new SoapClient($wsdl, array(&apos;features&apos; =&gt;<br>SOAP_SINGLE_ELEMENT_ARRAYS));  
 
-#
+---
+
+This doesn&apos;t seem to be documented, but when you want to use compression for your outgoing requests, you have to OR with the compression level:<br><br>
+
+```
+<?php
+ $client = new SoapClient("some.wsdl", 
+  array('compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 9));
+?>
+```
+<br><br>This can be really usefull if you want to send large amounts of data.<br><br>Source: https://bugs.php.net/bug.php?id=36283  
+
+---
 
 if you need to use ws-security with a nonce and a timestamp, you can use this :<br><br>
 
@@ -199,27 +211,15 @@ $client->__setSoapHeaders(Array(new WsseAuthHeader("user", "pass")));
 ```
 <br><br>works for me. based on a stackoverlfow post which only did the username and password, not the nonce and the timestamp  
 
-#
-
-This doesn&apos;t seem to be documented, but when you want to use compression for your outgoing requests, you have to OR with the compression level:<br><br>
-
-```
-<?php
- $client = new SoapClient("some.wsdl", 
-  array('compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 9));
-?>
-```
-<br><br>This can be really usefull if you want to send large amounts of data.<br><br>Source: https://bugs.php.net/bug.php?id=36283  
-
-#
+---
 
 The documentation is wrong (version 7.1.12): A SoapFault exception will be thrown if the wsdl URI cannot be loaded.<br><br>What actually occurs -- even if wrapped in a try...catch(\Throwable $t) -- is an UNCATCHABLE fatal error is thrown.  
 
-#
+---
 
 Hello folks!<br><br>A hint for developers:<br><br>When programming some soap server set the "soap.wsdl_cache_enabled" directive in php.ini file to 0:<br><br>soap.wsdl_cache_enabled=0<br><br>Otherwise it will give a bunch of strange errors saying that your wsdl is incorrect or is missing.<br><br>Doing that will save you from a lot of useless pain.  
 
-#
+---
 
 Example for a soap client with HTTP authentication over a proxy:<br><br>
 
@@ -251,7 +251,7 @@ new SoapClient(
 ```
 <br><br>Providing an URL to a WSDL file on the remote server (which as well is protected with HTTP authentication) didn&apos;t work. I downloaded the WSDL and stored it on the local server.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/soapclient.soapclient.php)
 

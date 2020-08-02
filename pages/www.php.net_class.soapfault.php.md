@@ -24,7 +24,7 @@ $e = new SoapFault(array("namespace", "test"), "msg");
 ```
 <br><br>- see ext/soap/soap.php, PHP_METHOD(SoapFault, SoapFault). To access the namespace, use $e-&gt;faultcodens  
 
-#
+---
 
 A bit more digging in ext/soap/soap.c and the set_soap_fault function reveals the other undocumented properties from the constructor:<br><br>
 
@@ -39,7 +39,7 @@ try {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.soapfault.php)
 

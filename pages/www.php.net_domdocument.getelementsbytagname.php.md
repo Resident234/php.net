@@ -14,7 +14,7 @@ if ($nodes->length==0) {
 ```
   
 
-#
+---
 
 Note that when using getElementsByTagName that it is a dynamic list. Thus if you have code which adjusts the DOM structure it will change the results of the getElementsByTagName results list.<br><br>The following code iterates through a complete set of results and changes them all to a new tag:<br><br>
 
@@ -34,7 +34,7 @@ Note that when using getElementsByTagName that it is a dynamic list. Thus if you
 ```
 <br><br>Since the list is dynamically updating, $nodes-&gt;item(0) is the next "unchanged" tag.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.getelementsbytagname.php)
 

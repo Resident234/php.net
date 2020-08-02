@@ -49,7 +49,7 @@ echo $return = $client->__soapCall("helloWorld",array("world"));
 ```
 <br><br>// Hope you like it  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/soapserver.construct.php)
 
