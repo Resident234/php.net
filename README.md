@@ -2,141 +2,87 @@
 
 ## Language Reference
 
-### Classes and Objects
+### Basic syntax
 
-[Traits](/pages/www.php.net_language.oop5.traits.php.md)
+[Escaping from HTML](/pages/www.php.net_language.basic-syntax.phpmode.php.md)
 
-[Anonymous classes](/pages/www.php.net_language.oop5.anonymous.php.md)
+[Instruction separation](/pages/www.php.net_language.basic-syntax.instruction-separation.php.md)
 
-[Overloading](/pages/www.php.net_language.oop5.overloading.php.md)
+[Comments](/pages/www.php.net_language.basic-syntax.comments.php.md)
 
-[Object Iteration](/pages/www.php.net_language.oop5.iterations.php.md)
+### Types
 
-[Magic Methods](/pages/www.php.net_language.oop5.magic.php.md)
+[Booleans](/pages/www.php.net_language.types.boolean.php.md)
 
-[Final Keyword](/pages/www.php.net_language.oop5.final.php.md)
+[Integers](/pages/www.php.net_language.types.integer.php.md)
 
-[Object Cloning](/pages/www.php.net_language.oop5.cloning.php.md)
+[Floating point precision](/pages/www.php.net_language.types.float.php.md)
 
-[Comparing Objects](/pages/www.php.net_language.oop5.object-comparison.php.md)
+[Strings](/pages/www.php.net_language.types.string.php.md)
 
-[Type Hinting](/pages/www.php.net_language.oop5.typehinting.php.md)
+[Arrays](/pages/www.php.net_language.types.array.php.md)
 
-[Late Static Bindings](/pages/www.php.net_language.oop5.late-static-bindings.php.md)
+[Objects](/pages/www.php.net_language.types.object.php.md)
 
-[Objects and references](/pages/www.php.net_language.oop5.references.php.md)
+[NULL](/pages/www.php.net_language.types.null.php.md)
 
-[Object Serialization](/pages/www.php.net_language.oop5.serialization.php.md)
+[Callbacks / Callables](/pages/www.php.net_language.types.callable.php.md)
 
-[Covariance and Contravariance](/pages/www.php.net_language.oop5.variance.php.md)
+[Type Juggling](/pages/www.php.net_language.types.type-juggling.php.md)
 
-[Namespaces](/pages/www.php.net_language.namespaces.php.md)
+### Variables
 
-### Namespaces
+[Basics](/pages/www.php.net_language.variables.basics.php.md)
 
-[Namespaces overview](/pages/www.php.net_language.namespaces.rationale.php.md)
+[Predefined Variables](/pages/www.php.net_language.variables.predefined.php.md)
 
-[Defining namespaces](/pages/www.php.net_language.namespaces.definition.php.md)
+[Variable scope](/pages/www.php.net_language.variables.scope.php.md)
 
-[Defining multiple namespaces in the same file](/pages/www.php.net_language.namespaces.definitionmultiple.php.md)
+[Variable variables](/pages/www.php.net_language.variables.variable.php.md)
 
-[Using namespaces: Basics](/pages/www.php.net_language.namespaces.basics.php.md)
+[Variables From External Sources](/pages/www.php.net_language.variables.external.php.md)
 
-[Namespaces and dynamic language features](/pages/www.php.net_language.namespaces.dynamic.php.md)
+[Constants](/pages/www.php.net_language.constants.php.md)
 
-[namespace keyword and __NAMESPACE__ constant](/pages/www.php.net_language.namespaces.nsconstants.php.md)
+### Constants
 
-[Using namespaces: Aliasing/Importing](/pages/www.php.net_language.namespaces.importing.php.md)
+[Syntax](/pages/www.php.net_language.constants.syntax.php.md)
 
-[Global space](/pages/www.php.net_language.namespaces.global.php.md)
+[Magic constants](/pages/www.php.net_language.constants.predefined.php.md)
 
-[Using namespaces: fallback to global function/constant](/pages/www.php.net_language.namespaces.fallback.php.md)
+[Expressions](/pages/www.php.net_language.expressions.php.md)
 
-[Name resolution rules](/pages/www.php.net_language.namespaces.rules.php.md)
+[Operators](/pages/www.php.net_language.operators.php.md)
 
-[FAQ: things you need to know about namespaces](/pages/www.php.net_language.namespaces.faq.php.md)
+### Operators
 
-### Errors
+[Operator Precedence](/pages/www.php.net_language.operators.precedence.php.md)
 
-[Errors in PHP 7](/pages/www.php.net_language.errors.php7.php.md)
+[Arithmetic Operators](/pages/www.php.net_language.operators.arithmetic.php.md)
 
-[Exceptions](/pages/www.php.net_language.exceptions.php.md)
+[Assignment Operators](/pages/www.php.net_language.operators.assignment.php.md)
 
-### Exceptions
+[Bitwise Operators](/pages/www.php.net_language.operators.bitwise.php.md)
 
-[Extending Exceptions](/pages/www.php.net_language.exceptions.extending.php.md)
+[Comparison of floating point numbers](/pages/www.php.net_language.operators.comparison.php.md)
 
-### Generators
+[Error Control Operators](/pages/www.php.net_language.operators.errorcontrol.php.md)
 
-[Generators overview](/pages/www.php.net_language.generators.overview.php.md)
+[Execution Operators](/pages/www.php.net_language.operators.execution.php.md)
 
-[Storing into an array (e.g. with iterator_to_array())](/pages/www.php.net_language.generators.syntax.php.md)
+[Incrementing/Decrementing Operators](/pages/www.php.net_language.operators.increment.php.md)
 
-[Comparing generators with Iterator objects](/pages/www.php.net_language.generators.comparison.php.md)
+[Logical Operators](/pages/www.php.net_language.operators.logical.php.md)
 
-[References Explained](/pages/www.php.net_language.references.php.md)
+[String Operators](/pages/www.php.net_language.operators.string.php.md)
 
-### References Explained
+[Array Operators](/pages/www.php.net_language.operators.array.php.md)
 
-[What References Are](/pages/www.php.net_language.references.whatare.php.md)
+[Type Operators](/pages/www.php.net_language.operators.type.php.md)
 
-[What References Do](/pages/www.php.net_language.references.whatdo.php.md)
+### Control Structures
 
-[What References Are Not](/pages/www.php.net_language.references.arent.php.md)
+[if](/pages/www.php.net_control-structures.if.php.md)
 
-[Passing by Reference](/pages/www.php.net_language.references.pass.php.md)
-
-[Returning References](/pages/www.php.net_language.references.return.php.md)
-
-[Unsetting References](/pages/www.php.net_language.references.unset.php.md)
-
-[Spotting References](/pages/www.php.net_language.references.spot.php.md)
-
-[Predefined Variables](/pages/www.php.net_reserved.variables.php.md)
-
-### Predefined Variables
-
-[Superglobals](/pages/www.php.net_language.variables.superglobals.php.md)
-
-[$GLOBALS](/pages/www.php.net_reserved.variables.globals.php.md)
-
-[$_SERVER](/pages/www.php.net_reserved.variables.server.php.md)
-
-[$_GET](/pages/www.php.net_reserved.variables.get.php.md)
-
-[$_POST](/pages/www.php.net_reserved.variables.post.php.md)
-
-[$_FILES](/pages/www.php.net_reserved.variables.files.php.md)
-
-[$_REQUEST](/pages/www.php.net_reserved.variables.request.php.md)
-
-[$_SESSION](/pages/www.php.net_reserved.variables.session.php.md)
-
-[$_ENV](/pages/www.php.net_reserved.variables.environment.php.md)
-
-[$_COOKIE](/pages/www.php.net_reserved.variables.cookies.php.md)
-
-[$php_errormsg](/pages/www.php.net_reserved.variables.phperrormsg.php.md)
-
-[$HTTP_RAW_POST_DATA](/pages/www.php.net_reserved.variables.httprawpostdata.php.md)
-
-[$http_response_header](/pages/www.php.net_reserved.variables.httpresponseheader.php.md)
-
-[$argc](/pages/www.php.net_reserved.variables.argc.php.md)
-
-[$argv](/pages/www.php.net_reserved.variables.argv.php.md)
-
-### Predefined Exceptions
-
-[Exception](/pages/www.php.net_class.exception.php.md)
-
-#### Exception
-
-[Exception::__construct](/pages/www.php.net_exception.construct.php.md)
-
-[Exception::getCode](/pages/www.php.net_exception.getcode.php.md)
-
-[Exception::getTrace](/pages/www.php.net_exception.gettrace.php.md)
-
-[Exception::getTraceAsString](/pages/www.php.net_exception.gettraceasstring.php.md)
+[else](/pages/www.php.net_control-structures.else.php.md)
 

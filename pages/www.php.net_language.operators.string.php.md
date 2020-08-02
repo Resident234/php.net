@@ -60,7 +60,15 @@ echo 1+2;                  //prints the number 3
 
 ---
 
-Be careful so that you don&apos;t type "." instead of ";" at the end of a line.<br><br>It took me more than 30 minutes to debug a long script because of something like this:<br><br>&lt;?<br>echo &apos;a&apos;.<br>$c = &apos;x&apos;;<br>echo &apos;b&apos;;<br>echo &apos;c&apos;;<br>?>
+Be careful so that you don&apos;t type "." instead of ";" at the end of a line.<br><br>It took me more than 30 minutes to debug a long script because of something like this:<br><br>
+
+```
+<?php
+echo 'a'.
+$c = 'x';
+echo 'b';
+echo 'c';
+?>
 ```
 <br><br>The output is "axbc", because of the dot on the first line.  
 

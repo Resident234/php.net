@@ -91,7 +91,7 @@ tpl.php
 ```
 <?php echo $this->title;?>
 ```
-&lt;/h1&gt;  
+</h1>  
 
 ---
 

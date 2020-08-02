@@ -2,19 +2,7 @@
 
 
 
-Interactive Shell and Interactive Mode are not the same thing, despite the similar names and functionality.<br><br>If you type &apos;php -a&apos; and get a response of &apos;Interactive Shell&apos; followed by a &apos;php&gt;&apos; prompt, you have interactive shell available (PHP was compiled with readline support). If instead you get a response of &apos;Interactive mode enabled&apos;, you DO NOT have interactive shell available and this article does not apply to you.<br><br>You can also check &apos;php -m&apos; and see if readline is listed in the output - if not, you don&apos;t have interactive shell.<br><br>Interactive mode is essentially like running php with stdin as the file input. You just type code, and when you&apos;re done (Ctrl-D), php executes whatever you typed as if it were a normal PHP (PHTML) file - hence you start in interactive mode with &apos;
-
-```
-<?php' in order to execute code.
-
-Interactive shell evaluates every expression as you complete it (with ; or }), reports errors without terminating execution, and supports standard shell functionality via readline (history, tab completion, etc). It's an enhanced version of interactive mode that is ONLY available if you have the required libraries, and is an actual PHP shell that interprets everything you type as PHP code - using '
-
-```
-<?php' will cause a parse error.
-
-Finally, if you're running on Windows, you're probably screwed. From what I'm seeing in other comments here, you don't have readline, and without readline there is no interactive shell.?>
-```
-  
+Interactive Shell and Interactive Mode are not the same thing, despite the similar names and functionality.<br><br>If you type &apos;php -a&apos; and get a response of &apos;Interactive Shell&apos; followed by a &apos;php&gt;&apos; prompt, you have interactive shell available (PHP was compiled with readline support). If instead you get a response of &apos;Interactive mode enabled&apos;, you DO NOT have interactive shell available and this article does not apply to you.<br><br>You can also check &apos;php -m&apos; and see if readline is listed in the output - if not, you don&apos;t have interactive shell.<br><br>Interactive mode is essentially like running php with stdin as the file input. You just type code, and when you&apos;re done (Ctrl-D), php executes whatever you typed as if it were a normal PHP (PHTML) file - hence you start in interactive mode with ``<?php`` in order to execute code.<br><br>Interactive shell evaluates every expression as you complete it (with ; or }), reports errors without terminating execution, and supports standard shell functionality via readline (history, tab completion, etc). It&apos;s an enhanced version of interactive mode that is ONLY available if you have the required libraries, and is an actual PHP shell that interprets everything you type as PHP code - using ``<?php`` will cause a parse error.<br><br>Finally, if you&apos;re running on Windows, you&apos;re probably screwed. From what I&apos;m seeing in other comments here, you don&apos;t have readline, and without readline there is no interactive shell.  
 
 ---
 

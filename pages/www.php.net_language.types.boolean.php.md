@@ -90,10 +90,28 @@ $array = ['A', 'B', 'C'];
 $array = remove_element('X', $array);
 ?>
 ```
-<br><br>The problem here is, although array_search returns boolean false when it doesn&apos;t find specific element, it is interpreted as zero when used as array index.<br><br>So you have to explicitly check for FALSE, otherwise you&apos;ll probably loose some elements:<br><br>
+
+
+The problem here is, although array_search returns boolean false when it doesn't find specific element, it is interpreted as zero when used as array index.
+
+So you have to explicitly check for FALSE, otherwise you'll probably loose some elements:
+
+
 
 ```
-<?php<br>//correct<br>function remove_element($element, $array)<br>{<br>   $index = array_search($element, $array);<br>   if ($index !== FALSE) <br>   {<br>       unset ($array[$index]);<br>   }<br>   return $array; <br>}  
+<?php
+//correct
+function remove_element($element, $array)
+{
+   $index = array_search($element, $array);
+   if ($index !== FALSE) 
+   {
+       unset ($array[$index]);
+   }
+   return $array; 
+}?>
+```
+  
 
 ---
 

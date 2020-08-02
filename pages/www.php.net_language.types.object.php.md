@@ -132,7 +132,7 @@ $obj->getInfo();
 $num = array("Garha","sitamarhi","canada","patna"); //create an array
 $obj = (object)$num; //change array to stdClass object 
 
-echo "<pre>";
+echo "";
 print_r($obj); //stdClass Object created by casting of array 
 
 $newobj = new stdClass();//create a new 
@@ -141,7 +141,7 @@ $newobj->work = "Development";
 $newobj->address="patna";
 
 $new = (array)$newobj;//convert stdClass to array
-echo "<pre>";
+echo "";
 print_r($new); //print new object
 
 ##How deals with Associative Array
@@ -149,7 +149,7 @@ print_r($new); //print new object
 $test = [Details=>['name','roll number','college','mobile'],values=>['Naman Kumar','100790310868','Pune college','9988707202']];
 $val = json_decode(json_encode($test),false);//convert array into stdClass object
 
-echo "<pre>";
+echo "";
 print_r($val);
 
 echo ((is_array($val) == true ?  1 : 0 ) == 1 ? "array" : "not an array" )."</br>"; // check whether it is array or not

@@ -38,7 +38,7 @@ class MyClass {
 }
 
 $test = new MyClass();
-echo '<pre>';
+echo '';
 print_r((array) $test);
 
 /*

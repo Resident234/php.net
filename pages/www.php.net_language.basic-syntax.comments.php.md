@@ -173,10 +173,7 @@ if(1==1)
 
 i discovered this "anomally" when i commented out a line of code containing a regex which itself contained ?>
 ```
-, with the // style comment.
-e.g. //preg_match('/^(?>
-```
-c|b)at$/&apos;, &apos;cat&apos;, $matches);<br>will cause an error while commented! using /**/ style comments provides a solution. i don&apos;t know about # style comments, i don&apos;t ever personally use them.  
+, with the // style comment.<br>e.g. //preg_match(&apos;/^(?>c|b)at$/&apos;, &apos;cat&apos;, $matches);<br>will cause an error while commented! using /**/ style comments provides a solution. i don&apos;t know about # style comments, i don&apos;t ever personally use them.  
 
 ---
 
