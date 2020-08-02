@@ -31,7 +31,7 @@ echo "String decrypt : $newsource";
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.openssl-private-decrypt.php)
 

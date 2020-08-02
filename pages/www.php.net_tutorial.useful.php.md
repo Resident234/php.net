@@ -14,7 +14,7 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE ||
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/tutorial.useful.php)
 

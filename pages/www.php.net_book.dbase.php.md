@@ -33,7 +33,7 @@ function echo_dbf($dbfname) {
 ```
 <br><br>This function simply dumps an entire file using echo and json_encode, so you can tweak it to your own needs... (eg random access would just be a matter of changing the seek to : fseek($fdbf, $header[&apos;FirstRecord&apos;]+1 +($header[&apos;RecordLength&apos;]* $desiredrecord0based); removing the for loop and returning $record<br><br>This function doesn&apos;t do any type conversion, but it does extract the type if you need to play with dates, or tidy up the numbers etc.<br><br>So quick and dirty but maybe of use to somebody and illustrates the power of unpack.<br><br>Erich  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.dbase.php)
 

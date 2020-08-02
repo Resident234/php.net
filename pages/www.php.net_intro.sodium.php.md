@@ -76,7 +76,7 @@ echo $dec;
 ```
 <br><br>//Output<br>DEx9ATXEg/eRq8GWD3NT5BatB3m31WEDEYLK2V4L0Am5GZGoa2rvYWUpoUeCrm7W/pdgLJrNoE6AA8U=<br>Abdul Rafay Hingoro  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/intro.sodium.php)
 

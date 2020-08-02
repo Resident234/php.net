@@ -18,7 +18,7 @@ try {
 ```
 <br><br>Bye,<br>  Matthias  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/pdo.errorcode.php)
 

@@ -38,7 +38,7 @@ Array (
 ```
 <br><br>... Looks like it&apos;s up to each of us to personally decide if it&apos;s safe to compare against the final returned array.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.password-get-info.php)
 

@@ -11,11 +11,11 @@ var_dump($_SERVER);
 ```
 <br><br>Try to call php-cgi binary from the command line interface and then via HTTP request and compare the output of the script above. There will be plenty options to satisfy almost everyone.<br><br>For the sake of security remember, that contents of the $_SERVER and the $_ENV superglobal arrays (as well as $_GET, $_POST, $_COOKIE, $_FILES and $_REQUEST) should be considered tainted.  
 
-#
+---
 
 some not yet mentioned sapi names:<br><br>cli-server -&gt; php built-in webserver<br>srv -&gt; hhvm  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.php-sapi-name.php)
 

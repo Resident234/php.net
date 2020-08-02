@@ -141,11 +141,11 @@ class SimpleXMLReader extends XMLReader
 ```
   
 
-#
+---
 
 The "XML2Assoc" functions noted here should be used with caution... basically they are duplicating the functionality already present in SimpleXML. They may work but they won&apos;t scale.<br><br>Their are two main uses cases for parsing XML, each suited to either XMLReader or SimpleXML.<br><br>1. SimpleXML is an excellent tool for easy access to an XML document tree using native PHP data types. It starts to flounder with massive (&gt; 50M or so) XML documents, as it reads the entire document into memory before it can be processed. SimpleXML will just laugh at you then die when your server runs out of memory (or it will cause a load spike).<br><br>2. Aside from the reasoning behind massive XML documents, if you have to deal with massive XML documents, use XMLReader to process them. Don&apos;t try and gather an entire XML document into a PHP data structure using XMLReader and a PHP xml2assoc() function, you are reinventing the SimpleXML wheel.<br>When parsing massive XML documents using XMLReader, gather the data you need to perform an operation then perform it before skipping to the next node. Do not build massive data structures from a massive XML document, your server (and it&apos;s admins) will not like you.  
 
-#
+---
 
 Guys, I hope this example will help<br>you can erase prints showing the process-<br>and it will be a piece of nice code.<br><br>
 
@@ -223,7 +223,7 @@ echo "</PRE>";
 ```
 <br><br>It reads this xml:<br><br>&lt;test&gt;<br>    &lt;hallo volume="loud"&gt; me &lt;br/&gt; lala &lt;/hallo&gt;<br>    &lt;hallo&gt; me &lt;/hallo&gt;<br>&lt;/test&gt;  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.xmlreader.php)
 

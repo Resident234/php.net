@@ -107,7 +107,7 @@ class Item
 ```
 <br><br>Now there is nothing OUTSIDE CODE can do to obscure the INSIDES of an Item. In other words, every instance of Item will always look and behave like any other Item complete with a label and a price, AND you can group them together and they will interact without disruption. Even though there is room for improvement, the basics are there, and PHP will not hassle you... which means you can keep your hair!  
 
-#
+---
 
 If you have problems with overriding private methods in extended classes, read this:)<br><br>The manual says that "Private limits visibility only to the class that defines the item". That means extended children classes do not see the private methods of parent class and vice versa also. <br><br>As a result, parents and children can have different implementations of the "same" private methods, depending on where you call them (e.g. parent or child class instance). Why? Because private methods are visible only for the class that defines them and the child class does not see the parent&apos;s private methods. If the child doesn&apos;t see the parent&apos;s private methods, the child can&apos;t override them. Scopes are different. In other words -- each class has a private set of private variables that no-one else has access to. <br><br>A sample demonstrating the percularities of private methods when extending classes:<br><br>
 
@@ -165,7 +165,7 @@ $test->inherited();
 ```
 <br>Output will be "child".  
 
-#
+---
 
 Just a quick note that it&apos;s possible to declare visibility for multiple properties at the same time, by separating them by commas.<br><br>eg:<br><br>
 
@@ -183,7 +183,7 @@ class a
 ```
   
 
-#
+---
 
 A class A static public function can access to class A private function :<br><br>
 
@@ -208,7 +208,7 @@ A::bar($a);
 ```
 <br><br>It&apos;s working.  
 
-#
+---
 
 Beware: Visibility works on a per-class-base and does not prevent instances of the same class accessing each others properties!<br><br>
 
@@ -251,7 +251,7 @@ $b->debugBar($a);        // 4
 ```
   
 
-#
+---
 
 Please note that protected methods are also available from sibling classes as long as the method is declared in the common parent. This may also be an abstract method.<br> <br>In the below example Bar knows about the existence of _test() in Foo because they inherited this method from the same parent. It does not matter that it was abstract in the parent.<br><br>
 
@@ -283,7 +283,7 @@ $bar->TestFoo(); // result: Foo
 ```
   
 
-#
+---
 
 This has already been noted here, but there was no clear example. Methods defined in a parent class can NOT access private methods defined in a class which inherits from them. They can access protected, though.<br><br>Example:<br><br>
 
@@ -320,7 +320,7 @@ $object->execute('privateMethod');
 ```
 <br><br>Output:<br><br>hi, i&apos;m protected<br>Fatal error: Call to private method ChildClass::privateMethod() from context &apos;ParentClass&apos; in index.php on line 6<br><br>In an early approach this may seem unwanted behaviour but it actually makes sense. Private can only be accessed by the class which defines, neither parent nor children classes.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.visibility.php)
 

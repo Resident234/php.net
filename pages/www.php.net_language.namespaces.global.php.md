@@ -25,7 +25,7 @@ namespace test {
 ```
 <br><br>Results of test.php:<br><br>--<br>-test-  
 
-#
+---
 
 In namespaced context the Exception class needs to be prefixed with global prefix operator.<br><br>
 
@@ -58,7 +58,7 @@ class MyClass
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.global.php)
 

@@ -15,7 +15,7 @@ public function get_class_constants()
 ```
 <br><br>You could also override stdObject with it so that all your classes  have this method  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.get-defined-constants.php)
 

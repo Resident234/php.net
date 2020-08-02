@@ -26,7 +26,7 @@ while($row = $pdo_stmt->fetch(PDO::FETCH_NUM))
 ```
 <br><br>If you are building an ORM, this method is very useful to support more natural SQL syntax.  Most ORMs require the column names to be aliases so that they can be parsed and turned into objects that properly represent has_one, has_many, many_to_many relationships.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/pdostatement.getcolumnmeta.php)
 

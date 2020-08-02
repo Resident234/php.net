@@ -16,19 +16,19 @@ array (
 ```
 <br><br>This is invaluable when you want to link various posted form data to other hashes on the server side, when you need to store posted data in separate "compartment" arrays or when you want to link your POSTed data into different record handlers in various Frameworks.<br><br>Remember also that using [] as in index will cause a sequential numeric array to be created once the data is posted, so sometimes it&apos;s better to define your indexes explicitly.  
 
-#
+---
 
 I know it&apos;s a pretty basic thing but I had issues trying to access the $_POST variable on a form submission from my HTML page. It took me ages to work out and I couldn&apos;t find the help I needed in google. Hence this post.<br><br>Make sure your input items have the NAME attribute. The id attribute is not enough! The name attribute on your input controls is what $_POST uses to index the data and therefore show the results.  
 
-#
+---
 
 There&apos;s an earlier note here about correctly referencing elements in $_POST which is accurate.  $_POST is an associative array indexed by form element NAMES, not IDs.  One way to think of it is like this:  element "id=" is for CSS, while element "name=" is for PHP.  If you are referring to your element ID in the POST array, it won&apos;t work.  You must assign a name attribute to your element to reference it correctly in the POST array.  These two attributes can be the same for simplicity, i.e., <br>&lt;input type="text" id="txtForm" name="txtForm"&gt;...&lt;/input&gt;  
 
-#
+---
 
 Note that $_POST is NOT set for all HTTP POST operations,  but only for specific types of POST operations.  I have not been able to find documentation, but here&apos;s what I&apos;ve found so far.<br><br>$_POST _is_ set for:<br><br>Content-Type: application/x-www-form-urlencoded<br><br>In other words,  for standard web forms.<br><br>$_POST is NOT set for:<br><br>Content-Type:text/xml<br><br>A type used for a generic HTTP POST operation.  
 
-#
+---
 
 For a page with multiple forms here is one way of processing the different POST values that you may receive.  This code is good for when you have distinct forms on a page.  Adding another form only requires an extra entry in the array and switch statements. <br><br>
 
@@ -87,7 +87,7 @@ else // $_POST is empty.
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.post.php)
 

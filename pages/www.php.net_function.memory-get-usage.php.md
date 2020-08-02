@@ -17,11 +17,11 @@ echo convert(memory_get_usage(true)); // 123 kb
 ```
   
 
-#
+---
 
 Note, that the official IEC-prefix for kilobyte, megabyte and so on are KiB, MiB, TiB and so on.<br><br>See http://en.wikipedia.org/wiki/Tebibyte<br><br>At first glance this may sound like "What the hell? Everybody knows, that we mean 1024 not 1000 and the difference is not too big, so what?". But in about 10 years, the size of harddisks (and files on them) reaches the petabyte-limit and then the difference between PB and PiB is magnificent.<br><br>Better to get used to it now. :)  
 
-#
+---
 
 memory_get_usage() is used to retrieve the memory allocated to PHP only (or your running script). But intuitively, many people expect to get the memory usage of the system, based on the name of the function.<br><br>So if you need the overall memory usage, following function might be helpful. If retrieves the memory usage either in percent (without the percent sign) or in bytes by returning an array with free and overall memory of your system. Tested with Windows (7) and Linux (on an Raspberry Pi 2):<br><br>
 
@@ -139,7 +139,7 @@ memory_get_usage() is used to retrieve the memory allocated to PHP only (or your
 ```
 <br><br>The function getNiceFileSize() is not required. Just used to shorten size in bytes.<br><br>Note: If you need the server load (CPU usage), I wrote a nice function to get that too: http://php.net/manual/en/function.sys-getloadavg.php#118673  
 
-#
+---
 
 To get the memory usage in KB or MB<br><br>
 
@@ -161,7 +161,7 @@ To get the memory usage in KB or MB<br><br>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.memory-get-usage.php)
 

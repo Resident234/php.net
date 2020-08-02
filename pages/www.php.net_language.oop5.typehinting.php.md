@@ -106,7 +106,7 @@ function testfloat(float $float) { echo $float; }
 ```
 <br><br>You get the picture..  
 
-#
+---
 
 The scalar type hinting solutions are all overthinking it. I provided the optimized regex version, as well as the fastest implementation I&apos;ve come up with, which just uses strpos. Then I benchmark both against the TypeHint class.<br><br>
 
@@ -132,7 +132,7 @@ function optimized_regex($ErrLevel, $ErrMessage) {
 ```
 <br><br>BENCHMARKING Typehint::handleTypehint()<br>string type hint.....[function it(string $var) {}]............2.1588530540466 seconds<br>float type hint......[function it(float $var) {}].............2.1563150882721 seconds<br>integer type hint....[function it(integer $var) {}]...........2.1579530239105 seconds<br>boolean type hint....[function it(boolean $var) {}]...........2.1590459346771 seconds<br><br>BENCHMARKING optimized_regex()<br>string type hint.....[function it(string $var) {}]............0.88872504234314 seconds<br>float type hint......[function it(float $var) {}].............0.88528990745544 seconds<br>integer type hint....[function it(integer $var) {}]...........0.89038777351379 seconds<br>boolean type hint....[function it(boolean $var) {}]...........0.89061188697815 seconds<br><br>BENCHMARKING optimized_strpos()<br>string type hint.....[function it(string $var) {}]............0.52635812759399 seconds<br>float type hint......[function it(float $var) {}].............0.74228310585022 seconds<br>integer type hint....[function it(integer $var) {}]...........0.63721108436584 seconds<br>boolean type hint....[function it(boolean $var) {}]...........0.8429491519928 seconds  
 
-#
+---
 
 Daniel&apos;s typehint implementation was just what I was looking for but performance in production wasn&apos;t going to cut it. Calling a backtrace every time hurts performance. For my implementation I didn&apos;t use it, after all, PHP tells us what the data type is in the error message, I don&apos;t feel I need to evaluate the argument where I am using typehinting. Here is the cut down version I use in my error handling class:<br><br>
 
@@ -155,7 +155,7 @@ Daniel&apos;s typehint implementation was just what I was looking for but perfor
 ```
 <br><br>Hope this can be of use to somebody.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.typehinting.php)
 

@@ -23,7 +23,7 @@ if (password_verify('rasmuslerdorf', $hash)) {
 ```
   
 
-#
+---
 
 This function can be used to verify hashes created with other functions like crypt(). For example:<br><br>
 
@@ -44,11 +44,11 @@ if (password_verify('rasmuslerdorf', $hash)) {
 ```
   
 
-#
+---
 
 The function password_verify() uses constant time. This makes it safe against timing attacks. Don&apos;t use crypt($password_database) === crypt($password_given_by_login), since there is no protection against timing attacks!<br><br>If you don&apos;t want to use password_verify(), then have a look at hash_equals(), which also runs a timing attack safe string comparison.  
 
-#
+---
 
 This Is The Most Secure Way To Keep Your Password Safe With PHP 7 , <br>Even When Your DataBase Has Been Hacked ,<br>It Will Be Almost Impossible To Retrieve Your Password .<br>--------------------------------------------------------<br>--- When A User Wants To Sign Up ---<br>1 ---&gt; Get Input From User Which Is The User`s Password<br>1 ---&gt; Hash The Password<br>2 ---&gt; Store The Hashed Password In Your DataBase<br>--------------------------------------------------------<br>
 
@@ -83,7 +83,7 @@ $hashed_password = password_hash($_POST["password"],PASSWORD_DEFAULT);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.password-verify.php)
 

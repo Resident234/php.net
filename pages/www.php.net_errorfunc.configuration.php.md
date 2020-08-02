@@ -27,11 +27,11 @@ then there is a possible solution suggested under error_reporting:
 ```
 <br><br><br>[Modified by moderator]<br><br>You should also consider setting error_reporting = -1 in your php.ini and display_errors = On if you are in development mode to see all fatal/parse errors or set error_log to your desired file to log errors instead of display_errors in production (this requires log_errors to be turned on).  
 
-#
+---
 
 If you set the error_log directive to a relative path, it is a path relative to the document root rather than php&apos;s containing folder.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/errorfunc.configuration.php)
 

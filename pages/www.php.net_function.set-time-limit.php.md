@@ -20,7 +20,7 @@ while ($i<=10)
 ```
 <br><br>Output:<br>i=0 i=1 i=2 i=3 i=4 i=5 i=6 i=7 i=8 i=9 i=10  
 
-#
+---
 
 Both set_time_limit(...) and  ini_set(&apos;max_execution_time&apos;,...); won&apos;t count the time cost of sleep,file_get_contents,shell_exec,mysql_query etc, so i build this function my_background_exec(), to run static method/function in background/detached process and time is out kill it:<br><br>my_exec.php:<br>
 
@@ -112,11 +112,11 @@ my_background_exec('A::jack', array('hello', 'jack'), 'require "my_exec.php";req
 ```
   
 
-#
+---
 
 To get the currently used time, use getrusage()  
 
-#
+---
 
 I was having trouble with script timeouts in applications where the user prompted long running background actions. I wrote this cURL/CLI background script that solved the problem when making requests from HTTP.<br><br>
 
@@ -189,11 +189,11 @@ I was having trouble with script timeouts in applications where the user prompte
 ```
   
 
-#
+---
 
 In IIS, there is another global timeout setting which will override any PHP settings.  You can alter this timeout by following the following instructions:<br><br>http://www.iisadmin.co.uk/?p=7  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.set-time-limit.php)
 

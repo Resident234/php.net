@@ -4,11 +4,11 @@
 
 What the bindValue() docs fail to explain without reading them _very_ carefully is that bindParam() is passed to PDO byref - whereas bindValue() isn&apos;t.<br><br>Thus with bindValue() you can do something like $stmt-&gt;bindValue(":something", "bind this"); whereas with bindParam() it will fail because you can&apos;t pass a string by reference, for example.  
 
-#
+---
 
 When binding parameters, apparently you can&apos;t use a placeholder twice (e.g. "select * from mails where sender=:me or recipient=:me"), you&apos;ll have to give them different names otherwise your query will return empty handed (but not fail, unfortunately).  Just in case you&apos;re struggling with something like this.  
 
-#
+---
 
 Be careful when trying to validate using PDO::PARAM_INT. <br><br>Take this sample into account:<br><br>
 
@@ -42,11 +42,11 @@ var_dump(1 == '1a');   // true
 ```
 <br><br>My opinion: bindValue() should test is_int() internaly first of anything, <br>It is a bug? I&apos;m not sure.  
 
-#
+---
 
 Although bindValue() escapes quotes it does not escape "%" and "_", so be careful when using LIKE. A malicious parameter full of %%% can dump your entire database if you don&apos;t escape the parameter yourself. PDO does not provide any other escape method to handle it.  
 
-#
+---
 
 Note that the third parameter ($data_type) in the majority of cases will not type cast the value into anything else to be used in the query, nor will it throw any sort of error if the type does not match up with the value provided. This parameter essentially has no effect whatsoever except throwing an error if it is set and is not a float, so do not think that it is adding any extra level of security to the queries.<br><br>The two exceptions where type casting is performed:<br><br>- if you use PDO::PDO_PARAM_INT and provide a boolean, it will be converted to a long<br>- if you use PDO::PDO_PARAM_BOOL and provide a long, it will be converted to a boolean<br><br>
 
@@ -70,7 +70,7 @@ $result = $sth->fetchAll(); // Returns the result of the query
 ```
   
 
-#
+---
 
 This function is useful for bind value on an array. You can specify the type of the value in advance with $typeArray.<br><br>
 
@@ -122,7 +122,7 @@ function bindArrayValue($req, $array, $typeArray = false)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/pdostatement.bindvalue.php)
 

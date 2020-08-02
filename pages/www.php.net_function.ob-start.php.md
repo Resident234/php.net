@@ -4,7 +4,7 @@
 
 The following should be added: "If outbut buffering is still active when the script ends, PHP outputs it automatically. In effect, every script ends with ob_end_flush()."  
 
-#
+---
 
 You can use PHP to generate a static HTML page.  Useful if you have a complex script that, for performance reasons, you do not want site visitors to run repeatedly on demand.  A "cron" job can execute the PHP script to create the HTML page.  For example:<br><br>
 
@@ -25,7 +25,7 @@ You can use PHP to generate a static HTML page.  Useful if you have a complex sc
 ```
   
 
-#
+---
 
 If you&apos;re using object-orientated code in PHP you may, like me, want to use a call-back function that is inside an object (i.e. a class function). In this case you send ob_start a two-element array as its single argument. The first element is the name of the object (without the $ at the start), and the second is the function to call. So to use a function &apos;indent&apos; in an object called &apos;$template&apos; you would use 
 
@@ -34,7 +34,7 @@ If you&apos;re using object-orientated code in PHP you may, like me, want to use
 ```
 .  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-start.php)
 

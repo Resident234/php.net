@@ -30,11 +30,11 @@ function override_strlen($string){
 ```
 <br><br>I plan to use this functionality to generate log reports every time a function is called, with the parameters, time, result, etc... So to wrap a function in logging, that was what I had to do.  
 
-#
+---
 
 Overriden function name becomes __overridden__(). That&apos;s why you can&apos;t override two function, and that&apos;s how you can use the original function in the override.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.override-function.php)
 

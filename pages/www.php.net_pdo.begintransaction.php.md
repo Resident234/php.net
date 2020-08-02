@@ -42,7 +42,7 @@ class Database extends PDO
 ```
   
 
-#
+---
 
 You can generate problems with nested beginTransaction and commit calls.<br>example:<br><br>beginTransaction()<br>do imprortant stuff<br>call method<br>    beginTransaction()<br>    basic stuff 1<br>    basic stuff 2<br>    commit()<br>do most important stuff<br>commit()<br><br>Won&apos;t work and is dangerous since you could close your transaction too early with the nested commit().<br><br>There is no need to mess you code and pass like a bool which indicate if transaction is already running. You could just overload the beginTransaction() and commit() in your PDO wrapper like this:<br><br>
 
@@ -81,11 +81,11 @@ class Database extends \\PDO
 ```
   
 
-#
+---
 
 In response to "Anonymous / 20-Dec-2007 03:04"<br><br>You could also extend the PDO class and hold a private flag to check if a transaction is already started.<br><br>class MyPDO extends PDO {<br>   protected $hasActiveTransaction = false;<br><br>   function beginTransaction () {<br>      if ( $this-&gt;hasActiveTransaction ) {<br>         return false;<br>      } else {<br>         $this-&gt;hasActiveTransaction = parent::beginTransaction ();<br>         return $this-&gt;hasActiveTransaction;<br>      }<br>   }<br><br>   function commit () {<br>      parent::commit ();<br>      $this-&gt;hasActiveTransaction = false;<br>   }<br><br>   function rollback () {<br>      parent::rollback ();<br>      $this-&gt;hasActiveTransaction = false;<br>   }<br><br>}  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/pdo.begintransaction.php)
 

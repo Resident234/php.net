@@ -39,11 +39,11 @@ echo Foo1::$_bar . ' ' . Foo2::$_bar; // Prints: Hello World
 ```
   
 
-#
+---
 
 The best way to understand what traits are and how to use them is to look at them for what they essentially are:  language assisted copy and paste.<br><br>If you can copy and paste the code from one class to another (and we&apos;ve all done this, even though we try not to because its code duplication) then you have a candidate for a trait.  
 
-#
+---
 
 Note that the "use" operator for traits (inside a class) and the "use" operator for namespaces (outside the class) resolve names differently. "use" for namespaces always sees its arguments as absolute (starting at the global namespace):<br><br>
 
@@ -69,7 +69,7 @@ class SomeClass {
 ```
 <br><br>Together with "use" for closures, there are now three different "use" operators. They all mean different things and behave differently.  
 
-#
+---
 
 It may be worth noting here that the magic constant __CLASS__ becomes even more magical - __CLASS__ will return the name of the class in which the trait is being used.<br><br>for example<br><br>
 
@@ -98,7 +98,7 @@ $b->whereAmI(); //World
 ```
 <br><br>The magic constant __TRAIT__ will giev you the name of the trait  
 
-#
+---
 
 add to "chris dot rutledge at gmail dot com":<br>__CLASS__ will return the name of the class in which the trait is being used (!) not the class in which trait method is being called:<br><br>
 
@@ -127,7 +127,7 @@ $t->testMethod();
 ```
   
 
-#
+---
 
 Keep in mind; "final" keyword is useless in traits when directly using them, unlike extending classes / abstract classes.<br><br>
 
@@ -173,7 +173,7 @@ class Bar extends Foo {
 ```
   
 
-#
+---
 
 Another difference with traits vs inheritance is that methods defined in traits can access methods and properties of the class they&apos;re used in, including private ones.<br><br>For example:<br>
 
@@ -207,7 +207,7 @@ echo $t->getVar(); // -> 'var'
 ```
   
 
-#
+---
 
 As already noted, static properties and methods in trait could be accessed directly using trait. Since trait is language assisted c/p, you should be aware that static property from trait will be initialized to the value trait property had in the time of class declaration. <br><br>Example:<br><br>
 
@@ -246,7 +246,7 @@ Lager::printed(); // Prints: Dark
 ```
   
 
-#
+---
 
 A number of the notes make incorrect assertions about trait behaviour because they do not extend the class.<br><br>So, while "Unlike inheritance; if a trait has static properties, each class using that trait has independent instances of those properties.<br><br>Example using parent class:<br>
 
@@ -288,7 +288,7 @@ echo Foo1::$_bar . ' ' . Foo2::$_bar; // Prints: Hello World
 ```
 <?php<br>require_once(&apos;above&apos;);<br>class Foo3 extends Foo2 {<br>}<br>Foo3::$_bar = &apos;news&apos;;<br>echo Foo1::$_bar . &apos; &apos; . Foo2::$_bar . &apos; &apos; . Foo3::$_bar; <br><br>// Prints: Hello news news<br><br>I think the best conceptual model of an incorporated trait is an advanced insertion of text, or as someone put it "language assisted copy and paste." If Foo1 and Foo2 were defined with $_bar, you would not expect them to share the instance. Similarly, you would expect Foo3 to share with Foo2, and it does.<br><br>Viewing this way explains away a lot of  the &apos;quirks&apos; that are observed above with final, or subsequently declared private vars,  
 
-#
+---
 
 Not very obvious but trait methods can be called as if they were defined as static methods in a regular class<br><br>
 
@@ -305,11 +305,11 @@ echo Foo::bar(),"\\n";
 ```
   
 
-#
+---
 
 Traits can not implement interfaces.<br>(should be obvious, but tested is tested)  
 
-#
+---
 
 
 
@@ -351,7 +351,7 @@ $foo->bar(); //C::bar?>
 ```
   
 
-#
+---
 
 The magic method __call works as expected using traits.<br><br>
 
@@ -373,7 +373,7 @@ echo $foo->go(1,2,3,4); // echoes 4?>
 ```
   
 
-#
+---
 
 Simple singleton trait.<br><br>
 
@@ -429,11 +429,11 @@ echo $bar->name;?>
 ```
   
 
-#
+---
 
 The difference between Traits and multiple inheritance is in the inheritance part.   A trait is not inherited from, but rather included or mixed-in, thus becoming part of "this class".   Traits also provide a more controlled means of resolving conflicts that inevitably arise when using multiple inheritance in the few languages that support them (C++).  Most modern languages are going the approach of a "traits" or "mixin" style system as opposed to multiple-inheritance, largely due to the ability to control ambiguities if a method is declared in multiple "mixed-in" classes.<br><br>Also, one can not "inherit" static member functions in multiple-inheritance.  
 
-#
+---
 
 Note that you can omit a method&apos;s inclusion by excluding it from one trait in favor of the other and doing the exact same thing in the reverse way.<br><br>
 
@@ -480,7 +480,7 @@ $talker->sayWorld();
 ```
 <br><br>The method sayHello is imported, but the method sayWorld is simply excluded.  
 
-#
+---
 
 don&apos;t forget you can create complex (embedded) traits as well<br><br>
 
@@ -508,7 +508,7 @@ class Invoce {
 ```
   
 
-#
+---
 
 A (somewhat) practical example of trait usage.<br><br>Without traits:<br><br>
 
@@ -570,7 +570,7 @@ class AdminCrudController extends AdminController {
 ```
   
 
-#
+---
 
 Traits are useful for strategies, when you want the same data to be handled (filtered, sorted, etc) differently.<br><br>For example, you have a list of products that you want to filter out based on some criteria (brands, specs, whatever), or sorted by different means (price, label, whatever). You can create a sorting trait that contains different functions for different sorting types (numeric, string, date, etc). You can then use this trait not only in your product class (as given in the example), but also in other classes that need similar strategies (to apply a numeric sort to some data, etc).<br><br>
 
@@ -648,7 +648,7 @@ echo '<pre>'.print_r($product->data, true).'</pre>';
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.traits.php)
 

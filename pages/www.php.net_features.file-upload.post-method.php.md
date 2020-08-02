@@ -26,7 +26,7 @@ foreach ($_FILES["attachment"]["error"] as $key => $error)
 ```
   
 
-#
+---
 
 Do not use Coreywelch or Daevid&apos;s way, because their methods can handle only within two-dimensional structure. $_FILES can consist of any hierarchy, such as 3d or 4d structure.<br><br>The following example form breaks their codes:<br><br>&lt;form action="" method="post" enctype="multipart/form-data"&gt;<br>    &lt;input type="file" name="files[x][y][z]"&gt;<br>    &lt;input type="submit"&gt;<br>&lt;/form&gt;<br><br>As the solution, you should use PSR-7 based zendframework/zend-diactoros.<br><br>GitHub:<br><br>https://github.com/zendframework/zend-diactoros<br><br>Example:<br><br>
 
@@ -66,7 +66,7 @@ $file->moveTo('/path/to/new/file');
 ```
   
 
-#
+---
 
 The documentation doesn&apos;t have any details about how the HTML array feature formats the $_FILES array. <br><br>Example $_FILES array:<br><br>For single file -<br><br>Array<br>(<br>    [document] =&gt; Array<br>        (<br>            [name] =&gt; sample-file.doc<br>            [type] =&gt; application/msword<br>            [tmp_name] =&gt; /tmp/path/phpVGCDAJ<br>            [error] =&gt; 0<br>            [size] =&gt; 0<br>        )<br>)<br><br>Multi-files with HTML array feature -<br><br>Array<br>(<br>    [documents] =&gt; Array<br>        (<br>            [name] =&gt; Array<br>                (<br>                    [0] =&gt; sample-file.doc<br>                    [1] =&gt; sample-file.doc<br>                )<br><br>            [type] =&gt; Array<br>                (<br>                    [0] =&gt; application/msword<br>                    [1] =&gt; application/msword<br>                )<br><br>            [tmp_name] =&gt; Array<br>                (<br>                    [0] =&gt; /tmp/path/phpVGCDAJ<br>                    [1] =&gt; /tmp/path/phpVGCDAJ<br>                )<br><br>            [error] =&gt; Array<br>                (<br>                    [0] =&gt; 0<br>                    [1] =&gt; 0<br>                )<br><br>            [size] =&gt; Array<br>                (<br>                    [0] =&gt; 0<br>                    [1] =&gt; 0<br>                )<br><br>        )<br><br>)<br><br>The problem occurs when you have a form that uses both single file and HTML array feature. The array isn&apos;t normalized and tends to make coding for it really sloppy. I have included a nice method to normalize the $_FILES array.<br><br>
 
@@ -104,7 +104,7 @@ The documentation doesn&apos;t have any details about how the HTML array feature
 ```
 <br><br>The following is the output from the above method.<br><br>Array<br>(<br>    [document] =&gt; Array<br>        (<br>            [0] =&gt; Array<br>                (<br>                [name] =&gt; sample-file.doc<br>                    [type] =&gt; application/msword<br>                    [tmp_name] =&gt; /tmp/path/phpVGCDAJ<br>                    [error] =&gt; 0<br>                    [size] =&gt; 0<br>                )<br><br>        )<br><br>    [documents] =&gt; Array<br>        (<br>            [0] =&gt; Array<br>                (<br>                    [name] =&gt; sample-file.doc<br>                    [type] =&gt; application/msword<br>                    [tmp_name] =&gt; /tmp/path/phpVGCDAJ<br>                    [error] =&gt; 0<br>                    [size] =&gt; 0<br>                )<br><br>            [1] =&gt; Array<br>                (<br>                    [name] =&gt; sample-file.doc<br>                    [type] =&gt; application/msword<br>                    [tmp_name] =&gt; /tmp/path/phpVGCDAJ<br>                    [error] =&gt; 0<br>                    [size] =&gt; 0<br>                )<br><br>        )<br><br>)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/features.file-upload.post-method.php)
 

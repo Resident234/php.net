@@ -4,11 +4,11 @@
 
 It is also possible ( in 5.6.0alpha ) to typehint the ...-operator<br><br>function foo (stdclass ... $inbound) {<br>   var_dump($inbound);<br>}<br><br>// ok:<br>foo( (object)[&apos;foo&apos; =&gt; &apos;bar&apos;], (object)[&apos;bar&apos; =&gt; &apos;foo&apos;] );<br><br>// fails:<br>foo( 1, 2, 3, 4 );  
 
-#
+---
 
 Remember, that<br><br>    ($a ** $b) ** $c === $a ** ($b * $c)<br><br>Thats why exponent operator** is RIGHT associative.  
 
-#
+---
 
 Note the order of operations in that exponentiation operator, as it was opposite of what my first expectation was:<br><br>
 
@@ -26,7 +26,7 @@ Note the order of operations in that exponentiation operator, as it was opposite
 ```
   
 
-#
+---
 
 
 
@@ -48,7 +48,7 @@ string(25) "1, 2, 3, 4, 5, 6, 7, 8, 9"?>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/migration56.new-features.php)
 

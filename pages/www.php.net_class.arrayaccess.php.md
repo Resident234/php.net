@@ -4,11 +4,11 @@
 
 It bit me today, so putting it here in the hope it will help others:<br>If you call array_key_exists() on an object of a class that implements ArrayAccess, ArrayAccess::offsetExists() wil NOT be called.  
 
-#
+---
 
 The indexes used in an ArrayAccess object are not limited to strings and integers as they are for arrays: you can use any type for the index as long as you write your implementation to handle them. This fact is exploited by the SplObjectStorage class.  
 
-#
+---
 
 
 
@@ -162,11 +162,11 @@ Cliprz
 ```
   
 
-#
+---
 
 Objects implementing ArrayAccess may return objects by references in PHP 5.3.0.<br><br>You can implement your ArrayAccess object like this:<br><br>    class Reflectable implements ArrayAccess {<br><br>        public function set($name, $value) {<br>            $this-&gt;{$name} = $value;<br>        }<br><br>        public function &amp;get($name) {<br>            return $this-&gt;{$name};<br>        }<br><br>        public function offsetGet($offset) {<br>            return $this-&gt;get($offset);<br>        }<br><br>        public function offsetSet($offset, $value) {<br>            $this-&gt;set($offset, $value);<br>        }<br><br>        ...<br><br>    }<br><br>This base class allows you to get / set your object properties using the [] operator just like in Javascript:<br><br>    class Boo extends Reflectable {<br>        public $name;<br>    }<br><br>    $obj = new Boo();<br>    $obj[&apos;name&apos;] = "boo";<br>    echo $obj[&apos;name&apos;]; // prints boo  
 
-#
+---
 
 Conclusion: Type hints \ArrayAccess and array are not compatible.<br><br>
 
@@ -216,7 +216,7 @@ Conclusion: Type hints \ArrayAccess and array are not compatible.<br><br>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.arrayaccess.php)
 

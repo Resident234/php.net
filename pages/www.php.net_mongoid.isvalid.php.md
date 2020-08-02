@@ -15,7 +15,7 @@ if ($id instanceof \MongoDB\BSON\ObjectID
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mongoid.isvalid.php)
 

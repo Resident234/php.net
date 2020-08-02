@@ -58,7 +58,7 @@ echo $test->when();
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/closure.bind.php)
 

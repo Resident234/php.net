@@ -33,7 +33,7 @@ if((function_exists("get_magic_quotes_gpc") &amp;&amp; get_magic_quotes_gpc())  
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.get-magic-quotes-gpc.php)
 

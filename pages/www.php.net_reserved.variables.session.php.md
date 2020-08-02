@@ -57,7 +57,7 @@ unset($_SESSION["newsession"]);
 ```
 <br><br>Reference: http://gencbilgin.net/php-session-kullanimi.html  
 
-#
+---
 
 Please note that if you have register_globals to On, global variables associated to $_SESSION variables are references, so this may lead to some weird situations.<br><br>
 
@@ -96,7 +96,7 @@ if (ini_get('register_globals'))
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.session.php)
 

@@ -25,11 +25,11 @@ $preparedQuery->prepare ($query);
 ```
 <br><br>resolved the problem.  
 
-#
+---
 
 you can use $stmt = $mysqli-&gt;prepare(); directly without stmt-init() . i think there is no need for stmt-init .  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.stmt-init.php)
 

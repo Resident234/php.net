@@ -25,7 +25,7 @@ print_r($tmp->getArrayCopy());
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.apc-store.php)
 

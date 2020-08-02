@@ -50,7 +50,7 @@ if ($fin !== FALSE) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.gzopen.php)
 

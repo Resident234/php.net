@@ -4,7 +4,7 @@
 
 This function doesn&apos;t print parameter values despite the documentation says it does. See https://bugs.php.net/bug.php?id=52384 (filed back in 2010).  
 
-#
+---
 
 As noted, this doesn&#x2019;t actually simply print the prepared statement with data to be executed.<br><br>For trouble shooting purposes, I find the following useful:<br><br>
 
@@ -33,7 +33,7 @@ As noted, this doesn&#x2019;t actually simply print the prepared statement with 
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/pdostatement.debugdumpparams.php)
 

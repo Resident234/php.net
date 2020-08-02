@@ -34,7 +34,7 @@ The field info bit-flags used by MySql are:                                     
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.fetch-fields.php)
 

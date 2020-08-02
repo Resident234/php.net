@@ -64,7 +64,7 @@ print_r($set);
 ```
 <br>Outputs:<br>Array<br>(<br>    [1] =&gt; Array<br>        (<br>            [field2] =&gt; a<br>            [field3] =&gt; b<br>        ),<br>    [2] =&gt; Array<br>        (<br>            [field2] =&gt; c<br>            [field3] =&gt; d<br>        )<br>)  
 
-#
+---
 
 IMPORTANT NOTE:<br><br>If you were used to using code like this:<br><br>
 
@@ -92,7 +92,7 @@ while(null !== ($row = mysqli_fetch_assoc($result)))
 ```
 <br><br>The former will cause your script to run until max_execution_time is reached.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.fetch-assoc.php)
 

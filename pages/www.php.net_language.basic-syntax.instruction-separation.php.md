@@ -16,7 +16,7 @@ The second one would give error. Exclude ?>
 ```
  if you no more html to write after the code.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.basic-syntax.instruction-separation.php)
 

@@ -58,7 +58,7 @@ class HZip
 ```
   
 
-#
+---
 
 With PHP 5.6+, you may come up with theses errors.<br><br>Warning: Unknown: Cannot destroy the zip context in Unknown on line 0<br><br>Warning: ZipArchive::close(): Can&apos;t remove file: No such file or directory in xxxx.php on line xx<br><br>Examples<br><br>Warning: Unknown: Cannot destroy the zip context in Unknown on line 0<br><br>
 
@@ -100,7 +100,7 @@ So, don't forget to put at least one file to your zip archive.
 ```
   
 
-#
+---
 
 There is a usefull function to get the ZipArchive status as a human readable string :<br><br>
 
@@ -143,7 +143,7 @@ function ZipStatusString( $status )
 ```
   
 
-#
+---
 
 A way of zipping files and downloading them thereafter:<br>
 
@@ -169,7 +169,7 @@ readfile($zipname);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.ziparchive.php)
 

@@ -73,7 +73,7 @@ This will output as it goes. This is only a problem if you only want one part of
 ```
 <br><br>Note also that some browsers may wait until they have a certain amount of output. See flush [ http://php.net/manual/en/function.flush.php ] for details. It was my case with Firefox (Iceweasel 17.0); unless I output 1024 bytes at the beginning, it does not begin to output.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-implicit-flush.php)
 

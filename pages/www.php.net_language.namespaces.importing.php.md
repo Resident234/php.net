@@ -4,7 +4,7 @@
 
 The keyword "use" has been recycled for three distinct applications: <br>1- to import/alias classes, traits, constants, etc. in namespaces, <br>2- to insert traits in classes, <br>3- to inherit variables in closures. <br>This page is only about the first application: importing/aliasing. Traits can be inserted in classes, but this is different from importing a trait in a namespace, which cannot be done in a block scope, as pointed out in example 5. This can be confusing, especially since all searches for the keyword "use" are directed to the documentation here on importing/aliasing.  
 
-#
+---
 
 The 
 
@@ -18,11 +18,11 @@ The
 ```
  statement or by using an autoload function.  
 
-#
+---
 
 Note that you can not alias global namespace:<br><br>use \ as test;<br><br>echo test\strlen(&apos;&apos;);<br><br>won&apos;t work.  
 
-#
+---
 
 Here is a handy way of importing classes, functions and conts using a single use keyword:<br><br>
 
@@ -42,7 +42,7 @@ use Mizo\Web\ {
 ```
   
 
-#
+---
 
 I couldn&apos;t find answer to this question so I tested myself. <br>I think it&apos;s worth noting:<br><br>
 
@@ -69,7 +69,7 @@ $whatever = new whatever();
 ```
   
 
-#
+---
 
 Note the code `use ns1\c1` may refer to importing class `c1` from namespace `ns1` as well as importing whole namespace `ns1\c1` or even import both of them in one line. Example:<br><br>
 
@@ -95,7 +95,7 @@ var_dump($c11); // object(ns1\c1\c11)#2 (0) { }?>
 ```
   
 
-#
+---
 
 If you are testing your code at the CLI, note that namespace aliases do not work!<br><br>(Before I go on, all the backslashes in this example are changed to percent signs because I cannot get sensible results to display in the posting preview otherwise. Please mentally translate all percent signs henceforth as backslashes.)<br><br>Suppose you have a class you want to test in myclass.php:<br><br>
 
@@ -130,11 +130,11 @@ $x = new myclass;
 ```
 <br>it will work fine.<br><br>I hope this reduces the number of prematurely bald people.  
 
-#
+---
 
 Something that is not immediately obvious, particular with PHP 5.3, is that namespace resolutions within an import are not resolved recursively.  i.e.: if you alias an import and then use that alias in another import then this latter import will not be fully resolved with the former import.<br><br>For example:<br>use \Controllers as C;<br>use C\First;<br>use C\Last;<br><br>Both the First and Last namespaces are NOT resolved as \Controllers\First or \Controllers\Last as one might intend.  
 
-#
+---
 
 You are allowed to "use" the same resource multiple times as long as it is imported under a different alias at each invocation.<br><br>For example:<br><br>
 
@@ -155,7 +155,7 @@ use Lend\l2\Keller as Dellar;
 ```
 <br><br>In the above example, "Keller", "Stellar", and "Zellar" are all references to "\Lend\l1\Keller", as are "Lend\l1\Keller", "l1\Keller", and "l3\Keller".  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.importing.php)
 

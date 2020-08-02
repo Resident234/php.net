@@ -30,11 +30,11 @@ $mysqli->commit();
 ```
   
 
-#
+---
 
 Please note that calling mysqli::commit() will NOT automatically set mysqli::autocommit() back to &apos;true&apos;.<br><br>This means that any queries following mysqli::commit() will be rolled back when your script exits.  
 
-#
+---
 
 This is an example to explain the powerful of the rollback and commit functions.<br>Let&apos;s suppose you want to be sure that all queries have to be executed without errors before writing data on the database.<br>Here&apos;s the code:<br><br>
 
@@ -57,7 +57,7 @@ $mysqli->close();
 ```
 <br><br>hope to be helpful!  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.commit.php)
 

@@ -13,7 +13,7 @@ endforeach;
 ```
 <br><br>Just thought it worth mentioning.  
 
-#
+---
 
 "Reference of a $value and the last array element remain even after the foreach loop. It is recommended to destroy it by unset()."<br><br>I cannot stress this point of the documentation enough! Here is a simple example of exactly why this must be done:<br><br>
 
@@ -31,7 +31,7 @@ var_dump($arr2);
 ```
 <br><br>The output is:<br>array(3) { ["a"]=&gt; int(1) ["b"]=&gt; int(2) ["c"]=&gt; &amp;int(6) }<br>array(3) { ["x"]=&gt; int(4) ["y"]=&gt; int(5) ["z"]=&gt; int(6) }<br><br>Notice how the last index in $arr1 is now the value from the last index in $arr2!  
 
-#
+---
 
 Even though it is not mentioned in this article, you can use "break" control structure to exit from the "foreach" loop.<br><br>
 
@@ -51,7 +51,7 @@ foreach( $array as $value ){
 ```
   
 
-#
+---
 
 foreach and the while/list/each methods are not completely identical, and there are occasions where one way is beneficial over the other.<br><br>
 
@@ -85,7 +85,7 @@ while (list($key, $value) = each($arr))
 ```
 <br>Output:<br>1 3 5 7 9<br><br><br>[EDIT BY danbrown AT php DOT net: Contains a typofix by (scissor AT phplabs DOT pl) on 30-JAN-2009.]  
 
-#
+---
 
 WARNING: Looping through "values by reference" for "extra performance" is an old myth. It&apos;s actually WORSE!<br><br>
 
@@ -158,11 +158,11 @@ foreach($a as $key => $val) {
 ```
 <br><br>The main lesson is this: DON&apos;T blindly iterate through values by reference! Telling PHP that you want direct references will force PHP to need to copy the WHOLE array to protect its original values! So instead, just loop normally and trust the fact that PHP *is* actually smart enough to never copy your original array&apos;s values! PHP uses "copy-on-write", which means that attempting to assign something new to $val is the ONLY thing that causes a copying, and only of that SINGLE element! :-) But you never do that anyway, when iterating without reference. If you ever want to modify something, you use the "$a[$key] = 123;" method of updating the value.<br><br>Enjoy and good luck with your code! :-)  
 
-#
+---
 
 in foreach if you want to iterate through a specific column in a nested arrays for example:<br><br>$arr = array(<br>     [1, 2, 3,   4],<br>     [14, 6, 7,  6],<br>     [10, 2 ,3 , 2],<br>);<br><br>when we want to iterate on the third column we can use:<br><br>foreach( $arr as list( , , $a)) {<br>    echo "$a\n";<br>}<br><br>this will print:<br>3<br>7<br>3  
 
-#
+---
 
 If you want to use the list for multidimension arrays, you can nest several lists:<br><br>
 
@@ -205,11 +205,11 @@ A: 3; B: 4; C: 5; D: 6; E: 7;
 ```
   
 
-#
+---
 
 What happened to this note:<br>"Unless the array is referenced, foreach operates on a copy of the specified array and not the array itself. foreach has some side effects on the array pointer. Don&apos;t rely on the array pointer during or after the foreach without resetting it."<br><br>Is this no longer the case?<br>It seems only to remain in the Serbian documentation: http://php.net/manual/sr/control-structures.foreach.php  
 
-#
+---
 
 For those who&apos;d like to traverse an array including just added elements (within this very foreach), here&apos;s a workaround:<br><br>
 
@@ -229,7 +229,7 @@ while (list($key, $value) = each($values)) {
 ```
 <br><br>the code above will output:<br><br>1 =&gt; a<br>2 =&gt; b<br>3 =&gt; c<br>4 =&gt; d<br>5 =&gt; e  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.foreach.php)
 

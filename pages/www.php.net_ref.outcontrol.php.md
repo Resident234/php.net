@@ -25,7 +25,7 @@ die();
 ```
 <br><br>This ends up printing "b" rather than nothing as ob_end_flush() is called instead of ob_end_clean(). That is, die() flushes the buffer rather than cleans it. This took me a while to determine what was causing the flush, so I thought I&apos;d share.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.outcontrol.php)
 

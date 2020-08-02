@@ -29,7 +29,7 @@ Just wanted to make sure that all were aware of get_result.<br><br>In the code s
 ```
 <br><br>This is much nicer when you have a dozen or more fields coming back from your query.  Hope this helps.  
 
-#
+---
 
 I wrote this function for my personal use and figured I would share it.  I am not sure if this is the appropriate forum but I wish I had this when I stumbled on to mysqli::prepare.  The function is an update of the function I posted previously.  The previous function could not handle multiple queries.<br><br>For queries:<br>Results of single queries are given as arrays[row#][associated Data Array]<br>Results of multiple queries are given as arrays[query#][row#][associated Data Array]<br><br>For queries which return an affected row#, affected rows are returned instead of (array[row#][associated Data Array])<br><br>Code and example are below:<br><br>
 
@@ -161,7 +161,7 @@ array(
 ```
 <br><br>Hope it helps =)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.prepare.php)
 

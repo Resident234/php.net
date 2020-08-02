@@ -16,11 +16,11 @@ echo $a, " ", $b;
 ```
   
 
-#
+---
 
 Watch out for this:<br><br>foreach ($somearray as &amp;$i) {<br>  // update some $i...<br>}<br>...<br>foreach ($somearray as $i) {<br>  // last element of $somearray is mysteriously overwritten!<br>}<br><br>Problem is $i contians reference to last element of $somearray after the first foreach, and the second foreach happily assigns to it!  
 
-#
+---
 
 It appears that references can have side-effects.  Below are two examples.  Both are simply copying one array to another.  In the second example, a reference is made to a value in the first array before the copy.  In the first example the value at index 0 points to two separate memory locations. In the second example, the value at index 0 points to the same memory location. <br><br>I won&apos;t say this is a bug, because I don&apos;t know what the designed behavior of PHP is, but I don&apos;t think ANY developers would expect this behavior, so look out.<br><br>An example of where this could cause problems is if you do an array copy in a script and expect on type of behavior, but then later add a reference to a value in the array earlier in the script, and then find that the array copy behavior has unexpectedly changed.<br><br>
 
@@ -52,7 +52,7 @@ echo "\$arr4[0] == {$arr4[0]}\n";
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.references.whatdo.php)
 

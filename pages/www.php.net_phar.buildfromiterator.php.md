@@ -13,7 +13,7 @@ new RecursiveDirectoryIterator(
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/phar.buildfromiterator.php)
 

@@ -6,15 +6,15 @@ When updating a Mysql table with identical values nothing&apos;s really affected
 ```
 <br>and rowCount() will tell you how many rows your update-query actually found/matched.  
 
-#
+---
 
 Great, while using MySQL5, the only way to get the number of rows after doing a PDO SELECT query is to either execute a separate SELECT COUNT(*) query (or to do count($stmt-&gt;fetchAll()), which seems like a ridiculous waste of overhead and programming time.<br><br>Another gripe I have about PDO is its inability to get the value of output parameters from stored procedures in some DBMSs, such as SQL Server.<br><br>I&apos;m not so sure I&apos;m diggin&apos; PDO yet.  
 
-#
+---
 
 Note that an INSERT ... ON DUPLICATE KEY UPDATE statement is not an INSERT statement, rowCount won&apos;t return the number or rows inserted or updated for such a statement.  For MySQL, it will return 1 if the row is inserted, and 2 if it is updated, but that may not apply to other databases.  
 
-#
+---
 
 To display information only when the query is not empty, I do something like this:<br><br>
 
@@ -35,7 +35,7 @@ To display information only when the query is not empty, I do something like thi
 ```
   
 
-#
+---
 
 It&apos;d better to use SQL_CALC_FOUND_ROWS, if you only use MySQL. It has many advantages as you could retrieve only part of result set (via LIMIT) but still get the total row count.<br>code:<br>
 
@@ -50,7 +50,7 @@ $rowCount = (int) $rs1->fetchColumn();
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/pdostatement.rowcount.php)
 

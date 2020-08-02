@@ -44,7 +44,7 @@ $o = new A('sheep','cat','dog');
 ```
   
 
-#
+---
 
 Be aware of potential memory leaks caused by circular references within objects.  The PHP manual states "[t]he destructor method will be called as soon as all references to a particular object are removed" and this is precisely true: if two objects reference each other (or even if one object has a field that points to itself as in $this-&gt;foo = $this) then this reference will prevent the destructor being called even when there are no other references to the object at all.  The programmer can no longer access the objects, but they still stay in memory.<br><br>Consider the following example:<br><br>
 
@@ -119,11 +119,11 @@ echo 'End of script', PHP_EOL;
 ```
 <br><br>This will output:<br><br>Destroying: Foo 3<br>Destroying: Foo 4<br>End of script<br>Destroying: Foo 1<br>Destroying: Foo 2<br><br>But if we uncomment the gc_collect_cycles(); function call in the middle of the script, we get:<br><br>Destroying: Foo 2<br>Destroying: Foo 1<br>Destroying: Foo 3<br>Destroying: Foo 4<br>End of script<br><br>As may be desired.<br><br>NOTE: calling gc_collect_cycles() does have a speed overhead, so only use it if you feel you need to.  
 
-#
+---
 
 The __destruct magic method must be public. <br><br>public function __destruct()<br>{<br>    ;<br>}<br><br>The method will automatically be called externally to the instance.  Declaring __destruct as protected or private will result in a warning and the magic method will not be called. <br><br>Note: In PHP 5.3.10 i saw strange side effects while some Destructors were declared as protected.  
 
-#
+---
 
 USE PARENT::CONSTRUCT() to exploit POLYMORPHISM POWERS<br><br>Since we are still in the __construct and __destruct section, alot of emphasis has been on __destruct - which I know nothing about. But I would like to show the power of parent::__construct for use with PHP&apos;s OOP polymorphic behavior (you&apos;ll see what this is very quickly).<br><br>In my example, I have created a fairly robust base class that does everything that all subclasses need to do. Here&apos;s the base class def.<br><br>
 
@@ -228,15 +228,15 @@ foreach($animals as $animal) echo "$animal<br>\n";
 ```
 <br><br>The results are "sorted by name" and "printed" by the Animal class:<br><br>Abraham the Cat goes meeoow!<br>Brad the Dog goes woof!<br>Celeste the Bird goes chirp chirp!!<br>Fido the Dog goes woof!<br>Jawbone the Dog goes woof!<br>Kiki the Bird goes chirp chirp!!<br>Pussy the Cat goes meeoow!<br><br>Using parent::__construct() in a subclass and a super smart base class, gives your child objects a headstart in life, by alleviating them from having to define or handle several error and exception routines that they have no control over.<br><br>Notice how subclass definitions are really short - no variables or functions at all, and there is no private __construct() method anywhere? Notice how objects of type Dog, Cat, and Bird are all sorted by our base class Animal? All the class definitions above address several issues (keeping objects from being instantiated) and enforces the desired, consistent, and reliable behavior everytime... with the least amount of code. In addition, new extenstions can easily be created. Each subclass is now super easy to redefine or even extend... now that you can see a way to do it.  
 
-#
+---
 
 Correction to the previous poster about non public constructors. If I wanted to implement Singleton design pattern where I would only want one instance of the class I would want to prevent instantiation of the class from outside of the class by making the constructor private. An example follows:<br><br>class Foo {<br><br>  private static $instance;<br><br>  private __construct() {<br>    // Do stuff<br>  }<br><br>  public static getInstance() {<br><br>    if (!isset(self::$instance)) {<br>      $c = __CLASS__;<br>      $instance = new $c;<br>    }<br><br>    return self::$instance;<br>  }<br><br>  public function sayHello() {<br>    echo "Hello World!!";<br>  }<br><br>}<br><br>$bar = Foo::getInstance();<br><br>// Prints &apos;Hello World&apos; on the screen.<br>$bar -&gt; sayHello();  
 
-#
+---
 
 It&apos;s always the easy things that get you -<br><br>Being new to OOP, it took me quite a while to figure out that there are TWO underscores in front of the word __construct.<br><br>It is __construct<br>Not _construct<br><br>Extremely obvious once you figure it out, but it can be sooo frustrating until you do.<br><br>I spent quite a bit of needless time debugging working code.<br><br>I even thought about it a few times, thinking it looked a little long in the examples, but at the time that just seemed silly(always thinking "oh somebody would have made that clear if it weren&apos;t just a regular underscore...")<br><br>All the manuals I looked at, all the tuturials I read, all the examples I browsed through  - not once did anybody mention this!  <br><br>(please don&apos;t tell me it&apos;s explained somewhere on this page and I just missed it,  you&apos;ll only add to my pain.)<br><br>I hope this helps somebody else!  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.decon.php)
 

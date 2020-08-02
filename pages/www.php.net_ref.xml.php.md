@@ -178,7 +178,7 @@ Key phrase: Fully functional, fully tested, error free XML To Array parser.
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.xml.php)
 

@@ -38,7 +38,7 @@ To fix this, you must specify the flags as create or overwrite.
 ```
 <br><br>When googling for the error message I found a lot of people that had it but couldn&apos;t figure out why they were getting it.<br>I hope this helps someone.  
 
-#
+---
 
 
 
@@ -165,7 +165,7 @@ class zip extends ZipArchive
 ```
   
 
-#
+---
 
 
 
@@ -190,15 +190,15 @@ class zip extends ZipArchive
 ```
   
 
-#
+---
 
 if you are echoing out the output and confused about the number...maybe this will help.  i&apos;m not totally sure it is accurate though.<br><br>ZIPARCHIVE::ER_EXISTS - 10<br>ZIPARCHIVE::ER_INCONS - 21<br>ZIPARCHIVE::ER_INVAL - 18<br>ZIPARCHIVE::ER_MEMORY - 14<br>ZIPARCHIVE::ER_NOENT - 9<br>ZIPARCHIVE::ER_NOZIP - 19<br>ZIPARCHIVE::ER_OPEN - 11<br>ZIPARCHIVE::ER_READ - 5<br>ZIPARCHIVE::ER_SEEK - 4  
 
-#
+---
 
 If you have archives that you want to overwrite just use:<br><br>ZIPARCHIVE::CREATE<br><br>It will overwrite existing archives and at the same time create new ones if they don&apos;t already exist.<br><br>ZIPARCHIVE::OVERWRITE won&apos;t work for both of these scenarios.<br><br>(PHP version 5.4.4)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ziparchive.open.php)
 

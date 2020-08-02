@@ -18,7 +18,7 @@ while (odbc_fetch_into($outval, $pages)) {
 ```
 <br><br>Now your array $pages will have the following contents:<br>([x] is the array index displayed here for better understanding)<br><br>[0] TABLE_CAT &lt;== your DB name<br>[1] TABLE_SCHEM &lt;== dbo, your table scheme<br>[2] TABLE_NAME &lt;== your table name<br>[3] COLUMN_NAME &lt;== your column names (selected all with "%" in odbc_columns() )<br>[4] DATA_TYPE &lt;== -8<br>[5] TYPE_NAME &lt;== nchar (corresponds to -8, 11 f.i. is datetime and so on)<br>[6] COLUMN_SIZE &lt;== num. val.<br>[7] BUFFER_LENGTH &lt;== num. val.<br>[8] DECIMAL_DIGITS &lt;== num. val. or NULL<br>[9] NUM_PREC_RADIX &lt;== num. val. or NULL<br>[10] NULLABLE &lt;== num. val.<br>[11] REMARKS &lt;== num. val. or NULL<br>[12] COLUMN_DEF &lt;== num. val. or NULL<br>[13] SQL_DATA_TYPE &lt;== num. val.<br>[14] SQL_DATETIME_SUB &lt;== num. val. or NULL<br>[15] CHAR_OCTET_LENGTH &lt;== num. val. or NULL<br>[16] ORDINAL_POSITION &lt;== num. val.<br>[17] IS_NULLABLE &lt;== YES/NO<br>[18] SS_DATA_TYPE &lt;== num. val.<br><br>Now you can access each field recursivly by its key and output only the DESIRED fields instead of having ALL output from odbc_result_all().<br>Please note that the array key starts at zero (0) instead of one (1), so echo $pages[3] selects COLUMN_NAME from the above list.<br><br>I hope this helps...<br><br>Cheers<br>Thomas  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.odbc-columns.php)
 

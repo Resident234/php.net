@@ -35,7 +35,7 @@ echo stream_get_contents($fp);
 ```
   
 
-#
+---
 
 If you want to create a gd-image directly out of a sql-database-field you might want to use:<br><br>
 
@@ -46,7 +46,7 @@ $jpegimage = imagecreatefromjpeg("data://image/jpeg;base64," . base64_encode($sq
 ```
 <br><br>this goes also for gif, png, etc using the correct "imagecreatefrom$$$"-function and mime-type.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/wrappers.data.php)
 

@@ -18,7 +18,7 @@ while($doc = $it->current()) {
 ```
 <br><br>I used this trick to build a backward compatibility wrapper emulating the old Mongo driver in order to upgrade an older codebase.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.mongodb-driver-cursor.php)
 

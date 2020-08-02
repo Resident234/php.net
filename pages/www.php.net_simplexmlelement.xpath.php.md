@@ -7,9 +7,7 @@ To run an xpath query on an XML document that has a namespace, the namespace mus
 ```
 <?php
 $strXml= <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-```
-
+<?xml version="1.0" encoding="UTF-8" ?>;
 <mydoc xmlns="http://www.url.com/myns">
     <message>Test message</message>
 </mydoc>
@@ -29,7 +27,7 @@ print($xmlDoc->xpath("//a:message")[0]); //Use the arbitrary namespace prefix in
 ```
 <br><br>This will output:<br><br>Test message  
 
-#
+---
 
 On a xml that have namespace you need to do this before your xpath request (or empty array will be return) :<br><br>
 
@@ -40,7 +38,7 @@ $string = str_replace('xmlns=', 'ns=', $string); //$string is a string that cont
 ```
   
 
-#
+---
 
 xpath() can also be used to select elements by their attributes. For a good XPath reference check out: http://www.w3schools.com/xpath/xpath_syntax.asp<br><br>
 
@@ -64,7 +62,7 @@ echo $result[0]->asXml();
 ```
 <br><br>The script would print: <br>&lt;size label="Large" width="112" height="69"/&gt;  
 
-#
+---
 
 If you want to find easly all records satisfying some condition in XML data like <br><br>....<br>   &lt;book id="bk101"&gt;<br>      &lt;author&gt;Gambardella, Matthew&lt;/author&gt;<br>      &lt;title&gt;XML Developer&apos;s Guide&lt;/title&gt;<br>      &lt;genre&gt;Computer&lt;/genre&gt;<br>      &lt;price&gt;44.95&lt;/price&gt;<br>   &lt;/book&gt;<br>   &lt;book id="bk102"&gt;<br>      &lt;author&gt;Ralls, Kim&lt;/author&gt;<br>      &lt;title&gt;Midnight Rain&lt;/title&gt;<br>      &lt;genre&gt;Fantasy&lt;/genre&gt;<br>      &lt;price&gt;5.95&lt;/price&gt;<br>   &lt;/book&gt;<br>...<br><br>try example below<br><br>
 
@@ -82,7 +80,7 @@ print_r($res);
 ```
 <br><br>You will see response like:<br>Array (<br>[0] =&gt; SimpleXMLElement Object<br>        (<br>            [@attributes] =&gt; Array<br>                (<br>                    [id] =&gt; bk101<br>                )<br><br>            [author] =&gt; Gambardella, Matthew<br>            [title] =&gt; XML Developer&apos;s Guide<br>            [genre] =&gt; Computer<br>            [price] =&gt; 44.95<br>            [publish_date] =&gt; 2000-10-01<br>            [description] =&gt; An in-depth look at creating applications <br>      with XML.<br>        )<br>...  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/simplexmlelement.xpath.php)
 

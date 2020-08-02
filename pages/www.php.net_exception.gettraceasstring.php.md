@@ -109,7 +109,7 @@ catch(\Exception $e) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/exception.gettraceasstring.php)
 

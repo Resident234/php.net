@@ -10,7 +10,7 @@ The parser doesn&apos;t handle mixing alternative if syntaxes as reasonably as p
 ```
 <br><br>Instead of concluding that the else statement was intended to match the if($b) statement (and erroring out), the parser could match the else statement to the if($a) statement, which shares its syntax.<br><br>While it&apos;s understandable that the PHP developers don&apos;t consider this a bug, or don&apos;t consider it a bug worth their time, jsimlo was right to point out that mixing alternative if syntaxes might lead to unexpected results.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.elseif.php)
 

@@ -39,7 +39,7 @@ $z=$y || $x;
 ```
 <br><br>$z will be TRUE, as expected, because the || operator has higher precedence than assignment:  The code is equivalent to $z=($y OR $x).<br><br>This is why you should NEVER use the OR operator without explicit parentheses around the expression where it is being used.  
 
-#
+---
 
 Note for JavaScript developers:<br><br>In PHP, an empty array evaluates to false, while in JavaScript an empty array evaluates to true.<br><br>In PHP, you can test an empty array as 
 
@@ -48,7 +48,7 @@ Note for JavaScript developers:<br><br>In PHP, an empty array evaluates to false
 ```
  which won&#x2019;t work in JavaScript where you need to test the array length.<br><br>This is because in JavaScript, an array is an object, and, while it may not have any elements, it is still regarded as something.<br><br>Just a trap for young players who routinely work in both langauges.  
 
-#
+---
 
 Beware of certain control behavior with boolean and non boolean values :<br><br>
 
@@ -66,7 +66,7 @@ var_dump((string)0 == 'all'); // false
 ```
   
 
-#
+---
 
 Just something that will probably save time for many new developers: beware of interpreting FALSE and TRUE as integers. <br>For example, a small function for deleting elements of an array may give unexpected results if you are not fully aware of what happens: <br><br>
 
@@ -95,15 +95,15 @@ $array = remove_element('X', $array);
 ```
 <?php<br>//correct<br>function remove_element($element, $array)<br>{<br>   $index = array_search($element, $array);<br>   if ($index !== FALSE) <br>   {<br>       unset ($array[$index]);<br>   }<br>   return $array; <br>}  
 
-#
+---
 
 Beware that "0.00" converts to boolean TRUE !<br><br>You may get such a string from your database, if you have columns of type DECIMAL or CURRENCY. In such cases you have to explicitly check if the value is != 0 or to explicitly convert the value to int also, not only to boolean.  
 
-#
+---
 
 PHP does not break any rules with the values of true and false.  The value false is not a constant for the number 0, it is a boolean value that indicates false.  The value true is also not a constant for 1, it is a special boolean value that indicates true.  It just happens to cast to integer 1 when you print it or use it in an expression, but it&apos;s not the same as a constant for the integer value 1 and you shouldn&apos;t use it as one.  Notice what it says at the top of the page:<br><br>A boolean expresses a truth value.<br><br>It does not say "a boolean expresses a 0 or 1".<br><br>It&apos;s true that symbolic constants are specifically designed to always and only reference their constant value.  But booleans are not symbolic constants, they are values.  If you&apos;re trying to add 2 boolean values you might have other problems in your application.  
 
-#
+---
 
 It is correct that TRUE or FALSE should not be used as constants for the numbers 0 and 1. But there may be times when it might be helpful to see the value of the Boolean as a 1 or 0. Here&apos;s how to do it.<br><br>
 
@@ -124,7 +124,7 @@ echo (int)$var2; //This will display the number 0 for false.
 ```
   
 
-#
+---
 
 Note you can also use the &apos;!&apos; to convert a number to a boolean, as if it was an explicit (bool) cast then NOT.<br><br>So you can do something like:<br><br>
 
@@ -175,7 +175,7 @@ Note: normal casting rules apply so a !!"0" would evaluate to an === false
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.types.boolean.php)
 

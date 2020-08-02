@@ -29,7 +29,7 @@ a little addition to the example of pixel at minikomp dot com here below<br>
 ```
   
 
-#
+---
 
 Sometimes, you would like to return NULL with a function returning reference, to indicate the end of chain of elements. However this generates E_NOTICE. Here is little tip, how to prevent that:<br><br>
 
@@ -63,7 +63,7 @@ while (($item = $f->next()) != NULL) {
 ```
 <br><br>you may also use global variable:<br>global $nullGuard;<br>return $nullGuard;  
 
-#
+---
 
 I haven&apos;t seen anyone note method chaining in PHP5.  When an object is returned by a method in PHP5 it is returned by default as a reference, and the new Zend Engine 2 allows you to chain method calls from those returned objects.  For example consider this code:<br><br>
 
@@ -106,13 +106,13 @@ test()->getBar()->helloWorld();
 ```
 <br><br>Notice how we called test() which was not on an object, but returned an instance of Foo, followed by a method on Foo, getBar() which returned an instance of Bar and finally called one of its methods helloWorld().  Those familiar with other interpretive languages (Java to name one) will recognize this functionality.  For whatever reason this change doesn&apos;t seem to be documented very well, so hopefully someone will find this helpful.  
 
-#
+---
 
 An example of returning references:<br><br>&lt;?<br><br>$var = 1;<br>$num = NULL;<br><br>function &amp;blah()<br>{<br>    $var =&amp; $GLOBALS["var"]; # the same as global $var;<br>    $var++;<br>    return $var;<br>}<br><br>$num = &amp;blah();<br><br>echo $num; # 2<br><br>blah();<br><br>echo $num; # 3<br><br>?>
 ```
 <br><br>Note: if you take the &amp; off from the function, the second echo will be 2, because without &amp; the var $num contains its returning value and not its returning reference.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.references.return.php)
 

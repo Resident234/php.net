@@ -11,7 +11,7 @@ $xml = simplexml_load_string($string, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXM
 ```
   
 
-#
+---
 
 A simpler way to transform the result into an array (requires json module).<br><br>
 
@@ -33,7 +33,7 @@ $xml_array=object2array($xml_object);
 ```
   
 
-#
+---
 
 There seems to be a lot of talk about SimpleXML having a "problem" with CDATA, and writing functions to rip it out, etc. I thought so too, at first, but it&apos;s actually behaving just fine under PHP 5.2.6<br><br>The key is noted above example #6 here:<br>http://uk2.php.net/manual/en/simplexml.examples.php<br><br>"To compare an element or attribute with a string or pass it into a function that requires a string, you must cast it to a string using (string). Otherwise, PHP treats the element as an object."<br><br>If a tag contains CDATA, SimpleXML remembers that fact, by representing it separately from the string content of the element. So some functions, including print_r(), might not show what you expect. But if you explicitly cast to a string, you get the whole content.<br><br>
 
@@ -69,7 +69,7 @@ Text2 &amp; raw data
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.simplexml-load-string.php)
 

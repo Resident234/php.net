@@ -28,7 +28,7 @@ $sql = "SELECT a.uid, a.role AS roleid, b.role,
 ```
 <br>In this situation I guess I could have just renamed the role column in the first table roleid and that would have taken care of it, but it was a learning experience.  
 
-#
+---
 
 When calling multiple stored procedures, you can run into the following error: "Commands out of sync; you can&apos;t run this command now".<br>This can happen even when using the close() function on the result object between calls. <br>To fix the problem, remember to call the next_result() function on the mysqli object after each stored procedure call. See example below:<br><br>
 
@@ -73,7 +73,7 @@ $db->close();
 ```
   
 
-#
+---
 
 The cryptic "Couldn&apos;t fetch mysqli" error message can mean any number of things, including:<br><br>1. You&apos;re trying to use a database object that you&apos;ve already closed (as noted by ceo at l-i-e dot com). Reopen your database connection, or find the call to 
 
@@ -100,7 +100,7 @@ The cryptic "Couldn&apos;t fetch mysqli" error message can mean any number of th
 ```
 ).  
 
-#
+---
 
 Here is an example of a clean query into a html table<br><br>&lt;table&gt;<br>   &lt;tr&gt;<br>     &lt;th&gt;First Name&lt;/th&gt;<br>     &lt;th&gt;Last Name&lt;/th&gt;<br>     &lt;th&gt;City&lt;/th&gt;<br>   &lt;/tr&gt;<br>   
 
@@ -135,7 +135,7 @@ Here is an example of a clean query into a html table<br><br>&lt;table&gt;<br>  
 ```
 <br> &lt;/table&gt;  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.query.php)
 

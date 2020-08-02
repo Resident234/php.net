@@ -41,39 +41,9 @@ By adding the preserveWhiteSpace = false; BEFORE the load() the formatOutput wor
     printf ("<pre>%s</pre>", htmlentities ($dom->saveXML()));
 ?>
 ```
+<br><br>CAUTION: If your loaded xml file (test.xml) has an empty root node that is not shortened or has no children this will NOT work.<br><br>Example:<br><br>DOES NOT WORK:<br><?xml version="1.0"?>;<br>&lt;root&gt;<br>&lt;/root&gt;<br><br>WORKS:<br><?xml version="1.0"?>;<br>&lt;root/&gt;<br><br>WORKS:<br><?xml version="1.0"?>;<br>&lt;root&gt;<br>  &lt;!-- comment --&gt;<br>&lt;/root&gt;<br><br>WORKS:<br><?xml version="1.0"?>;<br>&lt;root&gt;<br>  &lt;child/&gt;<br>&lt;/root&gt;  
 
-
-CAUTION: If your loaded xml file (test.xml) has an empty root node that is not shortened or has no children this will NOT work.
-
-Example:
-
-DOES NOT WORK:
-<?xml version="1.0"?>
-```
-
-<root>
-</root>
-
-WORKS:
-<?xml version="1.0"?>
-```
-
-<root/>
-
-WORKS:
-<?xml version="1.0"?>
-```
-
-<root>
-  <!-- comment -->
-</root>
-
-WORKS:
-<?xml version="1.0"?>
-```
-<br>&lt;root&gt;<br>  &lt;child/&gt;<br>&lt;/root&gt;  
-
-#
+---
 
 if you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems. It will spit out the characters converted in encoded format.<br><br>
 
@@ -95,7 +65,7 @@ $str = domdoc->saveXML(domdoc->documentElement); // gives "&#x4FDD;&#x5B58;&#x30
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.savexml.php)
 

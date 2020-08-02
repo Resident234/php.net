@@ -4,7 +4,7 @@
 
 Note that the HTTP wrapper has a hard limit of 1024 characters for the header lines.<br>Any HTTP header received that is longer than this will be ignored and won&apos;t appear in $http_response_header.<br><br>The cURL extension doesn&apos;t have this limit.<br><br>http_fopen_wrapper.c: #define HTTP_HEADER_BLOCK_SIZE 1024  
 
-#
+---
 
 parser function to get formatted headers (with response code)<br><br>
 
@@ -54,7 +54,7 @@ Array
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.httpresponseheader.php)
 

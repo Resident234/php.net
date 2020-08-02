@@ -60,7 +60,7 @@ var_dump($result);
 ```
 <br><br>4. Run "apc_fetch.php" and "apc_add.php" several times in order to see the persistent result and how values change from one request to another.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.apc-add.php)
 

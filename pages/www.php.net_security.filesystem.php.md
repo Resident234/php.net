@@ -22,15 +22,15 @@ switch($op){
 ```
   
 
-#
+---
 
 Well, the fact that all users run under the same UID is a big problem. Userspace  security hacks (ala safe_mode) should not be substitution for proper kernel level security checks/accounting.<br>Good news: Apache 2 allows you to assign UIDs for different vhosts.<br>devik  
 
-#
+---
 
 All of the fixes here assume that it is necessary to allow the user to enter system sensitive information to begin with. The proper way to handle this would be to provide something like a numbered list of files to perform an unlink action on and then the chooses the matching number. There is no way for the user to specify a clever attack circumventing whatever pattern matching filename exclusion syntax that you may have.<br><br>Anytime you have a security issue, the proper behaviour is to deny all then allow specific instances, not allow all and restrict. For the simple reason that you may not think of every possible restriction.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/security.filesystem.php)
 

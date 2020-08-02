@@ -66,7 +66,7 @@ function RecurseXML($xml,$parent="")
 ```
 <br><br>The output....<br><br>.name = Bill<br>.wife.name = Vi<br>.son.name = Bill<br>.daughter.name = Jeri<br>.daughter.husband.name = Mark<br>.daughter.son.name = Greg<br>.daughter.son.name = Tim<br>.daughter.son.name = Mark<br>.daughter.son.name = Josh<br>.daughter.son.wife.name = Kristine<br>.daughter.son.son.name = Blake<br>.daughter.son.daughter.name = Liah  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/simplexmlelement.children.php)
 

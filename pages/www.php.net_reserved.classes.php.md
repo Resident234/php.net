@@ -59,7 +59,7 @@ improved_var_export((object) array (
 ```
 <br><br>Note: This function spits out a single line of code, which is useful to save in a cache file to include/eval. It isn&apos;t formatted for readability. If you want to print a readable version for debugging purposes, then I would suggest print_r() or var_dump().  
 
-#
+---
 
 if you want a Dynamic class you can extend from, add atributes AND methods on the fly you can use this:<br>
 
@@ -91,7 +91,7 @@ this will accept both arrays, strings and Closures:
 ```
 <br><br>then call them away =D  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reserved.classes.php)
 

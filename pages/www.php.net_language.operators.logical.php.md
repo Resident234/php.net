@@ -4,11 +4,11 @@
 
 Note that PHP&apos;s boolean operators *always* return a boolean value... as opposed to other languages that return the value of the last evaluated expression.<br><br>For example:<br><br>$a = 0 || &apos;avacado&apos;;<br>print "A: $a\n";<br><br>will print:<br><br>A: 1<br><br>in PHP -- as opposed to printing "A: avacado" as it would in a language like Perl or JavaScript.<br><br>This means you can&apos;t use the &apos;||&apos; operator to set a default value:<br><br>$a = $fruit || &apos;apple&apos;;<br><br>instead, you have to use the &apos;?:&apos; operator:<br><br>$a = ($fruit ? $fruit : &apos;apple&apos;);  
 
-#
+---
 
 In addition to what Lawrence said about assigning a default value, one can now use the Null Coalescing Operator (PHP 7). Hence when we want to assign a default value we can write:<br><br>$a = ($fruit ?? &apos;apple&apos;); <br>//assigns the $fruit variable content to $a if the $fruit variable exists or has a value that is not NULL, or assigns the value &apos;apple&apos; to $a if the $fruit variable doesn&apos;t exists or it contains the NULL value  
 
-#
+---
 
 This works similar to javascripts short-curcuit assignments and setting defaults. (e.g.  var a = getParm() || &apos;a default&apos;;)<br><br>
 
@@ -21,7 +21,7 @@ This works similar to javascripts short-curcuit assignments and setting defaults
 ```
 <br><br>$a gets assigned $_GET[&apos;var&apos;] if there&apos;s anything in it or it will fallback to &apos;a default&apos;<br>Parentheses are required, otherwise you&apos;ll end up with $a being a boolean.  
 
-#
+---
 
 worth reading for people learning about php and programming: (adding extras 
 
@@ -84,7 +84,7 @@ $e = (false || true);
 ```
  <br><br>same goes for "&amp;&amp;" and "AND". <br><br>If you find it hard to remember operators precedence you can always use parenthesys - "(" and ")". And even if you get to learn it remember that being a good programmer is not showing you can do code with fewer words. The point of being a good programmer is writting code that is easy to understand (comment your code when necessary!), easy to maintain and with high efficiency, among other things.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.logical.php)
 

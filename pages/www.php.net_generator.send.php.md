@@ -34,7 +34,7 @@ foreach($gen as $v)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/generator.send.php)
 

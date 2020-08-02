@@ -17,7 +17,7 @@ try {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.argumentcounterror.php)
 

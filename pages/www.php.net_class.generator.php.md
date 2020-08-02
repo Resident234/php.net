@@ -28,7 +28,7 @@ foreach ($fibs as $fib) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.generator.php)
 

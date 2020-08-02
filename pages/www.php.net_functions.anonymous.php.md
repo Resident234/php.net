@@ -58,7 +58,7 @@ $working();    // will call doSomething if $myInstance is instantiated
 ```
   
 
-#
+---
 
 To recursively call a closure, use this code.<br><br>
 
@@ -84,7 +84,7 @@ $recursive = function () use ($recursive){
 ```
   
 
-#
+---
 
 You may have been disapointed if you tried to call a closure stored in an instance variable as you would regularly do with methods:<br><br>
 
@@ -173,7 +173,7 @@ $obj->justSayHello(); // Hello!
 ```
 <br><br>NOTICE: of course this is very bad practice since you cannot refere to protected or private fields/methods inside these pseudo "methods" as they are not instance methods at all but rather ordinary functions/closures assigned to the object&apos;s instance variables "on the fly". But I hope you&apos;ve enjoyed the jurney ;)  
 
-#
+---
 
 In case you were wondering (cause i was), anonymous functions can return references just like named functions can.  Simply use the &amp; the same way you would for a named function...right after the `function` keyword (and right before the nonexistent name).<br><br>
 
@@ -189,7 +189,7 @@ In case you were wondering (cause i was), anonymous functions can return referen
 ```
   
 
-#
+---
 
 
 
@@ -223,7 +223,7 @@ In case you were wondering (cause i was), anonymous functions can return referen
 ```
   
 
-#
+---
 
 If you want to create and then immediately call a closure directly, in-line, and immediately get its return value (instead of the closure reference itself), then the proper syntax is as follows:<br><br>
 
@@ -238,7 +238,7 @@ echo $test;
 ```
 <br><br>As for why you would want to do that? Well, that&apos;s up to you. I&apos;m sure there are some legitimate reasons. It&apos;s a pretty common pattern in some other famous scripting languages. But if you&apos;re doing this in PHP, you should think carefully and ask yourself if you really have a good reason for it, or if you should just go and re-structure your code instead. ;-)  
 
-#
+---
 
 If you want to make sure that one of the parameters of your function is a Closure, you can use Type Hinting.<br>see: http://php.net/manual/en/language.oop5.typehinting.php<br><br>Example:<br>
 
@@ -309,7 +309,7 @@ object(Closure)#3 (1) {
 ```
   
 
-#
+---
 
 When using anonymous functions as properties in Classes, note that there are three name scopes: one for constants, one for properties and one for methods. That means, you can use the same name for a constant, for a property and for a method at a time.<br><br>Since a property can be also an anonymous function as of PHP 5.3.0, an oddity arises when they share the same name, not meaning that there would be any conflict.<br><br>Consider the following example:<br><br>
 
@@ -344,11 +344,11 @@ When using anonymous functions as properties in Classes, note that there are thr
 ```
 <br><br>That means, regular method invocations work like expected and like before. The anonymous function instead, must be retrieved into a variable first (just like a property) and can only then be invoked.<br><br>Best regards,  
 
-#
+---
 
 PERFORMANCE BENCHMARK 2017!<br><br>I decided to compare a single, saved closure against constantly creating the same anonymous closure on every loop iteration. And I tried 10 million loop iterations, in PHP 7.0.14 from Dec 2016. Result:<br><br>a single saved closure kept in a variable and re-used (10000000 iterations): 1.3874590396881 seconds<br><br>new anonymous closure created each time (10000000 iterations): 2.8460240364075 seconds<br><br>In other words, over the course of 10 million iterations, creating the closure again during every iteration only added a total of "1.459 seconds" to the runtime. So that means that every creation of a new anonymous closure takes about 146 nanoseconds on my 7 years old dual-core laptop. I guess PHP keeps a cached "template" for the anonymous function and therefore doesn&apos;t need much time to create a new instance of the closure!<br><br>So you do NOT have to worry about constantly re-creating your anonymous closures over and over again in tight loops! At least not as of PHP 7! There is absolutely NO need to save an instance in a variable and re-use it. And not being restricted by that is a great thing, because it means you can feel free to use anonymous functions exactly where they matter, as opposed to defining them somewhere else in the code. :-)  
 
-#
+---
 
 As an alternative to gabriel&apos;s recursive construction, you may instead assign the recursive function to a variable, and use it by reference, thus:<br><br>
 
@@ -420,7 +420,7 @@ echo $bark($fib); // 16, twice the fifth Fibonacci number
 ```
   
 
-#
+---
 
 Anonymous functions are great for events!<br><br>
 
@@ -492,7 +492,7 @@ Hello from Bar::hello()
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/functions.anonymous.php)
 

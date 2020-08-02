@@ -15,7 +15,7 @@ if (version_compare(phpversion(), "4.3.0", ">=")) {
 ```
   
 
-#
+---
 
 Since this function considers 1 &lt; 1.0 &lt; 1.0.0, others might find this function useful (which considers 1 == 1.0):<br><br>
 
@@ -48,7 +48,7 @@ function version_compare2($a, $b)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.version-compare.php)
 

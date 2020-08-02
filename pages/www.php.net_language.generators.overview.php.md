@@ -4,7 +4,7 @@
 
 for the protection from the leaking of resources <br>see RFC https://wiki.php.net/rfc/generators#closing_a_generator<br><br>and use finnaly<br><br>sample code<br><br>function getLines($file) {<br>    $f = fopen($file, &apos;r&apos;);<br>    try {<br>        while ($line = fgets($f)) {<br>            yield $line;<br>        }<br>    } finally {<br>        fclose($f);<br>    }<br>}<br><br>foreach (getLines("file.txt") as $n =&gt; $line) {<br>    if ($n &gt; 5) break;<br>    echo $line;<br>}  
 
-#
+---
 
 Bear in mind that execution of a generator function is postponed until iteration over its result (the Generator object) begins. This might confuse one if the result of a generator is assigned to a variable instead of immediate iteration.<br><br>
 
@@ -63,7 +63,7 @@ function some_generator() {
 ```
   
 
-#
+---
 
 Here&apos;s how to detect loop breaks, and how to handle or cleanup after an interruption.<br><br>
 
@@ -93,11 +93,11 @@ Here&apos;s how to detect loop breaks, and how to handle or cleanup after an int
 ```
   
 
-#
+---
 
 Same example, different results:<br><br>----------------------------------<br>           |  time  | memory, mb |<br>----------------------------------<br>| not gen  | 0.7589 | 146.75     |<br>|---------------------------------<br>| with gen | 0.7469 | 8.75       |<br>|---------------------------------<br><br>Time in results varying from 6.5 to 7.8 on both examples.<br>So no real drawbacks concerning processing speed.  
 
-#
+---
 
 Abstract test.<br>
 
@@ -153,7 +153,7 @@ echo "memory (byte): ", memory_get_peak_usage(true), "\n";
 ```
 <br>Result:<br>----------------------------------<br>           |  time  | memory, mb |<br>----------------------------------<br>| not gen  | 2.1216 | 89.25      |<br>|---------------------------------<br>| with gen | 6.1963 | 8.75       |<br>|---------------------------------<br>| diff     | &lt; 192% | &gt; 90%      |<br>----------------------------------  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.generators.overview.php)
 

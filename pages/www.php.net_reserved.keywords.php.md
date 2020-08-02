@@ -4,7 +4,7 @@
 
 RegEx to find all the keywords:<br><br>\b(<br>(a(bstract|nd|rray|s))|<br>(c(a(llable|se|tch)|l(ass|one)|on(st|tinue)))|<br>(d(e(clare|fault)|ie|o))|<br>(e(cho|lse(if)?|mpty|nd(declare|for(each)?|if|switch|while)|val|x(it|tends)))|<br>(f(inal|or(each)?|unction))|<br>(g(lobal|oto))|<br>(i(f|mplements|n(clude(_once)?|st(anceof|eadof)|terface)|sset))|<br>(n(amespace|ew))|<br>(p(r(i(nt|vate)|otected)|ublic))|<br>(re(quire(_once)?|turn))|<br>(s(tatic|witch))|<br>(t(hrow|r(ait|y)))|<br>(u(nset|se))|<br>(__halt_compiler|break|list|(x)?or|var|while)<br>)\b  
 
-#
+---
 
 Please note that reserved words are still not allowed to be used as namespace or as part of it:<br><br>
 
@@ -19,7 +19,7 @@ class Test
 ```
 <br><br>This will fail with a Parse error:  syntax error, unexpected &apos;List&apos; (T_LIST), expecting identifier (T_STRING)  
 
-#
+---
 
 Here they are as arrays:<br><br>
 
@@ -32,7 +32,7 @@ $predefined_constants = array('__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__'
 ```
 <br><br>Along with get_defined_functions() and get_defined_constants(), this can be useful for checking eval() statements.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reserved.keywords.php)
 

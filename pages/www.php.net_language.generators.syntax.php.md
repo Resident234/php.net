@@ -4,7 +4,7 @@
 
 For example yield keyword with Fibonacci:<br><br>function getFibonacci()<br>{<br>    $i = 0;<br>    $k = 1; //first fibonacci value<br>    yield $k;<br>    while(true)<br>    {<br>        $k = $i + $k;<br>        $i = $k - $i;<br>        yield $k;        <br>    }<br>}<br><br>$y = 0;<br><br>foreach(getFibonacci() as $fibonacci)<br>{<br>    echo $fibonacci . "\n";<br>    $y++;    <br>    if($y &gt; 30)<br>    {<br>        break; // infinite loop prevent<br>    }<br>}  
 
-#
+---
 
 [This comment replaces my previous comment]<br><br>You can use generators to do lazy loading of lists. You only compute the items that are actually used. However, when you want to load more items, how to cache the ones already loaded?<br><br>Here is how to do cached lazy loading with a generator:<br><br>
 
@@ -70,7 +70,7 @@ foreach($f->getItems() as $i) {
 ```
   
 
-#
+---
 
 If for some strange reason you need a generator that doesn&apos;t yield anything, an empty function doesn&apos;t work; the function needs a yield statement to be recognised as a generator.<br><br>
 
@@ -111,7 +111,7 @@ foreach(gndn() as $it)
 ```
   
 
-#
+---
 
 That is a simple fibonacci generator.<br><br>
 
@@ -136,7 +136,7 @@ foreach ($fibo as $value) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.generators.syntax.php)
 

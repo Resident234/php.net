@@ -11,7 +11,7 @@ date('Y-M-d h:i:s', $yourDate->sec);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.mongodate.php)
 

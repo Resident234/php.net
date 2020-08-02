@@ -28,7 +28,7 @@ function custom_error_handler($number, $string, $file, $line, $context)
 ```
 <br><br>Setting this function as the error handler will result in ErrorExceptions only being thrown for E_USER_ERROR and E_RECOVERABLE_ERROR, while other enabled error types will simply get error_log()&apos;ed.<br><br>It&apos;s worth noting again that no matter what you do, "E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING, and most of E_STRICT" will never reach your custom error handler, and therefore will not be converted into ErrorExceptions.  Plan accordingly.  
 
-#
+---
 
 E_USER_WARNING, E_USER_NOTICE, and any other non-terminating error codes, are useless and act like E_USER_ERROR (which terminate) when you combine a custom ERROR_HANDLER with ErrorException and do not CATCH the error. There is NO way to return execution to the parent scope in the EXCEPTION_HANDLER.<br><br>
 
@@ -119,7 +119,7 @@ E_USER_WARNING, E_USER_NOTICE, and any other non-terminating error codes, are us
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.errorexception.php)
 

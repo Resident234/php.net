@@ -61,7 +61,7 @@ error_reporting( E_ALL );?>
 ```
   
 
-#
+---
 
 
 
@@ -111,7 +111,7 @@ class UserDeprecatedException       extends ErrorException {}?>
 ```
   
 
-#
+---
 
 
 
@@ -228,7 +228,7 @@ include_once 'file.php'; //No such file or directory
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.set-error-handler.php)
 

@@ -85,7 +85,7 @@ print_r($array);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.random-int.php)
 

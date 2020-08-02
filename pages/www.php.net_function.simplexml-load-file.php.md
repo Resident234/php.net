@@ -21,15 +21,13 @@ $simpleXmlObj->some-node;
 ```
   
 
-#
+---
 
 To correctly extract a value from a CDATA just make sure you cast the SimpleXML Element to a string value by using the cast operator:<br><br>
 
 ```
 <?php
-$xml = '<?xml version="1.0" encoding="UTF-8" ?>
-```
-
+$xml = '<?xml version="1.0" encoding="UTF-8" ?>;
 <rss>
     <channel>
         <item>
@@ -52,7 +50,7 @@ var_dump((string) $xml->channel->item->title);
 ```
 <br><br>Above will output:<br><br>Tom &amp; Jerry<br><br>object(SimpleXMLElement)#4 (0) {}<br><br>string(11) "Tom &amp; Jerry"  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.simplexml-load-file.php)
 

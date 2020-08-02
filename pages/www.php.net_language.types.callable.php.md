@@ -25,11 +25,11 @@ class MyClass {
 ```
   
 
-#
+---
 
 Performance note: The callable type hint, like is_callable(), will trigger an autoload of the class if the value looks like a static method callback.  
 
-#
+---
 
 A note on differences when calling callbacks as "variable functions" without the use of call_user_func() (e.g. "
 
@@ -68,7 +68,7 @@ foo::callIt('foo::doStuff');
 ```
 <br><br>The code would work fine, if we replaced the &apos;$callback()&apos; with &apos;call_user_func($callback)&apos; or if we used the array [&apos;foo&apos;, &apos;doStuff&apos;] as the callback instead.  
 
-#
+---
 
 You can use &apos;self::methodName&apos; as a callable, but this is dangerous. Consider this example:<br><br>
 
@@ -108,7 +108,7 @@ FunctionCaller::callIt('Foo::someAwesomeMethod');
 ```
 <br><br>I believe this is because there is no way for FunctionCaller to know that the string &apos;self&apos; at one point referred to to `Foo`.  
 
-#
+---
 
 When specifying a call back in array notation (ie. array($this, "myfunc") ) the method can be private if called from inside the class, but if you call it from outside you&apos;ll get a warning:<br><br>
 
@@ -140,15 +140,15 @@ array_walk($data, $m->export()); // will generate warning
 ```
 <br><br>Output:<br>1&lt;br /&gt;2&lt;br /&gt;3&lt;br /&gt;4&lt;br /&gt;<br>Warning: array_walk() expects parameter 2 to be a valid callback, cannot access private method mc::walkIt() in /in/tfh7f on line 22  
 
-#
+---
 
 you can pass an object as a callable if its class defines the __invoke() magic method..  
 
-#
+---
 
 &gt; As of PHP 5.2.3, it is also possible to pass &apos;ClassName::methodName&apos;<br><br>You can also use &apos;self::methodName&apos;.  This works in PHP 5.2.12 for me.  
 
-#
+---
 
 I needed a function that would determine the type of callable being passed, and, eventually,<br>normalized it to some extent. Here&apos;s what I came up with:<br><br>
 
@@ -240,7 +240,7 @@ function callableType($callable, $strict = true, callable&amp; $norm = null) {
 ```
 <br><br>Hope someone else finds it useful.  
 
-#
+---
 
 When trying to make a callable from a function name located in a namespace, you MUST give the fully qualified function name (regardless of the current namespace or use statements).<br><br>
 
@@ -264,7 +264,7 @@ array_map('MyNamespace\doSomethingFancy', $values);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.types.callable.php)
 

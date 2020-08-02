@@ -20,7 +20,7 @@ $resourceHandle = fileOpen("myfile.txt", "r");
 ```
 <br><br>Errors with:<br>Fatal error: Uncaught TypeError: Return value of fileOpen() must be an instance of resource, resource returned.  
 
-#
+---
 
 Developers with a C background may expect pass by reference semantics for arrays. It may be surprising that  pass by value is used for arrays just like scalars. Objects are implicitly passed by reference.<br><br>
 
@@ -106,7 +106,7 @@ print $array['x'] . ', ' . $array2['x'] . "\n";?>
 ```
   
 
-#
+---
 
 Be careful about using "do this thing or die()" logic in your return lines.  It doesn&apos;t work as you&apos;d expect:<br><br>
 
@@ -132,7 +132,7 @@ echo myfunc1(). "\n". myfunc2(). "\n". myfunc3(). "\n". myfunc4(). "\n". myfunc5
 ```
 <br><br>Only myfunc5() returns &apos;thingy&apos; - the rest return 1.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/functions.returning-values.php)
 

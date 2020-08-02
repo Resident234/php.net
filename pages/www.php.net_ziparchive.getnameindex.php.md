@@ -22,7 +22,7 @@ else
 ```
 <br><br>Hope it helps.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ziparchive.getnameindex.php)
 

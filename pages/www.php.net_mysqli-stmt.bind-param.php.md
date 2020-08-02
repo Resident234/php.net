@@ -66,11 +66,11 @@ $res->execute();
 ```
   
 
-#
+---
 
 A few notes on this function.<br><br>If you specify type "i" (integer), the maximum value it allows you to have is 2^32-1 or 2147483647. So, if you are using UNSIGNED INTEGER or BIGINT in your database, then you are better off using "s" (string) for this.<br><br>Here&apos;s a quick summary:<br>(UN)SIGNED TINYINT: I<br>(UN)SIGNED SMALLINT: I<br>(UN)SIGNED MEDIUMINT: I<br>SIGNED INT: I<br>UNSIGNED INT: S<br>(UN)SIGNED BIGINT: S<br><br>(VAR)CHAR, (TINY/SMALL/MEDIUM/BIG)TEXT/BLOB should all have S.<br><br>FLOAT/REAL/DOUBLE (PRECISION) should all be D.<br><br>That advice was for MySQL. I have not looked into other database software.  
 
-#
+---
 
 Hi, I just write a function to do all my sql statements based on all the others comments in this page, maybe it can be useful for someone else :)<br><br>Usage:<br><br>execSQL($sql, $parameters, $close);<br><br>$sql = Statement to execute;<br>$parameters = array of type and values of the parameters (if any)<br>$close = true to close $stmt (in inserts) false to return an array with the values;<br><br>Examples:<br><br>execSQL("SELECT * FROM table WHERE id = ?", array(&apos;i&apos;, $id), false);<br><br>execSQL("SELECT * FROM table", array(), false);<br><br>execSQL("INSERT INTO table(id, name) VALUES (?,?)", array(&apos;ss&apos;, $id, $name), true);<br><br>
 
@@ -128,7 +128,7 @@ function execSQL($sql, $params, $close){
 ```
 <br><br>Regards  
 
-#
+---
 
 Blob and null handling aside, a couple of notes on how param values are automatically converted and forwarded on to the Mysql engine based on your type string argument:<br><br>1) PHP will automatically convert the value behind the scenes to the underlying type corresponding to your binding type string.  i.e.:<br><br>
 
@@ -173,7 +173,7 @@ bind_param('s', $var); // forwarded to Mysql as '2011-03-14 17:00:01'
 ```
   
 
-#
+---
 
 Dear all,<br><br>I was searching for a class which supports multiple calls to bind_param, because I have scenarios where I build huge SQL statements over different functions with variable numbers of parameters. But I didn&apos;t found one. So I have just written up this little piece of code I would like to share with you. There is enough room to optimize these classes, but it shows the general idea. And for me it works. In mbind_param_do() it seems to depend from the PHP version if makeValuesReferenced() must be used or if $params can be used directly. In my case I have to use it.<br><br>The cool thing about this solution: You don&apos;t have to care about a lot if you are using my mbind_ functions or not. You may also use default bind_param and the execute will still work. <br><br>
 
@@ -263,7 +263,7 @@ $stmt->fetch();
 ```
   
 
-#
+---
 
 I had a problem with the LIKE operator<br><br>This code did not work:<br><br>
 
@@ -288,7 +288,7 @@ $test->bind_param("s", $param);
 ```
   
 
-#
+---
 
 I used to have problems with call_user_func_array and bind_param after migrating to php 5.3.<br><br>The problem is that 5.3 requires array values as reference while 5.2 works with real values.<br><br>so i created a secondary function to help me with this...<br><br>
 
@@ -330,7 +330,7 @@ call_user_func_array(array($this->stmt, "bind_param"),refValues($this->valores))
 ```
 <br><br>in this way my db functions keep working in php 5.2/5.3 servers.<br><br>I hope this help someone.  
 
-#
+---
 
 When dealing with a dynamic number of field values while preparing a statement I find this class useful.<br><br>
 
@@ -389,7 +389,7 @@ var_dump($bindParam->get());
 ```
 <br><br>This gets you the result that looks something like this:<br><br>SELECT * FROM users WHERE hair_color = ? OR age = ? OR balance = ?<br>array(4) { [0]=&gt; string(3) "sid" [1]=&gt; string(3) "red" [2]=&gt; int(25) [3]=&gt; float(50) }<br><br>[Editor&apos;s note: changed BindParam::add() to accept $value by reference and thereby prevent a warning in newer versions of PHP.]  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-stmt.bind-param.php)
 

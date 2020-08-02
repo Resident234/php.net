@@ -58,11 +58,11 @@ eg
 ```
   
 
-#
+---
 
 Please remember in multi-process applications (which are best suited under CLI), that I/O operations often will BLOCK signals from being processed.<br><br>For instance, if you have a parent waiting on fread(STDIN), it won&apos;t handle SIGCHLD, even if you defined a signal handler for it, until after the call to fread has returned. <br><br>Your solution in this case is to wait on stream_select() to find out whether reading will block. Waiting on stream_select(), critically, does NOT BLOCK signals from being processed. <br><br>Aurelien  
 
-#
+---
 
 The following code shows how to test for input on STDIN.  In this case, we were looking for CSV data, so we use fgetcsv to read STDIN, if it creates an array, we assume CVS input on STDIN, if no array was created, we assume there&apos;s no input from STDIN, and look, later, to an argument with a CSV file name.<br><br>Note, without the stream_set_blocking() call, fgetcsv() hangs on STDIN, awaiting input from the user, which isn&apos;t useful as we&apos;re looking for a piped file. If it isn&apos;t here already, it isn&apos;t going to be.<br><br>
 
@@ -79,7 +79,7 @@ if (is_array($csv_ar)){
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/features.commandline.io-streams.php)
 

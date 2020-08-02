@@ -28,7 +28,7 @@ var_dump($scents);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.mongodb-driver-command.php)
 

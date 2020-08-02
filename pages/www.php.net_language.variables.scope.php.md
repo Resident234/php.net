@@ -58,7 +58,7 @@ class sample_class
 ```
 <br><br>I believe that all normal-thinking people would never even try to make this work with the static-keyword, for those who try (like me), this note maybe helpfull.  
 
-#
+---
 
 Note that unlike Java and C++, variables declared inside blocks such as loops or if&apos;s, will also be recognized and accessible outside of the block, so:<br>
 
@@ -74,7 +74,7 @@ echo $a;
 ```
 <br><br>Would print 4.  
 
-#
+---
 
 Please note for using global variable in child functions:<br><br>This won&apos;t work correctly...<br><br>
 
@@ -117,7 +117,7 @@ function foo(){
 ```
   
 
-#
+---
 
 Static variables do not hold through inheritance.  Let class A have a function Z with a static variable.  Let class B extend class A in which function Z is not overwritten.  Two static variables will be created, one for class A and one for class B.<br><br>Look at this example:<br><br>
 
@@ -142,7 +142,7 @@ $a->Z();
 ```
 <br><br>This code returns:<br><br>A: 1<br>A: 2<br>B: 1<br>A: 3<br><br>As you can see, class A and B are using different static variables even though the same function was being used.  
 
-#
+---
 
 Took me longer than I expected to figure this out, and thought others might find it useful.<br><br>I created a function (safeinclude), which I use to include files; it does processing before the file is actually included (determine full path, check it exists, etc).<br><br>Problem: Because the include was occurring inside the function, all of the variables inside the included file were inheriting the variable scope of the function; since the included files may or may not require global variables that are declared else where, it creates a problem.<br><br>Most places (including here) seem to address this issue by something such as:<br>
 
@@ -189,7 +189,34 @@ function safeinclude($filename)
 ```
 <br><br>In the above, &apos;exists&apos; &amp; &apos;file&apos; are determined in the pre-processing. File is the full server path to the file, and exists is set to true if the file exists. This basic model can be expanded of course.  In my own, I added additional optional parameters so that I can call safeinclude to see if a file exists without actually including it (to take advantage of my path/etc preprocessing, verses just calling the file exists function).<br><br>Pretty simple approach that I could not find anywhere online; only other approach I could find was using PHP&apos;s eval().  
 
-#
+---
+
+Note that if you declare a variable in a function, then set it as global in that function, its value will not be retained outside of that function.  This was tripping me up for a while so I thought it would be worth noting.<br><br>
+
+```
+<?php
+
+foo();
+echo $a; // echoes nothing
+
+bar();
+echo $b; //echoes "b";
+
+function foo() {
+  $a = "a"; 
+  global $a;
+}
+
+function bar() {
+  global $b;
+  $b = "b";
+}
+
+?>
+```
+  
+
+---
 
 If you have a static variable in a method of a class, all DIRECT instances of that class share that one static variable.<br><br>However if you create a derived class, all DIRECT instances of that derived class will share one, but DISTINCT, copy of that static variable in method.<br><br>To put it the other way around, a static variable in a method is bound to a class (not to instance). Each subclass has own copy of that variable, to be shared among its instances.<br><br>To put it yet another way around, when you create a derived class, it &apos;seems  to&apos; create a copy of methods from the base class, and thusly create copy of the static variables in those methods.<br><br>Tested with PHP 7.0.16.<br><br>
 
@@ -228,34 +255,7 @@ var_dump([ $base1->test(), $base2->test(), $derived1->test(), $derived2->test() 
 ```
   
 
-#
-
-Note that if you declare a variable in a function, then set it as global in that function, its value will not be retained outside of that function.  This was tripping me up for a while so I thought it would be worth noting.<br><br>
-
-```
-<?php
-
-foo();
-echo $a; // echoes nothing
-
-bar();
-echo $b; //echoes "b";
-
-function foo() {
-  $a = "a"; 
-  global $a;
-}
-
-function bar() {
-  global $b;
-  $b = "b";
-}
-
-?>
-```
-  
-
-#
+---
 
 About more complex situation using global variables..<br><br>Let&apos;s say we have two files:<br>a.php<br>
 
@@ -285,7 +285,7 @@ b.php
 ```
 <br><br>You could expect that this script will return "something new" but no, it will return "something". To make it working properly, you must add global keyword in $b definition, in above example it will be:<br><br>global $b;<br>$b = "something";  
 
-#
+---
 
 It will be obvious for most of you: changing value of a static in one instance changes value in all instances.<br><br>
 
@@ -311,7 +311,7 @@ It will be obvious for most of you: changing value of a static in one instance c
 ```
 <br><br>Output will be:<br><br>$o static: changed<br>$p static: changed  
 
-#
+---
 
 Sometimes a variable available in global scope is not accessible via the &apos;global&apos; keyword or the $GLOBALS superglobal array. I have not been able to replicate it in original code, but it occurs when a script is run under PHPUnit.<br><br>PHPUnit provides a variable "$filename" that reflects the name of the file loaded on its command line. This is available in global scope, but not in object scope. For example, the following phpUnit script (call it GlobalScope.php):<br><br>
 
@@ -357,7 +357,7 @@ class MyTestClass extends PHPUnit_Framework_TestCase {
 ```
 <br><br>By doing this, both "global" and $GLOBALS work!<br><br>I don&apos;t know what it is that PHPUnit does (I know it uses Reflection) that causes a globally available variable to be implicitly unavailable via "global" or $GLOBALS. But there it is.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.variables.scope.php)
 

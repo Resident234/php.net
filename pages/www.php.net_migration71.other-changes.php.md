@@ -12,7 +12,7 @@ echo ++$str; // output: 1
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/migration71.other-changes.php)
 

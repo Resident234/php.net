@@ -14,7 +14,7 @@ NULL
 ```
 <br>Of course not documented feature.  
 
-#
+---
 
 Please be careful when comparing hashes. In certain cases, information can be leaked by using a timing attack. It takes advantage of the == operator only comparing until it finds a difference in the two strings. To prevent it, you have two options.<br><br>Option 1: hash both hashed strings first - this doesn&apos;t stop the timing difference, but it makes the information useless.<br><br>
 
@@ -57,7 +57,7 @@ Option 2: always compare the whole string.
 ```
   
 
-#
+---
 
 As  Michael  uggests we should take care not to compare the hash using == (or ===). Since PHP version 5.6 we can now use hash_equals().<br><br>So the example will be:<br><br>
 
@@ -70,7 +70,7 @@ As  Michael  uggests we should take care not to compare the hash using == (or ==
 ```
   
 
-#
+---
 
 For signing an Amazon AWS query, base64-encode the binary value:<br><br>
 
@@ -81,7 +81,7 @@ For signing an Amazon AWS query, base64-encode the binary value:<br><br>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.hash-hmac.php)
 

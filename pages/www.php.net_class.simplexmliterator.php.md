@@ -34,7 +34,7 @@ print_r($catArray);
 ```
 <br><br>Results (reformatted a bit for compactness and clarity):<br>======================================<br>Array(<br>  [cat] =&gt; Array(<br>    [0] =&gt; Array(<br>      [name] =&gt; Array(  [0] =&gt; Jack    )<br>      [age] =&gt; Array(   [0] =&gt; 2       )<br>      [color] =&gt; Array( [0] =&gt; grey,<br>                        [1] =&gt; white   )<br>    )<br>    [1] =&gt; Array(<br>      [name] =&gt; Array(  [0] =&gt; Maxwell )<br>      [age] =&gt; Array(   [0] =&gt; 12      )<br>      [color] =&gt; Array( [0] =&gt; orange<br>                        [1] =&gt; black   )<br>    )<br>  )<br>)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.simplexmliterator.php)
 

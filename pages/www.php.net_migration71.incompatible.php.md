@@ -14,7 +14,7 @@ var_dump($array);?>
 ```
   
 
-#
+---
 
 The backwards incompatible change &apos;The empty index operator is not supported for strings anymore&apos; has a lot more implications than just a fatal error on the following code<br><br>
 
@@ -56,11 +56,11 @@ var_dump($a);
 ```
   
 
-#
+---
 
 "OMFG! Why was session.hash_function removed?!? Dude!"<br><br>https://wiki.php.net/rfc/session-id-without-hashing<br><br>There. Saved ya a search.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/migration71.incompatible.php)
 

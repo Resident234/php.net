@@ -4,7 +4,7 @@
 
 Please note that utf8_encode only converts a string encoded in ISO-8859-1 to UTF-8. A more appropriate name for it would be "iso88591_to_utf8". If your text is not encoded in  ISO-8859-1, you do not need this function. If your text is already in UTF-8, you do not need this function. In fact, applying this function to text that is not encoded in ISO-8859-1 will most likely simply garble that text.<br><br>If you need to convert text from any encoding to any other encoding, look at iconv() instead.  
 
-#
+---
 
 Walk through nested arrays/objects and utf8 encode all strings.<br><br>
 
@@ -55,7 +55,7 @@ function utf8_encode_deep(&amp;$input) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.utf8-encode.php)
 

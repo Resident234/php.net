@@ -4,7 +4,7 @@
 
 there is still an open bug about using current() etc. with iterators<br>https://bugs.php.net/bug.php?id=49369  
 
-#
+---
 
 By reading the posts below I wondered if it really is impossible to make an ArrayAccess implementation really behave like a true array ( by being multi level )<br><br>Seems like it&apos;s not impossible. Not very preety but usable<br><br>
 
@@ -83,7 +83,7 @@ echo "Display some value that exists: ".$data['array']['another_string'];
 ```
 <br><br>(in the two links mentioned below by artur at jedlinski... they say you can&apos;t use references, so I didn&apos;t used them.<br>My implementation uses recursive objects)<br><br>If anyone finds a better (cleaner) sollution, please e-mail me.<br>Thanks,<br>Wave.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.iterations.php)
 

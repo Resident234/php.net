@@ -32,7 +32,7 @@ A ist gleich 5
 ```
 <br><br>is also possible.<br><br>alternate syntax makes the code only clearer and easyer to read  
 
-#
+---
 
 A simple alternative to an if statement, which is almost like a ternary operator, is the use of AND. Consider the following:<br><br>
 
@@ -54,11 +54,11 @@ A simple alternative to an if statement, which is almost like a ternary operator
 ```
 <br><br>This does not work with echo() for some reason. I find this extremely useful!  
 
-#
+---
 
 isset( $value ) AND print( $value );<br><br>the reason why it doesn&apos;t work with echo, it&apos;s because echo does not return anything, while print _always_ returns 1, which is considered true in the expression  
 
-#
+---
 
 Consider the following hypothetical PHP example:<br><br>
 
@@ -183,7 +183,7 @@ elseif (...):
 ```
 <br><br>Maybe the truth is that someone screwed up in the language parsing process for those PHP Block Alternative Statements or failed to document this very important detail!  
 
-#
+---
 
 If you wan&apos;t to use the alternative syntax for switch statements this won&apos;t work:<br><br>&lt;div&gt;<br>
 
@@ -270,7 +270,7 @@ Forum
 ```
 <br>&lt;/div&gt;  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.alternative-syntax.php)
 

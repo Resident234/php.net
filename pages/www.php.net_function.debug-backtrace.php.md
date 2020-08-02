@@ -28,11 +28,11 @@ function generateCallTrace()
 ```
 <br><br>Example output:<br>    1) /var/www/test/test.php(15): SomeClass-&gt;__construct()<br>    2) /var/www/test/SomeClass.class.php(36): SomeClass-&gt;callSomething()  
 
-#
+---
 
 If you are using the backtrace function in an error handler, avoid using var_export() on the args, as you will cause fatal errors in some situations, preventing you from seeing your stack trace.  Some structures will cause PHP to generate the fatal error "Nesting level too deep - recursive dependency?" This is a design feature of php, not a bug (see http://bugs.php.net/bug.php?id=30471)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.debug-backtrace.php)
 

@@ -39,7 +39,7 @@ if(ABC) {
 ```
   
 
-#
+---
 
 There seems to be some confusion here. The distinction between pointers and references is not particularly helpful.<br>The behavior in some of the "comprehensive" examples already posted can be explained in simpler unifying terms. Hayley&apos;s code, for example, is doing EXACTLY what you should expect it should. (Using &gt;= 5.3)<br><br>First principle:<br>A pointer stores a memory address to access an object. Any time an object is assigned, a pointer is generated. (I haven&apos;t delved TOO deeply into the Zend engine yet, but as far as I can see, this applies)<br><br>2nd principle, and source of the most confusion:<br>Passing a variable to a function is done by default as a value pass, ie, you are working with a copy. "But objects are passed by reference!" A common misconception both here and in the Java world. I never said a copy OF WHAT. The default passing is done by value. Always. WHAT is being copied and passed, however, is the pointer. When using the "-&gt;", you will of course be accessing the same internals as the original variable in the caller function. Just using "=" will only play with copies.<br><br>3rd principle:<br>"&amp;" automatically and permanently sets another variable name/pointer to the same memory address as something else until you decouple them. It is correct to use the term "alias" here. Think of it as joining two pointers at the hip until forcibly separated with "unset()". This functionality exists both in the same scope and when an argument is passed to a function. Often the passed argument is called a "reference," due to certain distinctions between "passing by value" and "passing by reference" that were clearer in C and C++.<br><br>Just remember: pointers to objects, not objects themselves, are passed to functions. These pointers are COPIES of the original unless you use "&amp;" in your parameter list to actually pass the originals. Only when you dig into the internals of an object will the originals change.<br><br>Example:<br><br>
 
@@ -89,7 +89,7 @@ function swapByRef(&amp;$x, &amp;$y){
 ```
   
 
-#
+---
 
 I&apos;ve bumped into a behavior that helped clarify the difference between objects and identifiers for me.<br><br>When we hand off an object variable, we get an identifier to that object&apos;s value.  This means that if I were to mutate the object from a passed variable, ALL variables originating from that instance of the object will change.  <br><br>HOWEVER, if I set that object variable to new instance, it replaces the identifier itself with a new identifier and leaves the old instance in tact.<br><br>Take the following example:<br><br>
 
@@ -158,7 +158,7 @@ class B {
 ```
 <br><br>The foo function doesn&apos;t require a reference, because it is MUTATING an object instance that $bar identifies.  But bar will be REPLACING the object instance.  If only an identifier is passed, the variable identifier will be overwritten but the object instance will be left in place.  
 
-#
+---
 
 I hope this clarifies references a bit more:<br><br>
 
@@ -183,7 +183,7 @@ echo $d->foo."\n"; // Notice:  Trying to get property of non-object...
 ```
   
 
-#
+---
 
 Ultimate explanation to object references:<br>NOTE: wording &apos;points to&apos; could be easily replaced with &apos;refers &apos; and is used loosly.<br>
 
@@ -211,7 +211,7 @@ $a6 = null; //makes handle40-1 null, all variables pointing to (hanlde40-1 ==nul
 ```
 <br>Hope this helps.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.references.php)
 

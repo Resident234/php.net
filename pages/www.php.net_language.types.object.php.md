@@ -9,7 +9,7 @@ By far the easiest and correct way to instantiate an empty generic php object th
 ```
 <br><br>I had the most difficult time finding this, hopefully it will help someone else!  
 
-#
+---
 
 In PHP 7 there are a few ways to create an empty object:<br><br>
 
@@ -41,7 +41,7 @@ echo json_encode([
 ```
 <br><br>Outputs: [{},{},{}]  
 
-#
+---
 
 As of PHP 5.4, we can create stdClass objects with some properties and values using the more beautiful form:<br><br>
 
@@ -55,7 +55,7 @@ As of PHP 5.4, we can create stdClass objects with some properties and values us
 ```
   
 
-#
+---
 
 Here a new updated version of &apos;stdObject&apos; class. It&apos;s very useful when extends to controller on MVC design pattern, user can create it&apos;s own class.<br><br>Hope it help you.<br><br> 
 
@@ -123,7 +123,7 @@ $obj->getInfo();
 ```
   
 
-#
+---
 
 &lt;!--Example shows how to convert array to stdClass Object and how to access its value for display --&gt;<br>
 
@@ -158,7 +158,7 @@ echo ((is_object($val) == true ?  1 : 0 ) == 1 ? "object" : "not an object" );//
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.types.object.php)
 

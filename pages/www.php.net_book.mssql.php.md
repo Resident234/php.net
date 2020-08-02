@@ -37,7 +37,7 @@ foreach($sltml as $table_name => $id) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.mssql.php)
 

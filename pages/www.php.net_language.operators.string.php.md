@@ -21,7 +21,7 @@ As for me, curly braces serve good substitution for concatenation, and they are 
 ```
   
 
-#
+---
 
 A word of caution - the dot operator has the same precedence as + and -, which can yield unexpected results. <br><br>Example:<br><br>&lt;php<br>$var = 3;<br><br>echo "Result: " . $var + 3;<br>?>
 ```
@@ -29,7 +29,7 @@ A word of caution - the dot operator has the same precedence as + and -, which c
 ```
   
 
-#
+---
 
 
 
@@ -41,7 +41,7 @@ A word of caution - the dot operator has the same precedence as + and -, which c
 ```
 <br>Use double quotes to concat more than two strings instead of multiple &apos;.&apos; operators.  PHP is forced to re-concatenate with every &apos;.&apos; operator.  
 
-#
+---
 
 If you attempt to add numbers with a concatenation operator, your result will be the result of those numbers as strings.<br><br>
 
@@ -58,13 +58,13 @@ echo 1+2;                  //prints the number 3
 ```
   
 
-#
+---
 
 Be careful so that you don&apos;t type "." instead of ";" at the end of a line.<br><br>It took me more than 30 minutes to debug a long script because of something like this:<br><br>&lt;?<br>echo &apos;a&apos;.<br>$c = &apos;x&apos;;<br>echo &apos;b&apos;;<br>echo &apos;c&apos;;<br>?>
 ```
 <br><br>The output is "axbc", because of the dot on the first line.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.string.php)
 

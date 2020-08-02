@@ -17,7 +17,7 @@ The manual is a little shy on explaining that output buffers are nested, and tha
 ```
 <br><br>puts:<br>    1:blah<br>    string(6) "2:blah"<br><br>Prior to realising this, I had thought PHP&apos;s ob functionality left more to be desired.  I *really* wish I knew earlier.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.outcontrol.php)
 

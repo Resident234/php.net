@@ -50,7 +50,7 @@ var_dump(is_subclass_of($b, 'Bar')); // FALSE
 ```
 <br><br>Result (CLI, 5.4.4):<br><br>use of test() method<br>Foo<br>Bar<br>instanceof Foo<br>bool(true)<br>bool(true)<br>instanceof Bar<br>bool(false)<br>bool(true)<br>subclass of Foo<br>bool(false)<br>bool(true)<br>subclass of Bar<br>bool(false)<br>bool(false)  
 
-#
+---
 
 Please note, that you get no warnings on non-existent classes:<br><br>
 
@@ -66,7 +66,7 @@ $exists = ($a instanceof NonExistentClass); //FALSE?>
 ```
   
 
-#
+---
 
 I&apos;m commenting here because the note from "admin at torntech" is incomplete. You can perfectly replace "is_a()" function with "instanceof" operator. However you must use a variable to store the class name, otherwise you will get a Parse error:<br><br>
 
@@ -81,7 +81,7 @@ var_dump($object instanceof '\stdClass');    // Parse error: syntax error, unexp
 ```
 <br><br>Please go to Type Operators page for more details about "instanceof": http://php.net/manual/en/language.operators.type.php  
 
-#
+---
 
 When checking instanceof against a class that implements the class in question, it will return true.<br><br>
 
@@ -113,7 +113,7 @@ else
 ```
 <br><br>The result:<br><br>Yes, it is  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/internals2.opcodes.instanceof.php)
 

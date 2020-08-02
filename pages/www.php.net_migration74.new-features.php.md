@@ -21,7 +21,7 @@ var_dump(is_null($user->age));// bool(true)
 ```
 <br><br>Another thing worth noting is that it&apos;s not possible to initialize a property of type object to anything other than null.  Since the evaluation of properties happens at compile-time and object instantiation happens at runtime. One last thing, callable type is not supported due to its context-dependent behavior.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/migration74.new-features.php)
 

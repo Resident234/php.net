@@ -47,11 +47,11 @@ if ($_FILES['upload']) {
 ```
   
 
-#
+---
 
 This is also needed for &lt;input type=file multiple&gt; elements.<br><br>So, if you have an input element like this:<br>&lt;input type="file" multiple="multiple" name="foobar" /&gt;<br>This should be written as<br>&lt;input type="file" multiple="multiple" name="foobar[]" /&gt;<br>else you&apos;ll only be able to get one of the files.  
 
-#
+---
 
 The cleanest way to rearrange the $_FILES<br><br>
 
@@ -69,7 +69,7 @@ function rearrange( $arr ){
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/features.file-upload.multiple.php)
 

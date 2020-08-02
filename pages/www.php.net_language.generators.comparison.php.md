@@ -61,7 +61,7 @@ class LineIterator implements Iterator {
 ```
 <br><br>The generator is still obviously much shorter, but this seems a more reasonable comparison.  
 
-#
+---
 
 I think that this is bad generator example.<br>If user will not consume all lines then file will not be closed.<br><br>
 
@@ -83,7 +83,7 @@ if ($fileHandle = fopen($fileName, 'r')) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.generators.comparison.php)
 

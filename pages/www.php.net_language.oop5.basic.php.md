@@ -84,11 +84,11 @@ print_r($assignment);
 ```
   
 
-#
+---
 
 You start using :: in second example although the static concept has not been explained. This is not easy to discover when you are starting from the basics.  
 
-#
+---
 
 What is the difference between  $this  and  self ?<br><br>Inside a class definition, $this refers to the current object, while  self  refers to the current class.<br><br>It is necessary to refer to a class element using  self ,<br>and refer to an object element using  $this .<br>Note also how an object variable must be preceded by a keyword in its definition.<br><br>The following example illustrates a few cases:<br><br>
 
@@ -125,7 +125,7 @@ $this->publ: Public
 ```
   
 
-#
+---
 
 CLASSES and OBJECTS that represent the "Ideal World"<br><br>Wouldn&apos;t it be great to get the lawn mowed by saying $son-&gt;mowLawn()? Assuming the function mowLawn() is defined, and you have a son that doesn&apos;t throw errors, the lawn will be mowed. <br><br>In the following example; let objects of type Line3D measure their own length in 3-dimensional space. Why should I or PHP have to provide another method from outside this class to calculate length, when the class itself holds all the neccessary data and has the education to make the calculation for itself?<br><br>
 
@@ -213,7 +213,7 @@ echo '<p>' . (new Line3D(0, 0, 0, 100, 100, 100)) . "</p>\n";
 ```
 <br><br>  &lt;--  The results look like this  --&gt;<br><br>Line3D[start=Point3D(x=0, y=0, z=0), end=Point3D(x=1, y=1, z=1), length=1.73205080757]<br><br>Line3D[start=Point3D(x=0, y=0, z=0), end=Point3D(x=100, y=100, z=0), length=141.421356237]<br><br>Line3D[start=Point3D(x=0, y=0, z=0), end=Point3D(x=100, y=100, z=100), length=173.205080757]<br><br>My absolute favorite thing about OOP is that "good" objects keep themselves in check. I mean really, it&apos;s the exact same thing in reality... like, if you hire a plumber to fix your kitchen sink, wouldn&apos;t you expect him to figure out the best plan of attack? Wouldn&apos;t he dislike the fact that you want to control the whole job? Wouldn&apos;t you expect him to not give you additional problems? And for god&apos;s sake, it is too much to ask that he cleans up before he leaves?<br><br>I say, design your classes well, so they can do their jobs uninterrupted... who like bad news? And, if your classes and objects are well defined, educated, and have all the necessary data to work on (like the examples above do), you won&apos;t have to micro-manage the whole program from outside of the class. In other words... create an object, and LET IT RIP!  
 
-#
+---
 
 stdClass is the default PHP object. stdClass has no properties, methods or parent. It does not support magic methods, and implements no interfaces.<br><br>When you cast a scalar or array as Object, you get an instance of stdClass. You can use stdClass whenever you need a generic object instance.<br>
 
@@ -246,7 +246,7 @@ echo get_parent_class($t) . "\n";            // false (no parent)
 ```
 <br><br>You cannot define a class named &apos;stdClass&apos; in your code. That name is already used by the system. You can define a class named &apos;Object&apos;.<br><br>You could define a class that extends stdClass, but you would get no benefit, as stdClass does nothing.<br><br>(tested on PHP 5.2.8)  
 
-#
+---
 
 Some thing that may be obvious to the seasoned PHP programmer, but may surprise someone coming over from C++:<br><br>
 
@@ -294,7 +294,7 @@ public function Print(){
 ```
  refers to the class member, while using $bar means using an uninitialized variable in the local context of the member function.  
 
-#
+---
 
 I hope that this will help to understand how to work with static variables inside a class<br><br>
 
@@ -328,7 +328,7 @@ $ob->getFoo();    // output: I am a new foo
 ```
 <br><br>Regards<br>Motaz Abuthiab  
 
-#
+---
 
 A PHP Class can be used for several things, but at the most basic level, you&apos;ll use classes to "organize and deal with like-minded data". Here&apos;s what I mean by "organizing like-minded data". First, start with unorganized data.<br><br>
 
@@ -396,7 +396,7 @@ class Item {
 ```
 <br><br>Imagination that each function you write only calls the bits of data in that class. Some functions may access all the data, while other functions may only access one piece of data. If each function revolves around the data inside, then you have created a good class.  
 
-#
+---
 
 Here&apos;s another simple example.<br><br>
 
@@ -458,7 +458,7 @@ class PolarBear extends Bear {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.basic.php)
 

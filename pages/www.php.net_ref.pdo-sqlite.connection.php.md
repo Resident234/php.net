@@ -16,7 +16,7 @@ $pdo = new PDO(
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.pdo-sqlite.connection.php)
 

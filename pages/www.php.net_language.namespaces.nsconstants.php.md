@@ -39,7 +39,7 @@ abc(); // invokes \bar\abc regardless of the second use statement
 ```
 <br><br>Hope, this can save someone from some trouble.<br><br>Best regards.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.nsconstants.php)
 

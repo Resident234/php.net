@@ -15,7 +15,7 @@ while (ob_get_level() > 0) {
 ```
   
 
-#
+---
 
 best way to compress a css code:<br><br>
 
@@ -41,7 +41,7 @@ best way to compress a css code:<br><br>
 ```
 <br><br>Include in &lt;head&gt;:<br>&lt;link rel="stylesheet" type="text/css" href="/design.php" media="all" /&gt;  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-end-flush.php)
 

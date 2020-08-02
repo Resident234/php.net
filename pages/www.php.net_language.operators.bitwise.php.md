@@ -126,7 +126,7 @@ echo $user;  // outputs: User [REGISTERED ACTIVE MEMBER ADMIN]
 ```
   
 
-#
+---
 
 Initially, I found bitmasking to be a confusing concept and found no use for it. So I&apos;ve whipped up this code snippet in case anyone else is confused:<br><br>
 
@@ -190,7 +190,7 @@ And you can apply this to a lot of things, for example, security:
 ```
 <br><br>Once you get your head around it, it&apos;s VERY useful! Just remember to raise each value by the power of two to avoid problems  
 
-#
+---
 
 A bitwise operators practical case :<br><br>
 
@@ -212,7 +212,7 @@ A bitwise operators practical case :<br><br>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.bitwise.php)
 

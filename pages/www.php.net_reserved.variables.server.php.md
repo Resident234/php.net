@@ -108,15 +108,15 @@ ORIG_PATH_INFO    -
 ```
   
 
-#
+---
 
 1. All elements of the $_SERVER array whose keys begin with &apos;HTTP_&apos; come from HTTP request headers and are not to be trusted.<br><br>2. All HTTP headers sent to the script are made available through the $_SERVER array, with names prefixed by &apos;HTTP_&apos;.<br><br>3. $_SERVER[&apos;PHP_SELF&apos;] is dangerous if misused. If login.php/nearly_arbitrary_string is requested, $_SERVER[&apos;PHP_SELF&apos;] will contain not just login.php, but the entire login.php/nearly_arbitrary_string. If you&apos;ve printed $_SERVER[&apos;PHP_SELF&apos;] as the value of the action attribute of your form tag without performing HTML encoding, an attacker can perform XSS attacks by offering users a link to your site such as this:<br><br>&lt;a href=&apos;http://www.example.com/login.php/"&gt;&lt;script type="text/javascript"&gt;...&lt;/script&gt;&lt;span a="&apos;&gt;Example.com&lt;/a&gt;<br><br>The javascript block would define an event handler function and bind it to the form&apos;s submit event. This event handler would load via an &lt;img&gt; tag an external file, with the submitted username and password as parameters.<br><br>Use $_SERVER[&apos;SCRIPT_NAME&apos;] instead of $_SERVER[&apos;PHP_SELF&apos;]. HTML encode every string sent to the browser that should not be interpreted as HTML, unless you are absolutely certain that it cannot contain anything that the browser can interpret as HTML.  
 
-#
+---
 
 As PHP $_SERVER var is populated with a lot of vars, I think it&apos;s important to say that it&apos;s also populated with environment vars.<br><br>For example, with a PHP script, we can have this:<br><br>    MY_ENV_VAR=Hello php -r &apos;echo $_SERVER["MY_ENV_VAR"];&apos;<br>    <br>Will show "Hello".<br><br>But, internally, PHP makes sure that "internal" keys in $_SERVER are not overriden, so you wouldn&apos;t be able to do something like this:<br><br>    REQUEST_TIME=Hello php -r &apos;var_dump($_SERVER["REQUEST_TIME"]);&apos;<br>    <br>Will show something like 1492897785<br><br>However, a lot of vars are still vulnerable from environment injection.<br><br>I created a gist here ( https://gist.github.com/Pierstoval/f287d3e61252e791a943dd73874ab5ee ) with my PHP configuration on windows with PHP7.0.15 on WSL with bash, the results are that the only "safe" vars are the following:<br><br>PHP_SELF<br>SCRIPT_NAME<br>SCRIPT_FILENAME<br>PATH_TRANSLATED<br>DOCUMENT_ROOT<br>REQUEST_TIME_FLOAT<br>REQUEST_TIME<br>argv<br>argc<br><br>All the rest can be overriden with environment vars, which is not very cool actually because it can break PHP applications sometimes...<br><br>(and I only tested on CLI, I had no patience to test with Apache mod_php or Nginx + PHP-FPM, but I can imagine that not a lot of $_SERVER properties are "that" secure...)  
 
-#
+---
 
 An even *more* improved version...<br><br>
 
@@ -127,11 +127,11 @@ phpinfo(32);
 ```
   
 
-#
+---
 
 If requests to your PHP script send a header "Content-Type" or/ "Content-Length" it will, contrary to regular HTTP headers, not appear in $_SERVER as $_SERVER[&apos;HTTP_CONTENT_TYPE&apos;]. PHP removes these (per CGI/1.1 specification[1]) from the HTTP_ match group.<br><br>They are still accessible, but only if the request was a POST request. When it is, it&apos;ll be available as:<br>$_SERVER[&apos;CONTENT_LENGTH&apos;]<br>$_SERVER[&apos;CONTENT_TYPE&apos;]<br><br>[1] https://www.ietf.org/rfc/rfc3875  
 
-#
+---
 
 You have missed &apos;REDIRECT_STATUS&apos;<br><br>Very useful if you point all your error pages to the same file.<br><br>File; .htaccess<br># .htaccess file.<br><br>ErrorDocument 404 /error-msg.php<br>ErrorDocument 500 /error-msg.php<br>ErrorDocument 400 /error-msg.php<br>ErrorDocument 401 /error-msg.php<br>ErrorDocument 403 /error-msg.php<br># End of file.<br><br>File; error-msg.php<br>
 
@@ -149,19 +149,19 @@ You have missed &apos;REDIRECT_STATUS&apos;<br><br>Very useful if you point all 
 ```
   
 
-#
+---
 
 When using the $_SERVER[&apos;SERVER_NAME&apos;] variable in an apache virtual host setup with a ServerAlias directive, be sure to check the UseCanonicalName apache directive.  If it is On, this variable will always have the apache ServerName value.  If it is Off, it will have the value given by the headers sent by the browser.<br><br>Depending on what you want to do the content of this variable, put in On or Off.  
 
-#
+---
 
 If you are serving from behind a proxy server, you will almost certainly save time by looking at what these $_SERVER variables do on your machine behind the proxy.   <br><br>$_SERVER[&apos;HTTP_X_FORWARDED_FOR&apos;] in place of $_SERVER[&apos;REMOTE_ADDR&apos;]<br><br>$_SERVER[&apos;HTTP_X_FORWARDED_HOST&apos;] and <br>$_SERVER[&apos;HTTP_X_FORWARDED_SERVER&apos;] in place of (at least in our case,) $_SERVER[&apos;SERVER_NAME&apos;]  
 
-#
+---
 
 A table of everything in the $_SERVER array can be found near the bottom of the output of phpinfo();  
 
-#
+---
 
 It&apos;s worth noting that $_SERVER variables get created for any HTTP request headers, including those you might invent:<br><br>If the browser sends an HTTP request header of:<br>X-Debug-Custom: some string<br><br>Then:<br><br>
 
@@ -172,7 +172,7 @@ $_SERVER['HTTP_X_DEBUG_CUSTOM']; // "some string"
 ```
 <br><br>There are better ways to identify the HTTP request headers sent by the browser, but this is convenient if you know what to expect from, for example, an AJAX script with custom headers.<br><br>Works in PHP5 on Apache with mod_php.  Don&apos;t know if this is true from other environments.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.server.php)
 

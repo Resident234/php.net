@@ -11,7 +11,7 @@ I still don&apos;t understand why FETCH_KEY_PAIR is not documented here (http://
 ```
 <br><br>This will display:<br>array(2) {<br>  [2]=&gt;<br>  string(10) "name2"<br>  [5]=&gt;<br>  string(10) "name5"<br>}  
 
-#
+---
 
 Getting foreach to play nicely with some data from PDO FetchAll()<br>I was not understanding to use the $value part of the foreach properly, I hope this helps someone else.<br>Example:<br>
 
@@ -48,7 +48,7 @@ foreach ($article_list as $row => $link) {
 ```
   
 
-#
+---
 
 You might find yourself wanting to use FETCH_GROUP and FETCH_ASSOC at the same time, to get your table&apos;s primary key as the array key:<br>
 
@@ -69,7 +69,7 @@ $results = array_map('reset', $results);
 ```
   
 
-#
+---
 
 Interestingly enough, when you use fetchAll, the constructor for your object is called AFTER the properties are assigned. For example:<br><br>
 
@@ -100,7 +100,7 @@ $obj = $obj = $STH->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'person')
 ```
 <br><br>Then the constructor will be called before properties are assigned. I can&apos;t find this documented anywhere, so I thought it would be nice to add a note here.  
 
-#
+---
 
 PLEASE BE AWARE: If you do an OUTER LEFT JOIN and set PDO FetchALL to PDO::FETCH_ASSOC, any primary key you used in the OUTER LEFT JOIN will be set to a blank if there are no records returned in the JOIN.<br><br>For example:<br>
 
@@ -144,7 +144,7 @@ print_r($array);
 ```
 <br><br>The resulting array will look something like this:<br><br>Array<br>(<br>    [0] =&gt; Array<br>        (<br>            [product_id] =&gt; 3<br>            [notes] =&gt; "this product..."<br>            [brand] =&gt; "Best Yet"<br>            ...  
 
-#
+---
 
 to fetch rows grouped by primary id or any other field you may use FETCH_GROUP with FETCH_UNIQUE:<br><br>
 
@@ -180,11 +180,11 @@ $result = array
 ```
   
 
-#
+---
 
 If no rows have been returned, fetchAll returns an empty array.  
 
-#
+---
 
 Note that fetchAll() can be extremely memory inefficient for large data sets. My memory limit was set to 160 MB this is what happened when I tried:<br><br>
 
@@ -211,7 +211,7 @@ while ($arr = $stmt->fetch()) {
 ```
   
 
-#
+---
 
 There is also another fetch mode supported on Oracle and MSSQL: <br>PDO::FETCH_ASSOC<br><br>&gt; fetches only column names and omits the numeric index.<br><br>If you would like to return all columns from an sql statement with column keys as table headers, it&apos;s as simple as this:<br><br>
 
@@ -243,7 +243,7 @@ print "</table>\n";
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/pdostatement.fetchall.php)
 

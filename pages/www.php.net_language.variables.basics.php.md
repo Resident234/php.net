@@ -74,7 +74,7 @@ $item['unicorn'] = 'Pink unicorn';
 ```
 <br><br>For arrays, this is important because accessing a non-existent array item can trigger errors; you may want to test arrays and array items for existence with isset before using them.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.variables.basics.php)
 
