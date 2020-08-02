@@ -9,11 +9,11 @@ According to what I can find in the PHP (5.3.2) source code, getDocComment will 
 ```
  will get you what&apos;s inside. A call to trim() after is recommended.  
 
-#
+---
 
 If you&apos;re using a bytecode cache like eAccelerator this method will return FALSE even if there is a properly formatted Docblock. It looks like the information required by this method gets stripped out by the bytecode cache.  
 
-#
+---
 
 You can also get the docblock definitions for the defined methods of a class as such:<br><br>
 
@@ -45,7 +45,7 @@ $reflector->getMethod('fn')->getDocComment();
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reflectionclass.getdoccomment.php)
 

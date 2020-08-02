@@ -149,7 +149,9 @@ Note the different outputs from different versions of the same tag:<br><br>
 <?php // striptags.php
 $data = '<br>Each<br/>New<br />Line';
 $new  = strip_tags($data, '<br>');
-var_dump($new);  // OUTPUTS string(21) "<br>EachNew<br />Line"
+var_dump($new);  // OUTPUTS string(21) "EachNewLine" ?>
+```
+
 
 
 
@@ -157,7 +159,9 @@ var_dump($new);  // OUTPUTS string(21) "<br>EachNew<br />Line"
 <?phpphp // striptags.php
 $data = '<br>Each<br/>New<br />Line';
 $new  = strip_tags($data, '<br/>');
-var_dump($new); // OUTPUTS string(16) "Each<br/>NewLine"
+var_dump($new); // OUTPUTS string(16) "EachNewLine" ?>
+```
+
 
 
 

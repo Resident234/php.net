@@ -22,7 +22,7 @@ class myClass {
 ```
   
 
-#
+---
 
 You can pass $this as class for the ReflectionClass. __CLASS__ won&apos;t help if you extend the original class, because it is a magic constant based on the file itself.<br><br>
 
@@ -50,7 +50,7 @@ array ( size = 2)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reflectionclass.getconstants.php)
 

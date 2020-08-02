@@ -47,7 +47,7 @@ echo (new ReflectionFunction("myfunction"))->getParameters()[0]->allowsNull() ? 
 ```
 <br><br>Result : true  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reflectionparameter.allowsnull.php)
 

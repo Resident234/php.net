@@ -59,7 +59,7 @@ echo $f("BAR");//Prints 'bar'
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reflection.examples.php)
 

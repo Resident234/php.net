@@ -14,7 +14,7 @@ print average(10, 15, 20, 25); // 17.5
 ```
   
 
-#
+---
 
 How to create a polymorphic/"overloaded" function<br><br>
 
@@ -63,7 +63,7 @@ $res = select('Anderson', 0, 5); // by name with limit
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.func-get-args.php)
 

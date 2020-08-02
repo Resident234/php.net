@@ -19,7 +19,7 @@ $Returns2 = helloWorld("HelloWorld!", "HowdyWorld!");
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.func-num-args.php)
 

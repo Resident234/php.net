@@ -20,7 +20,7 @@ $loginname = filter_input(INPUT_POST, 'loginname', FILTER_CALLBACK, array('optio
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/filter.filters.misc.php)
 

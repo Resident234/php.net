@@ -21,7 +21,7 @@ echo $method->invoke(new Foo);
 ```
 <br><br>This works nicely with PHPUnit: http://php.net/manual/en/reflectionmethod.setaccessible.php  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reflectionmethod.setaccessible.php)
 

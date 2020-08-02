@@ -13,7 +13,7 @@ echo filter_var ( $smaller, FILTER_SANITIZE_STRING); // -> not a tag
 ```
   
 
-#
+---
 
 Remember to trim() the $_POST before your filters are applied:<br><br>
 
@@ -42,11 +42,11 @@ echo (nl2br($revised_post_array['user_tasks']));    //-- use nl2br() upon output
 ```
   
 
-#
+---
 
 To include multiple flags, simply separate the flags with vertical pipe symbols.<br><br>For example, if you want to use filter_var() to sanitize $string with FILTER_SANITIZE_STRING and pass in FILTER_FLAG_STRIP_HIGH and FILTER_FLAG_STRIP_LOW, just call it like this:<br><br>$string = filter_var($string, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_LOW);<br><br>The same goes for passing a flags field in an options array in the case of using callbacks.<br><br>$var = filter_var($string, FILTER_SANITIZE_SPECIAL_CHARS,<br>array(&apos;flags&apos; =&gt; FILTER_FLAG_STRIP_LOW | FILTER_FLAG_ENCODE_HIGH));<br><br>Thanks to the Brain Goo blog at popmartian.com/tipsntricks/for this info.  
 
-#
+---
 
 It&apos;s not entirely clear what the LOW and HIGH ranges are. LOW is characters below 32, HIGH is those above 127, i.e. outside the ASCII range.<br><br>
 
@@ -61,15 +61,15 @@ echo filter_var($a, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
 ```
   
 
-#
+---
 
 Please be aware that when using filter_var() with FILTER_SANITIZE_NUMBER_FLOAT and FILTER_SANITIZE_NUMBER_INT the result will be a string, even if the input value is actually a float or an int.<br><br>Use FILTER_VALIDATE_FLOAT and FILTER_VALIDATE_INT, which will convert the result to the expected type.  
 
-#
+---
 
 Just to clarify, since this may be unknown for a lot of people:<br><br>ASCII characters above 127 are known as "Extended" and they represent characters such as greek letters and accented letters in latin alphabets, used in languages such as pt_BR.<br><br>A good ASCII quick reference (aside from the already mentioned Wikipedia article) can be found at: http://www.asciicodes.com/  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/filter.filters.sanitize.php)
 

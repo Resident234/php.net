@@ -38,7 +38,7 @@ echo Hello::World()->text('!!!'); // Hello World!!!?>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.trait-exists.php)
 

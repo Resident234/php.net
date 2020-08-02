@@ -24,7 +24,7 @@ $oReflectionClass = new ReflectionClass('App\Core\Singleton');
 ```
   
 
-#
+---
 
 Reflecting an alias will give you a reflection of the resolved class.<br><br>
 
@@ -44,7 +44,7 @@ echo $z->getName(); // X
 ```
   
 
-#
+---
 
 Unserialized reflection class cause error.<br><br>
 
@@ -69,7 +69,7 @@ var_dump($ref->getDocComment());
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.reflectionclass.php)
 

@@ -15,7 +15,7 @@ echo $method->class; // prints 'A'
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.reflectionmethod.php)
 

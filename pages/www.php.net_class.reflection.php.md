@@ -56,7 +56,7 @@ foreach($properties as $property)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.reflection.php)
 
