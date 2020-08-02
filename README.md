@@ -2,33 +2,39 @@
 
 ## Function Reference
 
-### Database Extensions
+### Affecting PHP's Behaviour
 
-#### Abstraction Layers
+#### Output Control
 
-##### PDO
+##### Output Control Functions
 
-###### PDOStatement
+[ob_clean](/pages/www.php.net_function.ob-clean.php.md)
 
-[PDOStatement::rowCount](/pages/www.php.net_pdostatement.rowcount.php.md)
+[ob_end_flush](/pages/www.php.net_function.ob-end-flush.php.md)
 
-[PDOStatement::setFetchMode](/pages/www.php.net_pdostatement.setfetchmode.php.md)
+[ob_flush](/pages/www.php.net_function.ob-flush.php.md)
 
-[The PDOException class](/pages/www.php.net_class.pdoexception.php.md)
+[ob_get_clean](/pages/www.php.net_function.ob-get-clean.php.md)
 
-###### PDO Drivers
+[ob_get_contents](/pages/www.php.net_function.ob-get-contents.php.md)
 
-[Microsoft SQL Server and Sybase Functions (PDO_DBLIB)](/pages/www.php.net_ref.pdo-dblib.php.md)
+[ob_get_flush](/pages/www.php.net_function.ob-get-flush.php.md)
 
-###### MS SQL Server (PDO)
+[ob_get_level](/pages/www.php.net_function.ob-get-level.php.md)
 
-[PDO_DBLIB DSN](/pages/www.php.net_ref.pdo-dblib.connection.php.md)
+[ob_gzhandler](/pages/www.php.net_function.ob-gzhandler.php.md)
 
-###### MySQL (PDO)
+[ob_implicit_flush](/pages/www.php.net_function.ob-implicit-flush.php.md)
 
-[PDO_MYSQL DSN](/pages/www.php.net_ref.pdo-mysql.connection.php.md)
+[ob_start](/pages/www.php.net_function.ob-start.php.md)
 
-[Microsoft SQL Server Functions (PDO_SQLSRV)](/pages/www.php.net_ref.pdo-sqlsrv.php.md)
+#### PHP Options/Info
 
-[ODBC and DB2 Functions (PDO_ODBC)](/pages/www.php.net_ref.pdo-odbc.php.md)
+##### Installing/Configuring
+
+[Runtime Configuration](/pages/www.php.net_info.configuration.php.md)
+
+##### PHP Options/Info Functions
+
+[assert](/pages/www.php.net_function.assert.php.md)
 
