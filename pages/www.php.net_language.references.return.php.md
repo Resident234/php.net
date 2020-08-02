@@ -108,7 +108,30 @@ test()->getBar()->helloWorld();
 
 ---
 
-An example of returning references:<br><br>&lt;?<br><br>$var = 1;<br>$num = NULL;<br><br>function &amp;blah()<br>{<br>    $var =&amp; $GLOBALS["var"]; # the same as global $var;<br>    $var++;<br>    return $var;<br>}<br><br>$num = &amp;blah();<br><br>echo $num; # 2<br><br>blah();<br><br>echo $num; # 3<br><br>?>
+An example of returning references:<br><br>
+
+```
+<?php
+
+$var = 1;
+$num = NULL;
+
+function &amp;blah()
+{
+    $var =&amp; $GLOBALS["var"]; # the same as global $var;
+    $var++;
+    return $var;
+}
+
+$num = &amp;blah();
+
+echo $num; # 2
+
+blah();
+
+echo $num; # 3
+
+?>
 ```
 <br><br>Note: if you take the &amp; off from the function, the second echo will be 2, because without &amp; the var $num contains its returning value and not its returning reference.  
 

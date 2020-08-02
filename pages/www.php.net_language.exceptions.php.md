@@ -168,7 +168,7 @@ function exceptionTest()
     }
 }
 
-echo '<pre>' . exceptionTest() . '</pre>';
+echo '' . exceptionTest() . '';
 ?>
 ```
 <br><br>Here&apos;s a sample output:<br><br>Caught TestException (&apos;Unknown TestException&apos;)<br>TestException &apos;Unknown TestException&apos; in C:\xampp\htdocs\CustomException\CustomException.php(31)<br>#0 C:\xampp\htdocs\CustomException\ExceptionTest.php(19): CustomException-&gt;__construct()<br>#1 C:\xampp\htdocs\CustomException\ExceptionTest.php(43): exceptionTest()<br>#2 {main}  

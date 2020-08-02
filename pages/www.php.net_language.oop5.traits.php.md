@@ -283,10 +283,26 @@ Foo2::$_bar = 'World';
 echo Foo1::$_bar . ' ' . Foo2::$_bar; // Prints: Hello World
 ?>
 ```
-"<br><br>shows a correct example, simply adding<br>
+"
+
+shows a correct example, simply adding
+
 
 ```
-<?php<br>require_once(&apos;above&apos;);<br>class Foo3 extends Foo2 {<br>}<br>Foo3::$_bar = &apos;news&apos;;<br>echo Foo1::$_bar . &apos; &apos; . Foo2::$_bar . &apos; &apos; . Foo3::$_bar; <br><br>// Prints: Hello news news<br><br>I think the best conceptual model of an incorporated trait is an advanced insertion of text, or as someone put it "language assisted copy and paste." If Foo1 and Foo2 were defined with $_bar, you would not expect them to share the instance. Similarly, you would expect Foo3 to share with Foo2, and it does.<br><br>Viewing this way explains away a lot of  the &apos;quirks&apos; that are observed above with final, or subsequently declared private vars,  
+<?php
+require_once('above');
+class Foo3 extends Foo2 {
+}
+Foo3::$_bar = 'news';
+echo Foo1::$_bar . ' ' . Foo2::$_bar . ' ' . Foo3::$_bar; 
+
+// Prints: Hello news news
+
+I think the best conceptual model of an incorporated trait is an advanced insertion of text, or as someone put it "language assisted copy and paste." If Foo1 and Foo2 were defined with $_bar, you would not expect them to share the instance. Similarly, you would expect Foo3 to share with Foo2, and it does.
+
+Viewing this way explains away a lot of  the 'quirks' that are observed above with final, or subsequently declared private vars,?>
+```
+  
 
 ---
 
@@ -643,7 +659,7 @@ class Product {
 $product = new Product();
 $product->get();
 $product->sort_by('name');
-echo '<pre>'.print_r($product->data, true).'</pre>';
+echo ''.print_r($product->data, true).'';
 ?>
 ```
   

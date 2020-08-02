@@ -71,11 +71,11 @@ $data['array']['another_array']['x']['y']="LOL @ Whoever said it can't be done !
 $data['blank_array']=array();
 
 echo "'array' Isset? "; print_r(isset($data['array'])); echo "<hr />";
-echo "<pre>"; print_r($data['array']['non_existent']); echo "</pre>If attempting to read an offset that doesn't exist it returns a blank object! Use isset() to check if it exists!<br>";
+echo ""; print_r($data['array']['non_existent']); echo "If attempting to read an offset that doesn't exist it returns a blank object! Use isset() to check if it exists!<br>";
 echo "'non_existent' Isset? "; print_r(isset($data['array']['non_existent'])); echo "<br />";
-echo "<pre>"; print_r($data['blank_array']); echo "</pre>A blank array unfortunately returns similar results :(<br />";
+echo ""; print_r($data['blank_array']); echo "A blank array unfortunately returns similar results :(<br />";
 echo "'blank_array' Isset? "; print_r(isset($data['blank_array'])); echo "<hr />";
-echo "<pre>"; print_r($data); echo "</pre> (non_existent remains in the structure. If someone can help to solve this I'll appreciate it)<hr />";
+echo ""; print_r($data); echo " (non_existent remains in the structure. If someone can help to solve this I'll appreciate it)<hr />";
 
 echo "Display some value that exists: ".$data['array']['another_string'];
 

@@ -6,7 +6,7 @@ I think it&apos;s relevant to note that __clone is NOT an override. As the examp
 
 ---
 
-Here is test script i wrote to test the behaviour of clone when i have arrays with primitive values in my class - as an additonal test of the note below by jeffrey at whinger dot nl<br><br>&lt;pre&gt;<br>
+Here is test script i wrote to test the behaviour of clone when i have arrays with primitive values in my class - as an additonal test of the note below by jeffrey at whinger dot nl<br><br><br>
 
 ```
 <?php
@@ -37,7 +37,7 @@ print_r($myObjClone->getArray());//Array([0] => blue,[1] => orange)
 
 ?>
 ```
-<br>&lt;/pre&gt;  
+<br>  
 
 ---
 

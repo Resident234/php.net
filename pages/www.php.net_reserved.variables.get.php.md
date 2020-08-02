@@ -2,7 +2,7 @@
 
 
 
-Just a note, because I didn&apos;t know for sure until I tested it.<br><br>If you have a query string that contains a parameter but no value (not even an equals sign), like so:<br>http://path/to/script.php?a<br><br>The following script is a good test to determine how a is valued:<br>&lt;pre&gt;<br>
+Just a note, because I didn&apos;t know for sure until I tested it.<br><br>If you have a query string that contains a parameter but no value (not even an equals sign), like so:<br>http://path/to/script.php?a<br><br>The following script is a good test to determine how a is valued:<br><br>
 
 ```
 <?php
@@ -14,7 +14,7 @@ Just a note, because I didn&apos;t know for sure until I tested it.<br><br>If yo
  if(!empty($_GET["a"])) echo "a is not empty";
 ?>
 ```
-<br>&lt;/pre&gt;<br><br>I tested this with script.php?a, and it returned:<br><br>a is an empty string<br>a is set<br><br>So note that a parameter with no value associated with, even without an equals sign, is considered to be an empty string (""), isset() returns true for it, and it is considered empty, but not false or null. Seems obvious after the first test, but I just had to make sure.<br><br>Of course, if I do not include it in my browser query, the script returns<br>Array<br>(<br>)<br>a is null  
+<br><br><br>I tested this with script.php?a, and it returned:<br><br>a is an empty string<br>a is set<br><br>So note that a parameter with no value associated with, even without an equals sign, is considered to be an empty string (""), isset() returns true for it, and it is considered empty, but not false or null. Seems obvious after the first test, but I just had to make sure.<br><br>Of course, if I do not include it in my browser query, the script returns<br>Array<br>(<br>)<br>a is null  
 
 ---
 
