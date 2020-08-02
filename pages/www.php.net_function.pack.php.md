@@ -4,7 +4,7 @@
 
 If you&apos;d like to understand pack/unpack. There is a tutorial here in perl, that works equally well in understanding it for php:<br><br>http://perldoc.perl.org/perlpacktut.html  
 
-#
+---
 
 A helper class to convert integer to binary strings and vice versa. Useful for writing and reading integers to / from files or sockets.<br><br>
 
@@ -112,11 +112,11 @@ Usage example:
 ```
   
 
-#
+---
 
 Note that the the upper command in perl looks like this:<br><br>$binarydata = pack ("n v c*", 0x1234, 0x5678, 65, 66);<br>In PHP it seems that no whitespaces are allowed in the first parameter. So if you want to convert your pack command from perl -&gt; PHP, don&apos;t forget to remove the whitespaces!  
 
-#
+---
 
 If you need to unpack a signed short from big-endian or little-endian specifically, instead of machine-byte-order, you need only unpack it as the unsigned form, and then if the result is &gt;= 2^15, subtract 2^16 from it.<br><br>And example would be:<br><br>
 
@@ -129,7 +129,7 @@ if($foo >= pow(2, 15)) $foo -= pow(2, 16);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.pack.php)
 

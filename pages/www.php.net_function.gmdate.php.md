@@ -12,7 +12,7 @@ echo gmdate("Y/m/d H:i:s",$timestamp);
 ```
   
 
-#
+---
 
 Wath out for summer time and winter time...<br><br>If you want to get the current date and time based on GMT you could use this :<br><br>
 
@@ -24,7 +24,7 @@ echo gmdate("Y/m/j H:i:s", time() + 3600*($timezone+date("I")));
 ```
 <br><br>this would gives: 2004/07/8 14:35:19 in summer time<br>and 2004/07/8 13:35:19 in winter time.<br><br>Note that date("I") returns 1 in summer and 0 in winter.  
 
-#
+---
 
 For an RFC 1123 (HTTP header date) date, try:<br><br>
 
@@ -35,7 +35,7 @@ $rfc_1123_date = gmdate('D, d M Y H:i:s T', time());
 ```
   
 
-#
+---
 
 For me most of the examples here needed the + or - seconds to set the time zone. I wanted a faster way to get the time zone in seconds. So I created this : <br>
 
@@ -50,7 +50,7 @@ echo "Your current time now is :  $gmdate . ";
 ```
  <br>It works. Hope it helps.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.gmdate.php)
 

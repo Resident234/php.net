@@ -35,7 +35,7 @@ file_build_path("home", "alice", "Documents", "example.txt");
 ```
   
 
-#
+---
 
 For my part I&apos;ll continue to use this constant because it seems more future safe and flexible, even if Windows installations currently convert the paths magically. Not that syntax aesthetics matter but I think it can be made to look attractive:<br><br>
 
@@ -46,7 +46,7 @@ $path = join(DIRECTORY_SEPARATOR, array('root', 'lib', 'file.php');
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/dir.constants.php)
 

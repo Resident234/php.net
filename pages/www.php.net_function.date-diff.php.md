@@ -4,7 +4,7 @@
 
 Powerful Function to get two date difference.<br><br>//////////////////////////////////////////////////////////////////////<br>//PARA: Date Should In YYYY-MM-DD Format<br>//RESULT FORMAT:<br>// &apos;%y Year %m Month %d Day %h Hours %i Minute %s Seconds&apos;        =&gt;  1 Year 3 Month 14 Day 11 Hours 49 Minute 36 Seconds<br>// &apos;%y Year %m Month %d Day&apos;                                    =&gt;  1 Year 3 Month 14 Days<br>// &apos;%m Month %d Day&apos;                                            =&gt;  3 Month 14 Day<br>// &apos;%d Day %h Hours&apos;                                            =&gt;  14 Day 11 Hours<br>// &apos;%d Day&apos;                                                        =&gt;  14 Days<br>// &apos;%h Hours %i Minute %s Seconds&apos;                                =&gt;  11 Hours 49 Minute 36 Seconds<br>// &apos;%i Minute %s Seconds&apos;                                        =&gt;  49 Minute 36 Seconds<br>// &apos;%h Hours                                                    =&gt;  11 Hours<br>// &apos;%a Days                                                        =&gt;  468 Days<br>//////////////////////////////////////////////////////////////////////<br>function dateDifference($date_1 , $date_2 , $differenceFormat = &apos;%a&apos; )<br>{<br>    $datetime1 = date_create($date_1);<br>    $datetime2 = date_create($date_2);<br>    <br>    $interval = date_diff($datetime1, $datetime2);<br>    <br>    return $interval-&gt;format($differenceFormat);<br>    <br>}  
 
-#
+---
 
 
 
@@ -57,7 +57,7 @@ function s_datediff( $str_interval, $dt_menor, $dt_maior, $relative=false){
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.date-diff.php)
 

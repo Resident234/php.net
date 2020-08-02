@@ -42,7 +42,7 @@ $offset_time = time() + $offset;
 ```
 <br><br>Happy Coding!!  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.timezone-offset-get.php)
 

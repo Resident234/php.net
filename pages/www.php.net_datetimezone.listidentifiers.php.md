@@ -13,7 +13,7 @@ Even though the manual currently says that the first parameter has to be "One of
 ```
 <br><br>Be sure to use |, not ||.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/datetimezone.listidentifiers.php)
 

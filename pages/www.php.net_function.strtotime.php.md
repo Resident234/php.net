@@ -18,7 +18,7 @@ echo date("jS F, Y", strtotime("11-12-10"));
 ```
 <br><br>Hope this helps someone!  
 
-#
+---
 
 The "+1 month" issue with strtotime<br>===================================<br>As noted in several blogs, strtotime() solves the "+1 month" ("next month") issue on days that do not exist in the subsequent month differently than other implementations like for example MySQL.<br><br>
 
@@ -39,7 +39,7 @@ SELECT DATE_ADD( '2009-01-31', INTERVAL 1 MONTH ); // MySQL:  2009-02-28
 ```
   
 
-#
+---
 
 UK dates (eg. 27/05/1990) won&apos;t work with strotime, even with timezone properly set. <br><br>/*<br>However, if you just replace "/" with "-" it will work fine.<br>
 
@@ -62,7 +62,7 @@ $date = date_create_from_format('d/m/y', '27/05/1990');
 ```
 <br><br>That does not make it a timestamp, but a DateTime object, which is much more versatile instead.  
 
-#
+---
 
 WARNING when using "next month", "last month", "+1 month",  "-1 month" or any combination of +/-X months. It will give non-intuitive results on Jan 30th and 31st. <br><br>As described at : http://derickrethans.nl/obtaining-the-next-month-in-php.html<br><br>
 
@@ -101,7 +101,7 @@ echo $d->format( 'F' ), "\n";
 ```
   
 
-#
+---
 
 I tried using sams most popular example but got incorrect results.<br><br>Incorrect:<br>
 
@@ -119,11 +119,11 @@ echo date("jS F, Y", strtotime("11-12-10"));
 ```
  <br><br>Then I read the notes which said:<br>if the separator is a slash (/), then the American m/d/y is assumed; whereas if the separator is a dash (-) or a dot (.), then the European d-m-y format is assumed. ***If, however, the year is given in a two digit format and the separator is a dash (-), the date string is parsed as y-m-d.***<br><br>Therefore, the above code does not work on 2 digit years - only 4 digit years  
 
-#
+---
 
 A useful testing tool for strtotime() and unix timestamp conversion:<br>http://strtotime.co.uk/  
 
-#
+---
 
 strtotime() also returns time by year and weeknumber. (I use PHP 5.2.8, PHP 4 does not support it.) Queries can be in two forms:<br>- "yyyyWww", where yyyy is 4-digit year, W is literal and ww is 2-digit weeknumber. Returns timestamp for first day of week (for me Monday)<br>- "yyyy-Www-d", where yyyy is 4-digit year, W is literal, ww is 2-digit weeknumber and dd is day of week (1 for Monday, 7 for Sunday) <br><br>
 
@@ -141,7 +141,7 @@ strtotime('2008-W05-2'); // returns timestamp for Tue, 29 Jan 2008 00:00:00
 ```
 <br><br>Weeknumbers are (probably) computed according to ISO-8601 specification, so doing date(&apos;W&apos;) on given timestamps should return passed weeknumber.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.strtotime.php)
 

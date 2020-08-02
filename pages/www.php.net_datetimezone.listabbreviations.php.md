@@ -12,7 +12,7 @@ echo $now->getOffset();
 ```
 <br><br>P.S. I&apos;m sorry for my use of caps lock in this post, but as this behavior is not described in the documentation, I considered it to be important enough to shout. Normally I don&apos;t do such things :)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/datetimezone.listabbreviations.php)
 

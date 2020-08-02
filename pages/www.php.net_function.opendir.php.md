@@ -46,7 +46,7 @@ if (preg_match('#[\x{0600}-\x{06FF}]#iu', $dir) )
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.opendir.php)
 

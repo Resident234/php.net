@@ -13,11 +13,11 @@ If you try to use mb_detect_encoding to detect whether a string is valid UTF-8, 
 ```
   
 
-#
+---
 
 If you need to distinguish between UTF-8 and ISO-8859-1 encoding, list UTF-8 first in your encoding_list:<br>mb_detect_encoding($string, &apos;UTF-8, ISO-8859-1&apos;);<br><br>if you list ISO-8859-1 first, mb_detect_encoding() will always return ISO-8859-1.  
 
-#
+---
 
 Based upon that snippet below using preg_match() I needed something faster and less specific.  That function works and is brilliant but it scans the entire strings and checks that it conforms to UTF-8.  I wanted something purely to check if a string contains UTF-8 characters so that I could switch character encoding from iso-8859-1 to utf-8.<br><br>I modified the pattern to only look for non-ascii multibyte sequences in the UTF-8 range and also to stop once it finds at least one multibytes string.  This is quite a lot faster.<br><br>
 
@@ -41,11 +41,11 @@ function detectUTF8($string)
 ```
   
 
-#
+---
 
 Beware of bug to detect Russian encodings<br>http://bugs.php.net/bug.php?id=38138  
 
-#
+---
 
 A simple way to detect UTF-8/16/32 of file by its BOM (not work with string or file without BOM)<br><br>
 
@@ -75,7 +75,7 @@ function detect_utf_encoding($filename) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-detect-encoding.php)
 

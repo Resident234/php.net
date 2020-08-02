@@ -30,7 +30,7 @@ array(12) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.date-parse.php)
 

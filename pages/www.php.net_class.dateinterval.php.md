@@ -4,7 +4,7 @@
 
 IRT note below: from PHP 7.0+, split seconds get returned, too, and will be under the `f` property.  
 
-#
+---
 
 DateInterval does not support split seconds (microseconds or milliseconds etc.) when doing a diff between two DateTime objects that contain microseconds.<br><br>So you cannot do the following, for example:<br><br>
 
@@ -34,7 +34,7 @@ DateInterval Object
 ```
 <br><br>You get back 0 when you actually want to get 0.251066 seconds.  
 
-#
+---
 
 Just tried the code submitted earlier on php 7.2.16:<br><br>
 
@@ -77,7 +77,7 @@ DateInterval Object
 ```
   
 
-#
+---
 
 If you want to convert a Timespan given in Seconds into an DateInterval Object you could dot the following:<br><br>
 
@@ -112,7 +112,7 @@ $iv = $d2->diff($d1);
 ```
 <br><br>$iv is an DateInterval set with days, years, hours, seconds, etc ...  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.dateinterval.php)
 

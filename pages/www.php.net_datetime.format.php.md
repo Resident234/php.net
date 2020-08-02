@@ -33,15 +33,15 @@ echo date_format($date, 'g:ia \o\n l jS F Y');
 ```
   
 
-#
+---
 
 For full reference of the supported format character and results,<br>see the documentation of date() :<br>http://www.php.net/manual/en/function.date.php  
 
-#
+---
 
 Seems like datetime::format does not really support microseconds as the documentation under date suggest it will.<br><br>Here is some code to generate a datetime with microseconds and timezone:<br><br>private function udate($format = &apos;u&apos;, $utimestamp = null) {<br>        if (is_null($utimestamp))<br>            $utimestamp = microtime(true);<br><br>        $timestamp = floor($utimestamp);<br>        $milliseconds = round(($utimestamp - $timestamp) * 1000000);<br><br>        return date(preg_replace(&apos;`(?&lt;!\\\\)u`&apos;, $milliseconds, $format), $timestamp);<br>    }<br><br>echo udate(&apos;Y-m-d H:i:s.u T&apos;);<br>// Will output something like: 2014-01-01 12:20:24.42342 CET  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/datetime.format.php)
 

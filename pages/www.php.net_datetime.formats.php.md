@@ -27,7 +27,7 @@ echo "SUCCESS: $external EQUALS ISO-8601 $iso_datetime";
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/datetime.formats.php)
 

@@ -39,7 +39,7 @@ I&apos;m sure I&apos;m not the only one who is distressed by the recent default 
 ```
 <br><br>Use it by calling it with a fallback default answer.<br><br>Yes, I know it doesn&apos;t work on Windows.  Neither do I :)  Perhaps someone wants to add that functionality.<br><br>Hope this helps someone.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.date-default-timezone-set.php)
 

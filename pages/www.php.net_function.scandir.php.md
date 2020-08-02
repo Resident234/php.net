@@ -12,7 +12,7 @@ $scanned_directory = array_diff(scandir($directory), array('..', '.'));
 ```
   
 
-#
+---
 
 Here is my 2 cents. I wanted to create an array of my directory structure recursively. I wanted to easely access data in a certain directory using foreach. I came up with the following:<br><br>
 
@@ -44,11 +44,11 @@ function dirToArray($dir) {
 ```
 <br><br>Output<br>Array<br>(<br>   [subdir1] =&gt; Array<br>   (<br>      [0] =&gt; file1.txt<br>      [subsubdir] =&gt; Array<br>      (<br>         [0] =&gt; file2.txt<br>         [1] =&gt; file3.txt<br>      )<br>   )<br>   [subdir2] =&gt; Array<br>   (<br>    [0] =&gt; file4.txt<br>   }<br>)  
 
-#
+---
 
 Someone wrote that array_slice could be used to quickly remove directory entries "." and "..". However, "-" is a valid entry that would come before those, so array_slice would remove the wrong entries.  
 
-#
+---
 
 Fastest way to get a list of files without dots.<br>
 
@@ -58,7 +58,7 @@ $files = array_slice(scandir('/path/to/directory/'), 2);?>
 ```
   
 
-#
+---
 
 Needed something that could return the contents of single or multiple directories, recursively or non-recursively,<br>for all files or specified file extensions that would be<br>accessible easily from any scope or script.<br><br>And I wanted to allow overloading cause sometimes I&apos;m too lazy to pass all params.<br>
 
@@ -179,7 +179,7 @@ $files = scanDir::scan($dirs, $file_ext, true);
 ```
   
 
-#
+---
 
 I needed to find a way to get the full path of all files in the directory and all subdirectories of a directory.<br>Here&apos;s my solution: Recursive functions!<br><br>
 
@@ -203,7 +203,7 @@ function find_all_files($dir)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.scandir.php)
 

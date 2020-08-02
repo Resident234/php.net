@@ -52,7 +52,7 @@ function read_all_files($root = '.'){
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.readdir.php)
 
