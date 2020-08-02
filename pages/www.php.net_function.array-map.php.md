@@ -9,7 +9,7 @@ I was miffed that array_map didn&apos;t have a way to pass values *and* keys to 
 If you need to call a static method from array_map, this will NOT work:<br><br>
 
 ```
-<?phpPHP
+<?php
 array_map('myclass::myMethod' , $value);
 ?>
 ```
@@ -20,7 +20,7 @@ Instead, you need to do this:
 
 
 ```
-<?phpPHP
+<?php
 array_map( array('myclass','myMethod') , $value);
 ?>
 ```

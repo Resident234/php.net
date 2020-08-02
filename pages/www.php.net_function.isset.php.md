@@ -91,7 +91,7 @@ if (array_key_exists('myvar', get_defined_vars())) {
 in PHP5, if you have <br><br>
 
 ```
-<?phpPHP
+<?php
 class Foo
 {
     protected $data = array('bar' => null);
@@ -109,7 +109,7 @@ and
 
 
 ```
-<?phpPHP
+<?php
 $foo = new Foo;
 echo isset($foo->bar);
 ?>

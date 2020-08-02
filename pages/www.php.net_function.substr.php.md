@@ -104,7 +104,7 @@ function strrevpos($instr, $needle)
 
 
 ```
-<?phpPhp 
+<?php 
 
 ### SUB STRING  BY WORD USING substr() and strpos()  #####
 

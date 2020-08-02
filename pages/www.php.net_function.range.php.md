@@ -17,9 +17,7 @@ echo implode("",range("9 ","Q"));  //space after the 9
 // prints 9:;<=>?@ABCDEFGHIJKLMNOPQ
 
 echo implode("",range("q","9 "));
-// prints qponmlkjihgfedcba`_^]\[ZYXWVUTSRQPONMLKJIHGFEDCBA@?>
-```
-=<;:987654
+// prints qponmlkjihgfedcba`_^]\[ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:987654
 ?>
 ```
 <br><br>I wouldn&apos;t call this a bug, because IMO it is even more useful than the stock usage of the function.  
