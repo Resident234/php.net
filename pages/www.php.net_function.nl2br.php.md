@@ -11,7 +11,7 @@ $Result = str_replace( "\n", '<br />', $Text );
 ```
   
 
-#
+---
 
 to replace all linebreaks to &lt;br /&gt;<br>the best solution (IMO) is:<br><br>
 
@@ -25,7 +25,7 @@ return $string;
 ```
 <br><br>because each OS have different ASCII chars for linebreak:<br>windows = \r\n<br>unix = \n<br>mac = \r<br><br>works perfect for me  
 
-#
+---
 
 Here&apos;s a more simple one:<br><br>
 
@@ -45,7 +45,7 @@ function br2nl($string)
 ```
 <br><br>Enjoy  
 
-#
+---
 
 Starting from PHP 4.3.10 and PHP 5.0.2, this should be the most correct way to replace &lt;br /&gt; and &lt;br&gt; tags with newlines and carriage returns.<br>
 
@@ -87,7 +87,7 @@ function br2nl ( $string, $separator = PHP_EOL )
 ```
   
 
-#
+---
 
 Seeing all these suggestions on a br2nl function, I can also see that neither would work with a sloppy written html line break.. Users can&apos;t be trusted to write good code, we know that, and mixing case isn&apos;t too uncommon.<br><br>I think this little snippet would do most tricks, both XHTML style and HTML, even mixed case like &lt;Br&gt; &lt;bR /&gt; and even &lt;br            &gt; or &lt;br     /&gt;.<br><br>
 
@@ -95,15 +95,13 @@ Seeing all these suggestions on a br2nl function, I can also see that neither wo
 <?php
 function br2nl($text)
 {
-    return  preg_replace('/<br\\s*?\/??>
-```
-/i', '', $text);
+    return  preg_replace('/<br\\.*?\/??>/i', '', $text);
 }
 ?>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.nl2br.php)
 

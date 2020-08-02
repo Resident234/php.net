@@ -2,77 +2,55 @@
 
 ## Function Reference
 
-### Variable and Type Related Extensions
+### Text Processing
 
-#### Arrays
+#### Strings
 
-##### Array Functions
+##### String Functions
 
-[key](/pages/www.php.net_function.key.php.md)
+[nl2br](/pages/www.php.net_function.nl2br.php.md)
 
-[ksort](/pages/www.php.net_function.ksort.php.md)
+[number_format](/pages/www.php.net_function.number-format.php.md)
 
-[list](/pages/www.php.net_function.list.php.md)
+[ord](/pages/www.php.net_function.ord.php.md)
 
-[natcasesort](/pages/www.php.net_function.natcasesort.php.md)
+[parse_str](/pages/www.php.net_function.parse-str.php.md)
 
-[natsort](/pages/www.php.net_function.natsort.php.md)
+[print](/pages/www.php.net_function.print.php.md)
 
-[next](/pages/www.php.net_function.next.php.md)
+[quotemeta](/pages/www.php.net_function.quotemeta.php.md)
 
-[range](/pages/www.php.net_function.range.php.md)
+[rtrim](/pages/www.php.net_function.rtrim.php.md)
 
-[reset](/pages/www.php.net_function.reset.php.md)
+[setlocale](/pages/www.php.net_function.setlocale.php.md)
 
-[shuffle](/pages/www.php.net_function.shuffle.php.md)
+[sha1_file](/pages/www.php.net_function.sha1-file.php.md)
 
-[sizeof](/pages/www.php.net_function.sizeof.php.md)
+[sha1](/pages/www.php.net_function.sha1.php.md)
 
-[sort](/pages/www.php.net_function.sort.php.md)
+[similar_text](/pages/www.php.net_function.similar-text.php.md)
 
-[uasort](/pages/www.php.net_function.uasort.php.md)
+[soundex](/pages/www.php.net_function.soundex.php.md)
 
-[uksort](/pages/www.php.net_function.uksort.php.md)
+[sprintf](/pages/www.php.net_function.sprintf.php.md)
 
-[usort](/pages/www.php.net_function.usort.php.md)
+[sscanf](/pages/www.php.net_function.sscanf.php.md)
 
-#### Classes/Objects
+[str_getcsv](/pages/www.php.net_function.str-getcsv.php.md)
 
-##### Classes/Object Functions
+[str_ireplace](/pages/www.php.net_function.str-ireplace.php.md)
 
-[__autoload](/pages/www.php.net_function.autoload.php.md)
+[str_pad](/pages/www.php.net_function.str-pad.php.md)
 
-[call_user_method_array](/pages/www.php.net_function.call-user-method-array.php.md)
+[str_repeat](/pages/www.php.net_function.str-repeat.php.md)
 
-[class_alias](/pages/www.php.net_function.class-alias.php.md)
+[str_replace](/pages/www.php.net_function.str-replace.php.md)
 
-[class_exists](/pages/www.php.net_function.class-exists.php.md)
+[str_rot13](/pages/www.php.net_function.str-rot13.php.md)
 
-[get_called_class](/pages/www.php.net_function.get-called-class.php.md)
+[str_shuffle](/pages/www.php.net_function.str-shuffle.php.md)
 
-[get_class_methods](/pages/www.php.net_function.get-class-methods.php.md)
+[str_split](/pages/www.php.net_function.str-split.php.md)
 
-[get_class_vars](/pages/www.php.net_function.get-class-vars.php.md)
-
-[get_class](/pages/www.php.net_function.get-class.php.md)
-
-[get_object_vars](/pages/www.php.net_function.get-object-vars.php.md)
-
-[is_a](/pages/www.php.net_function.is-a.php.md)
-
-[is_subclass_of](/pages/www.php.net_function.is-subclass-of.php.md)
-
-[method_exists](/pages/www.php.net_function.method-exists.php.md)
-
-[property_exists](/pages/www.php.net_function.property-exists.php.md)
-
-[trait_exists](/pages/www.php.net_function.trait-exists.php.md)
-
-#### Ctype
-
-##### Ctype Functions
-
-[ctype_alnum](/pages/www.php.net_function.ctype-alnum.php.md)
-
-[ctype_digit](/pages/www.php.net_function.ctype-digit.php.md)
+[str_word_count](/pages/www.php.net_function.str-word-count.php.md)
 

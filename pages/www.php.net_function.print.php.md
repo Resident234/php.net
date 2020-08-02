@@ -34,7 +34,7 @@ For the expected behavior of the first example, you need to write:
 ```
   
 
-#
+---
 
 I wrote a println function that determines whether a \n or a &lt;br /&gt; should be appended to the line depending on whether it&apos;s being executed in a shell or a browser window.  People have probably thought of this before but I thought I&apos;d post it anyway - it may help a couple of people.<br><br>
 
@@ -68,7 +68,7 @@ Running in a shell:
 ```
 <br>Output: Hello, world!\n  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.print.php)
 

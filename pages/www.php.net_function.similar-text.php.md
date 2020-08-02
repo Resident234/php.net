@@ -22,7 +22,7 @@ echo $percent;
 ```
   
 
-#
+---
 
 Please note that this function calculates a similarity of 0 (zero) for two empty strings.<br><br>
 
@@ -34,7 +34,7 @@ echo $sim; // "0"
 ```
   
 
-#
+---
 
 Recursive algorithm usually is very elegant one. I found a way to get better precision without the recursion. Imagine two different (or same) length ribbons with letters on each. You simply shifting one ribbon to left till it matches the letter the first.<br><br>
 
@@ -76,7 +76,7 @@ echo 'Similarity: ' . (similarity($str1, $str2) * 100) . '%';
 ```
   
 
-#
+---
 
 Note that this function is case sensitive:<br><br>
 
@@ -92,19 +92,19 @@ echo similar_text($var1, $var3);  // 4?>
 ```
   
 
-#
+---
 
 Actually similar_text() is not bad...<br>it works good. But before processing i think is a good way to make a little mod like this<br><br>$var_1 = strtoupper("doggy");<br>$var_2 = strtoupper("Dog");<br><br>similar_text($var_1, $var_2, $percent); <br><br>echo $percent; // output is 75 but without strtoupper output is 50  
 
-#
+---
 
 If performance is an issue, you may wish to use the levenshtein() function instead, which has a considerably better complexity of O(str1 * str2).  
 
-#
+---
 
 The speed issues for similar_text seem to be only an issue for long sections of text (&gt;20000 chars).<br><br>I found a huge performance improvement in my application by just testing if the string to be tested was less than 20000 chars before calling similar_text.<br><br>20000+ took 3-5 secs to process, anything else (10000 and below) took a fraction of a second.<br>Fortunately for me, there was only a handful of instances with &gt;20000 chars which I couldn&apos;t get a comparison % for.  
 
-#
+---
 
 If you have reserved names in a database that you don&apos;t want others to use, i find this to work pretty good. <br>I added strtoupper to the variables to validate typing only. Taking case into consideration will decrease similarity. <br><br>
 
@@ -124,7 +124,7 @@ while ($row = mysql_fetch_array($query)) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.similar-text.php)
 

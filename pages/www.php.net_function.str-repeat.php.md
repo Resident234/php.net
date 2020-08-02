@@ -33,7 +33,7 @@ print "\n";
 ```
 <br><br>Example Output:<br>bar,bar,bar,bar,bar<br>?,?,?  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.str-repeat.php)
 

@@ -39,7 +39,7 @@ echo sprintf ("|%-'04d|\n", -2);
 ```
 <br><br>outputs:<br><br>|-002|<br>|::-2|<br>|-2::|<br>|-2  |<br>|-211|<br>|-2  |  
 
-#
+---
 
 With printf() and sprintf() functions, escape character is not backslash &apos;\&apos; but rather &apos;%&apos;.<br><br>Ie. to print &apos;%&apos; character you need to escape it with itself:<br>
 
@@ -50,7 +50,7 @@ printf('%%%s%%', 'koko'); #output: '%koko%'
 ```
   
 
-#
+---
 
 There are already some comments on using sprintf to force leading leading zeros but the examples only include integers. I needed leading zeros on floating point numbers and was surprised that it didn&apos;t work as expected.<br><br>Example:<br>
 
@@ -85,7 +85,7 @@ sprintf('%05.2f', 1);
 ```
 <br><br>Output: 01.00<br><br>Please see http://stackoverflow.com/a/28739819/413531 for a more detailed explanation.  
 
-#
+---
 
 Here is how to print a floating point number with 16 significant digits regardless of magnitude:<br><br>
 
@@ -96,7 +96,7 @@ Here is how to print a floating point number with 16 significant digits regardle
 ```
 <br><br>This works more reliably than doing something like sprintf(&apos;%.15F&apos;, $value) as the latter may cut off significant digits for very small numbers, or prints bogus digits (meaning extra digits beyond what can reliably be represented in a floating point number) for very large numbers.  
 
-#
+---
 
 I created this function a while back to save on having to combine mysql_real_escape_string onto all the params passed into a sprintf. it works literally the same as the sprintf other than that it doesn&apos;t require you to escape your inputs. Hope its of some use to people<br><br>
 
@@ -117,7 +117,7 @@ function mressf()
 ```
 <br><br>Regards<br>Jay<br>Jaygilford.com  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.sprintf.php)
 

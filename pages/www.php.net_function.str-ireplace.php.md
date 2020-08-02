@@ -23,7 +23,7 @@ function highlightStr($haystack, $needle, $highlightColorValue) {
 ```
   
 
-#
+---
 
 here&apos;s a neat little function I whipped up to do HTML color coding of SQL strings. <br><br>
 
@@ -103,7 +103,7 @@ function SQL_DEBUG( $query )
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.str-ireplace.php)
 

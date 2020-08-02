@@ -15,7 +15,7 @@ echo str_pad("input", 8, "p", STR_PAD_BOTH ); //pinputpp
 ```
   
 
-#
+---
 
 A proper unicode string padder;<br><br>
 
@@ -76,7 +76,7 @@ for ($i = 3; $i <= 1000; $i++) {
 ```
 <br><br>Output;<br>len 3: ... <br>len 3: ... <br><br>len 4: ...A <br>len 4: ...&#xC4; <br><br>len 5: A...A <br>len 5: &#xC4;...&#xC4; <br><br>len 6: A...AO <br>len 6: &#xC4;...&#xC4;&#xD6; <br>...  
 
-#
+---
 
 multibyte version:<br><br>
 
@@ -100,7 +100,7 @@ function mb_str_pad($str, $pad_len, $pad_str = ' ', $dir = STR_PAD_RIGHT, $encod
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.str-pad.php)
 
