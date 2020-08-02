@@ -41,7 +41,7 @@ function highlightText($text)
 ```
 
 
-Note, that it will remove the <code> tag too, so you get the formatted text directly, which gives you more freedom to work with the result.
+Note, that it will remove the ``<code>`` tag too, so you get the formatted text directly, which gives you more freedom to work with the result.
 
 I personally suggest to combine both things to have a nice highlighting function for different file types with different highlight coloring sets:
 
