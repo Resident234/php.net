@@ -146,11 +146,7 @@ Be careful when commenting out regular expressions.<br><br>E.g. the following ca
 
 ---
 
-it&apos;s perhaps not obvious to some, but the following code will cause a parse error! the ?>
-```
- in //?>
-```
- is not treated as commented text, this is a result of having to handle code on one line such as 
+it&apos;s perhaps not obvious to some, but the following code will cause a parse error! the ?> in #linkerr_tag_close___with_comment# is not treated as commented text, this is a result of having to handle code on one line such as 
 
 ```
 <?php echo 'something'; //comment ?>
@@ -169,11 +165,7 @@ if(1==1)
 }
 ?>
 ```
-
-
-i discovered this "anomally" when i commented out a line of code containing a regex which itself contained ?>
-```
-, with the // style comment.<br>e.g. //preg_match(&apos;/^(?>c|b)at$/&apos;, &apos;cat&apos;, $matches);<br>will cause an error while commented! using /**/ style comments provides a solution. i don&apos;t know about # style comments, i don&apos;t ever personally use them.  
+<br><br>i discovered this "anomally" when i commented out a line of code containing a regex which itself contained ?>, with the // style comment.<br>e.g. //preg_match(&apos;/^(?>c|b)at$/&apos;, &apos;cat&apos;, $matches);<br>will cause an error while commented! using /**/ style comments provides a solution. i don&apos;t know about # style comments, i don&apos;t ever personally use them.  
 
 ---
 

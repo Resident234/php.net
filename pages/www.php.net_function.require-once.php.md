@@ -32,7 +32,10 @@ $foo = 'bar';
 <br><br>file: check.php<br>
 
 ```
-<?php<br><br>function foo(){<br>    require_once(&apos;var.php&apos;);<br>    return $foo;<br>}<br><br>for($a=1;$a&lt;=5;$a++){<br>    echo foo()."&lt;br&gt;";<br>}<br><br>&gt; php check.php<br>result: <br>bar<br>&lt;empty line&gt;<br>&lt;empty line&gt;<br>&lt;empty line&gt;<br>&lt;empty line&gt;<br><br>to make sure variable bar available at each function call, replace require once with require. eg situation: https://stackoverflow.com/questions/29898199/variables-not-defined-inside-function-on-second-time-at-foreach<br><br>Solution:<br><br>file: check2.php<br>&lt;?php<br><br>function foo(){<br>    require(&apos;var.php&apos;);<br>    return $foo;<br>}<br><br>for($a=1;$a&lt;=5;$a++){<br>    echo foo()."&lt;br&gt;";<br>}<br><br>&gt; php check2.php<br>result:<br>bar<br>bar<br>bar<br>bar<br>bar  
+<?php<br><br>function foo(){<br>    require_once(&apos;var.php&apos;);<br>    return $foo;<br>}<br><br>for($a=1;$a&lt;=5;$a++){<br>    echo foo()."&lt;br&gt;";<br>}<br><br>&gt; php check.php<br>result: <br>bar<br>&lt;empty line&gt;<br>&lt;empty line&gt;<br>&lt;empty line&gt;<br>&lt;empty line&gt;<br><br>to make sure variable bar available at each function call, replace require once with require. eg situation: https://stackoverflow.com/questions/29898199/variables-not-defined-inside-function-on-second-time-at-foreach<br><br>Solution:<br><br>file: check2.php<br>
+
+```
+<?phpphp<br><br>function foo(){<br>    require(&apos;var.php&apos;);<br>    return $foo;<br>}<br><br>for($a=1;$a&lt;=5;$a++){<br>    echo foo()."&lt;br&gt;";<br>}<br><br>&gt; php check2.php<br>result:<br>bar<br>bar<br>bar<br>bar<br>bar  
 
 ---
 
