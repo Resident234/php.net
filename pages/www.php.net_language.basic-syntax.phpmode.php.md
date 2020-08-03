@@ -20,12 +20,7 @@ When the documentation says that the PHP parser ignores everything outside the
 ```
 <?php endif;?>
 ```
->This is a paragraph.</p>
-</body></html>
-
-Notice how the PHP code is embedded in the middle of an HTML opening tag. The PHP parser doesn't care that it's in the middle of an opening tag, and doesn't require that it be closed. It also doesn't care that after the closing ?>
-```
- tag is the end of the HTML opening tag. So, if $highlight is true, then the output will be:<br><br>&lt;html&gt;&lt;body&gt;<br>&lt;p class="highlight"&gt;This is a paragraph.&lt;/p&gt;<br>&lt;/body&gt;&lt;/html&gt;<br><br>Otherwise, it will be:<br><br>&lt;html&gt;&lt;body&gt;<br>&lt;p&gt;This is a paragraph.&lt;/p&gt;<br>&lt;/body&gt;&lt;/html&gt;<br><br>Using this method, you can have HTML tags with optional attributes, depending on some PHP condition. Extremely flexible and useful!  
+&gt;This is a paragraph.&lt;/p&gt;<br>&lt;/body&gt;&lt;/html&gt;<br><br>Notice how the PHP code is embedded in the middle of an HTML opening tag. The PHP parser doesn&apos;t care that it&apos;s in the middle of an opening tag, and doesn&apos;t require that it be closed. It also doesn&apos;t care that after the closing ?> tag is the end of the HTML opening tag. So, if $highlight is true, then the output will be:<br><br>&lt;html&gt;&lt;body&gt;<br>&lt;p class="highlight"&gt;This is a paragraph.&lt;/p&gt;<br>&lt;/body&gt;&lt;/html&gt;<br><br>Otherwise, it will be:<br><br>&lt;html&gt;&lt;body&gt;<br>&lt;p&gt;This is a paragraph.&lt;/p&gt;<br>&lt;/body&gt;&lt;/html&gt;<br><br>Using this method, you can have HTML tags with optional attributes, depending on some PHP condition. Extremely flexible and useful!  
 
 ---
 
