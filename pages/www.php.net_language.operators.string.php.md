@@ -23,9 +23,29 @@ As for me, curly braces serve good substitution for concatenation, and they are 
 
 ---
 
-A word of caution - the dot operator has the same precedence as + and -, which can yield unexpected results. <br><br>Example:<br><br>&lt;php<br>$var = 3;<br><br>echo "Result: " . $var + 3;<br>?>
+A word of caution - the dot operator has the same precedence as + and -, which can yield unexpected results. <br><br>Example:<br><br>
+
 ```
-<br><br>The above will print out "3" instead of "Result: 6", since first the string "Result3" is created and this is then added to 3 yielding 3, non-empty non-numeric strings being converted to 0.<br><br>To print "Result: 6", use parantheses to alter precedence:<br><br>&lt;php<br>$var = 3;<br><br>echo "Result: " . ($var + 3); <br>?>
+<?php
+$var = 3;
+
+echo "Result: " . $var + 3;
+?>
+```
+
+
+The above will print out "3" instead of "Result: 6", since first the string "Result3" is created and this is then added to 3 yielding 3, non-empty non-numeric strings being converted to 0.
+
+To print "Result: 6", use parantheses to alter precedence:
+
+
+
+```
+<?php
+$var = 3;
+
+echo "Result: " . ($var + 3); 
+?>
 ```
   
 
