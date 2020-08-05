@@ -23,6 +23,28 @@ Note, that the official IEC-prefix for kilobyte, megabyte and so on are KiB, MiB
 
 ---
 
+To get the memory usage in KB or MB<br><br>
+
+```
+<?php
+    function echo_memory_usage() {
+        $mem_usage = memory_get_usage(true);
+        
+        if ($mem_usage < 1024)
+            echo $mem_usage." bytes";
+        elseif ($mem_usage < 1048576)
+            echo round($mem_usage/1024,2)." kilobytes";
+        else
+            echo round($mem_usage/1048576,2)." megabytes";
+            
+        echo "<br/>";
+    }
+?>
+```
+  
+
+---
+
 memory_get_usage() is used to retrieve the memory allocated to PHP only (or your running script). But intuitively, many people expect to get the memory usage of the system, based on the name of the function.<br><br>So if you need the overall memory usage, following function might be helpful. If retrieves the memory usage either in percent (without the percent sign) or in bytes by returning an array with free and overall memory of your system. Tested with Windows (7) and Linux (on an Raspberry Pi 2):<br><br>
 
 ```
@@ -138,28 +160,6 @@ memory_get_usage() is used to retrieve the memory allocated to PHP only (or your
 ?>
 ```
 <br><br>The function getNiceFileSize() is not required. Just used to shorten size in bytes.<br><br>Note: If you need the server load (CPU usage), I wrote a nice function to get that too: http://php.net/manual/en/function.sys-getloadavg.php#118673  
-
----
-
-To get the memory usage in KB or MB<br><br>
-
-```
-<?php
-    function echo_memory_usage() {
-        $mem_usage = memory_get_usage(true);
-        
-        if ($mem_usage < 1024)
-            echo $mem_usage." bytes";
-        elseif ($mem_usage < 1048576)
-            echo round($mem_usage/1024,2)." kilobytes";
-        else
-            echo round($mem_usage/1048576,2)." megabytes";
-            
-        echo "<br/>";
-    }
-?>
-```
-  
 
 ---
 
