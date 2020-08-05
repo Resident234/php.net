@@ -34,7 +34,7 @@ I&apos;ve just checked PHP&apos;s issue tracker and a core developer says that t
 ```
   
 
-#
+---
 
 imagecopymerge PHP function helped me to create a fast method that replaces one color by another in true color images.<br><br>Beforehand for this purpose I had to loop over all the pixels of an image and replace color pixel by pixel using imagecolorat and imagesetpixel; this method is really slow for large images.<br><br>So here is the fast one:<br><br>
 
@@ -61,7 +61,7 @@ function replaceColorInImage ($image, $old_r, $old_g, $old_b, $new_r, $new_g, $n
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecopymerge.php)
 

@@ -73,7 +73,7 @@ $query = proper_parse_str($_SERVER['QUERY_STRING']);
 ```
   
 
-#
+---
 
 if you need custom arg separator, you can use this function. it returns parsed  query as associative array.<br><br>
 
@@ -155,15 +155,15 @@ function http_parse_query($queryString, $argSeparator = '&amp;', $decType = PHP_
 ```
   
 
-#
+---
 
 That&apos;s not says in the description but max_input_vars directive affects this function. If there are more input variables on the string than specified by this directive, an E_WARNING is issued, and further input variables are truncated from the request.  
 
-#
+---
 
 Vladimir: the function is OK in how it deals with &amp;amp;.<br>&amp;amp; must only be used when outputing URLs in HTML/XML data.<br>You should ask yourself why you have &amp;amp; in your URL when you give it to parse_str.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.parse-str.php)
 

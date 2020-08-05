@@ -15,7 +15,7 @@ if ($asn) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.geoip-asnum-by-name.php)
 

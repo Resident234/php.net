@@ -34,7 +34,7 @@ print_r($functions_list);
 ```
 <br><br>Output:<br>Array<br>(<br>    [0] =&gt; function foo ( &amp;&amp;bar, &amp;big, [$small = 1] )<br><br>    [1] =&gt; function bar ( &amp;foo )<br><br>    [2] =&gt; function noparams (  )<br><br>    [3] =&gt; function byrefandopt ( [&amp;$the = one] )<br><br>)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.get-defined-functions.php)
 

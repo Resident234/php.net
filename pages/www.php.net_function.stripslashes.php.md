@@ -20,7 +20,7 @@ echo removeslashes($text);
 ```
 <br><br>RESULT: My dog don&apos;t like the postman!<br><br>This flick has served me wery well, because I had this problem before.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.stripslashes.php)
 

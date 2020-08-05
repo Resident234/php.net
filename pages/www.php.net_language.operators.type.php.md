@@ -4,7 +4,7 @@
 
 Posting this so the word typeof appears on this page, so that this page will show up when you google &apos;php typeof&apos;.  ...yeah, former Java user.  
 
-#
+---
 
 You are also able to compare 2 objects using instanceOf. In that case, instanceOf will compare the types of both objects. That is sometimes very useful:<br><br>
 
@@ -26,7 +26,7 @@ echo $a instanceOf $a2; // true
 ```
   
 
-#
+---
 
 Checking an object is not an instance of a class, example #3 uses extraneous parentheses.<br><br>
 
@@ -48,7 +48,7 @@ var_dump( ! $a instanceof stdClass );
 ```
   
 
-#
+---
 
 I don&apos;t see any mention of "namespaces" on this page so I thought I would chime in. The instanceof operator takes FQCN as second operator when you pass it as string and not a simple class name. It will not resolve it even if you have a `use MyNamespace\Bar;` at the top level. Here is what I am trying to say:<br><br>## testinclude.php ##<br>
 
@@ -87,7 +87,7 @@ var_dump($foo2 instanceof $className);
 ```
 <br>## stdout ##<br>bool(true)<br>bool(true)<br>bool(false)<br>bool(true)<br>bool(true)<br>bool(false)  
 
-#
+---
 
 You can use "self" to reference to the current class:<br><br>
 
@@ -108,7 +108,7 @@ print $a->mymethod($a);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.operators.type.php)
 

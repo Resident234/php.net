@@ -33,7 +33,7 @@ var_dump(multineedle_stripos($haystack, $needle));
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.stripos.php)
 

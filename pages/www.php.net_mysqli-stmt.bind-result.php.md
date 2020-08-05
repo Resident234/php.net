@@ -48,7 +48,7 @@ print_r($result);
 ```
   
 
-#
+---
 
 I wrote a function that fetches all rows from a result set - either normal or prepared.<br><br>
 
@@ -94,11 +94,11 @@ function fetch($result)
 ```
 <br><br>Simply call it passing a result set or executed statement and you&apos;ll get all rows fetched.  
 
-#
+---
 
 If you select LOBs use the following order of execution or you risk mysqli allocating more memory that actually used<br><br>1)prepare()<br>2)execute()<br>3)store_result()<br>4)bind_result()<br><br>If you skip 3) or exchange 3) and 4) then mysqli will allocate memory for the maximal length of the column which is 255 for tinyblob, 64k for blob(still ok), 16MByte for MEDIUMBLOB - quite a lot and 4G for LONGBLOB (good if you have so much memory). Queries which use this order a bit slower when there is a LOB but this is the price of not having memory exhaustion in seconds.  
 
-#
+---
 
 A note to people to want to return an array of results - that is, an array of all the results from the query, not just one at a time.<br><br>
 
@@ -145,7 +145,7 @@ while ($mysqli_stmt_object->fetch()) {
 ```
 <br><br>All these problems would go away if they just implemented a fetch_assoc or even fetch_array for prepared statements...  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-stmt.bind-result.php)
 

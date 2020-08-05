@@ -149,7 +149,7 @@ $Cityname = $xx4->data ['rss|channel|yweather:location']['city'] ;
 ```
 <br><br>Hope this helps.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.xml-parse.php)
 

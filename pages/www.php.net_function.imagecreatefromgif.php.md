@@ -30,7 +30,7 @@ function is_ani($filename) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecreatefromgif.php)
 

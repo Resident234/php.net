@@ -37,7 +37,7 @@ print_r($exploded);
 ```
   
 
-#
+---
 
 Beaware splitting empty strings.<br><br>
 
@@ -70,7 +70,7 @@ print_r($res);
 ```
 <br><br>Array<br>(<br>)  
 
-#
+---
 
 The comments to use array_filter() without a callback to remove empty strings from explode&apos;s results miss the fact that array_filter will remove all elements that, to quote the manual,  "are equal to FALSE".<br><br>This includes, in particular, the string "0", which is NOT an empty string.<br><br>If you really want to filter out empty strings, use the defining feature of the empty string that it is the only string that has a length of 0. So:<br>
 
@@ -81,11 +81,11 @@ array_filter(explode(':', "1:2::3:0:4"), 'strlen');
 ```
   
 
-#
+---
 
 a simple one line method to explode &amp; trim whitespaces from the exploded elements<br><br>array_map(&apos;trim&apos;,explode(",",$str));<br><br>example:<br><br>$str="one  ,two  ,       three  ,  four    "; <br>print_r(array_map(&apos;trim&apos;,explode(",",$str)));<br><br>Output:<br><br>Array ( [0] =&gt; one [1] =&gt; two [2] =&gt; three [3] =&gt; four )  
 
-#
+---
 
 
 
@@ -113,7 +113,7 @@ print_r(string2KeyedArray($string));
 ```
 <br><br>Array<br>(<br>  [a] =&gt; 1<br>  [b] =&gt; 23<br>  [0] =&gt; $a<br>  [c] =&gt; 45%<br>  [1] =&gt; true<br>  [d] =&gt; ab c<br>)  
 
-#
+---
 
 Here&apos;s a function for "multi" exploding a string.<br><br>
 
@@ -138,9 +138,9 @@ $string = "1-2-3|4-5|6:7-8-9-0|1,2:3-4|5";
 $delimiters = Array(",",":","|","-");
 
 $res = multiexplode($delimiters,$string);
-echo '<pre>';
+echo '';
 print_r($res);
-echo '</pre>';
+echo '';
 
 //returns
 /*
@@ -223,7 +223,7 @@ Array
 ```
   
 
-#
+---
 
 Explode does not parse a string by delimiters, in the sense that we expect to find tokens between a starting and ending delimiter, but instead splits a string into parts by using a string as the boundary of each part. Once that boundary is discovered the string is split. Whether or not that boundary is proceeded or superseded by any data is irrelevant since the parts are determined at the point a boundary is discovered. <br><br>For example: <br><br>
 
@@ -268,7 +268,7 @@ var_dump(array_filter(explode("/","/")));
 ```
  <br><br>*[This note was edited by googleguy at php dot net for clarity]*  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.explode.php)
 

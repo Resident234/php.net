@@ -24,7 +24,7 @@ function memcacheGet($key, $cb = null, &amp;$cas = null) {
 ```
   
 
-#
+---
 
 This method also returns false in case you set the value to false, so in order to have a proper fault mechanism in place you need to check the result code to be certain that a key really does not exist in memcached.<br><br>
 
@@ -39,7 +39,7 @@ var_dump($Memcached->getResultCode());  // int 0 which is Memcached::RES_SUCCESS
 ```
 <br><br>Or just make sure the values are not false :)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/memcached.get.php)
 

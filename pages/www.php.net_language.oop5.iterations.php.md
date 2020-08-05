@@ -4,7 +4,7 @@
 
 there is still an open bug about using current() etc. with iterators<br>https://bugs.php.net/bug.php?id=49369  
 
-#
+---
 
 By reading the posts below I wondered if it really is impossible to make an ArrayAccess implementation really behave like a true array ( by being multi level )<br><br>Seems like it&apos;s not impossible. Not very preety but usable<br><br>
 
@@ -71,11 +71,11 @@ $data['array']['another_array']['x']['y']="LOL @ Whoever said it can't be done !
 $data['blank_array']=array();
 
 echo "'array' Isset? "; print_r(isset($data['array'])); echo "<hr />";
-echo "<pre>"; print_r($data['array']['non_existent']); echo "</pre>If attempting to read an offset that doesn't exist it returns a blank object! Use isset() to check if it exists!<br>";
+echo ""; print_r($data['array']['non_existent']); echo "If attempting to read an offset that doesn't exist it returns a blank object! Use isset() to check if it exists!<br>";
 echo "'non_existent' Isset? "; print_r(isset($data['array']['non_existent'])); echo "<br />";
-echo "<pre>"; print_r($data['blank_array']); echo "</pre>A blank array unfortunately returns similar results :(<br />";
+echo ""; print_r($data['blank_array']); echo "A blank array unfortunately returns similar results :(<br />";
 echo "'blank_array' Isset? "; print_r(isset($data['blank_array'])); echo "<hr />";
-echo "<pre>"; print_r($data); echo "</pre> (non_existent remains in the structure. If someone can help to solve this I'll appreciate it)<hr />";
+echo ""; print_r($data); echo " (non_existent remains in the structure. If someone can help to solve this I'll appreciate it)<hr />";
 
 echo "Display some value that exists: ".$data['array']['another_string'];
 
@@ -83,7 +83,7 @@ echo "Display some value that exists: ".$data['array']['another_string'];
 ```
 <br><br>(in the two links mentioned below by artur at jedlinski... they say you can&apos;t use references, so I didn&apos;t used them.<br>My implementation uses recursive objects)<br><br>If anyone finds a better (cleaner) sollution, please e-mail me.<br>Thanks,<br>Wave.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.iterations.php)
 

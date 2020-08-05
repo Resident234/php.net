@@ -24,7 +24,7 @@ if (SOME_EXIT_CONDITION)
 ```
   
 
-#
+---
 
 jbezorg at gmail proposed the following:<br><br>
 
@@ -55,11 +55,11 @@ if($_SERVER['SCRIPT_FILENAME'] == __FILE__)
 ```
   
 
-#
+---
 
 Don&apos;t use the  exit() function in the auto prepend file with fastcgi (linux/bsd os).<br>It has the effect of leaving opened files with for result at least a nice  "Too many open files  ..." error.  
 
-#
+---
 
 To rich dot lovely at klikzltd dot co dot uk:<br><br>Using a "@" before header() to suppress its error, and relying on the "headers already sent" error seems to me a very bad idea while building any serious website.<br><br>This is *not* a clean way to prevent a file from being called directly. At least this is not a secure method, as you rely on the presence of an exception sent by the parser at runtime.<br><br>I recommend using a more common way as defining a constant or assigning a variable with any value, and checking for its presence in the included script, like:<br><br>in index.php:<br>
 
@@ -82,7 +82,7 @@ if (!defined('INDEX')) {
 ```
 <br><br>BR.<br><br>Ninj  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.exit.php)
 

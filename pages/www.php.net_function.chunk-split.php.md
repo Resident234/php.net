@@ -23,7 +23,7 @@ echo chunk_split_unicode($str, 4);
 ```
 <br><br>Yar&#xFFFD;<br>&#xFFFD;m k<br>ilo <br>&#xE7;ay<br>, ya<br>r&#x131;m<br> kil<br>o &#x15F;<br>eker<br><br>Yar&#x131;<br>m ki<br>lo &#xE7;<br>ay, <br>yar&#x131;<br>m ki<br>lo &#x15F;<br>eker  
 
-#
+---
 
 As an alternative for  qeremy [atta] gmail [dotta] com<br>There is much shorter way for binarysafe chunking of multibyte string:<br><br>
 
@@ -42,7 +42,7 @@ echo word_chunk($str, 3) . "\n";
 ```
 <br><br>&#x440;&#xFFFD;<br>&#xFFFD;&#x441;<br>&#x441;&#xFFFD;<br>&#xFFFD;&#x438;<br>&#x439;<br><br>&#x440;&#x443;&#x441;<br>&#x441;&#x43A;&#x438;<br>&#x439;  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.chunk-split.php)
 

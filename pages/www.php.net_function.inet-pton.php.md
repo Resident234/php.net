@@ -12,7 +12,7 @@ inet_pton('172.27.1.4') ;// return the good result
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.inet-pton.php)
 

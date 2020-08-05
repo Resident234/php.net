@@ -20,7 +20,7 @@ phpinfo(INFO_ENVIRONMENT);
 ```
 <br><br>prints:<br><br>env is: dave<br>(doing: putenv fred)<br>env is: dave<br>getenv is: fred<br>(doing: set _env barney)<br>getenv is: fred<br>env is: barney<br>phpinfo()<br><br>Environment<br><br>Variable =&gt; Value<br>...<br>USER =&gt; dave<br>...  
 
-#
+---
 
 The other problem with the code from av01 at bugfix dot cc is that<br>the behaviour is as per the comments here, not there:<br>
 
@@ -32,7 +32,7 @@ putenv('MYVAR'); // unset MYVAR.  It is removed from the environment
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.putenv.php)
 

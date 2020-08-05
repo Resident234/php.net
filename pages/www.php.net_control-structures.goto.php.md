@@ -34,7 +34,7 @@ hIterator: {
 ```
   
 
-#
+---
 
 You cannot implement a Fortran-style "computed GOTO" in PHP because the label cannot be a variable. See: http://en.wikipedia.org/wiki/Considered_harmful<br><br>
 
@@ -62,7 +62,7 @@ abc: echo 'Boom';
 ```
   
 
-#
+---
 
 However hated, goto is useful. When we say "useful" we don&apos;t mean "it should be used all the time" but that there are certain situations when it comes in handy.<br><br>There are times when you need a logical structure like this:<br>
 
@@ -86,7 +86,7 @@ return $answer;
 ```
 <br><br>In this case, you certainly implemented a goto with a "fake loop pattern".  It could be a lot more readable with a goto; unless, of course, you hate it.  But the logic is clear: try everything you can to get $answer, and whenever it seems good (e.g. not empty), jump happily to the point where you format it and give it back to the caller.  It&apos;s a proper implementation of a simple fallback mechanism.<br><br>Basically, the fight against goto is just a side effect of a misleading article many decades ago.  Those monsters are gone now.  Feel free to use it when you know what you&apos;re doing.  
 
-#
+---
 
 The goto operator CAN be evaluated with eval, provided the label is in the eval&apos;d code:<br><br>
 
@@ -98,7 +98,7 @@ eval("a: goto a;"); // works
 ```
 <br><br>It&apos;s because PHP does not consider the eval&apos;d code, containing the label, to be in the same "file" as the goto statement.  
 
-#
+---
 
 You are also allowed to jump backwards with a goto statement. To run a block of goto as one block is as follows:<br>example has a prefix of iw_ to keep label groups structured and an extra underscore to do a backwards goto.<br><br>Note the `iw_end_gt` to get out of the labels area<br><br>
 
@@ -135,7 +135,7 @@ You are also allowed to jump backwards with a goto statement. To run a block of 
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.goto.php)
 

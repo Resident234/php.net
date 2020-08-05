@@ -64,7 +64,7 @@ function convBase($numberInput, $fromBaseInput, $toBaseInput)
 ```
   
 
-#
+---
 
 Short arabic2roman conveter:<br><br>
 
@@ -80,7 +80,7 @@ function rome($N){
 ```
 <br><br>And it works :)  
 
-#
+---
 
 If you use base_convert to convert a large (eg. 80-bit) hexadecimal to base-36, you might observe:<br><br>ABCDEF00001234567890 (hexadecimal) =&gt; 3O47RE02JZSW0KS8 (base-36) =&gt; ABCDEF00001240000000 (hexadecimal)<br><br>This is normal and is due to the loss of precision on large numbers.<br><br>I have written a string-based function using the built-in BC Math Extension which will overcome this and similar problems.<br><br>
 
@@ -137,7 +137,7 @@ echo ("$uuid (hexadecimal) = $ukey (base-36) \\n");
 ```
 <br><br>ABCDEF00001234567890 (hexadecimal) = 3o47re02jzqisvio (base-36) <br>ABCDEF01234567890123456789ABCDEF (hexadecimal) = a65xa07491kf5zyfpvbo76g33 (base-36)  
 
-#
+---
 
 If you need to use base_convert with numbers larger then 32 bit, the following gmp implementation of base_convert should work.<br><br>
 
@@ -154,7 +154,7 @@ function gmp_convert($num, $base_a, $base_b)
 ```
   
 
-#
+---
 
 If you would like to convert numbers into just the uppercase alphabet base and vice-versa (e.g. the column names in a Microsoft Windows Excel sheet..A-Z, AA-ZZ, AAA-ZZZ, ...), the following functions will do this.<br><br>
 
@@ -198,7 +198,7 @@ function alpha2num($a) {
 ```
 <br><br>Microsoft Windows Excel stops at IV (255), but this function can handle much larger. However, English words will start to form after a while and some may be offensive, so be careful.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.base-convert.php)
 

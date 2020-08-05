@@ -26,7 +26,7 @@ if(!empty($exif['Orientation'])) {
 ```
 <br><br>What you do with the image resource from there is entirely up to you.<br><br>I hope that this helps you identify and orient any image that&apos;s uploaded from an iPad, iPhone, or iPod. Orientation for the photo is the key to knowing how to rotate it correctly.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.exif-read-data.php)
 

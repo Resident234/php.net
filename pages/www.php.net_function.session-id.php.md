@@ -16,7 +16,7 @@ function session_valid_id($session_id)
 ```
 <br><br>session_id() itself will happily accept invalid session ids, but if you try to start a session using an invalid id, you will get the following error:<br><br>Warning: session_start(): The session id is too long or contains illegal characters, valid characters are a-z, A-Z, 0-9 and &apos;-,&apos;  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.session-id.php)
 

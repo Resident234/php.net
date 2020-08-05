@@ -13,11 +13,11 @@ if (version_compare(phpversion(), '5.3.10', '<')) {
 ```
   
 
-#
+---
 
 Note that the version string returned by phpversion() may include more information than expected: "5.5.9-1ubuntu4.17", for example.  
 
-#
+---
 
 To know, what are the {php} extensions loaded &amp; version of extensions :<br><br>
 
@@ -31,7 +31,7 @@ foreach (get_loaded_extensions() as $i => $ext)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.phpversion.php)
 

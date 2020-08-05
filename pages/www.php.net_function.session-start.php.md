@@ -151,7 +151,7 @@ printf( '<p>My name is %s and I\'m %d years old.</p>' , $data->nickname , $data-
     )
 */
 
-printf( '<pre>%s</pre>' , print_r( $_SESSION , TRUE ));
+printf( '%s' , print_r( $_SESSION , TRUE ));
 
 // TRUE
 var_dump( isset( $data->nickname ));
@@ -166,7 +166,7 @@ var_dump( isset( $data->nickname ));
 ```
 <br><br>I prefer using this class instead of using directly the array $_SESSION.  
 
-#
+---
 
 As others have noted, PHP&apos;s session handler is blocking. When one of your scripts calls session_start(), any other script that also calls session_start() with the same session ID will sleep until the first script closes the session.<br><br>A common workaround to this is call session_start() and session_write_close() each time you want to update the session.<br><br>The problem with this, is that each time you call session_start(), PHP prints a duplicate copy of the session cookie to the HTTP response header. Do this enough times (as you might do in a long-running script), and the response header can get so large that it causes web servers &amp; browsers to crash or reject your response as malformed.<br><br>This error has been reported to PHP HQ, but they&apos;ve marked it "Won&apos;t fix" because they say you&apos;re not supposed to open and close the session during a single script like this. https://bugs.php.net/bug.php?id=31455<br><br>As a workaround, I&apos;ve written a function that uses headers_list() and header_remove() to clear out the duplicate cookies. It&apos;s interesting to note that even on requests when PHP sends duplicate session cookies, headers_list() still only lists one copy of the session cookie. Nonetheless, calling header_remove() removes all the duplicate copies.<br><br>
 
@@ -207,32 +207,11 @@ function clear_duplicate_cookies() {
 ```
   
 
-#
+---
 
 The constant SID would always be &apos;&apos; (an empty string) if directive session.use_trans_sid in php ini file is set to 0. <br><br>So remember to set session.use_trans_sid to 1 and restart your server before you use SID in your php script.  
 
-#
-
-PHP locks the session file until it is closed. If you have 2 scripts using the same session (i.e. from the same user) then the 2nd script will not finish its call to session_start() until the first script finishes execution.<br><br>If you have scripts that run for more than a second and users may be making more than 1 request at a time then it is worth calling session_write_close() as soon as you&apos;ve finished writing session data.<br><br>
-
-```
-<?php
-// a lock is places on the session, so other scripts will have to wait
-session_start();
-
-// do all your writing to $_SESSION
-$_SESSION['a'] = 1;
-
-// $_SESSION can still be read, but writing will not update the session.
-// the lock is removed and other scripts can now read the session
-session_write_close();
-
-do_something_slow();
-?>
-```
-<br><br>Found this out from http://konrness.com/php5/how-to-prevent-blocking-php-requests/  
-
-#
+---
 
 If you are using a custom session handler via session_set_save_handler() then calling session_start() in PHP 7.1 you might see an error like this:<br>session_start(): Failed to read session data: user (path: /var/lib/php/session) in ...<br><br>As of this writing, it seems to be happening in PHP 7.1, and things look OK in PHP7.0. <br><br>It is also hard to track down because if a session already exists for this id (maybe created by an earlier version of PHP), it will not trigger this issue because the $session_data will not be null.<br><br>The fix is simple... you just need to check for &apos;null&apos; during your read function:<br><br>
 
@@ -257,7 +236,28 @@ function read($id)
 ```
   
 
-#
+---
+
+PHP locks the session file until it is closed. If you have 2 scripts using the same session (i.e. from the same user) then the 2nd script will not finish its call to session_start() until the first script finishes execution.<br><br>If you have scripts that run for more than a second and users may be making more than 1 request at a time then it is worth calling session_write_close() as soon as you&apos;ve finished writing session data.<br><br>
+
+```
+<?php
+// a lock is places on the session, so other scripts will have to wait
+session_start();
+
+// do all your writing to $_SESSION
+$_SESSION['a'] = 1;
+
+// $_SESSION can still be read, but writing will not update the session.
+// the lock is removed and other scripts can now read the session
+session_write_close();
+
+do_something_slow();
+?>
+```
+<br><br>Found this out from http://konrness.com/php5/how-to-prevent-blocking-php-requests/  
+
+---
 
 When you have an import script that takes long to execute, the browser seem to lock up and you cannot access the website anymore. this is because a request is reading and locking the session file to prevent corruption.<br><br>you can either <br>- use a different session handler with session_set_save_handler()<br>- use session_write_close() in the import script as soon you don&apos;t need session anymore (best moment is just before the long during part takes place), you can session_start when ever you want and as many times you like if your import script requires session variables changed. <br><br>example<br>
 
@@ -277,7 +277,7 @@ for($i=0; $i<=100; $i++){ //do 100 cycles
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.session-start.php)
 

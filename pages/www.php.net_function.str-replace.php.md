@@ -38,7 +38,7 @@ function str_replace_deep($search, $replace, $subject)
 ```
   
 
-#
+---
 
 Note that this does not replace strings that become part of replacement strings. This may be a problem when you want to remove multiple instances of the same repetative pattern, several times in a row.<br><br>If you want to remove all dashes but one from the string &apos;-aaa----b-c-----d--e---f&apos; resulting in &apos;-aaa-b-c-d-e-f&apos;, you cannot use str_replace. Instead, use preg_replace:<br><br>
 
@@ -51,7 +51,38 @@ echo preg_replace('/--+/', '-', $challenge).'<br>';
 ```
 <br><br>This outputs the following:<br>-aaa--b-c---d-e--f<br>-aaa-b-c-d-e-f  
 
-#
+---
+
+Be careful when replacing characters (or repeated patterns in the FROM and TO arrays):<br><br>For example:<br><br>
+
+```
+<?php
+$arrFrom = array("1","2","3","B");
+$arrTo = array("A","B","C","D");
+$word = "ZBB2";
+echo str_replace($arrFrom, $arrTo, $word);
+?>
+```
+
+
+I would expect as result: "ZDDB"
+However, this return: "ZDDD"
+(Because B = D according to our array)
+
+To make this work, use "strtr" instead:
+
+
+
+```
+<?php
+$arr = array("1" => "A","2" => "B","3" => "C","B" => "D");
+$word = "ZBB2";
+echo strtr($word,$arr);
+?>
+```
+<br><br>This returns: "ZDDB"  
+
+---
 
 Feel free to optimize this using the while/for or anything else, but this is a bit of code that allows you to replace strings found in an associative array.<br><br>For example:<br>
 
@@ -85,42 +116,11 @@ function strReplaceAssoc(array $replace, $subject) {
 ```
 <br><br>[Jun 1st, 2010 - EDIT BY thiago AT php DOT net: Function has been replaced with an updated version sent by ljelinek AT gmail DOT com]  
 
-#
-
-Be careful when replacing characters (or repeated patterns in the FROM and TO arrays):<br><br>For example:<br><br>
-
-```
-<?php
-$arrFrom = array("1","2","3","B");
-$arrTo = array("A","B","C","D");
-$word = "ZBB2";
-echo str_replace($arrFrom, $arrTo, $word);
-?>
-```
-
-
-I would expect as result: "ZDDB"
-However, this return: "ZDDD"
-(Because B = D according to our array)
-
-To make this work, use "strtr" instead:
-
-
-
-```
-<?php
-$arr = array("1" => "A","2" => "B","3" => "C","B" => "D");
-$word = "ZBB2";
-echo strtr($word,$arr);
-?>
-```
-<br><br>This returns: "ZDDB"  
-
-#
+---
 
 Be aware that if you use this for filtering &amp; sanitizing some form of user input, or remove ALL instances of a string, there&apos;s another gotcha to watch out for:<br><br>// Remove all double characters<br>$string="1001011010";<br>$string=str_replace(array("11","00"),"",$string);<br>// Output: "110010"<br><br>$string="&lt;ht&lt;html&gt;ml&gt; Malicious code &lt;/&lt;html&gt;html&gt; etc";<br>$string=str_replace(array("&lt;html&gt;","&lt;/html&gt;"),"",$string);<br>// Output: "&lt;html&gt; Malicious code &lt;/html&gt; etc"  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.str-replace.php)
 

@@ -24,7 +24,7 @@ foreach ($multipleIterator as $key => $value) {
 ```
 <br><br>Result with PHP 5.5.0 and up:<br><br>Key<br>array(2) {<br>  [1]=&gt;<br>  int(0)<br>  ["second"]=&gt;<br>  int(0)<br>}<br>Value<br>array(2) {<br>  [1]=&gt;<br>  int(1)<br>  ["second"]=&gt;<br>  int(4)<br>}<br>---next---<br>Key<br>array(2) {<br>  [1]=&gt;<br>  int(1)<br>  ["second"]=&gt;<br>  int(1)<br>}<br>Value<br>array(2) {<br>  [1]=&gt;<br>  int(2)<br>  ["second"]=&gt;<br>  int(5)<br>}<br>---next---<br>Key<br>array(2) {<br>  [1]=&gt;<br>  int(2)<br>  ["second"]=&gt;<br>  int(2)<br>}<br>Value<br>array(2) {<br>  [1]=&gt;<br>  int(3)<br>  ["second"]=&gt;<br>  int(6)<br>}<br>---next---<br><br>Note that PHP 5.4 and 5.3 do not support accessing the key() values in foreach loops because they expect them to not be an array - doing so will cause "Warning: Illegal type returned from MultipleIterator::key()" and the result of (int)0 as the key for all iterations.<br><br>Without the MultipleIterator::MIT_KEYS_ASSOC flag, the MultipleIterator will create numeric indices based on the order of attachment.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.multipleiterator.php)
 

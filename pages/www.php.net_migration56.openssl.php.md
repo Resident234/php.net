@@ -17,7 +17,7 @@ To get back to the "old behavior" with self-signed ("snakeoil") certificates to 
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/migration56.openssl.php)
 

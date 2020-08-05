@@ -87,7 +87,7 @@ class pdo_dblib_mssql{
 ```
   
 
-#
+---
 
 There is currently little sybase related PDO docs out there. The ones that I found often mention a spec for a dsn that is invalid. Here&apos;s how I am currently connecting to sybase ASE:<br><br>1. Compile up freetds http://www.freetds.org on top of open client;<br>2. Add the PDO and PD_DBLIB modules to php 5 as per the documentation; Note: I&apos;m currently using the PDO-beta and PDO_DBLIB-beta;<br>3. Check mods installed ok using "pear list" and "php -m";<br><br>The documentation often says to use "sybase:" as your DSN, this doesn&apos;t work. Use "dblib:" instead. Here&apos;s an example:<br><br>
 
@@ -114,7 +114,7 @@ There is currently little sybase related PDO docs out there. The ones that I fou
 ```
 <br><br>Hope this helps.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.pdo-dblib.php)
 

@@ -17,7 +17,7 @@ getimagesizefromstring function for &lt; 5.4<br><br>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.getimagesizefromstring.php)
 

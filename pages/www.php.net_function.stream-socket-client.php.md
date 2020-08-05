@@ -19,7 +19,7 @@ fclose($sock);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.stream-socket-client.php)
 

@@ -21,7 +21,7 @@ function mask2cidr($mask){
 ```
   
 
-#
+---
 
 
 
@@ -54,11 +54,11 @@ with a wildcard mask of 0.0.0.255
 ```
   
 
-#
+---
 
 To nate, who advises that there is no reason to use an unsigned version of the IP in a MySQL DB:<br><br>I think it would depend on your application, but personally, I find it useful to store IP&apos;s as unsigneds since MySQL has 2 native functions, INET_ATON() and INET_NTOA(), which work the same as ip2long()/long2ip() _except_ that they generate the unsigned counterpart. So if you want, you could do:<br><br>-- IANA Class-B reserved/private<br>SELECT * FROM `servers` <br>WHERE `ip` &gt;= INET_ATON(&apos;192.168.0.0&apos;) <br>AND `ip` &lt;= INET_ATON(&apos;192.168.255.255&apos;);<br><br>In my current application, I find it easier to use the MySQL built-ins than the PHP counter-parts. <br><br>In case you&apos;re curious as to the names ATON and NTOA:<br><br>ATON = address to number aka. ip2long<br>NTOA = number to address aka. long2ip  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ip2long.php)
 

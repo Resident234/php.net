@@ -4,7 +4,7 @@
 
 The #2 comment on this comments page (as of Feb 2015) is 9 years old and recommends phpass.  I have independently security audited this product and, while it continues to be recommended for password security, it is actually insecure and should NOT be used.  It hasn&apos;t seen any updates in years (still at v0.3) and there are more recent alternatives such as using the newer built-in PHP password_hash() function that are much better.  Everyone, please take a few moments to confirm what I&apos;m saying is accurate (i.e. review the phpass code for yourself) and then click the down arrow to sink the phpass comment to the bottom.  You&apos;ll be increasing security across the Internet by doing so.<br><br>For those who want details:  md5() with microtime() are a fallback position within the source code of phpass.  Instead of terminating, it continues to execute code.  The author&apos;s intentions of trying to work everywhere are admirable but, when it comes to application security, that stance actually backfires.  The only correct answer in a security context is to terminate the application rather than fallback to a weak position that can potentially be exploited (usually by forcing that weaker position to happen).  
 
-#
+---
 
 As I understand it, blowfish is generally seen a secure hashing algorithm, even for enterprise use (correct me if I&apos;m wrong). Because of this, I created functions to create and check secure password hashes using this algorithm, and using the (also deemed cryptographically secure) openssl_random_pseudo_bytes function to generate the salt.<br><br>
 
@@ -55,7 +55,7 @@ function validate_pw($password, $hash){
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.crypt.php)
 

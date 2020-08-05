@@ -85,7 +85,7 @@ function checkGroupEx($ad, $userdn, $groupdn) {
 ```
   
 
-#
+---
 
 There is a lot of confusion about accountExpires, pwdLastSet, lastLogon and badPasswordTime active directory fields.<br><br>All of them are using "Interval" date/time format with a value that represents the number of 100-nanosecond intervals since January 1, 1601 (UTC, and a value of 0 or 0x7FFFFFFFFFFFFFFF, 9223372036854775807, indicates that the account never expires): https://msdn.microsoft.com/en-us/library/ms675098(v=vs.85).aspx<br><br>So if you need to translate it from/to UNIX timestamp you can easily calculate the difference with:<br><br>
 
@@ -118,7 +118,7 @@ echo date("Y-m-d H:i:s", $unixTimestamp) ."\n";
 ```
 <br><br>Hope it helps.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.ldap.php)
 

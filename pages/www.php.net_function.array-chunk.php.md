@@ -29,7 +29,7 @@ print_r( partition( $citylist, 3 ) );
 ```
 <br><br>Array<br>(<br>    [0] =&gt; Array<br>        (<br>            [0] =&gt; Black Canyon City<br>            [1] =&gt; Chandler<br>            [2] =&gt; Flagstaff<br>            [3] =&gt; Gilbert<br>            [4] =&gt; Glendale<br>            [5] =&gt; Globe<br>        )<br><br>    [1] =&gt; Array<br>        (<br>            [0] =&gt; Mesa<br>            [1] =&gt; Miami<br>            [2] =&gt; Phoenix<br>            [3] =&gt; Peoria<br>            [4] =&gt; Prescott<br>            [5] =&gt; Scottsdale<br>        )<br><br>    [2] =&gt; Array<br>        (<br>            [0] =&gt; Sun City<br>            [1] =&gt; Surprise<br>            [2] =&gt; Tempe<br>            [3] =&gt; Tucson<br>            [4] =&gt; Wickenburg<br>        )<br><br>)  
 
-#
+---
 
 Here my array_chunk_values( ) with values distributed by lines (columns are balanced as much as possible) :<br><br>
 
@@ -79,15 +79,15 @@ Here my array_chunk_values( ) with values distributed by lines (columns are bala
 ```
   
 
-#
+---
 
 If you just want to grab one chunk from an array, you should use array_slice().  
 
-#
+---
 
 Response to azspot at gmail dot com function partition.<br><br>$columns = 3;<br>$citylist = array(&apos;Black Canyon City&apos;, &apos;Chandler&apos;, &apos;Flagstaff&apos;, &apos;Gilbert&apos;, &apos;Glendale&apos;, &apos;Globe&apos;, &apos;Mesa&apos;, &apos;Miami&apos;, &apos;Phoenix&apos;, &apos;Peoria&apos;, &apos;Prescott&apos;, &apos;Scottsdale&apos;, &apos;Sun City&apos;, &apos;Surprise&apos;, &apos;Tempe&apos;, &apos;Tucson&apos;, &apos;Wickenburg&apos;);<br>print_r(array_chunk($citylist, ceil(count($citylist) / $columns)));<br><br>Output:<br>Array<br>(<br>    [0] =&gt; Array<br>        (<br>            [0] =&gt; Black Canyon City<br>            [1] =&gt; Chandler<br>            [2] =&gt; Flagstaff<br>            [3] =&gt; Gilbert<br>            [4] =&gt; Glendale<br>            [5] =&gt; Globe<br>        )<br><br>    [1] =&gt; Array<br>        (<br>            [0] =&gt; Mesa<br>            [1] =&gt; Miami<br>            [2] =&gt; Phoenix<br>            [3] =&gt; Peoria<br>            [4] =&gt; Prescott<br>            [5] =&gt; Scottsdale<br>        )<br><br>    [2] =&gt; Array<br>        (<br>            [0] =&gt; Sun City<br>            [1] =&gt; Surprise<br>            [2] =&gt; Tempe<br>            [3] =&gt; Tucson<br>            [4] =&gt; Wickenburg<br>        )<br><br>)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-chunk.php)
 

@@ -12,7 +12,7 @@ var_dump(transliterator_transliterate('Any-Latin; Latin-ASCII; Lower()', "A &#xE
 ```
 <br><br>In this example any character will firstly be converted to a latin character. If that&apos;s finished, replace all latin characters by their ASCII replacement.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/transliterator.transliterate.php)
 

@@ -43,7 +43,7 @@ echo "Decrypted text:<BR>$decrypted<br><br>";
 ```
 <br><br>Many thanks to other contributors in the docs for making this less painful.<br><br>Note that you will want to use these sorts of functions to generate a key ONCE - save your privatekey offline for decryption, and put your public key in your scripts/configuration file. If your data is compromised you don&apos;t care about the encrypted stuff or the public key, it&apos;s only the private key and cleartext that really matter.<br><br>Good luck!  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.openssl.php)
 

@@ -18,7 +18,7 @@ Aoccdrnig to rseearch at an Elingsh uinervtisy, it deosn&apos;t mttaer in waht o
 ```
 <br><br>It may be ufseul if you wnat to cetare an aessblicce CTCPAHA.  
 
-#
+---
 
 This function is affected by srand():<br><br>
 
@@ -34,7 +34,7 @@ echo str_shuffle('Randomize me') . '<br/>'; // "demmiezr aon" again
 ```
   
 
-#
+---
 
 A proper unicode string shuffle;<br><br>
 
@@ -49,7 +49,7 @@ function str_shuffle_unicode($str) {
 ```
 <br><br>$str = "&#x15E;eker y&#xE2;rim"; // My sweet love<br><br>echo str_shuffle($str); // i&#xFFFD;eymr&#x162;ekr &#xFFFD;<br><br>echo str_shuffle_unicode($str); // &#x15E;r mreyeik&#xE2;  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.str-shuffle.php)
 

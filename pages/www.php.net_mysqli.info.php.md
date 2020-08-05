@@ -12,7 +12,7 @@ list($matched, $changed, $warnings) = sscanf($prototype, "Rows matched: %d Chang
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.info.php)
 

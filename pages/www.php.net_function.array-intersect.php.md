@@ -17,7 +17,7 @@ var_dump(array_intersect($array2, $array1));
 ```
 <br><br>yields the following:<br><br>array(3) {<br>  [0]=&gt; int(2)<br>  [1]=&gt; int(4)<br>  [2]=&gt; int(6)<br>}<br><br>array(3) {<br>  [1]=&gt; int(2)<br>  [3]=&gt; int(4)<br>  [5]=&gt; int(6)<br>}<br><br>This makes it important to remember which way round you passed the arrays to the function if these keys are relied on later in the script.  
 
-#
+---
 
 Here is a array_union($a, $b):<br><br>
 
@@ -34,11 +34,11 @@ Here is a array_union($a, $b):<br><br>
 ```
   
 
-#
+---
 
 If you need to supply arbitrary number of arguments <br>to array_intersect() or other array function, <br>use following function:<br><br>$full=call_user_func_array(&apos;array_intersect&apos;, $any_number_of_arrays_here);  
 
-#
+---
 
 Note that array_intersect and array_unique doesnt work well with multidimensional arrays.<br>If you have, for example, <br><br>
 
@@ -121,7 +121,7 @@ Array
 ```
 <br><br>showing us who bought the same thing today and yesterday =)<br><br>[]s  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-intersect.php)
 

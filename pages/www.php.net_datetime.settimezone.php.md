@@ -38,7 +38,7 @@ $datetime->getTimestamp();
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/datetime.settimezone.php)
 

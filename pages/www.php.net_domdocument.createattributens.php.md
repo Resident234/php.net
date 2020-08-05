@@ -8,9 +8,7 @@ If a new namespace is introduced while creating and inserting an attribute, crea
 <?php
     
     $source = <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-```
-
+``<?xml version="1.0" encoding="UTF-8" ?>``;
 <root><tag></tag></root>
 XML;
     
@@ -33,9 +31,7 @@ XML;
     /*
       Result: The namespace declaration appears, having been added to the document element. Output:
       
-      <?xml version="1.0" encoding="UTF-8"?>
-```
-
+      ``<?xml version="1.0" encoding="UTF-8" ?>``;
       <root xmlns:example="{namespace_uri_here}"><tag/></root>
       
     */
@@ -49,9 +45,7 @@ XML;
     /*
       Result: The "namespace'd" attribute shows up as well. Output:
       
-      <?xml version="1.0" encoding="UTF-8"?>
-```
-
+      ``<?xml version="1.0" encoding="UTF-8" ?>``;
       <root xmlns:example="{namespace_uri_here}"><tag example:attr="value"/></root>
       
     */
@@ -75,9 +69,7 @@ XML;
     /*
       Result: The document remains unchanged. Output:
       
-      <?xml version="1.0" encoding="UTF-8"?>
-```
-
+      ``<?xml version="1.0" encoding="UTF-8" ?>``;
       <root><tag/></root>
       
     */
@@ -90,9 +82,7 @@ XML;
     /*
       Result: The namespace declaration appears, and it is embedded in the element using it. Output:
       
-      <?xml version="1.0" encoding="UTF-8"?>
-```
-
+      ``<?xml version="1.0" encoding="UTF-8" ?>``;
       <root><tag><example:newtag xmlns:example="{namespace_uri_here}"/></tag></root>
       
     */
@@ -101,7 +91,7 @@ XML;
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.createattributens.php)
 

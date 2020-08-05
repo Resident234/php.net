@@ -4,7 +4,7 @@
 
 For the record, the underlying function to uniqid() appears to be roughly as follows:<br><br>$m=microtime(true);<br>sprintf("%8x%05x\n",floor($m),($m-floor($m))*1000000);<br><br>In other words, first 8 hex chars = Unixtime, last 5 hex chars = microseconds. This is why it has microsecond precision. Also, it provides a means by which to reverse-engineer the time when a uniqid was generated: <br><br>date("r",hexdec(substr(uniqid(),0,8)));<br><br>Increasingly as you go further down the string, the number becomes "more unique" over time, with the exception of digit 9, where numeral prevalence is 0..3&gt;4&gt;5..f, because of the difference between 10^6 and 16^5 (this is presumably true for the remaining digits as well but much less noticeable).  
 
-#
+---
 
 The following class generates VALID RFC 4211 COMPLIANT Universally Unique IDentifiers (UUID) version 3, 4 and 5.<br><br>Version 3 and 5 UUIDs are named based. They require a namespace (another valid UUID) and a value (the name). Given the same namespace and name, the output is always the same.<br><br>Version 4 UUIDs are pseudo-random.<br><br>UUIDs generated below validates using OSSP UUID Tool, and output for named-based UUIDs are exactly the same. This is a pure PHP implementation.<br><br>
 
@@ -131,7 +131,7 @@ $v4uuid = UUID::v4();
 ```
   
 
-#
+---
 
 Seriously, avoid using this function. Here&apos;s an example of why:<br><br>
 
@@ -200,11 +200,11 @@ for($i=0;$i<20;$i++) {
 ```
 <br><br>Output:<br><br>5819fa0b63be3   9f39aa0ecd89d<br>5819fa0b70ed3   2c0735cabfcce<br>5819fa0b712bb   15e45d1ca1e90<br>5819fa0b712bb   89593dc230eb3<br>5819fa0b712bb   449795704aeef<br>5819fa0b712bb   b046877b80ac9<br>5819fa0b712bb   0a6fa0ae3ec7b<br>5819fa0b712bb   ba2f3f4d6afe0<br>5819fa0b712bb   af03cfac83fd6<br>5819fa0b712bb   eb9c3c6d475c0<br>5819fa0b712bb   edfbbf59d5e1b<br>5819fa0b712bb   500dca18888d4<br>5819fa0b716a3   4f5a40ef715f1<br>5819fa0b716a3   154e42b616825<br>5819fa0b716a3   a879a22663c9b<br>5819fa0b716a3   ea7c044ddda8a<br>5819fa0b716a3   2c81a44dc674e<br>5819fa0b716a3   bb32f37304fd9<br>5819fa0b716a3   30cdf6c0317d7<br>5819fa0b716a3   d25f529d126ae  
 
-#
+---
 
 Generating an MD5 from a unique ID is naive and reduces much of the value of unique IDs, as well as providing significant (attackable) stricture on the MD5 domain.  That&apos;s a deeply broken thing to do.  The correct approach is to use the unique ID on its own; it&apos;s already geared for non-collision.<br><br>IDs should never be obfuscated for security, so if you&apos;re worried about someone guessing your ID, fix the system, don&apos;t just make it harder to guess (because it&apos;s nowhere near as difficult to guess as you imagine: you can just brute force the 60,000 MD5s that are generatable from millisecond IDs over the course of a given minute, which the typical computer can do in less than 0.1s).<br><br>If you absolutely need to involve a hash somehow - maybe to placate a boss who thinks they understand security much better than they actually do - append it instead.<br><br>function BadIdeaID() { return uniqid() . &apos;_&apos; . md5(mt_rand()); }  
 
-#
+---
 
 The php5-uuid functions could definitely use some documentation to clarify how they should be used, but here&apos;s what I&apos;ve gleaned by examining the OSSP source code (found here: http://ossp-uuid.sourcearchive.com/documentation/1.5.1-1ubuntu1/php_2uuid_8c-source.html).<br><br>The uuid_make() function takes two arguments when generating v1 or v4, but four arguments are required when generating v3 or v5. The first two arguments have been demonstrated below and are straightforward, so I&apos;ll skip to the as-yet non-described arguments.<br><br>The third argument to uuid_make() is: $namespace<br>  - this is a secondary resource created with uuid_create(); it is apparently used to generate an internal UUID, which is used as the namespace of the output UUID<br><br>The fourth argument to uuid_make() is: $url<br>  - this is the value that is to be hashed (MD5 for v3, SHA-1 for v5); it may be any string or even null<br><br>Here&apos;s a simple class illustrating the proper usage (note that if php5-uuid is not installed on your system, each function call will just return false):<br><br>
 
@@ -296,7 +296,7 @@ for ($i = 1; $i <= 3; ++$i) {
 ```
 <br><br>And the output:<br><br>microtime = 1306620716.0457<br>V1 UUID: 7fddae8e-8977-11e0-bc11-003048c3b1f2<br>V3 UUID of URL=&apos;abc&apos;: 522ec739-ca63-3ec5-b082-08ce08ad65e2<br>V4 UUID: b3851ec7-4871-4527-92b5-ef5616bae1e6<br>V5 UUID of URL=null: e129f27c-5103-5c5c-844b-cdf0a15e160d<br>-------------------<br>microtime = 1306620716.0465<br>V1 UUID: 7fddb83e-8977-11e0-9e6e-003048c3b1f2<br>V3 UUID of URL=&apos;abc&apos;: 522ec739-ca63-3ec5-b082-08ce08ad65e2<br>V4 UUID: 7e78fe0d-59b8-4637-af7f-e88d221a7d1e<br>V5 UUID of URL=null: e129f27c-5103-5c5c-844b-cdf0a15e160d<br>-------------------<br>microtime = 1306620716.0467<br>V1 UUID: 7fddbfb4-8977-11e0-a2bc-003048c3b1f2<br>V3 UUID of URL=&apos;abc&apos;: 522ec739-ca63-3ec5-b082-08ce08ad65e2<br>V4 UUID: 12a940c7-0f3f-46a1-bb5f-bdd602e10654<br>V5 UUID of URL=null: e129f27c-5103-5c5c-844b-cdf0a15e160d<br><br>As you can see, the calls to v3() always return the same UUID because the same URL parameter, "abc", is always supplied. The same goes for the v5() function which is always supplied a null URL.<br><br>The v4() UUIDs are always entirely different because they are (pseudo)random. And the v1() calls are very similar but just slightly different because it&apos;s based on the computer&apos;s MAC address and the current time.  
 
-#
+---
 
 Prefix can be useful, for instance, if you generate identifiers simultaneously on several hosts that might happen to generate the identifier at the same microsecond.<br>So we can include the hostname / servername in the id.<br>
 
@@ -308,7 +308,7 @@ echo uniqid(php_uname('n'), true);
 ```
   
 
-#
+---
 
 I use this function to generate microsoft-compatible GUID&apos;s.<br><br>
 
@@ -342,7 +342,7 @@ I use this function to generate microsoft-compatible GUID&apos;s.<br><br>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.uniqid.php)
 

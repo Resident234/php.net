@@ -4,7 +4,7 @@
 
 Remember if you just want the days in the current month, use the date function:<br>$days = date("t");  
 
-#
+---
 
 Here&apos;s a one-line function I just wrote to find the numbers of days in a month that doesn&apos;t depend on any other functions.<br><br>The reason I made this is because I just found out I forgot to compile PHP with support for calendars, and a class I&apos;m writing for my website&apos;s open source section was broken. So rather than recompiling PHP (which I will get around to tomorrow I guess), I just wrote this function which should work just as well, and will always work without the requirement of PHP&apos;s calendar extension or any other PHP functions for that matter.<br><br>I learned the days of the month using the old knuckle &amp; inbetween knuckle method, so that should explain the mod 7 part. :)<br><br>
 
@@ -30,7 +30,7 @@ return $month == 2 ? ($year % 4 ? 28 : ($year % 100 ? 29 : ($year % 400 ? 28 : 2
 ```
 <br><br>Enjoy,<br>David Bindel  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.cal-days-in-month.php)
 

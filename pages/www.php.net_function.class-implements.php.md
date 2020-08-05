@@ -13,7 +13,7 @@ if($myObj instanceof MyInterface) {
 ```
   
 
-#
+---
 
 Hint:<br>
 
@@ -34,7 +34,7 @@ array("your-interface") == class_implements($object_or_class_name);
 ```
 <br><br>I use the first technique to check if a module has the correct interface implemented, or else it throws an exception.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.class-implements.php)
 

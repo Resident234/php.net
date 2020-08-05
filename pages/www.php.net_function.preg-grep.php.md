@@ -13,7 +13,7 @@ function preg_grep_keys($pattern, $input, $flags = 0) {
 ```
   
 
-#
+---
 
 Run a match on the array&apos;s keys rather than the values:<br><br>
 
@@ -35,7 +35,7 @@ function preg_grep_keys( $pattern, $input, $flags = 0 )
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.preg-grep.php)
 

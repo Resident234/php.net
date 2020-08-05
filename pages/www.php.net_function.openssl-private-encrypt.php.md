@@ -56,7 +56,7 @@ Just a little note on  [P.Peyremorte]&apos;s note.<br><br>"- openssl_private_enc
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.openssl-private-encrypt.php)
 

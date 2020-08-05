@@ -30,7 +30,7 @@
 ```
   
 
-#
+---
 
 It may be worth specifically noting, if variable names follow some kind of "template," they can be referenced like this:<br><br>
 
@@ -52,7 +52,7 @@ print "$name_first\n$name_last\n$name_company\n";
 ```
 <br><br>This is apparent from the notes others have left, but is not explicitly stated.  
 
-#
+---
 
 
 
@@ -67,7 +67,7 @@ echo $variable-name . ' ' . $a; // Gives     0 hello
 ```
 <br><br>For a particular reason I had been using some variable names with hyphens for ages. There was no problem because they were only referenced via a variable variable. I only saw a parse error much later, when I tried to reference one directly. It took a while to realise that illegal hyphens were the cause because the parse error only occurs on assignment.  
 
-#
+---
 
 PHP actually supports invoking a new instance of a class using a variable class name since at least version 5.2<br><br>
 
@@ -102,7 +102,7 @@ $my_foo::hello(); //prints 'Hello world!'
 ```
   
 
-#
+---
 
 You may think of using variable variables to dynamically generate variables from an array, by doing something similar to: -<br><br>
 
@@ -149,7 +149,7 @@ extract( $array, EXTR_PREFIX_ALL, "my_prefix_");
 ```
 <br><br>This would create variables: -<br>$my_prefix_one <br>$my_prefix_two<br>$my_prefix_three<br><br>containing: -<br>"First Value", "2nd Value" and "8" respectively  
 
-#
+---
 
 If you want to use a variable value in part of the name of a variable variable (not the whole name itself), you can do like the following:<br><br>
 
@@ -167,7 +167,7 @@ echo $price_for_today; // will return 20
 ```
   
 
-#
+---
 
 Another use for this feature in PHP is dynamic parsing..  <br><br>Due to the rather odd structure of an input string I am currently parsing, I must have a reference for each particular object instantiation in the order which they were created.  In addition, because of the syntax of the input string, elements of the previous object creation are required for the current one.  <br><br>Normally, you won&apos;t need something this convolute.  In this example, I needed to load an array with dynamically named objects - (yes, this has some basic Object Oriented programming, please bare with me..)<br><br>
 
@@ -212,7 +212,7 @@ Then, we can easily pull everything back out again using a basic array function:
 ```
 <br><br>Through this, we can pull a dynamically named object out of the array it was stored in without actually knowing its name.  
 
-#
+---
 
 While not relevant in everyday PHP programming, it seems to be possible to insert whitespace and comments between the dollar signs of a variable variable.  All three comment styles work. This information becomes relevant when writing a parser, tokenizer or something else that operates on PHP syntax.<br><br>
 
@@ -233,7 +233,7 @@ While not relevant in everyday PHP programming, it seems to be possible to inser
 ```
 <br><br>Behaviour tested with PHP Version 5.6.19  
 
-#
+---
 
 Adding an element directly to an array using variables:<br><br>
 
@@ -264,7 +264,7 @@ print_r($tab) ;
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.variables.variable.php)
 

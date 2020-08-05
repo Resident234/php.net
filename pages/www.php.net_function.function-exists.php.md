@@ -34,7 +34,7 @@ if (!function_exists('qux')) {
 ```
 <br>Prints:<br>  foo defined<br>  defining bar<br>  calling bar<br>  calling baz<br>  PHP Fatal error: Call to undefined function qux()<br><br>Any oddities are probably due to the order in which you include/require files.  
 
-#
+---
 
 It should be noted that the function_exists check is not relative to the root namespace. This means that the namespace should be appended to the check:<br><br>
 
@@ -57,7 +57,7 @@ It should be noted that the function_exists check is not relative to the root na
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.function-exists.php)
 

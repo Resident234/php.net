@@ -30,7 +30,7 @@ $im->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
 ```
 <br><br>This works at least as far back as version 3.1.0~rc1-1 (current version of the php5-imagick package in Debian 7).  
 
-#
+---
 
 The actual replacement now that flattenImages() has been deprecated is:<br><br>
 
@@ -41,7 +41,7 @@ $im = $im->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
 ```
 <br><br>So you need to (re)assign the returned Imagick object.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagick.flattenimages.php)
 

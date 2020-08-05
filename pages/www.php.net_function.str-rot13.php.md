@@ -65,7 +65,7 @@ for ($k = 0; $k < 10; $k++) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.str-rot13.php)
 

@@ -14,7 +14,7 @@ $str = "we are escaping \r\n"; //we are escaping
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.stripcslashes.php)
 

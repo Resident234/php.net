@@ -121,7 +121,7 @@ Function to get current CPU load as percentage value under Windows and Linux.<br
 ```
   
 
-#
+---
 
 Here is another one that also works on windows. Note that this method is not fast, so be careful in the number of calls to this function.<br><br>
 
@@ -158,7 +158,7 @@ function get_server_load() {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.sys-getloadavg.php)
 

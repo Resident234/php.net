@@ -33,11 +33,11 @@ load_lib('gd', 'gd2');
 ```
   
 
-#
+---
 
 It would be nice to know which SAPIs removed the function. <br><br>Telling me &apos;This function has been removed from some SAPIs in PHP 5.3.&apos; is pretty much useless and I feel mocked. Or do the writers of the documentation don&apos;t know from which SAPIs it has been removed?  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.dl.php)
 

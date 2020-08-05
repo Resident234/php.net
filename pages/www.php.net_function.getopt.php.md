@@ -12,7 +12,7 @@ print_r($options);
 ```
 <br>$ opt.php -f a b c<br>Array<br>(<br>    [f] =&gt; a<br>)<br>$ opt.php -f &apos;a b c&apos;<br>Array<br>(<br>    [f] =&gt; a b c<br>)<br>$ opt.php -f "a b c"<br>Array<br>(<br>    [f] =&gt; a b c<br>)<br>$ opt.php -f a\ b\ c<br>Array<br>(<br>    [f] =&gt; a b c<br>)<br>$  
 
-#
+---
 
 Sometimes you will want to run a script from both the command line and as a web page, for example to debug with better output or a command line version that writes an image to the system but a web version that prints the image in the browser. You can use this function to get the same options whether passed as command line arguments or as $_REQUEST values.<br><br>
 
@@ -100,15 +100,15 @@ array(7) {
 ```
   
 
-#
+---
 
 Be sure to wrap your head around this PHP jewel that took me a while to comprehend:<br><br>The returned array will contain a boolean FALSE for options that HAVE been specified.<br><br>Because why use TRUE to indicate "yes, it&apos;s there" when you can also use FALSE for that purpose, right? This is completely counter-intuitive and is most certainly only ever possible in PHP-land.  
 
-#
+---
 
 getopt() only returns the options specified if they were listed in the options.<br><br>So you cant make a switch() use default: to complain of an unknown option. :(  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.getopt.php)
 

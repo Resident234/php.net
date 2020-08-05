@@ -37,7 +37,7 @@ $dom->save("file.xml");
 ```
 <br><br>Hope this helps someone.<br><br>siegparr  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.save.php)
 

@@ -78,7 +78,7 @@ The 'use' keyword also applies to closure constructs:
 ```
   
 
-#
+---
 
 Tested on PHP 7.0.5, Windows<br>The line "use animate;" equals the line "use animate as animate;"<br>but the "use other\animate;" equals "use other\animate as animate;"<br><br>file1:<br>
 
@@ -126,7 +126,7 @@ file4:
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.php)
 

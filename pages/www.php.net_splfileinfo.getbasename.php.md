@@ -22,7 +22,7 @@ $file->getBasename('.'.$file->getExtension());
 ```
 <br><br>PS: Why there is getFilename ? when it returns ~same stuff as getBasename ? I have to do this ugly stuff^ instead of simple getFilename...  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/splfileinfo.getbasename.php)
 

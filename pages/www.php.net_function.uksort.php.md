@@ -15,7 +15,7 @@ if($country=="UK"){
 ```
   
 
-#
+---
 
 (about sorting an array of objects by their properties in a class - inspired by webmaster at zeroweb dot org at usort function)<br>I&apos;m using classes as an abstraction for querying records in a database and use arrays of objects to store records that have an 1 to n relationship. E.g. a class "family" has family members stored as an array of objects. Each of those objects prepresents a record in a database related to the family (by it&apos;s familyId).<br><br>To identify members, I&apos;m using their memberId as the key of the array e.g. $family-&gt;members[$memberId].<br>To sort the family members AFTER fetching them with the database query, you can use the functions _objSort and sortMembers which will sort the "members" array by key using it&apos;s properties (for space reasons I didn&apos;t include the methods used to open the records):<br>
 
@@ -85,7 +85,7 @@ foreach ($family->members as $member)
 ```
 <br><br>Note that this might not be the fastest thing on earth and it hasn&apos;t been tested very much yet but I hope it&apos;s useful for someone.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.uksort.php)
 

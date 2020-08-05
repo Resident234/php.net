@@ -20,7 +20,7 @@ mb_substr($str,$start,mb_strlen($str),$encoding);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-substr.php)
 

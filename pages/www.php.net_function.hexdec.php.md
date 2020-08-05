@@ -34,7 +34,7 @@ function hex2RGB($hexStr, $returnAsString = false, $seperator = ',') {
 ```
 <br><br>OUTPUT:<br><br>hex2RGB("#FF0") -&gt; array( red =&gt;255, green =&gt; 255, blue =&gt; 0)<br>hex2RGB("#FFFF00) -&gt; Same as above<br>hex2RGB("#FF0", true) -&gt; 255,255,0<br>hex2RGB("#FF0", true, ":") -&gt; 255:255:0  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.hexdec.php)
 

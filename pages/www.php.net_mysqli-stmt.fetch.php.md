@@ -30,7 +30,7 @@ I was trying to use a generic select * from table statment and have the results 
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-stmt.fetch.php)
 

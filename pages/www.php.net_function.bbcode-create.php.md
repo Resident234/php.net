@@ -37,7 +37,7 @@ For those without the BBCode extension, here&apos;s a relatively elegant functio
 ```
 <br><br>[EDIT BY danbrown AT php DOT net: Contains a bugfix provided by (ramonvandam AT gmail DOT com) on 04-SEP-09 to address an improperly-defined parameter.  Also contains a bugfix provided by (pompei2 AT gmail DOT com) on 15-FEB-10 to address improperly-closed tags.  Plus, contains another bugfix provided by (angad AT wootify DOT com) on 18-JUL-2011 to fix an issue where unsupported tags provided to the function could cause the script to time out.]  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.bbcode-create.php)
 

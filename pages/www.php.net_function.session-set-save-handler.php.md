@@ -103,7 +103,7 @@ echo $_SESSION['var1'];
 ```
   
 
-#
+---
 
 As of PHP 7.0, you can implement SessionUpdateTimestampHandlerInterface to <br>define your own session id validating method like validate_sid and the timestamp updating method like update_timestamp in the non-OOP prototype of session_set_save_handler().<br><br>SessionUpdateTimestampHandlerInterface is a new interface introduced in PHP 7.0, which has not been documented yet. It has two abstract methods: SessionUpdateTimestampHandlerInterface :: validateId($sessionId) and SessionUpdateTimestampHandlerInterface :: updateTimestamp($sessionId, $sessionData).<br><br>
 
@@ -164,7 +164,7 @@ As of PHP 7.0, you can implement SessionUpdateTimestampHandlerInterface to <br>d
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.session-set-save-handler.php)
 

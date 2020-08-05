@@ -28,7 +28,7 @@ call example:
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.network.php)
 

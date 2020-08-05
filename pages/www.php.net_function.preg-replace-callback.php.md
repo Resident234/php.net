@@ -19,7 +19,7 @@ echo $newstring;
 ```
   
 
-#
+---
 
 If you want to call non-static function inside your class, you can do something like this. <br><br>For PHP 5.2 use second argument like array($this, &apos;replace&apos;):<br>
 
@@ -64,7 +64,7 @@ class test_preg_callback{
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.preg-replace-callback.php)
 

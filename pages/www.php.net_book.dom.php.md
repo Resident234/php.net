@@ -42,7 +42,7 @@ print phpQuery::getDocument();
 ```
 <br><br>It uses DOM extension and XPath so it works only in PHP5.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.dom.php)
 

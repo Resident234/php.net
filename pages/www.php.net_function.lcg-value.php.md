@@ -13,7 +13,7 @@ function random_float ($min,$max) {
 ```
   
 
-#
+---
 
 Choose your weapon:<br>
 
@@ -34,7 +34,7 @@ function randf($min, $max)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.lcg-value.php)
 

@@ -28,7 +28,7 @@ foreach ($spl as $key)
 ```
 <br><br>See https://bugs.php.net/bug.php?id=49967  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.splobjectstorage.php)
 

@@ -4,7 +4,7 @@
 
 Note that, at least as of 5.3, you still aren&apos;t allowed to return a normal Array from getIterator().<br><br>In some places, the docs wrap the array into an ArrayObject and return that.  DON&apos;T DO IT.  ArrayObject drops any empty-string keys on the floor when you iterate over it (again, at least as of 5.3).<br><br>Use ArrayIterator instead.  I wouldn&apos;t be surprised if it didn&apos;t have its own set of wonderful bugs, but at the very least it works correctly when you use it with this method.  
 
-#
+---
 
 It might seem obvious, but you can return a compiled generator from your IteratorAggregate::getIterator() implementation.<br><br>
 
@@ -39,7 +39,7 @@ foreach ($collection as $key => $val) {
 ```
   
 
-#
+---
 
 
 
@@ -99,7 +99,7 @@ foreach($obj as $key => $value) {
 ```
 <br><br>Good luck!  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.iteratoraggregate.php)
 

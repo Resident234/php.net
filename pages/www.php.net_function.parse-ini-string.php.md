@@ -97,7 +97,7 @@ $arr = parse_ini_string_m($ini);
 ```
 <br><br>variable $arr output:<br><br>Array<br>(<br>    [simple] =&gt; Array<br>    (<br>        [val_one] =&gt; some value<br>        [val_two] =&gt; 567<br>    )<br><br>    [array] =&gt; Array<br>    (<br>        [val_arr] =&gt; Array<br>        (<br>            [0] =&gt; arr_elem_one<br>            [1] =&gt; arr_elem_two<br>            [2] =&gt; arr_elem_three<br>        )<br>    )<br><br>    [array_keys] =&gt; Array<br>    (<br>        [val_arr_two] =&gt; Array<br>        (<br>            [6] =&gt; key_6<br>            [some_key] =&gt; some_key_value<br>        )<br><br>    )<br><br>)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.parse-ini-string.php)
 

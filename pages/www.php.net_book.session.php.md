@@ -12,7 +12,7 @@ if( !isset($_SESSION['last_access']) || (time() - $_SESSION['last_access']) > 60
 ```
 <br><br>This will update the session every 60s to ensure that the modification date is altered.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.session.php)
 

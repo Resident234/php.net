@@ -44,7 +44,7 @@ $check = enoughmem ($x, $y, 1);
 ```
 <br><br>Taking the opportunity, I thank everyone here at php.net for the great manual and the useful user scripts.  
 
-#
+---
 
 If you want to create a *transparent* PNG image, where the background is fully transparent, and all draw operations happen on-top of this, then do the following:<br><br>
 
@@ -65,7 +65,7 @@ If you want to create a *transparent* PNG image, where the background is fully t
 ```
 <br><br>What you do is create a true colour image, make sure that the alpha save-state is on, then fill the image with a colour that has had its alpha level set to fully transparent (127).<br><br>The resulting PNG from the code above will have a red circle on a fully transparent background (drag the image into Photoshop to see for yourself)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecreatetruecolor.php)
 

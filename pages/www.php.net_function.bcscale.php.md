@@ -4,7 +4,7 @@
 
 Executing bcsacle() will change the scale value of fpm.conf, not only the current process.  
 
-#
+---
 
 These functions DO NOT round off your values. No arbitrary precision libraries do it this way. It stops calculating after reaching scale of decimal places, which mean that your value is cut off after scale number of digits, not rounded. To do the rounding use something like this:<br>
 
@@ -20,7 +20,7 @@ These functions DO NOT round off your values. No arbitrary precision libraries d
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.bcscale.php)
 

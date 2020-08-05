@@ -29,7 +29,7 @@ $mysql_data_type_hash = array(
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.fetch-field-direct.php)
 

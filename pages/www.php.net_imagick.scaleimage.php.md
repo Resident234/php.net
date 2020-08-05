@@ -24,7 +24,7 @@ $im->scaleImage(0, 300);
 ```
 <br><br>Similarly, this example scales the image to make it 300 pixels tall, and the method automatically recalculates the image&apos;s height to maintain the aspect ratio.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagick.scaleimage.php)
 

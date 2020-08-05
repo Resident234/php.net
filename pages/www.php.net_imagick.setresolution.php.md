@@ -50,7 +50,7 @@ echo $im;
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagick.setresolution.php)
 

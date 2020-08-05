@@ -45,7 +45,7 @@ if (!function_exists('stats_standard_deviation')) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.stats-standard-deviation.php)
 

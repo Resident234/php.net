@@ -35,7 +35,7 @@ For the paranoid, this torture test verifies that both shell escaping and printf
 <?php
 
 $test = 'stuff bash interprets, space: # &amp; ; ` | * ? ~ < > ^ ( ) [ ] { } $ \ \x0A \xFF. \' " %'.PHP_EOL.
-        'stuff bash interprets, no space: #&amp;;`|*?~<>^()[]{}$\\x0A\xFF.\'\"%'.PHP_EOL.
+        'stuff bash interprets, no space: #&amp;;`.*?~<>^()[]{}$\\x0A\xFF.\'\"%'.PHP_EOL.
         'stuff bash interprets, with leading backslash: \# \&amp; \; \` \| \* \? \~ \< \> \^ \( \) \[ \] \{ \} \$ \\\ \\\x0A \\\xFF. \\\' \" \%'.PHP_EOL.
         'printf codes: % \ (used to form %.0#-*+d, or \\ \a \b \f \n \r \t \v \" \? \062 \0062 \x032 \u0032 and \U00000032)';
 
@@ -52,7 +52,7 @@ echo PHP_EOL."They should match exactly".PHP_EOL;
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.escapeshellcmd.php)
 

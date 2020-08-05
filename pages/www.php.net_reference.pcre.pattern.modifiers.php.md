@@ -60,11 +60,15 @@ foreach ( $examples as $name => $str ) {
 ```
   
 
-#
+---
 
 The description of the "u" flag is a bit misleading. It suggests that it is only required if the pattern contains UTF-8 characters, when in fact it is required if either the pattern or the subject contain UTF-8. Without it, I was having problems with preg_match_all returning invalid multibyte characters when given a UTF-8 subject string.<br><br>It&apos;s fairly clear if you read the documentation for libpcre:<br><br>       In  order  process  UTF-8 strings, you must build PCRE to include UTF-8<br>       support in the code, and, in addition,  you  must  call  pcre_compile()<br>       with  the  PCRE_UTF8  option  flag,  or the pattern must start with the<br>       sequence (*UTF8). When either of these is the case,  both  the  pattern<br>       and  any  subject  strings  that  are matched against it are treated as<br>       UTF-8 strings instead of strings of 1-byte characters.<br><br>[from http://www.pcre.org/pcre.txt]  
 
-#
+---
+
+Spent a few days, trying to understand how to create a pattern for Unicode chars, using the hex codes. Finally made it, after reading several manuals, that weren&apos;t giving any practical PHP-valid examples. So here&apos;s one of them:<br><br>For example we would like to search for Japanese-standard circled numbers 1-9 (Unicode codes are 0x2460-0x2468) in order to make it through the hex-codes the following call should be used:<br>preg_match(&apos;/[\x{2460}-\x{2468}]/u&apos;, $str);<br><br>Here $str is a haystack string<br>\x{hex} - is an UTF-8 hex char-code<br>and /u is used for identifying the class as a class of Unicode chars.<br><br>Hope, it&apos;ll be useful.  
+
+---
 
 [Official documentation page](https://www.php.net/manual/en/reference.pcre.pattern.modifiers.php)
 

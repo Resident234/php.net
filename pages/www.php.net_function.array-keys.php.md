@@ -39,11 +39,11 @@ but on a 32 bits system:
 ```
 <br><br>I hope it will save someone the huge headache I had :)  
 
-#
+---
 
 Since 5.4 STRICT standards dictate that you cannot wrap array_keys in a function like array_shift that attempts to reference the array.  <br><br>Invalid:<br>echo array_shift( array_keys( array(&apos;a&apos; =&gt; &apos;apple&apos;) ) );<br><br>Valid:<br>$keys = array_keys( array(&apos;a&apos; =&gt; &apos;apple&apos;) );<br>echo array_shift( $keys );<br><br>But Wait! Since PHP (currently) allows you to break a reference by wrapping a variable in parentheses, you can currently use:<br><br>echo array_shift( ( array_keys( array(&apos;a&apos; =&gt; &apos;apple&apos;) ) ) );<br><br>However I would expect in time the PHP team will modify the rules of parentheses.  
 
-#
+---
 
 Here&apos;s how to get the first key, the last key, the first value or the last value of a (hash) array without explicitly copying nor altering the original array:<br><br>
 
@@ -66,7 +66,7 @@ Here&apos;s how to get the first key, the last key, the first value or the last 
 ```
   
 
-#
+---
 
 There&apos;s a lot of multidimensional array_keys function out there, but each of them only merges all the keys in one flat array.<br><br>Here&apos;s a way to find all the keys from a multidimensional  array while keeping the array structure. An optional MAXIMUM DEPTH parameter can be set for testing purpose in case of very large arrays.<br><br>NOTE: If the sub element isn&apos;t an array, it will be ignore.<br><br>
 
@@ -89,7 +89,7 @@ function array_keys_recursive($myArray, $MAXDEPTH = INF, $depth = 0, $arrayKeys 
 ```
 <br><br>EXAMPLE:<br>input:<br>array(<br>    &apos;Player&apos; =&gt; array(<br>        &apos;id&apos; =&gt; &apos;4&apos;,<br>        &apos;state&apos; =&gt; &apos;active&apos;,<br>    ),<br>    &apos;LevelSimulation&apos; =&gt; array(<br>        &apos;id&apos; =&gt; &apos;1&apos;,<br>        &apos;simulation_id&apos; =&gt; &apos;1&apos;,<br>        &apos;level_id&apos; =&gt; &apos;1&apos;,<br>        &apos;Level&apos; =&gt; array(<br>            &apos;id&apos; =&gt; &apos;1&apos;,<br>            &apos;city_id&apos; =&gt; &apos;8&apos;,<br>            &apos;City&apos; =&gt; array(<br>                &apos;id&apos; =&gt; &apos;8&apos;,<br>                &apos;class&apos; =&gt; &apos;home&apos;,<br>            )<br>        )<br>    ),<br>    &apos;User&apos; =&gt; array(<br>        &apos;id&apos; =&gt; &apos;48&apos;,<br>        &apos;gender&apos; =&gt; &apos;M&apos;,<br>        &apos;group&apos; =&gt; &apos;user&apos;,<br>        &apos;username&apos; =&gt; &apos;Hello&apos;<br>    )<br>)<br><br>output:<br>array(<br>    &apos;Player&apos; =&gt; array(),<br>    &apos;LevelSimulation&apos; =&gt; array(<br>        &apos;Level&apos; =&gt; array(<br>            &apos;City&apos; =&gt; array()<br>        )<br>    ),<br>    &apos;User&apos; =&gt; array()<br>)  
 
-#
+---
 
 Sorry for my english...<br><br>I wrote a function to get keys of arrays recursivelly...<br><br>
 
@@ -109,7 +109,7 @@ Sorry for my english...<br><br>I wrote a function to get keys of arrays recursiv
 ```
 <br><br>I hope it will be usefull<br><br>Regards  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-keys.php)
 

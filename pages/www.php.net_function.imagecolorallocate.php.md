@@ -116,7 +116,7 @@ Or as a function:
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecolorallocate.php)
 

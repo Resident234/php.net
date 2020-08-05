@@ -89,7 +89,11 @@ $error_codes=array(
 ```
   
 
-#
+---
+
+Note that you can detect errors using curl_multi_info_read() in the curl_multi_exec() loop that don&apos;t show up later using curl_errno().  This seems particularly true of connection errors.  
+
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.curl-errno.php)
 

@@ -45,16 +45,14 @@ print xml_attribute($xml, 'id'); //prints "55555"
 ```
   
 
-#
+---
 
 Note that you must provide the namespace if you want to access an attribute of a non-default namespace:<br><br>Consider the following example:<br><br>
 
 ```
 <?php
 $xml = <<<XML
-<?xml version="1.0"?>
-```
-
+``<?xml version="1.0"?>``;
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
  <Table Foo="Bar" ss:ExpandedColumnCount="7">
@@ -82,7 +80,7 @@ var_dump((int) $sxml->Table[0]->attributes('ss', TRUE)->ExpandedColumnCount);
 ```
   
 
-#
+---
 
 
 
@@ -102,7 +100,7 @@ $element->attributes()->$att = 'New value of the attribute';
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/simplexmlelement.attributes.php)
 

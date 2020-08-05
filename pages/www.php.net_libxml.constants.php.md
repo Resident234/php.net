@@ -29,7 +29,7 @@ $dom->saveXML();
 ```
 <br><br>Hope this helps, took me hours of trial and error to figure this out!  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/libxml.constants.php)
 

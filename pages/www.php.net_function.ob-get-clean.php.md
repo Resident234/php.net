@@ -4,7 +4,7 @@
 
 The definition should mention that the function also "turns off output buffering", not just cleans it.  
 
-#
+---
 
 Also, don&apos;t forget that you will need to ob_start() again for any successive calls:<br><br>
 
@@ -23,7 +23,7 @@ echo $content;
 ```
 <br><br>Output: 12<br><br>Without the second ob_start(), the output is 21 ...  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-get-clean.php)
 

@@ -57,7 +57,7 @@ print_r (RandomTokenDebug());
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.random-bytes.php)
 

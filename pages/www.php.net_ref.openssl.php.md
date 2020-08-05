@@ -30,7 +30,7 @@ function der2pem($der_data) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.openssl.php)
 

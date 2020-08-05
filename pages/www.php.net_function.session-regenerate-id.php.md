@@ -22,7 +22,7 @@ bin2hex(openssl_random_pseudo_bytes(32))
 ```
   
 
-#
+---
 
 I wrote the following code for a project I&apos;m working on- it attempts to resolve the regenerate issue, as well as deal with a couple of other session related things.<br><br>I tried to make it a little more generic and usable (for instance, in the full version it throws different types of exceptions for the different types of session issues), so hopefully someone might find it useful.<br><br>
 
@@ -96,15 +96,15 @@ function checkSession()
 ```
   
 
-#
+---
 
 In PHP 5.6 (and probably older versions), session_regenerate_id(true) do not trigger a read() call to the session handler for the new session id. <br><br>In PHP 7, read() is triggered during session_regenerate_id(true). Nice to know when working with custom session handlers.  
 
-#
+---
 
 In a previous note, php at 5mm de describes how to prevent session hijacking by<br>ensuring that the session id provided matches the HTTP_USER_AGENT and REMOTE_ADDR fields that were present when the session id was first issued.  It should be noted that HTTP_USER_AGENT is supplied by the client, and so can be easily modified by a malicious user.  Also, the client IP addresses can be spoofed, although that&apos;s a bit more difficult.  Care should be taken when relying on the session for authentication.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.session-regenerate-id.php)
 

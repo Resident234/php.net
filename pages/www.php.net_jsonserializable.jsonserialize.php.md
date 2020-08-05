@@ -31,7 +31,7 @@ echo json_encode(new Fruit()); //which outputs: {"type":"Apple","lastEaten":"201
 ```
   
 
-#
+---
 
 Nested json serializable objects will be serialized recursively. No need to call -&gt;jsonSerialize() on your own. It is especially useful in collections.<br><br>
 
@@ -86,7 +86,7 @@ echo json_encode(
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/jsonserializable.jsonserialize.php)
 

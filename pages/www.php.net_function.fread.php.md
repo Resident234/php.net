@@ -111,7 +111,7 @@ function dl_file_resumable($file, $is_resume=TRUE)
 ```
   
 
-#
+---
 
 This is an hack I&apos;ve done to download remote files with HTTP resume support. This is useful if you want to write a download script that fetches files remotely and then sends them to the user, adding support to download managers (I tested it on wget). To do that you should also use a "remote_filesize" function that you can easily write/find.<br><br>
 
@@ -176,7 +176,7 @@ function readfile_chunked_remote($filename, $seek = 0, $retbytes = true, $timeou
 ```
   
 
-#
+---
 
 I had a fread script that hanged forever (from php manual):<br><br>
 
@@ -223,11 +223,11 @@ if (!$fp) {
 ```
 <br><br>Hope this will save a lot of headaches to someone.<br><br>(Greetings, from La Paz-Bolivia)  
 
-#
+---
 
 For anyone still trying to write an effective file downloader function/script, the work has been done for you in all the major servers including Apache &amp; nginx.<br><br>Using the X-Sendfile header, you can do the following:<br><br>if ($user-&gt;isLoggedIn())<br>{<br>    header("X-Sendfile: $path_to_somefile_private");<br>    header("Content-Type: application/octet-stream");<br>    header("Content-Disposition: attachment; filename=\"$somefile\"");<br>}<br><br>Apache will serve the file for you while NOT revealing your private file path! Pretty nice. This works on all browsers/download managers and saves a lot of resources.<br><br>Documentation:<br>Apache module: https://tn123.org/mod_xsendfile/<br>Nginx: http://wiki.nginx.org/XSendfile<br>Lighttpd: http://blog.lighttpd.net/articles/2006/07/02/x-sendfile/<br><br>Hopefully this will save you many hours of work.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.fread.php)
 

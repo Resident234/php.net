@@ -12,7 +12,7 @@ $socket = socket_create(AF_UNIX, SOCK_STREAM, 0);
 ```
   
 
-#
+---
 
 It took some time to understand how one PHP process can communicate with another by means of unix udp sockets. Examples of &apos;server&apos; and &apos;client&apos; code are given below. Server is assumed to run before client starts.<br><br>&apos;Server&apos; code<br>
 
@@ -115,7 +115,7 @@ echo "Client exits\n";
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.socket-create.php)
 

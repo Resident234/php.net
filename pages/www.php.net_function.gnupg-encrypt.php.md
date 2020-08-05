@@ -19,7 +19,7 @@ After spending some time trying to get this extension to work, I&apos;ve found t
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.gnupg-encrypt.php)
 

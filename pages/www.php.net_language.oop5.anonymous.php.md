@@ -150,7 +150,7 @@ echo "\n";?>
 ```
   
 
-#
+---
 
 Anonymous classes are syntax sugar that may appear deceiving to some.<br>The &apos;anonymous&apos; class is still parsed into the global scope, where it is auto assigned a name, and every time the class is needed, that global class definition is used.  Example to illustrate....<br><br>The anonymous class version...<br>
 
@@ -189,7 +189,7 @@ echo $clzz::$str;
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.anonymous.php)
 

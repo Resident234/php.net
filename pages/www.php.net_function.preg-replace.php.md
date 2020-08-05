@@ -4,7 +4,7 @@
 
 Because i search a lot 4 this:<br><br>The following should be escaped if you are trying to match that character<br><br>\ ^ . $ | ( ) [ ]<br>* + ? { } ,<br><br>Special Character Definitions<br>\ Quote the next metacharacter<br>^ Match the beginning of the line<br>. Match any character (except newline)<br>$ Match the end of the line (or before newline at the end)<br>| Alternation<br>() Grouping<br>[] Character class<br>* Match 0 or more times<br>+ Match 1 or more times<br>? Match 1 or 0 times<br>{n} Match exactly n times<br>{n,} Match at least n times<br>{n,m} Match at least n but not more than m times<br>More Special Character Stuff<br>\t tab (HT, TAB)<br>\n newline (LF, NL)<br>\r return (CR)<br>\f form feed (FF)<br>\a alarm (bell) (BEL)<br>\e escape (think troff) (ESC)<br>\033 octal char (think of a PDP-11)<br>\x1B hex char<br>\c[ control char<br>\l lowercase next char (think vi)<br>\u uppercase next char (think vi)<br>\L lowercase till \E (think vi)<br>\U uppercase till \E (think vi)<br>\E end case modification (think vi)<br>\Q quote (disable) pattern metacharacters till \E<br>Even More Special Characters<br>\w Match a "word" character (alphanumeric plus "_")<br>\W Match a non-word character<br>\s Match a whitespace character<br>\S Match a non-whitespace character<br>\d Match a digit character<br>\D Match a non-digit character<br>\b Match a word boundary<br>\B Match a non-(word boundary)<br>\A Match only at beginning of string<br>\Z Match only at end of string, or before newline at the end<br>\z Match only at end of string<br>\G Match only where previous m//g left off (works only with /g)  
 
-#
+---
 
 Post slug generator, for creating clean urls from titles.<br>It works with many languages.<br><br>
 
@@ -26,11 +26,11 @@ function post_slug($str)
 ```
 <br><br>Example: post_slug(&apos; -Lo#&amp;@rem  IPSUM //dolor-/sit - amet-/-consectetur! 12 -- &apos;)<br>will output: lorem-ipsum-dolor-sit-amet-consectetur-12  
 
-#
+---
 
 If you want to catch characters, as well european, russian, chinese, japanese, korean of whatever, just :<br>- use mb_internal_encoding(&apos;UTF-8&apos;);<br>- use preg_replace(&apos;`...`u&apos;, &apos;...&apos;, $string) with the u (unicode) modifier<br><br>For further information, the complete list of preg_* modifiers could be found at :<br>http://php.net/manual/en/reference.pcre.pattern.modifiers.php  
 
-#
+---
 
 preg_replace (and other preg-functions) return null instead of a string when encountering problems you probably did not think about!<br>-------------------------<br><br>It may not be obvious to everybody that the function returns NULL if an error of any kind occurres. An error I happen to stumple about quite often was the back-tracking-limit:<br>http://de.php.net/manual/de/pcre.configuration.php<br>#ini.pcre.backtrack-limit<br><br>When working with HTML-documents and their parsing it happens that you encounter documents that have a length of over 100.000 characters and that may lead to certain regular-expressions to fail due the back-tracking-limit of above.<br><br>A regular-expression that is ungreedy ("U", http://de.php.net/manual/de/reference.pcre.pattern.modifiers.php) often does the job, but still: sometimes you just need a greedy regular expression working on long strings ...<br><br>Since, an unhandled return-value of NULL usually creates a consecutive error in the application with unwanted and unforeseen consequences, I found the following solution to be quite helpful and at least save the application from crashing:<br><br>
 
@@ -54,7 +54,7 @@ unset( $string_before );
 ```
 <br><br>You may or should also put a log-message or the sending of an email into the if-condition in order to get informed, once, one of your regular-expressions does not have the effect you desired it to have.  
 
-#
+---
 
 If you want to replace only the n-th occurrence of $pattern, you can use this function:<br><br>
 
@@ -76,7 +76,7 @@ echo preg_replace_nth("/(\w+)\|/", '${1} is the 4th|', "|aa|b|cc|dd|e|ff|gg|kkk|
 ```
 <br><br>this outputs |aa|b|cc|dd is the 4th|e|ff|gg|kkk| <br>backreferences are accepted in $replacement  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.preg-replace.php)
 

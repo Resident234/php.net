@@ -22,7 +22,7 @@ socket_set_option($socket, SOL_SOCKET, SO_SNDTIMEO, array('sec'=>$sec, 'usec'=>$
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.stream-set-timeout.php)
 

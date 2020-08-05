@@ -12,7 +12,7 @@ $image_mime = image_type_to_mime_type(exif_imagetype($file));
 ```
 <br><br>It will output true image mime type even if you rename your image file.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.image-type-to-mime-type.php)
 

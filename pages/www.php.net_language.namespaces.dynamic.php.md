@@ -104,7 +104,7 @@ $c->tell(); // "bar"
 ```
 <br><br>(it seems that the namespace-backslashes are stripped from the source code in the preview, maybe it works in the main view. If not: fooA was written as \foo\A and barB as bar\B)  
 
-#
+---
 
 Please be aware of FQCN (Full Qualified Class Name) point.<br>Many people will have troubles with this:<br><br>
 
@@ -155,7 +155,7 @@ $bar2 = \foo\factory('\anotherfoo\Bar'); // Wil correctly instantiate \anotherfo
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.dynamic.php)
 

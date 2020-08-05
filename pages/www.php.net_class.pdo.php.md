@@ -24,7 +24,7 @@ class MyPDO extends PDO
 ```
 <br><br>Database connection parameters are accessible via human readable ini file for those who screams even if they see one PHP/HTML/any_other command.  
 
-#
+---
 
 PDO and Dependency Injection<br><br>Dependency injection is good for testing.  But for anyone wanting various data mapper objects to have a database connection, dependency injection can make other model code very messy because database objects have to be instantiated all over the place and given to the data mapper objects.<br><br>The code below is a good way to maintain dependency injection while keeping clean and minimal model code.<br><br>
 
@@ -69,7 +69,7 @@ VendorMapper::add($vendor);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.pdo.php)
 

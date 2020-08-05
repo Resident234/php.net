@@ -18,7 +18,7 @@ class StablePriorityQueue extends SplPriorityQueue {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/splpriorityqueue.compare.php)
 

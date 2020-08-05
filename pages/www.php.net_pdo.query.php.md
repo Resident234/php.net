@@ -11,7 +11,7 @@ $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/pdo.query.php)
 

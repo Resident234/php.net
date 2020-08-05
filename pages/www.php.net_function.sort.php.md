@@ -136,7 +136,7 @@ Array
 ```
   
 
-#
+---
 
 unless you specify the second argument, "regular" comparisons will be used. I quote from the page on comparison operators:<br>"If you compare a number with a string or the comparison involves numerical strings, then each string is converted to a number and the comparison performed numerically."<br>What this means is that "10" &lt; "1a", and "1a" &lt; "2", but "10" &gt; "2". In other words, regular PHP string comparisons are not transitive.<br>This implies that the output of sort() can in rare cases depend on the order of the input array:<br>
 
@@ -159,7 +159,7 @@ echo_sorted(array( "2", "1a", "10")); // => 10 1a 2
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.sort.php)
 

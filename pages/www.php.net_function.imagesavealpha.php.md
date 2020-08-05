@@ -52,7 +52,7 @@ exit;
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagesavealpha.php)
 

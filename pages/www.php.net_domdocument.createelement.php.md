@@ -45,17 +45,23 @@ echo $doc2->saveXML();
 
 
 Text specified in createElement:
-<?xml version=""?>
+
+
+```
+<?phpxml version=""?>
 ```
 
 <foo>bar &amp;amp; baz</foo>
 
 Text added via createTextNode:
-<?xml version=""?>
+
+
+```
+<?phpxml version=""?>
 ```
 <br>&lt;foo&gt;bar &amp;amp; baz&lt;/foo&gt;  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.createelement.php)
 

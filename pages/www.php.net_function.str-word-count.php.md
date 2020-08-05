@@ -26,7 +26,7 @@ function str_word_count_utf8($str) {
 ```
   
 
-#
+---
 
 We can also specify a range of values for charlist.<br><br>
 
@@ -40,7 +40,7 @@ print_r(str_word_count($str, 1, '0..3'));
 ```
 <br><br>will give the result as <br><br>Array ( [0] =&gt; Hello [1] =&gt; fri3nd [2] =&gt; you&apos;re [3] =&gt; looking [4] =&gt; good [5] =&gt; today [6] =&gt; look123 [7] =&gt; ing )  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.str-word-count.php)
 

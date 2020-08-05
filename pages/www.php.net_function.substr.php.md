@@ -16,7 +16,7 @@ For getting a substring of UTF-8 characters, I highly recommend mb_substr<br><br
 ```
   
 
-#
+---
 
 may be by following functions will be easier to extract the needed sub parts from a string:<br><br>
 
@@ -99,13 +99,34 @@ function strrevpos($instr, $needle)
 ```
   
 
-#
+---
 
-&lt;?Php <br><br>### SUB STRING  BY WORD USING substr() and strpos()  #####<br><br>### THIS SCRIPT WILL RETURN PART OF STRING  WITHOUT WORD BREAK ###<br><br>$description = &#x2018;your description here your description here your description here your description here your description here your description here your description hereyour description here your description here&#x2019;  // your description here .<br><br>$no_letter = 30 ;<br><br>if(strlen($desctiption) &gt; 30 )<br>{<br>     echo substr($description,0,strpos($description,&#x2019; &#x2018;,30));             //strpos to find &#x2018; &#x2018; after 30 characters.<br>}<br>else {<br>     echo $description;<br>}<br><br>?>
+
+
+```
+<?php 
+
+### SUB STRING  BY WORD USING substr() and strpos()  #####
+
+### THIS SCRIPT WILL RETURN PART OF STRING  WITHOUT WORD BREAK ###
+
+$description = &#x2018;your description here your description here your description here your description here your description here your description here your description hereyour description here your description here&#x2019;  // your description here .
+
+$no_letter = 30 ;
+
+if(strlen($desctiption) > 30 )
+{
+     echo substr($description,0,strpos($description,&#x2019; &#x2018;,30));             //strpos to find &#x2018; &#x2018; after 30 characters.
+}
+else {
+     echo $description;
+}
+
+?>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.substr.php)
 

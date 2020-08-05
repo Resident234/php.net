@@ -44,7 +44,7 @@ print_r(array_uintersect($a1,$a2,"myfunction"));
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-uintersect.php)
 

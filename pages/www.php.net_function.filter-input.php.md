@@ -29,7 +29,7 @@ $b = (string)filter_input(INPUT_GET, 'b');
 ```
 <br><br>Yes, FILTER_REQUIRE_SCALAR seems to be set as a default option. <br>It&apos;s very helpful for eliminating E_NOTICE, E_WARNING and E_ERROR. <br>This fact should be documented.  
 
-#
+---
 
 FastCGI seems to cause strange side-effects with unexpected null values when using INPUT_SERVER and INPUT_ENV with this function. You can use this code to see if it affects your server:<br>
 
@@ -48,7 +48,7 @@ foreach ( array_keys($_ENV) as $b ) {
 ```
 <br>If you want to be on the safe side, using the superglobal $_SERVER and $_ENV variables will always work. You can still use the filter_* functions for Get/Post/Cookie without a problem, which is the important part!  
 
-#
+---
 
 If your $_POST contains an array value:<br>
 
@@ -70,7 +70,7 @@ var_dump(filter_input(INPUT_POST, 'var', FILTER_DEFAULT , FILTER_REQUIRE_ARRAY))
 ```
 <br>Otherwise it returns false.  
 
-#
+---
 
 Note that this function doesn&apos;t (or at least doesn&apos;t seem to) actually filter based on the current values of $_GET etc. Instead, it seems to filter based off the original values.<br>
 
@@ -86,7 +86,7 @@ echo "<a href='?search=$search_url'>Search again.</a>";
 ```
 <br><br>If you need to set a default input value and filter that, use filter_var on your required input variable instead  
 
-#
+---
 
 To use a class method for a callback function, as usual, provide an array with an instance of the class and the method name.<br>Example:<br><br>
 
@@ -108,7 +108,7 @@ var_dump($username);
 ```
   
 
-#
+---
 
 Here is an example how to work with the options-parameter. Notice the &apos;options&apos; in the &apos;options&apos;-Parameter!<br><br>
 
@@ -121,7 +121,7 @@ $priority=filter_input(INPUT_GET, 'priority', FILTER_VALIDATE_INT, $options);
 ```
 <br><br>$priority will be 5 if the priority-Parameter isn&apos;t set or out the given range.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.filter-input.php)
 

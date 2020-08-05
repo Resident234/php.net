@@ -27,11 +27,11 @@ $>?>
 ```
   
 
-#
+---
 
 It should be noted that this extension has now been superseded by the GeoIP2 API that MaxMind now produces. There is a pure-PHP set of classes and a C library and extension you can optionally install. The code can be found in various projects on MaxMind&apos;s GitHub page: https://github.com/maxmind/  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.geoip.php)
 

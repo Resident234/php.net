@@ -26,11 +26,11 @@ if (!function_exists('session_register')) fix_session_register();
 ```
 <br><br><br>[EDIT BY danbrown AT php DOT net: Bugfix provided by "dr3w" on 02-APR-2010: "its [sic] function_exists with an S at the end".]  
 
-#
+---
 
 if you remove session_register() calls and replace with $_SESSION assignments, make sure that it wasn&apos;t being used in place of session_start(). If it was, you&apos;ll need to add a call to session_start() too, before you assign to $_SESSION.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.session-register.php)
 

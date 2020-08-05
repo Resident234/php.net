@@ -17,7 +17,7 @@ echo sign( 0 ); // Return 0
 ```
 <br><br>Thomas.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.gmp-sign.php)
 

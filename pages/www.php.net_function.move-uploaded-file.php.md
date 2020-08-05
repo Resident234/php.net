@@ -65,15 +65,15 @@ $ext_type = array('gif','jpg','jpe','jpeg','png');
 ```
 <br><br>You have multi choices to checking extensions and Mime types.<br><br>Fifth: Check file size and make sure the limit of php.ini to upload files is what you want, You can start from http://www.php.net/manual/en/ini.core.php#ini.file-uploads<br><br>And last but not least : Check the file content if have a bad codes or something like this function http://php.net/manual/en/function.file-get-contents.php.<br><br>You can use .htaccess to stop working some scripts as in example php file in your upload path.<br><br>use :<br><br>AddHandler cgi-script .php .pl .jsp .asp .sh .cgi<br>Options -ExecCGI  <br><br>Do not forget this steps for your project protection.  
 
-#
+---
 
 The destination directory must exist; move_uploaded_file() will not automatically create it for you.  
 
-#
+---
 
 For those using PHP on Windows and IIS, you SHOULD set the "upload_tmp_dir" value in php.ini to some directory around where your websites directory is, create that directory, and then set the same permissions on it that you have set for your websites directory. Otherwise, when you upload a file and it goes into C:\WINDOWS\Temp, then you move it to your website directory, its permissions will NOT be set correctly. This will cause you problems if you then want to manipulate that file with something like ImageMagick&apos;s convert utility.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.move-uploaded-file.php)
 

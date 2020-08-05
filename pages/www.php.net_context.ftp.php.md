@@ -32,7 +32,7 @@ else
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/context.ftp.php)
 

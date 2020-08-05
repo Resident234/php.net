@@ -95,7 +95,7 @@ unset($b);
 ```
 <br>I hope this helps.  
 
-#
+---
 
 
 
@@ -150,7 +150,7 @@ echo $b; // shows "hihaha"
 ```
 <br><br>I tested each case individually on PHP 4.3.10.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.references.unset.php)
 

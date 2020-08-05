@@ -15,7 +15,7 @@ $stmt->bindValue(2, 42, SQLITE3_INTEGER);
 ```
 <br><br>Positional numbering starts at 1.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/sqlite3stmt.bindvalue.php)
 

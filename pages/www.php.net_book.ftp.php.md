@@ -32,7 +32,7 @@ var_dump($ftp->ftp_nlist());
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.ftp.php)
 

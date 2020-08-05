@@ -37,7 +37,7 @@ if (!is_null($elements)) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.domxpath.php)
 

@@ -27,7 +27,7 @@ function filter_input_array_with_default_flags($type, $filter, $flags, $add_empt
 ```
   
 
-#
+---
 
 [New Version]<br>This function is very useful for filtering complicated array structure.<br>Also, Some integer bitmasks and invalid UTF-8 sequence detection are available.<br><br>Code:<br>
 
@@ -115,7 +115,7 @@ function filter_struct_utf8($type, array $default) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.filter-input-array.php)
 

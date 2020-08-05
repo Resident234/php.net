@@ -33,7 +33,7 @@ if ( ENABLE_UPLOADS ):
 ```
 <br><br>Since &apos;ENABLE_UPLOADS&apos; was not defined as a constant, PHP was interpreting its use as a string constant, which of course evaluates as True.  
 
-#
+---
 
 define() will define constants exactly as specified.  So, if you want to define a constant in a namespace, you will need to specify the namespace in your call to define(), even if you&apos;re calling define() from within a namespace.  The following examples will make it clear.<br><br>The following code will define the constant "MESSAGE" in the global namespace (i.e. "\MESSAGE").<br><br>
 
@@ -58,7 +58,7 @@ define(__NAMESPACE__ . '\GOODBYE', 'Goodbye cruel world!');
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.define.php)
 

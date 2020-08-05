@@ -27,7 +27,7 @@ echo('Text user will never see');
 ```
   
 
-#
+---
 
 Closing the users browser connection whilst keeping your php script running has been an issue since 4.1, when the behaviour of register_shutdown_function() was modified so that it would not automatically close the users connection.<br><br>sts at mail dot xubion dot hu<br>Posted the original solution:<br><br>
 
@@ -73,7 +73,7 @@ example:
 ```
 <br> <br>Just spent 3 hours trying to figure this one out, hope it helps someone :)<br><br>Tested in:<br>IE 7.5730.11<br>Mozilla Firefox 1.81  
 
-#
+---
 
 I had a lot of problems getting a redirect to work, after which my script was intended to keep working in the background. The redirect to another page of my site simply would only work once the original page had finished processing.<br><br>I finally found out what was wrong:<br>The session only gets closed by PHP at the very end of the script, and since access to the session data is locked to prevent more than one page writing to it simultaneously, the new page cannot load until the original processing has finished.<br><br>Solution:<br>Close the session manually when redirecting using session_write_close():<br><br>
 
@@ -101,7 +101,7 @@ exit;
 ```
 <br><br>But careful:<br>Make sure that your script doesn&apos;t write to the session after session_write_close(), i.e. in your background processing code.  That won&apos;t work.  Also avoid reading, remember, the next script may already have modified the data.<br><br>So try to read out the data you need prior to redirecting.  
 
-#
+---
 
 PHP changes directory on connection abort so code like this will not do what you want:<br><br>
 
@@ -134,11 +134,11 @@ $dsd=getcwd();
 ```
   
 
-#
+---
 
 The point mentioned in the last comment isn&apos;t always the case.<br><br>If a user&apos;s connection is lost half way through an order processing script is confirming a user&apos;s credit card/adding them to a DB, etc (due to their ISP going down, network trouble... whatever) and your script tries to send back output (such as, "pre-processing order" or any other type of confirmation), then your script will abort -- and this could cause problems for your process.<br><br>I have an order script that adds data to a InnoDB database (through MySQL) and only commits the transactions upon successful completion. Without ignore_user_abort(), I have had times when a user&apos;s connection dropped during the processing phase... and their card was charged, but they weren&apos;t added to my local DB.<br><br>So, it&apos;s always safe to ignore any aborts if you are processing sensitive transactions that should go ahead, whether your user is "watching" on the other end or not.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/features.connection-handling.php)
 

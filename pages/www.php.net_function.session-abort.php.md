@@ -42,7 +42,7 @@ Then you should execute this code :
 ```
 <br><br>So if you have an open session , session_abort() will simply close it without effecting the external session data , so you can reload your data again from your path that you chose .  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.session-abort.php)
 

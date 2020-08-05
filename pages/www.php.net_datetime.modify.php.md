@@ -88,7 +88,7 @@ k 2016-02-29?>
 ```
   
 
-#
+---
 
 These functions makes sure that adding months or years always ends up in the month you would expect.  Works for positive and negative values<br><br>
 
@@ -155,7 +155,7 @@ These functions makes sure that adding months or years always ends up in the mon
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/datetime.modify.php)
 

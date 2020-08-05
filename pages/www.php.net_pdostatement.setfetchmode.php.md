@@ -21,7 +21,7 @@ foreach ($stmt as $row)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/pdostatement.setfetchmode.php)
 

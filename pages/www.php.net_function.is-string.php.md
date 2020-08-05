@@ -19,7 +19,7 @@ print(is_string($b) ? 'true' : 'false'); //false
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.is-string.php)
 

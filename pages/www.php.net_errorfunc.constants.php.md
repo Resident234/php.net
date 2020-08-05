@@ -52,11 +52,11 @@ function FriendlyErrorType($type)
 ```
   
 
-#
+---
 
 -1 is also semantically meaningless as a bit field, and only works in 2s-complement numeric representations.  On a 1s-complement system -1 would not set E_ERROR.  On a sign-magnitude system -1 would set nothing at all! (see e.g. http://en.wikipedia.org/wiki/Ones%27_complement)<br><br>If you want to set all bits, ~0 is the correct way to do it.<br><br>But setting undefined bits could result in undefined behaviour and that means *absolutely anything* could happen :-)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/errorfunc.constants.php)
 

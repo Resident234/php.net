@@ -4,7 +4,7 @@
 
 If you like to declare an __autoload function within a namespace or class, use the spl_autoload_register() function to register it and it will work fine.  
 
-#
+---
 
 The term "autoload" mentioned here shall not be confused with __autoload function to autoload objects. Regarding the __autoload and namespaces&apos; resolution I&apos;d like to share the following experience:<br><br>-&gt;Say you have the following directory structure:<br><br>- root<br>      | - loader.php <br>      | - ns<br>             | - foo.php<br><br>-&gt;foo.php<br><br>
 
@@ -52,7 +52,7 @@ $b = new foo;  // prints foobar just fine.
 ```
 <br><br>If you keep your directory/file matching namespace/class consistence the object __autoload works fine.<br>But... if you try to give loader.php a namespace you&apos;ll obviously get fatal errors. <br>My sample is just 1 level dir, but I&apos;ve tested with a very complex and deeper structure. Hope anybody finds this useful.<br><br>Cheers!  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.rules.php)
 

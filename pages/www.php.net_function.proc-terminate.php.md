@@ -4,7 +4,7 @@
 
 /bin/sh -c CMD will fork sh and then exec CMD.<br>/bin/sh -c exec CMD will NOT fork and only executes CMD.<br><br>Therefore, you can get rid of this hack by prefixing your command to "exec bla bla bla".  
 
-#
+---
 
 As explained in http://bugs.php.net/bug.php?id=39992, proc_terminate() leaves children of the child process running. In my application, these children often have infinite loops, so I need a sure way to kill processes created with proc_open(). When I call proc_terminate(), the /bin/sh process is killed, but the child with the infinite loop is left running. <br><br>Until proc_terminate() gets fixed, I would not recommend using it. Instead, my solution is to:<br>1) call proc_get_status() to get the parent pid (ppid) of the process I want to kill. <br>2) use ps to get all pids that have that ppid as their parent pid<br>3) use posix_kill() to send the SIGKILL (9) signal to each of those child pids<br>4) call proc_close() on process resource<br><br>
 
@@ -51,7 +51,7 @@ if($status['running'] == true) { //process ran too long, kill it
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.proc-terminate.php)
 

@@ -28,7 +28,7 @@ echo $gzipoutput;
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.gzencode.php)
 

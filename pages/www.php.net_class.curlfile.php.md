@@ -79,7 +79,7 @@ function curl_custom_postfields($ch, array $assoc = array(), array $files = arra
 ```
   
 
-#
+---
 
 i&apos;ve seen some downvotes , here is a small example of using curl to upload image .<br><br>
 
@@ -114,7 +114,7 @@ curl_close($curl);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.curlfile.php)
 

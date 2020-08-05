@@ -30,7 +30,7 @@ class MySoapService {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.soapserver.php)
 

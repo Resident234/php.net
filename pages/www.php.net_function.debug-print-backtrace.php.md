@@ -13,7 +13,7 @@ print_r(str_replace('/path/to/code/', '', $e->getTraceAsString()));
 ```
   
 
-#
+---
 
 I like the output of debug_print_backtrace() but I sometimes want it as a string.<br><br>bortuzar&apos;s solution to use output buffering is great, but I&apos;d like to factorize that into a function.  Doing that however always results in whatever function name I use appearing at the top of the stack which is redundant.<br><br>Below is my noddy (simple) solution.  If you don&apos;t care for renumbering the call stack, omit the second preg_replace().<br><br>
 
@@ -38,7 +38,7 @@ I like the output of debug_print_backtrace() but I sometimes want it as a string
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.debug-print-backtrace.php)
 

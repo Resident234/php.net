@@ -17,7 +17,7 @@ echo "<br>";
 ```
 <br><br>Local time as string can be get by strftime() and local timestamp (if ever needed) by mktime().  
 
-#
+---
 
 Two quick approaches to getting the time elapsed in human readable form.<br><br>
 
@@ -78,11 +78,11 @@ time_elapsed_B: 6 days 15 hours 48 minutes and 19 seconds ago.
 ```
   
 
-#
+---
 
 The number of 86,400 seconds in a day comes from the assumption of 60 seconds per minute, 60 minutes per hour and 24 hours per day: 60*60*24.  But not every day has 24 hours.  This edge case occurs on the days that clocks change as we enter and leave daylight savings (summer) time.  Date and time arithmetic is logically consistent and correct when you use PHP built-in functions, but it may not always work as expected if you try to write your own date and time arithmetic.  
 
-#
+---
 
 A time difference function that outputs the time passed in facebook&apos;s style: 1 day ago, or 4 months ago. I took andrew dot macrobert at gmail dot com function and tweaked it a bit. On a strict enviroment it was throwing errors, plus I needed it to calculate the difference in time between a past date and a future date. <br><br>
 
@@ -135,7 +135,7 @@ $result = nicetime($date); // 2 days ago
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.time.php)
 

@@ -16,7 +16,7 @@ print $locality; // will output Tunis
 ```
   
 
-#
+---
 
 In PHP 7.1 we can do the following:<br><br>
 
@@ -38,11 +38,11 @@ Before, we had to do:
 ```
   
 
-#
+---
 
 The example showing that:<br><br>$info = array(&apos;kawa&apos;, &apos;br&#x105;zowa&apos;, &apos;kofeina&apos;);<br>list($a[0], $a[1], $a[2]) = $info;<br>var_dump($a);<br><br>outputs:<br>array(3) {<br>[2]=&gt;<br>string(8) "kofeina"<br>[1]=&gt;<br>string(5) "br&#x105;zowa"<br>[0]=&gt;<br>string(6) "kawa"<br>}<br><br>One thing to note here is that if you define the array earlier, e.g.:<br>$a = [0, 0, 0];<br><br>the indexes will be kept in the correct order:<br><br>array(3) {<br>  [0]=&gt;<br>  string(4) "kawa"<br>  [1]=&gt;<br>  string(8) "br&#x105;zowa"<br>  [2]=&gt;<br>  string(7) "kofeina"<br>}<br><br>Thought that it was worth mentioning.  
 
-#
+---
 
 
 
@@ -86,7 +86,7 @@ unset($v1, $v2, $v3, $v4);?>
 ```
   
 
-#
+---
 
 As noted, list() will give an error if the input array is too short. This can be avoided by array_merge()&apos;ing in some default values. For example:<br><br>
 
@@ -119,7 +119,7 @@ string(0) ""
 ```
   
 
-#
+---
 
 The example states the following:<br>
 
@@ -146,7 +146,7 @@ var_dump($foo);
 ```
   
 
-#
+---
 
 list() can be used with foreach<br><br>
 
@@ -161,7 +161,7 @@ foreach($array as list($odd, $even)){
 ```
 <br><br>The output:<br>===<br>1 is odd; 2 is even<br>3 is odd; 4 is even<br>5 is odd; 6 is even  
 
-#
+---
 
 The list() definition won&apos;t throw an error if your array is longer then defined list. <br>
 
@@ -177,11 +177,11 @@ var_dump($c); // c
 ```
   
 
-#
+---
 
 The list construct seems to look for a sequential list of indexes rather taking elements in sequence. What that obscure statement means is that if you unset an element, list will not simply jump to the next element and assign that to the variable but will treat the missing element as a null or empty variable:<br><br>    $test = array("a","b","c","d");<br>    unset($test[1]);<br>    list($a,$b,$c)=$test;<br>    print "\$a=&apos;$a&apos; \$b=&apos;$b&apos; \$c=&apos;$c&apos;&lt;BR&gt;";<br><br>results in:<br>$a=&apos;a&apos; $b=&apos;&apos; $c=&apos;c&apos;<br><br>not:<br>$a=&apos;a&apos; $b=&apos;c&apos; $c=&apos;d&apos;  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.list.php)
 

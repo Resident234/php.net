@@ -26,7 +26,7 @@ class ExtendedDateTime extends DateTime {
 ```
 <br><br>Hope this helps someone.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/datetime.wakeup.php)
 

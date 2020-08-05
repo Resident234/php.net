@@ -61,7 +61,7 @@ while(true){
 ```
 <br><br>With &apos;,&apos; the cursor stops at the beginning every newline, while with &apos;.&apos; the cursor stops after the 0 in the beginning every line (because sleep() returns 0).  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.echo.php)
 

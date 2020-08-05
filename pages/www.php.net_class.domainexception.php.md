@@ -28,7 +28,7 @@ function renderImage($imageResource, $imageType)
 ```
   
 
-#
+---
 
 I think this kind of exception is perfect to throw when expected the  type of parameter, value etc. is good, but its value is out of domain. Look at RangeException:<br>&gt;&gt;Exception thrown to indicate range errors during program execution. Normally this means there was an arithmetic error other than under/overflow. This is the runtime version of DomainException.&lt;&lt;<br>So, this kind of exception is designed for logic error<br><br>When datatype is wrong, the better way is throwing InvalidArgumentException. <br><br>
 
@@ -79,7 +79,7 @@ class library {
 ```
 <br>Summary: DomainException corresponds to RangeException and we should use them in simillar situations.  But first exception is designed to use when we are sure the problem is with our project, third-part elements etc. (simply: logical error), the second way is designed to use when we are sure the problem is with input data or environment (simply: runtime error).  
 
-#
+---
 
 
 
@@ -98,7 +98,7 @@ function divide($divident, $divisor) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.domainexception.php)
 

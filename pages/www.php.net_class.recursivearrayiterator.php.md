@@ -15,7 +15,7 @@ class RecursiveArrayOnlyIterator extends RecursiveArrayIterator {
 ```
 <br>Of course, this simple example will not recurse into ArrayObjects either!  
 
-#
+---
 
 Using the RecursiveArrayIterator to traverse an unknown amount of sub arrays within the outer array. Note: This functionality is already provided by using the RecursiveIteratorIterator but is useful in understanding how to use the iterator when using for the first time as all the terminology does get rather confusing at first sight of SPL!<br><br>
 
@@ -52,7 +52,7 @@ function traverseStructure($iterator) {
 ```
 <br><br>The output from which is:<br>0 : a<br>0 : subA<br>1 : subB<br>0 : subsubA<br>1 : subsubB<br>0 : deepA<br>1 : deepB<br>2 : b<br>0 : subA<br>1 : subB<br>2 : subC<br>4 : c  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.recursivearrayiterator.php)
 

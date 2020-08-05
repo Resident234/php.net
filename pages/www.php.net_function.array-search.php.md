@@ -4,7 +4,7 @@
 
 in (PHP 5 &gt;= 5.5.0) you don&apos;t have to write your own function to search through a multi dimensional array<br><br>ex : <br><br>$userdb=Array<br>(<br>    (0) =&gt; Array<br>        (<br>            (uid) =&gt; &apos;100&apos;,<br>            (name) =&gt; &apos;Sandra Shush&apos;,<br>            (url) =&gt; &apos;urlof100&apos;<br>        ),<br><br>    (1) =&gt; Array<br>        (<br>            (uid) =&gt; &apos;5465&apos;,<br>            (name) =&gt; &apos;Stefanie Mcmohn&apos;,<br>            (pic_square) =&gt; &apos;urlof100&apos;<br>        ),<br><br>    (2) =&gt; Array<br>        (<br>            (uid) =&gt; &apos;40489&apos;,<br>            (name) =&gt; &apos;Michael&apos;,<br>            (pic_square) =&gt; &apos;urlof40489&apos;<br>        )<br>);<br><br>simply u can use this<br><br>$key = array_search(40489, array_column($userdb, &apos;uid&apos;));  
 
-#
+---
 
 About searcing in multi-dimentional arrays; two notes on "xfoxawy at gmail dot com";<br><br>It perfectly searches through multi-dimentional arrays combined with array_column() (min php 5.5.0) but it may not return the values you&apos;d expect.<br><br>
 
@@ -51,11 +51,11 @@ $found_key = array_search('blue', $colors);
 ```
   
 
-#
+---
 
 $array = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;];<br>$key = array_search(&apos;a&apos;, $array); //$key = 0<br>if ($key) <br>{<br>//even a element is found in array, but if (0) means false<br>//...<br>}<br><br>//the correct way<br>if (false !== $key)<br>{<br>//....<br>}<br><br>It&apos;s what the document stated "may also return a non-Boolean value which evaluates to FALSE."  
 
-#
+---
 
 the recursive function by tony have a small bug. it failes when a key is 0<br><br>here is the corrected version of this helpful function:<br><br>
 
@@ -74,7 +74,7 @@ function recursive_array_search($needle,$haystack) {
 ```
   
 
-#
+---
 
 If you are using the result of array_search in a condition statement, make sure you use the === operator instead of == to test whether or not it found a match.  Otherwise, searching through an array with numeric indicies will result in index 0 always getting evaluated as false/null.  This nuance cost me a lot of time and sanity, so I hope this helps someone.  In case you don&apos;t know what I&apos;m talking about, here&apos;s an example:<br><br>
 
@@ -99,7 +99,7 @@ while (($key = array_search("a", $code)) !== NULL)
 ```
   
 
-#
+---
 
 for searching case insensitive better this:<br><br>
 
@@ -110,7 +110,7 @@ array_search(strtolower($element),array_map('strtolower',$array));
 ```
   
 
-#
+---
 
 To expand on previous comments, here are some examples of<br>where using array_search within an IF statement can go<br>wrong when you want to use the array key thats returned.<br><br>Take the following two arrays you wish to search:<br><br>
 
@@ -137,7 +137,7 @@ if (($i = array_search("apple", $fruit_array)) !== FALSE)
 ```
   
 
-#
+---
 
 hey i have a easy multidimensional array search function <br><br>
 
@@ -162,7 +162,7 @@ function search($array, $key, $value)
 ```
   
 
-#
+---
 
 Better solution of multidimensional searching.<br><br>
 
@@ -194,7 +194,7 @@ echo multidimensional_search($parents, array('date'=>1320883200, 'uid'=>5)); // 
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-search.php)
 

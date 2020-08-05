@@ -31,11 +31,11 @@ foreach ($image_files as $image_file) {
 ```
 <br><br>This way only a single image is fitted into the memory at a time.  
 
-#
+---
 
 on Example #3 Creating a reflection of an image<br>----------------------------------------------------<br>/* Clone the image and flip it */<br>$reflection = $im-&gt;clone();<br>$reflection-&gt;flipImage();<br>----------------------------------------------------<br>it was using the Imagick::clone function<br><br>This function has been DEPRECATED as of imagick 3.1.0 in favour of using the clone keyword.<br><br>use below code instead:<br>----------------------------------------------------<br>/* Clone the image and flip it */<br>$reflection = clone $im;<br>$reflection-&gt;flipImage();<br>----------------------------------------------------<br><br>http://php.net/manual/en/imagick.clone.php  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagick.examples-1.php)
 

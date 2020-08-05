@@ -11,7 +11,7 @@ If your code looks like this:<br><br>
 ```
 <br><br>...and you still get "Namespace declaration statement has to be the very first statement in the script" Fatal error, then you probably use UTF-8 encoding (which is good) with Byte Order Mark, aka BOM (which is bad). Try to convert your files to "UTF-8 without BOM", and it should be ok.  
 
-#
+---
 
 Regarding constants defined with define() inside namespaces...<br><br>define() will define constants exactly as specified.  So, if you want to define a constant in a namespace, you will need to specify the namespace in your call to define(), even if you&apos;re calling define() from within a namespace.  The following examples will make it clear.<br><br>The following code will define the constant "MESSAGE" in the global namespace (i.e. "\MESSAGE").<br><br>
 
@@ -36,7 +36,7 @@ define(__NAMESPACE__ . '\GOODBYE', 'Goodbye cruel world!');
 ```
   
 
-#
+---
 
 Expanding on @danbettles note, it is better to always be explicit about which constant to use.<br><br>
 
@@ -55,7 +55,7 @@ Expanding on @danbettles note, it is better to always be explicit about which co
 ```
   
 
-#
+---
 
 "A file containing a namespace must declare the namespace at the top of the file before any other code"<br><br>It might be obvious, but this means that you *can* include comments and white spaces before the namespace keyword.<br><br>
 
@@ -73,7 +73,7 @@ class Bar {
 ```
   
 
-#
+---
 
 You should not try to create namespaces that use PHP keywords. These will cause parse errors. <br><br>Examples:<br><br>
 
@@ -85,7 +85,7 @@ namespace Project/Abstract/Factory; // Causes parse errors
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.definition.php)
 

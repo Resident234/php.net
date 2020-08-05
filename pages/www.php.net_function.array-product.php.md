@@ -42,7 +42,7 @@ $result = ($check1 &amp;&amp; $check2 &amp;&amp; $check3 &amp;&amp; $check4);
 ```
 <br><br>This use of array_product is especially useful when testing an indefinite number of booleans and is easy to construct in a loop.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-product.php)
 

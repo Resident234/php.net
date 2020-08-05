@@ -23,7 +23,7 @@ usort($test2, "usortTest");
 ```
 <br><br>Will output: <br><br>string(4) "val3"<br>string(4) "val2"<br><br>The first array doesn&apos;t get sent to the function.<br><br>Please, under no circumstance, place any logic that modifies values, or applies non-sorting business logic in these functions as they will not always be executed.  
 
-#
+---
 
 Another way to do a case case-insensitive sort by key would simply be:<br><br>
 
@@ -34,7 +34,7 @@ uksort($array, 'strcasecmp');
 ```
 <br><br>Since strcasecmp is already predefined in php it saves you the trouble to actually write the comparison function yourself.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/array.sorting.php)
 

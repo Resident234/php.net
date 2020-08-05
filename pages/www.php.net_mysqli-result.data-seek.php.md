@@ -26,7 +26,7 @@ while ($row = mysqli_fetch_assoc($result))
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.data-seek.php)
 

@@ -4,7 +4,7 @@
 
 It may be useful to know that trim() returns an empty string when the argument is an unset/null variable.  
 
-#
+---
 
 When specifying the character mask, <br>make sure that you use double quotes<br><br>
 
@@ -27,7 +27,7 @@ When specifying the character mask, <br>make sure that you use double quotes<br>
 ```
 <br><br>Here is the output:<br><br>----------------------------TRIMMED OK:<br>Hello World<br>----------------------------TRIMMING NOT OK:<br><br>      Hello World<br>----------------------------  
 
-#
+---
 
 Non-breaking spaces can be troublesome with trim:<br><br>
 
@@ -54,13 +54,20 @@ $converted = trim($converted,chr(0xC2).chr(0xA0)); // should work
 ```
   
 
-#
+---
 
-To remove multiple occurences of whitespace characters in a string an convert them all into single spaces, use this:<br><br>&lt;?<br><br>$text = preg_replace(&apos;/\s+/&apos;, &apos; &apos;, $text);<br><br>?>
+To remove multiple occurences of whitespace characters in a string an convert them all into single spaces, use this:<br><br>
+
+```
+<?php
+
+$text = preg_replace('/\s+/', ' ', $text);
+
+?>
 ```
 <br><br>------------<br>JUBI<br>http://www.jubi.buum.pl  
 
-#
+---
 
 Another way to trim all the elements of an array<br>
 
@@ -71,7 +78,7 @@ $newarray = array_map('trim', $array);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.trim.php)
 

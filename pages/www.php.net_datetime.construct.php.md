@@ -4,7 +4,7 @@
 
 There&apos;s a reason for ignoring the time zone when you pass a timestamp to __construct.  That is, UNIX timestamps are by definition based on UTC.  @1234567890 represents the same date/time regardless of time zone.  So there&apos;s no need for a time zone at all.  
 
-#
+---
 
 The theoretical limits of the date range seem to be "-9999-01-01" through "9999-12-31" (PHP 5.2.9 on Windows Vista 64):<br><br>
 
@@ -44,7 +44,7 @@ $d->format("Y-m-d"); // "2009-01-01"
 ```
   
 
-#
+---
 
 A definite "gotcha" (while documented) that exists in the __construct is that it ignores your timezone if the $time is a timestamp.  While this may not make sense, the object does provide you with methods to work around it.<br><br>
 
@@ -69,7 +69,7 @@ echo $date->format('Y-m-d H:i:s');
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/datetime.construct.php)
 

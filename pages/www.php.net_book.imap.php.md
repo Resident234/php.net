@@ -100,7 +100,7 @@ function mail_decode_part($connection,$message_number,$part,$prefix)
 ```
 <br><br>[EDIT BY danbrown AT php DOT net: Contains a bugfix by "mn26826" on 09-JUN-2010, which fixed the erroneous reference to $imap as the parameter passed to imap_mailboxmsginfo() within the user function pop3_stat().  This was intended to be $connection.]<br><br>[EDIT BY visualmind AT php DOT net: Contains a bugfix by "elias-jobview" on 17-AUG-2010, which fixed the error in pop3_list function which didn&apos;t have: return $result]<br><br>[EDIT BY danbrown AT php DOT net: Contains a bugfix by "chrismeistre" on 09-SEP-2010, which fixed the erroneous reference to $mbox (should be $connection) in the pop3_list() function.]  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.imap.php)
 

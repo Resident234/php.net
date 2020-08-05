@@ -61,7 +61,7 @@ Conclusions:
 ```
   
 
-#
+---
 
 A function&apos;s argument that is an object, will have its properties modified by the function although you don&apos;t need to pass it by reference.<br><br>
 
@@ -103,7 +103,7 @@ echo $y['prop'];  // shows: 1
 ```
   
 
-#
+---
 
 In function calls, PHP clearly distinguishes between missing arguments and present but empty arguments.  Thus:<br><br>
 
@@ -157,7 +157,7 @@ g( 5 ); // prints 5 twice
 ```
   
 
-#
+---
 
 PASSING A "VARIABLE-LENGTH ARGUMENT LIST OF REFERENCES" TO A FUNCTION<br>As of PHP 5, Call-time pass-by-reference has been deprecated, this represents no problem in most cases, since instead of calling a function like this:<br>   myfunction($arg1, &amp;$arg2, &amp;$arg3);<br><br>you can call it<br>   myfunction($arg1, $arg2, $arg3);<br><br>provided you have defined your function as <br>   function myfuncion($a1, &amp;$a2, &amp;$a3) { // so &amp;$a2 and &amp;$a3 are <br>                                                             // declared to be refs.<br>    ... &lt;function-code&gt;<br>   }<br><br>However, what happens if you wanted to pass an undefined number of references, i.e., something like:<br>   myfunction(&amp;$arg1, &amp;$arg2, ..., &amp;$arg-n);?<br>This doesn&apos;t work in PHP 5 anymore.<br><br>In the following code I tried to amend this by using the <br>array() language-construct as the actual argument in the <br>call to the function.<br><br>
 
@@ -182,38 +182,11 @@ PASSING A "VARIABLE-LENGTH ARGUMENT LIST OF REFERENCES" TO A FUNCTION<br>As of P
 ```
 <br><br>I hope this is useful.<br><br>Sergio.  
 
-#
+---
 
 You can use (very) limited signatures for your functions, specifing type of arguments allowed. <br><br>For example:<br><br>public function Right( My_Class $a, array $b )<br><br>tells first argument have to by object of My_Class, second an array. My_Class means that you can pass also object of class that either extends My_Class or implements (if My_Class is abstract class) My_Class. If you need exactly My_Class you need to either make it final, or add some code to check what $a really.<br><br>Also note, that (unfortunately) "array" is the only built-in type you can use in signature. Any other types i.e.:<br><br>public function Wrong( string $a, boolean $b )<br><br>will cause an error, because PHP will complain that $a is not an *object* of class string (and $b is not an object of class boolean).<br><br>So if you need to know if $a is a string or $b bool, you need to write some code in your function body and i.e. throw exception if you detect type mismatch (or you can try to cast if it&apos;s doable).  
 
-#
-
-There is a nice trick to emulate variables/function calls/etc as default values:<br><br>
-
-```
-<?php
-$myVar = "Using a variable as a default value!";
-
-function myFunction($myArgument=null) {
-    if($myArgument===null)
-        $myArgument = $GLOBALS["myVar"];
-    echo $myArgument;
-}
-
-// Outputs "Hello World!":
-myFunction("Hello World!");
-// Outputs "Using a variable as a default value!":
-myFunction();
-// Outputs the same again:
-myFunction(null);
-// Outputs "Changing the variable affects the function!":
-$myVar = "Changing the variable affects the function!";
-myFunction();
-?>
-```
-<br>In general, you define the default value as null (or whatever constant you like), and then check for that value at the start of the function, computing the actual default if needed, before using the argument for actual work.<br>Building upon this, it&apos;s also easy to provide fallback behaviors when the argument given is not valid: simply put a default that is known to be invalid in the prototype, and then check for general validity instead of a specific value: if the argument is not valid (either not given, so the default is used, or an invalid value was given), the function computes a (valid) default to use.  
-
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/functions.arguments.php)
 

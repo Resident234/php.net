@@ -13,7 +13,7 @@ function array_reverse_keys($ar){
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-reverse.php)
 

@@ -23,7 +23,7 @@ function orthodox_eastern($year) {
 ```
   
 
-#
+---
 
 I recently had to write a function that allows me to know if today is a holiday.<br><br>And in France, we have some holidays which depends on the easter date. Maybe this will be helpful to someone.<br><br>Just modify in the $holidays array the actual holidays dates of your country.<br><br>
 
@@ -69,7 +69,7 @@ protected static function getHolidays($year = null)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.easter-date.php)
 

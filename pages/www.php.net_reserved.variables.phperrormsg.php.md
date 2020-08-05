@@ -16,7 +16,7 @@ function checkErrormsg()
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.phperrormsg.php)
 

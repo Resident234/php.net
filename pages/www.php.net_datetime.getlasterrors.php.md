@@ -13,7 +13,7 @@ print_r(DateTime::getLastErrors());
 ```
 <br><br>The output is:<br><br>1999-05-01<br>Array<br>(<br>    [warning_count] =&gt; 1<br>    [warnings] =&gt; Array<br>        (<br>            [10] =&gt; The parsed date was invalid<br>        )<br><br>    [error_count] =&gt; 0<br>    [errors] =&gt; Array<br>        (<br>        )<br><br>)<br><br>So, here you can see, you have a warning because the date was invalid, but not an error because PHP was smart enough to convert it into a valid date. It is then up to you to do something with this information.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/datetime.getlasterrors.php)
 

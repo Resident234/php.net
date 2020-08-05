@@ -4,11 +4,11 @@
 
 This is a misuse of the term overloading. This article should call this technique "interpreter hooks".  
 
-#
+---
 
 A word of warning!  It may seem obvious, but remember, when deciding whether to use __get, __set, and __call as a way to access the data in your class (as opposed to hard-coding getters and setters), keep in mind that this will prevent any sort of autocomplete, highlighting, or documentation that your ide mite do.<br><br>Furthermore, it beyond personal preference when working with other people.  Even without an ide, it can be much easier to go through and look at hardcoded member and method definitions in code, than having to sift through code and piece together the method/member names that are assembled in __get and __set.<br><br>If you still decide to use __get and __set for everything in your class, be sure to include detailed comments and documenting, so that the people you are working with (or the people who inherit the code from you at a later date) don&apos;t have to waste time interpreting your code just to be able to use it.  
 
-#
+---
 
 First off all, if you read this, please upvote the first comment on this list that states that &#x201C;overloading&#x201D; is a bad term for this behaviour. Because it REALLY is a bad name. You&#x2019;re giving new definition to an already accepted IT-branch terminology.<br><br>Second, I concur with all criticism you will read about this functionality. Just as naming it &#x201C;overloading&#x201D;, the functionality is also very bad practice. Please don&#x2019;t use this in a production environment. To be honest, avoid to use it at all. Especially if you are a beginner at PHP. It can make your code react very unexpectedly. In which case you MIGHT be learning invalid coding!<br><br>And last, because of __get, __set and __call the following code executes. Which is abnormal behaviour. And can cause a lot of problems/bugs.<br><br>
 
@@ -73,11 +73,11 @@ if ($UnexpectedBehaviour->DontAllowVariableNameWithTypos) {
 ```
   
 
-#
+---
 
 It is important to understand that encapsulation can be very easily violated in PHP. for example :<br>class Object{<br><br>}<br><br>$Object = new Object();<br>$Objet-&gt;barbarianProperties  = &apos;boom&apos;;<br><br>var_dump($Objet);// object(Objet)#1 (1) { ["barbarianProperties"]=&gt; string(7) "boom" }<br><br>Hence it is possible to add a propertie out form the class definition.<br>It is then a necessity in order to protect encapsulation to introduce __set() in the class :<br><br>class Objet{<br>    public function __set($name,$value){<br>        throw new Exception (&apos;no&apos;);<br>    }<br>}  
 
-#
+---
 
 Small vocabulary note: This is *not* "overloading", this is "overriding".<br><br>Overloading: Declaring a function multiple times with a different set of parameters like this:<br>
 
@@ -121,15 +121,15 @@ class bar extends foo {
 ```
   
 
-#
+---
 
 Using magic methods, especially __get(), __set(), and __call() will effectively disable autocomplete in most IDEs (eg.: IntelliSense) for the affected classes.<br><br>To overcome this inconvenience, use phpDoc to let the IDE know about these magic methods and properties: @method, @property, @property-read, @property-write.<br><br>/**<br> * @property-read name<br> * @property-read price<br> */<br>class MyClass<br>{<br>    private $properties = array(&apos;name&apos; =&gt; &apos;IceFruit&apos;, &apos;price&apos; =&gt; 2.49)<br>    <br>    public function __get($name)<br>    {<br>        return $this-&gt;properties($name);<br>    }<br>}  
 
-#
+---
 
 Be extra careful when using __call():  if you typo a function call somewhere it won&apos;t trigger an undefined function error, but get passed to __call() instead, possibly causing all sorts of bizarre side effects.<br>In versions before 5.3 without __callStatic, static calls to nonexistent functions also fall through to __call!<br>This caused me hours of confusion, hopefully this comment will save someone else from the same.  
 
-#
+---
 
 If you want to make it work more naturally for arrays $obj-&gt;variable[] etc you&apos;ll need to return __get by reference.<br><br>
 
@@ -161,7 +161,7 @@ class Variables
 ```
   
 
-#
+---
 
 Example of usage __call() to have implicit getters and setters<br><br>
 
@@ -235,7 +235,7 @@ $bar->setA('[]/*@...'); // throws exception
 ```
   
 
-#
+---
 
 PHP 5.2.1<br><br>Its possible to call magic methods with invalid names using variable method/property names:<br><br>
 
@@ -263,7 +263,7 @@ $test->$varname();
 ```
 <br><br>I just don&apos;t know if it is a bug or a feature :)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.overloading.php)
 

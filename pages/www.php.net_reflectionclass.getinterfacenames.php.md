@@ -48,7 +48,7 @@ print_r($r->getInterfaceNames()); // Other, Barfoo, Foo, Bar
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reflectionclass.getinterfacenames.php)
 

@@ -47,7 +47,7 @@ default: echo "You bought a rusty iron medal from a shady guy who insists it's a
 ```
 <br><br>without having to worry about the function being re-evaluated for every case. There&apos;s no need to preemptively save the result in a variable either.  
 
-#
+---
 
 php 7.2.8.<br>The answer to the eternal question " what is faster?":<br>1 000 000 000 iterations.<br><br>
 
@@ -120,11 +120,11 @@ print("switch: ".(time() - $s)."sec\n");
 ```
 <br><br>Results:<br>if: 69sec<br>switch: 42sec  
 
-#
+---
 
 Just a trick I have picked up:<br><br>If you need to evaluate several variables to find the first one with an actual value, TRUE for instance. You can do it this was.<br><br>There is probably a better way but it has worked out well for me.<br><br>switch (true) {<br><br>  case (X != 1):<br><br>  case (Y != 1):<br><br>  default:<br>}  
 
-#
+---
 
 In reply to lko at netuse dot de<br><br>Just so others know whom may not, that&apos;s because PHP does automatic type conversion if a string is evaluated as an integer (it sees the 2 in &apos;2string&apos; so when compared like if (&apos;2string&apos; == 2), PHP sees if (2 == 2) ).<br><br>I just tested it, but if you go:<br><br>
 
@@ -150,7 +150,7 @@ switch($string)
 ```
 <br><br>The output will be "this is a string" and if you change $string to "2" it will again be "this is 2".<br><br>Just in case that may help anyone who may run into that problem.  
 
-#
+---
 
 Attention if you have mixed types of value in one switch statemet it can make you some trouble<br><br>
 
@@ -176,7 +176,7 @@ switch($string)
 ```
 <br><br>The swich-statement will halt on &apos;case 2&apos;<br><br>Answer: this is 2  
 
-#
+---
 
 Remember, that you also could use functions in a switch.<br>For example, if you need to use regular expressions in a switch:<br><br>
 
@@ -223,7 +223,7 @@ switch (true) {
 ```
   
 
-#
+---
 
 Be careful if distinguishing between NULL and (int)0.  As implied in the above documentation, the case statements are equivalent to the &apos;==&apos; operator, not the &apos;===&apos; operator, so the following code did not work as i expected:<br><br>
 
@@ -256,7 +256,7 @@ switch(TRUE){
 ```
 <br><br>code till dawn! mark meves!  
 
-#
+---
 
 Something not mentioned in the documentation itself, and only touched on momentarily in these notes, is that the default: case need not be the last clause in the switch.<br>
 
@@ -305,7 +305,7 @@ switch($i)
 ```
 <br>But if "case 2" represented a fairly common case (other than "everything else"), then it would be better to declare it explicitly, not only because it saves time by not having to test EVERY other case first  (in the current example, PHP finds &apos;case 2&apos; in the first switch in two tests, but in the second switch it has to make four tests before giving up and going with the default) but also because someone (perhaps yourself in a few months&apos; time) will be reading the code and expecting to see it handled. Listing it explicitly aids comprehension  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.switch.php)
 

@@ -44,7 +44,7 @@ function tryLock()
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.getmypid.php)
 

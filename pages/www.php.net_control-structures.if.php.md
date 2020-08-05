@@ -27,7 +27,7 @@ html code to run if condition is false
 ```
   
 
-#
+---
 
 re: #80305<br><br>Again useful for newbies:<br><br>if you need to compare a variable with a value, instead of doing<br><br>
 
@@ -60,7 +60,7 @@ if (3 = $foo) bar();
 ```
 <br><br>and PHP will report an error.  
 
-#
+---
 
 Any variables defined inside the if block will be available outside the block. Remember that the if doesn&apos;t have its own scope.<br><br>
 
@@ -91,7 +91,7 @@ echo $hi;
 ```
   
 
-#
+---
 
 An other way for controls is the ternary operator (see Comparison Operators) that can be used as follows:<br><br>
 
@@ -114,7 +114,7 @@ echo ($v) ?: 'No Value'; // 'No Value' will be printed because $v is evaluated t
 ```
 <br><br>Parentheses can be left out in all examples above.  
 
-#
+---
 
 You can have &apos;nested&apos; if statements withing a single if statement, using additional parenthesis.<br>For example, instead of having:<br><br>
 
@@ -144,11 +144,11 @@ if( ($a==1 || $a==2) &amp;&amp; ($b==3 || $b==4) &amp;&amp; ($c==5 || $c==6) ) {
 ```
 <br><br>Hope this helps!  
 
-#
+---
 
 In addition to the traditional syntax for if (condition) action;<br>I am fond of the ternary operator that does the same thing, but with fewer words and code to type:<br><br>(condition ? action_if_true: action_if_false;)<br><br>example<br><br>(x &gt; y? &apos;Passed the test&apos; : &apos;Failed the test&apos;)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/control-structures.if.php)
 

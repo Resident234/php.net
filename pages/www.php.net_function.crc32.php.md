@@ -20,7 +20,7 @@ function get_signed_int($in) {
 ```
 <br><br>Hope this helps.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.crc32.php)
 

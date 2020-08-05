@@ -17,7 +17,7 @@ imagepng($new);
 ```
 <br><br>The image needs to be created with imagecreatetruecolor(), you must use imagefill() instead of imagefilledrectange(), and you need to call imagesavealpha(). No other combination of functions calls seems to produce the intended results.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagefill.php)
 

@@ -26,7 +26,7 @@ if (is_resource($zip)) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.zip-open.php)
 

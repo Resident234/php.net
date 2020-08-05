@@ -14,7 +14,7 @@ function has_next(array $_array)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.next.php)
 

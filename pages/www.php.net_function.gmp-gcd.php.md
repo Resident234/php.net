@@ -15,7 +15,7 @@ function gcd($a,$b) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.gmp-gcd.php)
 

@@ -26,7 +26,7 @@ echo "Instead of " . $di->format('%h:%i:%s') . " it outputs " . $di->recalculate
 ```
   
 
-#
+---
 
 With php 5.3, DateTime is sweet !<br>Here is one quick example :<br><br>
 
@@ -96,7 +96,7 @@ public function formatDateDiff($start, $end=null) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/dateinterval.format.php)
 

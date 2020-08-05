@@ -29,7 +29,7 @@ $realWidth,$realHeight,$srcWidth,$srcHeight);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imageantialias.php)
 

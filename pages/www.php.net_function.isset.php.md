@@ -4,7 +4,7 @@
 
 I, too, was dismayed to find that isset($foo) returns false if ($foo == null). Here&apos;s an (awkward) way around it.<br><br>unset($foo);<br>if (compact(&apos;foo&apos;) != array()) {<br>  do_your_thing();<br>}<br><br>Of course, that is very non-intuitive, long, hard-to-understand, and kludgy. Better to design your code so you don&apos;t depend on the difference between an unset variable and a variable with the value null. But "better" only because PHP has made this weird development choice.<br><br>In my thinking this was a mistake in the development of PHP. The name ("isset") should describe the function and not have the desciption be "is set AND is not null". If it was done properly a programmer could very easily do (isset($var) || is_null($var)) if they wanted to check for this!<br><br>A variable set to null is a different state than a variable not set - there should be some easy way to differentiate. Just my (pointless) $0.02.  
 
-#
+---
 
 "empty() is the opposite of (boolean) var, except that no warning is generated when the variable is not set."<br><br>So essentially<br>
 
@@ -24,7 +24,7 @@ if (!empty($var))
 ```
 <br>doesn&apos;t it? :)<br><br>!empty() mimics the chk() function posted before.  
 
-#
+---
 
 You can safely use isset to check properties and subproperties of objects directly. So instead of writing<br><br>    isset($abc) &amp;&amp; isset($abc-&gt;def) &amp;&amp; isset($abc-&gt;def-&gt;ghi)<br><br>or in a shorter form<br><br>    isset($abc, $abc-&gt;def, $abc-&gt;def-&gt;ghi)<br><br>you can just write<br><br>    isset ($abc-&gt;def-&gt;ghi)<br><br>without raising any errors, warnings or notices.<br><br>Examples<br>
 
@@ -50,7 +50,7 @@ You can safely use isset to check properties and subproperties of objects direct
 ```
   
 
-#
+---
 
 How to test for a variable actually existing, including being set to null. This will prevent errors when passing to functions.<br><br>
 
@@ -86,7 +86,7 @@ if (array_key_exists('myvar', get_defined_vars())) {
 ```
 <br><br>Note: you can&apos;t turn this into a function (e.g. is_defined($myvar)) because get_defined_vars() only gets the variables in the current scope and entering a function changes the scope.  
 
-#
+---
 
 in PHP5, if you have <br><br>
 
@@ -116,7 +116,7 @@ echo isset($foo->bar);
 ```
 <br>will always echo &apos;false&apos;. because the isset() accepts VARIABLES as it parameters, but in this case, $foo-&gt;bar is NOT a VARIABLE. it is a VALUE returned from the __get() method of the class Foo. thus the isset($foo-&gt;bar) expreesion will always equal &apos;false&apos;.  
 
-#
+---
 
 The new (as of PHP7) &apos;null coalesce operator&apos; allows shorthand isset. You can use it like so:<br><br>
 
@@ -136,11 +136,11 @@ $username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
 ```
 <br><br>Quoted from http://php.net/manual/en/migration70.new-features.php#migration70.new-features.null-coalesce-op  
 
-#
+---
 
 I tried the example posted previously by Slawek:<br><br>$foo = &apos;a little string&apos;;<br>echo isset($foo)?&apos;yes &apos;:&apos;no &apos;, isset($foo[&apos;aaaa&apos;])?&apos;yes &apos;:&apos;no &apos;;<br><br>He got yes yes, but he didn&apos;t say what version of PHP he was using.<br><br>I tried this on PHP 5.0.5 and got:  yes no<br><br>But on PHP 4.3.5 I got:  yes yes<br><br>Apparently, PHP4 converts the the string &apos;aaaa&apos; to zero and then returns the string character at that position within the string $foo, when $foo is not an array. That means you can&apos;t assume you are dealing with an array, even if you used an expression such as isset($foo[&apos;aaaa&apos;][&apos;bbb&apos;][&apos;cc&apos;][&apos;d&apos;]), because it will return true also if any part is a string.<br><br>PHP5 does not do this. If $foo is a string, the index must actually be numeric (e.g. $foo[0]) for it to return the indexed character.  
 
-#
+---
 
 Careful with this function "ifsetfor" by soapergem, passing by reference means that if, like the example $_GET[&apos;id&apos;], the argument is an array index, it will be created in the original array (with a null value), thus causing posible trouble with the following code. At least in PHP 5.<br><br>For example:<br><br>
 
@@ -154,7 +154,7 @@ print_r($a);
 ```
 <br><br>will print <br><br>Array<br>(<br>)<br>Array<br>(<br>    [unsetindex] =&gt; <br>)<br><br>Any foreach or similar will be different before and after the call.  
 
-#
+---
 
 1) Note that isset($var) doesn&apos;t distinguish the two cases when $var is undefined, or is null. Evidence is in the following code.<br><br>
 
@@ -183,7 +183,7 @@ if (true === array_key_exists('null', get_defined_vars())) {echo '$null exists';
 ```
   
 
-#
+---
 
 To organize some of the frequently used functions..<br><br>
 
@@ -225,7 +225,7 @@ if($my_id > 0){
 ```
   
 
-#
+---
 
 Sometimes you have to check if an array has some keys. To achieve it you can use "isset" like this: isset($array[&apos;key1&apos;], $array[&apos;key2&apos;], $array[&apos;key3&apos;], $array[&apos;key4&apos;])<br>You have to write $array all times and it is reiterative if you use same array each time.<br><br>With this simple function you can check if an array has some keys:<br><br>
 
@@ -243,7 +243,7 @@ function isset_array() {
 ```
 <br><br>Use: isset_array($array, &apos;key1&apos;, &apos;key2&apos;, &apos;key3&apos;, &apos;key4&apos;)<br>First parameter has the array; following parameters has the keys you want to check.  
 
-#
+---
 
 Note that isset() is not recursive as of the 5.4.8 I have available here to test with: if you use it on a multidimensional array or an object it will not check isset() on each dimension as it goes.<br><br>Imagine you have a class with a normal __isset and a __get that fatals for non-existant properties. isset($object-&gt;nosuch) will behave normally but isset($object-&gt;nosuch-&gt;foo) will crash. Rather harsh IMO but still possible.<br><br>
 
@@ -290,7 +290,7 @@ if (isset($obj->irrelevant)) echo "Yes"; else echo "No";
 ```
 <br><br>    Testing if -&gt;nosuch exists: No<br>    Testing if -&gt;nosuch-&gt;foo exists: Property does not exist!<br><br>Uncomment the echos in the methods and you&apos;ll see exactly what happened:<br><br>    Testing if -&gt;nosuch exists: (isset nosuch?) No<br>    Testing if -&gt;nosuch-&gt;foo exists: (getting nosuch) Property does not exist!<br><br>On a similar note, if __get always returns but instead issues warnings or notices then those will surface.  
 
-#
+---
 
 isset expects the variable sign first, so you can&apos;t add parentheses or anything.<br><br>
 
@@ -304,7 +304,7 @@ isset expects the variable sign first, so you can&apos;t add parentheses or anyt
 ```
   
 
-#
+---
 
 The following is an example of how to test if a variable is set, whether or not it is NULL. It makes use of the fact that an unset variable will throw an E_NOTICE error, but one initialized as NULL will not. <br><br>
 
@@ -374,7 +374,7 @@ restore_error_handler();
 ```
 <br><br>Outputs:<br>True False<br>Notice: Undefined variable: j in filename.php on line 26<br><br>This will make the handler only handle var_exists, but it adds a lot of overhead. Everytime an E_NOTICE error happens, the file it originated from will be loaded into an array.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.isset.php)
 

@@ -75,7 +75,7 @@ printf("BCAdd(%s,%s);\r\n// %s\r\n\r\n",$A,$B,BCAdd($A,$B));
 ```
 <br><br>It was a fun experience making, and thought I&apos;d share it.<br>Enjoy,<br>Nitrogen.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.bcadd.php)
 

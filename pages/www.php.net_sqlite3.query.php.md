@@ -17,7 +17,7 @@ $result = $statement->execute();
 ```
 <br><br>You can also re-use a statement and change its parameters, just do $statement-&gt;reset(). Finally don&apos;t forget to close a statement when you don&apos;t need it anymore as it will free some memory.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/sqlite3.query.php)
 

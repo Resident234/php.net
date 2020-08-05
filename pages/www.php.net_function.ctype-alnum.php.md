@@ -16,11 +16,11 @@ if(!ctype_alnum(str_replace($aValid, '', $sUser))) {
 ```
   
 
-#
+---
 
 Quicktip: If ctype is not enabled by default on your server, replace ctype_alnum($var) with preg_match(&apos;/^[a-zA-Z0-9]+$/&apos;, $var).  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ctype-alnum.php)
 

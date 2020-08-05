@@ -21,7 +21,7 @@ echo $str1; // for 23/03/2012 will print: &#x5DB;"&#x5D8; &#x5D0;&#x5D3;&#x5E8; 
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.jdtojewish.php)
 

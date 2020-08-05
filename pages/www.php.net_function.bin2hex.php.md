@@ -13,7 +13,7 @@ echo $hex;
 ```
 <br><br>This would output "f9".  Just remember that there is a very big difference between binary data and a string representation of binary.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.bin2hex.php)
 

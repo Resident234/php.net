@@ -29,7 +29,7 @@ call_private_method(new Example(), 'sum');
 ```
 <br><br>Output is 11.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reflectionmethod.getclosure.php)
 

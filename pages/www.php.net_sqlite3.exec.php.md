@@ -15,7 +15,7 @@ $db->exec('PRAGMA journal_mode = wal;');
 ```
 <br><br>Hope that helps.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/sqlite3.exec.php)
 

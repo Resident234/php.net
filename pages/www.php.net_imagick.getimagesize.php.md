@@ -14,7 +14,7 @@ $h = $d['height'];
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagick.getimagesize.php)
 

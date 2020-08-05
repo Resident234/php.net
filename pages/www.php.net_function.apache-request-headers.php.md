@@ -34,7 +34,7 @@ function apache_request_headers() {
 ```
   
 
-#
+---
 
 There is a simple way to get request headers from Apache even on PHP running as a CGI. As far as I know, it&apos;s the only way to get the headers "If-Modified-Since" and "If-None-Match" when apache_request_headers() isn&apos;t available. You need mod_rewrite, which most web hosts seem to have enabled. Put this in an .htacess file in your web root:<br><br>RewriteEngine on<br>RewriteRule .* - [E=HTTP_IF_MODIFIED_SINCE:%{HTTP:If-Modified-Since}]<br>RewriteRule .* - [E=HTTP_IF_NONE_MATCH:%{HTTP:If-None-Match}]<br><br>The headers are then available in PHP as<br>
 
@@ -46,7 +46,7 @@ There is a simple way to get request headers from Apache even on PHP running as 
 ```
 <br><br>I&apos;ve tested this on PHP/5.1.6, on both Apache/2.2.3/Win32 and Apache/2.0.54/Unix, and it works perfectly.<br><br>Note: if you use RewriteRules already for clean URLs, you need to put the above rules AFTER your existing ones.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.apache-request-headers.php)
 

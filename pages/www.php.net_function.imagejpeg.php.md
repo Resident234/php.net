@@ -109,15 +109,15 @@ So, let's suppose you have a form where a user can upload an image, and you have
 ```
   
 
-#
+---
 
 If string $filename is given and it exists, it will be overwritten.  
 
-#
+---
 
 [[Editor&apos;s note: removed the header()-call since it is not required when outputting inline image-data]]<br>One single code line, solve-me after 3 hours of blind search!<br><br>here is:<br><br>... ob_start();<br>  imagejpeg( $img, NULL, 100 );<br>  imagedestroy( $img );<br>  $i = ob_get_clean();<br><br>echo "&lt;img src=&apos;data:image/jpeg;base64," . base64_encode( $i )."&apos;&gt;"; //saviour line!  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagejpeg.php)
 

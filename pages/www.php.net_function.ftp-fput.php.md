@@ -16,7 +16,7 @@ ftp_fput($this->connection,$pathTo,$stream, FTP_BINARY);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ftp-fput.php)
 

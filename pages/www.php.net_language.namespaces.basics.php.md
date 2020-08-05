@@ -69,7 +69,7 @@ class String extends Common\Object
 ```
 <br><br>- Richard Sumilang  
 
-#
+---
 
 
 
@@ -110,11 +110,11 @@ catch (\Exception as $ex) {
 ```
   
 
-#
+---
 
 Well variables inside namespaces do not override others since variables are never affected by namespace but always global:<br>"Although any valid PHP code can be contained within a namespace, only four types of code are affected by namespaces: classes, interfaces, functions and constants. "<br><br>Source: "Defining Namespaces"<br>http://www.php.net/manual/en/language.namespaces.definition.php  
 
-#
+---
 
 It seems the file system analogy only goes so far. One thing that&apos;s missing that would be very useful is relative navigation up the namespace chain, e.g.<br><br>
 
@@ -131,7 +131,7 @@ namespace MyProject\People {
 ```
 <br><br>That would be really nice, especially if you had really deep namespaces. It would save you having to type out the full namespace just to reference a resource one level up.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.basics.php)
 

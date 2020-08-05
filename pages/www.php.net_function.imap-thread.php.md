@@ -53,7 +53,7 @@ if(is_array($results)) {
 //sort keys so we get threads in chronological order 
 ksort($threads);
 
-echo '<pre>'.print_r($threads, true).'</pre>';
+echo ''.print_r($threads, true).'';
 exit;
 ?>
 ```
@@ -123,14 +123,14 @@ foreach ($emails as $email) {
 }    
 
 //there is no need to sort, the threads will automagically in chronological order
-echo '<pre>'.print_r($threads, true).'</pre>';
+echo ''.print_r($threads, true).'';
 imap_close($imap);
 exit;
 ?>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-thread.php)
 

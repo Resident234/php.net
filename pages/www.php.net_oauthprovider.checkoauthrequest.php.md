@@ -70,7 +70,7 @@ public function tokenHandler ( $provider )
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/oauthprovider.checkoauthrequest.php)
 

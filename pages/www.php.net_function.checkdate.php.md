@@ -35,7 +35,7 @@ var_dump(validateDate('Tue, 27 Feb 2012 12:12:12 +0200', DateTime::RSS)); # fals
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.checkdate.php)
 

@@ -141,7 +141,10 @@ Key phrase: Fully functional, fully tested, error free XML To Array parser.
     $elemVal = $domArr['element']
   
   Example:
-    $xml = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    $xml = '
+
+```
+<?phpxml version="1.0" encoding="UTF-8" standalone="no"?>
 ```
 
     <top>
@@ -178,7 +181,7 @@ Key phrase: Fully functional, fully tested, error free XML To Array parser.
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.xml.php)
 

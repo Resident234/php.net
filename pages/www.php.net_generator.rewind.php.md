@@ -33,7 +33,7 @@ closeLogFile();
 ```
 <br><br>P.S.: When you iterate over a generator after -&gt;rewind(), you&apos;ll get the first yielded value immediately, as the preceding code was already executed.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/generator.rewind.php)
 

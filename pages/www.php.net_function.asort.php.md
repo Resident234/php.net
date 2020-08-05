@@ -16,11 +16,11 @@ This function can be used to sort multidimensional arrays with almost no work wh
 ```
 <br><br>This does in 4 lines what other functions took 40 to 50 lines to do. This does not require you to create temporary arrays or anything. This is, for me, a highly preferred solution.<br><br>Hope it helps!  
 
-#
+---
 
 /*<br> * Name : Aditya Mehrotra <br> * Email: aditycse@gmail.com<br> */<br>//Example for sorting by values for an alphanumeric array also having case-sensitive data<br>$exampleArray1 = $exampleArray2 = array(<br>    0 =&gt; &apos;example1&apos;,<br>    1 =&gt; &apos;Example10&apos;,<br>    2 =&gt; &apos;example12&apos;,<br>    3 =&gt; &apos;Example2&apos;,<br>    4 =&gt; &apos;example3&apos;,<br>    5 =&gt; &apos;EXAMPLE10&apos;,<br>    6 =&gt; &apos;example10&apos;<br>);<br><br>//default sorting<br>asort($exampleArray1);<br><br>// alphanumeric with case-sensitive data sorting by values<br>asort($exampleArray2, SORT_STRING | SORT_FLAG_CASE | SORT_NATURAL);<br><br>//output of defaut sorting<br>print_r($exampleArray1);<br>/*<br> * output of default sorting<br>  Array<br>  (<br>  [5] =&gt; EXAMPLE10<br>  [1] =&gt; Example10<br>  [3] =&gt; Example2<br>  [0] =&gt; example1<br>  [6] =&gt; example10<br>  [2] =&gt; example12<br>  [4] =&gt; example3<br>  )<br> */<br><br>print_r($exampleArray2);<br>/*<br> * output of alphanumeric with case-sensitive data sorting by values<br> Array<br>(<br>    [0] =&gt; example1<br>    [3] =&gt; Example2<br>    [4] =&gt; example3<br>    [5] =&gt; EXAMPLE10<br>    [1] =&gt; Example10<br>    [6] =&gt; example10<br>    [2] =&gt; example12<br>)<br> */  
 
-#
+---
 
 For a recent project I needed to sort an associative array by value first, and then by key if a particular value appeared multiple times. I wrote this function to accomplish the task. Note that the parameters default to sort ascending on both keys and values, but allow granular control over each.<br><br>
 
@@ -95,7 +95,7 @@ Array
 ```
   
 
-#
+---
 
 This is a function to sort an indexed 2D array by a specified sub array key, either ascending or descending.<br><br>It is usefull for sorting query results from a database by a particular field after the query has been returned<br><br>This function can be quite greedy. It recreates the array as a hash to use ksort() then back again<br><br>By default it will sort ascending but if you specify $reverse as true it will return the records sorted descending <br><br>
 
@@ -131,17 +131,17 @@ $airports = array
     array( "code" => "LGW", "name" => "Gatwick" ),
 );
 
-printf("Before: <pre>%s</pre>", print_r($airports, true));
+printf("Before: %s", print_r($airports, true));
 
 $airports = record_sort($airports, "name");
 
-printf("After: <pre>%s</pre>", print_r($airports, true));
+printf("After: %s", print_r($airports, true));
 
 ?>
 ```
 <br><br>Example Outputs:<br><br>Before: Array<br>(<br>    [0] =&gt; Array ( [code] =&gt; LHR, [name] =&gt; Heathrow )<br>    [1] =&gt; Array ( [code] =&gt; LGW, [name] =&gt; Gatwick )<br>)<br><br>After: Array<br>(<br>    [0] =&gt; Array ( [code] =&gt; LGW, [name] =&gt; Gatwick )<br>    [1] =&gt; Array ( [code] =&gt; LHR, [name] =&gt; Heathrow )<br>)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.asort.php)
 

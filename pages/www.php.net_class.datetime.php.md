@@ -17,7 +17,7 @@ echo $d->format('Y-m-d\TH:i:s.u'); // 2011-01-01T15:03:01.012345?>
 ```
   
 
-#
+---
 
 Small but powerful extension to DateTime<br><br>
 
@@ -93,7 +93,7 @@ echo '<p>Albert Einstein was on 2010-10-10 ', $birthday->getAge('2010-10-10'), '
 ```
   
 
-#
+---
 
 There is a subtle difference between the following two statments which causes JavaScript&apos;s Date object on iPhones to fail.<br><br>
 
@@ -136,11 +136,11 @@ class DateHelper
 ```
   
 
-#
+---
 
 At PHP 7.1 the DateTime constructor incorporates microseconds when constructed from the current time.  Make your comparisons carefully, since two DateTime objects constructed one after another are now more likely to have different values.<br><br>http://php.net/manual/en/migration71.incompatible.php  
 
-#
+---
 
 This caused some confusion with a blog I was working on and just wanted to make other people aware of this. If you use createFromFormat to turn a date into a timestamp it will include the current time. For example:<br><br>
 
@@ -165,7 +165,7 @@ echo $publishDate->getTimestamp();
 ```
 <br><br>I hope this helps someone!  
 
-#
+---
 
 IF You want to create clone of $time, use clone..<br><br>
 
@@ -188,7 +188,7 @@ IF You want to create clone of $time, use clone..<br><br>
 ```
 <br><br>Results:<br>18-07-2011<br>18-07-2011<br>----<br>19-07-2011<br>18-07-2011  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.datetime.php)
 

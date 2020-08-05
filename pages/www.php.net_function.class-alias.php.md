@@ -42,7 +42,7 @@ class Container extends ArrayObject
 ```
 <br><br>The semantics are slightly different (I&apos;m now indicating that Container extends from an ArrayObject implementation in the same namespace), but the overall idea is the same: conditional imports.  
 
-#
+---
 
 If you defined the class &apos;original&apos; in a namespace, you will have to specify the namespace(s), too:<br>
 
@@ -59,7 +59,7 @@ class_alias('ns1\ns2\ns3\A', 'ns1\ns2\ns3\B');
 ```
   
 
-#
+---
 
 class_alias also works for interfaces!<br><br>
 
@@ -72,7 +72,7 @@ echo interface_exists('bar') ? 'yes!' : 'no'; // prints yes!
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.class-alias.php)
 

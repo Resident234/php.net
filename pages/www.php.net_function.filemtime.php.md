@@ -11,11 +11,11 @@ echo '<link rel="stylesheet" type="text/css" href="style.css?' . filemtime('styl
 ```
 <br><br>Sample output:<br><br>&lt;link rel="stylesheet" type="text/css" href="style.css?1203291283" /&gt;<br><br>By appending a GET value (the UNIX timestamp) to the stylesheet URL, you make the browser think the stylesheet is dynamic, so it&apos;ll reload the stylesheet every time the modification date changes.  
 
-#
+---
 
-To get the last modification time of a directory, you can use this:<br><br>&lt;pre&gt;<br>$getLastModDir = filemtime("/path/to/directory/.");<br>&lt;/pre&gt;<br><br>Take note on the last dot which is needed to see the directory as a file and to actually get a last modification date of it.<br><br>This comes in handy when you want just one &apos;last updated&apos; message on the frontpage of your website and still taking all files of your website into account.<br><br>Regards,<br>Frank Keijzers  
+To get the last modification time of a directory, you can use this:<br><br><br>$getLastModDir = filemtime("/path/to/directory/.");<br><br><br>Take note on the last dot which is needed to see the directory as a file and to actually get a last modification date of it.<br><br>This comes in handy when you want just one &apos;last updated&apos; message on the frontpage of your website and still taking all files of your website into account.<br><br>Regards,<br>Frank Keijzers  
 
-#
+---
 
 Cheaper and dirtier way to code a cache:<br><br>
 
@@ -36,7 +36,7 @@ if (!$filemtime or (time() - $filemtime >= $cache_life)){
 ```
   
 
-#
+---
 
 There&apos;s a deeply-seated problem with filemtime() under Windows due to the fact that it calls Windows&apos; stat() function, which implements DST (according to this bug: http://bugs.php.net/bug.php?id=40568). The detection of DST on the time of the file is confused by whether the CURRENT time of the current system is currently under DST.<br><br>This is a fix for the mother of all annoying bugs:<br><br>
 
@@ -67,7 +67,7 @@ function GetCorrectMTime($filePath)
 ```
 <br><br>Dustin Oprea  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.filemtime.php)
 

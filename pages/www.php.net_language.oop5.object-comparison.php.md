@@ -19,7 +19,7 @@ print_r($a == $b);
 ```
 <br>Results in:<br>PHP Fatal error:  Nesting level too deep - recursive dependency? in test.php on line 11  
 
-#
+---
 
 Comparison using &lt;&gt; operators should be documented.  Between two objects, at least in PHP5.3, the comparison operation stops and returns at the first unequal property found.<br><br>
 
@@ -50,7 +50,7 @@ echo (int)($o1 > $o2); // 0
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.object-comparison.php)
 

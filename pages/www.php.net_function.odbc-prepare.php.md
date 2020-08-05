@@ -18,7 +18,7 @@ if(odbc_execute($res, $parameters)) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.odbc-prepare.php)
 

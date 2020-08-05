@@ -30,7 +30,7 @@ print_r( mb_count_chars($input) );
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.count-chars.php)
 

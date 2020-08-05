@@ -35,11 +35,11 @@ $top_students = array_keys($student_grades,max($student_grades)); // john, anne
 ```
   
 
-#
+---
 
 max(null, 0) = null<br>max(0, null) = 0  
 
-#
+---
 
 max() (and min()) on DateTime objects compares them like dates (with timezone info) and returns DateTime object.<br>
 
@@ -53,7 +53,7 @@ echo min($dt1,$dt2)->format(DateTime::RFC3339) . PHP_EOL; // 2014-05-07T18:53:00
 ```
 <br><br>It works at least 5.3.3-7+squeeze17  
 
-#
+---
 
 Notice that whenever there is a Number in front of the String, it will be used for Comparison.<br><br>
 
@@ -80,7 +80,7 @@ But just if it is in front of the String
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.max.php)
 

@@ -56,7 +56,7 @@ var_dump( $num_procs );
 ```
 <br><br>The above example will output:<br><br>int(118)<br><br>Which is the number of processes that were running.  
 
-#
+---
 
 This is a souped up &apos;stat&apos; function based on <br>many user-submitted code snippets and <br>@ http://www.askapache.com/security/chmod-stat.html <br><br>Give it a filename, and it returns an array like stat. <br><br>
 
@@ -161,7 +161,7 @@ function alt_stat($file) {
 ```
 <br><br>|=---------[ Example Output ]<br><br>Array(<br>[perms] =&gt; Array<br>  (<br>  [umask] =&gt; 0022<br>  [human] =&gt; -rw-r--r--<br>  [octal1] =&gt; 644<br>  [octal2] =&gt; 0644<br>  [decimal] =&gt; 100644<br>  [fileperms] =&gt; 33188<br>  [mode1] =&gt; 33188<br>  [mode2] =&gt; 33188<br>  )<br> <br>[filetype] =&gt; Array<br>  (<br>  [type] =&gt; file<br>  [type_octal] =&gt; 0100000<br>  [is_file] =&gt; 1<br>  [is_dir] =&gt;<br>  [is_link] =&gt;<br>  [is_readable] =&gt; 1<br>  [is_writable] =&gt; 1<br>  )<br> <br>[owner] =&gt; Array<br>  (<br>  [fileowner] =&gt; 035483<br>  [filegroup] =&gt; 23472<br>  [owner_name] =&gt; askapache<br>  [group_name] =&gt; grp22558<br>  )<br> <br>[file] =&gt; Array<br>  (<br>  [filename] =&gt; /home/askapache/askapache-stat/htdocs/ok/g.php<br>  [realpath] =&gt;<br>  [dirname] =&gt; /home/askapache/askapache-stat/htdocs/ok<br>  [basename] =&gt; g.php<br>  )<br> <br>[device] =&gt; Array<br>  (<br>  [device] =&gt; 25<br>  [device_number] =&gt; 0<br>  [inode] =&gt; 92455020<br>  [link_count] =&gt; 1<br>  [link_to] =&gt;<br>  )<br> <br>[size] =&gt; Array<br>  (<br>  [size] =&gt; 2652<br>  [blocks] =&gt; 8<br>  [block_size] =&gt; 8192<br>  )<br> <br>[time] =&gt; Array<br>  (<br>  [mtime] =&gt; 1227685253<br>  [atime] =&gt; 1227685138<br>  [ctime] =&gt; 1227685253<br>  [accessed] =&gt; 2008 Nov Tue 23:38:58<br>  [modified] =&gt; 2008 Nov Tue 23:40:53<br>  [created] =&gt; 2008 Nov Tue 23:40:53<br>  )<br>)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.stat.php)
 

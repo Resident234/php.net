@@ -48,11 +48,11 @@ function add_part_to_array($obj, $partno, &amp; $part_array) {
 ```
   
 
-#
+---
 
 If text has been encoded as quoted-printable (most body text is encoded as this), it must be decoded for it to be displayed correctly (without &apos;=&apos;, &apos;=20&apos; and other strange text chunks all through the string).<br><br>To decode, you can use the following built-in php function...<br><br>quoted_printable_decode($string)<br><br>Hopefully I&apos;ve just saved a few people from having to do a preg_replace on there email bodies.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-fetchbody.php)
 

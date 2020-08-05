@@ -4,7 +4,7 @@
 
 Workaround for missing Authorization header under CGI/FastCGI Apache:<br><br>SetEnvIf Authorization .+ HTTP_AUTHORIZATION=$0<br><br>Now PHP should automatically declare $_SERVER[PHP_AUTH_*] variables if the client sends the Authorization header.  
 
-#
+---
 
 This is the simplest form I found to do a Basic authorization with retries.<br><br>
 
@@ -33,7 +33,7 @@ echo "<p>Congratulation, you are into the system.</p>";
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/features.http-auth.php)
 

@@ -18,7 +18,7 @@ $sth->bindParam(':keyword', $keyword, PDO::PARAM_STR);
 ```
   
 
-#
+---
 
 This works ($val by reference):<br>
 
@@ -43,7 +43,7 @@ foreach ($params as $key => $val) {
 ```
   
 
-#
+---
 
 Note that when using PDOStatement::bindParam an integer is changed to a string value upon PDOStatement::execute(). (Tested with MySQL). <br><br>This can cause problems when trying to compare values using the === operator.<br><br>Example:<br>
 
@@ -63,11 +63,11 @@ if ($active === 1) {
 ```
 <br><br>results in:<br>int(1) <br>int(1) <br>string(1) "1"  
 
-#
+---
 
 There seems to be some confusion about whether you can bind a single value to multiple identical placeholders. For example:<br><br>$sql = "SELECT * FROM user WHERE is_admin = :myValue AND is_deleted = :myValue ";<br><br>$params = array("myValue" =&gt; "0");<br><br>Some users have reported that attempting to bind a single parameter to multiple placeholders yields a parameter mismatch error in PHP version 5.2.0 and earlier. Starting with version 5.2.1, however, this seems to work just fine.<br><br>For details, see bug report 40417:<br>http://bugs.php.net/bug.php?id=40417  
 
-#
+---
 
 Please note, that PDO format numbers according to current locale. So if, locale set number format to something else, that standard that query WILL NOT work properly.<br><br>For example:<br>in Polish locale (pl_PL) proper decimal separator is coma (","), so: 123,45, not 123.45. If we try bind 123.45 to the query, we will end up with coma in the query.<br><br>
 
@@ -83,7 +83,7 @@ $sth->execute();
 ```
   
 
-#
+---
 
 Do not try to use the same named parameter twice in a single SQL statement, for example<br><br>
 
@@ -96,7 +96,7 @@ $stmt->execute( array( ':value' => 3 ) );
 ```
 <br><br>...this will return no rows and no error -- you must use each parameter once and only once. Apparently this is expected behavior (according to this bug report: http://bugs.php.net/bug.php?id=33886)  because of portability issues.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/pdostatement.bindparam.php)
 

@@ -21,7 +21,7 @@ require 'somefile.php';
 ```
 <br><br>Is preferred, it will prevent your peers from giving you a hard time and a trivial conversation about what require really is.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.require.php)
 

@@ -31,7 +31,7 @@ $wb->Close();
 ```
 <br><br>Go to c:\windows\assembly to know what value to put in $full_assembly_string.<br><br>If you don&apos;t know the assembly, use http://www.red-gate.com/products/dotnet-development/reflector/ to browse it, use what you learn there to fill $full_class_name.<br><br>Enjoy,<br><br>Ricardo.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.dotnet.php)
 

@@ -44,7 +44,7 @@ function getSessionData ($session_name = 'PHPSESSID', $session_save_handler = 'f
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.session.php)
 

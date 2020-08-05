@@ -53,7 +53,7 @@ echo $frontEndFormatter->formatCurrency(12345.12345,  $symbol) . "<br>";
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.numberformatter.php)
 

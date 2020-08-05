@@ -25,7 +25,7 @@ Array(
 ```
   
 
-#
+---
 
 Just a warning that re-indexing an array by array_values() may cause you to reach the memory limit unexpectly.<br><br>For example, if your PHP momory_limits is 8MB,<br> and says there&apos;s a BIG array $bigArray which allocate 5MB of memory.<br><br>Doing this will cause PHP exceeds the momory limits:<br><br>
 
@@ -36,7 +36,7 @@ Just a warning that re-indexing an array by array_values() may cause you to reac
 ```
 <br><br>It&apos;s because array_values() does not re-index $bigArray directly,<br>it just re-index it into another array, and assign to itself later.  
 
-#
+---
 
 This is another way to get value from a multidimensional array, but for versions of php &gt;= 5.3.x<br>
 
@@ -81,7 +81,7 @@ var_dump(array_value_recursive('pear', $arr)); // null
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-values.php)
 

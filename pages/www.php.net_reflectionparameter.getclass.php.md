@@ -25,7 +25,7 @@ var_dump($par[2]->getClass());  // outputs NULL
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reflectionparameter.getclass.php)
 

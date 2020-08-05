@@ -70,15 +70,15 @@ sleep(60);
 ```
 <br><br>Following may be used for MYSQL: (not guaranteed)<br>KILL CONNECTION_ID()  
 
-#
+---
 
 I would please advice people who talk about database port in reference with socket files to please read up about what a socket file is. TCP/IP uses ports, a socket file however is a direct pipe line to your database. So no, you should not replace localhost with local ip if you use a different port on your database server, because the socket file has nothing to do with your TCP/IP setup. And whenever possible, using the local socket file is much faster than establishing new TCP/IP connections on each request which is only meant for remote database servers.  
 
-#
+---
 
 Just thought I&apos;d add in and give an explanation as to why you need to use 127.0.0.1 if you have a different port number.<br><br>The mysql libraries will automatically use Unix sockets if the host of "localhost" is used. To force TCP/IP you need to set an IP address.  
 
-#
+---
 
 As http://stackoverflow.com/questions/17630772/pdo-cannot-connect-remote-mysql-server points out; sometimes when you want to connect to an external server like this:<br><br>
 
@@ -100,7 +100,7 @@ $conn = new PDO('mysql: host=123.4.5.6;dbname=test_db;port=3306','username','pas
 ```
 <br><br>it will magically work. I&apos;m not sure if this applies in all cases or server setups. But I think it&apos;s worth mentioning in the docs.  
 
-#
+---
 
 To avoid exposing your connection details should you fail to remember to catch any exception thrown by the PDO constructor you can use the following class to implicitly change the exception handler temporarily.<br><br>
 
@@ -135,7 +135,7 @@ $dbh = new SafePDO(PDO_DSN, PDO_USER, PDO_PASSWORD);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/pdo.connections.php)
 

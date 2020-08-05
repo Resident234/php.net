@@ -33,7 +33,7 @@ $mysqli->query(" SQL statement #4 ; ") // now executed!
 ```
   
 
-#
+---
 
 To be able to execute a $mysqli-&gt;query() after a $mysqli-&gt;multi_query() for MySQL &gt; 5.3, I updated the code of jcn50 by this one :<br><br>
 
@@ -55,7 +55,7 @@ To be able to execute a $mysqli-&gt;query() after a $mysqli-&gt;multi_query() fo
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.multi-query.php)
 

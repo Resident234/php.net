@@ -72,7 +72,7 @@ $CHUNK = 8192;
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/features.file-upload.put-method.php)
 

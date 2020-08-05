@@ -43,7 +43,7 @@ define (__NAMESPACE__ . '\NULL', 10, true); // produces notice - Constant null a
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.faq.php)
 

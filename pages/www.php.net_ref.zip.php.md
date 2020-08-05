@@ -113,7 +113,7 @@ unzip("C:/zipfiletest/zip-file.zip", "C:/another_map/zipfiletest/", true, false)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.zip.php)
 

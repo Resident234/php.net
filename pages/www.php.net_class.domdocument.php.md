@@ -100,7 +100,7 @@ $xml->appendChild( $xml_album );
 ```
   
 
-#
+---
 
 For those landing here and checking for encoding issue with utf-8 characteres, it&apos;s pretty easy to correct it, without adding any additional output tag to your html.<br><br>We&apos;ll be utilizing: mb_convert_encoding<br><br>Thanks to the user who shared: SmartDOMDocument in previous comments, I got the idea of solving it. However I truly wish that he shared the method instead of giving a link.<br><br>Anyway coming back to the solution, you can simply use:<br><br>
 
@@ -130,7 +130,7 @@ For those landing here and checking for encoding issue with utf-8 characteres, i
 ```
 <br><br>I hope it solves the issue for someone! If you need my help or service to fix your code, you can reach me on nabtron.com or contact me at the email mentioned with this comment.  
 
-#
+---
 
 Here&apos;s a small function I wrote to get all page links using the DOMDocument which will hopefully be of use to others<br><br>
 
@@ -169,7 +169,7 @@ function get_links($url) {
 ```
   
 
-#
+---
 
 For anyone else who has been having issues with formatOuput not working, here is a work-around:<br><br>rather than just doing something like:<br><br>
 
@@ -196,7 +196,7 @@ $outXML = $xml->saveXML();
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.domdocument.php)
 

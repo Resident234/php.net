@@ -19,7 +19,7 @@ $SSLcnf = array('config' => '/usr/local/nessy2/share/ssl/openssl.cnf',
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.openssl-csr-new.php)
 

@@ -22,7 +22,7 @@ if(!function_exists('hash_equals')) {
 ```
   
 
-#
+---
 
 I don&apos;t know why asphp at dsgml dot com got that many downvotes, the function seems to work.<br><br>I extended it a bit to support strings of diffent length and to handle errors and ran some tests:<br><br>The test results and how to reproduce them: http://pastebin.com/mLMXJeva<br><br>The function:<br>
 
@@ -82,7 +82,7 @@ if (!function_exists('hash_equals')) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.hash-equals.php)
 

@@ -12,7 +12,7 @@ $im->setImagePage(0, 0, 0, 0);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagick.trimimage.php)
 

@@ -39,7 +39,7 @@ catch( PDOException $Exception ) {
 ```
 <br><br>Hope this will save some developers some frustrating hours from an otherwise enjoyable job :)<br><br>Good Luck,  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.pdoexception.php)
 

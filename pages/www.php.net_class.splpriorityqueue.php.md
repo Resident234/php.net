@@ -41,7 +41,7 @@ while($objPQ->valid()){
 ```
 <br><br>output:<br><br>COUNT-&gt;4<br>Array ( [data] =&gt; B [priority] =&gt; 6 ) <br>Array ( [data] =&gt; A [priority] =&gt; 3 ) <br>Array ( [data] =&gt; D [priority] =&gt; 2 ) <br>Array ( [data] =&gt; C [priority] =&gt; 1 )  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.splpriorityqueue.php)
 

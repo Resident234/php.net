@@ -13,7 +13,7 @@ echo bcadd("1", " 2"); // 1
 ```
   
 
-#
+---
 
 Here are some useful functions to convert large hex numbers from and to large decimal ones :<br><br>
 
@@ -42,7 +42,7 @@ Here are some useful functions to convert large hex numbers from and to large de
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.bc.php)
 

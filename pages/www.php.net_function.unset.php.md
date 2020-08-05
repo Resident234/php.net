@@ -4,7 +4,7 @@
 
 This is probably trivial but there is no error for unsetting a non-existing variable.  
 
-#
+---
 
 You don&apos;t need to check that a variable is set before you unset it.<br>
 
@@ -26,11 +26,11 @@ if(isset($a)) {
 ```
 <br>is pointless complication.<br><br>This doesn&apos;t apply to properties of objects that have __isset() methods that visibly change object state or __unset() methods that don&apos;t properly check their arguments or have extra side effects.<br><br>The latter case means that __unset shouldn&apos;t do more than what it says on the tin, and also has the responsibility for checking (possibly using __isset()) that what it&apos;s being asked to do makes sense.<br><br>The former case is just plain bad design.  
 
-#
+---
 
 Since unset() is a language construct, it cannot be passed anything other than a variable. It&apos;s sole purpose is to "unset" this variable, ie. to remove it from the current scope and destroy it&apos;s associated data. This is true especially for reference variables, where not the actual value is destroyed but the reference to that value. This is why you can&apos;t wrap &apos;unset()&apos; in a user defined function: You would either unset a copy of the data if the parameter is passed by value, or you would just unset the reference variable within the functions scope if the parameter is passed by reference. There is no workaround for that, as you cannot pass &apos;scope&apos; to a function in PHP. Such a function can only work for variables that exist in a common or global scope (compare &apos;unset($_GLOBALS[variable])&apos;).<br><br>I don&apos;t know how PHP handles garbage collection internally, but I guess this behavior can result in a huge memory leak: if a value variable goes out of scope with a second variable still holding a reference to the in-memory value, then unsetting that reference would still hold the value in memory but potentially unset the last reference to that in-memory data, hence: occupied memory that is rendered useless as you cannot reference it anymore.  
 
-#
+---
 
 if you try to unset an object, please be careful about references.<br><br>Objects will only free their resources and trigger their __destruct method when *all* references are unsetted.<br>Even when they are *in* the object... sigh!<br><br>
 
@@ -57,7 +57,7 @@ echo "Finally that thing is gone\n";
 ```
 <br><br>Of course the object completely dies at the end of the script.  
 
-#
+---
 
 A sample how to unset array elements from an array result coming from a mysql request. In this sample it is checking if a file exists and removes the row from the array if it not exists.<br><br>
 
@@ -80,7 +80,7 @@ $documents = array_values($documents); // reindex the array (4)
 ```
 <br><br>variables:<br>mysql table = documents,<br>array = $documents<br>array key (index) = $key<br>array row (record sort of speak) = $row<br><br>explanation:<br><br>1. <br>it gets the array from the table (mysql)<br><br>2. <br>foreach goes through the array $documents<br><br>3. <br>unset if record does not exist<br><br>4.<br>the array_values($documents) reindexes the $documents array, for otherwise you might end up in trouble when your  process will start expecting an array starting with key ($key) 0 (zero).  
 
-#
+---
 
 Here is another way to make &apos;unset&apos; work with session variables from within a function : <br><br>
 
@@ -93,11 +93,11 @@ function unsetSessionVariable ($sessionVariableName) {
 ```
 <br><br>May it work with others than me...<br>F.  
 
-#
+---
 
 Only This works with register_globals being &apos;ON&apos;.<br><br>unset( $_SESSION[&apos;variable&apos;] );<br><br>The above will not work with register_globals turned on (will only work outside of a function).<br><br>$variable = $_SESSION[&apos;variable&apos;];<br>unset( $_SESSION[&apos;variable&apos;], $variable );<br><br>The above will work with register_globals on &amp; inside a function  
 
-#
+---
 
 Adding on to what bond at noellebond dot com said, if you want to remove an index from the end of the array, if you use unset, the next index value will still be what it would have been.<br><br>Eg you have <br>
 
@@ -143,21 +143,32 @@ The way around this is to use array_pop() instead of unset() as array_pop() refr
 ```
 <br><br> This returns the expected value of x = Array([0] =&gt; 1, [1] =&gt; 4);<br><br>Hope this helps someone who may need this for some odd reason, I did.  
 
-#
+---
 
-To clarify what hugo dot dworak at gmail dot com said about unsetting things that aren&apos;t already set:<br><br>unsetting a non-existent key within an array does NOT throw an error.<br>&lt;?<br>$array = array();<br><br>unset($array[2]);<br>//this does not throw an error<br><br>unset($array[$undefinedVar]);<br>//Throws an error because of the undefined variable, not because of a non-existent key.<br>?>
+To clarify what hugo dot dworak at gmail dot com said about unsetting things that aren&apos;t already set:<br><br>unsetting a non-existent key within an array does NOT throw an error.<br>
+
+```
+<?php
+$array = array();
+
+unset($array[2]);
+//this does not throw an error
+
+unset($array[$undefinedVar]);
+//Throws an error because of the undefined variable, not because of a non-existent key.
+?>
 ```
   
 
-#
+---
 
 In addition to what timo dot hummel at 4fb dot de said;<br><br>&gt;For the curious: unset also frees memory of the variable used.<br>&gt;<br>&gt;It might be possible that the in-memory size of the PHP Interpreter isn&apos;t reduced, but your scripts won&apos;t touch the memory_limit boundary. Memory is reused if you declare new variables.<br><br>It might be worth adding that functions apparently don&apos;t free up memory on exit the same way unset does..<br>Maybe this is common knowledge, but although functions destroys variables on exit, it (apparently) doesn&apos;t help the memory.<br><br>So if you use huge variables inside functions, be sure to unset them if you can before returning from the function.<br><br>In my case, if I did not unset before return, then the script would use 20 MB more of memory than if I did unset.<br>This was tested with php 5.0.4 on apache 2 on windows xp, with no memory limit.<br><br>Before I did the test, I was under the impression that when you exit from functions, the memory used inside it would be cleared and reused. Maybe this should be made clear in the manual, for either unset() or in the chapter for functions.  
 
-#
+---
 
 Despite much searching, I have not yet found an explanation as to how one can manually free resources from variables, not so much objects, in PHP.  I have also seen many comments regarding the merits and demerits of unset() versus setting a variable to null.  Thus, here are the results of some benchmarks performed comparing unset() of numerous variables to setting them to null (with regards to memory usage and processing time):<br><br>10 variables:<br>Unset:<br>Memory Usage: 296<br>Time Elapsed: 1.0013580322266E-5<br><br>Null set:<br>Memory Usage: 1736<br>Time Elapsed: 5.9604644775391E-6<br><br>50 variables:<br>Unset:<br>Memory Usage: 296<br>Time Elapsed: 3.6001205444336E-5<br><br>Null set:<br>Memory Usage: 8328<br>Time Elapsed: 3.2901763916016E-5<br><br>100 variables:<br>Unset:<br>Memory Usage: 296<br>Time Elapsed: 5.6982040405273E-5<br><br>Null set:<br>Memory Usage: 15928<br>Time Elapsed: 5.8174133300781E-5<br><br>1000 variables:<br>Unset:<br>Memory Usage: 296<br>Time Elapsed: 0.00041294097900391<br><br>Null set:<br>Memory Usage: 168096<br>Time Elapsed: 0.00067591667175293<br><br>10000 variables:<br>Unset:<br>Memory Usage: 296<br>Time Elapsed: 0.0042569637298584<br><br>Null set:<br>Memory Usage: 1650848<br>Time Elapsed: 0.0076930522918701<br><br>100000 variables:<br>Unset:<br>Memory Usage: 296<br>Time Elapsed: 0.042603969573975<br><br>Null set:<br>Memory Usage: 16249080<br>Time Elapsed: 0.087724924087524<br><br>300000 variables:<br>Unset:<br>Memory Usage: 296<br>Time Elapsed: 0.13177299499512<br><br>Null set:<br>Memory Usage: 49796320<br>Time Elapsed: 0.28617882728577<br><br>Perhaps my test code for the null set was flawed, but despite that possibility it is simple to see that unset() has minimal processing time impact, and no apparent memory usage impact (unless the values returned by memory_get_usage() are flawed).  If you truly care about the ~4 microseconds saved over &lt;50 variables, more power to you.  Otherwise, use unset() to minimize script impact on your system.<br>Note: Tested on PHP 5.3.8 installed via RPM on Fedora 14  
 
-#
+---
 
 Note that PHP 4 will generate a warning if you try to unset an array index that doesn&apos;t exist and whose parent doesn&apos;t exist.<br><br>Example:<br><br>
 
@@ -172,7 +183,7 @@ Note that PHP 4 will generate a warning if you try to unset an array index that 
 ```
 <br><br>RESULT: "Notice:  Undefined index:  Bar"<br><br>On PHP5 no error is raised, which seems to me like the correct behaviour.<br><br>Note that using unset($foo[&apos;Bar&apos;]) in the above example does not generate a warning in either version.<br><br>(Tested on 4.4.9 and 5.2.4)  
 
-#
+---
 
 Just to confirm, USING UNSET CAN DESTROY AN ENTIRE ARRAY. I couldn&apos;t find reference to this anywhere so I decided to write this. <br><br>The difference between using unset and using $myarray=array(); to unset is that obviously the array will just be overwritten and will still exist.<br><br>
 
@@ -194,7 +205,10 @@ echo $myarray;
 
 
 Output with unset is:
-<?
+
+
+```
+<?php
 HelloWorld
 
 Notice: Undefined offset: 0 in C:\webpages\dainsider\myarray.php on line 10
@@ -206,7 +220,10 @@ Output with $myarray=array(); is:
 ```
 
 
-<?
+
+
+```
+<?php
 HelloWorld
 
 Notice: Undefined offset: 0 in C:\webpages\dainsider\myarray.php on line 10
@@ -218,7 +235,7 @@ Array
 ```
   
 
-#
+---
 
 In PHP 5.0.4, at least, one CAN unset array elements inside functions from arrays passed by reference to the function.<br>As implied by the manual, however, one can&apos;t unset the entire array by passing it by reference.<br><br>
 
@@ -263,7 +280,7 @@ print_r ($array); echo '<br />';
 ```
   
 
-#
+---
 
 Here&apos;s my variation on the slightly dull unset method. It throws in a bit of 80&apos;s Stallone action spice into the mix. Enjoy!<br><br>
 
@@ -297,7 +314,7 @@ function rambo() {
 ```
   
 
-#
+---
 
 The documentation is not entirely clear when it comes to static variables. It says:<br><br>If a static variable is unset() inside of a function, unset() destroys the variable and all its references. <br><br>
 
@@ -360,7 +377,7 @@ foo();
 ```
  <br><br>Would output:<br><br>1<br><br>1<br>2<br><br>2<br>3<br><br>3  
 
-#
+---
 
 dh at argosign dot de - <br>it is possible to unset globals from within functions thanks to the $GLOBALS array:<br><br>
 
@@ -386,7 +403,7 @@ x:
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.unset.php)
 

@@ -4,7 +4,7 @@
 
 By removing the ability to include the reference sign on function calls where pass-by-reference is incurred (I.e., function definition uses &amp;), the readability of the code suffers, as one has to look at the function definition to know if the variable being passed is by-ref or not (I.e., potential to be modified).  If both function calls and function definitions require the reference sign (I.e., &amp;), readability is improved, and it also lessens the potential of an inadvertent error in the code itself.  Going full on fatal error in 5.4.0 now forces everyone to have less readable code.  That is, does a function merely use the variable, or potentially modify it...now we have to find the function definition and physically look at it to know, whereas before we would know the intent immediately.  
 
-#
+---
 
 
 
@@ -31,11 +31,11 @@ var_dump($y); // 100
 ```
   
 
-#
+---
 
 beware unset()  destroys references<br><br>$x = &apos;x&apos;;<br>change( $x );<br>echo $x; // outputs "x" not "q23"  ---- remove the unset() and output is "q23" not "x"<br><br>function change( &amp; $x )<br>{<br>    unset( $x );<br>    $x = &apos;q23&apos;;<br>    return true;<br>}  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.references.pass.php)
 

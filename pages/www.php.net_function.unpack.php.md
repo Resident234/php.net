@@ -108,7 +108,7 @@ Usage example:
 ```
   
 
-#
+---
 
 I had a situation where I had to unpack a file filled with little-endian order double-floats in a way that would work on either little-endian or big-endian machines.  PHP doesn&apos;t have a formatting code that will change the byte order of doubles, so I wrote this workaround.<br><br>
 
@@ -174,13 +174,21 @@ function foo() {
 ```
 <br><br>On a little endian machine, $unpack_workaround will simply point to the function unpack.  On a big endian machine, it will call the workaround function.<br><br>Note, this solution only works for doubles.  In my project I had no need to check for single precision floats.  
 
-#
+---
 
-This is about the last example of my previous post. For the sake of clarity, I&apos;m including again here the example, which expands the one given in the formal documentation:<br><br>&lt;?<br>  $binarydata = "AA\0A";<br>  $array = unpack("c2chars/nint", $binarydata);<br>  foreach ($array as $key =&gt; $value)<br>     echo "\$array[$key] = $value &lt;br&gt;\n";<br>?>
+This is about the last example of my previous post. For the sake of clarity, I&apos;m including again here the example, which expands the one given in the formal documentation:<br><br>
+
+```
+<?php
+  $binarydata = "AA\0A";
+  $array = unpack("c2chars/nint", $binarydata);
+  foreach ($array as $key => $value)
+     echo "\$array[$key] = $value <br>\n";
+?>
 ```
 <br><br>This outputs:<br><br>$array[chars1] = 65 <br>$array[chars2] = 65 <br>$array[int] = 65 <br><br>Here, we assume that the ascii code for character &apos;A&apos; is decimal 65.<br><br>Remebering that the format string structure is:<br>&lt;format-code&gt; [&lt;count&gt;] [&lt;array-key&gt;] [/ ...],<br>in this example, the format string instructs the function to<br>  1. ("c2...") Read two chars from the second argument ("AA ...), <br>  2. (...chars...) Use the array-keys "chars1", and "chars2" for <br>      these two chars read,<br>  3. (.../n...) Read a short int from the second argument (...\0A"),<br>  4. (...int") Use the word "int" as the array key for the just read<br>      short.<br><br>I hope this is clearer now,<br><br>Sergio.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.unpack.php)
 

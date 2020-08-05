@@ -4,7 +4,7 @@
 
 Remember that MyISAM tables do not support rollbacks.<br><br>I just drove myself crazy for an afternoon trying to figure out what was wrong with my code - meanwhile it was fine all along  
 
-#
+---
 
 This is an example to explain the powerful of the rollback and commit functions.<br>Let&apos;s suppose you want to be sure that all queries have to be executed without errors before writing data on the database.<br>Here&apos;s the code:<br><br>
 
@@ -27,7 +27,7 @@ $mysqli->close();
 ```
 <br><br>hope to be helpful!  
 
-#
+---
 
 Just a note about auto incremental ids and rollback.<br>When using transactions and inserting into a table containing a column with auto incremental ids, the id will be incremented even though the transaction is rolled back.<br><br>This might occupy a lot of ids if a lot of rollbacks are performed.<br><br>Example:<br>
 
@@ -87,7 +87,7 @@ $mysqli->close();
 ```
 <br><br>This will output:<br>Id: 1.<br>Id: 5.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.rollback.php)
 

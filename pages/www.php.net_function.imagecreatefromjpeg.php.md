@@ -30,7 +30,7 @@ This function does not honour EXIF orientation data.  Pictures that are rotated 
 ```
   
 
-#
+---
 
 This little function allows you to create an image based on the popular image types without worrying about what it is:<br><br>
 
@@ -67,7 +67,7 @@ function imageCreateFromAny($filepath) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecreatefromjpeg.php)
 

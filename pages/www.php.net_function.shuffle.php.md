@@ -23,7 +23,7 @@ shuffle for associative arrays, preserves key=&gt;value pairs.<br>(Based on (Vla
 ```
 <br><br>*note: as of PHP 5.2.10, array_rand&apos;s resulting array of keys is no longer shuffled, so we use array_keys + shuffle.  
 
-#
+---
 
 Shuffle associative and non-associative array while preserving key, value pairs. Also returns the shuffled array instead of shuffling it in place.<br><br>
 
@@ -46,7 +46,7 @@ function shuffle_assoc($list) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.shuffle.php)
 

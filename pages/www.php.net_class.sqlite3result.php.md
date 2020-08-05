@@ -15,7 +15,7 @@ if ($res->numColumns() &amp;&amp; $res->columnType(0) != SQLITE3_NULL) {
 ```
 <br><br>Because when there are zero rows:<br>* SQLite3Result::fetchArray will return &apos;1&apos;<br>* SQLite3Result::numColumns will return &apos;1&apos;<br>* Column type for column &apos;0&apos; will be SQLITE3_NULL  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.sqlite3result.php)
 

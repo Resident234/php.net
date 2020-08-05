@@ -25,7 +25,7 @@ chmod('/test1/test2', 0777);
 ```
   
 
-#
+---
 
 This is an annotation from Stig Bakken:<br><br>The mode on your directory is affected by your current umask.  It will end<br>up having (&lt;mkdir-mode&gt; and (not &lt;umask&gt;)).  If you want to create one<br>that is publicly readable, do something like this:<br><br>
 
@@ -38,7 +38,7 @@ umask($oldumask);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.mkdir.php)
 

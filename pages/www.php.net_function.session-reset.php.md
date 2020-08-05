@@ -29,7 +29,7 @@ then you should execute this one :
 ```
 <br><br>That is because session_reset() is rolling back changes to the last saved session data, which is their values right after the session_start().  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.session-reset.php)
 

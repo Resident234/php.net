@@ -126,11 +126,11 @@ echo "MIME-type: ", $fInfo->file($wrapper->getStreamPath(), FILEINFO_MIME_TYPE, 
 ```
   
 
-#
+---
 
 Tempting as it may seem to use finfo_file() to validate uploaded image files (Check whether a supposed imagefile really contains an image), the results cannot be trusted. It&apos;s not that hard to wrap harmful executable code in a file identified as a GIF for instance.<br><br>A better &amp; safer option is to check the result of:<br><br>if (!$img = @imagecreatefromgif($uploadedfilename)) {<br>  trigger_error(&apos;Not a GIF image!&apos;,E_USER_WARNING);<br>  // do necessary stuff<br>}  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.finfo-file.php)
 

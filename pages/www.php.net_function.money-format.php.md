@@ -4,7 +4,7 @@
 
 For most of us in the US, we don&apos;t want to see a "USD" for our currency symbol, so &apos;%i&apos; doesn&apos;t cut it.  Here&apos;s what I used that worked to get what most  people expect to see for a number format.<br><br>$number = 123.4<br>setlocale(LC_MONETARY, &apos;en_US.UTF-8&apos;);<br>money_format(&apos;%.2n&apos;, $number);<br><br>output:<br>$123.40<br><br>That gives me a dollar sign at the beginning, and 2 digits at the end.  
 
-#
+---
 
 This is a some function posted before, however various bugs were corrected.<br><br>Thank you to Stuart Roe by reporting the bug on printing signals.<br><br>
 
@@ -113,17 +113,41 @@ function money_format($format, $number)
 ```
   
 
-#
+---
 
-In Rafael M. Salvioni function localeconv(); returns an invalid array in my Windows XP SP3 running PHP 5.4.13 so to prevent the Warning Message: implode(): Invalid arguments passed i just add the $locale manually. For other languages just fill the array with the correct settings.<br><br>&lt;?<br><br>       $locale = array(<br>        &apos;decimal_point&apos;        =&gt; &apos;.&apos;,<br>        &apos;thousands_sep&apos;        =&gt; &apos;&apos;,<br>        &apos;int_curr_symbol&apos;    =&gt; &apos;EUR&apos;,<br>        &apos;currency_symbol&apos;    =&gt; &apos;&#x20AC;&apos;,<br>        &apos;mon_decimal_point&apos;    =&gt; &apos;,&apos;,<br>        &apos;mon_thousands_sep&apos;    =&gt; &apos;.&apos;,<br>        &apos;positive_sign&apos;        =&gt; &apos;&apos;,<br>        &apos;negative_sign&apos;     =&gt; &apos;-&apos;,<br>        &apos;int_frac_digits&apos;    =&gt; 2,<br>        &apos;frac_digits&apos;        =&gt; 2,<br>        &apos;p_cs_precedes&apos;        =&gt; 0,<br>        &apos;p_sep_by_space&apos;    =&gt; 1,<br>        &apos;p_sign_posn&apos;        =&gt; 1,<br>        &apos;n_sign_posn&apos;        =&gt; 1,<br>        &apos;grouping&apos;            =&gt; array(),<br>        &apos;mon_grouping&apos;        =&gt; array(0 =&gt; 3, 1 =&gt; 3)<br>        <br>    );<br>?>
+In Rafael M. Salvioni function localeconv(); returns an invalid array in my Windows XP SP3 running PHP 5.4.13 so to prevent the Warning Message: implode(): Invalid arguments passed i just add the $locale manually. For other languages just fill the array with the correct settings.<br><br>
+
+```
+<?php
+
+       $locale = array(
+        'decimal_point'        => '.',
+        'thousands_sep'        => '',
+        'int_curr_symbol'    => 'EUR',
+        'currency_symbol'    => '&#x20AC;',
+        'mon_decimal_point'    => ',',
+        'mon_thousands_sep'    => '.',
+        'positive_sign'        => '',
+        'negative_sign'     => '-',
+        'int_frac_digits'    => 2,
+        'frac_digits'        => 2,
+        'p_cs_precedes'        => 0,
+        'p_sep_by_space'    => 1,
+        'p_sign_posn'        => 1,
+        'n_sign_posn'        => 1,
+        'grouping'            => array(),
+        'mon_grouping'        => array(0 => 3, 1 => 3)
+        
+    );
+?>
 ```
   
 
-#
+---
 
 If money_format doesn&apos;t seem to be working properly, make sure you are defining a valid locale.  For example, on Debian, &apos;en_US&apos; is not a valid locale - you need &apos;en_US.UTF-8&apos; or &apos;en_US.ISO-8559-1&apos;.<br><br>This was frustrating me for a while.  Debian has a list of valid locales at /usr/share/i18n/SUPPORTED; find yours there if it&apos;s not working properly.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.money-format.php)
 

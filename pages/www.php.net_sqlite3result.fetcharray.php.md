@@ -18,7 +18,7 @@ Would just like to point out for clarification that each call to fetchArray() re
 ```
 <br><br>Basically, in the above code fetchArray will return:<br>1st call | 1st result from $returned_set (fetchArray() call from while condition)<br>2nd call | 2nd result  (fetchArray() call from while block)<br>3rd call | 3rd result  (fetchArray() call from while condition)<br>4th call |FALSE  (fetchArray() call from while block)<br>5th call | 1st result  (fetchArray() call from while condition)<br>....<br><br>This will cause (at least in this case) the while loop to run infinitely.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/sqlite3result.fetcharray.php)
 

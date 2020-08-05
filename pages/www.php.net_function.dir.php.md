@@ -129,7 +129,7 @@ class RecDir
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.dir.php)
 

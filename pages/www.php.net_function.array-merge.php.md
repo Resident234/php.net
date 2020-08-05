@@ -24,7 +24,7 @@ $array3 = array(0=>"zero", 1=>"one", 2=>"two", 3=>"three");
 ```
 <br><br>Note the implicit "array_unique" that gets applied as well.  In some situations where your numeric keys matter, this behaviour could be useful, and better than array_merge.<br><br>--Julian  
 
-#
+---
 
 As PHP 5.6 you can use array_merge + "splat" operator to reduce a bidimensonal array to a simple array:<br><br>
 
@@ -49,7 +49,7 @@ print_r(array_reduce($data, 'array_merge', []));   // [1, 2, 3, 4, 5];
 ```
   
 
-#
+---
 
 Sometimes we need to traverse an array and group / merge the indexes so that it is easier to extract them so that they are related in the iteration.<br><br>
 
@@ -93,7 +93,7 @@ print_r($family);
 ```
 <br><br>//OUTPUT<br><br>Array<br>(<br>    [0] =&gt; Array<br>        (<br>            [id] =&gt; 1<br>            [name] =&gt; Hayley<br>            [children] =&gt; Array<br>                (<br>                    [0] =&gt; Array<br>                        (<br>                            [id] =&gt; 2<br>                            [name] =&gt; Jack<br>                            [dad] =&gt; 1<br>                        )<br><br>                )<br><br>        )<br><br>    [1] =&gt; Array<br>        (<br>            [id] =&gt; 4<br>            [name] =&gt; Peter<br>            [children] =&gt; Array<br>                (<br>                    [0] =&gt; Array<br>                        (<br>                            [id] =&gt; 3<br>                            [name] =&gt; Linus<br>                            [dad] =&gt; 4<br>                        )<br><br>                    [1] =&gt; Array<br>                        (<br>                            [id] =&gt; 5<br>                            [name] =&gt; Tom<br>                            [dad] =&gt; 4<br>                        )<br><br>                )<br><br>        )<br><br>)  
 
-#
+---
 
 An addition to what Julian Egelstaff above wrote - the array union operation (+) is not doing an array_unique - it will just not use the keys that are already defined in the left array.  The difference between union and merge can be seen in an example like this:<br><br>
 
@@ -117,15 +117,15 @@ var_export( $arr4 );
 ```
   
 
-#
+---
 
 to get unique value from multi dimensional array use this instead of array_unique(), because array_unique() does not work on multidimensional:<br>array_map("unserialize", array_unique(array_map("serialize", $array)));<br>Hope this will help someone;<br>Example<br>$a=array(array(&apos;1&apos;),array(&apos;2&apos;),array(&apos;3&apos;),array(&apos;4));<br>$b=array(array(&apos;2&apos;),array(&apos;4&apos;),array(&apos;6&apos;),array(&apos;8));<br>$c=array_merge($a,$b);<br>then write this line to get unique values<br>$c=array_map("unserialize", array_unique(array_map("serialize", $c)));<br>print_r($c);  
 
-#
+---
 
 I constantly forget the direction of array_merge so this is partially for me and partially for people like me.<br><br>array_merge is a non-referential non-inplace right-reduction. For different ctrl-f typers, it&apos;s reduce-right, side-effect free, idempotent, and non in-place.<br><br>ex:<br><br>$a = array_merge([&apos;k&apos; =&gt; &apos;a&apos;], [&apos;k&apos; =&gt; &apos;b&apos;]) =&gt; [&apos;k&apos; =&gt; &apos;b&apos;]<br>array_merge([&apos;z&apos; =&gt; 1], $a) =&gt; does not modify $a but returns [&apos;k&apos; =&gt; &apos;b&apos;, &apos;z&apos; =&gt; 1];<br><br>Hopefully this helps people that constant look this up such as myself.  
 
-#
+---
 
 Reiterating the notes about casting to arrays, be sure to cast if one of the arrays might be null:<br><br>
 
@@ -156,13 +156,60 @@ echo is_null(array_merge($a, $b)) ? 'Result is null' : 'Result is not null';
 ```
 <br><br>Produces:<br><br>1 ==============<br>Array<br>(<br>    [0] =&gt; zzzz<br>    [1] =&gt; xxxx<br>    [2] =&gt; mmmm<br>    [3] =&gt; nnnn<br>)<br>2 ==============<br>Array<br>(<br>    [0] =&gt; zzzz<br>    [1] =&gt; xxxx<br>)<br>3 ==============<br>4 ==============<br>Array<br>(<br>    [0] =&gt; zzzz<br>    [1] =&gt; xxxx<br>)<br>5 ==============<br>Result is null  
 
-#
+---
 
-if you generate form select from an array, you probably want to keep your array keys and order intact,<br>if so you can use ArrayMergeKeepKeys(), works just like array_merge :<br><br>array ArrayMergeKeepKeys ( array array1 [, array array2 [, array ...]])<br><br>but keeps the keys even if of numeric kind. <br>enjoy<br><br>&lt;?<br><br>$Default[0]=&apos;Select Something please&apos;;<br><br>$Data[147]=&apos;potato&apos;;<br>$Data[258]=&apos;banana&apos;;<br>$Data[54]=&apos;tomato&apos;;<br><br>$A=array_merge($Default,$Data);<br><br>$B=ArrayMergeKeepKeys($Default,$Data);<br><br>echo &apos;&lt;pre&gt;&apos;;<br>print_r($A);<br>print_r($B);<br>echo &apos;&lt;/pre&gt;&apos;;<br><br>Function ArrayMergeKeepKeys() {<br>      $arg_list = func_get_args();<br>      foreach((array)$arg_list as $arg){<br>          foreach((array)$arg as $K =&gt; $V){<br>              $Zoo[$K]=$V;<br>          }<br>      }<br>    return $Zoo;<br>}<br><br>//will output :<br><br>Array<br>(<br>    [0] =&gt; Select Something please<br>    [1] =&gt; potato<br>    [2] =&gt; banana<br>    [3] =&gt; tomato<br>)<br>Array<br>(<br>    [0] =&gt; Select Something please<br>    [147] =&gt; potato<br>    [258] =&gt; banana<br>    [54] =&gt; tomato<br>)<br><br>?>
+if you generate form select from an array, you probably want to keep your array keys and order intact,<br>if so you can use ArrayMergeKeepKeys(), works just like array_merge :<br><br>array ArrayMergeKeepKeys ( array array1 [, array array2 [, array ...]])<br><br>but keeps the keys even if of numeric kind. <br>enjoy<br><br>
+
+```
+<?php
+
+$Default[0]='Select Something please';
+
+$Data[147]='potato';
+$Data[258]='banana';
+$Data[54]='tomato';
+
+$A=array_merge($Default,$Data);
+
+$B=ArrayMergeKeepKeys($Default,$Data);
+
+echo '';
+print_r($A);
+print_r($B);
+echo '';
+
+Function ArrayMergeKeepKeys() {
+      $arg_list = func_get_args();
+      foreach((array)$arg_list as $arg){
+          foreach((array)$arg as $K => $V){
+              $Zoo[$K]=$V;
+          }
+      }
+    return $Zoo;
+}
+
+//will output :
+
+Array
+(
+    [0] => Select Something please
+    [1] => potato
+    [2] => banana
+    [3] => tomato
+)
+Array
+(
+    [0] => Select Something please
+    [147] => potato
+    [258] => banana
+    [54] => tomato
+)
+
+?>
 ```
   
 
-#
+---
 
 I keep seeing posts for people looking for a function to replace numeric keys.<br><br>No function is required for this, it is default behavior if the + operator:<br><br>
 
@@ -176,7 +223,7 @@ print_r($a+$b);
 ```
 <br><br>Array<br>(<br>    [1] =&gt; one<br>    [two] =&gt; 2<br>    [3] =&gt; three<br>    [four] =&gt; 4<br>)<br><br>How this works:<br><br>The + operator only adds unique keys to the resulting array.  By making the replacements the first argument, they naturally always replace the keys from the second argument, numeric or not! =)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-merge.php)
 

@@ -27,7 +27,7 @@ and after you send the STARTTLS command, you can enable the crypto:
 ```
 <br><br>P.S. My previous note on this page was totally wrong, so I ask the php.net admin to remove it.<br><br>:)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/transports.inet.php)
 

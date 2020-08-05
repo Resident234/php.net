@@ -4,7 +4,7 @@
 
 Note when extending __doRequest, calling __getLastRequest will probably report incorrect information unless you make sure to update the internal __last_request variable. Save yourself some headaches.<br><br>function __doRequest($request, $location, $action, $version) {<br>      $request = preg_replace(&apos;/abc/&apos;, &apos;def&apos;, $request);<br>      $ret = parent::__doRequest($request, $location, $action, $version);<br>      $this-&gt;__last_request = $request;<br>      return $ret;<br>}  
 
-#
+---
 
 Note that the SoapClient.__doRequest() method circumvents the throwing of SoapFault exceptions.<br><br>Specifically, if you call the __doRequest() method and it fails, it would normally throw a SoapFault exception.  However, the __doRequest() method doesn&apos;t actually throw the exception. Instead, the exception is saved in a class attribute called SoapFault.__soap_fault, and is actually thrown AFTER the __doRequest method completes (but the call stack will show that the exception was created inside the __doRequest method.<br><br>I successfully used the following code to query the locally cached exception object that was not thrown:<br><br>
 
@@ -38,7 +38,7 @@ if($exception != null) {
 ```
   
 
-#
+---
 
 If you want to communicate with a default configured ASP.NET server with SOAP 1.1 support, override your __doRequest with the following code. Adjust the namespace parameter, and all is good to go.<br><br>
 
@@ -63,7 +63,7 @@ $client = new MSSoapClient(...);
 ```
 <br><br>Hope this will save people endless hours of fiddling...  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/soapclient.dorequest.php)
 

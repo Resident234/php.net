@@ -19,7 +19,7 @@ the best solution - use mb_strtolower()
 ```
 <br>will return: m&#x105;ka  
 
-#
+---
 
 for cyrillic and UTF 8 use  mb_convert_case<br><br>exampel<br><br>
 
@@ -34,7 +34,7 @@ echo $string;
 ```
   
 
-#
+---
 
 It is worth noting that <br>
 
@@ -45,7 +45,7 @@ var_dump(strtolower(null))
 ```
 <br>returns: <br>string(0) ""  
 
-#
+---
 
 the function  arraytolower will create duplicate entries since keys are case sensitive.  <br><br>
 
@@ -117,7 +117,7 @@ print_r($array2);
 ```
 <br><br>will give output of <br><br>Array<br>(<br>    [test1] =&gt; asgafasdaad<br>    [TEST2] =&gt; asddhshsdgb<br>    [TeSt3] =&gt; asdasda@asdadadasdasdgh<br>)<br>Array<br>(<br>    [test1] =&gt; asgafasdaad<br>    [test2] =&gt; asddhshsdgb<br>    [test3] =&gt; asdasda@asdadadasdasdgh<br>)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.strtolower.php)
 

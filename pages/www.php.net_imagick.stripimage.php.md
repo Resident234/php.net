@@ -16,11 +16,11 @@ if(!empty($profiles))
 ```
   
 
-#
+---
 
 Please note that striping off the exif information without handling the orientation information available in the exif will lead to wrong orientation of the image  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagick.stripimage.php)
 

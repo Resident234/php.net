@@ -14,7 +14,7 @@ if (!socket_set_option($sock, SOL_SOCKET, SO_REUSEADDR, 1)) {
 ```
 <br><br>This solution was found by <br>Christophe Dirac. Thank you Christophe!  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.socket-bind.php)
 

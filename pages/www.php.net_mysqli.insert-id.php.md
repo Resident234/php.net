@@ -28,7 +28,7 @@ if ($result = $mysqli->query("INSERT INTO t (field) VALUES ('value');")) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.insert-id.php)
 

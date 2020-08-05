@@ -25,11 +25,11 @@ fclose($fp);
 ```
   
 
-#
+---
 
 You MUST use rewind() after ftruncate() to replace file content  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ftruncate.php)
 

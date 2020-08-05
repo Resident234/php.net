@@ -38,7 +38,7 @@ echo $eta/1e+6; //nanoseconds to milliseconds
 ```
 <br><br>There is also the new StopWatch class http://php.net/manual/en/class.hrtime-stopwatch.php  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.hrtime.php)
 

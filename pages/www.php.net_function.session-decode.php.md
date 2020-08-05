@@ -81,7 +81,7 @@ Session::unserialize(session_encode());
 ```
   
 
-#
+---
 
 I found this to be the simplest solution:<br><br>
 
@@ -106,7 +106,7 @@ $_SESSION = $my_sess;
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.session-decode.php)
 

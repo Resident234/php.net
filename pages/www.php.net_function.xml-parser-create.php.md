@@ -64,7 +64,7 @@ function between($stuff) {}
 ```
 <br><br>No other attributes  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.xml-parser-create.php)
 

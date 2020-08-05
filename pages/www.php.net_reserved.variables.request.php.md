@@ -37,7 +37,7 @@ default:
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.request.php)
 

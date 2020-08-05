@@ -52,15 +52,15 @@ function getjpegsize($img_loc) {
 ```
   
 
-#
+---
 
 If you want to "convert" value returned by "getimagesize()" as index "2" into something more human-readable, you may consider using a function like this one:<br><br>    $imageTypeArray = array<br>    (<br>        0=&gt;&apos;UNKNOWN&apos;,<br>        1=&gt;&apos;GIF&apos;,<br>        2=&gt;&apos;JPEG&apos;,<br>        3=&gt;&apos;PNG&apos;,<br>        4=&gt;&apos;SWF&apos;,<br>        5=&gt;&apos;PSD&apos;,<br>        6=&gt;&apos;BMP&apos;,<br>        7=&gt;&apos;TIFF_II&apos;,<br>        8=&gt;&apos;TIFF_MM&apos;,<br>        9=&gt;&apos;JPC&apos;,<br>        10=&gt;&apos;JP2&apos;,<br>        11=&gt;&apos;JPX&apos;,<br>        12=&gt;&apos;JB2&apos;,<br>        13=&gt;&apos;SWC&apos;,<br>        14=&gt;&apos;IFF&apos;,<br>        15=&gt;&apos;WBMP&apos;,<br>        16=&gt;&apos;XBM&apos;,<br>        17=&gt;&apos;ICO&apos;,<br>        18=&gt;&apos;COUNT&apos;  <br>    );<br>    <br>    $size = getimagesize($filename);<br>    <br>    $size[2] = $imageTypeArray[$size[2]];<br><br>Or something similar.  
 
-#
+---
 
 Note that, if you&apos;re going to be a good programmer and use named constatnts (IMAGETYPE_JPEG) rather than their values (2), you want to use the IMAGETYPE variants - IMAGETYPE_JPEG, IMAGETYPE GIF, IMAGETYPE_PNG, etc.  For some reason, somebody made a horrible decision, and IMG_PNG is actually 4 in my version of PHP, while IMAGETYPE_PNG is 3.  It took me a while to figure out why comparing the type against IMG_PNG was failing...  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.getimagesize.php)
 

@@ -68,7 +68,7 @@ If you implemented such a compatible function before and don't want to refactor 
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-replace-recursive.php)
 

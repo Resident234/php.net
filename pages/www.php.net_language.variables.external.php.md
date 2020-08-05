@@ -4,11 +4,11 @@
 
 The full list of field-name characters that PHP converts to _ (underscore) is the following (not just dot):<br>chr(32) ( ) (space)<br>chr(46) (.) (dot)<br>chr(91) ([) (open square bracket)<br>chr(128) - chr(159) (various)<br><br>PHP irreversibly modifies field names containing these characters in an attempt to maintain compatibility with the deprecated register_globals feature.  
 
-#
+---
 
 Important:  Pay attention to the following security concerns when handling user submitted  data :<br><br>http://www.php.net/manual/en/security.registerglobals.php<br>http://www.php.net/manual/en/security.variables.php  
 
-#
+---
 
 This post is with regards to handling forms that have more than one submit button.<br><br>Suppose we have an HTML form with a submit button specified like this:<br><br>&lt;input type="submit" value="Delete" name="action_button"&gt;<br><br>Normally the &apos;value&apos; attribute of the HTML &apos;input&apos; tag (in this case "Delete") that creates the submit button can be accessed in PHP after post like this:<br><br>
 
@@ -48,7 +48,7 @@ echo ($_POST['action_button'][$submitted_array[0]] . " " . $submitted_array[0]);
 ```
 <br><br>$submitted_array[0] carries the 0000000002.<br>When we index that into the $_POST[&apos;action_button&apos;], like we did above, we will extract the string that was used as &apos;value&apos; in the HTML code &apos;input&apos; tag that created this button.<br><br>If we wish to protect the unique numerical identifier, we must use some other uniquely identifying attribute of each user. Possibly that attribute should be encrypted when output into the form for greater security.<br><br>Enjoy!  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.variables.external.php)
 

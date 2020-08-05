@@ -23,7 +23,7 @@ clearstatcache();
 ```
 <br><br>file_exists() then properly returns false.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.clearstatcache.php)
 

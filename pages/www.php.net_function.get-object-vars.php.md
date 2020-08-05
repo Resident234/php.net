@@ -21,7 +21,7 @@ class Potatoe {
 
 $Obj = new Potatoe ( 1, 2, 3 );
 
-echo "<pre>\n";
+echo "\n";
 echo "Using get_object_vars:\n";
 
 $vars = get_object_vars ( $Obj );
@@ -144,7 +144,7 @@ class Potatoe {
 
 $Obj = new Potatoe ( 1, 2, 3 );
 
-echo "<pre>\n";
+echo "\n";
 echo "Using get_object_vars:\n";
 
 $vars = get_object_vars ( $Obj );
@@ -176,11 +176,11 @@ $Arr->PrintAll();
 ```
   
 
-#
+---
 
 You can use call_user_func() to return public variables from inside the class:<br><br>class Test {<br>    protected $protected;<br>    public $public;<br>    private $private;<br><br>    public function getPublicVars () {<br>        return call_user_func(&apos;get_object_vars&apos;, $this);<br>    }<br>}<br><br>$test = new Test();<br>var_dump($test-&gt;getPublicVars()); // array("public" =&gt; NULL)  
 
-#
+---
 
 Hi all, I just wrote a function which dumps all the object propreties and its associations recursively into an array. Here it is..<br>
 
@@ -241,7 +241,7 @@ print_r($the_array);
 ```
 <br><br>it will produce an array:<br>Array<br>(<br>    [Fruits] =&gt; Array<br>        (<br>            [0] =&gt; Array<br>                (<br>                    [_name] =&gt; Mango<br>                    [_color] =&gt; Green<br>                    [_weight] =&gt; 10<br>                )<br><br>            [1] =&gt; Array<br>                (<br>                    [_name] =&gt; Apple<br>                    [_color] =&gt; Red<br>                    [_weight] =&gt; 15<br>                )<br><br>            [2] =&gt; Array<br>                (<br>                    [_name] =&gt; Grape<br>                    [_color] =&gt; Purple<br>                    [_weight] =&gt; 5<br>                )<br><br>        )<br><br>    [total_weight] =&gt; 30<br>)<br><br>I wish function like this could be usefull for you all. :)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.get-object-vars.php)
 

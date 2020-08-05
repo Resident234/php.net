@@ -49,7 +49,7 @@ exit;
 ```
 <br><br>(executing a.php:) will echo "b".  
 
-#
+---
 
 Note that because PHP processes the file before running it, any functions defined in an included file will still be available, even if the file is not executed.<br><br>Example:<br><br>a.php<br>
 
@@ -76,7 +76,7 @@ function foo() {
 ```
 <br><br>Executing a.php will output "foo".  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.return.php)
 

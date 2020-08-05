@@ -31,7 +31,7 @@ imagedestroy($img);
 ```
 <br><br>the differences reduce when reducing the pixels of the image.. infact for a 100x100 pixel image the noise produced from the rand function is much more realistic than how it is for a 400x400 image: http://oi39.tinypic.com/5k0row.jpg<br><br>(rand is on the left, mt_rand on the right)  
 
-#
+---
 
 To quickly build a human-readable random string for a captcha per example :<br><br>
 
@@ -54,7 +54,7 @@ function random($length = 8)
 ```
 <br><br>Note that I have removed q and y from $chars to avoid readability problems.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.mt-rand.php)
 

@@ -4,7 +4,7 @@
 
 dirty code sample:<br><br>print_r(compact(array_keys(get_defined_vars())));  
 
-#
+---
 
 A little gotcha to watch out for:<br><br>If you turn off RegisterGlobals and related, then use get_defined_vars(), you may see something like the following:<br><br>
 
@@ -38,13 +38,13 @@ Notice that $_SERVER isn't there.  It seems that php only loads the superglobal 
 
 ```
 <?php
-print '<pre>' . htmlspecialchars(print_r(get_defined_vars(), true)) . '</pre>';
-print '<pre>' . htmlspecialchars(print_r($_SERVER, true)) . '</pre>';
+print '' . htmlspecialchars(print_r(get_defined_vars(), true)) . '';
+print '' . htmlspecialchars(print_r($_SERVER, true)) . '';
 ?>
 ```
 <br><br>And then $_SERVER will appear in both lists.  I guess it&apos;s not really a gotcha, because nothing bad will happen either way, but it&apos;s an interesting curiosity nonetheless.  
 
-#
+---
 
 Since get_defined_vars() only gets the variables at the point you call the function, there is a simple way to get the variables defined within the current scope.<br><br>
 
@@ -60,14 +60,14 @@ $bar = 'bar';
 // Get all the variables defined in current scope
 $vars = array_diff(get_defined_vars(),$vars);
 
-echo '<pre>';
+echo '';
 print_r($vars);
-echo '</pre>';
+echo '';
 ?>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.get-defined-vars.php)
 

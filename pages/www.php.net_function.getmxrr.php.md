@@ -131,18 +131,18 @@ class mxlookup
 $mx = new mxlookup("php.net");
 
 print $mx->ANCOUNT." MX Records\n";
-print "Records returned for ".$mx->dns_repl_domain.":\n<pre>";
+print "Records returned for ".$mx->dns_repl_domain.":\n";
 print_r($mx->arrMX);
 
 ?>
 ```
 <br><br>Return:<br><br>02 MX Records Records returned for php.net:<br><br>Array<br>(<br>    [0] =&gt; Array<br>        (<br>            [MX_Pref] =&gt; 15<br>            [MX] =&gt; smtp.osuosl.org<br>        )<br><br>    [1] =&gt; Array<br>        (<br>            [MX_Pref] =&gt; 5<br>            [MX] =&gt; osu1.php.net<br>        )<br><br>)  
 
-#
+---
 
 I tried using getmxrr() to validate the domain portion of email addresses in enquiry submission forms, and there is a curious effect with some top-level domains when checking non-existant domains.<br><br>With sdlkfjsdl.com, since the domain does not exist, getmxrr() returns false, as expected, and the returned mxhosts array is empty.<br><br>But with sdlkfjsdl.gov, getmxrr() returns true,  and the returned mxhosts array contains one element: NULL<br><br>With sdlkfjsdl.org, getmxrr() returns true,  and the returned mxhosts array contains one element: &apos;0.0.0.0&apos;<br><br>With sdlkfjsdl.co.uk, getmxrr()  returns true and supplies one MX record: uk-net-wildcard-null-mx.centralnic.net<br><br>So to validate the email domain, it would seem one has to check the returned mxhosts array to exclude the possibility of mxhosts being returned as NULL, 0.0.0.0 and wildcard ...  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.getmxrr.php)
 

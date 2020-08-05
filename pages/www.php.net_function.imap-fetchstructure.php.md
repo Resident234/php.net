@@ -2,11 +2,96 @@
 
 
 
-Here is code to parse and decode all types of messages, including attachments. I&apos;ve been using something like this for awhile now, so it&apos;s pretty robust.<br><br>&lt;?<br>function getmsg($mbox,$mid) {<br>    // input $mbox = IMAP stream, $mid = message id<br>    // output all the following:<br>    global $charset,$htmlmsg,$plainmsg,$attachments;<br>    $htmlmsg = $plainmsg = $charset = &apos;&apos;;<br>    $attachments = array();<br><br>    // HEADER<br>    $h = imap_header($mbox,$mid);<br>    // add code here to get date, from, to, cc, subject...<br><br>    // BODY<br>    $s = imap_fetchstructure($mbox,$mid);<br>    if (!$s-&gt;parts)  // simple<br>        getpart($mbox,$mid,$s,0);  // pass 0 as part-number<br>    else {  // multipart: cycle through each part<br>        foreach ($s-&gt;parts as $partno0=&gt;$p)<br>            getpart($mbox,$mid,$p,$partno0+1);<br>    }<br>}<br><br>function getpart($mbox,$mid,$p,$partno) {<br>    // $partno = &apos;1&apos;, &apos;2&apos;, &apos;2.1&apos;, &apos;2.1.3&apos;, etc for multipart, 0 if simple<br>    global $htmlmsg,$plainmsg,$charset,$attachments;<br><br>    // DECODE DATA<br>    $data = ($partno)?<br>        imap_fetchbody($mbox,$mid,$partno):  // multipart<br>        imap_body($mbox,$mid);  // simple<br>    // Any part may be encoded, even plain text messages, so check everything.<br>    if ($p-&gt;encoding==4)<br>        $data = quoted_printable_decode($data);<br>    elseif ($p-&gt;encoding==3)<br>        $data = base64_decode($data);<br><br>    // PARAMETERS<br>    // get all parameters, like charset, filenames of attachments, etc.<br>    $params = array();<br>    if ($p-&gt;parameters)<br>        foreach ($p-&gt;parameters as $x)<br>            $params[strtolower($x-&gt;attribute)] = $x-&gt;value;<br>    if ($p-&gt;dparameters)<br>        foreach ($p-&gt;dparameters as $x)<br>            $params[strtolower($x-&gt;attribute)] = $x-&gt;value;<br><br>    // ATTACHMENT<br>    // Any part with a filename is an attachment,<br>    // so an attached text file (type 0) is not mistaken as the message.<br>    if ($params[&apos;filename&apos;] || $params[&apos;name&apos;]) {<br>        // filename may be given as &apos;Filename&apos; or &apos;Name&apos; or both<br>        $filename = ($params[&apos;filename&apos;])? $params[&apos;filename&apos;] : $params[&apos;name&apos;];<br>        // filename may be encoded, so see imap_mime_header_decode()<br>        $attachments[$filename] = $data;  // this is a problem if two files have same name<br>    }<br><br>    // TEXT<br>    if ($p-&gt;type==0 &amp;&amp; $data) {<br>        // Messages may be split in different parts because of inline attachments,<br>        // so append parts together with blank row.<br>        if (strtolower($p-&gt;subtype)==&apos;plain&apos;)<br>            $plainmsg. = trim($data) ."\n\n";<br>        else<br>            $htmlmsg. = $data ."&lt;br&gt;&lt;br&gt;";<br>        $charset = $params[&apos;charset&apos;];  // assume all parts are same charset<br>    }<br><br>    // EMBEDDED MESSAGE<br>    // Many bounce notifications embed the original message as type 2,<br>    // but AOL uses type 1 (multipart), which is not handled here.<br>    // There are no PHP functions to parse embedded messages,<br>    // so this just appends the raw source to the main message.<br>    elseif ($p-&gt;type==2 &amp;&amp; $data) {<br>        $plainmsg. = $data."\n\n";<br>    }<br><br>    // SUBPART RECURSION<br>    if ($p-&gt;parts) {<br>        foreach ($p-&gt;parts as $partno0=&gt;$p2)<br>            getpart($mbox,$mid,$p2,$partno.&apos;.&apos;.($partno0+1));  // 1.2, 1.2.1, etc.<br>    }<br>}<br>?>
+Here is code to parse and decode all types of messages, including attachments. I&apos;ve been using something like this for awhile now, so it&apos;s pretty robust.<br><br>
+
+```
+<?php
+function getmsg($mbox,$mid) {
+    // input $mbox = IMAP stream, $mid = message id
+    // output all the following:
+    global $charset,$htmlmsg,$plainmsg,$attachments;
+    $htmlmsg = $plainmsg = $charset = '';
+    $attachments = array();
+
+    // HEADER
+    $h = imap_header($mbox,$mid);
+    // add code here to get date, from, to, cc, subject...
+
+    // BODY
+    $s = imap_fetchstructure($mbox,$mid);
+    if (!$s->parts)  // simple
+        getpart($mbox,$mid,$s,0);  // pass 0 as part-number
+    else {  // multipart: cycle through each part
+        foreach ($s->parts as $partno0=>$p)
+            getpart($mbox,$mid,$p,$partno0+1);
+    }
+}
+
+function getpart($mbox,$mid,$p,$partno) {
+    // $partno = '1', '2', '2.1', '2.1.3', etc for multipart, 0 if simple
+    global $htmlmsg,$plainmsg,$charset,$attachments;
+
+    // DECODE DATA
+    $data = ($partno)?
+        imap_fetchbody($mbox,$mid,$partno):  // multipart
+        imap_body($mbox,$mid);  // simple
+    // Any part may be encoded, even plain text messages, so check everything.
+    if ($p->encoding==4)
+        $data = quoted_printable_decode($data);
+    elseif ($p->encoding==3)
+        $data = base64_decode($data);
+
+    // PARAMETERS
+    // get all parameters, like charset, filenames of attachments, etc.
+    $params = array();
+    if ($p->parameters)
+        foreach ($p->parameters as $x)
+            $params[strtolower($x->attribute)] = $x->value;
+    if ($p->dparameters)
+        foreach ($p->dparameters as $x)
+            $params[strtolower($x->attribute)] = $x->value;
+
+    // ATTACHMENT
+    // Any part with a filename is an attachment,
+    // so an attached text file (type 0) is not mistaken as the message.
+    if ($params['filename'] || $params['name']) {
+        // filename may be given as 'Filename' or 'Name' or both
+        $filename = ($params['filename'])? $params['filename'] : $params['name'];
+        // filename may be encoded, so see imap_mime_header_decode()
+        $attachments[$filename] = $data;  // this is a problem if two files have same name
+    }
+
+    // TEXT
+    if ($p->type==0 &amp;&amp; $data) {
+        // Messages may be split in different parts because of inline attachments,
+        // so append parts together with blank row.
+        if (strtolower($p->subtype)=='plain')
+            $plainmsg. = trim($data) ."\n\n";
+        else
+            $htmlmsg. = $data ."<br><br>";
+        $charset = $params['charset'];  // assume all parts are same charset
+    }
+
+    // EMBEDDED MESSAGE
+    // Many bounce notifications embed the original message as type 2,
+    // but AOL uses type 1 (multipart), which is not handled here.
+    // There are no PHP functions to parse embedded messages,
+    // so this just appends the raw source to the main message.
+    elseif ($p->type==2 &amp;&amp; $data) {
+        $plainmsg. = $data."\n\n";
+    }
+
+    // SUBPART RECURSION
+    if ($p->parts) {
+        foreach ($p->parts as $partno0=>$p2)
+            getpart($mbox,$mid,$p2,$partno.'.'.($partno0+1));  // 1.2, 1.2.1, etc.
+    }
+}
+?>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-fetchstructure.php)
 

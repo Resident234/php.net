@@ -11,7 +11,7 @@ $average_of_foo = array_sum($foo) / count($foo);
 ```
   
 
-#
+---
 
 If you want to check if there are for example only strings in an array, you can use a combination of array_sum and array_map like this:<br><br>
 
@@ -37,7 +37,7 @@ var_dump(
 ```
 <br><br>This will give you the following result:<br>bool(true)<br>bool(false)<br>bool(false)<br>bool(false)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-sum.php)
 

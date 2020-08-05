@@ -23,7 +23,7 @@ Array
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.regexiterator.php)
 

@@ -20,7 +20,7 @@ function return_bytes ($size_str)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ini-get.php)
 

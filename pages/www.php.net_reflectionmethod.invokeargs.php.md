@@ -41,7 +41,7 @@ We can do black magic, which is useful in templating block calls:<br><br>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reflectionmethod.invokeargs.php)
 

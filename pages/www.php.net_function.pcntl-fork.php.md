@@ -35,7 +35,7 @@ print "Done! :^)\n\n";
 ```
 <br><br>Which outputs:<br>php -q fork_n_wait.php<br>FORK: Child #1 preparing to nuke...<br>PHP Fatal error:  Call to undefined function generate_fatal_error() in ~fork_n_wait.php on line 16<br>FORK: Parent, letting the child run amok...<br>FORK: Child #2 preparing to nuke...<br>PHP Fatal error:  Call to undefined function generate_fatal_error() in ~/fork_n_wait.php on line 16<br>FORK: Parent, letting the child run amok...<br>FORK: Child #3 preparing to nuke...<br>PHP Fatal error:  Call to undefined function generate_fatal_error() in ~/fork_n_wait.php on line 16<br>FORK: Parent, letting the child run amok...<br>FORK: Child #4 preparing to nuke...<br>PHP Fatal error:  Call to undefined function generate_fatal_error() in ~/fork_n_wait.php on line 16<br>FORK: Parent, letting the child run amok...<br>Done! :^)  
 
-#
+---
 
 I just thought of contributing to this awesome community and hope this can be of use to someone. Although PHP provides threaded options, and multi curl handles that run in parallel, I managed to bash out a solution to run each function as it&apos;s own process for non-threaded versions of PHP.<br><br>Usage:  #!/usr/bin/php<br>Usage: php -f /path/to/file<br><br>#!/usr/bin/php<br>
 
@@ -113,7 +113,7 @@ fork_process($options);
 ```
 <br><br>If you&apos;d like to get the results back from a webpage, use exec(). Eg: echo exec(&apos;php -f /path/to/file&apos;);<br><br>Continue hacking! :)  
 
-#
+---
 
 Its been easy to fork process with pcntl_fork.. but how can we control or process further once all child processes gets completed.. here is the way we can do that...<br><br>
 
@@ -137,7 +137,7 @@ for ($i = 1; $i <= 5; ++$i) {
 ```
   
 
-#
+---
 
 The reason for the MySQL "Lost Connection during query" issue when forking is the fact that the child process inherits the parent&apos;s database connection. When the child exits, the connection is closed. If the parent is performing a query at this very moment, it is doing it on an already closed connection, hence the error.<br><br>An easy way to avoid this is to create a new database connection in parent immediately after forking. Don&apos;t forget to force a new connection by passing true in the 4th argument of mysql_connect():<br><br>
 
@@ -165,7 +165,7 @@ if ( $pid == -1 ) {
 ```
 <br><br>This way, the child will inherit the old connection, will work on it and will close upon exit. The parent won&apos;t care, because it will open a new connection for itself immediately after forking.<br><br>Hope this helps.  
 
-#
+---
 
 If you want to execute some code after your php page has been returned to the user. Try something like this -<br><br>
 
@@ -215,7 +215,7 @@ function index()
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.pcntl-fork.php)
 

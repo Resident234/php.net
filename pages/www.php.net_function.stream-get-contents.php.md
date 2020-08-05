@@ -29,7 +29,7 @@ fclose($handle);
 ```
 <br><br>As a result, stream_get_contents() affects file position in 5.1, and do not affect file position in 5.2 or better.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.stream-get-contents.php)
 

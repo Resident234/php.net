@@ -51,11 +51,11 @@ function calculateTextBox($font_size, $font_angle, $font_file, $text) {
 ```
   
 
-#
+---
 
 Please note that as imageTTFBbox and imageTTFText functions return an array of coordinates which could be negative numbers care must be taken with height and width calculations.<br><br>The rigth way to do that is to use the abs() function:<br><br>for an horizontal text:<br><br>$box = @imageTTFBbox($size,0,$font,$text);<br>$width = abs($box[4] - $box[0]);<br>$height = abs($box[5] - $box[1]);<br><br>Then to center your text at ($x,$y) position the code should be like that:<br><br>$x -= $width/2;<br>$y += $heigth/2;<br><br>imageTTFText($img,$size,0,$x,$y,$color,$font,$text);<br><br>this because (0,0) page origin is topleft page corner and (0,0) text origin is lower-left readable text corner.<br><br>Hope this help.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagettfbbox.php)
 

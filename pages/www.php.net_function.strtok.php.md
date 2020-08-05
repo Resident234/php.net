@@ -13,9 +13,9 @@ echo strtok($str, ' ').' '.strtok(' ').' '.strtok(' ');
 ```
 <br>Result:<br>Hello to all  
 
-#
+---
 
-&lt;pre&gt;
+
 
 ```
 <?php
@@ -60,9 +60,9 @@ while (!$done) {
 };
 ?>
 ```
-&lt;/pre&gt;  
+  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.strtok.php)
 

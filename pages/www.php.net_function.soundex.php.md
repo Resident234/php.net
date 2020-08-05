@@ -126,7 +126,7 @@ $exceptionsFollowing))) {
 ```
   
 
-#
+---
 
 I made some improvements to the "Cologne Phonetic" function of niclas zimmer. Key and value of the arrays are inverted to uses simple arrays instead of multidimensional arrays. Therefore all loops and iterations are not longer necessary to find the matching value  for a char.<br>I put the function into a static class and moved the array declarations outside the function.<br><br>The result is more reliable and five times faster than the original.<br><br>
 
@@ -199,7 +199,7 @@ class CologneHash() {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.soundex.php)
 

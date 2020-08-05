@@ -4,7 +4,7 @@
 
 Note that you should read "Variables/Variable scope" if you are looking for static keyword use for declaring static variables inside functions (or methods). I myself had this gap in my PHP knowledge until recently and had to google to find this out. I think this page should have a "See also" link to static function variables.<br>http://www.php.net/manual/en/language.variables.scope.php  
 
-#
+---
 
 Here statically accessed property prefer property of the class for which it is called. Where as self keyword enforces use of current class only. Refer the below example:<br><br>
 
@@ -35,11 +35,15 @@ $obj->static_test();
 ```
   
 
-#
+---
 
 It is worth mentioning that there is only one value for each static variable that is the same for all instances  
 
-#
+---
+
+This is also possible:<br><br>class Foo {<br>  public static $bar = &apos;a static property&apos;;<br>}<br><br>$baz = (new Foo)::$bar;<br>echo $baz;  
+
+---
 
 It is important to understand the behavior of static properties in the context of class inheritance:<br><br>- Static properties defined in both parent and child classes will hold DISTINCT values for each class. Proper use of self:: vs. static:: are crucial inside of child methods to reference the intended static property.<br><br>- Static properties defined ONLY in the parent class will share a COMMON value.<br><br>
 
@@ -77,7 +81,7 @@ echo 'Child:  parent_only=', staticchild::$parent_only, ', both_distinct=', stat
 ```
 <br><br>will output:<br>Parent: parent_only=fromchild, both_distinct=fromparent<br>Child: parent_only=fromchild, both_distinct=fromchild, child_only=fromchild  
 
-#
+---
 
 Static variables are shared between sub classes<br><br>
 
@@ -112,7 +116,7 @@ $c2->show(); // prints 2
 ```
   
 
-#
+---
 
 To check if a function was called statically or not, you&apos;ll need to do:<br><br>
 
@@ -125,7 +129,7 @@ function foo () {
 ```
 <br><br>More at (http://blog.phpdoc.info/archives/4-Schizophrenic-Methods.html). <br><br>(I&apos;ll add this to the manual soon).  
 
-#
+---
 
 On PHP 5.2.x or previous you might run into problems initializing static variables in subclasses due to the lack of late static binding:<br><br>
 
@@ -197,7 +201,7 @@ $users = UserDataRecord::fetchFromDB();
 ```
 <br><br>I hope this helps some people who need to operate on PHP 5.2.x servers for some reason. Late static binding, of course, makes this workaround obsolete.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.static.php)
 

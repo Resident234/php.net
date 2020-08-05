@@ -31,7 +31,7 @@ class SystemException extends Exception
 ```
 <br><br>Hope you find it useful.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.exceptions.extending.php)
 

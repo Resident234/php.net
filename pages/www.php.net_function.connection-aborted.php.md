@@ -43,7 +43,7 @@ endPacket();
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.connection-aborted.php)
 

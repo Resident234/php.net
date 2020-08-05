@@ -34,7 +34,7 @@ foreach( $domElemsToRemove as $domElement ){
 ```
   
 
-#
+---
 
 These two functions might be helpful to anyone trying to delete a node and all of its children:<br><br>
 
@@ -56,7 +56,7 @@ function deleteChildren($node) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/domnode.removechild.php)
 

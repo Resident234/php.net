@@ -45,7 +45,7 @@ $current_date = gmDate("Y-m-d\TH:i:s\Z");
 ```
 <br><br>Enjoy!  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.date-format.php)
 

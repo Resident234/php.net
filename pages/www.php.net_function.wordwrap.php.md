@@ -25,7 +25,7 @@ function utf8_wordwrap($string, $width=75, $break="\n", $cut=false)
 ```
 <br>Of course don&apos;t forget to use preg_quote on the $width and $break parameters if they come from untrusted input.  
 
-#
+---
 
 For those interested in wrapping text to fit a width in *pixels* (instead of characters), you might find the following function useful; particularly for line-wrapping text over dynamically-generated images.<br><br>If a word is too long to squeeze into the available space, it&apos;ll hyphenate it as needed so it fits the container. This operates recursively, so ridiculously long words or names (e.g., URLs or this guy&apos;s signature - http://en.wikipedia.org/wiki/Wolfe+585,_Senior) will still keep getting broken off after they&apos;ve passed the fourth or fifth lines, or whatever.<br><br>
 
@@ -134,7 +134,7 @@ For those interested in wrapping text to fit a width in *pixels* (instead of cha
 ```
   
 
-#
+---
 
 If you&apos;d like to break long strings of text but avoid breaking html you may find this useful. It seems to be working for me, hope it works for you. Enjoy. :)<br><br>
 
@@ -159,7 +159,7 @@ If you&apos;d like to break long strings of text but avoid breaking html you may
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.wordwrap.php)
 

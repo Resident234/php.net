@@ -4,11 +4,11 @@
 
 As of PHP 7.0.15 and 7.1.1 and higher, get_browser() now performs much better - reportedly 100x faster.  The Changelog, bug description, and solution are here:<br><br>http://php.net/ChangeLog-7.php (search for get_browser())<br>https://bugs.php.net/bug.php?id=70490<br>https://github.com/php/php-src/pull/2242  
 
-#
+---
 
 This function is too slow for todays needs.<br><br>If you need browser / device / operating system detection, please try one of listed packages here: https://github.com/ThaDafinser/UserAgentParser  
 
-#
+---
 
 Follow up to Francesco R&apos;s post from 2016.<br><br>His function works for most human traffic; added a few lines to cover the most common bot traffic. Also fixed issue with function failing to detect strings at position 0 due to strpos behavior.<br><br>
 
@@ -67,11 +67,11 @@ function get_browser_name($user_agent)
 ```
 <br>Post with more depth here:<br>https://www.256kilobytes.com/content/show/1922/how-to-parse-a-user-agent-in-php-with-minimal-effort  
 
-#
+---
 
 Since browser detection can be tricky and very slow, I compared a few packages.<br><br>http://thadafinser.github.io/UserAgentParserComparison/v5/index.html<br><br>https://github.com/sinergi/php-browser-detector<br>https://github.com/WhichBrowser/Parser-PHP<br>https://github.com/piwik/device-detector<br>http://php.net/manual/en/function.get-browser.php<br><br>Here are the results:<br><br>User Agent: <br>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36<br><br>Sinergi Package<br>---------------<br>Chrome 63.0.3239.84 on Windows 10.0<br>Took 0.0022480487823486 seconds.<br>---------------<br><br>WhichBrowser Package<br>---------------<br>Chrome 63 on Windows 10<br>Took 0.021045207977295 seconds.<br>---------------<br><br>Piwik Package<br>---------------<br>Chrome 63.0 on Windows 10<br>Took 0.079447031021118 seconds.<br>---------------<br><br>get_browser Package<br>---------------<br>Chrome 63.0 on Windows 10<br>Took 0.09611701965332 seconds.<br>---------------<br><br>User Agent: <br>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0<br><br>Sinergi Package<br>---------------<br>Firefox 57.0 on Windows 10.0<br>Took 0.0023159980773926 seconds.<br>---------------<br><br>WhichBrowser Package<br>---------------<br>Firefox 57.0 on Windows 10<br>Took 0.019663095474243 seconds.<br>---------------<br><br>Piwik Package<br>---------------<br>Firefox 57.0 on Windows 10<br>Took 0.079678058624268 seconds.<br>---------------<br><br>get_browser Package<br>---------------<br>Firefox 57.0 on Windows 10<br>Took 0.02236008644104 seconds.<br>---------------<br><br>The consistent winner (by speed, not necessarily coverage) by far is:<br>https://github.com/sinergi/php-browser-detector  
 
-#
+---
 
 To my surprise I found that none of the get_browser alternatives output the correct name / version combination that I was looking for using Opera or Chrome. They either give the wrong name eg Safari when in fact it should be Chrome and if the ua string includes a version number as with the latest versions of Chrome and Opera the wrong number is reported. So I took bits and pieces from the various examples and combined them and added a check for version. <br><br>
 
@@ -171,7 +171,7 @@ print_r($yourbrowser);
 ```
   
 
-#
+---
 
 If you ONLY need a very fast and simple function to detect the browser name (update to May 2016):<br><br>
 
@@ -198,11 +198,11 @@ echo get_browser_name($_SERVER['HTTP_USER_AGENT']);
 ```
 <br><br>This function also resolves the trouble with Edge (that contains in the user agent the string "Safari" and "Chrome"), with Chrome (contains the string "Safari") and IE11 (that do not contains &apos;MSIE&apos; like all other IE versions).<br><br>Note that "strpos" is the fastest function to check a string (far better than "preg_match") and Opera + Edge + Chrome + Safari + Firefox + Internet Explorer are the most used browsers today (over 97%).  
 
-#
+---
 
 Good news! The latest version of PHP has a performance fix for this function. It&apos;s reportedly now 100x faster. See the ChangeLog for specifics.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.get-browser.php)
 

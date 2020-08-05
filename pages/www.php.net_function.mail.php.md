@@ -14,11 +14,11 @@ if (!$success) {
 ```
 <br><br>(Tested successfully on Windows which uses SMTP by default, but sendmail on Linux/OSX may not provide the same level of detail.)<br><br>Thanks to https://stackoverflow.com/a/20203870/195835  
 
-#
+---
 
 Security advice: Although it is not documented, for the parameters $to and $subject the mail() function changes at least \r and \n to space. So these parameters are safe against injection of additional headers. But you might want to check $to for commas as these separate multiple addresses and you might not want to send to more than one recipient.<br><br>The crucial part is the $additional_headers parameter. This parameter can&apos;t be cleaned by the mail() function. So it is up to you to prevent unwanted \r or \n to be inserted into the values you put in there. Otherwise you just created a potential spam distributor.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.mail.php)
 

@@ -25,15 +25,15 @@ if (!function_exists('getallheaders'))
 ```
   
 
-#
+---
 
 There&apos;s a polyfill for this that can be downloaded or installed via composer:<br><br>https://github.com/ralouphie/getallheaders  
 
-#
+---
 
 Beware that RFC2616 (HTTP/1.1) defines header fields as case-insensitive entities. Therefore, array keys of getallheaders() should be converted first to lower- or uppercase and processed such.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.getallheaders.php)
 

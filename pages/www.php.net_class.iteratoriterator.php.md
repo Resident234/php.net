@@ -29,7 +29,7 @@ foreach ($trim as $key => $value) {
 ```
 <br><br>Output:<br><br>Key:<br>int(0)<br>Value:<br>string(6) "normal"<br>---next---Key:<br>int(1)<br>Value:<br>string(9) "trimmable"<br>---next---  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.iteratoriterator.php)
 

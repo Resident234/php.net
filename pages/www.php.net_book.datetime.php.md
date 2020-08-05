@@ -22,7 +22,7 @@ $date->setTimezone( new DateTimeZone('UTC') );
 ```
 <br><br>... before you store the value, it doesn&apos;t seem to work because PHP is already trying to convert it to the default timezone.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.datetime.php)
 

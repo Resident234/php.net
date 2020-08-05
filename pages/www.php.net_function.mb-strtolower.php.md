@@ -39,7 +39,7 @@ echo "sql: ".sprintf("%.5f",$timeSQL)." sek.<br />";
 ```
   
 
-#
+---
 
 Please, note that when using with UTF-8 mb_strtolower will only convert upper case characters to lower case which are marked with the Unicode property "Upper case letter" ("Lu"). However, there are also letters such as "Letter numbers" (Unicode property "Nl") that also have lower case and upper case variants. These characters will not be converted be mb_strtolower!<br><br>Example:<br>The Roman letters &#x2160;, &#x2161;, &#x2162;, ..., &#x216F; (UTF-8 code points 8544 through 8559) also exist in their respective lower case variants &#x2170;, &#x2171;, &#x2172;, ..., &#x217F; (UTF-8 code points 8560 through 8575) and should, in my opinion, also be converted by mb_strtolower, but they are not!<br><br>Big internet-companies (like Google) do match both variants as semantically equal (since the representations only differ in case).<br><br>Since I was not finding any proper solution in the internet on how to map all UTF8-strings to their lowercase counterpart in PHP, I offer the following hard-coded extended mb_strtolower function for UTF-8 strings:<br><br>The function wraps the existing function mb_strtolower() and additionally replaces uppercase UTF8-characters for which there is a lowercase representation. Since there is no proper Unicode uppercase and lowercase character-table in the internet that I was able to find, I checked the first million UTF8-characters against the Google-search and -KeywordTool and identified the following 78 characters as uppercase-characters, not being replaced by mb_strtolower, but having a UTF8 lowercase counterpart.<br><br>
 
@@ -141,7 +141,7 @@ function strtolower_utf8_extended( $utf8_string )
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-strtolower.php)
 

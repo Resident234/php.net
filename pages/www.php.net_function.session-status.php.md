@@ -4,7 +4,7 @@
 
 Maybe depending on PHP settings, but if return values are not the above, then go for this:<br>_DISABLED = 0<br>_NONE = 1<br>_ACTIVE = 2  
 
-#
+---
 
 Universal function for checking session status.<br><br>
 
@@ -31,7 +31,7 @@ if ( is_session_started() === FALSE ) session_start();
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.session-status.php)
 

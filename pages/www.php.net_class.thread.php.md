@@ -29,7 +29,7 @@ for($i=0;$i<50;$i++){
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.thread.php)
 

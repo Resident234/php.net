@@ -4,7 +4,7 @@
 
 This extension is an interface to the GNU implementation as a library of the Basic Calculator utility by Philip Nelson; hence the name.  
 
-#
+---
 
 Note that when you use implementation of factorial that ClaudiuS made, you get results even if you try to calculate factorial of number that you normally can&apos;t, e.g. 2.5, -2, etc. Here is safer implementation:<br>
 
@@ -32,7 +32,7 @@ function bcfact($num)
 ```
   
 
-#
+---
 
 Needed to compute some permutations and found the BC extension great but poor on functions, so untill this gets implemented here&apos;s the factorial function:<br><br>
 
@@ -53,7 +53,7 @@ print bcfact(50);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.bc.php)
 

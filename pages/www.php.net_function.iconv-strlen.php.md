@@ -37,7 +37,7 @@ if (preg_match('/^.{1}/us',$str,$ar) != 1) {
 ```
 <br><br>A slower but stricter check (regex) can be found at: http://www.w3.org/International/questions/qa-forms-utf-8<br><br>Similiar applies to iconv_substr, iconv_strpos and iconv_strrpos  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.iconv-strlen.php)
 

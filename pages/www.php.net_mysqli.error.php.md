@@ -68,7 +68,7 @@ if ($mysqli->error) {
 ```
 <br>Prints out something like:<br>Error No: 1054<br>Unknown column &apos;XXname&apos; in &apos;field list&apos;<br>Query: <br>SELECT XXname FROM customer_table<br><br>#0 G:\\database.php(251): database-&gt;dbError(&apos;Unknown column ...&apos;, 1054, &apos;getQuery()&apos;, &apos;SELECT XXname F...&apos;)<br>#1 G:\data\WorkSites\1framework5\tests\dbtest.php(29): database-&gt;getString(&apos;SELECT XXname F...&apos;)<br>#2 c:\PHP\includes\simpletest\runner.php(58): testOfDB-&gt;testGetVal()<br>#3 c:\PHP\includes\simpletest\runner.php(96): SimpleInvoker-&gt;invoke(&apos;testGetVal&apos;)<br>#4 c:\PHP\includes\simpletest\runner.php(125): SimpleInvokerDecorator-&gt;invoke(&apos;testGetVal&apos;)<br>#5 c:\PHP\includes\simpletest\runner.php(183): SimpleErrorTrappingInvoker-&gt;invoke(&apos;testGetVal&apos;)<br>#6 c:\PHP\includes\simpletest\simple_test.php(90): SimpleRunner-&gt;run()<br>#7 c:\PHP\includes\simpletest\simple_test.php(498): SimpleTestCase-&gt;run(Object(HtmlReporter))<br>#8 c:\PHP\includes\simpletest\simple_test.php(500): GroupTest-&gt;run(Object(HtmlReporter))<br>#9 G:\all_tests.php(16): GroupTest-&gt;run(Object(HtmlReporter))<br><br>This will actually print out the error, a stack trace and the offending sql statement. Much more helpful when the sql statement is generated somewhere else in the code.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.error.php)
 

@@ -14,7 +14,7 @@ It&apos;s interesting to note that when creating an array with numeric keys in n
 ```
 <br><br>This will print "0".  
 
-#
+---
 
 If you need to get a reference on the first or last element of an array, use these functions because reset() and end() only return you a copy that you cannot dereference directly:<br><br>
 
@@ -37,7 +37,7 @@ return &amp;$array[key($array)];
 ```
   
 
-#
+---
 
 This function returns the value at the end of the array, but you may sometimes be interested in the key at the end of the array, particularly when working with non integer indexed arrays:<br><br>
 
@@ -63,7 +63,7 @@ echo endKey($a); // will output "three"
 ```
   
 
-#
+---
 
 If all you want is the last item of the array without affecting the internal array pointer just do the following:<br><br>
 
@@ -79,7 +79,7 @@ $current = current( $items ); // one
 ```
 <br><br>This works because the parameter to the function is being sent as a copy, not as a reference to the original variable.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.end.php)
 

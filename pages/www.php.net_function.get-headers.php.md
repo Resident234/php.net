@@ -14,7 +14,7 @@ function get_http_response_code($theURL) {
 ```
 <br><br>How easy is that? Echo the function containing the URL you want to check the response code for, and voil&#xE0;. Custom redirects, alternative for blocked is_file() or flie_exists() functions (like I seem to have on my servers) hence the cheap workaround. But hey - it works!<br><br>Pudding  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.get-headers.php)
 

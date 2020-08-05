@@ -15,7 +15,7 @@ function human_filesize($bytes, $decimals = 2) {
 ```
   
 
-#
+---
 
 if you recently appended something to file, and closed it then this method will not show appended data:<br>
 
@@ -30,7 +30,7 @@ fclose($handle);
 ```
 <br>You should insert a call to clearstatcache() before calling filesize()<br>I&apos;ve spent two hours to find that =/  
 
-#
+---
 
 
 
@@ -85,7 +85,7 @@ function FileSizeConvert($bytes)
 ```
   
 
-#
+---
 
 
 
@@ -140,7 +140,7 @@ function realFileSize($path)
 ```
   
 
-#
+---
 
 The simplest and most efficient implemention for getting remote filesize:<br><br>
 
@@ -163,7 +163,7 @@ function remote_filesize($url) {
 ```
   
 
-#
+---
 
 Here is my super fast method of getting &gt;2GB files to output the correct byte size on any version of windows works with both 32Bit and 64Bit.<br><br>
 
@@ -190,7 +190,7 @@ echo "File size is : ".find_filesize("D:\Server\movie.mp4")."";
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.filesize.php)
 

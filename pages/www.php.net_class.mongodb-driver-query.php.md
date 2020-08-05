@@ -4,7 +4,7 @@
 
 Find By _id <br><br>$mongo = new \MongoDB\Driver\Manager(&apos;mongodb://root:root@192.168.0.127/db&apos;);<br><br>$id           = new \MongoDB\BSON\ObjectId("588c78ce02ac660426003d87");<br>$filter      = [&apos;_id&apos; =&gt; $id];<br>$options = [];<br><br>$query = new \MongoDB\Driver\Query($filter, $options);<br>$rows   = $mongo-&gt;executeQuery(&apos;db.collectionName&apos;, $query); <br><br>foreach ($rows as $document) {<br>  pr($document);<br>}  
 
-#
+---
 
 Here is an example of Query to retrieve the records from MangoDB collection using a filter. It will return in this case just one record that satisfy the filter id = 2.<br><br>Considering the following MangoDB collection:<br><br>
 
@@ -47,7 +47,7 @@ foreach($rows as $r){
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.mongodb-driver-query.php)
 

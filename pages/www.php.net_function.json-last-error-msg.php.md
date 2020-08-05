@@ -25,7 +25,7 @@ Here&apos;s an updated version of the function:<br><br>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.json-last-error-msg.php)
 

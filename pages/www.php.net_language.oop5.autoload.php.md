@@ -4,7 +4,7 @@
 
 You should not have to use require_once inside the autoloader, as if the class is not found it wouldn&apos;t be trying to look for it by using the autoloader. <br><br>Just use require(), which will be better on performance as well as it does not have to check if it is unique.  
 
-#
+---
 
 You don&apos;t need exceptions to figure out if a class can be autoloaded. This is much simpler.<br><br>
 
@@ -26,7 +26,7 @@ function canClassBeAutloaded($className) {
 ```
   
 
-#
+---
 
 This is my autoloader for my PSR-4 clases. I prefer to use composer&apos;s autoloader, but this works for legacy projects that can&apos;t use composer.<br><br>
 
@@ -53,7 +53,7 @@ Autoloader::register();?>
 ```
   
 
-#
+---
 
 Andrew: 03-Nov-2006 12:26<br><br>That seems a bit messy to me, this is a bit neater:<br>
 
@@ -84,11 +84,11 @@ Andrew: 03-Nov-2006 12:26<br><br>That seems a bit messy to me, this is a bit nea
 ```
   
 
-#
+---
 
 Before you start using __autload, remember that it holds no scope/namespace. This means that if you are depending on third party applications and they have an autoload function defined and so do you, your application will error.<br><br>To remedy this, everyone should look at the spl_autoload functions, eg: spl_autoload_register. This function allows more than one custom functions to be called through the default spl_autoload (default __autoload) handler.  
 
-#
+---
 
 I&apos;m sure this is needed by more than me.<br><br>My objective was to allow __autoload() to be easily extended in complex systems/frameworks where specific libraries etc may need loading differently but you don&apos;t want to hard-code little adjustments into your working __autoload() to allow this to happen.<br><br>Using a ServiceLocator object with some static methods and properties to allow loosely coupled locators to be attached to it you can swap/change and add to the functionality of your __autoload() at runtime.<br><br>The core stuff:<br>
 
@@ -237,7 +237,7 @@ $foo = new Foo_Test();
 ```
   
 
-#
+---
 
 Or you can use this, without using any "require/include":<br><br>
 
@@ -305,7 +305,7 @@ autoloader::init();
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.autoload.php)
 

@@ -53,7 +53,7 @@ $image->floodfillPaintImage($hexcolor, $fuzz, $pixel, $x, $y, false);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/imagick.getimagepixelcolor.php)
 

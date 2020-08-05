@@ -33,7 +33,7 @@ foreach ($class_vars as $cvar)
 ```
 <br><br>Produces, after PHP 4.2.0, the following:<br><br>a<br>b<br>c<br>d<br>e  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.get-class-vars.php)
 

@@ -22,14 +22,9 @@ $domDocument->appendChild($domElement);
 
 ?>
 ```
+<br><br>Will output:<br>``<?xml version="1.0" encoding="UTF-8" ?>``;<br>&lt;field name="attributevalue"&gt;some random data&lt;/field&gt;  
 
-
-Will output:
-<?xml version="1.0" encoding="UTF-8"?>
-```
-<br>&lt;field name="attributevalue"&gt;some random data&lt;/field&gt;  
-
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/domdocument.createattribute.php)
 

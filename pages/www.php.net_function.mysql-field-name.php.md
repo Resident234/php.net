@@ -41,7 +41,7 @@ This function is slightly stupid to be honest, why not just make an array of fie
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.mysql-field-name.php)
 

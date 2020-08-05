@@ -35,7 +35,7 @@ foreach(new DatePeriod($d, $i, 1) as $d) {
 ```
 <br><br>Will output:<br>2010-11-03 12:41:05<br>2010-11-04 12:41:05  
 
-#
+---
 
 When you add the time 23:59:59 to the end DateTime object something like the following then the end date will be included in the period:<br><br>
 
@@ -56,7 +56,7 @@ foreach($period as $dt) {
 ```
 <br><br>OUTPUT:<br>14/03<br>16/03<br>18/03<br>20/03<br>22/03  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/dateperiod.construct.php)
 

@@ -4,7 +4,7 @@
 
 using of global namespaces and multiple namespaces in one PHP file increase the complexity and decrease readability of the code.<br>Let&apos;s try not use this scheme even it&apos;s very necessary (although there is not)  
 
-#
+---
 
 
 
@@ -23,7 +23,7 @@ namespace b {
 ```
   
 
-#
+---
 
 
 
@@ -51,7 +51,7 @@ namespace MyProject\Sub\Level {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.namespaces.definitionmultiple.php)
 

@@ -36,7 +36,7 @@ if (mysqli_warning_count($db)) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli.get-warnings.php)
 

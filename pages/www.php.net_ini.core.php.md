@@ -25,7 +25,7 @@ Solution: Add an ending slash in call of ini_set (or probably whereever you set 
 ```
 <br><br>Hope, that does help someone.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ini.core.php)
 

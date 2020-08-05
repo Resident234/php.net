@@ -35,7 +35,7 @@ function sqlite_fetch_array(&amp;$result,$type)
 ```
 <br><br>They&apos;re not perfect by any stretch but they seem to be working ok as a temporary measure while I convert the site. <br>Hope that helps someone  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/book.sqlite3.php)
 

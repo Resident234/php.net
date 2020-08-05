@@ -19,7 +19,7 @@ $data = file_get_contents('http://www.example.com/', null, stream_context_create
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/context.http.php)
 

@@ -26,7 +26,7 @@ Escaping them solves it:
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/regexp.reference.delimiters.php)
 

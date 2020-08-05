@@ -82,7 +82,7 @@ foreach (new AdvancedDirectoryIterator('-R js/jquery-*.js') as $i) echo $i->getP
 ```
 <br><br>Pretty cool, huh? :)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/directoryiterator.construct.php)
 

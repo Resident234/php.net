@@ -21,7 +21,7 @@ echo $obj->myProperty; // Doesn't work (error)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reflectionproperty.setaccessible.php)
 

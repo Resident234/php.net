@@ -154,7 +154,7 @@ var_dump($b);
 ```
 <br><br>* Please note the internal behaviour of PHP that seems to do the reference assignment BEFORE actually copying the variable!!! Thus you get an array containing a (different) recursive array for the last testcase, instead of an array containing an empty array as you could expect.<br><br>BenBE.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.references.spot.php)
 

@@ -15,7 +15,7 @@ if (!function_exists('is_countable')) {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.is-countable.php)
 

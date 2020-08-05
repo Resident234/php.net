@@ -41,7 +41,7 @@ print $foo->bar();
 ```
   
 
-#
+---
 
 We can use the concept of bindTo to write a very small Template Engine:<br><br>#############<br>index.php<br>############<br><br>
 
@@ -91,9 +91,9 @@ tpl.php
 ```
 <?php echo $this->title;?>
 ```
-&lt;/h1&gt;  
+</h1>  
 
-#
+---
 
 Private/protected members are accessible if you set the "newscope" argument (as the manual says).<br><br>
 
@@ -117,7 +117,7 @@ echo $fn2(); // 3?>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/closure.bindto.php)
 

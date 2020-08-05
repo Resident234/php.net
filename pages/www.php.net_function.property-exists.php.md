@@ -31,13 +31,25 @@ var_dump(property_exists($testObject, "declared")); // boolean true, even if has
 ```
   
 
-#
+---
 
-If you are in a namespaced file, and you want to pass the class name as a string, you will have to include the full namespace for the class name - even from inside the same namespace:<br><br>&lt;?<br>namespace MyNS;<br><br>class A {<br>    public $foo;<br>}<br><br>property_exists("A", "foo");          // false<br>property_exists("\\MyNS\\A", "foo");  // true<br>?>
+If you are in a namespaced file, and you want to pass the class name as a string, you will have to include the full namespace for the class name - even from inside the same namespace:<br><br>
+
+```
+<?php
+namespace MyNS;
+
+class A {
+    public $foo;
+}
+
+property_exists("A", "foo");          // false
+property_exists("\\MyNS\\A", "foo");  // true
+?>
 ```
   
 
-#
+---
 
 
 
@@ -87,7 +99,7 @@ $s->setAge(10); //Undefined Property
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.property-exists.php)
 

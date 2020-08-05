@@ -22,11 +22,11 @@ But this will:
 ```
   
 
-#
+---
 
 I&apos;ve been trying to set a filemtime into the future with touch() on PHP5.<br><br>It seems touch $time has a future limit around 1000000 seconds (11 days or so). Beyond this point it reverts to a previous $time.<br><br>It doesn&apos;t make much sense but I could save you hours of time.<br><br>$time = time()+1500000;<br>touch($cachedfile,$time);  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.touch.php)
 

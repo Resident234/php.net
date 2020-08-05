@@ -35,7 +35,7 @@ This is my try on linenumbers<br>
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.highlight-file.php)
 

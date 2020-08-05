@@ -13,7 +13,7 @@ return $dateTime->format('T');
 ```
 <br><br>Will return PST<br><br>[red.: Or PDT is the current date/time is during Daylight Savings Time]  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.timezone-abbreviations-list.php)
 

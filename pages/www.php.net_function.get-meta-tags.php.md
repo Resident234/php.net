@@ -13,16 +13,16 @@ function getMetaTags($str)
   ~<\s*meta\s
 
   # using lookahead to capture type to $1
-    (?=[^>]*?
+    (?=[^>.*?
     \b(?:name|property|http-equiv)\s*=\s*
-    (?|"\s*([^"]*?)\s*"|\'\s*([^\']*?)\s*\'|
-    ([^"\'>]*?)(?=\s*/?\s*>|\s\w+\s*=))
+    (?|"\s*([^".*?)\s*"|\'\s*([^\'.*?)\s*\'|
+    ([^"\'>.*?)(?=\s*/?\s*>|\s\w+\s*=))
   )
 
   # capture content to $2
-  [^>]*?\bcontent\s*=\s*
-    (?|"\s*([^"]*?)\s*"|\'\s*([^\']*?)\s*\'|
-    ([^"\'>]*?)(?=\s*/?\s*>|\s\w+\s*=))
+  [^>.*?\bcontent\s*=\s*
+    (?|"\s*([^".*?)\s*"|\'\s*([^\'.*?)\s*\'|
+    ([^"\'>.*?)(?=\s*/?\s*>|\s\w+\s*=))
   [^>]*>
 
   ~ix';
@@ -39,7 +39,7 @@ $meta_tags = getMetaTags($str);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.get-meta-tags.php)
 

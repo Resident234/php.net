@@ -37,7 +37,7 @@ function getFtpConnection($uri)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ftp-connect.php)
 

@@ -20,7 +20,7 @@ function class_uses_deep($class, $autoload = true) {
 ```
   
 
-#
+---
 
 A slighly modified version from Stealz that also checks all the "parent" traits used by the traits:<br><br>
 
@@ -53,7 +53,7 @@ public static function class_uses_deep($class, $autoload = true)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.class-uses.php)
 

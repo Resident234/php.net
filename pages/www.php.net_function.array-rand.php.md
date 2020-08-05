@@ -13,7 +13,7 @@ Note: array_rand uses the libc generator, which is slower and less-random than M
 ```
 <br><br>This is a better alternative.  
 
-#
+---
 
 If the array elements are unique, and are all integers or strings, here is a simple way to pick $n random *values* (not keys) from an array $array:<br><br>
 
@@ -22,7 +22,7 @@ If the array elements are unique, and are all integers or strings, here is a sim
 ```
   
 
-#
+---
 
 Looks like this function has a strange randomness.<br><br>If you take any number of elements in an array which has 40..100 elements, the 31st one is always by far the less occuring (by about 10% less than others).<br><br>I tried this piece of code at home (PHP Version 5.3.2-1ubuntu4.9) and on my server (PHP Version 5.2.17), unfortunately i haven&apos;t any server with the last version here :<br><br>
 
@@ -49,7 +49,7 @@ foreach($proba as $key => $value)
 ```
 <br><br>In every try, the number of occurrences change a bit but the 31 is always far less (around 2200) than the others (2400-2600). I tried with 50 and 100 elements, no change. I tried with more or less elements to pick (second parameter to array_rand), same result. If you pick only one element it&apos;s even worse : 31 has half the result of the others.<br><br>For this particular case, i recommend shuffling the array and taking the nth first elements, in this test it&apos;s 60% faster and the statistics are ok.  
 
-#
+---
 
 
 
@@ -67,7 +67,7 @@ print_r( array_values( array_intersect_key( $a, array_flip( array_rand( $a, $n )
 ```
   
 
-#
+---
 
 An example for getting random value from arrays;<br><br>
 
@@ -121,7 +121,7 @@ print_r(array_random_assoc($a, 2));
 ```
 <br><br>Array<br>(<br>    [c] =&gt; cherry<br>)<br>Array<br>(<br>    [a] =&gt; apple<br>    [b] =&gt; banana<br>)  
 
-#
+---
 
 
 
@@ -156,7 +156,7 @@ function array_random(array $array, int $n = 1): array
 ```
   
 
-#
+---
 
 I agree with Sebmil (http://php.net/manual/en/function.array-rand.php#105265) that "array_rand()" produces weird and very uneven random distribution (as of my local PHP 5.3.8 and my public host&apos;s PHP 5.2.17).<br>Unfortunately, I haven&apos;t got any access either to a server with the latest PHP version. My info is for those of you who like to check things for themselves and who don&apos;t believe all of the official statements in the docs.<br>I&apos;ve made a simple adjustment of his test code like this:<br>
 
@@ -180,11 +180,11 @@ foreach($test as $k=>$v) echo "$k :\t$v <br/>\n";
 ```
 <br><br>And it appears to me that simple "$idx=rand(0, count($test)-1);" is much better than "$idx=array_rand($test, 1);".<br>And what&apos;s more the simpler and a bit slower (0 ms up to total 712.357 ms at 5 mln cycles) "rand()" is better than "mt_rand()" in simple everyday use cases because it is more evenly distributed (difference least vs. most often numbers: ca. 0.20-1.28 % for "rand()" vs. ca. 1.43-1.68 % for "mt_rand()").<br>Try it for yourself... although it depends on your software and hardware configuration, range of numbers to choose from (due to random patterns), number of cycles in the loop, and temporary (public) server load as well.  
 
-#
+---
 
 It doesn&apos;t explicitly say it in the documentation, but PHP won&apos;t pick the same key twice in one call.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.array-rand.php)
 

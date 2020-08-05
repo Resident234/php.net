@@ -25,11 +25,11 @@ $e = error_get_last();
 ```
   
 
-#
+---
 
 If an error handler (see set_error_handler ) successfully handles an error then that error will not be reported by this function.  
 
-#
+---
 
 The error_get_last() function will give you the most recent error even when that error is a Fatal error.<br><br>Example Usage:<br><br>
 
@@ -49,7 +49,7 @@ function handleFatalPhpError() {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.error-get-last.php)
 

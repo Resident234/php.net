@@ -53,11 +53,11 @@ else
 ```
 <br><br>Hope this helps someone.  
 
-#
+---
 
 Hi,<br><br>As we have been struggling with this for some time I wanted to share how we got imap_append working properly with all MIME parts including attachments.  If you are sending email and also wish to append the sent message to the Sent Items folder, I cannot think of an easier way to do this, as follows:<br><br>1) Use SwiftMailer to send the message via PHP.<br>$message = Swift_Message::newInstance("Subject goes here");<br>(then add from, to, body, attachments etc)<br>$result = $mailer-&gt;send($message);<br><br>2) When you construct the message in step 1) above save it to a variable as follows:<br><br>$msg = $message-&gt;toString(); (this creates the full MIME message required for imap_append()!!  After this you can call imap_append like this:<br><br>imap_append($imap_conn,$mail_box,$msg."\r\n","\\Seen");<br><br>I hope this helps the readers, and prevents saves people from doing what we started doing - hand crafting the MIME messages :-0  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imap-append.php)
 

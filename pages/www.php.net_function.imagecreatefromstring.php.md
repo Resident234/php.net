@@ -12,7 +12,7 @@ $image = imagecreatefromstring(file_get_contents($src));
 ```
   
 
-#
+---
 
 My site allows anonymous uploads to a web-accessible location (that will execute a script if it finds one).<br><br>Naturally, I need to verify that only harmless content is accepted. I am expecting only images, so I use:<br><br>
 
@@ -26,7 +26,7 @@ My site allows anonymous uploads to a web-accessible location (that will execute
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecreatefromstring.php)
 

@@ -18,7 +18,7 @@ function execInBackground($cmd) {
 ```
   
 
-#
+---
 
 (This is for linux users only).<br><br>We know now how we can fork a process in linux with the &amp; operator.<br>And by using command: nohup MY_COMMAND &gt; /dev/null 2&gt;&amp;1 &amp; echo $! we can return the pid of the process.<br><br>This small class is made so you can keep in track of your created processes ( meaning start/stop/status ).<br><br>You may use it to start a process or join an exisiting PID process.<br><br>
 
@@ -106,11 +106,11 @@ class Process{
 ```
   
 
-#
+---
 
 Can&#x2019;t get the output from your exec&#x2019;d command to appear in the $output array?<br>Is it echo&#x2019;ing all over your shell instead?<br><br>Append "2&gt;&amp;1" to the end of your command, for example:<br><br>exec("xmllint --noout ~/desktop/test.xml 2&gt;&amp;1", $retArr, $retVal);<br><br>Will fill the array $retArr with the expected output; one line per array key.  
 
-#
+---
 
 I too wrestled with getting a program to run in the background in Windows while the script continues to execute.  This method unlike the other solutions allows you to start any program minimized, maximized, or with no window at all.  llbra@phpbrasil&apos;s solution does work but it sometimes produces an unwanted window on the desktop when you really want the task to run hidden.<br><br>start Notepad.exe minimized in the background:<br><br>
 
@@ -144,7 +144,7 @@ $oExec = $WshShell->Run("mspaint.exe", 3, true);
 ```
 <br><br>For more info on the Run() method go to:<br>http://msdn.microsoft.com/library/en-us/script56/html/wsMthRun.asp  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.exec.php)
 

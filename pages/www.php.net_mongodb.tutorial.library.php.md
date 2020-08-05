@@ -20,7 +20,7 @@ catch (MongoDB\Driver\Exception\ConnectionTimeoutException $e)
 ```
   
 
-#
+---
 
 Well most of the tutorials didn&apos;t explained well, So i hope this might help someone <br>Note: this is a part of my laravel project  <br><br>//getting data from a collection<br>
 
@@ -42,7 +42,7 @@ print_r($result);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mongodb.tutorial.library.php)
 

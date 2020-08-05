@@ -69,7 +69,7 @@ string(36) "2007-02-14 20:25:25 America/New_York" //PHP 5.3.0 - 5.6.8
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/datetime.settimestamp.php)
 

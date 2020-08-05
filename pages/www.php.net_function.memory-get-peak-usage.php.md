@@ -118,7 +118,7 @@ memory_get_peak_usage() is used to retrieve the highest memory usage of PHP (or 
 ```
 <br><br>The function getNiceFileSize() is not required. Just used to shorten size in bytes.<br><br>Note: If you need the server load (CPU usage), I wrote a nice function to get that too: http://php.net/manual/en/function.sys-getloadavg.php#118673  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.memory-get-peak-usage.php)
 

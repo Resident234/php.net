@@ -26,7 +26,7 @@ Product::find();
 ```
 <br><br>Output: &apos;Product&apos;  
 
-#
+---
 
 For abstract classes with static factory method, you can use the static keyword instead of self like the following:<br>
 
@@ -55,7 +55,7 @@ var_dump($obj);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.oop5.late-static-bindings.php)
 

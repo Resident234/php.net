@@ -21,11 +21,11 @@ foreach($daterange as $date){
 ```
   
 
-#
+---
 
 Thanks much to those of you who supplied sample code; that helps a lot.<br><br>I wanted to mention another thing that helped me: when you do that foreach ( $period as $dt ), the $dt values are DateTime objects.<br><br>That may be obvious to those of you with more experience, but I wasn&apos;t sure until I looked it up on Stack Overflow. So I figured it was worth posting here to help others like me who might&apos;ve been confused or uncertain.  
 
-#
+---
 
 Nice example from PHP Spring Conference (thanks to Johannes Schl&#xFC;ter and David Z&#xFC;lke)<br><br>
 
@@ -43,7 +43,7 @@ foreach ( $period as $dt )
 ```
 <br><br>DateInterval specs could be found at http://en.wikipedia.org/wiki/ISO_8601#Time_intervals  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.dateperiod.php)
 

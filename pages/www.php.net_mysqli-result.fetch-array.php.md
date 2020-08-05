@@ -36,7 +36,7 @@ $mysqli->close();
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/mysqli-result.fetch-array.php)
 

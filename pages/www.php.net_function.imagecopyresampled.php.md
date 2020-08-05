@@ -4,7 +4,7 @@
 
 FOUR RECTANGLES<br><br>                  $src_image                                   $dst_image<br>+------------+---------------------------------+   +------------+--------------------+<br>|            |                                 |   |            |                    |<br>|            |                                 |   |         $dst_y                  |<br>|            |                                 |   |            |                    |<br>|         $src_y                               |   +-- $dst_x --+----$dst_width----+ |<br>|            |                                 |   |            |                  | |<br>|            |                                 |   |            |    Resampled     | |<br>|            |                                 |   |            |                  | |<br>+-- $src_x --+------ $src_width ------+        |   |       $dst_height             | |<br>|            |                        |        |   |            |                  | |<br>|            |                        |        |   |            |                  | |<br>|            |                        |        |   |            |                  | |<br>|            |                        |        |   |            +------------------+ |<br>|            |        Sample          |        |   |                                 |<br>|            |                        |        |   |                                 |<br>|            |                        |        |   |                                 |<br>|       $src_height                   |        |   |                                 |<br>|            |                        |        |   +---------------------------------+<br>|            |                        |        |<br>|            |                        |        |<br>|            +------------------------+        |<br>|                                              |<br>|                                              |<br>+----------------------------------------------+  
 
-#
+---
 
 Here is my ultimate image resizer that preserves transparency for gif&apos;s and png&apos;s and has an option to crop images to fixed dimensions (preserves image proportions by default)<br><br>
 
@@ -87,7 +87,7 @@ and creates a new thumbnail:
 ```
 <br><br>Cheers!  
 
-#
+---
 
 I&apos;ve created a PHP5 image resize class, using ImageCopyResampled, that someone might find useful, with support for JPEG, PNG, and GIF formats. It retains the original image&apos;s aspect ratio when resizing, and doesn&apos;t resize or resample if the original width and height is smaller then the desired resize.<br><br>
 
@@ -297,7 +297,7 @@ $img->clear_cache();
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecopyresampled.php)
 

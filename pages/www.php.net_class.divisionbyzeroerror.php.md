@@ -23,7 +23,7 @@ catch(ErrorException $e){
 ```
 <br><br>allows to detect such error in the same way under PHP5 and PHP7, although the DivisionByZeroError exception is masked off by ErrorException.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.divisionbyzeroerror.php)
 

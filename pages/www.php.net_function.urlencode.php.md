@@ -20,7 +20,7 @@ quot;, ",", "/", "?", "%", "#", "[", "]");
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.urlencode.php)
 

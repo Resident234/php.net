@@ -21,7 +21,7 @@ if (!ob_get_level()) ob_start();
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ob-get-level.php)
 

@@ -11,7 +11,7 @@ Parameters may seem obvius to some but not for everyone so:<br><br>- $data can b
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.openssl-decrypt.php)
 

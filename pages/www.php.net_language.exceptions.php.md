@@ -23,7 +23,7 @@ When catching an exception inside a namespace it is important that you escape to
 ```
   
 
-#
+---
 
 If a TRY has a FINALLY, a RETURN either in the TRY or a CATCH won&apos;t terminate the script. Code in the same block after the RETURN will not be executed, and the RETURN itself will be "copied" to the bottom of the FINALLY block to be executed.<br><br>a RETURN in the FINALLY block will override value(s) returned from the TRY or a CATCH block.<br><br>An EXIT or a DIE always terminate the script after themselves.<br><br>code 1<br><br>
 
@@ -90,7 +90,7 @@ code 3
 ```
   
 
-#
+---
 
 If you intend on creating a lot of custom exceptions, you may find this code useful.  I&apos;ve created an interface and an abstract exception class that ensures that all parts of the built-in Exception class are preserved in child classes.  It also properly pushes all information back to the parent constructor ensuring that nothing is lost.  This allows you to quickly create new exceptions on the fly.  It also overrides the default __toString method with a more thorough one.<br><br>
 
@@ -168,12 +168,12 @@ function exceptionTest()
     }
 }
 
-echo '<pre>' . exceptionTest() . '</pre>';
+echo '' . exceptionTest() . '';
 ?>
 ```
 <br><br>Here&apos;s a sample output:<br><br>Caught TestException (&apos;Unknown TestException&apos;)<br>TestException &apos;Unknown TestException&apos; in C:\xampp\htdocs\CustomException\CustomException.php(31)<br>#0 C:\xampp\htdocs\CustomException\ExceptionTest.php(19): CustomException-&gt;__construct()<br>#1 C:\xampp\htdocs\CustomException\ExceptionTest.php(43): exceptionTest()<br>#2 {main}  
 
-#
+---
 
 catch doesn&apos;t check for the existence of the Exception class, so avoid typo.<br><br>
 
@@ -196,7 +196,7 @@ catch doesn&apos;t check for the existence of the Exception class, so avoid typo
 ```
  <br><br>You WON&apos;T get<br>   Fatal error: Class MuException could not be loaded ...<br><br>You WILL get<br>   Fatal error: Uncaught exception &apos;MyException&apos; ...  
 
-#
+---
 
 Custom error handling on entire pages can avoid half rendered pages for the users:<br><br>
 
@@ -215,7 +215,7 @@ try {
 ```
   
 
-#
+---
 
 Using a return statement inside a finally block will override any other return statement or thrown exception from the try block and all defined catch blocks.   Code execution in the parent stack will continue as if the exception was never thrown.  <br><br>Frankly this is a good design decision because it means I can optionally dismiss all thrown exceptions from 1 or more catch blocks in one place, without having to nest my whole try block inside an additional (and otherwise needless) try/catch block.<br><br>This is the same behavior as Java, whereas C# throws a compile time error when a return statement exists inside a finally block.  So I figured it was worth pointing out to PHP devs who may not have any exposure to finally blocks or how other languages do it.<br><br>
 
@@ -247,7 +247,7 @@ catch(Exception $e) {
 ```
 <br><br>The output from above will look like this:<br><br>    An error occurred<br>    Exception erased<br><br>Without the return statement in the finally block it would look like this:<br><br>    An error occurred<br>    Result: error  
 
-#
+---
 
 Type declarations will trigger Uncaught TypeError when a different type is passed. And it cannot be caught with the Exception class.<br>
 
@@ -302,7 +302,7 @@ In php version prior to 7.0, you should translate Catchable fatal errors to an e
 ```
   
 
-#
+---
 
 Sometimes you want a single catch() to catch multiple types of Exception. In a language like Python, you can specify multiple types in a catch(), but in PHP you can only specify one. This can be annoying when you want handle many different Exceptions with the same catch() block.<br><br>However, you can replicate the functionality somewhat, because catch(&lt;classname&gt; $var) will match the given &lt;classname&gt; *or any of it&apos;s sub-classes*.<br><br>For example:<br><br>
 
@@ -330,7 +330,7 @@ try {
 ```
 <br><br>Corollary: If you want to catch *any* exception, no matter what the type, just use "catch(Exception $var)", because all exceptions are sub-classes of the built-in Exception.  
 
-#
+---
 
 If you are using a namespace, you must indicate the global namespace when using Exceptions.<br>
 
@@ -353,11 +353,11 @@ try {
 ```
   
 
-#
+---
 
 &#x2018;Normal execution (when no exception is thrown within the try block, *or when a catch matching the thrown exception&#x2019;s class is not present*) will continue after that last catch block defined in sequence.&#x2019;<br><br>&#x2018;If an exception is not caught, a PHP Fatal Error will be issued with an &#x201C;Uncaught Exception &#x2026;&#x201D; message, unless a handler has been defined with set_exception_handler().&#x2019;<br><br>These two sentences seem a bit contradicting about what happens &#x2018;when a catch matching the thrown exception&#x2019;s class is not present&#x2019; (and the second sentence is actually correct).  
 
-#
+---
 
 Just an example why finally blocks are usefull (5.5)<br><br>
 
@@ -390,7 +390,7 @@ function example2() {
 ```
   
 
-#
+---
 
 The "finally" block can change the exception that has been throw by the catch block.<br><br>
 
@@ -413,7 +413,7 @@ try{
 ```
 <br><br>The output is:<br><br>Hello catch in<br>Hello finally <br>Bye catch out  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/language.exceptions.php)
 

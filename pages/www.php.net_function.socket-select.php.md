@@ -97,7 +97,7 @@ A simple PHP script using socket_select() to manage multiple connections.<br>con
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.socket-select.php)
 

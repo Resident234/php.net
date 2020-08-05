@@ -15,7 +15,7 @@ $Regex = new RegexIterator($Iterator, '/^.+\.php$/i', RecursiveRegexIterator::GE
 ```
 <br><br>$Regex will contain a single index array for each PHP file.  
 
-#
+---
 
 Since I continue to run into implementations across the net that are unintentionally running into this trap &#x2014; beware:<br><br>RecursiveDirectoryIterator recurses without limitations into the full filesystem tree.<br><br>Do NOT do the following, unless you intentionally want to infinitely recurse without limitations:<br><br>
 
@@ -110,7 +110,7 @@ foreach ($iterator as $info) {
 ```
 <br><br>Have fun!  
 
-#
+---
 
 Usage example:<br><br>
 
@@ -128,7 +128,7 @@ foreach($objects as $name => $object){
 ```
 <br><br>This prints a list of all files and directories under $path (including $path ifself). If you want to omit directories, remove the RecursiveIteratorIterator::SELF_FIRST part.  
 
-#
+---
 
 If you need to convert a nested directory tree into a multidimensional array, use this code:<br><br>
 
@@ -152,7 +152,7 @@ print_r($r);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.recursivedirectoryiterator.php)
 

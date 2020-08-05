@@ -15,7 +15,7 @@ echo $string; // outputs camelCase
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.lcfirst.php)
 

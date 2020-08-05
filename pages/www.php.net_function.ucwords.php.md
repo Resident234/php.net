@@ -48,7 +48,7 @@ Beverly Crusher
 ```
 <br><br>You can add more delimiters in the for-each loop array if you want to handle more characters.  
 
-#
+---
 
 Para formatar nomes em pt-br:<br><br>
 
@@ -101,7 +101,11 @@ Usage:
 ```
   
 
-#
+---
+
+UTF-8 Title Case that works for me even with hyphens involved!<br><br>$str = &apos;&#x110;aa&#x10C;aa-AAAaaa, BBbb&apos;;<br><br>$str = mb_convert_case($str, MB_CASE_TITLE, "UTF-8");<br><br>echo($str): &apos;&#x110;aa&#x10D;aa-Aaaaaa, Bbbb&apos;  
+
+---
 
 Some recipes for switching between underscore and camelcase naming:<br><br>
 
@@ -123,7 +127,7 @@ strtolower(preg_replace('/([^A-Z])([A-Z])/', "$1_$2", $string));
 ```
 <br><br>Of course these aren&apos;t 100% symmetric.  For example...<br>  * this_is_a_string -&gt; ThisIsAString -&gt; this_is_astring<br>  * GetURLForString -&gt; get_urlfor_string -&gt; GetUrlforString  
 
-#
+---
 
 Features:<br>- multi byte compatible<br>- handles multiple delimiters<br><br>
 
@@ -189,7 +193,7 @@ echo ucwords_specific( mb_strtolower($string, 'UTF-8'), "-'");
 ```
 <br><br>Output:<br>Jean-Paul D&apos;Artagnan &#x15E;&#x161;-&#xD2;&#xE0;-&#xC9;&#xEC; Hello - World  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ucwords.php)
 

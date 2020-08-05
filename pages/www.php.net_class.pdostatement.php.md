@@ -163,7 +163,7 @@ final class PDOStatement extends \PDOStatement {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.pdostatement.php)
 

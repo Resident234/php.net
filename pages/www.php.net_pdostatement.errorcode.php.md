@@ -15,7 +15,7 @@ assert($stmt->errorCode === '00000');
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/pdostatement.errorcode.php)
 

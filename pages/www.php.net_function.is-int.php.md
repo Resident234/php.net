@@ -31,7 +31,7 @@ var_dump(isInteger("")); //bool(false)
 ```
   
 
-#
+---
 
 Keep in mind that is_int() operates in signed fashion, not unsigned, and is limited to the word size of the environment php is running in.<br><br>In a 32-bit environment:<br><br>
 
@@ -74,7 +74,7 @@ if( is_int($big) || is_float($big) );      // passes in a 32-bit environment
 ```
   
 
-#
+---
 
 Simon Neaves was close on explaining why his function is perfect choice for testing for an int (as possibly most people would need).  He made some errors on his ctype_digit() output though - possibly a typo, or maybe a bug in his version of PHP at the time.<br><br>The correct output for parts of his examples should be:<br><br>
 
@@ -89,7 +89,7 @@ var_dump(ctype_digit("")); //bool(false)
 ```
 <br><br>As you can see, the reason why using *just* ctype_digit() may not always work is because it only returns TRUE when given a string as input - given a number value and it returns FALSE (which may be unexpected).  
 
-#
+---
 
 With this function you can check if every of multiple variables are int. This is a little more comfortable than writing &apos;is_int&apos; for every variable you&apos;ve got.<br><br>
 
@@ -110,7 +110,7 @@ are_int ( 22, 08, 'foo' ); // false
 ```
   
 
-#
+---
 
 Just a shorter way to check if your variable is an int or a string containing a int without others digit than 0 to 9 :<br><br>
 
@@ -136,7 +136,7 @@ $value = NULL; //false
 ```
 <br><br>Short &amp; cool :)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.is-int.php)
 

@@ -105,7 +105,7 @@ function ImageCreateFromBMP($filename)
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecreate.php)
 

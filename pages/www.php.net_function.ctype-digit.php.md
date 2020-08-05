@@ -26,11 +26,11 @@ All basic PHP functions which i tried returned unexpected results. I would just 
 ```
   
 
-#
+---
 
 I just wanted to clarify a flaw in the function is_digit() suggested by "info at directwebsolutions dot nl " .. <br>It returns true in case of negative integers and false in case of strings that contain negative integers .<br> example:<br>is_digit(-10); // returns ture<br>is_digit(&apos;-10&apos;); // returns false  
 
-#
+---
 
 Also note that<br><br>
 
@@ -39,7 +39,7 @@ Also note that<br><br>
 ```
   
 
-#
+---
 
 Interesting to note that you must pass a STRING to this function, other values won&apos;t be typecasted (I figured it would even though above explicitly says string $text).<br><br>I.E.<br><br>
 
@@ -77,15 +77,15 @@ $x = ctype_digit((string) $val);
 ```
 <br><br>Which will also return true, as it should.  
 
-#
+---
 
 ctype_digit() will treat all passed integers below 256 as character-codes. It returns true for 48 through 57 (ASCII &apos;0&apos;-&apos;9&apos;) and false for the rest.<br><br>ctype_digit(5) -&gt; false<br>ctype_digit(48) -&gt; true<br>ctype_digit(255) -&gt; false<br>ctype_digit(256) -&gt; true<br><br>(Note: the PHP type must be an int; if you pass strings it works as expected)  
 
-#
+---
 
 Note that an empty string is also false:<br>ctype_digit("") // false  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ctype-digit.php)
 

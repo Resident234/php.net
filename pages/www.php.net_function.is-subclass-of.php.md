@@ -16,7 +16,7 @@ echo ((is_subclass_of($foo,'A')) ? 'true' : 'false');
 ```
 <br><br>echoes &apos;true&apos; .  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.is-subclass-of.php)
 

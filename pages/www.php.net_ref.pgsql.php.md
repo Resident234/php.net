@@ -23,7 +23,10 @@ A simple conversion for 1D PostgreSQL array data:<br><br>// =====<br>//Example #
 
 // =====
 // Example #2 (An array of strings including spaces and commas):
-<?php
+
+
+```
+<?phpphp
   $pgsqlArr = '{string1,string2,"string,3","string 4"}';
 
   preg_match('/^{(.*)}$/', $pgsqlArr, $matches);
@@ -43,7 +46,7 @@ A simple conversion for 1D PostgreSQL array data:<br><br>// =====<br>//Example #
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.pgsql.php)
 

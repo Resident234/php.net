@@ -25,7 +25,7 @@ echo ceiling(1.27, 0.05);  // 1.30
 ```
   
 
-#
+---
 
 Caution!<br>
 
@@ -37,7 +37,7 @@ echo ceil(round($value * 100)) / 100;  // 77.4 - OK!?>
 ```
   
 
-#
+---
 
 I couldn&apos;t find any functions to do what ceiling does while still leaving I specified number of decimal places, so I wrote a couple functions myself.  round_up is like ceil but allows you to specify a number of decimal places.  round_out does the same, but rounds away from zero.<br><br>
 
@@ -68,11 +68,11 @@ I couldn&apos;t find any functions to do what ceiling does while still leaving I
 ```
   
 
-#
+---
 
 Actual behaviour:<br>echo ceil(-0.1); //result "-0" but i expect "0"<br><br>Workaround:<br>echo ceil(-0.1)+0; //result "0"  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.ceil.php)
 

@@ -178,7 +178,7 @@ print_r($bankHolsThisYear);
 ```
 <br><br>Will output this result:<br><br>Array<br>(<br>    [0] =&gt; 2007-01-01<br>    [1] =&gt; 2007-04-06<br>    [2] =&gt; 2007-04-09<br>    [3] =&gt; 2007-05-07<br>    [4] =&gt; 2007-05-28<br>    [5] =&gt; 2007-08-27<br>    [6] =&gt; 2007-12-25<br>    [7] =&gt; 2007-12-26<br>)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.calendar.php)
 

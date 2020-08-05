@@ -40,7 +40,7 @@ imagecopyresampled($new_image, $image_source, 0, 0, 0, 0, $new_width, $new_heigh
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.imagecolortransparent.php)
 

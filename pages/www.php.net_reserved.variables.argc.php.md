@@ -13,7 +13,7 @@ if (PHP_SAPI != "cli") {
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/reserved.variables.argc.php)
 

@@ -13,7 +13,7 @@ a (simpler) way to extract all characters from a UTF-8 string to array with a si
 ```
 <br><br>Output:<br><br>Array<br>(<br>    [0] =&gt; &#x41C;<br>    [1] =&gt; &#x430;<br>    [2] =&gt; -<br>    [3] =&gt; <br><br>    [4] =&gt; &#x440;<br>    [5] =&gt; &#x443;<br>    [6] =&gt; &#x441;<br>    [7] =&gt; &#x44F;<br>)  
 
-#
+---
 
 The $pattern argument doesn&apos;t use /pattern/ delimiters, unlike other regex functions such as preg_match.<br><br>
 
@@ -35,7 +35,7 @@ The $pattern argument doesn&apos;t use /pattern/ delimiters, unlike other regex 
 ```
   
 
-#
+---
 
 I figure most people will want a simple way to break-up a multibyte string into its individual characters. Here&apos;s a function I&apos;m using to do that. Change UTF-8 to your chosen encoding method.<br><br>
 
@@ -54,7 +54,7 @@ function mbStringToArray ($string) {
 ```
   
 
-#
+---
 
 In addition to Sezer Yalcin&apos;s tip.<br><br>This function splits a multibyte string into an array of characters. Comparable to str_split().<br><br>
 
@@ -74,7 +74,7 @@ print_r( $charlist );
 ```
 <br><br># Prints:<br>Array<br>(<br>    [0] =&gt; &#x706B;<br>    [1] =&gt; &#x8F66;<br>    [2] =&gt; &#x7968;<br>)  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.mb-split.php)
 

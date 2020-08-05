@@ -20,7 +20,7 @@ $phpFileUploadErrors = array(
 ```
   
 
-#
+---
 
 [EDIT BY danbrown AT php DOT net: This code is a fixed version of a note originally submitted by (Thalent, Michiel Thalen) on 04-Mar-2009.]<br><br><br>This is a handy exception to use when handling upload errors:<br><br>
 
@@ -77,7 +77,7 @@ throw new UploadException($_FILES['file']['error']);
 ```
   
 
-#
+---
 
 This is probably useful to someone.<br><br>
 
@@ -95,11 +95,11 @@ array(
 ```
   
 
-#
+---
 
 if post is greater than post_max_size set in php.ini<br><br>$_FILES and $_POST will return empty  
 
-#
+---
 
 One thing that is annoying is that the way these constant values are handled requires processing no error with the equality, which wastes a little bit of space.  Even though "no error" is 0, which typically evaluates to "false" in an if statement, it will always evaluate to true in this context.<br><br>So, instead of this:<br>-----<br>
 
@@ -174,7 +174,7 @@ unset($error_types);
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/features.file-upload.errors.php)
 

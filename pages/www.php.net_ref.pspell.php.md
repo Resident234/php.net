@@ -39,7 +39,7 @@ echo spellCheck('PHP is a reflecktive proegramming langwage origenaly dezigned f
 ```
 <br>OUTPUT: PHP is a reflective programming language originally designed for producing dynamic Web pages.  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/ref.pspell.php)
 

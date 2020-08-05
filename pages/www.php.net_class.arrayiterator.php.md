@@ -43,7 +43,7 @@ plum=nah, not me
 ```
 <br><br>Regards.  
 
-#
+---
 
 Need a callback on an iterated value, but don&apos;t have PHP 5.4+?  This makes is stupid easy:<br><br>
 
@@ -77,7 +77,7 @@ $iterator2 = new ArrayCallbackIterator($valueList, array($object, "callback_clas
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/class.arrayiterator.php)
 

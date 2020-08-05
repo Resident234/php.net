@@ -28,7 +28,7 @@ var_dump($date1 < $date2); //will be true
 ```
   
 
-#
+---
 
 If you want to safely compare equality of a DateTime object without explicitly providing the time portion make use of the ! format character.<br><br>
 
@@ -63,7 +63,7 @@ var_dump($date1 < $date2); //will be true
 ```
   
 
-#
+---
 
 Parsing RFC3339 strings can be very tricky when their are microseconds in the date string.<br><br>Since PHP 7 there is the undocumented constant DateTime::RFC3339_EXTENDED (value: Y-m-d\TH:i:s.vP), which can be used to output an RFC3339 string with microseconds:<br><br>
 
@@ -86,7 +86,7 @@ $date = DateTime::createFromFormat("Y-m-d\TH:i:s.uP", "2017-07-25T15:25:16.12345
 ```
 <br><br>But "u" can only parse microseconds up to 6 digits, but some language (like Go) return more than 6 digits for the microseconds, e.g.: "2017-07-25T15:50:42.456430712+02:00" (when turning time.Time to JSON with json.Marshal()). Currently there is no other solution than using a separate parsing library to get correct dates.<br><br>Note: the difference between "v" and "u" is just 3 digits vs. 6 digits.  
 
-#
+---
 
 createFromFormat(&apos;U&apos;) has a strange behaviour: it ignores the datetimezone and the resulting DateTime object will always have GMT+0000 timezone.<br><br>
 
@@ -113,7 +113,7 @@ $dt = \DateTime::createFromFormat('U.u', microtime(true))->setTimezone(new \Date
 ```
   
 
-#
+---
 
 Say if there is a string with  $date = "today is 2014 January 1";   and you need to extract "2014 January" using DateTime::createFromFormat().  As you can see in the string there is something odd like "today is" .Since that string (today is) does not correspond to a date format, we need to escape that. <br><br>In this case, each and every character on that string has to be escaped as shown below.<br><br>The code.<br><br>
 
@@ -127,7 +127,7 @@ echo $date->format('Y F'); //"prints" 2014 January
 ```
   
 
-#
+---
 
 Reportedly, microtime() may return a timestamp number without a fractional part if the microseconds are exactly zero.  I.e., "1463772747" instead of the expected "1463772747.000000".  number_format() can create a correct string representation of the microsecond timestamp every time, which can be useful for creating DateTime objects when used with DateTime::createFromFormat():<br><br>
 
@@ -138,11 +138,11 @@ var_dump($now->format('Y-m-d H:i:s.u')); // E.g., string(26) "2016-05-20 19:36:2
 ```
   
 
-#
+---
 
 If you&apos;re here because you&apos;re trying to create a date from a week number, you want to be using setISODate, as I discovered here:<br><br>http://www.lornajane.net/posts/2011/getting-dates-from-week-numbers-in-php  
 
-#
+---
 
 It can be confusing creating new DateTime from timestamp when your default timezone (date.timezone) is different from UTC and you are used to date()-function.<br><br>date()-function automatically uses your current timezone setting but DateTime::createFromFormat (or DateTime constructor) does not (it ignores tz-parameter).<br><br>You can get same results as date() by setting the timezone after object creation.<br><br>
 
@@ -156,7 +156,7 @@ $date2 = DateTime::createFromFormat("U", $ts)->setTimeZone(new DateTimeZone(date
 ```
   
 
-#
+---
 
 It seems that a pipe (&apos;|&apos;) option in formating string works only with PHP version 5.3.7 and newer. We had an issue with it on versions 5.3.2, 5.3.3, 5.3.6. Yet it was fine with 5.3.8 and 5.3.10.<br><br>By short example:<br>
 
@@ -180,7 +180,7 @@ $dateTime->format('Y-m-d 00:00:00');
 ```
 <br>which works fine.<br><br>====<br><br>Modified by admin to correct for version (5.3.7 not 5.3.8)  
 
-#
+---
 
 I&apos;ve found that on PHP 5.5.13 (not sure if it happens on other versions) if you enter a month larger than 12 on a format that takes numeric months, the result will be a DateTime object with its month equal to the number modulo 12 instead of returning false.<br><br>
 
@@ -191,7 +191,7 @@ var_dump(DateTime::createFromFormat('Y-m-d', '2013-22-01'));
 ```
 <br><br>results in:<br>class DateTime#4 (3) {<br>  public $date =&gt;<br>  string(19) "2014-10-01 13:05:05"<br>  public $timezone_type =&gt;<br>  int(3)<br>  public $timezone =&gt;<br>  string(3) "UTC"<br>}  
 
-#
+---
 
 Not a bug, but a strange issue today 2012-08-30 :<br><br>
 
@@ -223,7 +223,7 @@ echo $d->format("Y-m");
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/datetime.createfromformat.php)
 

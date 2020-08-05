@@ -26,7 +26,7 @@ while(true)
 ```
   
 
-#
+---
 
 If you want to make a daemon process that forks on each client connection, you&apos;ll find out that there&apos;s a bug in PHP. The child processes send SIGCHLD to their parent when they exit but the parent can&apos;t handle signals while it&apos;s waiting for socket_accept (blocking).<br><br>Here is a piece of code that makes a non-blocking forking server.<br><br>#!/usr/bin/php -q<br>
 
@@ -203,7 +203,7 @@ function become_daemon()
 ```
   
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/function.socket-accept.php)
 

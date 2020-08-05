@@ -7,9 +7,7 @@ When using simplexml to access a element the returned object may be a SimpleXMLE
 ```
 <?php
 $string = <<<XML
-<?xml version='1.0'?>
-```
-
+``<?xml version="1.0"?>``;
 <document>
     <cmd>login</cmd>
     <login>Richard</login>
@@ -27,7 +25,7 @@ print_r($login);
 ```
 <br><br>Expected result:<br>----------------<br>SimpleXMLElement Object<br>(<br>    [cmd] =&gt; login<br>    [login] =&gt; Richard<br>)<br>Richard<br>Richard<br><br>Actual result:<br>--------------<br>SimpleXMLElement Object<br>(<br>    [cmd] =&gt; login<br>    [login] =&gt; Richard<br>)<br>SimpleXMLElement Object<br>(<br>    [0] =&gt; Richard<br>)<br>Richard<br><br>But this is an intended behavior. See http://bugs.php.net/bug.php?id=29500  
 
-#
+---
 
 [Official documentation page](https://www.php.net/manual/en/simplexml.examples.php)
 
