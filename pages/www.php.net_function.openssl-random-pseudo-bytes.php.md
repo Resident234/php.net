@@ -45,10 +45,6 @@ imagedestroy($img);
 
 ---
 
-[Editor&apos;s note: the bug has been fixed as of PHP 5.4.44, 5.5.28 and PHP 5.6.12]<br><br>Until PHP 5.6 openssl_random_pseudo_bytes() did NOT use a "cryptographically strong algorithm"! <br>See bug report https://bugs.php.net/bug.php?id=70014 and the corresponding source code at https://github.com/php/php-src/blob/php-5.6.10/ext/openssl/openssl.c#L5408  
-
----
-
 Another replacement for rand() using OpenSSL.<br><br>Note that a solution where the result is truncated using the modulo operator ( % ) is not cryptographically secure, as the generated numbers are not equally distributed, i.e. some numbers may occur more often than others.<br><br>A better solution than using the modulo operator is to drop the result if it is too large and generate a new one.<br><br>
 
 ```

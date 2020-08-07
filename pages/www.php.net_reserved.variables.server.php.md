@@ -159,10 +159,6 @@ If you are serving from behind a proxy server, you will almost certainly save ti
 
 ---
 
-A table of everything in the $_SERVER array can be found near the bottom of the output of phpinfo();  
-
----
-
 It&apos;s worth noting that $_SERVER variables get created for any HTTP request headers, including those you might invent:<br><br>If the browser sends an HTTP request header of:<br>X-Debug-Custom: some string<br><br>Then:<br><br>
 
 ```
@@ -171,6 +167,10 @@ $_SERVER['HTTP_X_DEBUG_CUSTOM']; // "some string"
 ?>
 ```
 <br><br>There are better ways to identify the HTTP request headers sent by the browser, but this is convenient if you know what to expect from, for example, an AJAX script with custom headers.<br><br>Works in PHP5 on Apache with mod_php.  Don&apos;t know if this is true from other environments.  
+
+---
+
+Not documented here is the fact that $_SERVER is populated with some pretty useful information when accessing PHP via the shell.<br><br> ["_SERVER"]=&gt;<br>  array(24) {<br>    ["MANPATH"]=&gt;<br>    string(48) "/usr/share/man:/usr/local/share/man:/usr/X11/man"<br>    ["TERM"]=&gt;<br>    string(11) "xterm-color"<br>    ["SHELL"]=&gt;<br>    string(9) "/bin/bash"<br>    ["SSH_CLIENT"]=&gt;<br>    string(20) "127.0.0.1 41242 22"<br>    ["OLDPWD"]=&gt;<br>    string(60) "/Library/WebServer/Domains/www.example.com/private"<br>    ["SSH_TTY"]=&gt;<br>    string(12) "/dev/ttys000"<br>    ["USER"]=&gt;<br>    string(5) "username"<br>    ["MAIL"]=&gt;<br>    string(15) "/var/mail/username"<br>    ["PATH"]=&gt;<br>    string(57) "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"<br>    ["PWD"]=&gt;<br>    string(56) "/Library/WebServer/Domains/www.example.com/www"<br>    ["SHLVL"]=&gt;<br>    string(1) "1"<br>    ["HOME"]=&gt;<br>    string(12) "/Users/username"<br>    ["LOGNAME"]=&gt;<br>    string(5) "username"<br>    ["SSH_CONNECTION"]=&gt;<br>    string(31) "127.0.0.1 41242 10.0.0.1 22"<br>    ["_"]=&gt;<br>    string(12) "/usr/bin/php"<br>    ["__CF_USER_TEXT_ENCODING"]=&gt;<br>    string(9) "0x1F5:0:0"<br>    ["PHP_SELF"]=&gt;<br>    string(10) "Shell.php"<br>    ["SCRIPT_NAME"]=&gt;<br>    string(10) "Shell.php"<br>    ["SCRIPT_FILENAME"]=&gt;<br>    string(10) "Shell.php"<br>    ["PATH_TRANSLATED"]=&gt;<br>    string(10) "Shell.php"<br>    ["DOCUMENT_ROOT"]=&gt;<br>    string(0) ""<br>    ["REQUEST_TIME"]=&gt;<br>    int(1247162183)<br>    ["argv"]=&gt;<br>    array(1) {<br>      [0]=&gt;<br>      string(10) "Shell.php"<br>    }<br>    ["argc"]=&gt;<br>    int(1)<br>  }  
 
 ---
 
