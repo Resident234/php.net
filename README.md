@@ -2672,3 +2672,595 @@
 
 [array_keys](/pages/www.php.net_function.array-keys.php.md)
 
+[array_map](/pages/www.php.net_function.array-map.php.md)
+
+[array_merge_recursive](/pages/www.php.net_function.array-merge-recursive.php.md)
+
+[array_merge](/pages/www.php.net_function.array-merge.php.md)
+
+[array_multisort](/pages/www.php.net_function.array-multisort.php.md)
+
+[array_pad](/pages/www.php.net_function.array-pad.php.md)
+
+[array_pop](/pages/www.php.net_function.array-pop.php.md)
+
+[array_product](/pages/www.php.net_function.array-product.php.md)
+
+[array_push](/pages/www.php.net_function.array-push.php.md)
+
+[array_rand](/pages/www.php.net_function.array-rand.php.md)
+
+[array_reduce](/pages/www.php.net_function.array-reduce.php.md)
+
+[array_replace_recursive](/pages/www.php.net_function.array-replace-recursive.php.md)
+
+[array_replace](/pages/www.php.net_function.array-replace.php.md)
+
+[array_reverse](/pages/www.php.net_function.array-reverse.php.md)
+
+[array_search](/pages/www.php.net_function.array-search.php.md)
+
+[array_shift](/pages/www.php.net_function.array-shift.php.md)
+
+[array_slice](/pages/www.php.net_function.array-slice.php.md)
+
+[array_splice](/pages/www.php.net_function.array-splice.php.md)
+
+[array_sum](/pages/www.php.net_function.array-sum.php.md)
+
+[array_udiff](/pages/www.php.net_function.array-udiff.php.md)
+
+[array_uintersect](/pages/www.php.net_function.array-uintersect.php.md)
+
+[array_unique](/pages/www.php.net_function.array-unique.php.md)
+
+[array_unshift](/pages/www.php.net_function.array-unshift.php.md)
+
+[array_values](/pages/www.php.net_function.array-values.php.md)
+
+[array_walk_recursive](/pages/www.php.net_function.array-walk-recursive.php.md)
+
+[array_walk](/pages/www.php.net_function.array-walk.php.md)
+
+[array](/pages/www.php.net_function.array.php.md)
+
+[arsort](/pages/www.php.net_function.arsort.php.md)
+
+[asort](/pages/www.php.net_function.asort.php.md)
+
+[compact](/pages/www.php.net_function.compact.php.md)
+
+[count](/pages/www.php.net_function.count.php.md)
+
+[current](/pages/www.php.net_function.current.php.md)
+
+[each](/pages/www.php.net_function.each.php.md)
+
+[end](/pages/www.php.net_function.end.php.md)
+
+[extract](/pages/www.php.net_function.extract.php.md)
+
+[in_array](/pages/www.php.net_function.in-array.php.md)
+
+[key](/pages/www.php.net_function.key.php.md)
+
+[ksort](/pages/www.php.net_function.ksort.php.md)
+
+[list](/pages/www.php.net_function.list.php.md)
+
+[natcasesort](/pages/www.php.net_function.natcasesort.php.md)
+
+[natsort](/pages/www.php.net_function.natsort.php.md)
+
+[next](/pages/www.php.net_function.next.php.md)
+
+[range](/pages/www.php.net_function.range.php.md)
+
+[reset](/pages/www.php.net_function.reset.php.md)
+
+[shuffle](/pages/www.php.net_function.shuffle.php.md)
+
+[sizeof](/pages/www.php.net_function.sizeof.php.md)
+
+[sort](/pages/www.php.net_function.sort.php.md)
+
+[uasort](/pages/www.php.net_function.uasort.php.md)
+
+[uksort](/pages/www.php.net_function.uksort.php.md)
+
+[usort](/pages/www.php.net_function.usort.php.md)
+
+#### Classes/Objects
+
+##### Classes/Object Functions
+
+[__autoload](/pages/www.php.net_function.autoload.php.md)
+
+[call_user_method_array](/pages/www.php.net_function.call-user-method-array.php.md)
+
+[class_alias](/pages/www.php.net_function.class-alias.php.md)
+
+[class_exists](/pages/www.php.net_function.class-exists.php.md)
+
+[get_called_class](/pages/www.php.net_function.get-called-class.php.md)
+
+[get_class_methods](/pages/www.php.net_function.get-class-methods.php.md)
+
+[get_class_vars](/pages/www.php.net_function.get-class-vars.php.md)
+
+[get_class](/pages/www.php.net_function.get-class.php.md)
+
+[get_object_vars](/pages/www.php.net_function.get-object-vars.php.md)
+
+[is_a](/pages/www.php.net_function.is-a.php.md)
+
+[is_subclass_of](/pages/www.php.net_function.is-subclass-of.php.md)
+
+[method_exists](/pages/www.php.net_function.method-exists.php.md)
+
+[property_exists](/pages/www.php.net_function.property-exists.php.md)
+
+[trait_exists](/pages/www.php.net_function.trait-exists.php.md)
+
+#### Ctype
+
+##### Ctype Functions
+
+[ctype_alnum](/pages/www.php.net_function.ctype-alnum.php.md)
+
+[ctype_digit](/pages/www.php.net_function.ctype-digit.php.md)
+
+[ctype_xdigit](/pages/www.php.net_function.ctype-xdigit.php.md)
+
+#### Filter
+
+##### Types of filters
+
+[Validate filters](/pages/www.php.net_filter.filters.validate.php.md)
+
+[Sanitize filters](/pages/www.php.net_filter.filters.sanitize.php.md)
+
+[Other filters](/pages/www.php.net_filter.filters.misc.php.md)
+
+##### Filter Functions
+
+[filter_has_var](/pages/www.php.net_function.filter-has-var.php.md)
+
+[filter_input_array](/pages/www.php.net_function.filter-input-array.php.md)
+
+[filter_input](/pages/www.php.net_function.filter-input.php.md)
+
+[filter_var](/pages/www.php.net_function.filter-var.php.md)
+
+#### Function Handling
+
+##### Function handling Functions
+
+[call_user_func_array](/pages/www.php.net_function.call-user-func-array.php.md)
+
+[call_user_func](/pages/www.php.net_function.call-user-func.php.md)
+
+[create_function](/pages/www.php.net_function.create-function.php.md)
+
+[func_get_args](/pages/www.php.net_function.func-get-args.php.md)
+
+[func_num_args](/pages/www.php.net_function.func-num-args.php.md)
+
+[function_exists](/pages/www.php.net_function.function-exists.php.md)
+
+[get_defined_functions](/pages/www.php.net_function.get-defined-functions.php.md)
+
+[register_shutdown_function](/pages/www.php.net_function.register-shutdown-function.php.md)
+
+#### Reflection
+
+[Examples](/pages/www.php.net_reflection.examples.php.md)
+
+[The Reflection class](/pages/www.php.net_class.reflection.php.md)
+
+[The ReflectionClass class](/pages/www.php.net_class.reflectionclass.php.md)
+
+##### ReflectionClass
+
+[ReflectionClass::getConstants](/pages/www.php.net_reflectionclass.getconstants.php.md)
+
+[ReflectionClass::getDocComment](/pages/www.php.net_reflectionclass.getdoccomment.php.md)
+
+[ReflectionClass::getInterfaceNames](/pages/www.php.net_reflectionclass.getinterfacenames.php.md)
+
+[ReflectionClass::getParentClass](/pages/www.php.net_reflectionclass.getparentclass.php.md)
+
+[ReflectionClass::getProperty](/pages/www.php.net_reflectionclass.getproperty.php.md)
+
+[ReflectionClass::newInstanceWithoutConstructor](/pages/www.php.net_reflectionclass.newinstancewithoutconstructor.php.md)
+
+[ReflectionClass::setStaticPropertyValue](/pages/www.php.net_reflectionclass.setstaticpropertyvalue.php.md)
+
+[The ReflectionMethod class](/pages/www.php.net_class.reflectionmethod.php.md)
+
+##### ReflectionMethod
+
+[ReflectionMethod::getClosure](/pages/www.php.net_reflectionmethod.getclosure.php.md)
+
+[ReflectionMethod::invoke](/pages/www.php.net_reflectionmethod.invoke.php.md)
+
+[ReflectionMethod::invokeArgs](/pages/www.php.net_reflectionmethod.invokeargs.php.md)
+
+[ReflectionMethod::setAccessible](/pages/www.php.net_reflectionmethod.setaccessible.php.md)
+
+##### ReflectionParameter
+
+[ReflectionParameter::allowsNull](/pages/www.php.net_reflectionparameter.allowsnull.php.md)
+
+[ReflectionParameter::getClass](/pages/www.php.net_reflectionparameter.getclass.php.md)
+
+[ReflectionParameter::getName](/pages/www.php.net_reflectionparameter.getname.php.md)
+
+##### ReflectionProperty
+
+[ReflectionProperty::setAccessible](/pages/www.php.net_reflectionproperty.setaccessible.php.md)
+
+[The ReflectionType class](/pages/www.php.net_class.reflectiontype.php.md)
+
+#### Variable handling
+
+##### Variable handling Functions
+
+[boolval](/pages/www.php.net_function.boolval.php.md)
+
+[debug_zval_dump](/pages/www.php.net_function.debug-zval-dump.php.md)
+
+[empty](/pages/www.php.net_function.empty.php.md)
+
+[floatval](/pages/www.php.net_function.floatval.php.md)
+
+[get_defined_vars](/pages/www.php.net_function.get-defined-vars.php.md)
+
+[get_resource_type](/pages/www.php.net_function.get-resource-type.php.md)
+
+[intval](/pages/www.php.net_function.intval.php.md)
+
+[is_array](/pages/www.php.net_function.is-array.php.md)
+
+[is_callable](/pages/www.php.net_function.is-callable.php.md)
+
+[is_countable](/pages/www.php.net_function.is-countable.php.md)
+
+[is_float](/pages/www.php.net_function.is-float.php.md)
+
+[is_int](/pages/www.php.net_function.is-int.php.md)
+
+[is_iterable](/pages/www.php.net_function.is-iterable.php.md)
+
+[is_null](/pages/www.php.net_function.is-null.php.md)
+
+[is_numeric](/pages/www.php.net_function.is-numeric.php.md)
+
+[is_object](/pages/www.php.net_function.is-object.php.md)
+
+[is_resource](/pages/www.php.net_function.is-resource.php.md)
+
+[is_scalar](/pages/www.php.net_function.is-scalar.php.md)
+
+[is_string](/pages/www.php.net_function.is-string.php.md)
+
+[isset](/pages/www.php.net_function.isset.php.md)
+
+[print_r](/pages/www.php.net_function.print-r.php.md)
+
+[serialize](/pages/www.php.net_function.serialize.php.md)
+
+[settype](/pages/www.php.net_function.settype.php.md)
+
+[strval](/pages/www.php.net_function.strval.php.md)
+
+[unserialize](/pages/www.php.net_function.unserialize.php.md)
+
+[unset](/pages/www.php.net_function.unset.php.md)
+
+[var_dump](/pages/www.php.net_function.var-dump.php.md)
+
+[var_export](/pages/www.php.net_function.var-export.php.md)
+
+### Web Services
+
+#### OAuth
+
+##### OAuthProvider
+
+[OAuthProvider::checkOAuthRequest](/pages/www.php.net_oauthprovider.checkoauthrequest.php.md)
+
+#### SOAP
+
+[Runtime Configuration](/pages/www.php.net_soap.configuration.php.md)
+
+[The SoapClient class](/pages/www.php.net_class.soapclient.php.md)
+
+##### SoapClient
+
+[SoapClient::__call](/pages/www.php.net_soapclient.call.php.md)
+
+[SoapClient::__doRequest](/pages/www.php.net_soapclient.dorequest.php.md)
+
+[SoapClient::__getLastRequest](/pages/www.php.net_soapclient.getlastrequest.php.md)
+
+[SoapClient::__getLastResponse](/pages/www.php.net_soapclient.getlastresponse.php.md)
+
+[SoapClient::__getTypes](/pages/www.php.net_soapclient.gettypes.php.md)
+
+[SoapClient::__setCookie](/pages/www.php.net_soapclient.setcookie.php.md)
+
+[SoapClient::__setSoapHeaders](/pages/www.php.net_soapclient.setsoapheaders.php.md)
+
+[SoapClient::__soapCall](/pages/www.php.net_soapclient.soapcall.php.md)
+
+[SoapClient::SoapClient](/pages/www.php.net_soapclient.soapclient.php.md)
+
+[The SoapServer class](/pages/www.php.net_class.soapserver.php.md)
+
+##### SoapServer
+
+[SoapServer::__construct](/pages/www.php.net_soapserver.construct.php.md)
+
+[SoapServer::handle](/pages/www.php.net_soapserver.handle.php.md)
+
+[SoapServer::SoapServer](/pages/www.php.net_soapserver.soapserver.php.md)
+
+[The SoapFault class](/pages/www.php.net_class.soapfault.php.md)
+
+[The SoapHeader class](/pages/www.php.net_class.soapheader.php.md)
+
+##### SoapVar
+
+[SoapVar::SoapVar](/pages/www.php.net_soapvar.soapvar.php.md)
+
+#### XML-RPC
+
+##### XML-RPC Functions
+
+[xmlrpc_decode](/pages/www.php.net_function.xmlrpc-decode.php.md)
+
+### Windows Only Extensions
+
+#### COM
+
+[The com class](/pages/www.php.net_class.com.php.md)
+
+[The dotnet class](/pages/www.php.net_class.dotnet.php.md)
+
+[variant class](/pages/www.php.net_class.variant.php.md)
+
+##### COM Functions
+
+[com_create_guid](/pages/www.php.net_function.com-create-guid.php.md)
+
+### XML Manipulation
+
+[Document Object Model](/pages/www.php.net_book.dom.php.md)
+
+#### DOM
+
+[The DOMDocument class](/pages/www.php.net_class.domdocument.php.md)
+
+##### DOMDocument
+
+[DOMDocument::__construct](/pages/www.php.net_domdocument.construct.php.md)
+
+[DOMDocument::createAttribute](/pages/www.php.net_domdocument.createattribute.php.md)
+
+[DOMDocument::createAttributeNS](/pages/www.php.net_domdocument.createattributens.php.md)
+
+[DOMDocument::createElement](/pages/www.php.net_domdocument.createelement.php.md)
+
+[DOMDocument::getElementById](/pages/www.php.net_domdocument.getelementbyid.php.md)
+
+[DOMDocument::getElementsByTagName](/pages/www.php.net_domdocument.getelementsbytagname.php.md)
+
+[DOMDocument::load](/pages/www.php.net_domdocument.load.php.md)
+
+[DOMDocument::loadHTML](/pages/www.php.net_domdocument.loadhtml.php.md)
+
+[DOMDocument::loadXML](/pages/www.php.net_domdocument.loadxml.php.md)
+
+[DOMDocument::save](/pages/www.php.net_domdocument.save.php.md)
+
+[DOMDocument::saveHTML](/pages/www.php.net_domdocument.savehtml.php.md)
+
+[DOMDocument::saveXML](/pages/www.php.net_domdocument.savexml.php.md)
+
+[DOMDocument::schemaValidate](/pages/www.php.net_domdocument.schemavalidate.php.md)
+
+[The DOMDocumentFragment class](/pages/www.php.net_class.domdocumentfragment.php.md)
+
+[The DOMElement class](/pages/www.php.net_class.domelement.php.md)
+
+[The DOMNode class](/pages/www.php.net_class.domnode.php.md)
+
+##### DOMNode
+
+[DOMNode::appendChild](/pages/www.php.net_domnode.appendchild.php.md)
+
+[DOMNode::C14N](/pages/www.php.net_domnode.c14n.php.md)
+
+[DOMNode::removeChild](/pages/www.php.net_domnode.removechild.php.md)
+
+[DOMNode::replaceChild](/pages/www.php.net_domnode.replacechild.php.md)
+
+[The DOMNodeList class](/pages/www.php.net_class.domnodelist.php.md)
+
+##### DOMNodeList
+
+[DOMNodeList::count](/pages/www.php.net_domnodelist.count.php.md)
+
+[The DOMXPath class](/pages/www.php.net_class.domxpath.php.md)
+
+##### DOMXPath
+
+[DOMXPath::__construct](/pages/www.php.net_domxpath.construct.php.md)
+
+[DOMXPath::query](/pages/www.php.net_domxpath.query.php.md)
+
+[DOMXPath::registerNamespace](/pages/www.php.net_domxpath.registernamespace.php.md)
+
+#### libxml
+
+[Predefined Constants](/pages/www.php.net_libxml.constants.php.md)
+
+##### libxml Functions
+
+[libxml_use_internal_errors](/pages/www.php.net_function.libxml-use-internal-errors.php.md)
+
+#### SDO
+
+[Setting and Getting Property Values](/pages/www.php.net_sdo.sample.getset.php.md)
+
+[SimpleXML](/pages/www.php.net_book.simplexml.php.md)
+
+#### SimpleXML
+
+[Installation](/pages/www.php.net_simplexml.installation.php.md)
+
+[Examples](/pages/www.php.net_simplexml.examples.php.md)
+
+[Basic SimpleXML usage](/pages/www.php.net_simplexml.examples-basic.php.md)
+
+[Dealing with XML errors](/pages/www.php.net_simplexml.examples-errors.php.md)
+
+[The SimpleXMLElement class](/pages/www.php.net_class.simplexmlelement.php.md)
+
+##### SimpleXMLElement
+
+[SimpleXMLElement::addChild](/pages/www.php.net_simplexmlelement.addchild.php.md)
+
+[SimpleXMLElement::asXML](/pages/www.php.net_simplexmlelement.asxml.php.md)
+
+[SimpleXMLElement::attributes](/pages/www.php.net_simplexmlelement.attributes.php.md)
+
+[SimpleXMLElement::children](/pages/www.php.net_simplexmlelement.children.php.md)
+
+[SimpleXMLElement::__toString](/pages/www.php.net_simplexmlelement.tostring.php.md)
+
+[SimpleXMLElement::xpath](/pages/www.php.net_simplexmlelement.xpath.php.md)
+
+[The SimpleXMLIterator class](/pages/www.php.net_class.simplexmliterator.php.md)
+
+[SimpleXML Functions](/pages/www.php.net_ref.simplexml.php.md)
+
+##### SimpleXML Functions
+
+[simplexml_load_file](/pages/www.php.net_function.simplexml-load-file.php.md)
+
+[simplexml_load_string](/pages/www.php.net_function.simplexml-load-string.php.md)
+
+#### WDDX
+
+[Introduction](/pages/www.php.net_intro.wddx.php.md)
+
+#### XML Parser
+
+[XML Parser Functions](/pages/www.php.net_ref.xml.php.md)
+
+##### XML Parser Functions
+
+[utf8_decode](/pages/www.php.net_function.utf8-decode.php.md)
+
+[utf8_encode](/pages/www.php.net_function.utf8-encode.php.md)
+
+[xml_parse_into_struct](/pages/www.php.net_function.xml-parse-into-struct.php.md)
+
+[xml_parse](/pages/www.php.net_function.xml-parse.php.md)
+
+[xml_parser_create](/pages/www.php.net_function.xml-parser-create.php.md)
+
+##### XMLReader
+
+[The XMLReader class](/pages/www.php.net_class.xmlreader.php.md)
+
+[XMLReader::readInnerXml](/pages/www.php.net_xmlreader.readinnerxml.php.md)
+
+#### XSL
+
+[Examples](/pages/www.php.net_xsl.examples.php.md)
+
+## PHP at the Core: A Hacker's Guide
+
+### Zend Engine 2 Opcodes
+
+#### Opcode Descriptions and Examples
+
+[INSTANCEOF](/pages/www.php.net_internals2.opcodes.instanceof.php.md)
+
+## FAQ
+
+[Safe Password Hashing](/pages/www.php.net_faq.passwords.php.md)
+
+## Appendices
+
+### Migrating from PHP 7.3.x to PHP 7.4.x
+
+[New Features](/pages/www.php.net_migration74.new-features.php.md)
+
+### Migrating from PHP 7.1.x to PHP 7.2.x
+
+[Deprecated features in PHP 7.2.x](/pages/www.php.net_migration72.deprecated.php.md)
+
+### Migrating from PHP 7.0.x to PHP 7.1.x
+
+[New features](/pages/www.php.net_migration71.new-features.php.md)
+
+[Backward incompatible changes](/pages/www.php.net_migration71.incompatible.php.md)
+
+[Other changes](/pages/www.php.net_migration71.other-changes.php.md)
+
+### Migrating from PHP 5.6.x to PHP 7.0.x
+
+[Backward incompatible changes](/pages/www.php.net_migration70.incompatible.php.md)
+
+[New features](/pages/www.php.net_migration70.new-features.php.md)
+
+### Migrating from PHP 5.5.x to PHP 5.6.x
+
+[New features](/pages/www.php.net_migration56.new-features.php.md)
+
+[OpenSSL changes in PHP 5.6.x](/pages/www.php.net_migration56.openssl.php.md)
+
+### Migrating from PHP 5.4.x to PHP 5.5.x
+
+[New features](/pages/www.php.net_migration55.new-features.php.md)
+
+### Migrating from PHP 5.3.x to PHP 5.4.x
+
+[Backward Incompatible Changes](/pages/www.php.net_migration54.incompatible.php.md)
+
+[New features](/pages/www.php.net_migration54.new-features.php.md)
+
+### Migrating from PHP 4 to PHP 5.0.x
+
+[Error Reporting](/pages/www.php.net_migrating5.errorrep.php.md)
+
+[Debugging in PHP](/pages/www.php.net_debugger.php.md)
+
+### php.ini directives
+
+[Description of core php.ini directives](/pages/www.php.net_ini.core.php.md)
+
+### List of Reserved Words
+
+[List of Keywords](/pages/www.php.net_reserved.keywords.php.md)
+
+[Predefined Classes](/pages/www.php.net_reserved.classes.php.md)
+
+[Predefined Constants](/pages/www.php.net_reserved.constants.php.md)
+
+### List of Supported Socket Transports
+
+[Internet Domain: TCP, UDP, SSL, and TLS](/pages/www.php.net_transports.inet.php.md)
+
+[Unix Domain: Unix and UDG](/pages/www.php.net_transports.unix.php.md)
+
+[PHP type comparison tables](/pages/www.php.net_types.comparisons.php.md)
+
+### Index listing
+
+[Function and Method listing](/pages/www.php.net_indexes.functions.php.md)
+
